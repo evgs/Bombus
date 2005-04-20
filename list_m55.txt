@@ -1,0 +1,3 @@
+changelog.txt
+dist\M55_Release\*.*
+dist\Release\*.*

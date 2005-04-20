@@ -1,0 +1,169 @@
+/*
+ * NvStorage.java
+ *
+ * Created on 22 ћарт 2005 г., 22:56
+ */
+
+package Client;
+import java.io.*;
+import ui.strconv;
+
+/*#DefaultConfiguration,Release#*///<editor-fold>
+import javax.microedition.rms.*;
+/*$DefaultConfiguration,Release$*///</editor-fold>
+/*#M55,M55_Release#*///<editor-fold>
+//--import com.siemens.mp.io.File;
+/*$M55,M55_Release$*///</editor-fold>
+
+/**
+ *
+ * @author Eugene Stahov
+ */
+public class NvStorage {
+    
+    private static final int PATH_CFG=0;
+    private static final int PATH_MSG=1;
+    
+    /**
+     * Opens RMS record from named store
+     * and returns it as DataInputStream
+     */
+    static public DataInputStream ReadFileRecord(String name, int index){
+        DataInputStream istream=null;
+        
+/*#DefaultConfiguration,Release#*///<editor-fold>
+        RecordStore recordStore=null;
+        try {
+            
+            recordStore = RecordStore.openRecordStore(name, false);
+            byte[] b=recordStore.getRecord(index+1);
+            
+            if (b.length!=0)         
+            istream=new DataInputStream( new ByteArrayInputStream(b) );
+            
+        } catch (Exception e) { }
+        finally { 
+            try { recordStore.closeRecordStore(); } catch (Exception e) {} }
+/*$DefaultConfiguration,Release$*///</editor-fold>
+/*#M55,M55_Release#*///<editor-fold>
+//--
+//--        try {
+//--        File f=new File();
+//--        
+//--        String n=getPath(name, PATH_CFG);
+//--        System.out.println("Read "+n);
+//--        int descriptor=f.open(n);
+//--        if (descriptor<0) return null;
+//--        int len=f.length(descriptor);
+//--        if (len<1) return null; 
+//--        
+//--        byte[] b=new byte[len];
+//--        f.read(descriptor, b, 0, len);
+//--        f.close(descriptor);
+//--        
+//--        istream=new DataInputStream( new ByteArrayInputStream(b) );
+//--        } catch (Exception e) { e.printStackTrace(); }
+//--        
+/*$M55,M55_Release$*///</editor-fold>
+        
+        return istream;
+    }
+/*#M55,M55_Release#*///<editor-fold>
+//--    public static String getPath(String name, int path_index){
+//--        
+//--        String path=null;
+//--        switch (path_index) {
+//--            case PATH_CFG: path=StaticData.getInstance().config.m55cfgpath; break;
+//--            case PATH_MSG: path=StaticData.getInstance().config.msgPath; break;
+//--        }
+//--        //System.out.println("path="+path);
+//--        //System.out.println("path="+path+name);
+//--        // verification
+//--        try {
+//--            File f=new File();
+//--            if (!f.isDirectory(path)) return name;
+//--        } catch (Exception e) { 
+//--            //e.printStackTrace(); 
+//--            return name; 
+//--        } 
+//--        return path+name;
+//--    }
+//--    
+/*$M55,M55_Release$*///</editor-fold>
+
+    private static ByteArrayOutputStream baos;
+    /** Creates DataOutputStream based on ByteOutputStream  */
+    static public DataOutputStream CreateDataOutputStream(){
+        if (baos!=null) return null;
+        DataOutputStream ostream=new DataOutputStream( baos=new ByteArrayOutputStream());
+        return ostream;
+    }
+    
+    static public boolean writeFileRecord (
+            DataOutputStream ostream, 
+            String name, int index, 
+            boolean rewrite)
+    {
+        ByteArrayOutputStream lbaos=baos;
+        baos=null; // освободим дл€ следующего
+        byte[] b=lbaos.toByteArray();
+        
+/*#DefaultConfiguration,Release#*///<editor-fold>
+        try {
+            if (rewrite) RecordStore.deleteRecordStore(name);
+        } catch (Exception e) {}
+
+        RecordStore recordStore;
+        try {
+            recordStore = RecordStore.openRecordStore(name, true);
+        } catch (Exception e) { return false;}
+        
+        try {
+            try {
+                recordStore.setRecord(index+1, b, 0, b.length);
+            } catch (InvalidRecordIDException e) { recordStore.addRecord(b, 0, b.length); }
+            recordStore.closeRecordStore();
+            ostream.close();
+        } catch (Exception e) { e.printStackTrace(); return false; }
+/*$DefaultConfiguration,Release$*///</editor-fold>
+/*#M55,M55_Release#*///<editor-fold>
+//--        File f=new File();
+//--        String n=getPath(name, PATH_CFG);
+//--        System.out.println("Write "+n);
+//--
+//--        try {
+//--            if (rewrite) f.delete(n);
+//--        } catch (Exception e) {}
+//--
+//--        int descriptor;
+//--        try {
+//--            descriptor=f.open(n);
+//--            f.write(descriptor, b, 0, b.length);
+//--            f.close(descriptor);
+//--        } catch (Exception e) { e.printStackTrace(); return false; }
+/*$M55,M55_Release$*///</editor-fold>
+        return true;
+    }
+    
+    public final static boolean appendFile(String URL, String append_data){
+        try{
+            /*System.out.println(
+                    getPath(strconv.convUnicodeToAscii(URL), PATH_MSG)+" "+
+                    strconv.convUnicodeToAscii(append_data));*/
+/*#M55,M55_Release#*///<editor-fold>
+//--            File file1 = new File();
+//--            int fd = file1.open(getPath(strconv.convUnicodeToAscii(URL+".txt"), PATH_MSG));
+//--            byte abyte0[] = (strconv.convUnicodeToAscii(append_data)).getBytes();
+//--            file1.seek(fd, file1.length(fd));
+//--            file1.write(fd, abyte0, 0, abyte0.length);
+//--            file1.close(fd);
+/*$M55,M55_Release$*///</editor-fold>
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;   //облом
+        }
+        return true;
+    }
+    
+}

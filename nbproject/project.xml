@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://www.netbeans.org/ns/project/1">
+    <type>org.netbeans.modules.kjava.j2meproject</type>
+    <configuration>
+        <configurations xmlns="http://www.netbeans.org/ns/project-configurations/1">
+            <configuration>M55</configuration>
+            <configuration>M55_Release</configuration>
+            <configuration>Release</configuration>
+        </configurations>
+        <data xmlns="http://www.netbeans.org/ns/j2me-project">
+            <name>Bombus</name>
+            <minimum-ant-version>1.6</minimum-ant-version>
+        </data>
+    </configuration>
+</project>

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- *** GENERATED FROM project.xml - DO NOT EDIT *** -->
+<project basedir=".." default="jar" name="-impl">
+    <target name="pre-init"/>
+    <target depends="pre-init" name="pre-load-properties">
+        <property file="nbproject/private/private.properties"/>
+        <property location="${netbeans.user}/build.properties" name="user.properties.file"/>
+        <available file="${user.properties.file}" property="user.properties.file.exists"/>
+    </target>
+    <target unless="config.active" depends="pre-load-properties" name="exists.config.active">
+        <echo message="Active configuration (config.active property) is not set - using default." level="warning"/>
+        <property name="config.active" value=""/>
+    </target>
+    <target unless="netbeans.user" depends="pre-load-properties" name="exists.netbeans.user">
+        <echo message="NetBeans IDE user directory (netbeans.user property) is not set. By specifying this property many properties required by the project will be automatically evaluated (e.g.: ant-ext library home, ...). You could also open this project in the NetBeans IDE - in this case this property would be set automatically." level="warning"/>
+    </target>
+    <target unless="user.properties.file.exists" depends="pre-load-properties" name="exists.user.properties.file">
+        <echo message="User properties file (user.properties.file) property is not set. By specifying this property many properties required by the project will be automatically evaluated (e.g.: libraries, platforms, ...)." level="warning"/>
+    </target>
+    <target depends="pre-load-properties,exists.config.active,exists.netbeans.user,exists.user.properties.file" name="load-properties">
+        <property file="${user.properties.file}"/>
+        <tempfile destdir="${java.io.tmpdir}" property="temp.file"/>
+        <copy overwrite="true" tofile="${temp.file}" file="nbproject/project.properties">
+            <filterchain>
+                <linecontainsregexp>
+                    <regexp pattern="^((configs\.${config.active}\.)|(reference.)|(file.reference.)|(project.))"/>
+                </linecontainsregexp>
+            </filterchain>
+        </copy>
+        <replace value="" token="configs.${config.active}." file="${temp.file}"/>
+        <property file="${temp.file}"/>
+        <property file="nbproject/project.properties"/>
+        <copy failonerror="false" overwrite="true" tofile="${temp.file}" file="${user.properties.file}"/>
+        <replace value="platform." token="platforms.${platform.active}." file="${temp.file}"/>
+        <property file="${temp.file}"/>
+        <echo file="${temp.file}">evaluated.platform.bootclasspath=${platform.bootclasspath}</echo>
+        <property file="${temp.file}"/>
+        <delete file="${temp.file}"/>
+    </target>
+    <target unless="platform.active" depends="load-properties" name="exists.platform.active">
+        <echo message="Active platform (platform.active property) in not set. If you set this and user.properties.file property, many properties required by the project will be automatically evaluated (e.g.: platform home, platform classpath, ...)." level="warning"/>
+    </target>
+    <target depends="load-properties" unless="platform.configuration" name="exists.platform.configuration">
+        <echo message="Platform configuration (platform.configuration) is not set. Using default (CLDC-1.0) configuration." level="warning"/>
+        <property value="CLDC-1.0" name="platform.configuration"/>
+    </target>
+    <target depends="load-properties" unless="platform.profile" name="exists.platform.profile">
+        <echo message="Platform profile (platform.profile) is not set. Using default (MIDP-1.0) profile." level="warning"/>
+        <property value="MIDP-1.0" name="platform.profile"/>
+    </target>
+    <target depends="pre-init,load-properties,exists.platform.active,exists.platform.configuration,exists.platform.profile" name="init">
+        <fail unless="libs.j2me_ant_ext.classpath">Classpath to J2ME Ant extension library (libs.j2me_ant_ext.classpath property) is not set. For example: location of mobility/modules/org-netbeans-modules-kjava-antext.jar file in the IDE installation directory.</fail>
+        <fail unless="platform.home">Platform home (platform.home property) is not set. Value of this property should be ${platform.active.description} emulator home directory location.</fail>
+        <fail unless="platform.bootclasspath">Platform boot classpath (platform.bootclasspath property) is not set. Value of this property should be ${platform.active.description} emulator boot classpath containing all J2ME classes provided by emulator.</fail>
+        <fail unless="src.dir">Must set src.dir</fail>
+        <fail unless="build.classes.dir">Must set build.classes.dir</fail>
+        <fail unless="preprocessed.dir">Must set preprocessed.dir</fail>
+        <fail unless="preverify.classes.dir">Must set preverify.classes.dir</fail>
+        <fail unless="obfuscated.classes.dir">Must set obfuscated.classes.dir</fail>
+        <fail unless="dist.dir">Must set dist.dir</fail>
+        <fail unless="dist.jar">Must set dist.jar</fail>
+        <fail unless="dist.jad">Must set dist.jad</fail>
+        <fail unless="obfuscator.srcjar">Must set obfuscator.srcjar</fail>
+        <fail unless="obfuscator.destjar">Must set obfuscator.destjar</fail>
+        <fail unless="dist.javadoc.dir">Must set dist.javadoc.dir</fail>
+        <property value="" name="obfuscator.classpath"/>
+        <property value="" name="kjava.configuration"/>
+        <property value="UEI-1.0" name="platform.type"/>
+        <property value="" name="platform.device"/>
+        <property value="0" name="obfuscation.level"/>
+        <property value="false" name="sign.enabled"/>
+        <property value="" name="sign.keystore"/>
+        <property value="" name="sign.keystore.password"/>
+        <property value="" name="sign.alias"/>
+        <property value="" name="sign.alias.password"/>
+        <property value="file://" name="dist.jad.url"/>
+        <property value="1.3" name="javac.source"/>
+        <property value="1.1" name="javac.target"/>
+        <condition property="no.deps">
+            <istrue value="${no.dependencies}"/>
+        </condition>
+        <condition property="no.javadoc.preview">
+            <isfalse value="${javadoc.preview}"/>
+        </condition>
+        <condition value="${filter.excludes},**/*Test.java,**/test,**/test/**" property="filter.excludes.evaluated">
+            <istrue value="${filter.exclude.tests}"/>
+        </condition>
+        <property value="${filter.excludes}" name="filter.excludes.evaluated"/>
+        <condition value="" property="evaluated.run.security.domain">
+            <isfalse value="${run.use.security.domain}"/>
+        </condition>
+        <property value="${run.security.domain}" name="evaluated.run.security.domain"/>
+        <taskdef resource="org/netbeans/modules/kjava/antext/defs.properties">
+            <classpath>
+                <pathelement path="${libs.j2me_ant_ext.classpath}"/>
+            </classpath>
+        </taskdef>
+        <uptodate targetfile="${preprocessed.dir}/.timestamp" property="no.clean.before.build">
+            <srcfiles dir="nbproject">
+                <include name="project.properties"/>
+                <include name="build-impl.xml"/>
+            </srcfiles>
+        </uptodate>
+        <ant inheritrefs="true" inheritall="true" target="post-init"/>
+    </target>
+    <target name="post-init"/>
+    <target name="deps-jar" depends="init" unless="no.deps"/>
+    <target description="Clean project in case its meta information has changed." unless="no.clean.before.build" depends="init" name="conditional-clean">
+        <ant target="clean"/>
+    </target>
+    <target name="pre-preprocess"/>
+    <target description="Preprocess project sources." depends="init,pre-preprocess,deps-jar,conditional-clean" name="preprocess">
+        <mkdir dir="${preprocessed.dir}"/>
+        <echo file="${preprocessed.dir}/.timestamp" message="ignore me"/>
+        <nb-prep preprocessfor="${config.active}" destdir="${preprocessed.dir}">
+            <fileset excludes="${filter.excludes.evaluated}" defaultexcludes="${filter.use.standard}" dir="${src.dir}"/>
+        </nb-prep>
+        <ant inheritrefs="true" inheritall="true" target="post-preprocess"/>
+    </target>
+    <target name="post-preprocess"/>
+    <target description="Extracts all bundled libraries." depends="init,deps-jar,conditional-clean" name="extract-libs">
+        <mkdir dir="${build.classes.dir}"/>
+        <nb-extract excludeManifest="true" dir="${build.classes.dir}">
+            <classpath>
+                <path path="${libs.classpath}"/>
+            </classpath>
+        </nb-extract>
+    </target>
+    <target name="pre-compile"/>
+    <target description="Compile project classes." depends="init,preprocess,extract-libs,pre-compile" name="compile">
+        <mkdir dir="${build.classes.dir}"/>
+        <javac bootclasspath="${evaluated.platform.bootclasspath}" srcdir="${preprocessed.dir}" destdir="${build.classes.dir}" debug="${javac.debug}" optimize="${javac.optimize}" deprecation="${javac.deprecation}" target="${javac.target}" source="${javac.source}" includeantruntime="false">
+            <classpath>
+                <path path="${libs.classpath}"/>
+            </classpath>
+        </javac>
+        <copy todir="${build.classes.dir}">
+            <fileset excludes="${filter.excludes.evaluated},${build.classes.excludes}" defaultexcludes="${filter.use.standard}" dir="${src.dir}"/>
+        </copy>
+        <ant inheritrefs="true" inheritall="true" target="post-compile"/>
+    </target>
+    <target name="post-compile"/>
+    <target name="pre-compile-single"/>
+    <target description="Compile selected project classes." depends="init,preprocess,extract-libs,pre-compile-single" name="compile-single">
+        <fail unless="javac.includes">Must select some files in the IDE or set javac.includes</fail>
+        <mkdir dir="${build.classes.dir}"/>
+        <javac includes="${javac.includes}" bootclasspath="${evaluated.platform.bootclasspath}" destdir="${build.classes.dir}" srcdir="${preprocessed.dir}" debug="${javac.debug}" optimize="${javac.optimize}" deprecation="${javac.deprecation}" target="${javac.target}" source="${javac.source}" includeantruntime="false">
+            <classpath>
+                <path path="${libs.classpath}"/>
+            </classpath>
+        </javac>
+        <ant inheritrefs="true" inheritall="true" target="post-compile-single"/>
+    </target>
+    <target name="post-compile-single"/>
+    <target depends="init" name="create-jad">
+        <dirname property="dist.jad.dir" file="${dist.dir}/${dist.jad}"/>
+        <mkdir dir="${dist.jad.dir}"/>
+        <condition value="${manifest.apipermissions}" property="evaluated.manifest.apipermissions">
+            <not>
+                <equals arg2="MIDP-1.0" arg1="${platform.profile}"/>
+            </not>
+        </condition>
+        <condition value="${manifest.pushregistry}" property="evaluated.manifest.pushregistry">
+            <not>
+                <equals arg2="MIDP-1.0" arg1="${platform.profile}"/>
+            </not>
+        </condition>
+        <condition property="contains.manifest.configuration">
+            <contains string="${manifest.others}" substring="MicroEdition-Configuration: "/>
+        </condition>
+        <condition property="contains.manifest.profile">
+            <contains string="${manifest.others}" substring="MicroEdition-Profile: "/>
+        </condition>
+        <property name="evaluated.manifest.apipermissions" value=""/>
+        <property name="evaluated.manifest.pushregistry" value=""/>
+        <echo file="${dist.dir}/${dist.jad}">${manifest.midlets}${evaluated.manifest.apipermissions}${evaluated.manifest.pushregistry}${manifest.others}</echo>
+        <ant inheritrefs="true" inheritall="true" target="add-configuration"/>
+        <ant inheritrefs="true" inheritall="true" target="add-profile"/>
+    </target>
+    <target unless="contains.manifest.configuration" name="add-configuration">
+        <echo append="true" file="${dist.dir}/${dist.jad}">MicroEdition-Configuration: ${platform.configuration}
+</echo>
+    </target>
+    <target unless="contains.manifest.profile" name="add-profile">
+        <echo append="true" file="${dist.dir}/${dist.jad}">MicroEdition-Profile: ${platform.profile}
+</echo>
+    </target>
+    <target name="pre-obfuscate"/>
+    <target description="Up-to-date check before obfuscation." depends="init,compile" name="obfuscate-check">
+        <uptodate targetfile="${obfuscator.destjar}" property="no.obfusc">
+            <srcfiles dir="${build.classes.dir}"/>
+        </uptodate>
+    </target>
+    <target unless="no.obfusc" description="Obfuscate project classes." depends="init,compile,obfuscate-check,create-jad,pre-obfuscate" name="obfuscate">
+        <dirname property="obfuscator.srcjar.dir" file="${obfuscator.srcjar}"/>
+        <dirname property="obfuscator.destjar.dir" file="${obfuscator.destjar}"/>
+        <mkdir dir="${obfuscator.srcjar.dir}"/>
+        <mkdir dir="${obfuscator.destjar.dir}"/>
+        <jar basedir="${build.classes.dir}" jarfile="${obfuscator.srcjar}"/>
+        <nb-obfuscate obfuscationLevel="${obfuscation.level}" jadfile="${dist.dir}/${dist.jad}" classpath="${evaluated.platform.bootclasspath}" obfuscatorclasspath="${obfuscator.classpath}" destjar="${obfuscator.destjar}" srcjar="${obfuscator.srcjar}"/>
+        <mkdir dir="${obfuscated.classes.dir}"/>
+        <unjar dest="${obfuscated.classes.dir}" src="${obfuscator.destjar}"/>
+        <ant inheritrefs="true" inheritall="true" target="post-obfuscate"/>
+    </target>
+    <target name="post-obfuscate"/>
+    <target name="pre-preverify"/>
+    <target description="Preverify project classes." depends="init,compile,obfuscate,pre-preverify" name="preverify">
+        <mkdir dir="${preverify.classes.dir}"/>
+        <nb-preverify commandline="${platform.preverifycommandline}" platformtype="${platform.type}" platformhome="${platform.home}" configuration="${platform.configuration}" classpath="${evaluated.platform.bootclasspath}" destdir="${preverify.classes.dir}" srcdir="${obfuscated.classes.dir}"/>
+        <ant inheritrefs="true" inheritall="true" target="post-preverify"/>
+    </target>
+    <target name="post-preverify"/>
+    <target name="pre-jar"/>
+    <target description="Build jar and application descriptor." depends="init,preverify,create-jad,pre-jar" name="jar">
+        <dirname property="dist.jar.dir" file="${dist.dir}/${dist.jar}"/>
+        <mkdir dir="${dist.jar.dir}"/>
+        <jar manifest="${dist.dir}/${dist.jad}" jarfile="${dist.dir}/${dist.jar}" compress="${jar.compress}">
+            <fileset dir="${preverify.classes.dir}"/>
+            <fileset dir="${obfuscated.classes.dir}">
+                <exclude name="**/*.class"/>
+            </fileset>
+        </jar>
+        <nb-jad aliaspassword="${sign.alias.password}" alias="${sign.alias}" keystorepassword="${sign.keystore.password}" keystore="${sign.keystore}" sign="${sign.enabled}" url="${dist.jar}" jarfile="${dist.dir}/${dist.jar}" jadfile="${dist.dir}/${dist.jad}"/>
+        <ant inheritrefs="true" inheritall="true" target="post-jar"/>
+    </target>
+    <target name="post-jar"/>
+    <target description="Run MIDlet suite." depends="init" name="run">
+        <nb-run commandline="${platform.runcommandline}" securitydomain="${evaluated.run.security.domain}" execmethod="${run.method}" platformtype="${platform.type}" platformhome="${platform.home}" device="${platform.device}" jadurl="${dist.jad.url}" jadfile="${dist.dir}/${dist.jad}"/>
+    </target>
+    <target depends="init" description="Debug project." name="debug">
+        <parallel>
+            <nb-run commandline="${platform.debugcommandline}" securitydomain="${evaluated.run.security.domain}" execmethod="${run.method}" jadfile="${dist.dir}/${dist.jad}" device="${platform.device}" platformhome="${platform.home}" platformtype="${platform.type}" debuggeraddressproperty="jpda.port" debugserver="true" debugsuspend="true" debug="true"/>
+            <sequential>
+                <sleep seconds="5"/>
+                <ant target="nbdebug"/>
+            </sequential>
+        </parallel>
+    </target>
+    <target if="netbeans.home" description="Start NetBeans debugger" name="nbdebug">
+        <nb-kjava-debug period="1000" timeout="20000" delay="0" name="${app.codename}" address="${jpda.port}">
+            <bootclasspath>
+                <path path="${evaluated.platform.bootclasspath}"/>
+            </bootclasspath>
+            <classpath>
+                <path path="${dist.dir}/${dist.jar}"/>
+            </classpath>
+            <sourcepath>
+                <path path="${src.dir}"/>
+                <path path="${libs.src.path}"/>
+            </sourcepath>
+        </nb-kjava-debug>
+    </target>
+    <target depends="init,preprocess" name="javadoc">
+        <mkdir dir="${dist.javadoc.dir}"/>
+        <javadoc private="${javadoc.private}" windowtitle="${javadoc.windowtitle}" version="${javadoc.version}" author="${javadoc.author}" splitindex="${javadoc.splitindex}" noindex="${javadoc.noindex}" nonavbar="${javadoc.nonavbar}" use="${javadoc.use}" notree="${javadoc.notree}" bootclasspath="${evaluated.platform.bootclasspath}" destdir="${dist.javadoc.dir}" source="${javac.source}">
+            <classpath>
+                <path path="${libs.classpath}"/>
+            </classpath>
+            <sourcepath>
+                <pathelement location="${preprocessed.dir}"/>
+            </sourcepath>
+            <fileset dir="${preprocessed.dir}"/>
+        </javadoc>
+        <ant target="browse-javadoc"/>
+    </target>
+    <target unless="no.javadoc.preview" if="netbeans.home" name="browse-javadoc">
+        <nbbrowse file="${dist.javadoc.dir}/index.html"/>
+    </target>
+    <target name="for-all-configs">
+        <antcall inheritrefs="false" inheritall="false" target="${target.to.call}">
+            <param value="" name="config.active"/>
+            <param value="${configs.Default.sign.keystore.password}" name="sign.keystore.password"/>
+            <param value="${configs.Default.sign.alias.password}" name="sign.alias.password"/>
+        </antcall>
+        <antcall inheritrefs="false" inheritall="false" target="${target.to.call}">
+            <param name="config.active" value="M55"/>
+            <param name="sign.keystore.password" value="${configs.M55.sign.keystore.password}"/>
+            <param name="sign.alias.password" value="${configs.M55.sign.alias.password}"/>
+        </antcall>
+        <antcall inheritrefs="false" inheritall="false" target="${target.to.call}">
+            <param name="config.active" value="M55_Release"/>
+            <param name="sign.keystore.password" value="${configs.M55_Release.sign.keystore.password}"/>
+            <param name="sign.alias.password" value="${configs.M55_Release.sign.alias.password}"/>
+        </antcall>
+        <antcall inheritrefs="false" inheritall="false" target="${target.to.call}">
+            <param name="config.active" value="Release"/>
+            <param name="sign.keystore.password" value="${configs.Release.sign.keystore.password}"/>
+            <param name="sign.alias.password" value="${configs.Release.sign.alias.password}"/>
+        </antcall>
+    </target>
+    <target name="jar-all">
+        <antcall target="for-all-configs">
+            <param value="jar" name="target.to.call"/>
+        </antcall>
+    </target>
+    <target name="javadoc-all">
+        <antcall target="for-all-configs">
+            <param value="javadoc" name="target.to.call"/>
+        </antcall>
+    </target>
+    <target depends="load-properties" name="clean-all">
+        <fail unless="build.root.dir">Property build.root.dir is not set. By default its value should be \"build\".</fail>
+        <fail unless="dist.root.dir">Property dist.root.dir is not set. By default its value should be \"dist\".</fail>
+        <delete dir="${build.root.dir}"/>
+        <delete dir="${dist.root.dir}"/>
+        <antcall target="for-all-configs">
+            <param value="clean" name="target.to.call"/>
+        </antcall>
+    </target>
+    <target name="pre-clean"/>
+    <target description="Clean build products." depends="init,pre-clean" name="clean">
+        <delete dir="${preprocessed.dir}"/>
+        <delete dir="${build.classes.dir}"/>
+        <delete file="${obfuscator.srcjar}"/>
+        <delete file="${obfuscator.destjar}"/>
+        <delete dir="${obfuscated.classes.dir}"/>
+        <delete dir="${preverify.classes.dir}"/>
+        <delete file="${dist.dir}/${dist.jar}"/>
+        <delete file="${dist.dir}/${dist.jad}"/>
+        <delete dir="${dist.javadoc.dir}"/>
+        <ant inheritrefs="true" inheritall="true" target="post-clean"/>
+    </target>
+    <target name="post-clean"/>
+</project>
