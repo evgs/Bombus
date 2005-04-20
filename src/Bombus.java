@@ -109,9 +109,9 @@ public class Bombus extends MIDlet implements Runnable{
             s.setProgress("Entering setup",20);
             StaticData.getInstance().account_index=-1;
             new AccountSelect(display);
+            s.setProgress("Loading",25);
         } else Account.launchAccount(display);
-        
-        s.setProgress("Loading",25);
+        s.setProgress(26);
     }
     
     /**
