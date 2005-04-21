@@ -48,7 +48,7 @@ public class Config {
             //return null;
     }
     
-    public void saveToRMS(){
+    public void saveToStorage(){
         
         DataOutputStream outputStream=NvStorage.CreateDataOutputStream();
 

@@ -104,7 +104,7 @@ public class AccountSelect extends IconTextList implements CommandListener{
         destroyView();
         StaticData sd=StaticData.getInstance();
         sd.config.accountIndex=cursor;
-        sd.config.saveToRMS();
+        sd.config.saveToStorage();
         sd.account_index=cursor;
         Account.launchAccount(display);
     }

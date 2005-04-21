@@ -630,6 +630,8 @@ public class Roster
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            StaticData sd=StaticData.getInstance();
+            sd.config.saveToStorage();
             StaticData.getInstance().midlet.notifyDestroyed();
             return;
         }
