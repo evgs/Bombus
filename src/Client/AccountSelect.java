@@ -70,7 +70,7 @@ public class AccountSelect extends IconTextList implements CommandListener{
             addCommand(cmdEdit);
             addCommand(cmdDel);
             addCommand(cmdSelect);
-            if (activeAccount!=-1)
+            if (activeAccount>=0)
                 addCommand(cmdCancel);  // нельзя выйти без активного аккаунта
         }
     }
@@ -81,7 +81,7 @@ public class AccountSelect extends IconTextList implements CommandListener{
     public void commandAction(Command c, Displayable d){
         if (c==cmdCancel) {
             destroyView();
-            Account.launchAccount(display);
+            //Account.launchAccount();
             //StaticData.getInstance().account_index=0;
         }
         if (c==cmdSelect) eventOk();
@@ -106,7 +106,7 @@ public class AccountSelect extends IconTextList implements CommandListener{
         sd.config.accountIndex=cursor;
         sd.config.saveToStorage();
         sd.account_index=cursor;
-        Account.launchAccount(display);
+        Account.launchAccount();
     }
 
     private void rmsUpdate(){
@@ -132,14 +132,14 @@ public class AccountSelect extends IconTextList implements CommandListener{
         Command cmdCancel=new Command("Back",Command.BACK,99);
         
         Account account;
-        boolean na;
+        boolean newaccount;
         
         public AccountForm(Display display, Account account, boolean newAccount) {
             this.display=display;
             parentView=display.getCurrent();
             
             this.account=account;
-            na=newAccount;
+            newaccount=newAccount;
             
             f=new Form("Account");
             userbox=new TextField("Username",account.getUserName(),32,TextField.URL);  f.append(userbox);
@@ -158,7 +158,7 @@ public class AccountSelect extends IconTextList implements CommandListener{
         
         public void commandAction(Command c, Displayable d){
             if (c==cmdCancel) {
-                if (na) accountList.removeElement(accountList.lastElement());
+                if (newaccount) accountList.removeElement(accountList.lastElement());
                 destroyView(); 
                 return; 
             }

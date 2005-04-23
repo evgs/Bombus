@@ -71,7 +71,7 @@ public class Roster
     private Command cmdAccount=new Command("Account",Command.SCREEN,12);
     private Command cmdQuit=new Command("Quit",Command.SCREEN,99);
     
-    public Roster(Display display, boolean visible) {
+    public Roster(Display display, boolean selAccount) {
         super(StaticData.getInstance().rosterIcons);
         this.display=display;
         
@@ -90,8 +90,6 @@ public class Roster
         
         vContacts=new Vector(); // just for displaying
         
-        new Thread(this).start();
-        
         StaticData.getInstance().roster=this;
         
         
@@ -108,7 +106,13 @@ public class Roster
         setCommandListener(this);
         resetStrCache();
         
-        if (visible) display.setCurrent(this);
+        //if (visible) display.setCurrent(this);
+        if (selAccount) {
+            new AccountSelect(display);
+        } else {
+            // connect whithout account select
+            Account.launchAccount();
+        }
 
     }
     
@@ -129,12 +133,14 @@ public class Roster
     }
     // establishing connection process
     public void run(){
-        try {
-            if (theStream!=null) theStream.close();
-            theStream=null;
+        if (!reconnect) {
+            hContacts=new Vector();
+            vGroups=new Groups();
+            vContacts=new Vector(); // just for displaying
             System.gc();
-        } catch (Exception e) { e.printStackTrace(); }
+        };
         
+        logoff();
         
         try {
             Account a=StaticData.getInstance().account;
@@ -621,15 +627,23 @@ public class Roster
         }
     }
     
+    public void logoff(){
+        try {
+            if (theStream!=null) {
+                try {
+                    sendPresence(Presence.PRESENCE_OFFLINE);
+                    theStream.close();
+                } catch (Exception e) { e.printStackTrace(); }
+            }
+            theStream=null;
+            System.gc();
+        } catch (Exception e) { e.printStackTrace(); }
+    };
+    
     public void commandAction(Command c, Displayable d){
         if (c==cmdQuit) {
             destroyView();
-            try {
-                sendPresence(Presence.PRESENCE_OFFLINE);
-                theStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            logoff();
             StaticData sd=StaticData.getInstance();
             sd.config.saveToStorage();
             StaticData.getInstance().midlet.notifyDestroyed();
@@ -637,34 +651,18 @@ public class Roster
         }
         if (c==cmdReconnect) {
             reconnect=true;
-            try {
-                sendPresence(Presence.PRESENCE_OFFLINE);
-                theStream.close();
-            } catch (Exception e) { e.printStackTrace(); }
             
             displayStatus();
             redraw();
             
             new Thread(this).start();
-            
             return;
         }
         if (c==cmdLogoff) {
-            try {
-                sendPresence(Presence.PRESENCE_OFFLINE);
-                theStream.close();
-            } catch (Exception e) { e.printStackTrace(); }
-            theStream=null;
+            logoff();
             return;
         }
         if (c==cmdAccount){
-            try {
-                sendPresence(Presence.PRESENCE_OFFLINE);
-                theStream.close();
-            } catch (Exception e) { e.printStackTrace(); }
-            theStream=null;
-            hContacts=vContacts=null;
-            System.gc();
             new AccountSelect(display);
             return;
         }
