@@ -117,7 +117,7 @@ public class AccountSelect extends IconTextList implements CommandListener{
     }
     
     
-    class AccountForm implements CommandListener{
+    class AccountForm implements CommandListener, ItemStateListener{
         private Display display;
         private Displayable parentView;
         Form f;
@@ -126,6 +126,7 @@ public class AccountSelect extends IconTextList implements CommandListener{
         TextField servbox;
         TextField ipbox;
         TextField portbox;
+        ChoiceGroup register;
         
         
         Command cmdOk=new Command("OK",Command.OK,1);
@@ -147,15 +148,30 @@ public class AccountSelect extends IconTextList implements CommandListener{
             servbox=new TextField("Server",account.getServerN(),32,TextField.URL);    f.append(servbox);
             ipbox=new TextField("Server IP",account.getServerI(),32,TextField.URL);   f.append(ipbox);
             portbox=new TextField("Port",String.valueOf(account.getPort()),32,TextField.NUMERIC);   f.append(portbox);
+            register=new ChoiceGroup(null, Choice.MULTIPLE);
+            register.append("Register Account",null);
+            //if (newaccount) 
+                f.append(register);
             
             f.addCommand(cmdOk);
             f.addCommand(cmdCancel);
             
             f.setCommandListener(this);
+            f.setItemStateListener(this);
             
             display.setCurrent(f);
         }
         
+        public void itemStateChanged(Item item) {
+            if (item!=userbox) return;
+            
+            // test for userbox has user@server
+            String user=userbox.getString();
+            int at=user.indexOf('@');
+            if (at==-1) return;
+            //userbox.setString(user.substring(0,at));
+            servbox.setString(user.substring(at+1));
+        }
         public void commandAction(Command c, Displayable d){
             if (c==cmdCancel) {
                 if (newaccount) accountList.removeElement(accountList.lastElement());
@@ -163,7 +179,10 @@ public class AccountSelect extends IconTextList implements CommandListener{
                 return; 
             }
             if (c==cmdOk)   {
-                account.setUserName(userbox.getString());
+                String user=userbox.getString();
+                int at=user.indexOf('@');
+                if (at!=-1) user=user.substring(0, at);
+                account.setUserName(user);
                 account.setPassword(passbox.getString());
                 account.setServer(servbox.getString());
                 account.setIP(ipbox.getString());
@@ -172,9 +191,13 @@ public class AccountSelect extends IconTextList implements CommandListener{
                 } catch (Exception e) {
                     account.setPort(5222);
                 }
+                boolean b[]=new boolean[1];
+                register.getSelectedFlags(b);
+                
                 rmsUpdate();
                 commandState();
                 destroyView();
+                if (b[0]) new AccountRegister(account,display);
             }
         }
         

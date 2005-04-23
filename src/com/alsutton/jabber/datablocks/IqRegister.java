@@ -1,0 +1,38 @@
+/*
+ * IqRegister.java
+ *
+ * Created on 24 јпрель 2005 г., 3:00
+ */
+
+package com.alsutton.jabber.datablocks;
+
+import com.alsutton.jabber.*;
+import java.util.*;
+
+
+/**
+ *
+ * @author Evg_S
+ */
+public class IqRegister extends JabberDataBlock{
+    
+    /** Creates a new instance of IqRegister */
+    public IqRegister(String username, String password) {
+    super( );
+
+    setAttribute( "type", "set" );
+    setAttribute( "id", "regac" );
+
+    JabberDataBlock qB = new JabberDataBlock( "query", null, null );
+    qB.setNameSpace( "jabber:iq:register" );
+    qB.addChild("username",username);
+    qB.addChild("password",password);
+    
+    addChild(qB);
+
+    }
+  public String getTagName()
+  {
+    return "iq";
+  }    
+}
