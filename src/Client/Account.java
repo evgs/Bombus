@@ -33,10 +33,10 @@ public class Account implements IconTextList.Element{
     public Account() {
     }
     
-    public static void launchAccount(Display display){
+    public static void launchAccount(){
         StaticData sd=StaticData.getInstance();
         sd.account=Account.createFromStorage(sd.account_index);
-        sd.roster=new Roster(display, sd.roster!=null);
+        new Thread(sd.roster).start();
     }
 
     public static Account createFromJad(){
