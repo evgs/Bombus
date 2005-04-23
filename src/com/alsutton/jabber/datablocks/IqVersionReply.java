@@ -7,7 +7,7 @@
 package com.alsutton.jabber.datablocks;
 import com.alsutton.jabber.*;
 import java.util.*;
-import Client.StaticData;
+import Client.*;
 
 
 /**
@@ -26,7 +26,7 @@ public class IqVersionReply extends JabberDataBlock{
         addChild(query);
         query.setNameSpace("jabber:iq:version");
         query.addChild(new JabberDataBlock(query, "name","Bombus"));
-        query.addChild(new JabberDataBlock(query, "version",StaticData.getInstance().config.version));
+        query.addChild(new JabberDataBlock(query, "version",Version.version));
 /*#DefaultConfiguration,Release#*///<editor-fold>
         query.addChild(new JabberDataBlock(query, "os","J2ME MIDP2"));
 /*$DefaultConfiguration,Release$*///</editor-fold>

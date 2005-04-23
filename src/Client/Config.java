@@ -16,7 +16,6 @@ import java.io.*;
 public class Config {
     
     public final int keepAlive=getProperty("keep_alive",200);
-    public final String version=getProperty("MIDlet-Version","---");
     public int profile=getProperty("alert_profile",1);
     public boolean ghostMotor=getProperty("moto_e398",false);
     

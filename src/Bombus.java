@@ -88,7 +88,7 @@ public class Bombus extends MIDlet implements Runnable{
         
         try {
             s.img=Image.createImage("/images/splash.png");
-            s.setProgress("Bombus "+getAppProperty("MIDlet-Version"),7);
+            s.setProgress("Bombus "+Version.version,7);
         } catch (Exception e) {
             e.printStackTrace();
         }
