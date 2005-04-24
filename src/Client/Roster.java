@@ -145,7 +145,7 @@ public class Roster
         try {
             Account a=StaticData.getInstance().account;
             setProgress("Connect to "+a.getServerN(), 30);
-            theStream= new JabberStream( new meConnector( a.getServer(), a.getPort() ) );
+            theStream= a.openJabberStream();
             setProgress("Login", 40);
             theStream.setJabberListener( this );
         } catch( Exception e ) {
@@ -548,7 +548,7 @@ public class Roster
     public void beginConversation(String SessionId) {
         try {
             Account a=StaticData.getInstance().account;
-            Login login = new Login( a.getUserName(), a.getPassword(), SessionId, RESOURCE );
+            Login login = new Login( a.getUserName(), a.getServerN(), a.getPassword(), SessionId, RESOURCE );
             theStream.send( login );
         } catch( Exception e ) {
             //l.setTitleImgL(0);

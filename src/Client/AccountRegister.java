@@ -41,7 +41,7 @@ public class AccountRegister
     public void run() {
         try {
             f.append("Connecting to"+raccount.getServerN());
-            theStream= new JabberStream( new meConnector( raccount.getServer(), raccount.getPort() ) );
+            theStream= raccount.openJabberStream();
             theStream.setJabberListener( this );
         } catch( Exception e ) {
             e.printStackTrace();

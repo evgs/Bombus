@@ -46,12 +46,13 @@ public class Login extends JabberDataBlock
    * @param resource The resource name to use
    */
 
-  public Login( String username, String password, String sid, String resource )
+  public Login( String username, String server, String password, String sid, String resource )
   {
     super( );
 
     setAttribute( "id", "auth-s" );
     setAttribute( "type", "set" );
+    setAttribute( "to", server);
 
     JabberDataBlock queryBlock = new JabberDataBlock( "query", null, null );
     queryBlock.setNameSpace( "jabber:iq:auth" );

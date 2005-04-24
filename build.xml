@@ -9,8 +9,8 @@
     <!-- version patch -->
     <target name="post-preprocess">
         <property name="versionPatcher" location="C:/Program Files/TortoiseSVN/bin/SubWCRev.exe" />
-        <property name="file" location="build\preprocessed\Client\Version.java "/>
-        <exec executable="${versionPatcher}">
+        <property name="file" location="${preprocessed.dir}\Client\Version.java "/>
+        <exec executable="${versionPatcher}" > 
             <arg value="."/>
             <arg value="${file}"/>
             <arg value="${file}"/>

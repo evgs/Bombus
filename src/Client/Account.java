@@ -13,6 +13,7 @@ import ui.ImageList;
 import javax.microedition.rms.*;
 import javax.microedition.lcdui.*;
 import Client.Roster;
+import com.alsutton.jabber.*;
 
 /**
  *
@@ -123,4 +124,8 @@ public class Account implements IconTextList.Element{
     public int getPort() { return port; }
     public void setPort(int port) { this.port = port; }
     
+    public JabberStream openJabberStream() throws java.io.IOException{
+        return new JabberStream( 
+                new meConnector( getServerN(), getServer(), getPort() ) );    
+    }
 }

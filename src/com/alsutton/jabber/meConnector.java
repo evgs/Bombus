@@ -48,7 +48,7 @@ public class meConnector extends ConnectorInterface
    * @param port The port to connect to
    */
 
-  public meConnector( String hostname, int port ) throws IOException
+  public meConnector( String hostname, String hostip, int port ) throws IOException
   {
     super( hostname );
 
@@ -62,7 +62,7 @@ public class meConnector extends ConnectorInterface
     connection = (StreamConnection) Connector.open( connectorString );
      */
     connection = (StreamConnection) Connector.open( 
-            "socket://"+hostname+":"+port 
+            "socket://"+hostip+":"+port 
             );
 /*#DefaultConfiguration,Release#*///<editor-fold>
     try {    
