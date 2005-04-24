@@ -8,6 +8,7 @@ package Client;
 import com.alsutton.jabber.*;
 import com.alsutton.jabber.datablocks.*;
 import javax.microedition.lcdui.*;
+import ui.*;
 
 /**
  *
@@ -16,35 +17,41 @@ import javax.microedition.lcdui.*;
 public class AccountRegister 
         implements         
             JabberListener,
+            CommandListener,
             Runnable
 {
     
     private Display display;
     private Displayable parentView;
-    private Form f;
     
     private Account raccount;
     private JabberStream theStream ;
+    private SplashScreen spl=SplashScreen.getInstance();
+    //private Command cmdOK=new Command("Cancel",Command.BACK, 2);
+    private Command cmdCancel=new Command("Cancel",Command.BACK, 2);
     
     /** Creates a new instance of AccountRegister */
-    public AccountRegister(Account account, Display display) {
+    public AccountRegister(Account account, Display display, Displayable parentView) {
         this.display=display;
-        parentView=display.getCurrent();
+        this.parentView=parentView;//display.getCurrent();
         
         
         raccount=account;
-        f=new Form("Registering");
-        display.setCurrent(f);
+        spl.setProgress("Startup",5);
+        display.setCurrent(spl);
+        spl.addCommand(cmdCancel);
+        spl.setCommandListener(this);
         
         new Thread(this).start();
     }
     public void run() {
         try {
-            f.append("Connecting to"+raccount.getServerN());
+            spl.setProgress("Connect to"+raccount.getServerN(),30);
             theStream= raccount.openJabberStream();
             theStream.setJabberListener( this );
         } catch( Exception e ) {
             e.printStackTrace();
+            spl.setFailed();
         }
 
     }
@@ -57,7 +64,7 @@ public class AccountRegister
     }
 
     public void beginConversation(String SessionId) {
-        f.append("Registering");
+        spl.setProgress("Registering",60);
         IqRegister iq=new IqRegister(raccount.getUserName(),raccount.getPassword());
         try {
             theStream.send(iq);
@@ -65,24 +72,29 @@ public class AccountRegister
     }
     public void blockArrived( JabberDataBlock data ) {
         theStream.close();
-        destroyView();
+        //destroyView();
         if (data instanceof Iq) {
+            int pgs=100;
             String type=data.getAttribute("type");
             String title="Done";
-            String result="Registered successfully";
-            AlertType at=AlertType.CONFIRMATION;
             if (!type.equals("result")) {
-                at=AlertType.ERROR;
-                title="Error";
-                result=((JabberDataBlock)
+                pgs=0;
+                title="Error: "+((JabberDataBlock)
                     data.getChildBlock("error").
                         getChildBlocks().
                         firstElement()).getTagName();
             }
-            Alert alert=new Alert(title,type,null,at);
-            alert.setTimeout(10);
-            display.setCurrent(alert, parentView);
+            spl.setProgress(title,pgs);
         }
+    }
+    
+    public void commandAction(Command c, Displayable d) {
+        spl.setCommandListener(null);
+        spl.removeCommand(cmdCancel);
+        try {
+            theStream.close();
+        } catch (Exception e) { e.printStackTrace();}
+        destroyView();
     }
     
     public void destroyView(){

@@ -487,7 +487,8 @@ public class Roster
                 //theStream.send( trackMessage );
                 String from=message.getFrom();
                 String body=message.getBody();
-                if (body==null) return;
+                if (body.length()==0) return;
+                
                 Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, body);
                 messageStore(m);
                 //Contact c=getContact(from);

@@ -196,8 +196,9 @@ public class AccountSelect extends IconTextList implements CommandListener{
                 
                 rmsUpdate();
                 commandState();
-                destroyView();
-                if (b[0]) new AccountRegister(account,display);
+                if (b[0]) new AccountRegister(account,display, parentView); 
+                else destroyView();
+                    
             }
         }
         

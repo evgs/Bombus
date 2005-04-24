@@ -192,6 +192,7 @@ public class Message extends JabberDataBlock
    * @return A message object destined for the sender of this message with no subject or body
    */
 
+   /*
   public Message constructReply()
   {
     if( attributes == null )
@@ -224,6 +225,7 @@ public class Message extends JabberDataBlock
 
     return reply;
   }
+    */
 
   /**
    * Get the tag start marker
