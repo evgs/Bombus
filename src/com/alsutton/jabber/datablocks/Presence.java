@@ -163,6 +163,8 @@ public class Presence extends JabberDataBlock
   public final static int PRESENCE_UNKNOWN=6;
   public final static int PRESENCE_INVISIBLE=ImageList.ICON_INVISIBLE_INDEX;
   public final static int PRESENCE_ERROR=ImageList.ICON_ERROR_INDEX;
+  public final static int PRESENCE_TRASH=ImageList.ICON_ERROR_INDEX+1;
+  
   public final static String PRS_OFFLINE="unavailable";
   public final static String PRS_ERROR="error";
   public final static String PRS_CHAT="chat";

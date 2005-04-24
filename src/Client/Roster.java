@@ -269,27 +269,37 @@ public class Roster
     private Vector vContacts;
     private Groups vGroups;
     
-    public final void CreateContact(final String Nick, final String Jid, final String grpName, final int Status) {
+    public final void UpdateContact(final String Nick, final String Jid, final String grpName, final int Status) {
         // called only on roster read
-        Contact c=new Contact(Nick, Jid, Status);
-        if (!c.jid.isTransport()){
-            Group group=vGroups.getGroup(grpName);
-            if (group==null) {
-                group=vGroups.addGroup(grpName);
-            }
-            c.group=group.index;
+        Jid J=new Jid(Jid);
+        Contact c=getContact(J,false);
+        if (c==null) {
+            c=new Contact(Nick, Jid, Status);
+            hContacts.addElement(c);
         }
-        hContacts.addElement(c);
+        for (Enumeration e=hContacts.elements();e.hasMoreElements();)
+        {
+            c=(Contact)e.nextElement();
+            if (c.jid.equals(J,false))
+            if (!c.jid.isTransport()){
+                Group group=vGroups.getGroup(grpName);
+                if (group==null) {
+                    group=vGroups.addGroup(grpName);
+                }
+                c.group=group.index;
+                c.status=Status;
+            }
+        }
     }
     
-    public final void AddContact(final String Nick, final String Jid, final int Status) {
+    public final void PresenceContact(final String Nick, final String Jid, final int Status) {
         // проверим наличие по полной строке
         Jid J=new Jid(Jid);
         
         Contact c=getContact(J, true);
         if (c!=null) {
             // изменился статус
-            c.status=Status;
+            if (c.status<8) c.status=Status;
             sort();
             reEnumRoster();//redraw();
             //System.out.println("updated");
@@ -346,8 +356,8 @@ public class Roster
         return (Contact)(hContacts.elementAt(index));
     }
     
-    public final Contact getContact(final String Jid) {
-        return (getContact(new Jid(Jid), true));
+    public final Contact getContact(final String Jid, boolean compareResources) {
+        return (getContact(new Jid(Jid), compareResources));
     }
     public final Contact getContact(final Jid j, final boolean compareResources) {
         synchronized (hContacts) {
@@ -432,23 +442,7 @@ public class Roster
                     if (id.equals("getros")) {
                         // а вот и ростер подошёл :)
                         SplashScreen.getInstance().setProgress(85);
-                        JabberDataBlock q=data.getChildBlock("query");
-                        if (q!=null) for (Enumeration e=q.getChildBlocks().elements(); e.hasMoreElements();){
-                            JabberDataBlock i=(JabberDataBlock)e.nextElement();
-                            if (i.getTagName().equals("item")) {
-                                //String name=strconv.convAscii2Utf8(i.getAttribute("name"));
-                                String name=i.getAttribute("name");
-                                String jid=i.getAttribute("jid");
-                                int presence=(i.getAttribute("subscription").charAt(0)=='n')?
-                                    Presence.PRESENCE_UNKNOWN:
-                                    Presence.PRESENCE_OFFLINE;
-                                // найдём группу
-                                JabberDataBlock g=i.getChildBlock("group");
-                                String group=(g==null)?COMMON_GROUP:g.getText();
-                                CreateContact(name,jid,group,presence);
-                            }
-                            
-                        }
+                        processRoster(data);
                         reEnumRoster();
                         
                         setProgress("Connected",100);
@@ -468,6 +462,9 @@ public class Roster
                             //if (xmlns!=null) if (xmlns.equals("jabber:iq:version"))
                             theStream.send(new IqVersionReply(data));
                     }
+                } else if (type.equals("set")) {
+                    processRoster(data);
+                    reEnumRoster();
                 }
             }
             
@@ -524,7 +521,7 @@ public class Roster
                 
                 String from=pr.getFrom();
                 
-                AddContact(null, from, pr.getTypeIndex());
+                PresenceContact(null, from, pr.getTypeIndex());
                 Msg m=new Msg(Msg.MESSAGE_TYPE_PRESENCE,from,pr.getPresenceTxt());
                 messageStore(m);
             }
@@ -533,9 +530,42 @@ public class Roster
         }
     }
     
+    void processRoster(JabberDataBlock data){
+        JabberDataBlock q=data.getChildBlock("query");
+        if (!q.getAttribute("xmlns").equals("jabber:iq:roster")) return;
+        int type=0;
+        String iqType=data.getAttribute("type");
+        if (iqType.equals("set")) type=1;
+        
+        Vector cont=(q!=null)?q.getChildBlocks():null;
+        
+        if (cont!=null)
+            for (Enumeration e=cont.elements(); e.hasMoreElements();){
+            JabberDataBlock i=(JabberDataBlock)e.nextElement();
+            if (i.getTagName().equals("item")) {
+                //String name=strconv.convAscii2Utf8(i.getAttribute("name"));
+                String name=i.getAttribute("name");
+                String jid=i.getAttribute("jid");
+                String subscr=i.getAttribute("subscription");
+                int presence=(subscr.charAt(0)=='n')?
+                    Presence.PRESENCE_UNKNOWN:
+                    Presence.PRESENCE_OFFLINE;
+                // найдём группу
+                JabberDataBlock g=i.getChildBlock("group");
+                String group=(g==null)?COMMON_GROUP:g.getText();
+                switch (type) {
+                    case 0:UpdateContact(name,jid,group,presence);
+                    case 1:
+                        if (subscr.equals("remove")) presence=Presence.PRESENCE_TRASH;
+                        UpdateContact(name,jid,group,presence);
+                }
+            }
+            
+            }
+    }
     
     Contact messageStore(Msg message){
-        Contact c=getContact(message.from);
+        Contact c=getContact(message.from, true);
         c.addMessage(message);
         if (message.messageType!=Msg.MESSAGE_TYPE_IN) return c;
         countNewMsgs();

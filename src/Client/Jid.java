@@ -34,11 +34,19 @@ public class Jid {
     /** Compares two Jids */
     public boolean equals(Jid j, boolean compareResource) {
         if (j==null) return false;
-        int compareLen=(compareResource)?(j.getJidFull().length()):resourcePos;
-        // если сравнение с ресурсом, то регистр учитываем
-        //if (compareResource) return fullJid.equals(j.fullJid);
-        // иначе игнорируем
-        return fullJid.regionMatches(true,0,j.fullJid,0,compareLen);
+        
+        String cj=j.fullJid;
+        // игнорируем регистр jid, 
+        if (!fullJid.regionMatches(true,0,cj,0,resourcePos)) return false;
+        if (!compareResource) return true;
+        
+        //учитываем регистр ресурсов и длину
+        int compareLen=fullJid.length();
+        if (compareLen!=j.fullJid.length()) return false;
+
+        return fullJid.regionMatches(true,0,cj,0,compareLen);
+        //int compareLen=(compareResource)?(j.getJidFull().length()):resourcePos;
+        //return fullJid.regionMatches(true,0,j.fullJid,0,compareLen);
     }
     
     
