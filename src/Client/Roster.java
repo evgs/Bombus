@@ -69,15 +69,22 @@ public class Roster
     private Command cmdReconnect=new Command("Reconnect",Command.SCREEN,10);
     private Command cmdLogoff=new Command("Logoff",Command.SCREEN,11);
     private Command cmdAccount=new Command("Account",Command.SCREEN,12);
+    private Command cmdSetFullScreen=new Command("Fullscreen",Command.SCREEN,20);
     private Command cmdQuit=new Command("Quit",Command.SCREEN,99);
+    
+    private Config cf;
+    private StaticData sd=StaticData.getInstance();
     
     public Roster(Display display, boolean selAccount) {
         super(StaticData.getInstance().rosterIcons);
         this.display=display;
         
+        cf=sd.config;
+       
         //msgNotify=new EventNotify(display, Profile.getProfile(0) );
         
-        setTitleImages(StaticData.getInstance().rosterIcons);
+        setTitleImages(sd.rosterIcons);
+        
         createTitle(4, null, null).setElementAt("title",3);
         getTitleLine().addRAlign();
         getTitleLine().addImage(0);
@@ -90,7 +97,7 @@ public class Roster
         
         vContacts=new Vector(); // just for displaying
         
-        StaticData.getInstance().roster=this;
+        sd.roster=this;
         
         
         addCommand(cmdStatus);
@@ -98,6 +105,9 @@ public class Roster
         addCommand(cmdReconnect);
         addCommand(cmdLogoff);
         addCommand(cmdAccount);
+/*#DefaultConfiguration,Release#*///<editor-fold>
+        addCommand(cmdSetFullScreen);
+/*$DefaultConfiguration,Release$*///</editor-fold>
         
         addCommand(cmdQuit);
         
@@ -117,7 +127,7 @@ public class Roster
     }
     
     void addOptionCommands(){
-        Config cf=StaticData.getInstance().config;
+        //Config cf=StaticData.getInstance().config;
         if (cf.showOfflineContacts) {
             addCommand(cmdHideOfflines);
             removeCommand(cmdShowOfflines);
@@ -143,7 +153,7 @@ public class Roster
         logoff();
         
         try {
-            Account a=StaticData.getInstance().account;
+            Account a=sd.account;
             setProgress("Connect to "+a.getServerN(), 30);
             theStream= a.openJabberStream();
             setProgress("Login", 40);
@@ -169,7 +179,7 @@ public class Roster
     
     private void displayStatus(){
         int s=reconnect?ImageList.ICON_RECONNECT_INDEX:myStatus;
-        int profile=StaticData.getInstance().config.profile;
+        int profile=cf.profile;//StaticData.getInstance().config.profile;
         Object en=(profile>1)? new Integer(profile+ImageList.ICON_PROFILE_INDEX):null;
         ComplexString tl=getTitleLine();
         tl.setElementAt(new Integer(s), 2);
@@ -193,7 +203,7 @@ public class Roster
         }
         messageCount=m;
 /*#M55,M55_Release#*///<editor-fold>
-//--        int pattern=StaticData.getInstance().config.m55_led_pattern;
+//--        int pattern=cf.m55_led_pattern;//StaticData.getInstance().config.m55_led_pattern;
 //--        if (pattern>0) EventNotify.leds(pattern-1, m>0);
 /*$M55,M55_Release$*///</editor-fold>
         displayStatus();
@@ -201,7 +211,7 @@ public class Roster
     
     private void reEnumRoster(){
         Vector tContacts=new Vector(vContacts.size());
-        boolean offlines=StaticData.getInstance().config.showOfflineContacts;
+        boolean offlines=cf.showOfflineContacts;//StaticData.getInstance().config.showOfflineContacts;
         
         Enumeration e;
         int i;
@@ -385,7 +395,7 @@ public class Roster
                 }
             }
         }
-        Vector v=StaticData.getInstance().statusList;
+        Vector v=sd.statusList;//StaticData.getInstance().statusList;
         ExtendedStatus es=null;
         for (Enumeration e=v.elements(); e.hasMoreElements(); ){
             es=(ExtendedStatus)e.nextElement();
@@ -578,7 +588,7 @@ public class Roster
     
     public void beginConversation(String SessionId) {
         try {
-            Account a=StaticData.getInstance().account;
+            Account a=sd.account;//StaticData.getInstance().account;
             Login login = new Login( a.getUserName(), a.getServerN(), a.getPassword(), SessionId, RESOURCE );
             theStream.send( login );
         } catch( Exception e ) {
@@ -675,9 +685,9 @@ public class Roster
         if (c==cmdQuit) {
             destroyView();
             logoff();
-            StaticData sd=StaticData.getInstance();
-            sd.config.saveToStorage();
-            StaticData.getInstance().midlet.notifyDestroyed();
+            //StaticData sd=StaticData.getInstance();
+            cf.saveToStorage();
+            sd.midlet.notifyDestroyed();
             return;
         }
         if (c==cmdReconnect) {
@@ -704,11 +714,16 @@ public class Roster
             new AlertProfile(display);
         }
         if (c==cmdHideOfflines || c==cmdShowOfflines) {
-            Config cf=StaticData.getInstance().config;
+            //Config cf=StaticData.getInstance().config;
             cf.showOfflineContacts=!cf.showOfflineContacts;
             addOptionCommands();
             reEnumRoster();
             moveCursorTo(cursor);
+        }
+        if (c==cmdSetFullScreen) {
+            //Config cf=StaticData.getInstance().config;
+            cf.fullscreen=!cf.fullscreen;
+            setFullScreenMode(cf.fullscreen);
         }
     }
     protected void showNotify() {
@@ -718,7 +733,7 @@ public class Roster
     // temporary here
     public final String getProperty(final String key, final String defvalue) {
         try {
-            String s=StaticData.getInstance().midlet.getAppProperty(key);
+            String s=sd.midlet.getAppProperty(key);//StaticData.getInstance().midlet.getAppProperty(key);
             return (s==null)?defvalue:s;
         } catch (Exception e) {
             return defvalue;

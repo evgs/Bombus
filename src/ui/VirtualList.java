@@ -85,6 +85,7 @@ public abstract class VirtualList
         rotator=new TimerTaskRotate(0);
     }
 
+    
     public VirtualList(Display display) {
         this();
         
@@ -363,6 +364,11 @@ public abstract class VirtualList
 
     public void destroyView(){
         if (display!=null)   display.setCurrent(parentView);
+    }
+
+    protected void sizeChanged(int w, int h) {
+        width=w;
+        height=h;
     }
 
 }

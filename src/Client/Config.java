@@ -16,7 +16,6 @@ import java.io.*;
 public class Config {
     
     public final int keepAlive=getProperty("keep_alive",200);
-    public int profile=getProperty("alert_profile",1);
     public boolean ghostMotor=getProperty("moto_e398",false);
     
 /*#DefaultConfiguration,Release#*///<editor-fold>
@@ -33,6 +32,9 @@ public class Config {
     
     public int accountIndex=-1;
     public boolean showOfflineContacts=true;
+    public boolean fullscreen=false;
+    public int profile=0;
+    
     
     public void LoadFromStorage(){
         
@@ -41,6 +43,8 @@ public class Config {
         try {
             accountIndex = inputStream.readInt();
             showOfflineContacts=inputStream.readBoolean();
+            fullscreen=inputStream.readBoolean();
+            profile = inputStream.readInt();
             
             inputStream.close();
         } catch (Exception e) { e.printStackTrace(); }
@@ -54,6 +58,8 @@ public class Config {
         try {
             outputStream.writeInt(accountIndex);
             outputStream.writeBoolean(showOfflineContacts);
+            outputStream.writeBoolean(fullscreen);
+            outputStream.writeInt(profile);
         } catch (IOException e) { e.printStackTrace(); }
 
         NvStorage.writeFileRecord(outputStream, "config", 0, true);
