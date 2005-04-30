@@ -366,9 +366,12 @@ public abstract class VirtualList
         if (display!=null)   display.setCurrent(parentView);
     }
 
+/*#DefaultConfiguration,Release#*///<editor-fold>
+    //exists only in midp2
     protected void sizeChanged(int w, int h) {
         width=w;
         height=h;
     }
+/*$DefaultConfiguration,Release$*///</editor-fold>
 
 }

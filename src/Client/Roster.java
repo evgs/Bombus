@@ -107,6 +107,7 @@ public class Roster
         addCommand(cmdAccount);
 /*#DefaultConfiguration,Release#*///<editor-fold>
         addCommand(cmdSetFullScreen);
+        setFullScreenMode(cf.fullscreen);
 /*$DefaultConfiguration,Release$*///</editor-fold>
         
         addCommand(cmdQuit);
@@ -720,11 +721,13 @@ public class Roster
             reEnumRoster();
             moveCursorTo(cursor);
         }
+/*#DefaultConfiguration,Release#*///<editor-fold>
         if (c==cmdSetFullScreen) {
             //Config cf=StaticData.getInstance().config;
             cf.fullscreen=!cf.fullscreen;
             setFullScreenMode(cf.fullscreen);
         }
+/*$DefaultConfiguration,Release$*///</editor-fold>
     }
     protected void showNotify() {
         countNewMsgs();
