@@ -18,7 +18,7 @@ import java.util.Vector;
  *
  * @author Eugene Stahov
  */
-public class SmilePicker extends VirtualList implements CommandListener{
+public class SmilePicker extends VirtualList implements CommandListener, VirtualElement{
 
 /*#M55,M55_Release#*///<editor-fold>
 //--    private final static int CURSOR_VOFFSET=1;
@@ -70,13 +70,27 @@ public class SmilePicker extends VirtualList implements CommandListener{
       
     }
     
-    protected void drawItem(int index, Graphics g, int ofs, boolean selected){
-        int max=(index==lines-1)? xLastCnt:xCnt;
-        for (int i=0;i<xCnt;i++) {
-            il.drawImage(g, index*xCnt + i, i*imgWidth+CURSOR_HOFFSET, CURSOR_VOFFSET);
-        }
-    };
+    int smileIndex;
+    //SmileItem si=new SmileItem();
     
+    public int getItemCount(){ return lines; }
+    public VirtualElement getItemRef(int index){ smileIndex=index; return this;}
+    
+    //private class SmileItem implements VirtualElement {
+        public int getVWidth(){ return 0; }
+        public int getVHeight() { return lineHeight; }
+        public int getColor(){ return 0x000000; }
+        public int getColorBGnd(){ return 0xFFFFFF; }
+    
+        
+        public void drawItem(Graphics g, int ofs, boolean selected){
+            int max=(smileIndex==lines-1)? xLastCnt:xCnt;
+            for (int i=0;i<xCnt;i++) {
+                il.drawImage(g, smileIndex*xCnt + i, i*imgWidth+CURSOR_HOFFSET, CURSOR_VOFFSET);
+            }
+        };
+    
+    //}
     public void drawCursor (Graphics g, int width, int height){
         int x=xCursor*imgWidth;
         g.translate(x,0);
@@ -107,9 +121,7 @@ public class SmilePicker extends VirtualList implements CommandListener{
         if (xCursor >= xLastCnt) xCursor=xLastCnt-1;
     }
     
-    protected int getItemCount(){ return lines; }
-    protected int getItemWidth(int index){ return 0; }
-    protected int getItemHeight(int index) { return lineHeight; }
+    
     public void eventOk(){
         try {
             me.AddText(

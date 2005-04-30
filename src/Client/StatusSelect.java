@@ -13,7 +13,7 @@ import ui.*;
  *
  * @author Eugene Stahov
  */
-public class StatusSelect extends IconTextList implements CommandListener{
+public class StatusSelect extends VirtualList implements CommandListener{
     
     private Command cmdOk=new Command("Select",Command.OK,1);
     private Command cmdMsg=new Command("Set Message",Command.SCREEN,1);
@@ -22,7 +22,8 @@ public class StatusSelect extends IconTextList implements CommandListener{
     private Command cmdCancel=new Command("Back",Command.BACK,99);
     /** Creates a new instance of SelectStatus */
     public StatusSelect(Display d) {
-        super(StaticData.getInstance().rosterIcons);
+        super();
+        setTitleImages(StaticData.getInstance().rosterIcons);
         createTitle(1, "Status",null);
         
         addCommand(cmdOk);
@@ -34,8 +35,8 @@ public class StatusSelect extends IconTextList implements CommandListener{
         
         attachDisplay(d);
     }
-    public Element getItemRef(int Index){
-        return (Element)StaticData.getInstance().statusList.elementAt(Index);
+    public VirtualElement getItemRef(int Index){
+        return (VirtualElement)StaticData.getInstance().statusList.elementAt(Index);
     }
     
     ExtendedStatus getSel(){ return (ExtendedStatus)getSelectedObject();}

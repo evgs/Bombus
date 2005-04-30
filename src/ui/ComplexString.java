@@ -12,7 +12,7 @@ import javax.microedition.lcdui.*;
  *
  * @author Eugene Stahov
  */
-public class ComplexString extends Vector{
+public class ComplexString extends Vector implements VirtualElement{
 
     //private Vector v;
     private final static int IMAGE=0x00000000;
@@ -42,14 +42,17 @@ public class ComplexString extends Vector{
         return (imageList==null)?0:imageList.getWidth();
     }
     
-    public void draw(Graphics g, int offset){
+    public int getColor() {return 0x000000;}
+    public int getColorBGnd() {return 0xFFFFFF;}
+    
+    public void drawItem(Graphics g, int offset, boolean selected){
         //g.setColor(0);
         boolean ralign=false;
         
         int w=0;
         int dw;
-        int imageYOfs=( getHeight()-imgHeight() )>>1;
-        int fontYOfs=(( getHeight()-font.getHeight() )>>1) +1;
+        int imageYOfs=( getVHeight()-imgHeight() )>>1;
+        int fontYOfs=(( getVHeight()-font.getHeight() )>>1) +1;
         int imgWidth=imgWidth();
         
         g.setFont(font);
@@ -86,7 +89,7 @@ public class ComplexString extends Vector{
         
     }
 
-    public int getWidth() {
+    public int getVWidth() {
         //g.setColor(0);
         if (width>0) return width;  // cached
         
@@ -137,7 +140,7 @@ public class ComplexString extends Vector{
         super.setElementAt(obj, index);
     }
     
-    public int getHeight(){
+    public int getVHeight(){
         if (height!=0) return height;
         for (int i=0;i<elementCount;i++){
             int h=0;

@@ -13,7 +13,7 @@ import javax.microedition.lcdui.*;
  *
  * @author Eugene Stahov
  */
-public class AlertProfile extends IconTextList implements CommandListener, IconTextList.Element{
+public class AlertProfile extends VirtualList implements CommandListener {
     public final static int AUTO=0;
     public final static int ALL=1;
     public final static int NONE=2;
@@ -25,13 +25,17 @@ public class AlertProfile extends IconTextList implements CommandListener, IconT
     private final static int[] alertCodes=
     { AUTO, ALL, VIBRA, SOUND, NONE };
     
+    private Profile profile=new Profile();
+    
     /** Creates a new instance of Profile */
     
     private Command cmdOk=new Command("Select",Command.OK,1);
     private Command cmdCancel=new Command("Back",Command.BACK,99);
     /** Creates a new instance of SelectStatus */
     public AlertProfile(Display d) {
-        super(StaticData.getInstance().rosterIcons);
+        super();
+        setTitleImages(StaticData.getInstance().rosterIcons);
+        
         createTitle(1, "Alert Profile",null);
         
         addCommand(cmdOk);
@@ -51,11 +55,16 @@ public class AlertProfile extends IconTextList implements CommandListener, IconT
     }
     
     int index;
-    public Element getItemRef(int Index){ index=Index; return this;}
-    public void onSelect(){}
-    public int getColor(){ return 0; }
-    public int getImageIndex(){return alertCodes[index]+ImageList.ICON_PROFILE_INDEX;}
-    public String toString(){ return alertNames[index];}
+    public VirtualElement getItemRef(int Index){ index=Index; return profile;}
+    private class Profile extends IconTextElement {
+        public Profile(){
+            super(StaticData.getInstance().rosterIcons);
+        }
+        //public void onSelect(){}
+        public int getColor(){ return 0; }
+        public int getImageIndex(){return alertCodes[index]+ImageList.ICON_PROFILE_INDEX;}
+        public String toString(){ return alertNames[index];}
+    }
     
     public void commandAction(Command c, Displayable d){
         if (c==cmdOk) eventOk(); 

@@ -7,14 +7,14 @@
 package Client;
 import java.io.*;
 import java.util.Vector;
-import ui.IconTextList;
+import ui.IconTextElement;
 import ui.ImageList;
 import com.alsutton.jabber.datablocks.Presence;
 /**
  *
  * @author Eugene Stahov
  */
-public class ExtendedStatus implements IconTextList.Element{
+public class ExtendedStatus extends IconTextElement{
     
     private String name;    // status name
     private String status="";
@@ -64,6 +64,7 @@ public class ExtendedStatus implements IconTextList.Element{
     
     /** Creates a new instance of ExtendedStatus */
     private ExtendedStatus(int index, String name) {
+        super(StaticData.getInstance().rosterIcons);
         this.index=index;
         this.name=name;
     }

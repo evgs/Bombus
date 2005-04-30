@@ -6,18 +6,19 @@
 
 package Client;
 import java.util.*;
-import ui.IconTextList;
+import ui.IconTextElement;
 import ui.ImageList;
 
 /**
  * Контакт
  * @author Eugene Stahov
  */
-public class Contact implements IconTextList.Element{
+public class Contact extends IconTextElement{
     
     /** Creates a new instance of Contact */
     private Contact (){
         //lastReaded=0;
+        super(StaticData.getInstance().rosterIcons);
         msgs=new Vector();
     }
 
@@ -104,6 +105,8 @@ public class Contact implements IconTextList.Element{
     
   
     public int getColor() { return 0; }
+    // public int getColorBGnd() { return 0xffffff; }
+    
     public String toString() { 
         return (nick==null)?getJid():nick+jid.getResource(); 
     }

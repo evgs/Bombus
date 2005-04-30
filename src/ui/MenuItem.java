@@ -10,17 +10,15 @@ package ui;
  *
  * @author Eugene Stahov
  */
-public class MenuItem {
+public class MenuItem extends ComplexString
+{
     
-    private String name;
     /** Creates a new instance of MenuItem */
     public MenuItem(String name) {
-        this.name=name;
+        setElementAt(name, 0);
     }
     
-    public void action(){
-        
-    }
+    public void action(){}
     
-    public String toString(){ return name;}
+    //public String toString(){ return name;}
 }

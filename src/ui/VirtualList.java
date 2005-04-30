@@ -20,14 +20,15 @@ public abstract class VirtualList
     /**
      * интерфейс отрисовываемого элемента списка
      */
-    abstract protected int getItemHeight(int index);
-    abstract protected int getItemWidth(int index);
-    abstract protected void drawItem(int index, Graphics g, int ofs, boolean selected);
-    public int getItemBGndRGB(int index) {return VL_BGND;} 
+//    abstract protected int getItemHeight(int index);
+//    abstract protected int getItemWidth(int index);
+//    abstract protected void drawItem(int index, Graphics g, int ofs, boolean selected);
+//    public int getItemBGndRGB(int index) {return VL_BGND;} 
     public void focusedItem(int index) {}
 
     /** число элементов списка, исключа€ заголовок  */
     abstract protected int getItemCount();
+    abstract protected VirtualElement getItemRef(int index);
     
     /** отрисовка заголовка  */
     public int getTitleBGndRGB() {return VL_TITLE_BGND;} 
@@ -54,6 +55,8 @@ public abstract class VirtualList
     int height;
     
     protected int cursor;
+    VirtualElement atCursor;
+    
     int win_top;    // первый элемент
     //int full_items; // полностью изображено в окне
     int offset;     // смещение курсора
@@ -73,6 +76,8 @@ public abstract class VirtualList
     public ComplexString getTitleLine() {return title;}
     public void setTitleLine(ComplexString title) { this.title=title; }
     public void setTitleImages(ImageList il) { this.titleil=il; }
+    
+    public Object getSelectedObject() { return atCursor; }    
 
     protected Display display;
     protected Displayable parentView;
@@ -119,13 +124,13 @@ public abstract class VirtualList
         
         int list_top=0;
         if (title!=null) {
-            list_top=title.getHeight();  // верхн€€ граница списка
+            list_top=title.getVHeight();  // верхн€€ граница списка
             
             g.setClip(0,0, width, list_top);
             g.setColor(getTitleBGndRGB());
             g.fillRect(0,0, width, list_top);
             g.setColor(getTitleRGB());
-            title.draw(g,0);
+            title.drawItem(g,0,false);
         }
 
 
@@ -149,18 +154,23 @@ public abstract class VirtualList
         while (yp<height) {
             
             if (i>=count) break;    // нечего более рисовать
+            VirtualElement el=getItemRef(i);
             
             boolean sel=(i==cursor);
             
-            int lh=getItemHeight(i);
+            int lh=el.getVHeight();
             
             setAbsOrg(g, 0, yp);
 
             g.setClip(0,0, item_mw, lh);
-            g.setColor(getItemBGndRGB(i));
+            g.setColor(el.getColorBGnd());
             g.fillRect(0,0, item_mw, lh);
-            if (sel) drawCursor(g, item_mw, lh);
-            drawItem(i, g, (sel)?offset:0, sel);
+            if (sel) {
+                drawCursor(g, item_mw, lh);
+                atCursor=el;
+            }
+            el.drawItem(g, (sel)?offset:0, sel);
+            
             i++;
             if ((yp+=lh)<=height) fe++;   // число цельных элементов в окне
         }
@@ -213,9 +223,11 @@ public abstract class VirtualList
         if (count==0) return 0;
         int wsize=height;
         int itemcnt=0;
-        if (title!=null) wsize-=title.getHeight();
+        if (title!=null) wsize-=title.getVHeight();
         while (wsize>0) {
-            wsize-=getItemHeight(from);
+            //wsize-=getItemHeight(from);
+            // TODO: проверить на NullPointerException
+            wsize-=getItemRef(from).getVHeight();    
             if (wsize>=0) itemcnt++;
             from+=direction;
             if (from<0) break; // вылет вверх
@@ -277,6 +289,15 @@ public abstract class VirtualList
         moveCursor(index-cursor); 
     }
 
+    public void moveCursorTo(Object focused){
+        int count=getItemCount();
+        for (int index=0;index<count;index++){
+            if (focused==getItemRef(index)) {
+                moveCursorTo(index);
+                break;
+            }
+        }
+    }
     
     public void keyPressed(int keyCode) {
         //int act=getGameAction(keyCode);
@@ -311,9 +332,9 @@ public abstract class VirtualList
     private void setRotator(){
         rotator.destroyTask();
         if (cursor>=0) {
-            int itemWidth=getItemWidth(cursor);
+            int itemWidth=getItemRef(cursor).getVWidth();
             if (itemWidth>=width-VL_SZ_SCROLL)
-                rotator=new TimerTaskRotate( getItemWidth(cursor) -width/2 );
+                rotator=new TimerTaskRotate( itemWidth - width/2 );
         }
     }
     // cursor rotator

@@ -36,8 +36,13 @@ public class ComplexStringList extends VirtualList
         if (lines==null) return 0;
         return lines.size();
     }
+    
+    protected VirtualElement getItemRef(int index){
+       return getLine(index); 
+    }
+    
     protected int getItemHeight(int index){ 
-        return getLine(index).getHeight();
+        return getLine(index).getVHeight();
     }
     protected ComplexString cacheUpdate(Vector lines, int index) {return null;}
     
@@ -45,12 +50,12 @@ public class ComplexStringList extends VirtualList
     public int getTextColor(){return 0;}
     
     protected int getItemWidth(int index){ 
-        return getLine(index).getWidth();
+        return getLine(index).getVWidth();
     }        
 
     protected void drawItem(int index, Graphics g, int ofs, boolean selected){
         g.setColor(getTextColor());
-        getLine(index).draw(g, ofs);
+        getLine(index).drawItem(g, ofs, false);
     }
 
     private ComplexString getLine(int index){

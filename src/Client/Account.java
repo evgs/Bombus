@@ -8,7 +8,7 @@ package Client;
 import java.util.*;
 import java.io.*;
 import javax.microedition.midlet.MIDlet;
-import ui.IconTextList;
+import ui.IconTextElement;
 import ui.ImageList;
 import javax.microedition.rms.*;
 import javax.microedition.lcdui.*;
@@ -19,7 +19,7 @@ import com.alsutton.jabber.*;
  *
  * @author Eugene Stahov
  */
-public class Account implements IconTextList.Element{
+public class Account extends IconTextElement{
     
     public final static String storage="accounts";
             
@@ -32,6 +32,7 @@ public class Account implements IconTextList.Element{
         
     /** Creates a new instance of Account */
     public Account() {
+        super(StaticData.getInstance().rosterIcons);
     }
     
     public static void launchAccount(){
@@ -98,10 +99,11 @@ public class Account implements IconTextList.Element{
         
     }
     
-    public void onSelect(){ }
+    //public void onSelect(){ }
     public String toString(){ return userName+'@'+server; }
     public int getColor(){ return 0x000000; }
-    public int getImageIndex() {return active?0:5;}
+    //public int getColorBGnd() {return 0xffffff;}
+    protected int getImageIndex() {return active?0:5;}
 
     public String getUserName() { return userName;  }
     public void setUserName(String userName) { this.userName = userName;  }

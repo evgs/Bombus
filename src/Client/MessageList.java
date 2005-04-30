@@ -68,9 +68,6 @@ implements CommandListener{
         return m;
     }
 
-    Element getSelectedObject(){
-        return (Element)contact.msgs.elementAt(cursor);
-    }
     public void eventOk(){
         Msg msg=(Msg)getSelectedObject();
         if (msg!=null) 

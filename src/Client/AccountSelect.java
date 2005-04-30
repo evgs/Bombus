@@ -15,7 +15,7 @@ import javax.microedition.lcdui.*;
  *
  * @author Eugene Stahov
  */
-public class AccountSelect extends IconTextList implements CommandListener{
+public class AccountSelect extends VirtualList implements CommandListener{
 
     Vector accountList;
     int activeAccount;
@@ -28,7 +28,8 @@ public class AccountSelect extends IconTextList implements CommandListener{
     
     /** Creates a new instance of AccountPicker */
     public AccountSelect(Display display) {
-        super(StaticData.getInstance().rosterIcons);
+        super();
+        setTitleImages(StaticData.getInstance().rosterIcons);
         //this.display=display;
 
         createTitle(1, "Accounts",null);
@@ -75,7 +76,7 @@ public class AccountSelect extends IconTextList implements CommandListener{
         }
     }
 
-    public Element getItemRef(int Index) { return (Element)accountList.elementAt(Index); }
+    public VirtualElement getItemRef(int Index) { return (VirtualElement)accountList.elementAt(Index); }
     protected int getItemCount() { return accountList.size();  }
 
     public void commandAction(Command c, Displayable d){

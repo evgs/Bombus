@@ -13,9 +13,9 @@ import javax.microedition.lcdui.*;
  */
 public interface VirtualElement {
     
-    public int getHeight();
-    public int getWidth();
+    public int getVHeight();
+    public int getVWidth();
     public int getColorBGnd(); 
     public int getColor(); 
-    public void drawItem(int index, Graphics g, int ofs, boolean selected);
+    public void drawItem(Graphics g, int ofs, boolean selected);
 }

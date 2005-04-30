@@ -24,7 +24,7 @@ import ui.*;
  */
 //public class Roster implements JabberListener, VList.Callback{
 public class Roster
-        extends IconTextList
+        extends VirtualList
         implements
         JabberListener,
         CommandListener,
@@ -76,7 +76,9 @@ public class Roster
     private StaticData sd=StaticData.getInstance();
     
     public Roster(Display display, boolean selAccount) {
-        super(StaticData.getInstance().rosterIcons);
+        super();
+        setTitleImages(StaticData.getInstance().rosterIcons);
+        
         this.display=display;
         
         cf=sd.config;
@@ -170,8 +172,8 @@ public class Roster
         //l.setCallback(this);
     }
     
-    public Element getItemRef(int Index){
-        return (Element) vContacts.elementAt(Index);
+    public VirtualElement getItemRef(int Index){
+        return (VirtualElement) vContacts.elementAt(Index);
     }
     
     public int getItemCount(){
@@ -624,7 +626,7 @@ public class Roster
     
     public void eventOk(){
         super.eventOk();
-        Element e=getSelectedObject();
+        Object e=getSelectedObject();
         if (e instanceof Contact) {
             new MessageList((Contact)e,display);
         }
@@ -642,7 +644,7 @@ public class Roster
     public void userKeyPressed(int KeyCode){
         if (KeyCode==KEY_NUM0) {
             if (messageCount==0) return;
-            Element atcursor=getSelectedObject();
+            Object atcursor=getSelectedObject();
             Contact c=null;
             if (atcursor instanceof Contact) c=(Contact)atcursor;
             // а если курсор на группе, то пока так.
@@ -745,7 +747,7 @@ public class Roster
     
     void resetStrCache(){
         //System.out.println("reset roster cache");
-        stringCache=new Vector(vContacts.capacity());
+        //stringCache=new Vector(vContacts.capacity());
     }
     
     public void focusedItem(int index) {
@@ -761,7 +763,7 @@ public class Roster
 
 /////////////////////////////////////////////////////////////////////////////
 
-class Group implements IconTextList.Element {
+class Group extends IconTextElement {
     String name;
     int index;
     public int ncontacts;
@@ -773,6 +775,7 @@ class Group implements IconTextList.Element {
     
     boolean collapsed;
     public Group(int index, String name) {
+        super(StaticData.getInstance().rosterIcons);
         this.index=index; this.name=name;
     }
     public int getColor(){ return 0x000080; }
