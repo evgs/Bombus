@@ -215,6 +215,7 @@ public class Roster
     }
     
     private void reEnumRoster(){
+        Object focused=getSelectedObject();
         Vector tContacts=new Vector(vContacts.size());
         boolean offlines=cf.showOfflineContacts;//StaticData.getInstance().config.showOfflineContacts;
         
@@ -244,38 +245,18 @@ public class Roster
         vContacts=tContacts;
         resetStrCache();
         if (cursor<0) cursor=0;
+        
+        // вернём курсор на прежний элемент
+        moveCursorTo(focused);
         redraw();
     }
     
-    
-    //    public int getImage(VList list, int index){
-    /*
-    public int getImage(int index){
-        Object o=vContacts.elementAt(index);
-        if (o==null) return -1;
-        if (o instanceof Group) {
-            return ((Group)o).collapsed?
-                ImageList.ICON_COLLAPSED_INDEX
-                    :ImageList.ICON_EXPANDED_INDEX;
+    public void moveCursorTo(Object focused){
+        if (focused!=null) {
+            int c=vContacts.indexOf(focused);
+            if (c>=0) moveCursorTo(c);
         }
-        Contact c=(Contact)o;
-        //return (c.>0)?7:c.status;
-        return c.status;
     }
-     */
-    
-    //    public String getString(VList list, int index){
-    /*
-    public String getString(int index){
-        Object o=vContacts.elementAt(index);
-        if (o instanceof Group) return ((Group)o).name;
-     
-        Contact tmp=(Contact)o;
-        String nick=tmp.nick;
-        if (nick!=null) return nick;
-        return tmp.getJid();
-    };
-     */
     
     
     public int myStatus=Presence.PRESENCE_OFFLINE;
@@ -547,7 +528,7 @@ public class Roster
     
     void processRoster(JabberDataBlock data){
         JabberDataBlock q=data.getChildBlock("query");
-        if (!q.getAttribute("xmlns").equals("jabber:iq:roster")) return;
+        if (!q.isJabberNameSpace("jabber:iq:roster")) return;
         int type=0;
         String iqType=data.getAttribute("type");
         if (iqType.equals("set")) type=1;

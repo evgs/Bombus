@@ -79,6 +79,9 @@ public class NvStorage {
 //--        //System.out.println("path="+path);
 //--        //System.out.println("path="+path+name);
 //--        // verification
+//--        
+//--        // временно заблокирована проверка валидности пути. для C55
+//--        /*
 //--        try {
 //--            File f=new File();
 //--            if (!f.isDirectory(path)) return name;
@@ -86,6 +89,7 @@ public class NvStorage {
 //--            //e.printStackTrace(); 
 //--            return name; 
 //--        } 
+//--         */
 //--        return path+name;
 //--    }
 //--    

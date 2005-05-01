@@ -228,7 +228,9 @@ public class JabberStream implements XMLEventListener, Runnable
 
   public void tagStarted( String name, Hashtable attributes )
   {
-    if ( name.equals( "stream:stream" ) )
+    if (currentBlock!=null)
+        currentBlock = new JabberDataBlock( name, currentBlock, attributes );
+    else if ( name.equals( "stream:stream" ) )
     {
         String SessionId=(String)attributes.get("id");
         dispatcher.broadcastBeginConversation(SessionId);
@@ -239,8 +241,6 @@ public class JabberStream implements XMLEventListener, Runnable
       currentBlock = new Iq( currentBlock, attributes );
     else if ( name.equals("presence") )
       currentBlock = new Presence( currentBlock, attributes );
-    else
-      currentBlock = new JabberDataBlock( name, currentBlock, attributes );
   }
 
   /**

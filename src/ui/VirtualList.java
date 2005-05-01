@@ -31,8 +31,8 @@ public abstract class VirtualList
     abstract protected VirtualElement getItemRef(int index);
     
     /** отрисовка заголовка  */
-    public int getTitleBGndRGB() {return VL_TITLE_BGND;} 
-    public int getTitleRGB() {return VL_TITLE;} 
+    protected int getTitleBGndRGB() {return VL_TITLE_BGND;} 
+    protected int getTitleRGB() {return VL_TITLE;} 
     
     public void eventOk(){};
     public void userKeyPressed(int KeyCode){}
@@ -55,16 +55,16 @@ public abstract class VirtualList
     int height;
     
     protected int cursor;
-    VirtualElement atCursor;
+    protected VirtualElement atCursor;
     
-    int win_top;    // первый элемент
+    protected int win_top;    // первый элемент
     //int full_items; // полностью изображено в окне
-    int offset;     // смещение курсора
+    protected int offset;     // смещение курсора
     
-    ComplexString title;
-    ImageList titleil;
+    protected ComplexString title;
+    protected ImageList titleil;
     
-    public Vector createTitle(int size, Object first, Object second) {
+    public ComplexString createTitle(int size, Object first, Object second) {
         ComplexString title=new ComplexString(titleil);
         title.setSize(size);
         if (first!=null) title.setElementAt(first,0);
@@ -290,7 +290,7 @@ public abstract class VirtualList
         moveCursor(index-cursor); 
     }
 
-    public void moveCursorTo(Object focused){
+    /*public void moveCursorTo(Object focused){
         int count=getItemCount();
         for (int index=0;index<count;index++){
             if (focused==getItemRef(index)) {
@@ -299,6 +299,7 @@ public abstract class VirtualList
             }
         }
     }
+     */
     
     public void keyPressed(int keyCode) {
         //int act=getGameAction(keyCode);
