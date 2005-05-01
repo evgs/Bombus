@@ -97,7 +97,7 @@ public abstract class VirtualList
         attachDisplay(display);
     }
     
-    protected void attachDisplay (Display display) {
+    public void attachDisplay (Display display) {
         if (this.display!=null) return;
         this.display=display;
         parentView=display.getCurrent();
@@ -169,6 +169,7 @@ public abstract class VirtualList
                 drawCursor(g, item_mw, lh);
                 atCursor=el;
             }
+            g.setColor(el.getColor());
             el.drawItem(g, (sel)?offset:0, sel);
             
             i++;

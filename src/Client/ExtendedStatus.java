@@ -69,7 +69,7 @@ public class ExtendedStatus extends IconTextElement{
         this.name=name;
     }
     
-    public void onSelect(){}
+    //public void onSelect(){}
     public String toString(){ 
         StringBuffer s=new StringBuffer(name);
         s.append(" (");

@@ -13,7 +13,8 @@ import Client.MessageList;
  *
  * @author Eugene Stahov
  */
-public class Msg implements MessageList.Element{
+public class Msg //implements MessageList.Element
+{
     
     public final static int MESSAGE_TYPE_IN=0;
     public final static int MESSAGE_TYPE_OUT=1;

@@ -61,11 +61,12 @@ public class Roster
     boolean reconnect=false;
     
     private Command cmdStatus=new Command("Status",Command.SCREEN,1);
-    private Command cmdContact=new Command("Contact menu",Command.SCREEN,2);
-    private Command cmdGroup=new Command("Group menu",Command.SCREEN,3);
+    private Command cmdContact=new Command("Contact >",Command.SCREEN,2);
+    private Command cmdAdd=new Command("Add Contact",Command.SCREEN,3);
+    //private Command cmdGroup=new Command("Group menu",Command.SCREEN,3);
+    private Command cmdAlert=new Command("Alert Profile",Command.SCREEN,8);
     private Command cmdShowOfflines=new Command("Show Offlines",Command.SCREEN,9);
     private Command cmdHideOfflines=new Command("Hide Offlines",Command.SCREEN,9);
-    private Command cmdAlert=new Command("Alert Profile",Command.SCREEN,9);
     private Command cmdReconnect=new Command("Reconnect",Command.SCREEN,10);
     private Command cmdLogoff=new Command("Logoff",Command.SCREEN,11);
     private Command cmdAccount=new Command("Account",Command.SCREEN,12);
@@ -104,6 +105,7 @@ public class Roster
         
         addCommand(cmdStatus);
         addCommand(cmdAlert);
+        addCommand(cmdAdd);
         addCommand(cmdReconnect);
         addCommand(cmdLogoff);
         addCommand(cmdAccount);
@@ -496,7 +498,7 @@ public class Roster
                 //Message trackMessage = new Message( "evg_m@jabber.ru", messageText );
                 //theStream.send( trackMessage );
                 String from=message.getFrom();
-                String body=message.getBody();
+                String body=message.getBody().trim();
                 if (body.length()==0) return;
                 
                 Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, body);
@@ -723,6 +725,9 @@ public class Roster
             reEnumRoster();
             moveCursorTo(cursor);
         }
+        if (c==cmdContact) {
+            contactMenu((Contact) getSelectedObject());
+        }
 /*#DefaultConfiguration,Release#*///<editor-fold>
         if (c==cmdSetFullScreen) {
             //Config cf=StaticData.getInstance().config;
@@ -753,11 +758,25 @@ public class Roster
     public void focusedItem(int index) {
         Object atCursor=vContacts.elementAt(index);
         if (atCursor instanceof Contact) {
-            addCommand(cmdContact); removeCommand(cmdGroup);
+            addCommand(cmdContact); 
+            //removeCommand(cmdGroup);
         }
         if (atCursor instanceof Group) {
-            addCommand(cmdGroup); removeCommand(cmdContact);
+            //addCommand(cmdGroup); 
+            removeCommand(cmdContact);
         }
+    }
+    
+    public void contactMenu(Contact c) {
+        Menu m=new Menu(c.toString());
+        m.addItem(new MenuItem("Info"));
+        m.addItem(new MenuItem("Rename"));
+        m.addItem(new MenuItem("Group"));
+        m.addItem(new MenuItem("Delete"));
+        m.addItem(new MenuItem("Auth Send"));
+        m.addItem(new MenuItem("Auth Request"));
+        m.addItem(new MenuItem("Auth Remove"));
+        m.attachDisplay(display);
     }
 }
 

@@ -101,7 +101,7 @@ public final class MessageParser {
 
     public Vector parseMsg(
             String txt, 
-            ImageList il, 
+            ImageList il,       //!< если null, то смайлы игнорируются
             int width, 
             boolean singleLine, //!< парсить только одну строку из сообщения
             NotifyAddLine notify
@@ -124,6 +124,9 @@ public final class MessageParser {
             int smileEnd=i;
             while (i<txt.length()) {
                 char c=txt.charAt(i);
+
+                if (il==null) break;
+
                 p1=p.findChild(c);
                 if (p1==null) break;    //этот символ c не попал в смайл
                 p=p1;

@@ -110,7 +110,7 @@ public class Contact extends IconTextElement{
     public String toString() { 
         return (nick==null)?getJid():nick+jid.getResource(); 
     }
-    public void onSelect(){}
+    //public void onSelect(){}
 
     public final String getJid() {
         return jid.getJidFull();

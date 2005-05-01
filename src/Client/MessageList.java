@@ -23,13 +23,14 @@ implements CommandListener{
     
     ImageList il;
     
-    public interface Element {
+    /*public interface Element {
         int getColor1();
         String getMsgHeader();
         int getColor2();
         String toString();
         void onSelect();
     }
+     */
 
     /** Creates a new instance of MessageList */
     public MessageList(Contact contact, Display display) {
@@ -69,7 +70,8 @@ implements CommandListener{
     }
 
     public void eventOk(){
-        Msg msg=(Msg)getSelectedObject();
+        Msg msg=(Msg)contact.msgs.elementAt(cursor);
+        //getSelectedObject();
         if (msg!=null) 
             new MessageView(display,msg);
     }

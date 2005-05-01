@@ -22,8 +22,16 @@ public class MessageView
 {
 
     int titlecolor; // зависит от типа сообщения
+    boolean smiles=true;
+    Thread t=null;
     
     Command CmdBack=new Command("Back",Command.BACK,99);
+/*#DefaultConfiguration,Release#*///<editor-fold>
+    Command CmdTSM=new Command("Smiles", "Toggle Smiles", Command.SCREEN,1);
+/*$DefaultConfiguration,Release$*///</editor-fold>
+/*#!DefaultConfiguration,Release#*///<editor-fold>
+//--    Command CmdTSM=new Command("Toggle Smiles", Command.SCREEN,1);
+/*$!DefaultConfiguration,Release$*///</editor-fold>
 
     public int getTitleBGndRGB() {return 0x338888;} 
     public int getTitleRGB() {return titlecolor;} 
@@ -44,7 +52,7 @@ public class MessageView
         StaticData sd=StaticData.getInstance();
         sd.parser.parseMsg(
                 msg.body,
-                sd.smilesIcons, 
+                (smiles)?sd.smilesIcons:null, 
                 getWidth()-6,
                 false, this);
     }
@@ -59,9 +67,10 @@ public class MessageView
         setTitleLine(title);
         
         this.msg=msg;
-        new Thread(this).start();
+        (t=new Thread(this)).start();
 
         addCommand(CmdBack);
+        addCommand(CmdTSM);
         setCommandListener(this);
 
     }
@@ -74,5 +83,16 @@ public class MessageView
             destroyView();
             return;
         }
+        if (c==CmdTSM) toggleSmiles();
+    }
+    
+    public void userKeyPressed(int KeyCode){
+        if (KeyCode==KEY_STAR) toggleSmiles();
+    }
+    
+    private void toggleSmiles(){
+        smiles=!smiles;
+        while (t.isAlive());
+        (t=new Thread(this)).start();
     }
 }
