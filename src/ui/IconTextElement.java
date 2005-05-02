@@ -61,6 +61,7 @@ abstract public class IconTextElement implements VirtualElement
     //public int getItemCount()
     public int getVHeight(){ return itemHeight;}
     public int getColorBGnd(){ return 0xffffff;}
+    public void onSelect(){};
     
     /*public void eventOk(){
         if (atCursor!=null) atCursor.onSelect();

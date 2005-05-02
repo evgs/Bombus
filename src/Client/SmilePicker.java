@@ -81,6 +81,7 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
         public int getVHeight() { return lineHeight; }
         public int getColor(){ return 0x000000; }
         public int getColorBGnd(){ return 0xFFFFFF; }
+        public void onSelect(){};
     
         
         public void drawItem(Graphics g, int ofs, boolean selected){

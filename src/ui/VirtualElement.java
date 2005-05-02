@@ -18,4 +18,5 @@ public interface VirtualElement {
     public int getColorBGnd(); 
     public int getColor(); 
     public void drawItem(Graphics g, int ofs, boolean selected);
+    public void onSelect();
 }

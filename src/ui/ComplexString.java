@@ -44,6 +44,7 @@ public class ComplexString extends Vector implements VirtualElement{
     
     public int getColor() {return 0x000000;}
     public int getColorBGnd() {return 0xFFFFFF;}
+    public void onSelect(){};
     
     public void drawItem(Graphics g, int offset, boolean selected){
         //g.setColor(0);

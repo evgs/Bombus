@@ -69,11 +69,17 @@ implements CommandListener{
         return m;
     }
 
+    public Object getSelectedObject(){
+        try {
+            return contact.msgs.elementAt(cursor);
+        } catch (Exception e) {}
+        return null;
+    }
     public void eventOk(){
-        Msg msg=(Msg)contact.msgs.elementAt(cursor);
+        //Msg msg=(Msg)getSelectedObject();
         //getSelectedObject();
-        if (msg!=null) 
-            new MessageView(display,msg);
+        //if (msg!=null) 
+            new MessageView(display,(Msg)getSelectedObject());
     }
     
     public void commandAction(Command c, Displayable d){

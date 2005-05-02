@@ -30,6 +30,7 @@ public class AlertProfile extends VirtualList implements CommandListener {
     /** Creates a new instance of Profile */
     
     private Command cmdOk=new Command("Select",Command.OK,1);
+    private Command cmdDef=new Command("Set Default",Command.OK,2);
     private Command cmdCancel=new Command("Back",Command.BACK,99);
     /** Creates a new instance of SelectStatus */
     public AlertProfile(Display d) {
@@ -39,6 +40,7 @@ public class AlertProfile extends VirtualList implements CommandListener {
         createTitle(1, "Alert Profile",null);
         
         addCommand(cmdOk);
+        addCommand(cmdDef);
         addCommand(cmdCancel);
         setCommandListener(this);
         
@@ -68,6 +70,10 @@ public class AlertProfile extends VirtualList implements CommandListener {
     
     public void commandAction(Command c, Displayable d){
         if (c==cmdOk) eventOk(); 
+        if (c==cmdDef) { 
+            StaticData.getInstance().config.def_profile=alertCodes[cursor];
+            eventOk(); 
+        }
         if (c==cmdCancel) destroyView();
     }
     

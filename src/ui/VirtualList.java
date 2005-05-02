@@ -34,7 +34,9 @@ public abstract class VirtualList
     protected int getTitleBGndRGB() {return VL_TITLE_BGND;} 
     protected int getTitleRGB() {return VL_TITLE;} 
     
-    public void eventOk(){};
+    public void eventOk(){
+        if (atCursor!=null) ((VirtualElement)atCursor).onSelect();
+    }
     public void userKeyPressed(int KeyCode){}
     //////////////////////////////////
     //public static final int VL_CURSOR_SHADE   =0x000000;

@@ -104,6 +104,7 @@ public class Account extends IconTextElement{
     public int getColor(){ return 0x000000; }
     //public int getColorBGnd() {return 0xffffff;}
     protected int getImageIndex() {return active?0:5;}
+    public void onSelect(){};
 
     public String getUserName() { return userName;  }
     public void setUserName(String userName) { this.userName = userName;  }

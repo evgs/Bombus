@@ -22,7 +22,7 @@ public class MessageView
 {
 
     int titlecolor; // зависит от типа сообщения
-    boolean smiles=true;
+    boolean smiles;
     Thread t=null;
     
     Command CmdBack=new Command("Back",Command.BACK,99);
@@ -48,8 +48,9 @@ public class MessageView
     public void notifyFinalized(){ redraw(); }
     
     Msg msg;
+    StaticData sd;
+    
     public void run() {
-        StaticData sd=StaticData.getInstance();
         sd.parser.parseMsg(
                 msg.body,
                 (smiles)?sd.smilesIcons:null, 
@@ -60,11 +61,15 @@ public class MessageView
     /** Creates a new instance of MessageView */
     public MessageView(Display display, Msg msg) {
         super(display);
+
+        sd=StaticData.getInstance();
         
         titlecolor=msg.getColor1();
         ComplexString title=new ComplexString(null);
         title.addElement(msg.getMsgHeader());
         setTitleLine(title);
+        
+        smiles=sd.config.smiles;
         
         this.msg=msg;
         (t=new Thread(this)).start();

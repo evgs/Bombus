@@ -65,12 +65,13 @@ public class Roster
     private Command cmdAdd=new Command("Add Contact",Command.SCREEN,3);
     //private Command cmdGroup=new Command("Group menu",Command.SCREEN,3);
     private Command cmdAlert=new Command("Alert Profile",Command.SCREEN,8);
-    private Command cmdShowOfflines=new Command("Show Offlines",Command.SCREEN,9);
-    private Command cmdHideOfflines=new Command("Hide Offlines",Command.SCREEN,9);
+    //private Command cmdShowOfflines=new Command("Show Offlines",Command.SCREEN,9);
+    //private Command cmdHideOfflines=new Command("Hide Offlines",Command.SCREEN,9);
     private Command cmdReconnect=new Command("Reconnect",Command.SCREEN,10);
     private Command cmdLogoff=new Command("Logoff",Command.SCREEN,11);
     private Command cmdAccount=new Command("Account",Command.SCREEN,12);
-    private Command cmdSetFullScreen=new Command("Fullscreen",Command.SCREEN,20);
+    //private Command cmdSetFullScreen=new Command("Fullscreen",Command.SCREEN,20);
+    private Command cmdOptions=new Command("Options",Command.SCREEN,20);
     private Command cmdQuit=new Command("Quit",Command.SCREEN,99);
     
     private Config cf;
@@ -110,10 +111,10 @@ public class Roster
         addCommand(cmdLogoff);
         addCommand(cmdAccount);
 /*#DefaultConfiguration,Release#*///<editor-fold>
-        addCommand(cmdSetFullScreen);
+        //addCommand(cmdSetFullScreen);
         setFullScreenMode(cf.fullscreen);
 /*$DefaultConfiguration,Release$*///</editor-fold>
-        
+        addCommand(cmdOptions);
         addCommand(cmdQuit);
         
         addOptionCommands();
@@ -133,13 +134,13 @@ public class Roster
     
     void addOptionCommands(){
         //Config cf=StaticData.getInstance().config;
-        if (cf.showOfflineContacts) {
-            addCommand(cmdHideOfflines);
-            removeCommand(cmdShowOfflines);
-        } else {
-            addCommand(cmdShowOfflines);
-            removeCommand(cmdHideOfflines);
-        }
+//        if (cf.showOfflineContacts) {
+//            addCommand(cmdHideOfflines);
+//            removeCommand(cmdShowOfflines);
+//        } else {
+//            addCommand(cmdShowOfflines);
+//            removeCommand(cmdHideOfflines);
+//        }
     }
     public void setProgress(String pgs,int percent){
         SplashScreen.getInstance().setProgress(pgs, percent);
@@ -214,7 +215,7 @@ public class Roster
         displayStatus();
     }
     
-    private void reEnumRoster(){
+    public void reEnumRoster(){
         Object focused=getSelectedObject();
         Vector tContacts=new Vector(vContacts.size());
         boolean offlines=cf.showOfflineContacts;//StaticData.getInstance().config.showOfflineContacts;
@@ -240,7 +241,7 @@ public class Roster
         // adding groups
         for (i=1;i<vGroups.getCount();i++)
             vGroups.addToVector(tContacts,i);
-        vGroups.addToVector(tContacts,0);
+        if (cf.showTransports) vGroups.addToVector(tContacts,0);
         
         vContacts=tContacts;
         resetStrCache();
@@ -699,22 +700,25 @@ public class Roster
         if (c==cmdAlert) {
             new AlertProfile(display);
         }
-        if (c==cmdHideOfflines || c==cmdShowOfflines) {
-            //Config cf=StaticData.getInstance().config;
-            cf.showOfflineContacts=!cf.showOfflineContacts;
-            addOptionCommands();
-            reEnumRoster();
-            moveCursorTo(cursor);
+        if (c==cmdOptions){
+            new ConfigForm(display);
         }
+//        if (c==cmdHideOfflines || c==cmdShowOfflines) {
+//            //Config cf=StaticData.getInstance().config;
+//            cf.showOfflineContacts=!cf.showOfflineContacts;
+//            addOptionCommands();
+//            reEnumRoster();
+//            moveCursorTo(cursor);
+//        }
         if (c==cmdContact) {
             contactMenu((Contact) getSelectedObject());
         }
 /*#DefaultConfiguration,Release#*///<editor-fold>
-        if (c==cmdSetFullScreen) {
-            //Config cf=StaticData.getInstance().config;
-            cf.fullscreen=!cf.fullscreen;
-            setFullScreenMode(cf.fullscreen);
-        }
+//        if (c==cmdSetFullScreen) {
+//            //Config cf=StaticData.getInstance().config;
+//            cf.fullscreen=!cf.fullscreen;
+//            setFullScreenMode(cf.fullscreen);
+//        }
 /*$DefaultConfiguration,Release$*///</editor-fold>
     }
     protected void showNotify() {
