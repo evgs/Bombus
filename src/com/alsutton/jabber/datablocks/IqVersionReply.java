@@ -27,12 +27,18 @@ public class IqVersionReply extends JabberDataBlock{
         query.setNameSpace("jabber:iq:version");
         query.addChild(new JabberDataBlock(query, "name","Bombus"));
         query.addChild(new JabberDataBlock(query, "version",Version.version));
+        String os=
 /*#DefaultConfiguration,Release#*///<editor-fold>
-        query.addChild(new JabberDataBlock(query, "os","J2ME MIDP2"));
+                "MIDP2"
 /*$DefaultConfiguration,Release$*///</editor-fold>
 /*#M55,M55_Release#*///<editor-fold>
-//--        query.addChild(new JabberDataBlock(query, "os","J2ME M55"));
+//--                "MIDP1(siemens)"
 /*$M55,M55_Release$*///</editor-fold>
+                +"\nPlatform="
+                +System.getProperty("microedition.platform")
+                +"\nLocale="
+                +System.getProperty("microedition.locale");
+        query.addChild(new JabberDataBlock(query, "os",os));
     }
     
     public String getTagName() {

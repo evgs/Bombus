@@ -15,7 +15,8 @@ public class MenuItem extends ComplexString
     
     /** Creates a new instance of MenuItem */
     public MenuItem(String name) {
-        setElementAt(name, 0);
+        addElement(" ");
+        addElement(name);
     }
     
     public void action(){}

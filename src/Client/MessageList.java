@@ -22,6 +22,7 @@ implements CommandListener{
     Command cmdQuote=new Command("Quote",Command.SCREEN,2);
     
     ImageList il;
+    boolean smiles;
     
     /*public interface Element {
         int getColor1();
@@ -36,7 +37,10 @@ implements CommandListener{
     public MessageList(Contact contact, Display display) {
         super(display);
         this.contact=contact;
-        il=StaticData.getInstance().smilesIcons;
+        StaticData sd=StaticData.getInstance();
+        il=sd.smilesIcons;
+        smiles=sd.config.smiles;
+        
         AttachList(new Vector());
 
         ComplexString title=new ComplexString(StaticData.getInstance().smilesIcons);
@@ -62,7 +66,7 @@ implements CommandListener{
         Msg msg=(Msg)contact.msgs.elementAt(index);
         msg.unread=false;
         m= (ComplexString)StaticData.getInstance().parser.
-                parseMsg( msg.toString(), il, getWidth()-6, true, null);
+                parseMsg( msg.toString(), il, getWidth()-6, smiles, null);
         m.insertElementAt(new Integer(msg.getColor1()|0x1000000), 0); //color
         int sz=lines.size(); if (index>=sz) lines.setSize(index+1);
         lines.setElementAt(m, index);

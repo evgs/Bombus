@@ -16,16 +16,18 @@ import javax.microedition.lcdui.*;
 public class AlertProfile extends VirtualList implements CommandListener {
     public final static int AUTO=0;
     public final static int ALL=1;
-    public final static int NONE=2;
-    public final static int VIBRA=3;
-    public final static int SOUND=4;
+    public final static int VIBRA=2;
+    public final static int SOUND=3;
+    public final static int NONE=4;
     
     private final static String[] alertNames=
     { "Auto", "All signals", "Vibra", "Sound", "No signals"};
-    private final static int[] alertCodes=
-    { AUTO, ALL, VIBRA, SOUND, NONE };
+    /*private final static int[] alertCodes=
+    { AUTO, ALL, VIBRA, SOUND, NONE };*/
     
     private Profile profile=new Profile();
+    int defp;
+    Config cf;
     
     /** Creates a new instance of Profile */
     
@@ -35,7 +37,10 @@ public class AlertProfile extends VirtualList implements CommandListener {
     /** Creates a new instance of SelectStatus */
     public AlertProfile(Display d) {
         super();
-        setTitleImages(StaticData.getInstance().rosterIcons);
+        StaticData sd=StaticData.getInstance();
+        setTitleImages(sd.rosterIcons);
+        
+        cf=sd.config;
         
         createTitle(1, "Alert Profile",null);
         
@@ -44,14 +49,9 @@ public class AlertProfile extends VirtualList implements CommandListener {
         addCommand(cmdCancel);
         setCommandListener(this);
         
-        int p=0;
-        switch (StaticData.getInstance().config.profile){
-            case AUTO:  p=0; break;
-            case ALL:   p=1; break;
-            case VIBRA: p=2; break;
-            case SOUND: p=3; break;
-            case NONE:  p=4; break;
-        }
+        int p=cf.profile;
+        defp=cf.def_profile;
+        
         moveCursorTo(p);
         attachDisplay(d);
     }
@@ -64,25 +64,29 @@ public class AlertProfile extends VirtualList implements CommandListener {
         }
         //public void onSelect(){}
         public int getColor(){ return 0; }
-        public int getImageIndex(){return alertCodes[index]+ImageList.ICON_PROFILE_INDEX;}
-        public String toString(){ return alertNames[index];}
+        public int getImageIndex(){return index+ImageList.ICON_PROFILE_INDEX;}
+        public String toString(){ 
+            StringBuffer s=new StringBuffer(alertNames[index]);
+            if (index==defp) s.append(" (default)");
+            return s.toString();
+        }
     }
     
     public void commandAction(Command c, Displayable d){
         if (c==cmdOk) eventOk(); 
         if (c==cmdDef) { 
-            StaticData.getInstance().config.def_profile=alertCodes[cursor];
-            eventOk(); 
+            cf.def_profile=defp=cursor;
+            redraw();
         }
         if (c==cmdCancel) destroyView();
     }
     
     public void eventOk(){
-        StaticData.getInstance().config.profile=alertCodes[cursor];
+        cf.profile=cursor;
         destroyView();
     }
     
-    public int getItemCount(){   return alertCodes.length; }
+    public int getItemCount(){   return alertNames.length; }
     
 
     /** */
