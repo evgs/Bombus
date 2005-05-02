@@ -374,8 +374,21 @@ Motorola:
 
  фикс Quote
 
- пробел перед назманием команды в Contact >
+ пробел перед названием команды в Contact >
 
  изменение порядка иконок профиля (отразилось только в структуре кода)
 
  расширена информация о клиенте в jabber:iq:version
+
+03.05.2005
+
+(28)
+
+ fix Options:smiles
+
+ группа Self-Contact, содержит контакты вида myjid/resource
+ всегда есть контакт myjid/Bombus
+ видна в случае Options:self-contact=true, либо число online-контактов
+ больше 1
+
+ заготовка в Options для not-in-list

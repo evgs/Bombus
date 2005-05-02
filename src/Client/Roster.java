@@ -32,8 +32,11 @@ public class Roster
         //Thread
 {
     
-    public final static int COMMON_INDEX=1;
+    public final static int SELF_INDEX=1;
+    public final static String SELF_GROUP="Self-Contact";
+    public final static int COMMON_INDEX=2;
     public final static String COMMON_GROUP="General";
+    //public final static int TRANSP_INDEX=last;
     public final static String TRANSP_GROUP="Transports";
     
     
@@ -42,6 +45,7 @@ public class Roster
      */
     
     public String RESOURCE = "Bombus";
+    private String myJid;
     
     /**
      * The stream representing the connection to ther server
@@ -238,9 +242,13 @@ public class Roster
                     grp.Contacts.addElement(c);
             }
         }
+        // self-contact group
+        if (cf.selfContact || vGroups.getGroup(SELF_INDEX).tonlines>1) 
+            vGroups.addToVector(tContacts, SELF_INDEX);
         // adding groups
-        for (i=1;i<vGroups.getCount();i++)
+        for (i=COMMON_INDEX;i<vGroups.getCount();i++)
             vGroups.addToVector(tContacts,i);
+        // transports
         if (cf.showTransports) vGroups.addToVector(tContacts,0);
         
         vContacts=tContacts;
@@ -390,6 +398,8 @@ public class Roster
         }
         Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
         theStream.send( presence );
+        
+        PresenceContact(null, myJid, myStatus);
         reEnumRoster();
     }
     
@@ -439,6 +449,10 @@ public class Roster
                     if (id.equals("getros")) {
                         // а вот и ростер подошёл :)
                         SplashScreen.getInstance().setProgress(85);
+                        myJid=sd.account.toString();
+                        UpdateContact(null, sd.account.toString(), SELF_GROUP, Presence.PRESENCE_OFFLINE);
+                        myJid+="/"+RESOURCE;
+                        
                         processRoster(data);
                         reEnumRoster();
                         
@@ -800,6 +814,7 @@ class Groups{
     public Groups(){
         g=new Vector();
         addGroup(Roster.TRANSP_GROUP);
+        addGroup(Roster.SELF_GROUP);
         addGroup(Roster.COMMON_GROUP);
     }
     

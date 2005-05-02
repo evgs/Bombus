@@ -18,6 +18,7 @@ import javax.microedition.lcdui.*;
  *  [] offline contacts
  *  [] transports
  *  [] hidden group
+ *  [] not-in-list
  *  [] clock
  *
  * message
@@ -54,18 +55,20 @@ public class ConfigForm implements CommandListener{
         
         f=new Form("Options");
         roster=new ChoiceGroup("Roster elements", Choice.MULTIPLE);
-        roster.append("self-contact -",null);
+        roster.append("self-contact",null);
         roster.append("offline contacts",null);
         roster.append("transports",null);
         roster.append("Hidden group -",null);
+        roster.append("Not in list -",null);
         roster.append("Clock -",null);
         
-        ra=new boolean[5];
-        ra[0]=false;
+        ra=new boolean[6];
+        ra[0]=cf.selfContact;
         ra[1]=cf.showOfflineContacts;
         ra[2]=cf.showTransports;
         ra[3]=false;
         ra[4]=false;
+        ra[5]=false;
         roster.setSelectedFlags(ra);
 
         message=new ChoiceGroup("Messages", Choice.MULTIPLE);
@@ -100,7 +103,7 @@ public class ConfigForm implements CommandListener{
             roster.getSelectedFlags(ra);
             message.getSelectedFlags(mv);
             application.getSelectedFlags(ap);
-            //ra[0]=false;
+            cf.selfContact=ra[0];
             cf.showOfflineContacts=ra[1];
             cf.showTransports=ra[2];
             //ra[3]=false;

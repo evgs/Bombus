@@ -77,7 +77,12 @@ public class Contact extends IconTextElement{
     }
     public void resetNewMsgCnt() { newMsgCnt=-1;}
     
-    public void addMessage(Msg m) { 
+    public void addMessage(Msg m) {
+        boolean first_replace=false;
+        if (m.isPresence()) 
+            if (msgs.size()==1) 
+                if ( ((Msg)msgs.firstElement()).isPresence())
+                    first_replace=true;
 /*#M55,M55_Release#*///<editor-fold>
 //--        Config cf=StaticData.getInstance().config;
 //--
@@ -87,17 +92,14 @@ public class Contact extends IconTextElement{
 //--            String fromName=StaticData.getInstance().account.getUserName();
 //--            if (m.messageType!=Msg.MESSAGE_TYPE_OUT) fromName=toString();
 //--            if (m.messageType!=Msg.MESSAGE_TYPE_PRESENCE || cf.msgLogPresence)
+//--                //if (!first_replace || !m.)
 //--            NvStorage.appendFile("Log_"+histRecord, m.getDayTime()+" <"+fromName+"> "+m.body+"\r\n");
 //--        }
 /*$M55,M55_Release$*///</editor-fold>
         // если единственное сообщение - presence, то заменим его
-        if (m.isPresence()) {
-            if (msgs.size()==1) if 
-                    ( ((Msg)msgs.firstElement()).isPresence() ){
-                msgs.setElementAt(m,0);
-                return;
-            }
-            
+        if (first_replace) {
+            msgs.setElementAt(m,0);
+            return;
         } 
         msgs.addElement(m);
         if (m.unread) newMsgCnt++;

@@ -38,6 +38,7 @@ public class Config {
     public int profile=0;
     public boolean smiles=true;
     public boolean showTransports=true;
+    public boolean selfContact=false;
     
     public void LoadFromStorage(){
         
@@ -50,6 +51,7 @@ public class Config {
             def_profile = inputStream.readInt();
             smiles=inputStream.readBoolean();
             showTransports=inputStream.readBoolean();
+            selfContact=inputStream.readBoolean();
             
             inputStream.close();
         } catch (Exception e) { e.printStackTrace(); }
@@ -68,6 +70,7 @@ public class Config {
             outputStream.writeInt(def_profile);
             outputStream.writeBoolean(smiles);
             outputStream.writeBoolean(showTransports);
+            outputStream.writeBoolean(selfContact);
             
         } catch (IOException e) { e.printStackTrace(); }
 
