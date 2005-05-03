@@ -399,3 +399,5 @@ Motorola:
  команды раскраски
 
  Options:fullscreen - убран из версии m55;
+
+ fix Self-Contact - теперь продолжает корректно отображать статус после reconnect 

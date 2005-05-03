@@ -157,6 +157,10 @@ public class Roster
             hContacts=new Vector();
             vGroups=new Groups();
             vContacts=new Vector(); // just for displaying
+            myJid=sd.account.toString();
+            UpdateContact(null, sd.account.toString(), SELF_GROUP, Presence.PRESENCE_OFFLINE);
+            myJid+="/"+RESOURCE;
+
             System.gc();
         };
         
@@ -449,9 +453,6 @@ public class Roster
                     if (id.equals("getros")) {
                         // а вот и ростер подошёл :)
                         SplashScreen.getInstance().setProgress(85);
-                        myJid=sd.account.toString();
-                        UpdateContact(null, sd.account.toString(), SELF_GROUP, Presence.PRESENCE_OFFLINE);
-                        myJid+="/"+RESOURCE;
                         
                         processRoster(data);
                         reEnumRoster();
