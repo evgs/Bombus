@@ -7,6 +7,7 @@
 package ui;
 import javax.microedition.lcdui.*;
 import java.util.*;
+import Client.*;
 
 /**
  * Реализация виртуального вертикального списка.
@@ -24,6 +25,7 @@ public abstract class VirtualList
 //    abstract protected int getItemWidth(int index);
 //    abstract protected void drawItem(int index, Graphics g, int ofs, boolean selected);
 //    public int getItemBGndRGB(int index) {return VL_BGND;} 
+    
     public void focusedItem(int index) {}
 
     /** число элементов списка, исключая заголовок  */

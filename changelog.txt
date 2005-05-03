@@ -392,3 +392,10 @@ Motorola:
  больше 1
 
  заготовка в Options для not-in-list
+
+(29)
+
+ fix ComplexString без приаттаченного ImageList не позволял использовать 
+ команды раскраски
+
+ Options:fullscreen - убран из версии m55;

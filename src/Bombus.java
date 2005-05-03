@@ -106,6 +106,7 @@ public class Bombus extends MIDlet implements Runnable{
 
         boolean selAccount=( (StaticData.getInstance().account_index<0) || s.keypressed!=0);
         if (selAccount) s.setProgress("Entering setup",20);
+        
         sd.roster=new Roster(display, selAccount);
     }
     

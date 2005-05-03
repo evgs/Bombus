@@ -6,6 +6,7 @@
 
 package Client;
 import javax.microedition.lcdui.*;
+import ui.*;
 
 /**
  *
@@ -88,7 +89,9 @@ public class ConfigForm implements CommandListener{
         //if (newaccount)
         f.append(roster);
         f.append(message);
+/*#DefaultConfiguration,Release#*///<editor-fold>
         f.append(application);
+/*$DefaultConfiguration,Release$*///</editor-fold>
         
         f.addCommand(cmdOk);
         f.addCommand(cmdCancel);
@@ -123,5 +126,6 @@ public class ConfigForm implements CommandListener{
 
     public void destroyView(){
         if (display!=null)   display.setCurrent(parentView);
+        ((Canvas)parentView).setFullScreenMode(cf.fullscreen);
     }
 }
