@@ -126,6 +126,8 @@ public class ConfigForm implements CommandListener{
 
     public void destroyView(){
         if (display!=null)   display.setCurrent(parentView);
+/*#DefaultConfiguration,Release#*///<editor-fold>
         ((Canvas)parentView).setFullScreenMode(cf.fullscreen);
+/*$DefaultConfiguration,Release$*///</editor-fold>
     }
 }
