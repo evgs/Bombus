@@ -15,7 +15,6 @@ import javax.microedition.midlet.MIDlet;
 //import javax.microedition.media.*;
 import Client.Contact.*;
 import ui.*;
-import Messages.vCardDispatcher;
 
 //import Client.msg.*;
 
