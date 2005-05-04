@@ -23,6 +23,8 @@ public class ComplexString extends Vector implements VirtualElement{
     private int height;
     private int width;
     private ImageList imageList;
+    private int colorBGnd=0xffffff;
+    private int color=0x0;
     
     /** Creates a new instance of ComplexString */
     public ComplexString() {
@@ -42,8 +44,12 @@ public class ComplexString extends Vector implements VirtualElement{
         return (imageList==null)?0:imageList.getWidth();
     }
     
-    public int getColor() {return 0x000000;}
-    public int getColorBGnd() {return 0xFFFFFF;}
+    public int getColor() {return color;}
+    public int getColorBGnd() {return colorBGnd;}
+    
+    public void setColorBGnd(int color){ colorBGnd=color;}
+    public void setColor(int color){ this.color=color;}
+    
     public void onSelect(){};
     
     public void drawItem(Graphics g, int offset, boolean selected){

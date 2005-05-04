@@ -41,10 +41,38 @@ public class IqVersionReply extends JabberDataBlock{
         query.addChild(new JabberDataBlock(query, "os",os));
     }
     
+    // constructs version request
+    public IqVersionReply(String to) {
+        super();
+        setAttribute("type","get");
+        setAttribute("to",to);
+        setAttribute("id","getver");
+        JabberDataBlock query=new JabberDataBlock("query",this,null);
+        addChild(query);
+        query.setNameSpace("jabber:iq:version");
+    }
+    
     public String getTagName() {
         return "iq";
     }
 
     ///public static boolean 
-    
+    private final static String TOPFIELDS []={ "name",  "version",  "os"  }; 
+
+  
+    public static String dispatchVersion(JabberDataBlock data) {
+        if (!data.isJabberNameSpace("jabber:iq:version")) return "unknown version namespace";
+        StringBuffer vc=new StringBuffer("Client info\n");
+        //vc.append((char)0x01);
+        for (int i=0; i<TOPFIELDS.length; i++){
+            String field=data.getTextForChildBlock(TOPFIELDS[i].toLowerCase());
+            if (field.length()>0) {
+                vc.append(TOPFIELDS[i]);
+                vc.append((char)0x01);
+                vc.append(field);
+                vc.append((char)'\n');
+            }
+        }
+        return vc.toString();
+    }
 }

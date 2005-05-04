@@ -25,6 +25,8 @@ public class ImageList {
     public final static int ICON_EXPANDED_INDEX=6*7+2;
     public final static int ICON_COLLAPSED_INDEX=6*7+3;
     public final static int ICON_PROFILE_INDEX=7*7;
+    public final static int ICON_ASK_INDEX=7*7+5;
+    
     
     Image resImage;
     int height,width,count;

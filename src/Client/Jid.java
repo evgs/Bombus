@@ -75,7 +75,7 @@ public class Jid {
         return fullJid.substring(0,resourcePos);
     }
     
-    /** выделение имени без ресурса */
+    /** выделение jid/resource */
     public String getJidFull(){
         return fullJid;
     }

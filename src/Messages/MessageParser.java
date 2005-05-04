@@ -26,7 +26,12 @@ public final class MessageParser {
         child=new Vector ();
         chs=new String();
     }
-    /** Loading Smile table */
+    /**
+     * Smile table loader
+     * @param resource - path to smiles-description text file
+     * @param smileTable - (result) Vector of smile's string-representations
+     */
+    
     public MessageParser(String resource, Vector smileTable) {
         this();
         // opening file;
@@ -165,9 +170,11 @@ public final class MessageParser {
                 i=smileStart;
                 char c=txt.charAt(i);
                 int cw=f.charWidth(c);
-                if (w+cw>width || c==0x0d || c==0x0a) {
+                if (w+cw>width || c==0x0d || c==0x0a || c==0x01) {
                     l.addElement(s.toString());    // последняя подстрока в l
                     s.setLength(0); w=0;
+                    
+                    if (c==0x01) l.setColor(0x904090);
 
                     if (singleLine) {
                         // возврат одной строки

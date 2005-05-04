@@ -240,7 +240,7 @@ public abstract class VirtualList
         }
         return itemcnt;
     }
-    private void moveCursor(int offset){
+    synchronized private void moveCursor(int offset){
         int count=getItemCount();
  
         if (cursor>=0) {

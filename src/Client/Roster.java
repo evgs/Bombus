@@ -15,6 +15,7 @@ import javax.microedition.midlet.MIDlet;
 //import javax.microedition.media.*;
 import Client.Contact.*;
 import ui.*;
+import Messages.vCardDispatcher;
 
 //import Client.msg.*;
 
@@ -224,7 +225,10 @@ public class Roster
     }
     
     public void reEnumRoster(){
+
+        int locCursor=cursor;
         Object focused=getSelectedObject();
+        
         Vector tContacts=new Vector(vContacts.size());
         boolean offlines=cf.showOfflineContacts;//StaticData.getInstance().config.showOfflineContacts;
         
@@ -260,7 +264,8 @@ public class Roster
         if (cursor<0) cursor=0;
         
         // вернём курсор на прежний элемент
-        moveCursorTo(focused);
+        // TODO: синхронизировать!
+        if (locCursor==cursor) moveCursorTo(focused);
         redraw();
     }
     
@@ -383,6 +388,7 @@ public class Roster
      */
     
     public void sendPresence(int status) throws IOException {
+        reconnect=false;
         myStatus=status;
         displayStatus();
         if (status==Presence.PRESENCE_OFFLINE) {
@@ -465,6 +471,37 @@ public class Roster
                         SplashScreen.getInstance().img=null;    // освобождаем память
                         
                     }
+                    if (id.equals("getvc")) {
+                        JabberDataBlock vc=data.getChildBlock("vcard");
+                        if (vc!=null) {
+                            reconnect=false;
+                            String from=data.getAttribute("from");
+                            String body=IqGetVCard.dispatchVCard(vc);
+                            
+                            Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, body);
+                            messageStore(m);
+                            redraw();
+                            
+                            AlertProfile.playNotify(display, 0);
+                            
+                        }
+                    }
+                    if (id.equals("getver")) {
+                        JabberDataBlock vc=data.getChildBlock("query");
+                        if (vc!=null) {
+                            reconnect=false;
+                            String from=data.getAttribute("from");
+                            String body=IqVersionReply.dispatchVersion(vc);
+                            
+                            Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, body);
+                            messageStore(m);
+                            redraw();
+                            
+                            AlertProfile.playNotify(display, 0);
+                            
+                        }
+                    }
+                    
                 } else if (type.equals("get")){
                     JabberDataBlock query=data.getChildBlock("query");
                     if (query!=null){
@@ -483,6 +520,7 @@ public class Roster
             // If we've received a message
             
             else if( data instanceof Message ) {
+                reconnect=false;
                 Message message = (Message) data;
                 
                 // debug code
@@ -559,9 +597,13 @@ public class Roster
                 String name=i.getAttribute("name");
                 String jid=i.getAttribute("jid");
                 String subscr=i.getAttribute("subscription");
+                // TODO: здесь нужны нормальные subscription
                 int presence=(subscr.charAt(0)=='n')?
                     Presence.PRESENCE_UNKNOWN:
                     Presence.PRESENCE_OFFLINE;
+                if (i.getAttribute("ask")!=null)
+                    presence=Presence.PRESENCE_ASK;
+
                 // найдём группу
                 JabberDataBlock g=i.getChildBlock("group");
                 String group=(g==null)?COMMON_GROUP:g.getText();
@@ -728,6 +770,9 @@ public class Roster
         if (c==cmdContact) {
             contactMenu((Contact) getSelectedObject());
         }
+        if (c==cmdAdd) {
+            new MIDPTextBox(display,"Add to roster", null, new AddContact());
+        }
 /*#DefaultConfiguration,Release#*///<editor-fold>
 //        if (c==cmdSetFullScreen) {
 //            //Config cf=StaticData.getInstance().config;
@@ -767,9 +812,20 @@ public class Roster
         }
     }
     
-    public void contactMenu(Contact c) {
+    public void contactMenu(final Contact c) {
         Menu m=new Menu(c.toString());
-        m.addItem(new MenuItem("Info"));
+        
+        m.addItem(new MenuItem("Info"){
+            public void action(){
+                String to=c.jid.getJidFull();
+                reconnect=true; displayStatus();
+                try {
+                    theStream.send(new IqGetVCard(to));
+                    theStream.send(new IqVersionReply(to));
+                } catch (Exception e) {e.printStackTrace();}
+            };
+        });
+        
         m.addItem(new MenuItem("Rename"));
         m.addItem(new MenuItem("Group"));
         m.addItem(new MenuItem("Delete"));
@@ -778,6 +834,17 @@ public class Roster
         m.addItem(new MenuItem("Auth Remove"));
         m.attachDisplay(display);
     }
+
+    private class AddContact implements MIDPTextBox.TextBoxNotify{
+        public void OkNotify(String jid){
+            
+            try {
+                theStream.send(new IqQueryRoster(jid,null,null,null));
+                theStream.send(new Presence(jid,"subscribe"));
+            } catch (Exception e) {e.printStackTrace();}
+        }
+    }
+
 }
 
 /////////////////////////////////////////////////////////////////////////////

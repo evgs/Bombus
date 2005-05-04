@@ -143,26 +143,6 @@ public class Message extends JabberDataBlock
     addChild( subject );
   }
 
-  /**
-   * Method to return the text for a given child block
-   */
-
-  private String getTextForChildBlock( String blockname )
-  {
-    if( childBlocks == null )
-      return "";
-
-    for( int i = 0 ; i < childBlocks.size() ; i++ )
-    {
-      JabberDataBlock thisBlock = (JabberDataBlock) childBlocks.elementAt( i );
-      if( thisBlock.getTagName().equals( blockname ) )
-      {
-        return thisBlock.getText();
-      }
-    }
-
-    return "";
-  }
 
   /**
    * Method to get the message subject

@@ -40,6 +40,26 @@ public class IqQueryRoster extends JabberDataBlock
     addChild(qB);
 
   }
+  
+  /** add to roster*/
+  public IqQueryRoster(String jid, String name, String group, String subscription) {
+    super( );
+
+    setAttribute( "type", "set" );
+    setAttribute( "id", "addros" );
+
+    JabberDataBlock qB = new JabberDataBlock( "query", this, null );
+    qB.setNameSpace( "jabber:iq:roster" );
+        JabberDataBlock item=new JabberDataBlock("item",qB,null);
+        item.setAttribute("jid", jid);
+        if (name!=null) item.setAttribute("name", name);
+        if (subscription!=null) item.setAttribute("subscription", name);
+        if (group!=null) {
+            item.addChild(new JabberDataBlock(item,"group",group));
+        }
+        qB.addChild(item);
+    addChild(qB);
+  }
   /**
    * Method to return the tag name
    *

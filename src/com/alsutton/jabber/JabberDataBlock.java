@@ -258,6 +258,27 @@ public class JabberDataBlock
     return null;
   }
 
+  /**
+   * Method to return the text for a given child block
+   */
+
+  public String getTextForChildBlock( String blockname )
+  {
+    if( childBlocks == null )
+      return "";
+
+    for( int i = 0 ; i < childBlocks.size() ; i++ )
+    {
+      JabberDataBlock thisBlock = (JabberDataBlock) childBlocks.elementAt( i );
+      if( thisBlock.getTagName().equals( blockname ) )
+      {
+        if (thisBlock.textData==null) return "";  
+        return thisBlock.getText();
+      }
+    }
+
+    return "";
+  }
   
       private void appendXML(StringBuffer dest, StringBuffer src){
         if (src==null) return;
