@@ -20,7 +20,7 @@ public class IqRegister extends JabberDataBlock{
     public IqRegister(String username, String password) {
     super( );
 
-    setAttribute( "type", "set" );
+    setTypeAttribute( "set" );
     setAttribute( "id", "regac" );
 
     JabberDataBlock qB = new JabberDataBlock( "query", null, null );

@@ -35,12 +35,6 @@ public class Menu extends VirtualList implements CommandListener
         menuitems.addElement(mi);
     }
     
-    public void eventOk() {
-        MenuItem m=(MenuItem)getSelectedObject();
-        destroyView();
-        if (m!=null) m.action();
-    }
-    
     public void commandAction(Command c, Displayable d) {
         if (c==cmdBack) destroyView();
     }

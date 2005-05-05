@@ -18,7 +18,7 @@ public class IqGetVCard extends JabberDataBlock
     public IqGetVCard(String to) {
         super( );
         
-        setAttribute( "type", "get" );
+        setTypeAttribute( "get" );
         setAttribute( "to", to );
         setAttribute( "id", "getvc" );
         

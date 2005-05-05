@@ -66,16 +66,16 @@ public class AccountRegister
     public void beginConversation(String SessionId) {
         spl.setProgress("Registering",60);
         IqRegister iq=new IqRegister(raccount.getUserName(),raccount.getPassword());
-        try {
+        //try {
             theStream.send(iq);
-        } catch (Exception e) {e.printStackTrace();}
+        //} catch (Exception e) {e.printStackTrace();}
     }
     public void blockArrived( JabberDataBlock data ) {
         theStream.close();
         //destroyView();
         if (data instanceof Iq) {
             int pgs=100;
-            String type=data.getAttribute("type");
+            String type=data.getTypeAttribute();
             String title="Done";
             if (!type.equals("result")) {
                 pgs=0;

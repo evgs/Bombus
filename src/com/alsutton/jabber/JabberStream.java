@@ -198,9 +198,11 @@ public class JabberStream implements XMLEventListener, Runnable
    * @param block The data block to send to the server.
    */
 
-  public void send( JabberDataBlock block ) throws IOException
+  public void send( JabberDataBlock block ) //throws IOException
   {
-    send( block.toString() );
+      try {
+          send( block.toString() );
+      } catch (Exception e) {e.printStackTrace();}
   }
 
   /**

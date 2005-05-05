@@ -75,6 +75,45 @@ public class Presence extends JabberDataBlock
         if (message.length()>0) addChild("status",message);
   }
 
+  private StringBuffer text;
+  private int presenceCode;
+  
+  public void dispathch(){
+      text=new StringBuffer();
+      String type=getTypeAttribute();
+      presenceCode=PRESENCE_ASK;
+      if (type!=null) {
+          if (type.equals(PRS_OFFLINE)) { 
+              presenceCode=PRESENCE_OFFLINE;
+              text.append("offline");
+          };
+          if (type.equals("subscribe")) text.append(SUBSCRIBE); 
+          if (type.equals("subscribed")) text.append(SUBSCRIBED);
+          if (type.equals("unsubscribed")) text.append(UNSUBSCRIBED);
+          
+          if (type.equals(PRS_ERROR)) {
+              presenceCode=PRESENCE_ERROR;
+              text.append(PRS_ERROR);
+          }
+      } else {
+          // online-kinds
+          String show;
+          show=getShow(); text.append(show);
+          if (show.equals(PRS_CHAT)) presenceCode=PRESENCE_CHAT;
+          if (show.equals(PRS_AWAY)) presenceCode=PRESENCE_AWAY;
+          if (show.equals(PRS_XA)) presenceCode=PRESENCE_XA;
+          if (show.equals(PRS_DND)) presenceCode=PRESENCE_DND;
+          presenceCode=PRESENCE_ONLINE;
+          
+          show=getTextForChildBlock("status");
+          if (show.length()>0) {
+              text.append('(');
+              text.append(show);
+              text.append(')');
+          }
+      }
+  }
+
   /**
    * Method to set the presence type
    */
@@ -95,58 +134,10 @@ public class Presence extends JabberDataBlock
     return "presence";
   }
 
-  /**
-     * Method to get the presence <B>type</B> field
-     * @return <B>type</B> field as a string
-     */
+  
+  public int getTypeIndex() { return presenceCode;}
 
-  //public String getType() {
-  //    return getAttribute("type");
-  //}
-
-  public int getTypeIndex() {
-      String type=getAttribute("type");
-      if (type!=null) 
-          return type.equals(PRS_ERROR)?PRESENCE_ERROR:PRESENCE_OFFLINE;
-      /*{
-          if (type.equals(PRS_OFFLINE)) return PRESENCE_OFFLINE;
-          if (type.equals(PRS_ERROR)) return PRESENCE_OFFLINE;
-        }
-      */
-      
-      //int i=0;
-      JabberDataBlock sh;
-      String show;
-      show=getShow();
-      if (show.equals(PRS_CHAT)) return PRESENCE_CHAT;
-      if (show.equals(PRS_AWAY)) return PRESENCE_AWAY;
-      if (show.equals(PRS_XA)) return PRESENCE_XA;
-      if (show.equals(PRS_DND)) return PRESENCE_DND;
-      return PRESENCE_ONLINE;
-  }
-
-  public String getPresenceTxt(){
-      int pt=getTypeIndex();
-      StringBuffer s=new StringBuffer();
-      switch (pt){
-          case PRESENCE_OFFLINE:
-              s.append("offline");
-              break;
-          case PRESENCE_ERROR:
-              s.append(PRS_ERROR);
-              break;
-          default:
-              String show=getShow();
-              s.append(show);
-              try {
-                  show=getChildBlock("status").getText();
-                  s.append('(');
-                  s.append(show);
-                  s.append(')');
-              } catch (Exception e) { }
-      }
-      return s.toString();
-  }
+  public String getPresenceTxt(){ return text.toString(); }
   
   private String getShow(){
       try {
@@ -181,4 +172,9 @@ public class Presence extends JabberDataBlock
   public final static String PRS_DND="dnd";
   public final static String PRS_ONLINE="online";
   public final static String PRS_INVISIBLE="invisible";
+
+  public final static String SUBSCRIBE="Please send me Your authorization!";
+  public final static String SUBSCRIBED="You are now authorized";
+  public final static String UNSUBSCRIBED="Your authorization has been removed!";
+  
 }

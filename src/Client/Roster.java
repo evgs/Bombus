@@ -4,6 +4,8 @@
  * Created on 6 Январь 2005 г., 19:16
  */
 
+//TODO: упростить обработку исключений для theStream.send
+
 package Client;
 
 import com.alsutton.jabber.*;
@@ -63,6 +65,7 @@ public class Roster
     //EventNotify msgNotify;
     
     boolean reconnect=false;
+    boolean querysign=false;
     
     private Command cmdStatus=new Command("Status",Command.SCREEN,1);
     private Command cmdContact=new Command("Contact >",Command.SCREEN,2);
@@ -174,7 +177,7 @@ public class Roster
             theStream.setJabberListener( this );
         } catch( Exception e ) {
             setProgress("Failed",0);
-            reconnect=false;
+            querysign=reconnect=false;
             displayStatus();
             redraw();
             e.printStackTrace();
@@ -192,7 +195,7 @@ public class Roster
     };
     
     private void displayStatus(){
-        int s=reconnect?ImageList.ICON_RECONNECT_INDEX:myStatus;
+        int s=querysign?ImageList.ICON_RECONNECT_INDEX:myStatus;
         int profile=cf.profile;//StaticData.getInstance().config.profile;
         Object en=(profile>1)? new Integer(profile+ImageList.ICON_PROFILE_INDEX):null;
         ComplexString tl=getTitleLine();
@@ -309,7 +312,7 @@ public class Roster
         // проверим наличие по полной строке
         Jid J=new Jid(Jid);
         
-        Contact c=getContact(J, true);
+        Contact c=getContact(J, true); //Status!=Presence.PRESENCE_ASK);
         if (c!=null) {
             // изменился статус
             if (c.status<8) c.status=Status;
@@ -386,8 +389,8 @@ public class Roster
      * Method to inform the server we are now online
      */
     
-    public void sendPresence(int status) throws IOException {
-        reconnect=false;
+    public void sendPresence(int status) {
+        querysign=false;
         myStatus=status;
         displayStatus();
         if (status==Presence.PRESENCE_OFFLINE) {
@@ -412,11 +415,14 @@ public class Roster
         reEnumRoster();
     }
     
+    public void sendPresence(String to, String type) {
+        theStream.send(new Presence(to, type));
+    }
     /**
      * Method to send a message to the specified recipient
      */
     
-    public void sendMessage(final String to, final String body) throws IOException {
+    public void sendMessage(final String to, final String body) {
         Message simpleMessage = new Message( to, body );
         theStream.send( simpleMessage );
     }
@@ -430,12 +436,12 @@ public class Roster
         try {
             
             if( data instanceof Iq ) {
-                String type = (String) data.getAttribute( "type" );
+                String type = (String) data.getTypeAttribute();
                 if ( type.equals( "error" ) ) {
                     if (data.getAttribute("id").equals("auth-s")) {
                         // ошибка авторизации
                         setProgress("Login failed",0);
-                        reconnect=false;
+                        querysign=reconnect=false;
                         displayStatus();
                         redraw();
                     }
@@ -445,7 +451,7 @@ public class Roster
                     if (id.equals("auth-s") ) {
                         // залогинились. теперь, если был реконнект, то просто пошлём статус
                         if (reconnect) {
-                            reconnect=false;
+                            querysign=reconnect=false;
                             sendPresence(Presence.PRESENCE_ONLINE);
                             return;
                         }
@@ -464,7 +470,7 @@ public class Roster
                         
                         setProgress("Connected",100);
                         // теперь пошлём присутствие
-                        reconnect=false;
+                        querysign=reconnect=false;
                         sendPresence(Presence.PRESENCE_ONLINE);
                         display.setCurrent(this);
                         SplashScreen.getInstance().img=null;    // освобождаем память
@@ -473,7 +479,7 @@ public class Roster
                     if (id.equals("getvc")) {
                         JabberDataBlock vc=data.getChildBlock("vcard");
                         if (vc!=null) {
-                            reconnect=false;
+                            querysign=false;
                             String from=data.getAttribute("from");
                             String body=IqGetVCard.dispatchVCard(vc);
                             
@@ -488,7 +494,7 @@ public class Roster
                     if (id.equals("getver")) {
                         JabberDataBlock vc=data.getChildBlock("query");
                         if (vc!=null) {
-                            reconnect=false;
+                            querysign=false;
                             String from=data.getAttribute("from");
                             String body=IqVersionReply.dispatchVersion(vc);
                             
@@ -519,18 +525,9 @@ public class Roster
             // If we've received a message
             
             else if( data instanceof Message ) {
-                reconnect=false;
+                querysign=false;
                 Message message = (Message) data;
                 
-                // debug code
-                //String messageText = "Message from:"+message.getFrom()+" body:"+message.getBody();
-                
-                //Message reply = message.constructReply();
-                //reply.setBodyText( messageText );
-                //theStream.send( reply );
-                
-                //Message trackMessage = new Message( "evg_m@jabber.ru", messageText );
-                //theStream.send( trackMessage );
                 String from=message.getFrom();
                 String body=message.getBody().trim();
                 if (body.length()==0) return;
@@ -544,24 +541,6 @@ public class Roster
                 redraw();
                 
                 AlertProfile.playNotify(display, 0);
-        /*
-        if( messageText.equals( "stop" ) )
-        {
-          // For the stop message tell the server we are now unavailable
-         
-          Presence unavailablePresence = new Presence();
-         
-          JabberDataBlock statusBlock = new JabberDataBlock( "status", null, null );
-          statusBlock.addText( "unavailable" );
-         
-          unavailablePresence.addChild( statusBlock );
-         
-          theStream.send( unavailablePresence );
-         
-          // Then close the stream
-          theStream.close();
-        }
-         */
             }
             // присутствие
             else if( data instanceof Presence ) {
@@ -569,9 +548,14 @@ public class Roster
                 Presence pr= (Presence) data;
                 
                 String from=pr.getFrom();
-                
-                PresenceContact(null, from, pr.getTypeIndex());
-                Msg m=new Msg(Msg.MESSAGE_TYPE_PRESENCE,from,pr.getPresenceTxt());
+                pr.dispathch();
+                int ti=pr.getTypeIndex();
+                PresenceContact(null, from, ti);
+                Msg m=new Msg(
+                        (ti==Presence.PRESENCE_ASK)?
+                            Msg.MESSAGE_TYPE_AUTH:Msg.MESSAGE_TYPE_PRESENCE,
+                        from,
+                        pr.getPresenceTxt());
                 messageStore(m);
             }
         } catch( Exception e ) {
@@ -583,7 +567,7 @@ public class Roster
         JabberDataBlock q=data.getChildBlock("query");
         if (!q.isJabberNameSpace("jabber:iq:roster")) return;
         int type=0;
-        String iqType=data.getAttribute("type");
+        String iqType=data.getTypeAttribute();
         if (iqType.equals("set")) type=1;
         
         Vector cont=(q!=null)?q.getChildBlocks():null;
@@ -630,14 +614,14 @@ public class Roster
      */
     
     public void beginConversation(String SessionId) {
-        try {
+        //try {
             Account a=sd.account;//StaticData.getInstance().account;
             Login login = new Login( a.getUserName(), a.getServerN(), a.getPassword(), SessionId, RESOURCE );
             theStream.send( login );
-        } catch( Exception e ) {
+        //} catch( Exception e ) {
             //l.setTitleImgL(0);
-            e.printStackTrace();
-        }
+            //e.printStackTrace();
+        //}
         //l.setTitleImgL(2);
         
     }
@@ -734,7 +718,7 @@ public class Roster
             return;
         }
         if (c==cmdReconnect) {
-            reconnect=true;
+            querysign=reconnect=true;
             
             displayStatus();
             redraw();
@@ -812,39 +796,58 @@ public class Roster
     }
     
     public void contactMenu(final Contact c) {
-        Menu m=new Menu(c.toString());
-        
-        m.addItem(new MenuItem("Info"){
-            public void action(){
-                String to=c.jid.getJidFull();
-                reconnect=true; displayStatus();
-                try {
-                    theStream.send(new IqGetVCard(to));
-                    theStream.send(new IqVersionReply(to));
-                } catch (Exception e) {e.printStackTrace();}
-            };
-        });
-        
-        m.addItem(new MenuItem("Rename"));
-        m.addItem(new MenuItem("Group"));
+        final String to=c.jid.getJidFull();
+        Menu m=new Menu(c.toString()){
+            public void eventOk(){
+                switch (cursor) {
+                    case 0: // info
+                        querysign=true; displayStatus();
+                        //try {
+                            theStream.send(new IqGetVCard(to));
+                            theStream.send(new IqVersionReply(to));
+                        //} catch (Exception e) {e.printStackTrace();}
+                        break;
+
+                    case 1:
+                    case 2:
+                        break;
+                    case 3: //auth send
+                        sendPresence(to,"subscribed");
+                        break;
+
+                    case 4: //auth request
+                        sendPresence(to,"subscribe");
+                        break;
+                        
+                    case 5:
+                        sendPresence(to,"unsubscribed");
+                        break;
+                }
+            }
+        };
+        m.addItem(new MenuItem("Info"));
+        m.addItem(new MenuItem("Edit"));
         m.addItem(new MenuItem("Delete"));
-        m.addItem(new MenuItem("Auth Send"));
-        m.addItem(new MenuItem("Auth Request"));
+        m.addItem(new MenuItem("Auth Send"));        
+        m.addItem(new MenuItem("Auth Request"));        
         m.addItem(new MenuItem("Auth Remove"));
+        
         m.attachDisplay(display);
     }
 
     private class AddContact implements MIDPTextBox.TextBoxNotify{
         public void OkNotify(String jid){
             
-            try {
+            //try {
                 theStream.send(new IqQueryRoster(jid,null,null,null));
                 theStream.send(new Presence(jid,"subscribe"));
-            } catch (Exception e) {e.printStackTrace();}
+            //} catch (Exception e) {e.printStackTrace();}
         }
     }
 
 }
+
+
 
 /////////////////////////////////////////////////////////////////////////////
 

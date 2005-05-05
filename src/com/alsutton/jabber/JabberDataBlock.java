@@ -205,6 +205,10 @@ public class JabberDataBlock
     return (String) attributes.get( attributeName );
   }
   
+  public String getTypeAttribute(){
+      return getAttribute("type");
+  }
+  
   public boolean isJabberNameSpace(String xmlns){
       String xmlnsatr=getAttribute("xmlns");
       if (xmlnsatr==null) return false;
@@ -232,6 +236,10 @@ public class JabberDataBlock
     attributes.put( attributeName, value );
   }
 
+  public void setTypeAttribute( String value ) {
+      setAttribute("type",value);
+  }
+  
   /**
    * Returns a vector holding all of the children of this block
    *

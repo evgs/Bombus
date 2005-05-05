@@ -19,6 +19,7 @@ public class Msg //implements MessageList.Element
     public final static int MESSAGE_TYPE_IN=0;
     public final static int MESSAGE_TYPE_OUT=1;
     public final static int MESSAGE_TYPE_PRESENCE=2;
+    public final static int MESSAGE_TYPE_AUTH=3;
     
     /** Creates a new instance of msg */
     public Msg(int messageType, String from, String body) {
@@ -44,6 +45,7 @@ public class Msg //implements MessageList.Element
             case MESSAGE_TYPE_IN: return 0x0000B0;
             case MESSAGE_TYPE_OUT: return 0xB00000;
             case MESSAGE_TYPE_PRESENCE: return 0x006000;
+            case MESSAGE_TYPE_AUTH: return 0x400040;
         }
         return 0;
     }

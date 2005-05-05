@@ -18,8 +18,4 @@ public class MenuItem extends ComplexString
         addElement(" ");
         addElement(name);
     }
-    
-    public void action(){}
-    
-    //public String toString(){ return name;}
 }

@@ -31,7 +31,7 @@ public class IqQueryRoster extends JabberDataBlock
   public IqQueryRoster() {
     super( );
 
-    setAttribute( "type", "get" );
+    setTypeAttribute( "get" );
     setAttribute( "id", "getros" );
 
     JabberDataBlock qB = new JabberDataBlock( "query", null, null );
@@ -45,7 +45,7 @@ public class IqQueryRoster extends JabberDataBlock
   public IqQueryRoster(String jid, String name, String group, String subscription) {
     super( );
 
-    setAttribute( "type", "set" );
+    setTypeAttribute( "set" );
     setAttribute( "id", "addros" );
 
     JabberDataBlock qB = new JabberDataBlock( "query", this, null );

@@ -19,7 +19,7 @@ public class IqVersionReply extends JabberDataBlock{
     /** Creates a new instance of IqVersionReply */
     public IqVersionReply(JabberDataBlock request) {
         super();
-        setAttribute("type","result");
+        setTypeAttribute("result");
         setAttribute("id",request.getAttribute("id"));
         setAttribute("to",request.getAttribute("from"));
         JabberDataBlock query=new JabberDataBlock("query",this,null);
@@ -44,7 +44,7 @@ public class IqVersionReply extends JabberDataBlock{
     // constructs version request
     public IqVersionReply(String to) {
         super();
-        setAttribute("type","get");
+        setTypeAttribute("get");
         setAttribute("to",to);
         setAttribute("id","getver");
         JabberDataBlock query=new JabberDataBlock("query",this,null);
