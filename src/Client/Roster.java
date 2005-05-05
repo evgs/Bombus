@@ -315,7 +315,7 @@ public class Roster
         Contact c=getContact(J, true); //Status!=Presence.PRESENCE_ASK);
         if (c!=null) {
             // изменился статус
-            if (c.status<8) c.status=Status;
+            if (c.status<8 || c.status==Presence.PRESENCE_ASK) c.status=Status;
             sort();
             reEnumRoster();//redraw();
             //System.out.println("updated");
@@ -796,7 +796,7 @@ public class Roster
     }
     
     public void contactMenu(final Contact c) {
-        final String to=c.jid.getJidFull();
+        final String to=c.jid.getJid();
         Menu m=new Menu(c.toString()){
             public void eventOk(){
                 destroyView();
