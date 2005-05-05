@@ -799,6 +799,7 @@ public class Roster
         final String to=c.jid.getJidFull();
         Menu m=new Menu(c.toString()){
             public void eventOk(){
+                destroyView();
                 switch (cursor) {
                     case 0: // info
                         querysign=true; displayStatus();
@@ -809,7 +810,12 @@ public class Roster
                         break;
 
                     case 1:
+                        break;
                     case 2:
+                        if (c.status==Presence.PRESENCE_TRASH) {
+                            hContacts.removeElement(c);
+                            reEnumRoster();
+                        }
                         break;
                     case 3: //auth send
                         sendPresence(to,"subscribed");
