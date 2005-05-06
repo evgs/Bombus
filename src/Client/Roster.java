@@ -30,7 +30,8 @@ public class Roster
         implements
         JabberListener,
         CommandListener,
-        Runnable
+        Runnable,
+        ContactEdit.StoreContact
         //Thread
 {
     
@@ -779,7 +780,8 @@ public class Roster
             contactMenu((Contact) getSelectedObject());
         }
         if (c==cmdAdd) {
-            new MIDPTextBox(display,"Add to roster", null, new AddContact());
+            //new MIDPTextBox(display,"Add to roster", null, new AddContact());
+            new ContactEdit(display, vGroups.getStrings(), this, null);
         }
 /*#DefaultConfiguration,Release#*///<editor-fold>
 //        if (c==cmdSetFullScreen) {
@@ -835,6 +837,8 @@ public class Roster
                         break;
 
                     case 1:
+                        new ContactEdit(display, vGroups.getStrings(), sd.roster, c )
+                            .parentView=parentView;
                         break;
                     case 2:
                         if (c.status==Presence.PRESENCE_TRASH) {
@@ -866,7 +870,13 @@ public class Roster
         m.attachDisplay(display);
     }
 
-    private class AddContact implements MIDPTextBox.TextBoxNotify{
+
+    public void StoreContact(String jid, String name, String group){
+        
+        theStream.send(new IqQueryRoster(jid, name, group, null));
+        theStream.send(new Presence(jid,"subscribe"));
+    }
+    /*private class AddContact implements MIDPTextBox.TextBoxNotify{
         public void OkNotify(String jid){
             
             //try {
@@ -874,7 +884,8 @@ public class Roster
                 theStream.send(new Presence(jid,"subscribe"));
             //} catch (Exception e) {e.printStackTrace();}
         }
-    }
+    }*/
+    
 
 }
 
@@ -957,6 +968,14 @@ class Groups{
         Group grp=new Group(g.size(),name);
         g.addElement(grp);
         return grp;
+    }
+    Vector getStrings(){
+        Vector s=new Vector();
+        for (int i=Roster.COMMON_INDEX; i<g.size(); i++) {
+            s.addElement(((Group)g.elementAt(i)).name);
+        }
+        s.addElement(Roster.IGNORE_GROUP);
+        return s;
     }
     public int getCount() {return g.size();}
     
