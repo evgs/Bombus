@@ -15,22 +15,22 @@ import javax.microedition.lcdui.Graphics;
 
 public class ImageList {
     
-    public final static int ICON_INVISIBLE_INDEX=5*7+1;
-    public final static int ICON_ERROR_INDEX=5*7+2;
-    public final static int ICON_TRASHCAN_INDEX=5*7+3;
-    public final static int ICON_RECONNECT_INDEX=5*7+4;
+    public final static int ICON_INVISIBLE_INDEX=0x51;
+    public final static int ICON_ERROR_INDEX=0x52;
+    public final static int ICON_TRASHCAN_INDEX=0x53;
+    public final static int ICON_RECONNECT_INDEX=0x54;
     
-    public final static int ICON_MESSAGE_INDEX=6*7;
-    public final static int ICON_GROUPCHAT_INDEX=6*7+1;
-    public final static int ICON_EXPANDED_INDEX=6*7+2;
-    public final static int ICON_COLLAPSED_INDEX=6*7+3;
-    public final static int ICON_PROFILE_INDEX=7*7;
-    public final static int ICON_ASK_INDEX=7*7+5;
+    public final static int ICON_MESSAGE_INDEX=0x60;
+    public final static int ICON_GROUPCHAT_INDEX=0x61;
+    public final static int ICON_EXPANDED_INDEX=0x62;
+    public final static int ICON_COLLAPSED_INDEX=0x63;
+    public final static int ICON_PROFILE_INDEX=0x70;
+    public final static int ICON_ASK_INDEX=0x75;
     
     
     Image resImage;
-    int height,width,count;
-    int total;
+    int height,width;
+    //int count,total;
     /** Creates a new instance of ImageListC */
     public ImageList(String resource, int sizeX, int sizeY) {
         loadMulty(resource, sizeX, sizeY);
@@ -48,8 +48,8 @@ public class ImageList {
         }
         height = sizeY; //resImage.getHeight()/countY;
         width = sizeX;  //resImage.getWidth()/countX;
-        this.count=resImage.getWidth()/width;
-        total=count*(resImage.getHeight()/height);
+        //this.count=resImage.getWidth()/width;
+        //total=count*(resImage.getHeight()/height);
     }
     public void drawImage(Graphics g, int index, int x, int y){
         int ho=g.getClipHeight();
@@ -57,8 +57,8 @@ public class ImageList {
         int xo=g.getClipX();
         int yo=g.getClipY();
         
-        int iy=y-height*(int)(index/count);
-        int ix=x-width*(index%count);
+        int iy=y-height*(int)(index>>4);
+        int ix=x-width*(index&0x0f);
         g.setClip(x,y, width,height);
         g.drawImage(resImage,ix,iy,Graphics.TOP|Graphics.LEFT);
         g.setClip(xo,yo, wo, ho);
@@ -66,5 +66,5 @@ public class ImageList {
     
     public int getHeight() {return height;}
     public int getWidth() {return width;}
-    public int getCount() {return total;}
+    //public int getCount() {return total;}
 }

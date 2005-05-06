@@ -61,10 +61,10 @@ public class Contact extends IconTextElement{
     }
     
     public int getImageIndex() {
-        if (status>6) return status;    // for errors
+        if (status>7) return status;    // for errors
         return (getNewMsgsCount()>0)?
             ImageList.ICON_MESSAGE_INDEX
-            :status+transport*7; 
+            :status+(transport<<4); 
     }
     public int getNewMsgsCount() {
         //return msgs.size()-lastReaded;

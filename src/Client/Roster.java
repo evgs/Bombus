@@ -796,9 +796,9 @@ public class Roster
     }
     
     public void contactMenu(final Contact c) {
-        final String to=c.jid.getJid();
         Menu m=new Menu(c.toString()){
             public void eventOk(){
+                String to=(cursor<3)? c.jid.getJidFull() : c.jid.getJid();
                 destroyView();
                 switch (cursor) {
                     case 0: // info

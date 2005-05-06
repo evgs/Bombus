@@ -99,11 +99,11 @@ public class Presence extends JabberDataBlock
           // online-kinds
           String show;
           show=getShow(); text.append(show);
+          presenceCode=PRESENCE_ONLINE;
           if (show.equals(PRS_CHAT)) presenceCode=PRESENCE_CHAT;
           if (show.equals(PRS_AWAY)) presenceCode=PRESENCE_AWAY;
           if (show.equals(PRS_XA)) presenceCode=PRESENCE_XA;
           if (show.equals(PRS_DND)) presenceCode=PRESENCE_DND;
-          presenceCode=PRESENCE_ONLINE;
           
           show=getTextForChildBlock("status");
           if (show.length()>0) {
