@@ -315,7 +315,7 @@ public class Roster
                     group=vGroups.addGroup(grpName);
                 }
                 c.group=group.index;
-                c.status=Status;
+                if (Status!=Presence.PRESENCE_OFFLINE) c.status=Status;
             }
         }
     }

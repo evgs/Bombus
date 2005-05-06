@@ -103,7 +103,7 @@ public class Contact extends IconTextElement{
             return;
         } 
         msgs.addElement(m);
-        if (m.unread) if (newMsgCnt>0) newMsgCnt++;
+        if (m.unread) if (newMsgCnt>=0) newMsgCnt++;
     }
     
   
