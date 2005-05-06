@@ -32,13 +32,15 @@ public class Config {
 /*$M55,M55_Release$*///</editor-fold>
     
     public int accountIndex=-1;
-    public boolean showOfflineContacts=true;
     public boolean fullscreen=false;
     public int def_profile=0;
     public int profile=0;
     public boolean smiles=true;
+    public boolean showOfflineContacts=true;
     public boolean showTransports=true;
     public boolean selfContact=false;
+    public boolean notInList=false;
+    public boolean ignore=false;
     
     public void LoadFromStorage(){
         
@@ -52,6 +54,8 @@ public class Config {
             smiles=inputStream.readBoolean();
             showTransports=inputStream.readBoolean();
             selfContact=inputStream.readBoolean();
+            notInList=inputStream.readBoolean();
+            ignore=inputStream.readBoolean();
             
             inputStream.close();
         } catch (Exception e) { e.printStackTrace(); }
@@ -71,6 +75,8 @@ public class Config {
             outputStream.writeBoolean(smiles);
             outputStream.writeBoolean(showTransports);
             outputStream.writeBoolean(selfContact);
+            outputStream.writeBoolean(notInList);
+            outputStream.writeBoolean(ignore);
             
         } catch (IOException e) { e.printStackTrace(); }
 

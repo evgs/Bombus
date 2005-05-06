@@ -36,7 +36,11 @@ public class Roster
     
     public final static int SELF_INDEX=1;
     public final static String SELF_GROUP="Self-Contact";
-    public final static int COMMON_INDEX=2;
+    public final static int NIL_INDEX=2;
+    public final static String NIL_GROUP="Not-In-List";
+    public final static int IGNORE_INDEX=3;
+    public final static String IGNORE_GROUP="Ignore-List";
+    public final static int COMMON_INDEX=4;
     public final static String COMMON_GROUP="General";
     //public final static int TRANSP_INDEX=last;
     public final static String TRANSP_GROUP="Transports";
@@ -127,7 +131,7 @@ public class Roster
         addOptionCommands();
         //moveCursorTo(0);
         setCommandListener(this);
-        resetStrCache();
+        //resetStrCache();
         
         //if (visible) display.setCurrent(this);
         if (selAccount) {
@@ -258,16 +262,23 @@ public class Roster
         // adding groups
         for (i=COMMON_INDEX;i<vGroups.getCount();i++)
             vGroups.addToVector(tContacts,i);
+        // hiddens
+        if (cf.ignore) vGroups.addToVector(tContacts,IGNORE_INDEX);
+        // not-in-list
+        if (cf.showTransports) vGroups.addToVector(tContacts,NIL_INDEX);
         // transports
         if (cf.showTransports) vGroups.addToVector(tContacts,0);
         
         vContacts=tContacts;
-        resetStrCache();
+        //resetStrCache();
         if (cursor<0) cursor=0;
         
         // вернём курсор на прежний элемент
         // TODO: синхронизировать!
         if (locCursor==cursor) moveCursorTo(focused);
+        else {
+            if (cursor>=vContacts.size()) moveCursorEnd();
+        }
         redraw();
     }
     
@@ -315,7 +326,7 @@ public class Roster
         Contact c=getContact(J, true); //Status!=Presence.PRESENCE_ASK);
         if (c!=null) {
             // изменился статус
-            if (c.status<8 || c.status==Presence.PRESENCE_ASK) c.status=Status;
+            if (c.status<7 || c.status==Presence.PRESENCE_ASK) c.status=Status;
             sort();
             reEnumRoster();//redraw();
             //System.out.println("updated");
@@ -487,8 +498,6 @@ public class Roster
                             messageStore(m);
                             redraw();
                             
-                            AlertProfile.playNotify(display, 0);
-                            
                         }
                     }
                     if (id.equals("getver")) {
@@ -501,8 +510,6 @@ public class Roster
                             Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, body);
                             messageStore(m);
                             redraw();
-                            
-                            AlertProfile.playNotify(display, 0);
                             
                         }
                     }
@@ -540,7 +547,6 @@ public class Roster
                 //setFocusTo(c);
                 redraw();
                 
-                AlertProfile.playNotify(display, 0);
             }
             // присутствие
             else if( data instanceof Presence ) {
@@ -603,12 +609,31 @@ public class Roster
     
     Contact messageStore(Msg message){
         Contact c=getContact(message.from, true);
+        if (c==null) {
+            // contact not in list
+            if (cf.notInList) {
+                c=new Contact(null, message.from, Presence.PRESENCE_UNKNOWN);
+                c.group=NIL_INDEX;
+                hContacts.addElement(c);
+                reEnumRoster();
+            }
+        }
+        if (c==null) return c;  // not to store/signal not-in-list message
         c.addMessage(message);
-        if (message.messageType!=Msg.MESSAGE_TYPE_IN) return c;
+        switch (message.messageType) {
+            case Msg.MESSAGE_TYPE_PRESENCE: 
+            case Msg.MESSAGE_TYPE_OUT: return c;
+        }
         countNewMsgs();
+        
+        if (c.group==IGNORE_INDEX) return c;    // no signalling/focus on ignore
+        
         setFocusTo(c);
+        AlertProfile.playNotify(display, 0);
         return c;
     }
+    
+
     /**
      * Method to begin talking to the server (i.e. send a login message)
      */
@@ -778,10 +803,10 @@ public class Roster
         }
     }
     
-    void resetStrCache(){
+    //void resetStrCache(){
         //System.out.println("reset roster cache");
         //stringCache=new Vector(vContacts.capacity());
-    }
+    //}
     
     public void focusedItem(int index) {
         Object atCursor=vContacts.elementAt(index);
@@ -891,6 +916,8 @@ class Groups{
         g=new Vector();
         addGroup(Roster.TRANSP_GROUP);
         addGroup(Roster.SELF_GROUP);
+        addGroup(Roster.NIL_GROUP);
+        addGroup(Roster.IGNORE_GROUP);
         addGroup(Roster.COMMON_GROUP);
     }
     

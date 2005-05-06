@@ -67,6 +67,7 @@ public class Contact extends IconTextElement{
             :status+(transport<<4); 
     }
     public int getNewMsgsCount() {
+        if (group==Roster.IGNORE_INDEX) return 0;
         //return msgs.size()-lastReaded;
         if (newMsgCnt>-1) return newMsgCnt;
         int nm=0;
@@ -102,7 +103,7 @@ public class Contact extends IconTextElement{
             return;
         } 
         msgs.addElement(m);
-        if (m.unread) newMsgCnt++;
+        if (m.unread) if (newMsgCnt>0) newMsgCnt++;
     }
     
   

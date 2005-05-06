@@ -21,11 +21,13 @@ public class ImageList {
     public final static int ICON_RECONNECT_INDEX=0x54;
     
     public final static int ICON_MESSAGE_INDEX=0x60;
-    public final static int ICON_GROUPCHAT_INDEX=0x61;
-    public final static int ICON_EXPANDED_INDEX=0x62;
-    public final static int ICON_COLLAPSED_INDEX=0x63;
+    public final static int ICON_AUTHRQ_INDEX=0x61;
+    public final static int ICON_GROUPCHAT_INDEX=0x62;
+    public final static int ICON_EXPANDED_INDEX=0x63;
+    public final static int ICON_COLLAPSED_INDEX=0x64;
     public final static int ICON_PROFILE_INDEX=0x70;
-    public final static int ICON_ASK_INDEX=0x75;
+
+    //public final static int ICON_ASK_INDEX=0x06;
     
     
     Image resImage;

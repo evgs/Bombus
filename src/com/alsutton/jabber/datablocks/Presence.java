@@ -152,17 +152,17 @@ public class Presence extends JabberDataBlock
   public String getFrom() {
       return getAttribute("from");
   }
-  public final static int PRESENCE_OFFLINE=5;
   public final static int PRESENCE_ONLINE=0;
   public final static int PRESENCE_CHAT=1;
   public final static int PRESENCE_AWAY=2;
   public final static int PRESENCE_XA=3;
   public final static int PRESENCE_DND=4;
-  public final static int PRESENCE_UNKNOWN=6;
+  public final static int PRESENCE_OFFLINE=5;
+  public final static int PRESENCE_ASK=6;
+  public final static int PRESENCE_UNKNOWN=7;
   public final static int PRESENCE_INVISIBLE=ImageList.ICON_INVISIBLE_INDEX;
   public final static int PRESENCE_ERROR=ImageList.ICON_ERROR_INDEX;
   public final static int PRESENCE_TRASH=ImageList.ICON_ERROR_INDEX+1;
-  public final static int PRESENCE_ASK=ImageList.ICON_ASK_INDEX;
   
   public final static String PRS_OFFLINE="unavailable";
   public final static String PRS_ERROR="error";
