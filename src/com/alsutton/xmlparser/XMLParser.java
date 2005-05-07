@@ -169,7 +169,7 @@ public class XMLParser
 //--              break;
 //--              
 //--      }
-//--      System.out.print((char)j);          //<<<<<<<<<<<<<<<<<<<<<<<<<<
+//--      //System.out.print((char)j);          //<<<<<<<<<<<<<<<<<<<<<<<<<<
 //--      return i;
 /*$M55,M55_Release$*///</editor-fold>
   }
