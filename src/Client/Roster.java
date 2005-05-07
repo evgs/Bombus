@@ -15,7 +15,7 @@ import java.util.*;
 import javax.microedition.lcdui.*;
 import javax.microedition.midlet.MIDlet;
 //import javax.microedition.media.*;
-import Client.Contact.*;
+//import Client.Contact.*;
 import ui.*;
 
 //import Client.msg.*;
@@ -320,29 +320,34 @@ public class Roster
         }
     }
     
-    public final void PresenceContact(final String Nick, final String Jid, final int Status) {
+    public final Contact PresenceContact(final String Jid, int Status) {
+        
         // проверим наличие по полной строке
         Jid J=new Jid(Jid);
         
         Contact c=getContact(J, true); //Status!=Presence.PRESENCE_ASK);
         if (c!=null) {
             // изменился статус
-            if (c.status<7 || c.status==Presence.PRESENCE_ASK) c.status=Status;
-            sort();
-            reEnumRoster();//redraw();
-            //System.out.println("updated");
-            return;
+            if (Status>=0) {
+                if (c.status<7 || c.status==Presence.PRESENCE_ASK) c.status=Status;
+                sort();
+                reEnumRoster();//redraw();
+                //System.out.println("updated");
+            }
+            return c;
         }
         // проверим наличие без ресурсов
+        
+        if (Status<0) Status=Presence.PRESENCE_OFFLINE;
         c=getContact(J, false);
         if (c==null) {
             // хм... нет такой буквы
             // здесь будем игнорить позже
             // также сюда попадает self-contact
             //System.out.println("new");
-            c=new Contact(Nick, Jid, Status);
+            c=new Contact(null, Jid, Status);
             c.origin=2;
-            c.group=COMMON_INDEX;
+            c.group=NIL_INDEX;
             hContacts.addElement(c);
         } else {
             // здесь jid с новым ресурсом
@@ -358,6 +363,7 @@ public class Roster
         }
         sort();
         reEnumRoster();
+        return c;
     }
     
     private void sort(){
@@ -423,7 +429,7 @@ public class Roster
         Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
         theStream.send( presence );
         
-        PresenceContact(null, myJid, myStatus);
+        PresenceContact(myJid, myStatus);
         reEnumRoster();
     }
     
@@ -496,7 +502,7 @@ public class Roster
                             String body=IqGetVCard.dispatchVCard(vc);
                             
                             Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, body);
-                            messageStore(m);
+                            messageStore(m, -1);
                             redraw();
                             
                         }
@@ -509,7 +515,7 @@ public class Roster
                             String body=IqVersionReply.dispatchVersion(vc);
                             
                             Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, body);
-                            messageStore(m);
+                            messageStore(m, -1);
                             redraw();
                             
                         }
@@ -541,7 +547,7 @@ public class Roster
                 if (body.length()==0) return;
                 
                 Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, body);
-                messageStore(m);
+                messageStore(m, -1);
                 //Contact c=getContact(from);
                 //c.msgs.addElement(m);
                 //countNewMsgs();
@@ -557,13 +563,13 @@ public class Roster
                 String from=pr.getFrom();
                 pr.dispathch();
                 int ti=pr.getTypeIndex();
-                PresenceContact(null, from, ti);
+                //PresenceContact(from, ti);
                 Msg m=new Msg(
                         (ti==Presence.PRESENCE_ASK)?
                             Msg.MESSAGE_TYPE_AUTH:Msg.MESSAGE_TYPE_PRESENCE,
                         from,
                         pr.getPresenceTxt());
-                messageStore(m);
+                messageStore(m, ti);
             }
         } catch( Exception e ) {
             e.printStackTrace();
@@ -608,8 +614,9 @@ public class Roster
             }
     }
     
-    Contact messageStore(Msg message){
-        Contact c=getContact(message.from, true);
+     Contact messageStore(Msg message, int status){
+        Contact c=PresenceContact(message.from,status);
+        /*getContact(message.from, true);
         if (c==null) {
             // contact not in list
             if (cf.notInList) {
@@ -618,7 +625,7 @@ public class Roster
                 hContacts.addElement(c);
                 reEnumRoster();
             }
-        }
+        }*/
         if (c==null) return c;  // not to store/signal not-in-list message
         c.addMessage(message);
         switch (message.messageType) {
@@ -893,90 +900,3 @@ public class Roster
 
 /////////////////////////////////////////////////////////////////////////////
 
-class Group extends IconTextElement {
-    String name;
-    int index;
-    public int ncontacts;
-    public int onlines;
-    
-    Vector Contacts;
-    public int tonlines;
-    public int tncontacts;
-    
-    boolean collapsed;
-    public Group(int index, String name) {
-        super(StaticData.getInstance().rosterIcons);
-        this.index=index; this.name=name;
-    }
-    public int getColor(){ return 0x000080; }
-    public int getImageIndex() {
-        return collapsed?
-            ImageList.ICON_COLLAPSED_INDEX
-                :ImageList.ICON_EXPANDED_INDEX;
-    }
-    public String toString(){ return name+" ("+onlines+'/'+ncontacts+')'; }
-    public void onSelect(){
-        collapsed=!collapsed;
-    }
-    
-}
-class Groups{
-    
-    Vector g;
-    public Groups(){
-        g=new Vector();
-        addGroup(Roster.TRANSP_GROUP);
-        addGroup(Roster.SELF_GROUP);
-        addGroup(Roster.NIL_GROUP);
-        addGroup(Roster.IGNORE_GROUP);
-        addGroup(Roster.COMMON_GROUP);
-    }
-    
-    public void resetCounters(){
-        for (Enumeration e=g.elements();e.hasMoreElements();){
-            Group grp=(Group)e.nextElement();
-            grp.tncontacts=grp.tonlines=0;
-            grp.Contacts=new Vector();
-        }
-    }
-    
-    public void addToVector(Vector d, int index){
-        Group gr=getGroup(index);
-        if (gr.Contacts.size()>0){
-            d.addElement(gr);
-            if (!gr.collapsed) for (Enumeration e=gr.Contacts.elements();e.hasMoreElements();){
-                d.addElement(e.nextElement());
-            }
-        }
-        gr.onlines=gr.tonlines;
-        gr.ncontacts=gr.tncontacts;
-        gr.Contacts=null;
-    }
-
-    Group getGroup(int Index) {
-        return (Group)g.elementAt(Index);
-    }
-    
-    Group getGroup(String Name) {
-        for (Enumeration e=g.elements();e.hasMoreElements();){
-            Group grp=(Group)e.nextElement();
-            if (Name.equals(grp.name)) return grp;
-        }
-        return null;
-    }
-    Group addGroup(String name) {
-        Group grp=new Group(g.size(),name);
-        g.addElement(grp);
-        return grp;
-    }
-    Vector getStrings(){
-        Vector s=new Vector();
-        for (int i=Roster.COMMON_INDEX; i<g.size(); i++) {
-            s.addElement(((Group)g.elementAt(i)).name);
-        }
-        s.addElement(Roster.IGNORE_GROUP);
-        return s;
-    }
-    public int getCount() {return g.size();}
-    
-}

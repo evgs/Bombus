@@ -24,6 +24,7 @@ public final class ContactEdit
     ChoiceGroup tGrpList;
     int ngroups;
     
+    //Command cmdIcq=new Command("@icq.jabber.ru",Command.ITEM,1);
     Command cmdOk=new Command("Add", Command.OK, 1);
     Command cmdCancel=new Command("Cancel",Command.BACK,99);
     
@@ -40,6 +41,8 @@ public final class ContactEdit
         f=new Form("Add contact");
         
         tJid=new TextField("User JID",null, 64, 0); 
+        //tJid.addCommand(cmdIcq);
+        
         tNick=new TextField("Name",null, 64, 0); 
         tGroup=new TextField("Group",null, 64, 0);
         
