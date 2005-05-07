@@ -47,7 +47,7 @@ public class XMLParser
 
   private String rootTag = null;
   
-  public int maxBlockSize=5000;
+  public int maxBlockSize=4096-3; //max array for m55=4096?
 
   /** Constructor, Used to override default dispatcher.
    *
@@ -169,6 +169,7 @@ public class XMLParser
 //--              break;
 //--              
 //--      }
+//--      System.out.print((char)j);          //<<<<<<<<<<<<<<<<<<<<<<<<<<
 //--      return i;
 /*$M55,M55_Release$*///</editor-fold>
   }
