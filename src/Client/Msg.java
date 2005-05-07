@@ -28,6 +28,7 @@ public class Msg //implements MessageList.Element
         this.body=body;
         this.date=new Date(System.currentTimeMillis());
         if (messageType==MESSAGE_TYPE_IN) unread=true;
+        if (messageType==MESSAGE_TYPE_AUTH) unread=true;
     }
     
     public void onSelect(){}

@@ -28,15 +28,18 @@ public final class ContactEdit
     Command cmdOk=new Command("Add", Command.OK, 1);
     Command cmdCancel=new Command("Cancel",Command.BACK,99);
     
+    boolean newContact=true;
     Config cf;
     StoreContact sC;
     
-    public ContactEdit(Display display, Vector groups, StoreContact sC, Contact c) {
+    public ContactEdit(Display display, Contact c) {
         this.display=display;
         parentView=display.getCurrent();
         
+        StaticData sd=StaticData.getInstance();
+        sC=sd.roster;
+        Vector groups=sd.roster.vGroups.getStrings();
         cf=StaticData.getInstance().config;
-        this.sC=sC;
         
         f=new Form("Add contact");
         
@@ -69,6 +72,7 @@ public final class ContactEdit
             if (sel<0) sel=0;
             tGroup.setString(group(sel));
             cmdOk=new Command("Update", Command.OK, 1);
+            newContact=false;
         } else f.append(tJid);
         f.append(tNick);
         f.append(tGroup);
@@ -88,7 +92,7 @@ public final class ContactEdit
     }
     
     public interface StoreContact {
-        public void StoreContact(String jid, String name, String group);
+        public void storeContact(String jid, String name, String group, boolean newContact);
     }
 
     public void commandAction(Command c, Displayable d) {
@@ -97,7 +101,7 @@ public final class ContactEdit
             String name=getString(tNick);
             String group=getString(tGroup);
             if (jid!=null) {
-                sC.StoreContact(jid,name,group);
+                sC.storeContact(jid,name,group, newContact);
                 destroyView();
             }
         }

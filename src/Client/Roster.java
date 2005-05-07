@@ -295,7 +295,7 @@ public class Roster
     
     private Vector hContacts;
     private Vector vContacts;
-    private Groups vGroups;
+    public Groups vGroups;
     
     public final void UpdateContact(final String Nick, final String Jid, final String grpName, final int Status) {
         // called only on roster read
@@ -788,7 +788,7 @@ public class Roster
         }
         if (c==cmdAdd) {
             //new MIDPTextBox(display,"Add to roster", null, new AddContact());
-            new ContactEdit(display, vGroups.getStrings(), this, null);
+            new ContactEdit(display, null);
         }
 /*#DefaultConfiguration,Release#*///<editor-fold>
 //        if (c==cmdSetFullScreen) {
@@ -844,7 +844,7 @@ public class Roster
                         break;
 
                     case 1:
-                        new ContactEdit(display, vGroups.getStrings(), sd.roster, c )
+                        (new ContactEdit(display, c ))
                             .parentView=parentView;
                         break;
                     case 2:
@@ -878,10 +878,10 @@ public class Roster
     }
 
 
-    public void StoreContact(String jid, String name, String group){
+    public void storeContact(String jid, String name, String group, boolean newContact){
         
         theStream.send(new IqQueryRoster(jid, name, group, null));
-        theStream.send(new Presence(jid,"subscribe"));
+        if (newContact) theStream.send(new Presence(jid,"subscribe"));
     }
     /*private class AddContact implements MIDPTextBox.TextBoxNotify{
         public void OkNotify(String jid){
