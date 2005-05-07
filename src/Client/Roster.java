@@ -314,6 +314,7 @@ public class Roster
                 if (group==null) {
                     group=vGroups.addGroup(grpName);
                 }
+                c.nick=Nick;
                 c.group=group.index;
                 if (Status!=Presence.PRESENCE_OFFLINE) c.status=Status;
             }
