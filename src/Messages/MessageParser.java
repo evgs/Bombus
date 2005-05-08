@@ -115,10 +115,10 @@ public final class MessageParser {
     {
         Vector v=new Vector();
         
-        int w=0;
         int state=0;
         if (msg.subject==null) state=1;
         while (state<2) {
+            int w=0;
             StringBuffer s=new StringBuffer();
             ComplexString l=new ComplexString(il);
             Font f=l.getFont();
