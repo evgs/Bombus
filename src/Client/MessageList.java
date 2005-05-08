@@ -66,7 +66,7 @@ implements CommandListener{
         Msg msg=(Msg)contact.msgs.elementAt(index);
         msg.unread=false;
         m= (ComplexString)StaticData.getInstance().parser.
-                parseMsg( msg.toString(), (smiles)?il:null, getWidth()-6, true, null);
+                parseMsg( msg, (smiles)?il:null, getWidth()-6, true, null);
         m.setColor(msg.getColor1());
         //m.insertElementAt(new Integer(msg.getColor1()|0x1000000), 0); //color
         int sz=lines.size(); if (index>=sz) lines.setSize(index+1);

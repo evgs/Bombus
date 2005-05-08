@@ -65,7 +65,7 @@ public class MessageEdit implements CommandListener
             // затычка от пустых сообщений. пока так :(
             if (body.length()==0) return;
             
-            Msg msg=new Msg(Msg.MESSAGE_TYPE_OUT,from,body);
+            Msg msg=new Msg(Msg.MESSAGE_TYPE_OUT,from,null,body);
             to.addMessage(msg);
             //((VirtualList)parentView).moveCursorEnd();
             

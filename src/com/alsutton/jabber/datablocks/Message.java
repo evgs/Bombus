@@ -218,11 +218,6 @@ public class Message extends JabberDataBlock
     return "message";
   }
 
-  public String getFullText(){
-      String subj=getSubject();
-      if (subj.length()==0) return getBody();
-      return subj+(char)0xa0+getBody();
-  }
   /**
      * Method to get the message from field
      * @return <B>from</B> field as a string

@@ -94,7 +94,19 @@ public class Contact extends IconTextElement{
 //--            if (m.messageType!=Msg.MESSAGE_TYPE_OUT) fromName=toString();
 //--            if (m.messageType!=Msg.MESSAGE_TYPE_PRESENCE || cf.msgLogPresence)
 //--                //if (!first_replace || !m.)
-//--            NvStorage.appendFile("Log_"+histRecord, m.getDayTime()+" <"+fromName+"> "+m.body+"\r\n");
+//--            {
+//--                StringBuffer body=new StringBuffer(m.getDayTime());
+//--                body.append(" <");
+//--                body.append(fromName);
+//--                body.append("> ");
+//--                if (m.subject!=null) {
+//--                    body.append(m.subject);
+//--                    body.append("\r\n");
+//--                }
+//--                body.append(m.body);
+//--                body.append("\r\n");
+//--                NvStorage.appendFile("Log_"+histRecord, body.toString());
+//--            }
 //--        }
 /*$M55,M55_Release$*///</editor-fold>
         // если единственное сообщение - presence, то заменим его

@@ -22,10 +22,11 @@ public class Msg //implements MessageList.Element
     public final static int MESSAGE_TYPE_AUTH=3;
     
     /** Creates a new instance of msg */
-    public Msg(int messageType, String from, String body) {
+    public Msg(int messageType, String from, String subj, String body) {
         this.messageType=messageType;
         this.from=from;
         this.body=body;
+        this.subject=subj;
         this.date=new Date(System.currentTimeMillis());
         if (messageType==MESSAGE_TYPE_IN) unread=true;
         if (messageType==MESSAGE_TYPE_AUTH) unread=true;
@@ -64,6 +65,9 @@ public class Msg //implements MessageList.Element
     /** Отправитель сообщения */
     public String from;
     
+    /** Тело сообщения */
+    public String subject;
+
     /** Тело сообщения */
     public String body;
 

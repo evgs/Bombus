@@ -49,7 +49,7 @@ public class IqGetVCard extends JabberDataBlock
     
    public static String dispatchVCard(JabberDataBlock data) {
         if (!data.isJabberNameSpace("vcard-temp")) return "unknown vCard namespace";
-        StringBuffer vc=new StringBuffer("vCard\n");
+        StringBuffer vc=new StringBuffer();
         //vc.append((char)0x01);
         for (int i=0; i<TOPFIELDS.length; i++){
             String field=data.getTextForChildBlock(TOPFIELDS[i].toLowerCase());

@@ -503,7 +503,7 @@ public class Roster
                             String from=data.getAttribute("from");
                             String body=IqGetVCard.dispatchVCard(vc);
                             
-                            Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, body);
+                            Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, "vCard", body);
                             messageStore(m, -1);
                             redraw();
                             
@@ -516,7 +516,7 @@ public class Roster
                             String from=data.getAttribute("from");
                             String body=IqVersionReply.dispatchVersion(vc);
                             
-                            Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, body);
+                            Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, "Client info", body);
                             messageStore(m, -1);
                             redraw();
                             
@@ -545,10 +545,13 @@ public class Roster
                 Message message = (Message) data;
                 
                 String from=message.getFrom();
-                String body=message.getFullText().trim();
+                String body=message.getBody().trim();
                 if (body.length()==0) return;
                 
-                Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, body);
+                String subj=message.getSubject().trim();
+                if (subj.length()==0) subj=null;
+                
+                Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, subj, body);
                 messageStore(m, -1);
                 //Contact c=getContact(from);
                 //c.msgs.addElement(m);
@@ -570,6 +573,7 @@ public class Roster
                         (ti==Presence.PRESENCE_ASK)?
                             Msg.MESSAGE_TYPE_AUTH:Msg.MESSAGE_TYPE_PRESENCE,
                         from,
+                        null,
                         pr.getPresenceTxt());
                 messageStore(m, ti);
             }

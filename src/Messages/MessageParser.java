@@ -8,9 +8,10 @@ package Messages;
 
 import java.io.*;
 import java.util.Vector;
-
 import javax.microedition.lcdui.Font;
+
 import ui.*;
+import Client.Msg;
 /**
  *
  * @author Eugene Stahov
@@ -105,7 +106,7 @@ public final class MessageParser {
     }
 
     public Vector parseMsg(
-            String txt, 
+            Msg msg, 
             ImageList il,       //!< если null, то смайлы игнорируютс€
             int width, 
             boolean singleLine, //!< парсить только одну строку из сообщени€
@@ -113,93 +114,106 @@ public final class MessageParser {
             )
     {
         Vector v=new Vector();
-        ComplexString l=new ComplexString(il);
-        Font f=l.getFont();
-        
-        StringBuffer s=new StringBuffer();
-        int i=0;
-        
-        if (singleLine) width-=f.charWidth('>');
         
         int w=0;
-        while (i<txt.length()) {
-            MessageParser p1,p=this;
-            int smileIndex=-1;
-            int smileStart=i;
-            int smileEnd=i;
-            while (i<txt.length()) {
-                char c=txt.charAt(i);
-
-                if (il==null) break;
-
-                p1=p.findChild(c);
-                if (p1==null) break;    //этот символ c не попал в смайл
-                p=p1;
-                if (p.Smile!=-1) {
-                    // нашли смайл
-                    smileIndex=p.Smile;
-                    smileEnd=i;
-                }
-                i++; // продолжаем поиск смайла
-            }
-            if (smileIndex!=-1) {
-                // есть смайлик
-                // добавим строку
-                if (s.length()>0) l.addElement(s.toString());
-                // очистим
-                s.setLength(0);
-                // добавим смайлик
-                int iw=il.getWidth();
-                if (w+iw>width) {
-                    if (singleLine) {
-                        // возврат одной строки
-                        l.addRAlign();
-                        l.addElement(">");
-                        return l;
-                    }
-                    v.addElement(l);    // добавим l в v
-                    if (notify!=null) notify.notifyRepaint(v);
-                    l=new ComplexString(il);     // нова€ строка
-                    w=0;
-                }
-                l.addImage(smileIndex); w+=iw;
-                // передвинем указатель
-                i=smileEnd;
-            } else {
-                // символ в строку-накопитель
-                i=smileStart;
-                char c=txt.charAt(i);
-                int cw=f.charWidth(c);
-                if (w+cw>width || c==0x0d || c==0x0a || c==0xa0) {
-                    l.addElement(s.toString());    // последн€€ подстрока в l
-                    s.setLength(0); w=0;
-                    
-                    if (c==0xa0) l.setColor(0x904090);
-
-                    if (singleLine) {
-                        // возврат одной строки
-                        l.addRAlign();
-                        l.addElement(">");
-                        return l;
-                    }
-                    
-                    v.addElement(l);    // добавим l в v
-                    if (notify!=null) notify.notifyRepaint(v);
-                    l=new ComplexString(il);     // нова€ строка
-                }
-                if (c>0x1f) {  s.append(c); w+=cw; }
-            }
-            i++;
-        }
-        if (s.length()>0) l.addElement(s.toString());
-
-        if (singleLine) return l;   // возврат одной строки
+        int state=0;
+        if (msg.subject==null) state=1;
+        while (state<2) {
+            StringBuffer s=new StringBuffer();
+            ComplexString l=new ComplexString(il);
+            Font f=l.getFont();
         
-        if (!l.isEmpty()) v.addElement(l);  // последн€€ строка
+        
+            if (singleLine) width-=f.charWidth('>');
+            
+            String txt=(state==0)? msg.subject: msg.toString();
+            int color=(state==0)? 0xa00000:0x000000;
+            l.setColor(color);
+            
+            int i=0;
+            if (txt!=null)
+            while (i<txt.length()) {
+                MessageParser p1,p=this;
+                int smileIndex=-1;
+                int smileStart=i;
+                int smileEnd=i;
+                while (i<txt.length()) {
+                    char c=txt.charAt(i);
 
-        if (notify!=null) {
-            notify.notifyRepaint(v);
-            notify.notifyFinalized();
+                    if (il==null) break;
+
+                    p1=p.findChild(c);
+                    if (p1==null) break;    //этот символ c не попал в смайл
+                    p=p1;
+                    if (p.Smile!=-1) {
+                        // нашли смайл
+                        smileIndex=p.Smile;
+                        smileEnd=i;
+                    }
+                    i++; // продолжаем поиск смайла
+                }
+                if (smileIndex!=-1) {
+                    // есть смайлик
+                    // добавим строку
+                    if (s.length()>0) l.addElement(s.toString());
+                    // очистим
+                    s.setLength(0);
+                    // добавим смайлик
+                    int iw=il.getWidth();
+                    if (w+iw>width) {
+                        if (singleLine) {
+                            // возврат одной строки
+                            l.addRAlign();
+                            l.addElement(">");
+                            return l;
+                        }
+                        v.addElement(l);    // добавим l в v
+                        if (notify!=null) notify.notifyRepaint(v);
+                        l=new ComplexString(il);     // нова€ строка
+                        l.setColor(color);
+                        w=0;
+                    }
+                    l.addImage(smileIndex); w+=iw;
+                    // передвинем указатель
+                    i=smileEnd;
+                } else {
+                    // символ в строку-накопитель
+                    i=smileStart;
+                    char c=txt.charAt(i);
+                    int cw=f.charWidth(c);
+                    if (w+cw>width || c==0x0d || c==0x0a || c==0xa0) {
+                        l.addElement(s.toString());    // последн€€ подстрока в l
+                        s.setLength(0); w=0;
+
+                        if (c==0xa0) l.setColor(0x904090);
+
+                        if (singleLine) {
+                            // возврат одной строки
+                            l.addRAlign();
+                            l.addElement(">");
+                            return l;
+                        }
+
+                        v.addElement(l);    // добавим l в v
+                        if (notify!=null) notify.notifyRepaint(v);
+                        l=new ComplexString(il);     // нова€ строка
+                        l.setColor(color);
+                    }
+                    if (c>0x1f) {  s.append(c); w+=cw; }
+                }
+                i++;
+            }
+            if (s.length()>0) l.addElement(s.toString());
+
+            if (singleLine) return l;   // возврат одной строки
+
+            if (!l.isEmpty()) v.addElement(l);  // последн€€ строка
+
+            if (notify!=null) {
+                notify.notifyRepaint(v);
+                notify.notifyFinalized();
+            }
+            state++;
         }
         return v;
 
