@@ -52,7 +52,7 @@ public class MessageView
     
     public void run() {
         sd.parser.parseMsg(
-                msg.body,
+                msg.toString(),
                 (smiles)?sd.smilesIcons:null, 
                 getWidth()-6,
                 false, this);

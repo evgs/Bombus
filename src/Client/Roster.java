@@ -280,6 +280,7 @@ public class Roster
         else {
             if (cursor>=vContacts.size()) moveCursorEnd();
         }
+        focusedItem(cursor);
         redraw();
     }
     
@@ -544,7 +545,7 @@ public class Roster
                 Message message = (Message) data;
                 
                 String from=message.getFrom();
-                String body=message.getBody().trim();
+                String body=message.getFullText().trim();
                 if (body.length()==0) return;
                 
                 Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, body);
@@ -838,37 +839,46 @@ public class Roster
                 switch (cursor) {
                     case 0: // info
                         querysign=true; displayStatus();
-                        //try {
-                            theStream.send(new IqGetVCard(to));
                             theStream.send(new IqVersionReply(to));
-                        //} catch (Exception e) {e.printStackTrace();}
+                        break;
+                    case 1: // info
+                        querysign=true; displayStatus();
+                            theStream.send(new IqGetVCard(to));
                         break;
 
-                    case 1:
+                    case 2:
                         (new ContactEdit(display, c ))
                             .parentView=parentView;
                         break;
-                    case 2:
+                    case 3:
                         if (c.status==Presence.PRESENCE_TRASH) {
                             hContacts.removeElement(c);
                             reEnumRoster();
+                        } else {
+                            new YesNoAlert(display, parentView, "Delete contact?", c.jid.getJid()){
+                                public void yes() {
+                                    theStream.send(new IqQueryRoster(c.jid.getJid(),null,null,"remove"));
+                                }
+                            };
+                            //new DeleteContact(display,c);
                         }
                         break;
-                    case 3: //auth send
+                    case 4: //auth send
                         sendPresence(to,"subscribed");
                         break;
 
-                    case 4: //auth request
+                    case 5: //auth request
                         sendPresence(to,"subscribe");
                         break;
                         
-                    case 5:
+                    case 6:
                         sendPresence(to,"unsubscribed");
                         break;
                 }
             }
         };
         m.addItem(new MenuItem("Info"));
+        m.addItem(new MenuItem("vCard"));
         m.addItem(new MenuItem("Edit"));
         m.addItem(new MenuItem("Delete"));
         m.addItem(new MenuItem("Auth Send"));        
@@ -900,4 +910,16 @@ public class Roster
 
 
 /////////////////////////////////////////////////////////////////////////////
+
+/*class DeleteContact extends YesNoAlert{
+    String delJid;
+    DeleteContact(Display display, Contact c ){
+        super(display, "Delete contact?", c.jid.getJid());
+        delJid=c.jid.getJid();
+    }
+    
+    public void yes() {
+    }
+    
+}*/
 

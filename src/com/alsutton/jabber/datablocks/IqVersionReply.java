@@ -68,7 +68,7 @@ public class IqVersionReply extends JabberDataBlock{
             String field=data.getTextForChildBlock(TOPFIELDS[i].toLowerCase());
             if (field.length()>0) {
                 vc.append(TOPFIELDS[i]);
-                vc.append((char)0x01);
+                vc.append((char)0xa0);
                 vc.append(field);
                 vc.append((char)'\n');
             }

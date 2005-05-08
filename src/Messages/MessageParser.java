@@ -170,11 +170,11 @@ public final class MessageParser {
                 i=smileStart;
                 char c=txt.charAt(i);
                 int cw=f.charWidth(c);
-                if (w+cw>width || c==0x0d || c==0x0a || c==0x01) {
+                if (w+cw>width || c==0x0d || c==0x0a || c==0xa0) {
                     l.addElement(s.toString());    // последняя подстрока в l
                     s.setLength(0); w=0;
                     
-                    if (c==0x01) l.setColor(0x904090);
+                    if (c==0xa0) l.setColor(0x904090);
 
                     if (singleLine) {
                         // возврат одной строки

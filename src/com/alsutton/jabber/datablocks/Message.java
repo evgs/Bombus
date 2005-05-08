@@ -123,12 +123,12 @@ public class Message extends JabberDataBlock
    * @param threadName The string to go in the thread block
    */
 
-  public void setThread( String text )
+  /*public void setThread( String text )
   {
     JabberDataBlock thread = new JabberDataBlock( "thread", null, null );
     thread.addText( text );
     addChild( thread );
-  }
+  }*/
 
   /**
    * Method to set the subject text. Creates a subject block and inserts the text into it.
@@ -218,6 +218,11 @@ public class Message extends JabberDataBlock
     return "message";
   }
 
+  public String getFullText(){
+      String subj=getSubject();
+      if (subj.length()==0) return getBody();
+      return subj+(char)0xa0+getBody();
+  }
   /**
      * Method to get the message from field
      * @return <B>from</B> field as a string

@@ -53,7 +53,7 @@ public class IqQueryRoster extends JabberDataBlock
         JabberDataBlock item=new JabberDataBlock("item",qB,null);
         item.setAttribute("jid", jid);
         if (name!=null) item.setAttribute("name", name);
-        if (subscription!=null) item.setAttribute("subscription", name);
+        if (subscription!=null) item.setAttribute("subscription", subscription);
         if (group!=null) {
             item.addChild(new JabberDataBlock(item,"group",group));
         }

@@ -98,7 +98,7 @@ implements CommandListener{
             new MessageEdit(display,contact,null);
         }
         if (c==cmdQuote) {
-            new MessageEdit(display,contact,((Msg)getSelectedObject()).body);
+            new MessageEdit(display,contact,((Msg)getSelectedObject()).toString());
         }
     }
 }
