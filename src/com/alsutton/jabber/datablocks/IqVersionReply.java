@@ -62,7 +62,7 @@ public class IqVersionReply extends JabberDataBlock{
   
     public static String dispatchVersion(JabberDataBlock data) {
         if (!data.isJabberNameSpace("jabber:iq:version")) return "unknown version namespace";
-        StringBuffer vc=new StringBuffer("Client info\n");
+        StringBuffer vc=new StringBuffer();
         //vc.append((char)0x01);
         for (int i=0; i<TOPFIELDS.length; i++){
             String field=data.getTextForChildBlock(TOPFIELDS[i].toLowerCase());
