@@ -22,6 +22,7 @@ public final class ContactEdit
     TextField tNick;
     TextField tGroup;
     ChoiceGroup tGrpList;
+    ChoiceGroup tTranspList;
     int ngroups;
     
     //Command cmdIcq=new Command("@icq.jabber.ru",Command.ITEM,1);
@@ -50,7 +51,15 @@ public final class ContactEdit
         tGroup=new TextField("Group",null, 64, 0);
         
         
-        tGrpList=new ChoiceGroup(null, Choice.EXCLUSIVE);
+/*#DefaultConfiguration,Release#*///<editor-fold>
+        tGrpList=new ChoiceGroup(null, Choice.POPUP);
+        tTranspList=new ChoiceGroup(null, Choice.POPUP);
+/*$DefaultConfiguration,Release$*///</editor-fold>
+/*#!DefaultConfiguration,Release#*///<editor-fold>
+//--        tGrpList=new ChoiceGroup(null, Choice.EXCLUSIVE);
+//--        tTranspList=new ChoiceGroup(null, Choice.EXCLUSIVE);
+/*$!DefaultConfiguration,Release$*///</editor-fold>
+        
         ngroups=0;
         if (groups!=null) {
             ngroups=groups.size();
@@ -73,7 +82,16 @@ public final class ContactEdit
             tGroup.setString(group(sel));
             cmdOk=new Command("Update", Command.OK, 1);
             newContact=false;
-        } else f.append(tJid);
+        } else {
+            tTranspList.append(sd.account.getServerN(), null);
+            for (Enumeration e=sd.roster.getHContacts().elements(); e.hasMoreElements(); ){
+                Contact ct=(Contact)e.nextElement();
+                if (ct.jid.isTransport()) tTranspList.append(ct.getJidNR(),null);
+            }
+            tTranspList.append("<Other>",null);
+            f.append(tJid);
+            f.append(tTranspList);
+        }
         f.append(tNick);
         f.append(tGroup);
         
@@ -121,14 +139,42 @@ public final class ContactEdit
         return tGrpList.getString(index);
     }
     
+    private void updateChoise(String str, ChoiceGroup grp) {
+        int sz=grp.size();
+        for (int i=0; i<sz; i++) {
+            if (str.equals(grp.getString(i))) {
+                grp.setSelectedIndex(i, true);
+                return;
+            }
+        }
+        grp.setSelectedIndex(sz-1, true);
+    }
+    
     public void itemStateChanged(Item item){
         if (item==tGrpList) {
             int index=tGrpList.getSelectedIndex();
             tGroup.setString(group(index));
         }
         if (item==tGroup) {
-            tGrpList.setSelectedIndex(ngroups, true);
-        };
+            updateChoise(tGroup.getString(), tGrpList);
+        }
+        if (item==tTranspList) {
+            int index=tTranspList.getSelectedIndex();
+            if (index==tTranspList.size()-1) return;
+            String transport=tTranspList.getString(index);
+            int at=tJid.getString().indexOf('@');
+            if (at<0) at=0;
+            tJid.delete(at, tJid.size()-at);
+            tJid.insert("@",at);
+            tJid.insert(transport, at+1);
+        }
+        if (item==tJid) {
+            String s1=tJid.getString();
+            int at=tJid.getString().indexOf('@');
+            try {
+                updateChoise(s1.substring(at+1), tTranspList);
+            } catch (Exception e) {}
+        }
     }
     
     public void destroyView(){

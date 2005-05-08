@@ -523,3 +523,5 @@ Motorola:
   subject раскрашивается в MessageView
   сохранение subject в версии m55
   команда MessageList:Quote квотит только тело, без subject
+(54)
+  улучшено поведение формы ContactEdit, дополнение окончания jid.

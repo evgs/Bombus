@@ -297,6 +297,8 @@ public class Roster
     private Vector hContacts;
     private Vector vContacts;
     public Groups vGroups;
+
+    public Vector getHContacts() {return hContacts;}
     
     public final void UpdateContact(final String Nick, final String Jid, final String grpName, final int Status) {
         // called only on roster read
@@ -838,7 +840,7 @@ public class Roster
     public void contactMenu(final Contact c) {
         Menu m=new Menu(c.toString()){
             public void eventOk(){
-                String to=(cursor<3)? c.jid.getJidFull() : c.jid.getJid();
+                String to=(cursor<3)? c.getJid() : c.getJidNR();
                 destroyView();
                 switch (cursor) {
                     case 0: // info
@@ -859,9 +861,9 @@ public class Roster
                             hContacts.removeElement(c);
                             reEnumRoster();
                         } else {
-                            new YesNoAlert(display, parentView, "Delete contact?", c.jid.getJid()){
+                            new YesNoAlert(display, parentView, "Delete contact?", c.getJidNR()){
                                 public void yes() {
-                                    theStream.send(new IqQueryRoster(c.jid.getJid(),null,null,"remove"));
+                                    theStream.send(new IqQueryRoster(c.getJidNR(),null,null,"remove"));
                                 }
                             };
                             //new DeleteContact(display,c);
