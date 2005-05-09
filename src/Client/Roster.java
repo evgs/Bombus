@@ -826,15 +826,18 @@ public class Roster
     //}
     
     public void focusedItem(int index) {
+        removeCommand(cmdContact);
+        if (vContacts==null) return;
+        if (index>=vContacts.size()) return;
         Object atCursor=vContacts.elementAt(index);
         if (atCursor instanceof Contact) {
             addCommand(cmdContact); 
             //removeCommand(cmdGroup);
         }
-        if (atCursor instanceof Group) {
+        /*if (atCursor instanceof Group) {
             //addCommand(cmdGroup); 
             removeCommand(cmdContact);
-        }
+        }*/
     }
     
     public void contactMenu(final Contact c) {
@@ -855,7 +858,7 @@ public class Roster
                     case 2:
                         (new ContactEdit(display, c ))
                             .parentView=parentView;
-                        break;
+                        return; //break;
                     case 3:
                         if (c.status==Presence.PRESENCE_TRASH) {
                             hContacts.removeElement(c);
@@ -864,8 +867,9 @@ public class Roster
                             new YesNoAlert(display, parentView, "Delete contact?", c.getJidNR()){
                                 public void yes() {
                                     theStream.send(new IqQueryRoster(c.getJidNR(),null,null,"remove"));
-                                }
+                                };
                             };
+                            return;
                             //new DeleteContact(display,c);
                         }
                         break;

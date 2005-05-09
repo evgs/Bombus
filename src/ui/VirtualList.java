@@ -226,6 +226,7 @@ public abstract class VirtualList
     int visibleItemsCnt(int from, int direction){
         int count=getItemCount();
         if (count==0) return 0;
+        if (from>=count) return 0;
         int wsize=height;
         int itemcnt=0;
         if (title!=null) wsize-=title.getVHeight();

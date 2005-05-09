@@ -141,13 +141,15 @@ public final class ContactEdit
     
     private void updateChoise(String str, ChoiceGroup grp) {
         int sz=grp.size();
+        int set=sz-1;
         for (int i=0; i<sz; i++) {
             if (str.equals(grp.getString(i))) {
-                grp.setSelectedIndex(i, true);
-                return;
+                set=i;
+                break;
             }
         }
-        grp.setSelectedIndex(sz-1, true);
+        if (grp.getSelectedIndex()!=set) 
+            grp.setSelectedIndex(set, true);
     }
     
     public void itemStateChanged(Item item){
