@@ -72,16 +72,16 @@ public class Roster
     boolean reconnect=false;
     boolean querysign=false;
     
-    private Command cmdStatus=new Command("Status",Command.SCREEN,1);
+    private Command cmdStatus=new Command("Status >",Command.SCREEN,1);
     private Command cmdContact=new Command("Contact >",Command.SCREEN,2);
     private Command cmdAdd=new Command("Add Contact",Command.SCREEN,3);
     //private Command cmdGroup=new Command("Group menu",Command.SCREEN,3);
-    private Command cmdAlert=new Command("Alert Profile",Command.SCREEN,8);
+    private Command cmdAlert=new Command("Alert Profile >",Command.SCREEN,8);
     //private Command cmdShowOfflines=new Command("Show Offlines",Command.SCREEN,9);
     //private Command cmdHideOfflines=new Command("Hide Offlines",Command.SCREEN,9);
     private Command cmdReconnect=new Command("Reconnect",Command.SCREEN,10);
     private Command cmdLogoff=new Command("Logoff",Command.SCREEN,11);
-    private Command cmdAccount=new Command("Account",Command.SCREEN,12);
+    private Command cmdAccount=new Command("Account >",Command.SCREEN,12);
     //private Command cmdSetFullScreen=new Command("Fullscreen",Command.SCREEN,20);
     private Command cmdOptions=new Command("Options",Command.SCREEN,20);
     private Command cmdQuit=new Command("Quit",Command.SCREEN,99);
@@ -826,14 +826,14 @@ public class Roster
     //}
     
     public void focusedItem(int index) {
-        removeCommand(cmdContact);
         if (vContacts==null) return;
         if (index>=vContacts.size()) return;
         Object atCursor=vContacts.elementAt(index);
         if (atCursor instanceof Contact) {
             addCommand(cmdContact); 
             //removeCommand(cmdGroup);
-        }
+        } else removeCommand(cmdContact);
+
         /*if (atCursor instanceof Group) {
             //addCommand(cmdGroup); 
             removeCommand(cmdContact);

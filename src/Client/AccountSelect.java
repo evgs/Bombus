@@ -145,15 +145,18 @@ public class AccountSelect extends VirtualList implements CommandListener{
             
             f=new Form("Account");
             userbox=new TextField("Username",account.getUserName(),32,TextField.URL);  f.append(userbox);
-            passbox=new TextField("Password",account.getPassword(),32,TextField.URL);  f.append(passbox);
+            passbox=new TextField("Password",account.getPassword(),32,
+                    TextField.URL|TextField.PASSWORD);  f.append(passbox); passStars();
+                    
             servbox=new TextField("Server",account.getServerN(),32,TextField.URL);    f.append(servbox);
             ipbox=new TextField("Server IP",account.getServerI(),32,TextField.URL);   f.append(ipbox);
             portbox=new TextField("Port",String.valueOf(account.getPort()),32,TextField.NUMERIC);   f.append(portbox);
             register=new ChoiceGroup(null, Choice.MULTIPLE);
             register.append("Register Account",null);
             //if (newaccount) 
-                f.append(register);
-            
+            f.append(register);
+                
+                        
             f.addCommand(cmdOk);
             f.addCommand(cmdCancel);
             
@@ -162,16 +165,22 @@ public class AccountSelect extends VirtualList implements CommandListener{
             
             display.setCurrent(f);
         }
+
+        private void passStars(){
+            if (passbox.size()==0) passbox.setConstraints(TextField.URL);
+        }
         
         public void itemStateChanged(Item item) {
-            if (item!=userbox) return;
             
-            // test for userbox has user@server
-            String user=userbox.getString();
-            int at=user.indexOf('@');
-            if (at==-1) return;
-            //userbox.setString(user.substring(0,at));
-            servbox.setString(user.substring(at+1));
+            if (item==userbox) {
+                // test for userbox has user@server
+                String user=userbox.getString();
+                int at=user.indexOf('@');
+                if (at==-1) return;
+                //userbox.setString(user.substring(0,at));
+                servbox.setString(user.substring(at+1));
+            }
+            if (item==passbox) passStars();
         }
         public void commandAction(Command c, Displayable d){
             if (c==cmdCancel) {
