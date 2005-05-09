@@ -881,9 +881,10 @@ public class Roster
                         sendPresence(to,"unsubscribed");
                         break;
                 }
+                destroyView();
             }
         };
-        m.addItem(new MenuItem("Info"));
+        m.addItem(new MenuItem("Client Info"));
         m.addItem(new MenuItem("vCard"));
         m.addItem(new MenuItem("Edit"));
         m.addItem(new MenuItem("Delete"));

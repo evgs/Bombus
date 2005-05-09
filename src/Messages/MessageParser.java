@@ -205,7 +205,13 @@ public final class MessageParser {
             }
             if (s.length()>0) l.addElement(s.toString());
 
-            if (singleLine) return l;   // возврат одной строки
+            if (singleLine) {
+                if (state==0){
+                    l.addRAlign();
+                    l.addElement(">");
+                }
+                return l;   // возврат одной строки
+            }
 
             if (!l.isEmpty()) v.addElement(l);  // последняя строка
 

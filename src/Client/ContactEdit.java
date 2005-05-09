@@ -163,7 +163,7 @@ public final class ContactEdit
             if (index==tTranspList.size()-1) return;
             String transport=tTranspList.getString(index);
             int at=tJid.getString().indexOf('@');
-            if (at<0) at=0;
+            if (at<0) at=tJid.size();
             tJid.delete(at, tJid.size()-at);
             tJid.insert("@",at);
             tJid.insert(transport, at+1);
