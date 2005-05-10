@@ -8,6 +8,7 @@ package Client;
 import java.util.*;
 import ui.IconTextElement;
 import ui.ImageList;
+import com.alsutton.jabber.datablocks.Presence;
 
 /**
  * Контакт
@@ -27,6 +28,11 @@ public class Contact extends IconTextElement{
     public int status;
     public int group;
     public int transport;
+    
+    public String subscr;
+    public int offline_type;
+    public boolean ask_subscribe;
+    
     public Vector msgs;
     private int newMsgCnt=-1;
     
@@ -40,9 +46,10 @@ public class Contact extends IconTextElement{
     }
     public int origin;  //0 - from roster, 1 - from roster, appended resource, 2 - from presence
 
-    public Contact(final String Nick, final String sJid, final int Status) {
+    public Contact(final String Nick, final String sJid, final int Status, String subscr) {
         this();
         nick=Nick; jid= new Jid(sJid); status=Status;
+        this.subscr=subscr;
         //msgs.removeAllElements();
         
         //calculating transport
@@ -54,6 +61,8 @@ public class Contact extends IconTextElement{
         c.group=group; 
         c.jid=newjid; 
         c.nick=nick; 
+        c.subscr=subscr;
+        c.offline_type=offline_type;
         c.origin=2; 
         c.status=status; 
         c.transport=transport;
@@ -61,10 +70,10 @@ public class Contact extends IconTextElement{
     }
     
     public int getImageIndex() {
-        if (status>7) return status;    // for errors
-        return (getNewMsgsCount()>0)?
-            ImageList.ICON_MESSAGE_INDEX
-            :status+(transport<<4); 
+        if (getNewMsgsCount()>0) return ImageList.ICON_MESSAGE_INDEX;
+        int st=(status==Presence.PRESENCE_OFFLINE)?offline_type:status;
+        if (st<8) st+=transport<<4; 
+        return st;
     }
     public int getNewMsgsCount() {
         if (group==Roster.IGNORE_INDEX) return 0;
@@ -135,6 +144,11 @@ public class Contact extends IconTextElement{
         return jid.getJid();
     }
 
+    public final String getNickJid() {
+        if (nick==null) return jid.getJid();
+        return nick+" <"+jid.getJid()+">";
+    }
+    
     /**
      * Splits string like "name@jabber.ru/resource" to vector 
      * containing 2 substrings

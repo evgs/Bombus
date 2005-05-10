@@ -15,7 +15,7 @@ import java.util.*;
 public final class ContactEdit
         implements CommandListener, ItemStateListener {
     private Display display;
-    public Displayable parentView;
+    //public Displayable parentView;
     
     Form f;
     TextField tJid;
@@ -31,14 +31,16 @@ public final class ContactEdit
     
     boolean newContact=true;
     Config cf;
-    StoreContact sC;
+    Roster roster;
+    //StoreContact sC;
     
     public ContactEdit(Display display, Contact c) {
         this.display=display;
-        parentView=display.getCurrent();
+        //parentView=display.getCurrent();
         
         StaticData sd=StaticData.getInstance();
-        sC=sd.roster;
+        roster=sd.roster;
+        
         Vector groups=sd.roster.vGroups.getStrings();
         cf=StaticData.getInstance().config;
         
@@ -91,6 +93,7 @@ public final class ContactEdit
             tTranspList.append("<Other>",null);
             f.append(tJid);
             f.append(tTranspList);
+            updateChoise("-",tTranspList);
         }
         f.append(tNick);
         f.append(tGroup);
@@ -109,9 +112,9 @@ public final class ContactEdit
         display.setCurrent(f);
     }
     
-    public interface StoreContact {
-        public void storeContact(String jid, String name, String group, boolean newContact);
-    }
+    //public interface StoreContact {
+    //    public void storeContact(String jid, String name, String group, boolean newContact);
+    //}
 
     public void commandAction(Command c, Displayable d) {
         if (c==cmdOk) {
@@ -119,7 +122,7 @@ public final class ContactEdit
             String name=getString(tNick);
             String group=getString(tGroup);
             if (jid!=null) {
-                sC.storeContact(jid,name,group, newContact);
+                roster.storeContact(jid,name,group, newContact);
                 destroyView();
             }
         }
@@ -180,6 +183,6 @@ public final class ContactEdit
     }
     
     public void destroyView(){
-        if (display!=null)   display.setCurrent(parentView);
+        if (display!=null)   display.setCurrent(roster);
     }
 }

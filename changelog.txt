@@ -550,3 +550,25 @@ Motorola:
   удалялась и добавлялась команда Contact >
   вероятность, что меню исчезнет, остаётся, если контакт, на котором 
   стоит курсор, уйдёт в оффлайн, и после этого курсор окажется на группе
+
+11.05.2005
+(62)
+  Add Contact: перед вводом jid транспорт установлен в <other>
+
+  полноcтью переделано хранение subscription и ask.
+
+  команда Contact:Subscription, выдаёт форму, содержащую:
+   текущее состояние Subscription
+   команды Request subscription, Send subscription, Remove Subscription.
+
+  команды Contact:Auth * удалены.
+
+  в Contact:Delete и Contact:Subscription используется представление 
+  имени контакта как "nickname <jid>"
+
+  YesNoAlert: замена типа команды cmdNo на Command.BACK (siemens red button)
+
+  в vCard добавлен jid
+
+  платформа MIDP1 у Siemens не поддерживает добавление команд в Alert
+  переход с класса Alert на класс Form

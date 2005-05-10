@@ -11,21 +11,24 @@ import javax.microedition.lcdui.*;
  *
  * @author Evg_S
  */
-public abstract class YesNoAlert extends Alert implements CommandListener{
+public abstract class YesNoAlert extends Form implements CommandListener{
     
     private Display display;
     private Displayable parentView;
 
     
     Command cmdYes=new Command("Yes", Command.OK, 1);
-    Command cmdNo=new Command("No", Command.CANCEL, 99);
+    Command cmdNo=new Command("No", Command.BACK, 99);
     /** Creates a new instance of YesNoAlert */
     public YesNoAlert(Display display, Displayable parentView, String title, String alertText) {
-        super(title, alertText, null, null);
+        super(title);
         addCommand(cmdYes);
         addCommand(cmdNo);
         setCommandListener(this);
 
+        append("\n");
+        append(alertText);
+        
         this.display=display;
         this.parentView=parentView;//display.getCurrent();
         display.setCurrent(this);

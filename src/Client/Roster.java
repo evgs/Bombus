@@ -30,8 +30,8 @@ public class Roster
         implements
         JabberListener,
         CommandListener,
-        Runnable,
-        ContactEdit.StoreContact
+        Runnable
+        //ContactEdit.StoreContact
         //Thread
 {
     
@@ -96,7 +96,7 @@ public class Roster
         this.display=display;
         
         cf=sd.config;
-       
+        
         //msgNotify=new EventNotify(display, Profile.getProfile(0) );
         
         setTitleImages(sd.rosterIcons);
@@ -122,10 +122,10 @@ public class Roster
         addCommand(cmdReconnect);
         addCommand(cmdLogoff);
         addCommand(cmdAccount);
-/*#DefaultConfiguration,Release#*///<editor-fold>
+        /*#DefaultConfiguration,Release#*///<editor-fold>
         //addCommand(cmdSetFullScreen);
         setFullScreenMode(cf.fullscreen);
-/*$DefaultConfiguration,Release$*///</editor-fold>
+        /*$DefaultConfiguration,Release$*///</editor-fold>
         addCommand(cmdOptions);
         addCommand(cmdQuit);
         
@@ -141,18 +141,18 @@ public class Roster
             // connect whithout account select
             Account.launchAccount();
         }
-
+        
     }
     
     void addOptionCommands(){
         //Config cf=StaticData.getInstance().config;
-//        if (cf.showOfflineContacts) {
-//            addCommand(cmdHideOfflines);
-//            removeCommand(cmdShowOfflines);
-//        } else {
-//            addCommand(cmdShowOfflines);
-//            removeCommand(cmdHideOfflines);
-//        }
+        //        if (cf.showOfflineContacts) {
+        //            addCommand(cmdHideOfflines);
+        //            removeCommand(cmdShowOfflines);
+        //        } else {
+        //            addCommand(cmdShowOfflines);
+        //            removeCommand(cmdHideOfflines);
+        //        }
     }
     public void setProgress(String pgs,int percent){
         SplashScreen.getInstance().setProgress(pgs, percent);
@@ -166,9 +166,9 @@ public class Roster
             vGroups=new Groups();
             vContacts=new Vector(); // just for displaying
             myJid=sd.account.toString();
-            UpdateContact(null, sd.account.toString(), SELF_GROUP, Presence.PRESENCE_OFFLINE);
+            UpdateContact(null, sd.account.toString(), SELF_GROUP, "self", false);
             myJid+="/"+RESOURCE;
-
+            
             System.gc();
         };
         
@@ -224,15 +224,15 @@ public class Roster
             }
         }
         messageCount=m;
-/*#M55,M55_Release#*///<editor-fold>
-//--        int pattern=cf.m55_led_pattern;//StaticData.getInstance().config.m55_led_pattern;
-//--        if (pattern>0) EventNotify.leds(pattern-1, m>0);
-/*$M55,M55_Release$*///</editor-fold>
+        /*#M55,M55_Release#*///<editor-fold>
+//--                int pattern=cf.m55_led_pattern;//StaticData.getInstance().config.m55_led_pattern;
+//--                if (pattern>0) EventNotify.leds(pattern-1, m>0);
+        /*$M55,M55_Release$*///</editor-fold>
         displayStatus();
     }
     
     public void reEnumRoster(){
-
+        
         int locCursor=cursor;
         Object focused=getSelectedObject();
         
@@ -243,8 +243,7 @@ public class Roster
         int i;
         vGroups.resetCounters();
         
-        synchronized (hContacts)
-        {
+        synchronized (hContacts) {
             for (e=hContacts.elements();e.hasMoreElements();){
                 Contact c=(Contact)e.nextElement();
                 boolean online=c.status<5;
@@ -258,7 +257,7 @@ public class Roster
             }
         }
         // self-contact group
-        if (cf.selfContact || vGroups.getGroup(SELF_INDEX).tonlines>1) 
+        if (cf.selfContact || vGroups.getGroup(SELF_INDEX).tonlines>1)
             vGroups.addToVector(tContacts, SELF_INDEX);
         // adding groups
         for (i=COMMON_INDEX;i<vGroups.getCount();i++)
@@ -297,30 +296,38 @@ public class Roster
     private Vector hContacts;
     private Vector vContacts;
     public Groups vGroups;
-
+    
     public Vector getHContacts() {return hContacts;}
     
-    public final void UpdateContact(final String Nick, final String Jid, final String grpName, final int Status) {
+    public final void UpdateContact(final String Nick, final String Jid, final String grpName, String subscr, boolean ask) {
         // called only on roster read
+        int status=Presence.PRESENCE_OFFLINE;
+        if (subscr.equals("none")) status=Presence.PRESENCE_UNKNOWN;
+        if (ask) status=Presence.PRESENCE_ASK;
+        
+        if (subscr.equals("remove")) status=Presence.PRESENCE_TRASH;
+        
         Jid J=new Jid(Jid);
         Contact c=getContact(J,false);
         if (c==null) {
-            c=new Contact(Nick, Jid, Status);
+            c=new Contact(Nick, Jid, Presence.PRESENCE_OFFLINE, null);
             hContacts.addElement(c);
         }
-        for (Enumeration e=hContacts.elements();e.hasMoreElements();)
-        {
+        for (Enumeration e=hContacts.elements();e.hasMoreElements();) {
             c=(Contact)e.nextElement();
             if (c.jid.equals(J,false))
-            if (!c.jid.isTransport()){
+                if (!c.jid.isTransport()){
                 Group group=vGroups.getGroup(grpName);
                 if (group==null) {
                     group=vGroups.addGroup(grpName);
                 }
                 c.nick=Nick;
                 c.group=group.index;
-                if (Status!=Presence.PRESENCE_OFFLINE) c.status=Status;
-            }
+                c.subscr=subscr;
+                c.offline_type=status;
+                c.ask_subscribe=ask;
+                //if (status!=Presence.PRESENCE_OFFLINE) c.status=status;
+                }
         }
     }
     
@@ -333,7 +340,8 @@ public class Roster
         if (c!=null) {
             // изменился статус
             if (Status>=0) {
-                if (c.status<7 || c.status==Presence.PRESENCE_ASK) c.status=Status;
+                //if (c.status<7 || c.status==Presence.PRESENCE_ASK) 
+                c.status=Status;
                 sort();
                 reEnumRoster();//redraw();
                 //System.out.println("updated");
@@ -349,7 +357,7 @@ public class Roster
             // здесь будем игнорить позже
             // также сюда попадает self-contact
             //System.out.println("new");
-            c=new Contact(null, Jid, Status);
+            c=new Contact(null, Jid, Status, "none");
             c.origin=2;
             c.group=NIL_INDEX;
             hContacts.addElement(c);
@@ -505,7 +513,7 @@ public class Roster
                             String from=data.getAttribute("from");
                             String body=IqGetVCard.dispatchVCard(vc);
                             
-                            Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, "vCard", body);
+                            Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, "vCard "+from, body);
                             messageStore(m, -1);
                             redraw();
                             
@@ -588,41 +596,35 @@ public class Roster
         JabberDataBlock q=data.getChildBlock("query");
         if (!q.isJabberNameSpace("jabber:iq:roster")) return;
         int type=0;
-        String iqType=data.getTypeAttribute();
-        if (iqType.equals("set")) type=1;
         
         Vector cont=(q!=null)?q.getChildBlocks():null;
         
         if (cont!=null)
             for (Enumeration e=cont.elements(); e.hasMoreElements();){
-            JabberDataBlock i=(JabberDataBlock)e.nextElement();
-            if (i.getTagName().equals("item")) {
-                //String name=strconv.convAscii2Utf8(i.getAttribute("name"));
-                String name=i.getAttribute("name");
-                String jid=i.getAttribute("jid");
-                String subscr=i.getAttribute("subscription");
-                // TODO: здесь нужны нормальные subscription
-                int presence=(subscr.charAt(0)=='n')?
-                    Presence.PRESENCE_UNKNOWN:
-                    Presence.PRESENCE_OFFLINE;
-                if (i.getAttribute("ask")!=null)
-                    presence=Presence.PRESENCE_ASK;
+                JabberDataBlock i=(JabberDataBlock)e.nextElement();
+                if (i.getTagName().equals("item")) {
+                    //String name=strconv.convAscii2Utf8(i.getAttribute("name"));
+                    String name=i.getAttribute("name");
+                    String jid=i.getAttribute("jid");
+                    String subscr=i.getAttribute("subscription");
+                    boolean ask= (i.getAttribute("ask")!=null);
 
-                // найдём группу
-                JabberDataBlock g=i.getChildBlock("group");
-                String group=(g==null)?COMMON_GROUP:g.getText();
-                switch (type) {
-                    case 0:UpdateContact(name,jid,group,presence);
-                    case 1:
-                        if (subscr.equals("remove")) presence=Presence.PRESENCE_TRASH;
-                        UpdateContact(name,jid,group,presence);
+                    // найдём группу
+                    JabberDataBlock g=i.getChildBlock("group");
+                    String group=(g==null)?COMMON_GROUP:g.getText();
+
+                    // так можно проверить, когда пришёл jabber:iq:roster,
+                    // на запрос ростера или при обновлении
+                    //String iqType=data.getTypeAttribute();
+                    //if (iqType.equals("set")) type=1;
+
+                    UpdateContact(name,jid,group, subscr, ask);
                 }
-            }
             
             }
     }
     
-     Contact messageStore(Msg message, int status){
+    Contact messageStore(Msg message, int status){
         Contact c=PresenceContact(message.from,status);
         /*getContact(message.from, true);
         if (c==null) {
@@ -637,7 +639,7 @@ public class Roster
         if (c==null) return c;  // not to store/signal not-in-list message
         c.addMessage(message);
         switch (message.messageType) {
-            case Msg.MESSAGE_TYPE_PRESENCE: 
+            case Msg.MESSAGE_TYPE_PRESENCE:
             case Msg.MESSAGE_TYPE_OUT: return c;
         }
         countNewMsgs();
@@ -649,19 +651,19 @@ public class Roster
         return c;
     }
     
-
+    
     /**
      * Method to begin talking to the server (i.e. send a login message)
      */
     
     public void beginConversation(String SessionId) {
         //try {
-            Account a=sd.account;//StaticData.getInstance().account;
-            Login login = new Login( a.getUserName(), a.getServerN(), a.getPassword(), SessionId, RESOURCE );
-            theStream.send( login );
+        Account a=sd.account;//StaticData.getInstance().account;
+        Login login = new Login( a.getUserName(), a.getServerN(), a.getPassword(), SessionId, RESOURCE );
+        theStream.send( login );
         //} catch( Exception e ) {
-            //l.setTitleImgL(0);
-            //e.printStackTrace();
+        //l.setTitleImgL(0);
+        //e.printStackTrace();
         //}
         //l.setTitleImgL(2);
         
@@ -784,13 +786,13 @@ public class Roster
         if (c==cmdOptions){
             new ConfigForm(display);
         }
-//        if (c==cmdHideOfflines || c==cmdShowOfflines) {
-//            //Config cf=StaticData.getInstance().config;
-//            cf.showOfflineContacts=!cf.showOfflineContacts;
-//            addOptionCommands();
-//            reEnumRoster();
-//            moveCursorTo(cursor);
-//        }
+        //        if (c==cmdHideOfflines || c==cmdShowOfflines) {
+        //            //Config cf=StaticData.getInstance().config;
+        //            cf.showOfflineContacts=!cf.showOfflineContacts;
+        //            addOptionCommands();
+        //            reEnumRoster();
+        //            moveCursorTo(cursor);
+        //        }
         if (c==cmdContact) {
             contactMenu((Contact) getSelectedObject());
         }
@@ -798,13 +800,13 @@ public class Roster
             //new MIDPTextBox(display,"Add to roster", null, new AddContact());
             new ContactEdit(display, null);
         }
-/*#DefaultConfiguration,Release#*///<editor-fold>
-//        if (c==cmdSetFullScreen) {
-//            //Config cf=StaticData.getInstance().config;
-//            cf.fullscreen=!cf.fullscreen;
-//            setFullScreenMode(cf.fullscreen);
-//        }
-/*$DefaultConfiguration,Release$*///</editor-fold>
+        /*#DefaultConfiguration,Release#*///<editor-fold>
+        //        if (c==cmdSetFullScreen) {
+        //            //Config cf=StaticData.getInstance().config;
+        //            cf.fullscreen=!cf.fullscreen;
+        //            setFullScreenMode(cf.fullscreen);
+        //        }
+        /*$DefaultConfiguration,Release$*///</editor-fold>
     }
     protected void showNotify() {
         countNewMsgs();
@@ -821,8 +823,8 @@ public class Roster
     }
     
     //void resetStrCache(){
-        //System.out.println("reset roster cache");
-        //stringCache=new Vector(vContacts.capacity());
+    //System.out.println("reset roster cache");
+    //stringCache=new Vector(vContacts.capacity());
     //}
     
     public void focusedItem(int index) {
@@ -830,12 +832,12 @@ public class Roster
         if (index>=vContacts.size()) return;
         Object atCursor=vContacts.elementAt(index);
         if (atCursor instanceof Contact) {
-            addCommand(cmdContact); 
+            addCommand(cmdContact);
             //removeCommand(cmdGroup);
         } else removeCommand(cmdContact);
-
+        
         /*if (atCursor instanceof Group) {
-            //addCommand(cmdGroup); 
+            //addCommand(cmdGroup);
             removeCommand(cmdContact);
         }*/
     }
@@ -848,23 +850,26 @@ public class Roster
                 switch (cursor) {
                     case 0: // info
                         querysign=true; displayStatus();
-                            theStream.send(new IqVersionReply(to));
+                        theStream.send(new IqVersionReply(to));
                         break;
                     case 1: // info
                         querysign=true; displayStatus();
-                            theStream.send(new IqGetVCard(to));
+                        theStream.send(new IqGetVCard(to));
                         break;
-
+                        
                     case 2:
-                        (new ContactEdit(display, c ))
-                            .parentView=parentView;
+                        new ContactEdit(display, c );
                         return; //break;
-                    case 3:
-                        if (c.status==Presence.PRESENCE_TRASH) {
+                        
+                    case 3: //subscription
+                        new SubscriptionEdit(display, c);
+                        return; //break;
+                    case 4:
+                        if (c.offline_type==Presence.PRESENCE_TRASH) {
                             hContacts.removeElement(c);
                             reEnumRoster();
                         } else {
-                            new YesNoAlert(display, parentView, "Delete contact?", c.getJidNR()){
+                            new YesNoAlert(display, parentView, "Delete contact?", c.getNickJid()){
                                 public void yes() {
                                     theStream.send(new IqQueryRoster(c.getJidNR(),null,null,"remove"));
                                 };
@@ -873,17 +878,6 @@ public class Roster
                             //new DeleteContact(display,c);
                         }
                         break;
-                    case 4: //auth send
-                        sendPresence(to,"subscribed");
-                        break;
-
-                    case 5: //auth request
-                        sendPresence(to,"subscribe");
-                        break;
-                        
-                    case 6:
-                        sendPresence(to,"unsubscribed");
-                        break;
                 }
                 destroyView();
             }
@@ -891,15 +885,13 @@ public class Roster
         m.addItem(new MenuItem("Client Info"));
         m.addItem(new MenuItem("vCard"));
         m.addItem(new MenuItem("Edit"));
+        m.addItem(new MenuItem("Subscription"));
         m.addItem(new MenuItem("Delete"));
-        m.addItem(new MenuItem("Auth Send"));        
-        m.addItem(new MenuItem("Auth Request"));        
-        m.addItem(new MenuItem("Auth Remove"));
         
         m.attachDisplay(display);
     }
-
-
+    
+    
     public void storeContact(String jid, String name, String group, boolean newContact){
         
         theStream.send(new IqQueryRoster(jid, name, group, null));
@@ -907,7 +899,7 @@ public class Roster
     }
     /*private class AddContact implements MIDPTextBox.TextBoxNotify{
         public void OkNotify(String jid){
-            
+     
             //try {
                 theStream.send(new IqQueryRoster(jid,null,null,null));
                 theStream.send(new Presence(jid,"subscribe"));
@@ -915,7 +907,7 @@ public class Roster
         }
     }*/
     
-
+    
 }
 
 
@@ -928,9 +920,9 @@ public class Roster
         super(display, "Delete contact?", c.jid.getJid());
         delJid=c.jid.getJid();
     }
-    
+ 
     public void yes() {
     }
-    
+ 
 }*/
 
