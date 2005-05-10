@@ -33,6 +33,8 @@ public class MessageView
 //--    Command CmdTSM=new Command("Toggle Smiles", Command.SCREEN,1);
 /*$!DefaultConfiguration,Release$*///</editor-fold>
 
+    Command CmdSubscr=new Command("Authorize", Command.SCREEN,2);
+
     public int getTitleBGndRGB() {return 0x338888;} 
     public int getTitleRGB() {return titlecolor;} 
     
@@ -76,6 +78,7 @@ public class MessageView
 
         addCommand(CmdBack);
         addCommand(CmdTSM);
+        if (msg.messageType==Msg.MESSAGE_TYPE_AUTH) addCommand(CmdSubscr);
         setCommandListener(this);
 
     }
@@ -87,6 +90,13 @@ public class MessageView
         if (c==CmdBack) {
             destroyView();
             return;
+        }
+        if (c==CmdSubscr) {
+            Jid j=new Jid(msg.from);
+            sd.roster.sendPresence(j.getJid(), "subscribed");
+            sd.roster.sendPresence(j.getJid(), "subscribe");
+            msg.messageType=Msg.MESSAGE_TYPE_IN;
+            destroyView();
         }
         if (c==CmdTSM) toggleSmiles();
     }

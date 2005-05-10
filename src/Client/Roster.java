@@ -52,7 +52,7 @@ public class Roster
      */
     
     public String RESOURCE = "Bombus";
-    private String myJid;
+    private Jid myJid;
     
     /**
      * The stream representing the connection to ther server
@@ -165,9 +165,8 @@ public class Roster
             hContacts=new Vector();
             vGroups=new Groups();
             vContacts=new Vector(); // just for displaying
-            myJid=sd.account.toString();
-            UpdateContact(null, sd.account.toString(), SELF_GROUP, "self", false);
-            myJid+="/"+RESOURCE;
+            myJid=new Jid(sd.account.toString()+"/"+RESOURCE);
+            UpdateContact(null, myJid.getJid(), SELF_GROUP, "self", false);
             
             System.gc();
         };
@@ -215,7 +214,7 @@ public class Roster
         }
     }
     
-    private void countNewMsgs() {
+    private boolean countNewMsgs() {
         int m=0;
         synchronized (hContacts) {
             for (Enumeration e=hContacts.elements();e.hasMoreElements();){
@@ -229,6 +228,7 @@ public class Roster
 //--                if (pattern>0) EventNotify.leds(pattern-1, m>0);
         /*$M55,M55_Release$*///</editor-fold>
         displayStatus();
+        return (m>0);
     }
     
     public void reEnumRoster(){
@@ -317,24 +317,25 @@ public class Roster
             c=(Contact)e.nextElement();
             if (c.jid.equals(J,false))
                 if (!c.jid.isTransport()){
-                Group group=vGroups.getGroup(grpName);
-                if (group==null) {
-                    group=vGroups.addGroup(grpName);
-                }
-                c.nick=Nick;
-                c.group=group.index;
-                c.subscr=subscr;
-                c.offline_type=status;
-                c.ask_subscribe=ask;
-                //if (status!=Presence.PRESENCE_OFFLINE) c.status=status;
+                    Group group=vGroups.getGroup(grpName);
+                    if (group==null) {
+                        group=vGroups.addGroup(grpName);
+                    }
+                        c.nick=Nick;
+                        c.group=group.index;
+                        c.subscr=subscr;
+                        c.offline_type=status;
+                        c.ask_subscribe=ask;
+                        if (status==Presence.PRESENCE_TRASH) c.status=status;
+                        //if (status!=Presence.PRESENCE_OFFLINE) c.status=status;
                 }
         }
     }
     
-    public final Contact PresenceContact(final String Jid, int Status) {
+    public final Contact PresenceContact(final String jid, int Status) {
         
         // проверим наличие по полной строке
-        Jid J=new Jid(Jid);
+        Jid J=new Jid(jid);
         
         Contact c=getContact(J, true); //Status!=Presence.PRESENCE_ASK);
         if (c!=null) {
@@ -357,7 +358,7 @@ public class Roster
             // здесь будем игнорить позже
             // также сюда попадает self-contact
             //System.out.println("new");
-            c=new Contact(null, Jid, Status, "none");
+            c=new Contact(null, jid, Status, "none");
             c.origin=2;
             c.group=NIL_INDEX;
             hContacts.addElement(c);
@@ -441,7 +442,7 @@ public class Roster
         Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
         theStream.send( presence );
         
-        PresenceContact(myJid, myStatus);
+        PresenceContact(myJid.getJidFull(), myStatus);
         reEnumRoster();
     }
     
@@ -580,7 +581,7 @@ public class Roster
                 int ti=pr.getTypeIndex();
                 //PresenceContact(from, ti);
                 Msg m=new Msg(
-                        (ti==Presence.PRESENCE_ASK)?
+                        (ti==Presence.PRESENCE_AUTH)?
                             Msg.MESSAGE_TYPE_AUTH:Msg.MESSAGE_TYPE_PRESENCE,
                         from,
                         null,
@@ -642,7 +643,7 @@ public class Roster
             case Msg.MESSAGE_TYPE_PRESENCE:
             case Msg.MESSAGE_TYPE_OUT: return c;
         }
-        countNewMsgs();
+        if (countNewMsgs()) reEnumRoster();
         
         if (c.group==IGNORE_INDEX) return c;    // no signalling/focus on ignore
         

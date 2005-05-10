@@ -81,7 +81,7 @@ public class Presence extends JabberDataBlock
   public void dispathch(){
       text=new StringBuffer();
       String type=getTypeAttribute();
-      presenceCode=PRESENCE_ASK;
+      presenceCode=PRESENCE_AUTH;
       if (type!=null) {
           if (type.equals(PRS_OFFLINE)) { 
               presenceCode=PRESENCE_OFFLINE;
@@ -163,6 +163,7 @@ public class Presence extends JabberDataBlock
   public final static int PRESENCE_INVISIBLE=ImageList.ICON_INVISIBLE_INDEX;
   public final static int PRESENCE_ERROR=ImageList.ICON_ERROR_INDEX;
   public final static int PRESENCE_TRASH=ImageList.ICON_ERROR_INDEX+1;
+  public final static int PRESENCE_AUTH=-1;
   
   public final static String PRS_OFFLINE="unavailable";
   public final static String PRS_ERROR="error";
@@ -173,7 +174,7 @@ public class Presence extends JabberDataBlock
   public final static String PRS_ONLINE="online";
   public final static String PRS_INVISIBLE="invisible";
 
-  public final static String SUBSCRIBE="Please send me Your authorization!";
+  public final static String SUBSCRIBE="This user wants to subscribe to your presence.";
   public final static String SUBSCRIBED="You are now authorized";
   public final static String UNSUBSCRIBED="Your authorization has been removed!";
   

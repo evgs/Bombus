@@ -68,6 +68,10 @@ implements CommandListener{
         m= (ComplexString)StaticData.getInstance().parser.
                 parseMsg( msg, (smiles)?il:null, getWidth()-6, true, null);
         m.setColor(msg.getColor1());
+        
+        /*if (msg.messageType==Msg.MESSAGE_TYPE_AUTH) {
+            m.addImage(ImageList.ICON_AUTHRQ_INDEX);
+        }*/
         //m.insertElementAt(new Integer(msg.getColor1()|0x1000000), 0); //color
         int sz=lines.size(); if (index>=sz) lines.setSize(index+1);
         lines.setElementAt(m, index);
