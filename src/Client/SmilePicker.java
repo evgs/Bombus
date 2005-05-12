@@ -77,19 +77,28 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
     public VirtualElement getItemRef(int index){ smileIndex=index; return this;}
     
     //private class SmileItem implements VirtualElement {
-        public int getVWidth(){ return 0; }
-        public int getVHeight() { return lineHeight; }
-        public int getColor(){ return 0x000000; }
-        public int getColorBGnd(){ return 0xFFFFFF; }
-        public void onSelect(){};
+    public int getVWidth(){ return 0; }
+    public int getVHeight() { return lineHeight; }
+    public int getColor(){ return 0x000000; }
+    public int getColorBGnd(){ return 0xFFFFFF; }
+    public void onSelect(){
+        try {
+            me.AddText(
+                    (String)
+                    StaticData.getInstance().
+                    smileTable.elementAt(cursor*xCnt+xCursor)
+                    );
+        } catch (Exception e) { /*e.printStackTrace();*/  }
+        destroyView();
+    };
     
         
-        public void drawItem(Graphics g, int ofs, boolean selected){
-            int max=(smileIndex==lines-1)? xLastCnt:xCnt;
-            for (int i=0;i<xCnt;i++) {
-                il.drawImage(g, smileIndex*xCnt + i, i*imgWidth+CURSOR_HOFFSET, CURSOR_VOFFSET);
-            }
-        };
+    public void drawItem(Graphics g, int ofs, boolean selected){
+        int max=(smileIndex==lines-1)? xLastCnt:xCnt;
+        for (int i=0;i<xCnt;i++) {
+            il.drawImage(g, smileIndex*xCnt + i, i*imgWidth+CURSOR_HOFFSET, CURSOR_VOFFSET);
+        }
+    };
     
     //}
     public void drawCursor (Graphics g, int width, int height){
@@ -120,20 +129,6 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
         super.keyDwn();
         if (cursor!=lines-1) return;
         if (xCursor >= xLastCnt) xCursor=xLastCnt-1;
-    }
-    
-    
-    public void eventOk(){
-        try {
-            me.AddText(
-                    (String)
-                    StaticData.getInstance().
-                    smileTable.elementAt(cursor*xCnt+xCursor)
-                    );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        destroyView();
     }
     
     public void commandAction(Command c, Displayable d){

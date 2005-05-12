@@ -85,10 +85,9 @@ implements CommandListener{
         return null;
     }
     public void eventOk(){
-        //Msg msg=(Msg)getSelectedObject();
-        //getSelectedObject();
-        //if (msg!=null) 
-            new MessageView(display,(Msg)getSelectedObject());
+        Msg msg=(Msg)getSelectedObject();
+        if (msg!=null) 
+            new MessageView(display,msg);
     }
     
     public void commandAction(Command c, Displayable d){
