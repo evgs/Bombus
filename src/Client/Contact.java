@@ -26,8 +26,13 @@ public class Contact extends IconTextElement{
     public String nick;
     public Jid jid;
     public int status;
+    public int priority;
     public int group;
     public int transport;
+    
+    private int jidHash;
+
+    public int origin;  //0 - from roster, 1 - from roster, appended resource, 2 - from presence
     
     public String subscr;
     public int offline_type=Presence.PRESENCE_UNKNOWN;
@@ -44,12 +49,13 @@ public class Contact extends IconTextElement{
         }
         return c;
     }
-    public int origin;  //0 - from roster, 1 - from roster, appended resource, 2 - from presence
 
     public Contact(final String Nick, final String sJid, final int Status, String subscr) {
         this();
         nick=Nick; jid= new Jid(sJid); status=Status;
         this.subscr=subscr;
+    
+        jidHash=sortCode((Nick==null)?sJid:Nick);
         //msgs.removeAllElements();
         
         //calculating transport
@@ -60,7 +66,8 @@ public class Contact extends IconTextElement{
         Contact c=new Contact();
         c.group=group; 
         c.jid=newjid; 
-        c.nick=nick; 
+        c.nick=nick;
+        c.jidHash=jidHash;
         c.subscr=subscr;
         c.offline_type=offline_type;
         c.origin=2; 
@@ -86,6 +93,15 @@ public class Contact extends IconTextElement{
         return newMsgCnt=nm;
     }
     public void resetNewMsgCnt() { newMsgCnt=-1;}
+    
+    public int compare(Contact c){
+        //1. status
+        int cmp;
+        if ((cmp=status-c.status) !=0) return cmp;
+        if ((cmp=jidHash-c.jidHash) !=0) return cmp;
+        if ((cmp=c.priority-priority) !=0) return cmp;
+        return 0;
+    };
     
     public void addMessage(Msg m) {
         boolean first_replace=false;
@@ -169,4 +185,8 @@ public class Contact extends IconTextElement{
         return result;
     }
      */
+    
+    private int sortCode(String s){
+        return s.charAt(1)+ (s.charAt(0)<<16);
+    }
 }

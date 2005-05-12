@@ -111,6 +111,12 @@ public class Presence extends JabberDataBlock
               text.append(show);
               text.append(')');
           }
+          
+          // priority
+          text.append(" [");
+          text.append(getPriority());
+          text.append(']');
+          
       }
   }
 
@@ -123,6 +129,12 @@ public class Presence extends JabberDataBlock
     setAttribute("type", type);
   }
 
+  public int getPriority(){
+      try {
+          return Integer.parseInt(getTextForChildBlock("priority"));
+      } catch (Exception e) {return 0;}
+  }
+  
   public void setShow(String text){ addChild("show", text); }
   
   /**

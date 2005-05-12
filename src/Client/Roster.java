@@ -386,11 +386,11 @@ public class Roster
             
             for (f = 1; f < hContacts.size(); f++) {
                 temp=getContact(f);
-                if ( temp.status >= getContact(f-1).status) continue;
+                if ( temp.compare(getContact(f-1)) >=0 ) continue;
                 i    = f-1;
                 while (i>=0){
                     temp2=getContact(i);
-                    if (temp2.status<temp.status) break;
+                    if (temp2.compare(temp) <0) break;
                     hContacts.setElementAt(temp2,i+1);
                     i--;
                 }
@@ -586,7 +586,7 @@ public class Roster
                         from,
                         null,
                         pr.getPresenceTxt());
-                messageStore(m, ti);
+                messageStore(m, ti).priority=pr.getPriority();
             }
         } catch( Exception e ) {
             e.printStackTrace();
