@@ -30,7 +30,7 @@ public class Contact extends IconTextElement{
     public int transport;
     
     public String subscr;
-    public int offline_type;
+    public int offline_type=Presence.PRESENCE_UNKNOWN;
     public boolean ask_subscribe;
     
     public Vector msgs;

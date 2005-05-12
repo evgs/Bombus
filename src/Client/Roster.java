@@ -238,7 +238,7 @@ public class Roster
         
         Vector tContacts=new Vector(vContacts.size());
         boolean offlines=cf.showOfflineContacts;//StaticData.getInstance().config.showOfflineContacts;
-        
+                
         Enumeration e;
         int i;
         vGroups.resetCounters();
@@ -252,8 +252,9 @@ public class Roster
                 grp.tncontacts++;
                 if (online) grp.tonlines++;
                 // hide offlines whithout new messages
-                if (offlines || online || c.getNewMsgsCount()>0)
+                if (offlines || online || c.getNewMsgsCount()>0 || c.group==Roster.NIL_INDEX)
                     grp.Contacts.addElement(c);
+                //grp.addContact(c);
             }
         }
         // self-contact group
@@ -265,7 +266,7 @@ public class Roster
         // hiddens
         if (cf.ignore) vGroups.addToVector(tContacts,IGNORE_INDEX);
         // not-in-list
-        if (cf.showTransports) vGroups.addToVector(tContacts,NIL_INDEX);
+        if (cf.notInList) vGroups.addToVector(tContacts,NIL_INDEX);
         // transports
         if (cf.showTransports) vGroups.addToVector(tContacts,0);
         
@@ -356,10 +357,9 @@ public class Roster
         if (c==null) {
             // хм... нет такой буквы
             // здесь будем игнорить позже
-            // также сюда попадает self-contact
             //System.out.println("new");
-            c=new Contact(null, jid, Status, "none");
-            c.origin=2;
+            c=new Contact(null, jid, Status, "not-in-list");
+            //c.origin=2;
             c.group=NIL_INDEX;
             hContacts.addElement(c);
         } else {
@@ -799,7 +799,13 @@ public class Roster
         }
         if (c==cmdAdd) {
             //new MIDPTextBox(display,"Add to roster", null, new AddContact());
-            new ContactEdit(display, null);
+            Object o=getSelectedObject();
+            Contact cn=null;
+            if (o instanceof Contact) {
+                cn=(Contact)o;
+                if (cn.group!=Roster.NIL_INDEX) cn=null;
+            }
+            new ContactEdit(display, cn);
         }
         /*#DefaultConfiguration,Release#*///<editor-fold>
         //        if (c==cmdSetFullScreen) {

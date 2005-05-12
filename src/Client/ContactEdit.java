@@ -72,9 +72,17 @@ public final class ContactEdit
         }
 
         int sel=0;
+        
+        // Transport droplist
+        tTranspList.append(sd.account.getServerN(), null);
+        for (Enumeration e=sd.roster.getHContacts().elements(); e.hasMoreElements(); ){
+            Contact ct=(Contact)e.nextElement();
+            if (ct.jid.isTransport()) tTranspList.append(ct.getJidNR(),null);
+        }
+        tTranspList.append("<Other>",null);
+        
         if (c!=null) {
             String jid=c.jid.getJid();
-            f.setTitle(jid);
             // edit contact
             tJid.setString(jid);
             tNick.setString(c.nick);
@@ -82,19 +90,18 @@ public final class ContactEdit
             if (sel==-1) sel=groups.size()-1;
             if (sel<0) sel=0;
             tGroup.setString(group(sel));
-            cmdOk=new Command("Update", Command.OK, 1);
-            newContact=false;
-        } else {
-            tTranspList.append(sd.account.getServerN(), null);
-            for (Enumeration e=sd.roster.getHContacts().elements(); e.hasMoreElements(); ){
-                Contact ct=(Contact)e.nextElement();
-                if (ct.jid.isTransport()) tTranspList.append(ct.getJidNR(),null);
-            }
-            tTranspList.append("<Other>",null);
+            if (c.group!=Roster.NIL_INDEX) {
+                // edit contact
+                f.setTitle(jid);
+                cmdOk=new Command("Update", Command.OK, 1);
+                newContact=false;
+            } else c=null; // adding not-in-list
+        } 
+        if (c==null){
             f.append(tJid);
             f.append(tTranspList);
-            updateChoise("-",tTranspList);
         }
+        updateChoise(tJid.getString(),tTranspList);
         f.append(tNick);
         f.append(tGroup);
         
