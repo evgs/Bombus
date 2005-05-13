@@ -58,8 +58,8 @@ public final class ContactEdit
         tTranspList=new ChoiceGroup("Transport", Choice.POPUP);
 /*$DefaultConfiguration,Release$*///</editor-fold>
 /*#!DefaultConfiguration,Release#*///<editor-fold>
-//--        tGrpList=new ChoiceGroup("Existing groups", Choice.EXCLUSIVE);
-//--        tTranspList=new ChoiceGroup("Transport", Choice.EXCLUSIVE);
+//--        tGrpList=new ChoiceGroup(" ", Choice.EXCLUSIVE);
+//--        tTranspList=new ChoiceGroup(" ", Choice.EXCLUSIVE);
 /*$!DefaultConfiguration,Release$*///</editor-fold>
         
         ngroups=0;
