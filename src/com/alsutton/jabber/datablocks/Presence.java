@@ -79,6 +79,7 @@ public class Presence extends JabberDataBlock
   private int presenceCode;
   
   public void dispathch(){
+      String show;
       text=new StringBuffer();
       String type=getTypeAttribute();
       presenceCode=PRESENCE_AUTH;
@@ -97,27 +98,30 @@ public class Presence extends JabberDataBlock
           }
       } else {
           // online-kinds
-          String show;
           show=getShow(); text.append(show);
           presenceCode=PRESENCE_ONLINE;
           if (show.equals(PRS_CHAT)) presenceCode=PRESENCE_CHAT;
           if (show.equals(PRS_AWAY)) presenceCode=PRESENCE_AWAY;
           if (show.equals(PRS_XA)) presenceCode=PRESENCE_XA;
           if (show.equals(PRS_DND)) presenceCode=PRESENCE_DND;
+      }
           
-          show=getTextForChildBlock("status");
-          if (show.length()>0) {
-              text.append('(');
-              text.append(show);
-              text.append(')');
-          }
-          
-          // priority
+      show=getTextForChildBlock("status");
+      if (show.length()>0) {
+          text.append('(');
+          text.append(show);
+          text.append(')');
+      }
+      
+      // priority
+      int priority=getPriority();
+      if (priority>=0) {
           text.append(" [");
           text.append(getPriority());
           text.append(']');
-          
       }
+          
+      
   }
 
   /**
@@ -132,7 +136,7 @@ public class Presence extends JabberDataBlock
   public int getPriority(){
       try {
           return Integer.parseInt(getTextForChildBlock("priority"));
-      } catch (Exception e) {return 0;}
+      } catch (Exception e) {return -1;}
   }
   
   public void setShow(String text){ addChild("show", text); }

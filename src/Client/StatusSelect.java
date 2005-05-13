@@ -48,21 +48,21 @@ public class StatusSelect extends VirtualList implements CommandListener{
                     display, 
                     "Status Message", 
                     getSel().getMessage(), 
-                    new MsgListener() );
+                    new MsgListener(), 0 );
         };
         if (c==cmdPriority) {
             new MIDPTextBox(
                     display, 
                     "Priority", 
                     String.valueOf(getSel().getPriority() ), 
-                    new PriorityListener() );
+                    new PriorityListener(), TextField.NUMERIC );
         };
         if (c==cmdAll) {
             new MIDPTextBox(
                     display, 
                     "All Priorities", 
                     String.valueOf(getSel().getPriority() ), 
-                    new PriorityAll() );
+                    new PriorityAll(), TextField.NUMERIC );
         };
         if (c==cmdCancel) destroyView();
     }

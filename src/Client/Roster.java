@@ -35,6 +35,8 @@ public class Roster
         //Thread
 {
     
+    public final static int TRANSP_INDEX=0;
+    public final static String TRANSP_GROUP="Transports";
     public final static int SELF_INDEX=1;
     public final static String SELF_GROUP="Self-Contact";
     public final static int NIL_INDEX=2;
@@ -43,8 +45,6 @@ public class Roster
     public final static String IGNORE_GROUP="Ignore-List";
     public final static int COMMON_INDEX=4;
     public final static String COMMON_GROUP="General";
-    //public final static int TRANSP_INDEX=last;
-    public final static String TRANSP_GROUP="Transports";
     
     
     /**
@@ -89,7 +89,7 @@ public class Roster
     private Config cf;
     private StaticData sd=StaticData.getInstance();
     
-    public Roster(Display display, boolean selAccount) {
+    public Roster(Display display /*, boolean selAccount*/) {
         super();
         setTitleImages(StaticData.getInstance().rosterIcons);
         
@@ -113,9 +113,6 @@ public class Roster
         
         vContacts=new Vector(); // just for displaying
         
-        sd.roster=this;
-        
-        
         addCommand(cmdStatus);
         addCommand(cmdAlert);
         addCommand(cmdAdd);
@@ -135,12 +132,12 @@ public class Roster
         //resetStrCache();
         
         //if (visible) display.setCurrent(this);
-        if (selAccount) {
+        /*if (selAccount) {
             new AccountSelect(display);
         } else {
             // connect whithout account select
             Account.launchAccount();
-        }
+        }*/
         
     }
     
@@ -166,7 +163,7 @@ public class Roster
             vGroups=new Groups();
             vContacts=new Vector(); // just for displaying
             myJid=new Jid(sd.account.toString()+"/"+RESOURCE);
-            UpdateContact(null, myJid.getJid(), SELF_GROUP, "self", false);
+            updateContact(null, myJid.getJid(), SELF_GROUP, "self", false);
             
             System.gc();
         };
@@ -300,7 +297,7 @@ public class Roster
     
     public Vector getHContacts() {return hContacts;}
     
-    public final void UpdateContact(final String Nick, final String Jid, final String grpName, String subscr, boolean ask) {
+    public final void updateContact(final String Nick, final String Jid, final String grpName, String subscr, boolean ask) {
         // called only on roster read
         int status=Presence.PRESENCE_OFFLINE;
         if (subscr.equals("none")) status=Presence.PRESENCE_UNKNOWN;
@@ -316,20 +313,21 @@ public class Roster
         }
         for (Enumeration e=hContacts.elements();e.hasMoreElements();) {
             c=(Contact)e.nextElement();
-            if (c.jid.equals(J,false))
-                if (!c.jid.isTransport()){
-                    Group group=vGroups.getGroup(grpName);
-                    if (group==null) {
-                        group=vGroups.addGroup(grpName);
-                    }
-                        c.nick=Nick;
-                        c.group=group.index;
-                        c.subscr=subscr;
-                        c.offline_type=status;
-                        c.ask_subscribe=ask;
-                        if (status==Presence.PRESENCE_TRASH) c.status=status;
-                        //if (status!=Presence.PRESENCE_OFFLINE) c.status=status;
+            if (c.jid.equals(J,false)) {
+                Group group= (c.jid.isTransport())? 
+                    vGroups.getGroup(TRANSP_INDEX) :
+                    vGroups.getGroup(grpName);
+                if (group==null) {
+                    group=vGroups.addGroup(grpName);
                 }
+                c.nick=Nick;
+                c.group=group.index;
+                c.subscr=subscr;
+                c.offline_type=status;
+                c.ask_subscribe=ask;
+                //if (status==Presence.PRESENCE_TRASH) c.status=status;
+                //if (status!=Presence.PRESENCE_OFFLINE) c.status=status;
+            }
         }
     }
     
@@ -370,7 +368,8 @@ public class Roster
                 c.jid=J;
                 //System.out.println("add resource");
             } else {
-                hContacts.addElement(c.clone(J, Status));
+                c=c.clone(J, Status);
+                hContacts.addElement(c);
                 //System.out.println("cloned");
             }
         }
@@ -619,7 +618,7 @@ public class Roster
                     //String iqType=data.getTypeAttribute();
                     //if (iqType.equals("set")) type=1;
 
-                    UpdateContact(name,jid,group, subscr, ask);
+                    updateContact(name,jid,group, subscr, ask);
                 }
             
             }

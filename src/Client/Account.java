@@ -35,10 +35,12 @@ public class Account extends IconTextElement{
         super(StaticData.getInstance().rosterIcons);
     }
     
-    public static void launchAccount(){
+    public static Account launchAccount(){
         StaticData sd=StaticData.getInstance();
-        sd.account=Account.createFromStorage(sd.account_index);
-        new Thread(sd.roster).start();
+        Account a=sd.account=Account.createFromStorage(sd.account_index);
+        if (a!=null)
+            new Thread(sd.roster).start();
+        return a;
     }
 
     public static Account createFromJad(){

@@ -106,8 +106,14 @@ public class Bombus extends MIDlet implements Runnable{
 
         boolean selAccount=( (sd.account_index<0) || s.keypressed!=0);
         if (selAccount) s.setProgress("Entering setup",20);
+
+        sd.roster=new Roster(display);
         
-        sd.roster=new Roster(display, selAccount);
+        if (!selAccount) {
+            // connect whithout account select
+            selAccount=(Account.launchAccount()==null);
+        }
+        if (selAccount) { new AccountSelect(display); }
     }
     
     /**
