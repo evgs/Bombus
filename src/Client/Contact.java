@@ -187,6 +187,8 @@ public class Contact extends IconTextElement{
      */
     
     private int sortCode(String s){
-        return s.charAt(1)+ (s.charAt(0)<<16);
+        try {
+            return s.charAt(1)+ (s.charAt(0)<<16);
+        } catch (Exception e) { return 0; }
     }
 }

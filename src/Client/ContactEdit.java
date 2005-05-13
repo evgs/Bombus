@@ -46,11 +46,11 @@ public final class ContactEdit
         
         f=new Form("Add contact");
         
-        tJid=new TextField("User JID",null, 64, 0); 
+        tJid=new TextField("User JID",null, 32, TextField.EMAILADDR); 
         //tJid.addCommand(cmdIcq);
         
-        tNick=new TextField("Name",null, 64, 0); 
-        tGroup=new TextField("Group",null, 64, 0);
+        tNick=new TextField("Name",null, 32, TextField.URL); 
+        tGroup=new TextField("Group",null, 32, TextField.URL);
         
         
 /*#DefaultConfiguration,Release#*///<editor-fold>
@@ -58,8 +58,8 @@ public final class ContactEdit
         tTranspList=new ChoiceGroup("Transport", Choice.POPUP);
 /*$DefaultConfiguration,Release$*///</editor-fold>
 /*#!DefaultConfiguration,Release#*///<editor-fold>
-//--        tGrpList=new ChoiceGroup(" ", Choice.EXCLUSIVE);
-//--        tTranspList=new ChoiceGroup(" ", Choice.EXCLUSIVE);
+//--        tGrpList=new ChoiceGroup(null, Choice.EXCLUSIVE);
+//--        tTranspList=new ChoiceGroup(null, Choice.EXCLUSIVE);
 /*$!DefaultConfiguration,Release$*///</editor-fold>
         
         ngroups=0;
