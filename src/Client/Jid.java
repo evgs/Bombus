@@ -66,9 +66,9 @@ public class Jid {
     }
     
     /** выделение username */
-    public String getUser(){
+    /*public String getUser(){
         return substr(this,(char)0,'@');
-    }
+    }*/
     
     /** выделение имени без ресурса */
     public String getJid(){

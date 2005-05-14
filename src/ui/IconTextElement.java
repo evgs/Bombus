@@ -24,7 +24,7 @@ abstract public class IconTextElement implements VirtualElement
     
     ImageList il;
     
-    Font f; // шрифт для рисования
+    //Font f; // шрифт для рисования
     
     abstract protected int getImageIndex();
     //abstract public void onSelect();
@@ -38,13 +38,17 @@ abstract public class IconTextElement implements VirtualElement
      */
     
     public int getBGndRGB(){ return 0xffffff;}
+    public int getFontIndex() { return 0;}
+    private Font getFont() { 
+        return Font.getFont(Font.FACE_PROPORTIONAL, getFontIndex(), Font.SIZE_MEDIUM);
+    }
     public void drawItem(Graphics g,int ofs,boolean sel){
         
        //Image img=il.getImage(_callback.getImage(index));
         String str=null;
         str=toString();
        
-       g.setFont(f);
+       g.setFont(getFont());
        //g.setColor(getColor());
        il.drawImage(g, getImageIndex(), 2, imageYOfs);
        //g.drawImage(img,2, imageYOfs, Graphics.TOP|Graphics.LEFT);
@@ -53,7 +57,7 @@ abstract public class IconTextElement implements VirtualElement
     }
     public int getVWidth(){ 
         try {
-            return f.stringWidth(toString())+imgWidth+4;            
+            return getFont().stringWidth(toString())+imgWidth+4;            
         } catch (Exception e) {
             return 0;
         }
@@ -71,8 +75,8 @@ abstract public class IconTextElement implements VirtualElement
     public IconTextElement(ImageList il) {
         super();
         this.il=il;
-        f=Font.getDefaultFont();
-        int hf=f.getHeight();
+        //f=Font.getDefaultFont();
+        int hf=Font.getDefaultFont().getHeight();
         int hi=il.getHeight();
         imgWidth=il.getWidth();
         itemHeight=(hi>hf)?hi:hf;

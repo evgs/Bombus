@@ -16,6 +16,17 @@ import com.alsutton.jabber.datablocks.Presence;
  */
 public class Contact extends IconTextElement{
     
+    private static int COLORS[]={
+        0x002060,   // online
+        0x002060,   // chat
+        0x008080,   // away
+        0x808080,   // xa
+        0x800000,   // dnd
+        0x00,
+        0x00,
+        0x00
+    };
+    
     /** Creates a new instance of Contact */
     private Contact (){
         //lastReaded=0;
@@ -144,8 +155,12 @@ public class Contact extends IconTextElement{
     }
     
   
-    public int getColor() { return 0; }
+    public int getColor() { return COLORS[status]; }
     // public int getColorBGnd() { return 0xffffff; }
+
+    public int getFontIndex(){
+        return (status<5)?1:0;
+    }
     
     public String toString() { 
         return (nick==null)?getJid():nick+jid.getResource(); 
