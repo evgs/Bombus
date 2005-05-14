@@ -61,14 +61,16 @@ public class MessageView
     }
 
     /** Creates a new instance of MessageView */
-    public MessageView(Display display, Msg msg) {
+    public MessageView(Display display, Msg msg, Contact contact) {
         super(display);
 
         sd=StaticData.getInstance();
         
         titlecolor=msg.getColor1();
-        ComplexString title=new ComplexString(null);
+        ComplexString title=new ComplexString(sd.rosterIcons);
         title.addElement(msg.getMsgHeader());
+        //title.addRAlign();
+        //title.addImage(ImageList.ICON_MESSAGE_BUTTONS);
         setTitleLine(title);
         
         smiles=sd.config.smiles;

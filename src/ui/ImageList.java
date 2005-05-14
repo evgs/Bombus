@@ -25,7 +25,9 @@ public class ImageList {
     public final static int ICON_GROUPCHAT_INDEX=0x62;
     public final static int ICON_EXPANDED_INDEX=0x63;
     public final static int ICON_COLLAPSED_INDEX=0x64;
+    public final static int ICON_MESSAGE_BUTTONS=0x65;
     public final static int ICON_PROFILE_INDEX=0x70;
+    public final static int ICON_KEYBLOCK_INDEX=0x77;
 
     //public final static int ICON_ASK_INDEX=0x06;
     

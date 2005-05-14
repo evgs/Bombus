@@ -103,7 +103,8 @@ public class Roster
         
         createTitle(4, null, null).setElementAt("title",3);
         getTitleLine().addRAlign();
-        getTitleLine().addImage(0);
+        getTitleLine().addElement(null);
+        getTitleLine().addElement(null);
         
         //displayStatus();
         
@@ -833,6 +834,26 @@ public class Roster
     //stringCache=new Vector(vContacts.capacity());
     //}
     
+    private int kHold;
+    public void keyReleased(int keyCode) {
+        kHold=0;
+    }
+    public void keyRepeated(int keyCode) {
+        super.keyRepeated(keyCode);
+        if (kHold==keyCode) return;
+        //kHold=keyCode;
+        
+        if (keyCode==cf.keyLock) new KeyBlock(display, getTitleLine(), cf.keyLock); 
+        else kHold=keyCode;
+
+        if (keyCode==cf.keyVibra) {
+            cf.profile=(cf.profile==AlertProfile.VIBRA)? 
+                cf.def_profile : AlertProfile.VIBRA;
+            displayStatus();
+            redraw();
+        }
+    }
+    
     public void focusedItem(int index) {
         if (vContacts==null) return;
         if (index>=vContacts.size()) return;
@@ -877,6 +898,9 @@ public class Roster
                         } else {
                             new YesNoAlert(display, parentView, "Delete contact?", c.getNickJid()){
                                 public void yes() {
+                                    if (c.group==NIL_INDEX) {
+                                        c.offline_type=Presence.PRESENCE_TRASH;
+                                    } else
                                     theStream.send(new IqQueryRoster(c.getJidNR(),null,null,"remove"));
                                 };
                             };

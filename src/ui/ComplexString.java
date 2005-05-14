@@ -72,7 +72,7 @@ public class ComplexString extends Vector implements VirtualElement{
                     dw=font.stringWidth((String)ob);
                     if (ralign) w-=dw; 
                     g.drawString((String)ob,w,fontYOfs,Graphics.LEFT|Graphics.TOP);
-                    w+=dw;
+                    if (!ralign) w+=dw;
 
                 } else if ((ob instanceof Integer)) {
                     // image element or color
@@ -82,7 +82,7 @@ public class ComplexString extends Vector implements VirtualElement{
                             if (imageList==null) break;
                             if (ralign) w-=imgWidth;
                             imageList.drawImage(g, ((Integer)ob).intValue(), w, imageYOfs);
-                            w+=imgWidth;
+                            if (!ralign) w+=imgWidth;
                             break;
                         case COLOR:
                             g.setColor(0xFFFFFF&i);

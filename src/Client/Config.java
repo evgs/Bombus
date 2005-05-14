@@ -22,6 +22,8 @@ public class Config {
     
 /*#DefaultConfiguration,Release#*///<editor-fold>
     public String messagesnd=getProperty("msg_snd","/sounds/message.amr");
+    public char keyLock=getProperty("keyLock",'*');
+    public char keyVibra=getProperty("keyVibra",'#');
 /*$DefaultConfiguration,Release$*///</editor-fold>
 /*#M55,M55_Release#*///<editor-fold>
 //--    public boolean msgLogPresence=getProperty("msg_log_presence",false);
@@ -29,6 +31,8 @@ public class Config {
 //--    public String messagesnd=getProperty("msg_snd","/sounds/message.wav");
 //--    public final String m55cfgpath=getProperty("cfg_path","");
 //--    public final int m55_led_pattern=getProperty("led_pattern",0);
+//--    public char keyLock=getProperty("keyLock",'#');
+//--    public char keyVibra=getProperty("keyVibra",'*');
 /*$M55,M55_Release$*///</editor-fold>
     
     public int accountIndex=-1;
@@ -106,6 +110,16 @@ public class Config {
             return defvalue;
         }
     }
+    
+    public final char getProperty(final String key, final char defvalue) {
+        try {
+            String s=StaticData.getInstance().midlet.getAppProperty(key);
+            return (s==null)?defvalue:s.charAt(0);
+        } catch (Exception e) {
+            return defvalue;
+        }
+    }
+    
     public final boolean getProperty(final String key, final boolean defvalue) {
         try {
             String s=StaticData.getInstance().midlet.getAppProperty(key);

@@ -87,7 +87,7 @@ implements CommandListener{
     public void eventOk(){
         Msg msg=(Msg)getSelectedObject();
         if (msg!=null) 
-            new MessageView(display,msg);
+            new MessageView(display,msg,contact);
     }
     
     public void commandAction(Command c, Displayable d){
