@@ -24,6 +24,8 @@ implements CommandListener{
     ImageList il;
     boolean smiles;
     
+    StaticData sd;
+    
     /*public interface Element {
         int getColor1();
         String getMsgHeader();
@@ -37,7 +39,7 @@ implements CommandListener{
     public MessageList(Contact contact, Display display) {
         super(display);
         this.contact=contact;
-        StaticData sd=StaticData.getInstance();
+        sd=StaticData.getInstance();
         il=sd.smilesIcons;
         smiles=sd.config.smiles;
         
@@ -61,10 +63,12 @@ implements CommandListener{
     public int getItemCount(){ return contact.msgs.size(); }
     //public Element getItemRef(int Index){ return (Element) contact.msgs.elementAt(Index); }
 
-    protected ComplexString cacheUpdate(Vector lines,int index) {
+    protected ComplexString cacheUpdate(int index) {
         ComplexString m;
         Msg msg=(Msg)contact.msgs.elementAt(index);
-        msg.unread=false;
+        
+        if (msg.unread) contact.resetNewMsgCnt();
+        
         m= (ComplexString)StaticData.getInstance().parser.
                 parseMsg( msg, (smiles)?il:null, getWidth()-6, true, null);
         m.setColor(msg.getColor1());
@@ -86,14 +90,34 @@ implements CommandListener{
     }
     public void eventOk(){
         Msg msg=(Msg)getSelectedObject();
-        if (msg!=null) 
+        if (msg!=null) {
+            if (contact.msgs.size()==cursor+1) refreshMsgCnt();
             new MessageView(display,msg,contact);
+        }
+    }
+    
+    public void focusedItem(int index){
+        if (index+1<getItemCount()) return;
+        ComplexString s=(ComplexString)lines.elementAt(index);
+        try {
+            if (s.size()>2){
+                Integer i=(Integer)s.elementAt(s.size()-2);
+                if (i.intValue()==ComplexString.RALIGN) return;
+            }
+        } catch (Exception e) {}
+        refreshMsgCnt();
+    }
+    
+    private void refreshMsgCnt(){
+        if (contact.needsCount()){
+            System.out.println("refreshMsgCnt()");
+            sd.roster.countNewMsgs();
+        }
     }
     
     public void commandAction(Command c, Displayable d){
         if (c==CmdBack) {
             //contact.lastReaded=contact.msgs.size();
-            contact.resetNewMsgCnt();
             destroyView();
             return;
         }

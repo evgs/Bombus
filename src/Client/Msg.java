@@ -52,7 +52,8 @@ public class Msg //implements MessageList.Element
         return 0;
     }
     public int getColor2(){ return 0; }
-    public String toString(){ 
+    public String toString(){
+        unread=false;
         return (messageType==MESSAGE_TYPE_PRESENCE)?getTime()+body:body; 
     }
     

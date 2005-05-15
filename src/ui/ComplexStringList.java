@@ -16,7 +16,7 @@ import java.util.*;
 public class ComplexStringList extends VirtualList
 {
 
-    private Vector lines;
+    protected Vector lines;
     //private ComplexStringDraw cld;
     
     /** Creates a new instance of ComplexIconTextList */
@@ -44,7 +44,7 @@ public class ComplexStringList extends VirtualList
     protected int getItemHeight(int index){ 
         return getLine(index).getVHeight();
     }
-    protected ComplexString cacheUpdate(Vector lines, int index) {return null;}
+    protected ComplexString cacheUpdate(int index) {return null;}
     
     //public Font getFont() { return cld.getFont(); }
     //public int getTextColor(){return 0;}
@@ -63,7 +63,7 @@ public class ComplexStringList extends VirtualList
         try {
             line=(ComplexString)lines.elementAt(index);
         } catch (Exception e) { line=null; }
-        if (line==null) line=cacheUpdate(lines, index);
+        if (line==null) line=cacheUpdate(index);
         return line;
     }
 }

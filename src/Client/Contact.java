@@ -103,6 +103,9 @@ public class Contact extends IconTextElement{
         }
         return newMsgCnt=nm;
     }
+    
+    public boolean needsCount(){ return (newMsgCnt<0);  }
+    
     public void resetNewMsgCnt() { newMsgCnt=-1;}
     
     public int compare(Contact c){

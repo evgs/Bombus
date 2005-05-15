@@ -212,7 +212,7 @@ public class Roster
         }
     }
     
-    private boolean countNewMsgs() {
+    boolean countNewMsgs() {
         int m=0;
         synchronized (hContacts) {
             for (Enumeration e=hContacts.elements();e.hasMoreElements();){

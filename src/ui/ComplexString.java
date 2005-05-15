@@ -15,9 +15,9 @@ import javax.microedition.lcdui.*;
 public class ComplexString extends Vector implements VirtualElement{
 
     //private Vector v;
-    private final static int IMAGE=0x00000000;
-    private final static int COLOR=0x01000000;
-    private final static int RALIGN=0x02000000;
+    public final static int IMAGE=0x00000000;
+    public final static int COLOR=0x01000000;
+    public final static int RALIGN=0x02000000;
     
     private Font font=Font.getDefaultFont();
     private int height;
