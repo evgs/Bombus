@@ -68,7 +68,8 @@ implements CommandListener{
         Msg msg=(Msg)contact.msgs.elementAt(index);
         
         if (msg.unread) contact.resetNewMsgCnt();
-        
+        msg.unread=false;
+
         m= (ComplexString)StaticData.getInstance().parser.
                 parseMsg( msg, (smiles)?il:null, getWidth()-6, true, null);
         m.setColor(msg.getColor1());
@@ -118,6 +119,7 @@ implements CommandListener{
     public void commandAction(Command c, Displayable d){
         if (c==CmdBack) {
             //contact.lastReaded=contact.msgs.size();
+            //contact.resetNewMsgCnt();            
             destroyView();
             return;
         }
