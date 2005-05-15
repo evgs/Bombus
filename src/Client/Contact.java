@@ -155,7 +155,7 @@ public class Contact extends IconTextElement{
     }
     
   
-    public int getColor() { return COLORS[status]; }
+    public int getColor() { return (status>7)?0:COLORS[status]; }
     // public int getColorBGnd() { return 0xffffff; }
 
     public int getFontIndex(){

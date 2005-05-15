@@ -303,8 +303,8 @@ public class Roster
         int status=Presence.PRESENCE_OFFLINE;
         if (subscr.equals("none")) status=Presence.PRESENCE_UNKNOWN;
         if (ask) status=Presence.PRESENCE_ASK;
-        
-        if (subscr.equals("remove")) status=Presence.PRESENCE_TRASH;
+        //if (subscr.equals("remove")) status=Presence.PRESENCE_TRASH;
+        if (subscr.equals("remove")) status=-1;
         
         Jid J=new Jid(Jid);
         Contact c=getContact(J,false);
@@ -329,6 +329,17 @@ public class Roster
                 //if (status==Presence.PRESENCE_TRASH) c.status=status;
                 //if (status!=Presence.PRESENCE_OFFLINE) c.status=status;
             }
+        }
+        if (status<0) removeTrash();
+    }
+    
+    private final void removeTrash(){
+        int index=0;
+        while (index<hContacts.size()) {
+            Contact c=(Contact)hContacts.elementAt(index);
+            if (c.offline_type<0) {
+                hContacts.removeElementAt(index);
+            } else index++;
         }
     }
     
@@ -892,22 +903,25 @@ public class Roster
                         new SubscriptionEdit(display, c);
                         return; //break;
                     case 4:
-                        if (c.offline_type==Presence.PRESENCE_TRASH) {
-                            hContacts.removeElement(c);
-                            reEnumRoster();
-                        } else {
-                            new YesNoAlert(display, parentView, "Delete contact?", c.getNickJid()){
-                                public void yes() {
-                                    if (c.group==NIL_INDEX) {
-                                        c.offline_type=Presence.PRESENCE_TRASH;
-                                    } else
+                        new YesNoAlert(display, parentView, "Delete contact?", c.getNickJid()){
+                            public void yes() {
+                                for (Enumeration e=hContacts.elements();e.hasMoreElements();) {
+                                    Contact c2=(Contact)e. nextElement();
+                                    if (c.jid.equals(c2. jid,false)) {
+                                        c2.status=c2.offline_type=Presence.PRESENCE_TRASH;
+                                    }
+                                }
+                                
+                                if (c.group==NIL_INDEX) {
+                                    hContacts.removeElement(c);
+                                    reEnumRoster();
+                                } else
                                     theStream.send(new IqQueryRoster(c.getJidNR(),null,null,"remove"));
-                                };
                             };
-                            return;
-                            //new DeleteContact(display,c);
-                        }
-                        break;
+                        };
+                        return;
+                        //new DeleteContact(display,c);
+                        //break;
                 }
                 destroyView();
             }
