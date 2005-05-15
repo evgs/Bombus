@@ -842,9 +842,9 @@ public class Roster
         super.keyRepeated(keyCode);
         if (kHold==keyCode) return;
         //kHold=keyCode;
+        kHold=keyCode;
         
         if (keyCode==cf.keyLock) new KeyBlock(display, getTitleLine(), cf.keyLock); 
-        else kHold=keyCode;
 
         if (keyCode==cf.keyVibra) {
             cf.profile=(cf.profile==AlertProfile.VIBRA)? 

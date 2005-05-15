@@ -29,12 +29,13 @@ public class KeyBlock extends Canvas implements Runnable{
     private ComplexString status;
     
     private char exitKey;
+    private int kHold;
     
     /** Creates a new instance */
     public KeyBlock(Display display, ComplexString status, char exitKey) {
         this.status=status;
         this.display=display;
-        this.exitKey=exitKey;
+        kHold=this.exitKey=exitKey;
         
         parentView=display.getCurrent();
         status.setElementAt(new Integer(ImageList.ICON_KEYBLOCK_INDEX),6);
@@ -74,7 +75,12 @@ public class KeyBlock extends Canvas implements Runnable{
         
     }
     
-    protected void keyRepeated(int keyCode) { if (keyCode==exitKey) destroyView(); }
+    public void keyReleased(int keyCode) { kHold=0; }
+
+    protected void keyRepeated(int keyCode) { 
+        if (kHold==0)
+        if (keyCode==exitKey) destroyView(); 
+    }
 
     private void destroyView(){
         status.setElementAt(null,6);
