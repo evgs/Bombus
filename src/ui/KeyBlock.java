@@ -39,7 +39,7 @@ public class KeyBlock extends Canvas implements Runnable{
         
         parentView=display.getCurrent();
         status.setElementAt(new Integer(ImageList.ICON_KEYBLOCK_INDEX),6);
-        //repaint();
+        repaint();
 
         new Thread(this).start();
     }
@@ -75,9 +75,15 @@ public class KeyBlock extends Canvas implements Runnable{
         
     }
     
-    public void keyReleased(int keyCode) { kHold=0; }
-
+    public void keyPressed(int keyCode) { 
+        //System.out.println("blocked press"+(char) keyCode);
+        kHold=0; 
+    }
+    public void keyReleased(int keyCode) { 
+        //System.out.println("blocked released"+(char) keyCode); kHold=0; 
+    }
     protected void keyRepeated(int keyCode) { 
+        //System.out.println("blocked repeat"+(char) keyCode);
         if (kHold==0)
         if (keyCode==exitKey) destroyView(); 
     }

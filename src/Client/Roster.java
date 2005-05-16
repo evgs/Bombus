@@ -845,10 +845,6 @@ public class Roster
     //stringCache=new Vector(vContacts.capacity());
     //}
     
-    private int kHold;
-    public void keyReleased(int keyCode) {
-        kHold=0;
-    }
     public void keyRepeated(int keyCode) {
         super.keyRepeated(keyCode);
         if (kHold==keyCode) return;
@@ -883,9 +879,10 @@ public class Roster
     public void contactMenu(final Contact c) {
         Menu m=new Menu(c.toString()){
             public void eventOk(){
-                String to=(cursor<3)? c.getJid() : c.getJidNR();
+                int index=((MenuItem)getSelectedObject()).index;
+                String to=(index<3)? c.getJid() : c.getJidNR();
                 destroyView();
-                switch (cursor) {
+                switch (index) {
                     case 0: // info
                         querysign=true; displayStatus();
                         theStream.send(new IqVersionReply(to));
@@ -926,12 +923,13 @@ public class Roster
                 destroyView();
             }
         };
-        m.addItem(new MenuItem("Client Info"));
-        m.addItem(new MenuItem("vCard"));
-        m.addItem(new MenuItem("Edit"));
-        m.addItem(new MenuItem("Subscription"));
-        m.addItem(new MenuItem("Delete"));
-        
+        m.addItem(new MenuItem("Client Info",0));
+        m.addItem(new MenuItem("vCard",1));
+        if (c.group!=SELF_INDEX) {
+            m.addItem(new MenuItem("Edit",2));
+            m.addItem(new MenuItem("Subscription",3));
+            m.addItem(new MenuItem("Delete",4));
+        }
         m.attachDisplay(display);
     }
     

@@ -51,6 +51,7 @@ public class Contact extends IconTextElement{
     
     public Vector msgs;
     private int newMsgCnt=-1;
+    public int lastUnread;
     
     public int firstUnread(){
         int c=0;
@@ -154,7 +155,10 @@ public class Contact extends IconTextElement{
             return;
         } 
         msgs.addElement(m);
-        if (m.unread) if (newMsgCnt>=0) newMsgCnt++;
+        if (m.unread) {
+            lastUnread=msgs.size()-1;
+            if (newMsgCnt>=0) newMsgCnt++;
+        }
     }
     
   

@@ -22,8 +22,8 @@ public class Config {
     
 /*#DefaultConfiguration,Release#*///<editor-fold>
     public String messagesnd=getProperty("msg_snd","/sounds/message.amr");
-    public char keyLock=getProperty("keyLock",'*');
-    public char keyVibra=getProperty("keyVibra",'#');
+    public char keyLock=getProperty("key_lock",'*');
+    public char keyVibra=getProperty("key_vibra",'#');
 /*$DefaultConfiguration,Release$*///</editor-fold>
 /*#M55,M55_Release#*///<editor-fold>
 //--    public boolean msgLogPresence=getProperty("msg_log_presence",false);
@@ -31,8 +31,8 @@ public class Config {
 //--    public String messagesnd=getProperty("msg_snd","/sounds/message.wav");
 //--    public final String m55cfgpath=getProperty("cfg_path","");
 //--    public final int m55_led_pattern=getProperty("led_pattern",0);
-//--    public char keyLock=getProperty("keyLock",'#');
-//--    public char keyVibra=getProperty("keyVibra",'*');
+//--    public char keyLock=getProperty("key_lock",'#');
+//--    public char keyVibra=getProperty("key_vibra",'*');
 /*$M55,M55_Release$*///</editor-fold>
     
     public int accountIndex=-1;

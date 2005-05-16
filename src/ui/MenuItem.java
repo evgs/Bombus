@@ -14,8 +14,10 @@ public class MenuItem extends ComplexString
 {
     
     /** Creates a new instance of MenuItem */
-    public MenuItem(String name) {
+    public int index;
+    public MenuItem(String name, int index) {
         addElement(" ");
         addElement(name);
+        this.index=index;
     }
 }

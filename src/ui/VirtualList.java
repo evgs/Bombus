@@ -219,10 +219,6 @@ public abstract class VirtualList
         g.translate(x-g.getTranslateX(), y-g.getTranslateY());
     }
     
-    public void keyRepeated(int keyCode){
-       keyPressed(keyCode);
-    }
-
     int visibleItemsCnt(int from, int direction){
         int count=getItemCount();
         if (count==0) return 0;
@@ -271,15 +267,21 @@ public abstract class VirtualList
     }
 
     public void moveCursorHome(){
-        if (cursor>0) cursor=0;
         win_top=0;
+        if (cursor>0) {
+            cursor=0;
+            focusedItem(0);
+        }
         setRotator();
     }
 
     public void moveCursorEnd(){
         int count=getItemCount();
         win_top=count-visibleItemsCnt(count-1, -1);
-        if (cursor>=0) cursor=(count==0)?0:count-1;
+        if (cursor>=0) {
+            cursor=(count==0)?0:count-1;
+            focusedItem(cursor);
+        }
         setRotator();
     }
 
@@ -305,11 +307,12 @@ public abstract class VirtualList
         }
     }
      */
+    protected int kHold;
+    public void keyRepeated(int keyCode){ key(keyCode); }
+    public void keyReleased(int keyCode) { kHold=0; }
+    public void keyPressed(int keyCode) { kHold=0; key(keyCode);  }
     
-    public void keyPressed(int keyCode) {
-        //int act=getGameAction(keyCode);
-        //if (act!=0) keyCode=act;
-        //stitle=String.valueOf(keyCode);
+    private void key(int keyCode) {
         switch (keyCode) {
             case KEY_NUM1:  { moveCursorHome();    break; }
             case KEY_NUM7:  { moveCursorEnd();     break; }
