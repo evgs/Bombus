@@ -717,6 +717,10 @@ Motorola:
   для self-contact недоступны команды
   Contact:Edit, Contact:Delete, Contact:Subscription
 
+(82) 
+  значок новых сообщений в заголовке MessageList.
+  та же функциональность, что и у огней m55
+
 
 ---------------------------
   known issues:

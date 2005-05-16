@@ -45,10 +45,12 @@ implements CommandListener{
         
         AttachList(new Vector());
 
-        ComplexString title=new ComplexString(StaticData.getInstance().smilesIcons);
+        title=new ComplexString(sd.rosterIcons);
         
         title.addElement(contact.toString());
-        setTitleLine(title);
+        title.addRAlign();
+        title.addElement(null);
+        //setTitleLine(title);
 
         cursor=0;//activate
         
@@ -59,6 +61,8 @@ implements CommandListener{
         setCommandListener(this);
         moveCursorTo(contact.firstUnread());
     }
+    
+    public void beginPaint(){ title.setElementAt(sd.roster.messageIcon,2); }
     
     public int getItemCount(){ return contact.msgs.size(); }
     //public Element getItemRef(int Index){ return (Element) contact.msgs.elementAt(Index); }

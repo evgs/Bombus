@@ -120,11 +120,13 @@ public abstract class VirtualList
         }
     }
     
+    public void beginPaint(){};
     /**
      * отрисовка
      */
     public void paint(Graphics g) {
         // заголовок окна
+        beginPaint();
         
         int list_top=0;
         if (title!=null) {

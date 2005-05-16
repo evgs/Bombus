@@ -66,6 +66,7 @@ public class Roster
      */
     //public Roster(VList L) {
     int messageCount;
+    Object messageIcon;
     
     //EventNotify msgNotify;
     
@@ -200,16 +201,16 @@ public class Roster
         int s=querysign?ImageList.ICON_RECONNECT_INDEX:myStatus;
         int profile=cf.profile;//StaticData.getInstance().config.profile;
         Object en=(profile>1)? new Integer(profile+ImageList.ICON_PROFILE_INDEX):null;
-        ComplexString tl=getTitleLine();
-        tl.setElementAt(new Integer(s), 2);
-        tl.setElementAt(en, 5);
+        title.setElementAt(new Integer(s), 2);
+        title.setElementAt(en, 5);
         if (messageCount==0) {
-            tl.setElementAt(null,0);
-            tl.setElementAt(null,1);
+            messageIcon=null;
+            title.setElementAt(null,1);
         } else {
-            tl.setElementAt(new Integer(ImageList.ICON_MESSAGE_INDEX),0);
-            tl.setElementAt(' '+String.valueOf(messageCount)+' ',1);
+            messageIcon=new Integer(ImageList.ICON_MESSAGE_INDEX);
+            title.setElementAt(' '+String.valueOf(messageCount)+' ',1);
         }
+        title.setElementAt(messageIcon, 0);
     }
     
     boolean countNewMsgs() {
