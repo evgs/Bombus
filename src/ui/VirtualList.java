@@ -128,10 +128,9 @@ public abstract class VirtualList
         // заголовок окна
         beginPaint();
         
-        int list_top=0;
+        int list_top=0; // верхн€€ граница списка
         if (title!=null) {
-            list_top=title.getVHeight();  // верхн€€ граница списка
-            
+            list_top=title.getVHeight();
             g.setClip(0,0, width, list_top);
             g.setColor(getTitleBGndRGB());
             g.fillRect(0,0, width, list_top);
