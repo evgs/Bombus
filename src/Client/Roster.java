@@ -569,12 +569,15 @@ public class Roster
                 
                 String from=message.getFrom();
                 String body=message.getBody().trim();
+                String tStamp=message.getTimeStamp();
                 if (body.length()==0) return;
                 
                 String subj=message.getSubject().trim();
                 if (subj.length()==0) subj=null;
                 
                 Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, subj, body);
+                if (tStamp!=null) 
+                    m.date=Time.dateIso8601(tStamp);
                 messageStore(m, -1);
                 //Contact c=getContact(from);
                 //c.msgs.addElement(m);
@@ -651,6 +654,7 @@ public class Roster
         }*/
         if (c==null) return c;  // not to store/signal not-in-list message
         c.addMessage(message);
+        //message.from=c.getNickJid();
         switch (message.messageType) {
             case Msg.MESSAGE_TYPE_PRESENCE:
             case Msg.MESSAGE_TYPE_OUT: return c;

@@ -2,3 +2,5 @@ def_user: evgs
 def_pass: *******b
 def_server: jabber.ru
 def_ip: 213.248.55.180
+time_gmt_offset: 600
+time_loc_offset: -600

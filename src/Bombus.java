@@ -15,9 +15,11 @@ import javax.microedition.lcdui.*;
 
 /*#DefaultConfiguration#*///<editor-fold>
 import javax.microedition.media.Manager;
+import java.util.*;
 /*$DefaultConfiguration$*///</editor-fold>
 /*#M55#*///<editor-fold>
 //--import com.siemens.mp.media.Manager;
+//--import java.util.*;
 /*$M55$*///</editor-fold>
 
 import ui.*;
@@ -77,7 +79,16 @@ public class Bombus extends MIDlet implements Runnable{
             for (int i=0;i<s.length;i++){
                 System.out.println(s[i]);
             }
-            
+            System.out.println("----");
+        }
+        {
+            String s[]=TimeZone.getAvailableIDs();
+            for (int i=0;i<s.length;i++){
+                System.out.println(s[i]);
+            }
+            System.out.println("----");
+            System.out.println(TimeZone.getTimeZone("GMT+05:00").getRawOffset());
+            System.out.println("----");
         }
 /*$DefaultConfiguration,M55$*///</editor-fold>
         

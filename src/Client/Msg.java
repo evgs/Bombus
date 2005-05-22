@@ -27,7 +27,7 @@ public class Msg //implements MessageList.Element
         this.from=from;
         this.body=body;
         this.subject=subj;
-        this.date=new Date(System.currentTimeMillis());
+        this.date=new Date(System.currentTimeMillis()+StaticData.getInstance().config.locOffset);
         if (messageType==MESSAGE_TYPE_IN) unread=true;
         if (messageType==MESSAGE_TYPE_AUTH) unread=true;
     }
@@ -42,6 +42,8 @@ public class Msg //implements MessageList.Element
     public String getDayTime(){
         return '['+Time.dayString(date)+Time.timeString(date)+"] "; 
     }
+    //private TimeZone tz(){ return StaticData.getInstance().config.tz;}
+    
     public int getColor1() {
         switch (messageType) {
             case MESSAGE_TYPE_IN: return 0x0000B0;

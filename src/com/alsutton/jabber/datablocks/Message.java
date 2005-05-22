@@ -166,6 +166,17 @@ public class Message extends JabberDataBlock
     return getTextForChildBlock( "body" );
   }
 
+  public String getTimeStamp(){
+      Vector v=getChildBlocks();
+      if (v!=null)
+      for (Enumeration e=v.elements(); e.hasMoreElements();){
+          JabberDataBlock stamp=(JabberDataBlock)e.nextElement();
+          if (stamp.getTagName().equals("x"))
+          if (stamp.isJabberNameSpace("jabber:x:delay"))
+              return stamp.getAttribute("stamp");
+      }
+      return null;
+  }
   /**
    * Construct a reply message
    *
