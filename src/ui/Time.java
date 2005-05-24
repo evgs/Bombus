@@ -19,7 +19,7 @@ public class Time {
     private Time() { }
     
     public static void setOffset(int gmtOffset){
-        offset=60*60*10*gmtOffset;
+        offset=60*60*1000*gmtOffset;
     }
 
     public static String lz2(int i){

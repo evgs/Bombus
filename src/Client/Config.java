@@ -95,10 +95,10 @@ public class Config {
     
     /** Creates a new instance of Config */
     public Config() {
-        int gmtloc=TimeZone.getDefault().getRawOffset()/36000;
+        int gmtloc=TimeZone.getDefault().getRawOffset()/3600000;
         int loc=getProperty( "time_loc_offset", 0);
         gmtOffset=getProperty("time_gmt_offset", gmtloc);
-        locOffset=((long)loc)*36000;
+        locOffset=((long)loc)*3600000;
         //System.out.println(locOffset);
     }
     
