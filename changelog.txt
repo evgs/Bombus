@@ -746,6 +746,12 @@ Motorola:
   форма редактирования статуса StatusForm, 
   команда Status:Edit вместо Status:Message, Status:Priority, Status:All Priorities
 
+(87)
+  оптимизация размера на 1 килобайт :)
+
+(88)
+  атрибут vibra_len: 500  (длительность сигнала по умолчанию - 500 мсек)
+
 ---------------------------
   known issues:
 

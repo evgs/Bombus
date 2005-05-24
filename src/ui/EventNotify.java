@@ -72,10 +72,8 @@ public class EventNotify
 //--        } catch (Exception e) {
 //--            e.printStackTrace();
 //--        }
-//--        if (ep.lenVibra>0) Vibrator.triggerVibrator(500);
+//--        if (ep.lenVibra>0) Vibrator.triggerVibrator(ep.lenVibra);
 //--        if (ep.enableLights) new Thread(this).start();
-//--        //Ledcontrol.playPattern();
-//--        //display.vibrate(500);
 /*$M55,M55_Release$*///</editor-fold>
     }
     

@@ -101,10 +101,10 @@ public class AlertProfile extends VirtualList implements CommandListener {
         boolean blFlashEn=!cf.ghostMotor;   // motorola e398 backlight bug
         
         switch (profile) {
-            case ALL:   ep=new EventProfile(message,500,blFlashEn); break;
-            case NONE:  ep=new EventProfile(null,   0,  false    ); break;
-            case VIBRA: ep=new EventProfile(null,   500,blFlashEn); break;
-            case SOUND: ep=new EventProfile(message,0,  blFlashEn); break;
+            case ALL:   ep=new EventProfile(message, cf.vibraLen, blFlashEn); break;
+            case NONE:  ep=new EventProfile(null,    0,           false    ); break;
+            case VIBRA: ep=new EventProfile(null,    cf.vibraLen, blFlashEn); break;
+            case SOUND: ep=new EventProfile(message, 0,           blFlashEn); break;
         }
         if (ep!=null) new EventNotify (display, ep).startNotify();
     }

@@ -17,6 +17,8 @@ import java.util.*;
 public class Config {
     
     public final int keepAlive=getProperty("keep_alive",200);
+    public final int vibraLen=getProperty("vibra_len",500);
+    
     public boolean ghostMotor=getProperty("moto_e398",false);
 
     public boolean msgLog=getProperty("msg_log",false);
