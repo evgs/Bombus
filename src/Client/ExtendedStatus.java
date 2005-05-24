@@ -87,6 +87,7 @@ public class ExtendedStatus extends IconTextElement{
     public int getColor(){ return 0;}
     public int getImageIndex(){ return index;}
 
+    public String getName() { return name; }
     public String getMessage() { return status; }
     public void setMessage(String s) { status=s; }
 

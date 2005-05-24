@@ -16,9 +16,9 @@ import ui.*;
 public class StatusSelect extends VirtualList implements CommandListener{
     
     private Command cmdOk=new Command("Select",Command.OK,1);
-    private Command cmdMsg=new Command("Set Message",Command.SCREEN,1);
-    private Command cmdPriority=new Command("Set Priority",Command.SCREEN,2);
-    private Command cmdAll=new Command("All Priorities",Command.SCREEN,3);
+    private Command cmdEdit=new Command("Edit",Command.SCREEN,2);
+    //private Command cmdPriority=new Command("Set Priority",Command.SCREEN,2);
+    //private Command cmdAll=new Command("All Priorities",Command.SCREEN,3);
     private Command cmdCancel=new Command("Back",Command.BACK,99);
     /** Creates a new instance of SelectStatus */
     public StatusSelect(Display d) {
@@ -27,9 +27,9 @@ public class StatusSelect extends VirtualList implements CommandListener{
         createTitle(1, "Status",null);
         
         addCommand(cmdOk);
-        addCommand(cmdMsg);
-        addCommand(cmdPriority);
-        addCommand(cmdAll);
+        addCommand(cmdEdit);
+        //addCommand(cmdPriority);
+        //addCommand(cmdAll);
         addCommand(cmdCancel);
         setCommandListener(this);
         
@@ -39,30 +39,12 @@ public class StatusSelect extends VirtualList implements CommandListener{
         return (VirtualElement)StaticData.getInstance().statusList.elementAt(Index);
     }
     
-    ExtendedStatus getSel(){ return (ExtendedStatus)getSelectedObject();}
+    private ExtendedStatus getSel(){ return (ExtendedStatus)getSelectedObject();}
     
     public void commandAction(Command c, Displayable d){
         if (c==cmdOk) eventOk(); 
-        if (c==cmdMsg) {
-            new MIDPTextBox(
-                    display, 
-                    "Status Message", 
-                    getSel().getMessage(), 
-                    new MsgListener(), 0 );
-        };
-        if (c==cmdPriority) {
-            new MIDPTextBox(
-                    display, 
-                    "Priority", 
-                    String.valueOf(getSel().getPriority() ), 
-                    new PriorityListener(), TextField.NUMERIC );
-        };
-        if (c==cmdAll) {
-            new MIDPTextBox(
-                    display, 
-                    "All Priorities", 
-                    String.valueOf(getSel().getPriority() ), 
-                    new PriorityAll(), TextField.NUMERIC );
+        if (c==cmdEdit) {
+            new StatusForm( display, getSel() );
         };
         if (c==cmdCancel) destroyView();
     }
@@ -77,38 +59,82 @@ public class StatusSelect extends VirtualList implements CommandListener{
     
     public int getItemCount(){   return StaticData.getInstance().statusList.size(); }
     
-    private class MsgListener implements MIDPTextBox.TextBoxNotify{
-        public void OkNotify(String text_return){
-            getSel().setMessage(text_return);
-            save();
-        }
-    }
-    
-    private class PriorityListener implements MIDPTextBox.TextBoxNotify{
-        public void OkNotify(String text_return){
-            int priority=0;
-            try { priority=Integer.parseInt(text_return); }
-            catch (Exception e) {};
-            if (priority<0) priority=0;
-            if (priority>99) priority=99;
-            getSel().setPriority(priority);
-            save();
-        }
-    }
-    private class PriorityAll implements MIDPTextBox.TextBoxNotify{
-        public void OkNotify(String text_return){
-            int priority=0;
-            try { priority=Integer.parseInt(text_return); }
-            catch (Exception x) {};
-            if (priority<0) priority=0;
-            if (priority>99) priority=99;
-            for (Enumeration e=StaticData.getInstance().statusList.elements(); e.hasMoreElements();) {
-                ((ExtendedStatus)e.nextElement()).setPriority(priority);
-            }
-            save();
-        }
-    }
     private void save(){
         ExtendedStatus.saveStatusToStorage(StaticData.getInstance().statusList);
     }
+
+    class StatusForm implements CommandListener{
+        private Display display;
+        public Displayable parentView;
+        
+        private Form f;
+        private TextField tfPriority;
+        private TextField tfMessage;
+        
+        private ChoiceGroup chPriorityAll;
+        
+        private ExtendedStatus status;
+        
+        private Command cmdOk=new Command("Ok",Command.OK,1);
+        private Command cmdCancel=new Command("Cancel",Command.BACK,99);
+        
+        public StatusForm(Display display, ExtendedStatus status){
+            this.display=display;
+            parentView=display.getCurrent();
+            this.status=status;
+            
+            f=new Form(status.getName());
+            
+            tfPriority=new TextField(
+                    "Priority", 
+                    String.valueOf(status.getPriority()), 
+                    3, TextField.NUMERIC);
+            f.append(tfPriority);
+
+            chPriorityAll=new ChoiceGroup(null, ChoiceGroup.MULTIPLE);
+            chPriorityAll.append("for all status types", null);
+            f.append(chPriorityAll);
+            
+            tfMessage=new TextField("Message", status.getMessage(), 50, 0);
+            f.append(tfMessage);
+            
+            f.addCommand(cmdOk);
+            f.addCommand(cmdCancel);
+            
+            f.setCommandListener(this);
+            display.setCurrent(f);
+        }
+        
+        public void commandAction(Command c, Displayable d){
+            if (c==cmdOk) {
+                status.setMessage(tfMessage.getString());
+                
+                int priority=0;
+                try { 
+                    priority=Integer.parseInt(tfPriority.getString()); 
+                } catch (Exception x) {};
+                
+                if (priority<0) priority=0;
+                if (priority>99) priority=99;
+                
+                boolean flags[]=new boolean[1];
+                chPriorityAll.getSelectedFlags(flags);
+                if (flags[0]) {
+                    for (Enumeration e=StaticData.getInstance().statusList.elements(); e.hasMoreElements();) {
+                        ((ExtendedStatus)e.nextElement()).setPriority(priority);
+                    }
+                }
+                
+                save();
+                destroyView();
+            }
+            if (c==cmdCancel) {  destroyView();  }
+        }
+        
+        public void destroyView(){
+            if (display!=null)   display.setCurrent(parentView);
+        }
+    }
+    
 }
+
