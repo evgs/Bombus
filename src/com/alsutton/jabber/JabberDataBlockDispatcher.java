@@ -113,10 +113,14 @@ public class JabberDataBlockDispatcher extends Thread
     }
   }
 
+  public void rosterNotify(){
+    listener.rosterItemNotify();
+  }
+
   /**
    * Method to stop the dispatcher
    */
-
+  
   public void halt()
   {
     dispatcherActive = false;

@@ -48,6 +48,7 @@ public class IqGetVCard extends JabberDataBlock
     
     
    public static String dispatchVCard(JabberDataBlock data) {
+        if (data==null) return "No vCard available";
         if (!data.isJabberNameSpace("vcard-temp")) return "unknown vCard namespace";
         StringBuffer vc=new StringBuffer();
         //vc.append((char)0x01);
@@ -62,5 +63,4 @@ public class IqGetVCard extends JabberDataBlock
         }
         return vc.toString();
     }
-
 }

@@ -54,6 +54,10 @@ public class JabberStream implements XMLEventListener, Runnable
    */
 
   private JabberDataBlockDispatcher dispatcher;
+  
+  private boolean rosterNotify;
+  
+  public void enableRosterNotify(boolean en){ rosterNotify=en; }
 
   /**
    * Constructor. Connects to the server and sends the jabber welcome message.
@@ -230,10 +234,10 @@ public class JabberStream implements XMLEventListener, Runnable
 
   public void tagStarted( String name, Hashtable attributes )
   {
-    if (currentBlock!=null)
+    if (currentBlock!=null){
         currentBlock = new JabberDataBlock( name, currentBlock, attributes );
-    else if ( name.equals( "stream:stream" ) )
-    {
+        if (rosterNotify) if (name.equals("item")) dispatcher.rosterNotify();
+    } else if ( name.equals( "stream:stream" ) ) {
         String SessionId=(String)attributes.get("id");
         dispatcher.broadcastBeginConversation(SessionId);
     }

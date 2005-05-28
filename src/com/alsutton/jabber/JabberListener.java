@@ -52,6 +52,8 @@ public interface JabberListener
    * @param exception The exception that caused the termination. May be
    *  null if the connection was terminated normally.
    */
+  
+  public void rosterItemNotify();
 
   public void connectionTerminated( Exception e );
 }

@@ -56,6 +56,8 @@ public class AccountRegister
 
     }
     
+    public void rosterItemNotify(){}
+    
     public void connectionTerminated( Exception e ) {
         //l.setTitleImgL(0);
         //System.out.println( "Connection terminated" );

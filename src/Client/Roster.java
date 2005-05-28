@@ -60,16 +60,9 @@ public class Roster
     private JabberStream theStream ;
     
     
-    /**
-     * Creates a new instance of Roster
-     * Sets up the stream to the server and adds this class as a listener
-     */
-    //public Roster(VList L) {
     int messageCount;
     Object messageIcon;
-    
-    //EventNotify msgNotify;
-    
+   
     boolean reconnect=false;
     boolean querysign=false;
     
@@ -90,6 +83,10 @@ public class Roster
     private Config cf;
     private StaticData sd=StaticData.getInstance();
     
+    /**
+     * Creates a new instance of Roster
+     * Sets up the stream to the server and adds this class as a listener
+     */
     public Roster(Display display /*, boolean selAccount*/) {
         super();
         setTitleImages(StaticData.getInstance().rosterIcons);
@@ -102,8 +99,7 @@ public class Roster
         
         setTitleImages(sd.rosterIcons);
         
-        createTitle(4, null, null).setElementAt("title",3);
-        getTitleLine().addRAlign();
+        createTitle(4, null, null).addRAlign();
         getTitleLine().addElement(null);
         getTitleLine().addElement(null);
         
@@ -155,9 +151,26 @@ public class Roster
     }
     public void setProgress(String pgs,int percent){
         SplashScreen.getInstance().setProgress(pgs, percent);
-        getTitleLine().setElementAt(pgs, 3);
+        setRosterTitle(pgs);
         redraw();
     }
+    
+    private void setRosterTitle(String s){
+        getTitleLine().setElementAt(s, 3);
+    }
+    
+    private int rscaler;
+    private int rpercent;
+    
+    public void rosterItemNotify(){
+        rscaler++;
+        if (rscaler<4) return;
+        rscaler=0;
+        rpercent++;
+        if (rpercent==100) rpercent=60;
+        SplashScreen.getInstance().setProgress(rpercent);
+    }
+    
     // establishing connection process
     public void run(){
         if (!reconnect) {
@@ -235,6 +248,7 @@ public class Roster
         int locCursor=cursor;
         Object focused=getSelectedObject();
         
+        int tonlines=0;
         Vector tContacts=new Vector(vContacts.size());
         boolean offlines=cf.showOfflineContacts;//StaticData.getInstance().config.showOfflineContacts;
                 
@@ -249,7 +263,10 @@ public class Roster
                 // group counters
                 Group grp=vGroups.getGroup(c.group);
                 grp.tncontacts++;
-                if (online) grp.tonlines++;
+                if (online) {
+                    grp.tonlines++;
+                    tonlines++;
+                }
                 // hide offlines whithout new messages
                 if (offlines || online || c.getNewMsgsCount()>0 || c.group==Roster.NIL_INDEX)
                     grp.Contacts.addElement(c);
@@ -270,6 +287,10 @@ public class Roster
         if (cf.showTransports) vGroups.addToVector(tContacts,0);
         
         vContacts=tContacts;
+
+        int tnContacts=hContacts.size();
+        setRosterTitle('('+String.valueOf(tonlines)+'/'+String.valueOf(tnContacts)+')');
+        
         //resetStrCache();
         if (cursor<0) cursor=0;
         
@@ -344,7 +365,7 @@ public class Roster
         }
     }
     
-    public final Contact PresenceContact(final String jid, int Status) {
+    public final Contact presenceContact(final String jid, int Status) {
         
         // проверим наличие по полной строке
         Jid J=new Jid(jid);
@@ -454,7 +475,7 @@ public class Roster
         Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
         theStream.send( presence );
         
-        PresenceContact(myJid.getJidFull(), myStatus);
+        presenceContact(myJid.getJidFull(), myStatus);
         reEnumRoster();
     }
     
@@ -500,14 +521,18 @@ public class Roster
                         }
                         
                         // иначе будем читать ростер
+                        theStream.enableRosterNotify(true);
+                        rpercent=60;
                         JabberDataBlock qr=new IqQueryRoster();
-                        setProgress("Roster request ", 70);
+                        setProgress("Roster request ", 60);
                         theStream.send( qr );
                     }
                     if (id.equals("getros")) {
                         // а вот и ростер подошёл :)
-                        SplashScreen.getInstance().setProgress(85);
+                        //SplashScreen.getInstance().setProgress(95);
                         
+                        theStream.enableRosterNotify(false);
+
                         processRoster(data);
                         reEnumRoster();
                         
@@ -521,16 +546,15 @@ public class Roster
                     }
                     if (id.equals("getvc")) {
                         JabberDataBlock vc=data.getChildBlock("vcard");
-                        if (vc!=null) {
-                            querysign=false;
-                            String from=data.getAttribute("from");
-                            String body=IqGetVCard.dispatchVCard(vc);
+                        
+                        querysign=false;
+                        String from=data.getAttribute("from");
+                        String body=IqGetVCard.dispatchVCard(vc);
+
+                        Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, "vCard "+from, body);
+                        messageStore(m, -1);
+                        redraw();
                             
-                            Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, "vCard "+from, body);
-                            messageStore(m, -1);
-                            redraw();
-                            
-                        }
                     }
                     if (id.equals("getver")) {
                         JabberDataBlock vc=data.getChildBlock("query");
@@ -641,7 +665,7 @@ public class Roster
     }
     
     Contact messageStore(Msg message, int status){
-        Contact c=PresenceContact(message.from,status);
+        Contact c=presenceContact(message.from,status);
         /*getContact(message.from, true);
         if (c==null) {
             // contact not in list
@@ -856,7 +880,8 @@ public class Roster
         //kHold=keyCode;
         kHold=keyCode;
         
-        if (keyCode==cf.keyLock) new KeyBlock(display, getTitleLine(), cf.keyLock); 
+        if (keyCode==cf.keyLock) 
+            new KeyBlock(display, getTitleLine(), cf.keyLock, cf.ghostMotor); 
 
         if (keyCode==cf.keyVibra) {
             cf.profile=(cf.profile==AlertProfile.VIBRA)? 
@@ -928,8 +953,8 @@ public class Roster
                 destroyView();
             }
         };
-        m.addItem(new MenuItem("Client Info",0));
         m.addItem(new MenuItem("vCard",1));
+        m.addItem(new MenuItem("Client Info",0));
         if (c.group!=SELF_INDEX) {
             m.addItem(new MenuItem("Edit",2));
             m.addItem(new MenuItem("Subscription",3));
@@ -944,32 +969,5 @@ public class Roster
         theStream.send(new IqQueryRoster(jid, name, group, null));
         if (newContact) theStream.send(new Presence(jid,"subscribe"));
     }
-    /*private class AddContact implements MIDPTextBox.TextBoxNotify{
-        public void OkNotify(String jid){
-     
-            //try {
-                theStream.send(new IqQueryRoster(jid,null,null,null));
-                theStream.send(new Presence(jid,"subscribe"));
-            //} catch (Exception e) {e.printStackTrace();}
-        }
-    }*/
-    
     
 }
-
-
-
-/////////////////////////////////////////////////////////////////////////////
-
-/*class DeleteContact extends YesNoAlert{
-    String delJid;
-    DeleteContact(Display display, Contact c ){
-        super(display, "Delete contact?", c.jid.getJid());
-        delJid=c.jid.getJid();
-    }
- 
-    public void yes() {
-    }
- 
-}*/
-

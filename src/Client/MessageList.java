@@ -97,8 +97,8 @@ implements CommandListener{
     public void eventOk(){
         Msg msg=(Msg)getSelectedObject();
         if (msg!=null) {
-            if (contact.msgs.size()==cursor+1) refreshMsgCnt();
-            new MessageView(display,msg,contact);
+            //if (contact.msgs.size()==cursor+1) refreshMsgCnt();
+            new MessageView(display, cursor, contact);
         }
     }
     
@@ -122,7 +122,7 @@ implements CommandListener{
     
     private void refreshMsgCnt(){
         if (contact.needsCount()){
-            System.out.println("refreshMsgCnt()");
+            //System.out.println("refreshMsgCnt()");
             sd.roster.countNewMsgs();
         }
     }

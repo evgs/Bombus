@@ -59,6 +59,7 @@ public abstract class VirtualList
     int height;
     
     protected int cursor;
+    protected boolean atEnd;
     protected VirtualElement atCursor;
     
     protected int win_top;    // первый элемент
@@ -126,6 +127,7 @@ public abstract class VirtualList
      */
     public void paint(Graphics g) {
         // заголовок окна
+        
         beginPaint();
         
         int list_top=0; // верхняя граница списка
@@ -157,8 +159,8 @@ public abstract class VirtualList
         int fe=0;
         
         while (yp<height) {
-            
-            if (i>=count) break;    // нечего более рисовать
+
+            if (atEnd=(i>=count)) break;    // нечего более рисовать
             VirtualElement el=getItemRef(i);
             
             boolean sel=(i==cursor);
@@ -338,7 +340,9 @@ public abstract class VirtualList
         int mov_org=(cursor!=-1)? cursor : win_top;
         moveCursor(-visibleItemsCnt(mov_org,-1)); 
     }
-    protected void keyRight() { moveCursor(visibleItemsCnt(win_top,1)); }
+    protected void keyRight() { 
+        moveCursor(visibleItemsCnt(win_top,1)); 
+    }
     
     private void setRotator(){
         rotator.destroyTask();

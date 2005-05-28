@@ -31,8 +31,15 @@ public class KeyBlock extends Canvas implements Runnable{
     private char exitKey;
     private int kHold;
     
+    boolean motorola_backlight;
+    
     /** Creates a new instance */
-    public KeyBlock(Display display, ComplexString status, char exitKey) {
+    public KeyBlock(
+            Display display, 
+            ComplexString status, 
+            char exitKey, 
+            boolean motorola_backlight) 
+    {
         this.status=status;
         this.display=display;
         kHold=this.exitKey=exitKey;
@@ -50,6 +57,9 @@ public class KeyBlock extends Canvas implements Runnable{
         } catch (Exception e) {};
         
         display.setCurrent(this);
+/*#DefaultConfiguration,Release#*///<editor-fold>
+        if (motorola_backlight) display.flashBacklight(0);
+/*$DefaultConfiguration,Release$*///</editor-fold>
     }
     
     public void paint(Graphics g){
@@ -90,6 +100,9 @@ public class KeyBlock extends Canvas implements Runnable{
 
     private void destroyView(){
         status.setElementAt(null,6);
+/*#DefaultConfiguration,Release#*///<editor-fold>
+        if (motorola_backlight) display.flashBacklight(Integer.MAX_VALUE);
+/*$DefaultConfiguration,Release$*///</editor-fold>
         if (display!=null)   display.setCurrent(parentView);
     }    
 }
