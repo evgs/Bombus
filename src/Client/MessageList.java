@@ -105,18 +105,7 @@ implements CommandListener{
     public void focusedItem(int index){
         
         if (index<contact.lastUnread) return;
-        /*
-        if (index+1<getItemCount()) return;
-         int type=((Msg)getSelectedObject()).messageType;
-        
-        ComplexString s=(ComplexString)lines.elementAt(index);
-        if (type==Msg.MESSAGE_TYPE_IN)
-        try {
-            if (s.size()>2){
-                Integer i=(Integer)s.elementAt(s.size()-2);
-                if (i.intValue()==ComplexString.RALIGN) return;
-            }
-        } catch (Exception e) {}*/
+
         refreshMsgCnt();
     }
     

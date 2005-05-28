@@ -85,11 +85,14 @@ public class MessageView
         else removeCommand(CmdSubscr);
         
         win_top=0;
+
         sd.parser.parseMsg(
                 msg,
                 (smiles)?sd.smilesIcons:null, 
                 getWidth()-6,
                 false, this);
+        if (msgIndex==contact.lastUnread) 
+            sd.roster.countNewMsgs();
     }
 
     public void beginPaint(){
