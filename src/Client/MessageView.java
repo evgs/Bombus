@@ -34,6 +34,7 @@ public class MessageView
 /*$!DefaultConfiguration,Release$*///</editor-fold>
 
     Command CmdSubscr=new Command("Authorize", Command.SCREEN,2);
+    Command cmdPhoto=new Command("Photo", Command.SCREEN,3);
 
     public int getTitleBGndRGB() {return 0x338888;} 
     public int getTitleRGB() {return titlecolor;} 
@@ -83,6 +84,8 @@ public class MessageView
         
         if (msg.messageType==Msg.MESSAGE_TYPE_AUTH) addCommand(CmdSubscr);
         else removeCommand(CmdSubscr);
+        if (msg.photo!=null) addCommand(cmdPhoto);
+        else removeCommand(cmdPhoto);
         
         win_top=0;
 
@@ -141,6 +144,8 @@ public class MessageView
             destroyView();
         }
         if (c==CmdTSM) toggleSmiles();
+        
+        if (c==cmdPhoto) new PhotoView(display, msg.photo);
     }
     
     public void userKeyPressed(int KeyCode){
@@ -151,5 +156,43 @@ public class MessageView
         smiles=!smiles;
         while (t.isAlive());
         (t=new Thread(this)).start();
+    }
+}
+
+class PhotoView implements CommandListener {
+    
+    private Display display;
+    private Displayable parentView;
+    
+    protected Command cmdCancel=new Command("Cancel", Command.BACK, 99);
+    //protected Command cmdOK=new Command("OK", Command.OK, 1);
+    
+    private Form f;
+    
+    /**
+     * constructor
+     */
+   
+    public PhotoView(Display display, Image photo) {
+        f=new Form("Photo");
+        
+        f.append(photo);
+        f.addCommand(cmdCancel);
+        f.setCommandListener(this);
+        
+        this.display=display;
+        parentView=display.getCurrent();
+        display.setCurrent(f);
+    }
+    
+    /**
+     * Called when action should be handled
+     */
+    public void commandAction(Command command, Displayable displayable) {
+        if (command==cmdCancel) { destroyView(); return;}
+    }
+
+    public void destroyView(){
+        if (display!=null)   display.setCurrent(parentView);
     }
 }

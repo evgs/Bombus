@@ -41,7 +41,7 @@ public interface XMLEventListener
    * @param attributes The tags attributes.
    */
 
-  public void tagStarted( String name, Hashtable attributes );
+  public boolean tagStarted( String name, Hashtable attributes );
 
   /**
    * Method called when some plain text between two tags is encountered.
@@ -50,6 +50,8 @@ public interface XMLEventListener
    */
 
   public void plaintextEncountered( String text );
+
+  public void binValueEncountered( byte binvalue[] );
 
   /**
    * The method called when a tag end is encountered.

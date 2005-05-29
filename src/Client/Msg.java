@@ -8,6 +8,7 @@ package Client;
 import java.util.*;
 import ui.Time;
 import Client.MessageList;
+import javax.microedition.lcdui.Image;
 
 /**
  *
@@ -75,7 +76,9 @@ public class Msg //implements MessageList.Element
 
     /** Дата сообщения */
     public Date date;
+    
+    /** photo */
+    public Image photo;
 
     public boolean unread = false;
-    
 }

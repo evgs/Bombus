@@ -41,4 +41,9 @@ public final class States
    */
 
   public static final int IN_TAG = 1;
+  /**
+   * State when the parser is reading a binary stream
+   */
+
+  public static final int IN_BIN = 1;
 }

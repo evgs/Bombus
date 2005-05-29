@@ -552,6 +552,8 @@ public class Roster
                         String body=IqGetVCard.dispatchVCard(vc);
 
                         Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, "vCard "+from, body);
+                        m.photo=IqGetVCard.getPhoto(vc);
+
                         messageStore(m, -1);
                         redraw();
                             

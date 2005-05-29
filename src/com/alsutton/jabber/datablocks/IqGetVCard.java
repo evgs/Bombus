@@ -8,6 +8,7 @@ package com.alsutton.jabber.datablocks;
 
 import com.alsutton.jabber.*;
 import java.util.*;
+import javax.microedition.lcdui.Image;
 
 /**
  * Class representing the iq message block
@@ -61,6 +62,19 @@ public class IqGetVCard extends JabberDataBlock
                 vc.append((char)'\n');
             }
         }
+        if (data.getChildBlock("photo")!=null) {
+            vc.append("Photo available");
+        }
         return vc.toString();
     }
+
+   public static Image getPhoto(JabberDataBlock data) {
+       if (data==null) return null;
+       JabberDataBlock photo=data.getChildBlock("photo");
+       if (photo==null) return null;
+       try {
+           byte src[]=(byte[])photo.getChildBlocks().lastElement();
+           return Image.createImage(src, 0, src.length);
+       } catch (Exception e) {return null;}
+   }
 }

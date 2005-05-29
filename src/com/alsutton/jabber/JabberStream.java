@@ -232,11 +232,21 @@ public class JabberStream implements XMLEventListener, Runnable
    * @param attributes The tags attributes.
    */
 
-  public void tagStarted( String name, Hashtable attributes )
+  public boolean tagStarted( String name, Hashtable attributes )
   {
     if (currentBlock!=null){
+
+        // photo reading
+        if ( name.equals("binval") ){
+            if (currentBlock.getTagName().equals("photo")){
+                System.out.println("binvalue");
+                return true;
+            }
+        }
+
         currentBlock = new JabberDataBlock( name, currentBlock, attributes );
         if (rosterNotify) if (name.equals("item")) dispatcher.rosterNotify();
+
     } else if ( name.equals( "stream:stream" ) ) {
         String SessionId=(String)attributes.get("id");
         dispatcher.broadcastBeginConversation(SessionId);
@@ -247,6 +257,7 @@ public class JabberStream implements XMLEventListener, Runnable
       currentBlock = new Iq( currentBlock, attributes );
     else if ( name.equals("presence") )
       currentBlock = new Presence( currentBlock, attributes );
+    return false;
   }
 
   /**
@@ -261,6 +272,15 @@ public class JabberStream implements XMLEventListener, Runnable
     if( currentBlock != null )
     {
       currentBlock.addText( text );
+    }
+  }
+
+  public void binValueEncountered( byte binVaule[] )
+  {
+    if( currentBlock != null )
+    {
+      //currentBlock.addText( text );
+        currentBlock.getChildBlocks().addElement(binVaule);
     }
   }
 
