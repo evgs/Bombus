@@ -236,15 +236,12 @@ public class JabberStream implements XMLEventListener, Runnable
   {
     if (currentBlock!=null){
 
+        currentBlock = new JabberDataBlock( name, currentBlock, attributes );
         // photo reading
         if ( name.equals("binval") ){
-            if (currentBlock.getTagName().equals("photo")){
-                System.out.println("binvalue");
-                return true;
-            }
+           return true;
         }
 
-        currentBlock = new JabberDataBlock( name, currentBlock, attributes );
         if (rosterNotify) if (name.equals("item")) dispatcher.rosterNotify();
 
     } else if ( name.equals( "stream:stream" ) ) {
@@ -280,7 +277,7 @@ public class JabberStream implements XMLEventListener, Runnable
     if( currentBlock != null )
     {
       //currentBlock.addText( text );
-        currentBlock.getChildBlocks().addElement(binVaule);
+        currentBlock.addChild(binVaule);
     }
   }
 

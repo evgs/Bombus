@@ -122,7 +122,7 @@ public class JabberDataBlock
    * @param newData The child block to add
    */
 
-  public void addChild( JabberDataBlock newData )
+  public void addChild( Object newData )
   {
     if( childBlocks == null )
       childBlocks = new Vector();

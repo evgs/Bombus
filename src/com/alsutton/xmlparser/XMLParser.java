@@ -301,18 +301,20 @@ public class XMLParser
           else if (nextChar>'0'-1 && nextChar<'9'+1) base64=nextChar+52-'0';
           else if (nextChar=='+') base64=62;
           else if (nextChar=='/') base64=63;
-          else if (nextChar=='=') {base64=0; len--;}
+          else if (nextChar=='=') {base64=0; len++;}
           else if (nextChar=='<') break;
           if (base64>=0) ibuf=(ibuf<<6)+base64;
-          if (ibuf>0x01000000){
+          if (ibuf>=0x01000000){
               baos.write((ibuf>>16) &0xff);
-              baos.write((ibuf>>8) &0xff);
-              baos.write(ibuf &0xff);
-              len+=3;
+              if (len==0) baos.write((ibuf>>8) &0xff);
+              if (len<2) baos.write(ibuf &0xff);
+              //len+=3;
               ibuf=1;
           }
       }
       baos.close();
+      //System.out.println(ibuf);
+      //System.out.println(baos.size());
       eventHandler.binValueEncountered( baos.toByteArray() );
   }
   /**

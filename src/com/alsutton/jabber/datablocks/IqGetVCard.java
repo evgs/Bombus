@@ -73,8 +73,12 @@ public class IqGetVCard extends JabberDataBlock
        JabberDataBlock photo=data.getChildBlock("photo");
        if (photo==null) return null;
        try {
+           photo=photo.getChildBlock("binval");
            byte src[]=(byte[])photo.getChildBlocks().lastElement();
            return Image.createImage(src, 0, src.length);
-       } catch (Exception e) {return null;}
+       } catch (Exception e) {
+           e.printStackTrace();
+           return null;
+       }
    }
 }
