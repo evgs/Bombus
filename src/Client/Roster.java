@@ -743,6 +743,15 @@ public class Roster
         reEnumRoster();
     }
     
+    protected void keyGreen(){
+        super.eventOk();
+        Object e=getSelectedObject();
+        if (e instanceof Contact) {
+            new MessageEdit(display,(Contact)e,null);
+        }
+        reEnumRoster();
+    }
+    
     public void setFocusTo(Contact c){
         Group g=vGroups.getGroup(c.group);
         if (g.collapsed) {

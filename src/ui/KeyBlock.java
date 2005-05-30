@@ -43,6 +43,7 @@ public class KeyBlock extends Canvas implements Runnable{
         this.status=status;
         this.display=display;
         kHold=this.exitKey=exitKey;
+        this.motorola_backlight=motorola_backlight;
         
         parentView=display.getCurrent();
         status.setElementAt(new Integer(ImageList.ICON_KEYBLOCK_INDEX),6);

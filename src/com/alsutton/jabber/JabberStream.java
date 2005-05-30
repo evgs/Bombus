@@ -237,10 +237,14 @@ public class JabberStream implements XMLEventListener, Runnable
     if (currentBlock!=null){
 
         currentBlock = new JabberDataBlock( name, currentBlock, attributes );
+        // TODO: remove stub
+        // M55 STUB
+/*#DefaultConfiguration,Release#*///<editor-fold>
         // photo reading
         if ( name.equals("binval") ){
            return true;
         }
+/*$DefaultConfiguration,Release$*///</editor-fold>
 
         if (rosterNotify) if (name.equals("item")) dispatcher.rosterNotify();
 

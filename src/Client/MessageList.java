@@ -123,11 +123,12 @@ implements CommandListener{
             destroyView();
             return;
         }
-        if (c==CmdMessage) {
-            new MessageEdit(display,contact,null);
-        }
+        if (c==CmdMessage) { keyGreen(); }
         if (c==cmdQuote) {
             new MessageEdit(display,contact,((Msg)getSelectedObject()).toString());
         }
+    }
+    protected void keyGreen(){
+        new MessageEdit(display,contact,null);
     }
 }

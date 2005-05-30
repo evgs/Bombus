@@ -52,6 +52,10 @@ public class MessageEdit implements CommandListener
         t.insert(s, t.getCaretPosition());
     }
     
+    public void setParentView(Displayable parentView){
+        this.parentView=parentView;
+    }
+    
     public void commandAction(Command c, Displayable d){
         if (c==CmdCancel) { destroyView(); return; }
         if (c==CmdInsMe) { t.insert("/me ", 0); return; }

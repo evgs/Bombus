@@ -151,6 +151,10 @@ public class MessageView
     public void userKeyPressed(int KeyCode){
         if (KeyCode==KEY_STAR) toggleSmiles();
     }
+
+    protected void keyGreen(){
+        (new MessageEdit(display,contact,null)).setParentView(parentView);
+    }
     
     private void toggleSmiles(){
         smiles=!smiles;

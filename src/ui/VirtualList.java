@@ -55,6 +55,9 @@ public abstract class VirtualList
     public static final int VL_SZ_SCROLL      =5;
     public static final int VL_TITLE_BGND     =0x0033ff;
     public static final int VL_TITLE          =0x33ffff;
+    
+    public static final int SIEMENS_GREEN=-11;
+    
     int width;
     int height;
     
@@ -326,7 +329,9 @@ public abstract class VirtualList
                     case LEFT:  { keyLeft(); break; }
                     case RIGHT: { keyRight(); break; }
                     case FIRE:  { eventOk(); break; }
-                    default: userKeyPressed(keyCode);
+                    default: 
+                        if (keyCode==SIEMENS_GREEN) { keyGreen(); break; }
+                        userKeyPressed(keyCode);
                 }
         }
 
@@ -343,6 +348,8 @@ public abstract class VirtualList
     protected void keyRight() { 
         moveCursor(visibleItemsCnt(win_top,1)); 
     }
+    
+    protected void keyGreen() { eventOk(); }
     
     private void setRotator(){
         rotator.destroyTask();
