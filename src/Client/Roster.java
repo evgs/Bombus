@@ -297,9 +297,8 @@ public class Roster
         // вернём курсор на прежний элемент
         // TODO: синхронизировать!
         if (locCursor==cursor) moveCursorTo(focused);
-        else {
-            if (cursor>=vContacts.size()) moveCursorEnd();
-        }
+        if (cursor>=vContacts.size()) moveCursorEnd(); // вернём курсор из нирваны
+        
         focusedItem(cursor);
         redraw();
     }
