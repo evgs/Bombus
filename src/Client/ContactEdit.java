@@ -46,11 +46,11 @@ public final class ContactEdit
         
         f=new Form("Add contact");
         
-        tJid=new TextField("User JID",null, 32, TextField.EMAILADDR); 
+        tJid=new TextField("User JID",null, 64, TextField.EMAILADDR); 
         //tJid.addCommand(cmdIcq);
         
-        tNick=new TextField("Name",null, 32, TextField.URL); 
-        tGroup=new TextField("Group",null, 32, TextField.URL);
+        tNick=new TextField("Name",null, 32, TextField.ANY); 
+        tGroup=new TextField("Group",null, 32, TextField.ANY);
         
         
 /*#DefaultConfiguration,Release#*///<editor-fold>

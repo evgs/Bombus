@@ -212,7 +212,8 @@ public class Contact extends IconTextElement{
     
     private int sortCode(String s){
         try {
-            return s.charAt(1)+ (s.charAt(0)<<16);
+            String ls=s.toLowerCase();
+            return ls.charAt(1)+ (ls.charAt(0)<<16);
         } catch (Exception e) { return 0; }
     }
 }

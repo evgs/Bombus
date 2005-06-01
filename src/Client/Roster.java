@@ -51,7 +51,7 @@ public class Roster
      * The resource to log in as
      */
     
-    public String RESOURCE = "Bombus";
+    //public String RESOURCE = "Bombus";
     private Jid myJid;
     
     /**
@@ -177,8 +177,8 @@ public class Roster
             hContacts=new Vector();
             vGroups=new Groups();
             vContacts=new Vector(); // just for displaying
-            myJid=new Jid(sd.account.toString()+"/"+RESOURCE);
-            updateContact(null, myJid.getJid(), SELF_GROUP, "self", false);
+            myJid=new Jid(sd.account.getJidStr());
+            updateContact(sd.account.getNickName(), myJid.getJid(), SELF_GROUP, "self", false);
             
             System.gc();
         };
@@ -539,6 +539,7 @@ public class Roster
                         // теперь пошлём присутствие
                         querysign=reconnect=false;
                         sendPresence(Presence.PRESENCE_ONLINE);
+                        //sendPresence(Presence.PRESENCE_INVISIBLE);
                         display.setCurrent(this);
                         SplashScreen.getInstance().img=null;    // освобождаем память
                         
@@ -701,7 +702,13 @@ public class Roster
     public void beginConversation(String SessionId) {
         //try {
         Account a=sd.account;//StaticData.getInstance().account;
-        Login login = new Login( a.getUserName(), a.getServerN(), a.getPassword(), SessionId, RESOURCE );
+        Login login = new Login( 
+                a.getUserName(), 
+                a.getServerN(), 
+                a.getPassword(), 
+                SessionId, 
+                a.getResource() 
+        );
         theStream.send( login );
         //} catch( Exception e ) {
         //l.setTitleImgL(0);
@@ -735,20 +742,25 @@ public class Roster
     
     public void eventOk(){
         super.eventOk();
-        Object e=getSelectedObject();
-        if (e instanceof Contact) {
-            new MessageList((Contact)e,display);
-        }
+        createMsgList();
         reEnumRoster();
     }
     
+    private Displayable createMsgList(){
+        Object e=getSelectedObject();
+        if (e instanceof Contact) {
+            return new MessageList((Contact)e,display);
+        }
+        return null;
+    }
     protected void keyGreen(){
         super.eventOk();
         Object e=getSelectedObject();
-        if (e instanceof Contact) {
-            new MessageEdit(display,(Contact)e,null);
+        Displayable pview=createMsgList();
+        if (pview!=null) {
+            (new MessageEdit(display,(Contact)e,null)).setParentView(pview);
         }
-        reEnumRoster();
+        //reEnumRoster();
     }
     
     public void setFocusTo(Contact c){
@@ -959,18 +971,40 @@ public class Roster
                         return;
                         //new DeleteContact(display,c);
                         //break;
+                    case 6: // logoff
+                    {
+                        querysign=true; displayStatus();
+                        Presence presence = new Presence(
+                                Presence.PRESENCE_OFFLINE, -1, "");
+                        presence.setTo(c.getJid());
+                        theStream.send( presence );
+                        break;
+                    }
+                    case 5: // logon
+                    {
+                        querysign=true; displayStatus();
+                        Presence presence = new Presence(
+                                myStatus, 0, "");
+                        presence.setTo(c.getJid());
+                        theStream.send( presence );
+                        break;
+                    }
                 }
                 destroyView();
             }
         };
         m.addItem(new MenuItem("vCard",1));
         m.addItem(new MenuItem("Client Info",0));
+        if (c.group==TRANSP_INDEX) {
+            m.addItem(new MenuItem("Logon",5));
+            m.addItem(new MenuItem("Logoff",6));
+        }
         if (c.group!=SELF_INDEX) {
             m.addItem(new MenuItem("Edit",2));
             m.addItem(new MenuItem("Subscription",3));
             m.addItem(new MenuItem("Delete",4));
         }
-        m.attachDisplay(display);
+       m.attachDisplay(display);
     }
     
     

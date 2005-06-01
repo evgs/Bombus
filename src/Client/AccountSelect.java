@@ -50,6 +50,7 @@ public class AccountSelect extends VirtualList implements CommandListener{
         if (accountList.isEmpty()) {
             a=Account.createFromJad();
             if (a!=null) {
+                a.updateJidCache();
                 accountList.addElement(a);
                 rmsUpdate();
             }
@@ -127,6 +128,9 @@ public class AccountSelect extends VirtualList implements CommandListener{
         TextField servbox;
         TextField ipbox;
         TextField portbox;
+        TextField resourcebox;
+        TextField nickbox;
+        
         ChoiceGroup register;
         
         
@@ -143,7 +147,11 @@ public class AccountSelect extends VirtualList implements CommandListener{
             this.account=account;
             newaccount=newAccount;
             
-            f=new Form("Account");
+            String title=(newaccount)?
+                "New Account":
+                (account.toString());
+            
+            f=new Form(title);
             userbox=new TextField("Username",account.getUserName(),32,TextField.URL);  f.append(userbox);
             passbox=new TextField("Password",account.getPassword(),32,
                     TextField.URL|TextField.PASSWORD);  f.append(passbox); passStars();
@@ -153,9 +161,11 @@ public class AccountSelect extends VirtualList implements CommandListener{
             portbox=new TextField("Port",String.valueOf(account.getPort()),32,TextField.NUMERIC);   f.append(portbox);
             register=new ChoiceGroup(null, Choice.MULTIPLE);
             register.append("Register Account",null);
-            //if (newaccount) 
+            //TODO: if (newaccount) 
             f.append(register);
                 
+            resourcebox=new TextField("Resource",account.getResource(),32,TextField.ANY);  f.append(resourcebox);
+            nickbox=new TextField("Account name",account.getNickName(),32,TextField.ANY);  f.append(nickbox);
                         
             f.addCommand(cmdOk);
             f.addCommand(cmdCancel);
@@ -196,6 +206,10 @@ public class AccountSelect extends VirtualList implements CommandListener{
                 account.setPassword(passbox.getString());
                 account.setServer(servbox.getString());
                 account.setIP(ipbox.getString());
+                account.setResource(resourcebox.getString());
+                account.setNickName(nickbox.getString());
+                account.updateJidCache();
+                
                 try {
                     account.setPort(Integer.parseInt(portbox.getString()));
                 } catch (Exception e) {

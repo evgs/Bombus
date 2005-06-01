@@ -21,7 +21,7 @@ import com.alsutton.jabber.*;
  */
 public class Account extends IconTextElement{
     
-    public final static String storage="accounts";
+    public final static String storage="accnt_db";
             
     private String userName;
     private String password;
@@ -29,6 +29,11 @@ public class Account extends IconTextElement{
     private String IP;
     private int port=5222;
     public boolean active;
+    
+    private String nick="";
+    private String resource="Bombus";
+    
+    private String jid;
         
     /** Creates a new instance of Account */
     public Account() {
@@ -58,16 +63,40 @@ public class Account extends IconTextElement{
     
     public static Account createFromDataInputStream(DataInputStream inputStream){
         
+        int version=0;
         Account a=new Account();
         try {
+            version    = inputStream.readByte();
             a.userName = inputStream.readUTF();
             a.password = inputStream.readUTF();
             a.server   = inputStream.readUTF();
             a.IP       = inputStream.readUTF();
             a.port     = inputStream.readInt();
+
+            a.nick     = inputStream.readUTF();
+            a.resource = inputStream.readUTF();
+            
         } catch (IOException e) { e.printStackTrace(); }
             
         return (a.userName==null)?null:a;
+    }
+
+    public void updateJidCache(){
+        StringBuffer s=new StringBuffer();
+        if (nick.length()!=0)
+            s.append(nick);
+        else {
+            s.append(userName);
+            s.append('@');
+            s.append(server);
+        }
+        s.append('/');
+        s.append(resource);
+        jid=s.toString();
+        //jid=userName+'@'+server+'/'+resource;
+    }
+    public String getJidStr(){
+        return userName+'@'+server+'/'+resource;
     }
     
     public static Account createFromStorage(int index) {
@@ -78,10 +107,11 @@ public class Account extends IconTextElement{
             do {
                 if (is.available()==0) {a=null; break;}
                 a=createFromDataInputStream(is);
+                a.updateJidCache();
                 index--;
             } while (index>-1);
             is.close();
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (Exception e) { e.printStackTrace(); }
         return a;
     }
     
@@ -90,11 +120,16 @@ public class Account extends IconTextElement{
         if (IP==null) IP="";
         
         try {
+            outputStream.writeByte(1);
             outputStream.writeUTF(userName);
             outputStream.writeUTF(password);
             outputStream.writeUTF(server);
             outputStream.writeUTF(IP);
             outputStream.writeInt(port);
+            
+            outputStream.writeUTF(nick);
+            outputStream.writeUTF(resource);
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -102,7 +137,7 @@ public class Account extends IconTextElement{
     }
     
     //public void onSelect(){ }
-    public String toString(){ return userName+'@'+server; }
+    public String toString(){ return jid; }
     public int getColor(){ return 0x000000; }
     //public int getColorBGnd() {return 0xffffff;}
     protected int getImageIndex() {return active?0:5;}
@@ -129,6 +164,12 @@ public class Account extends IconTextElement{
     public int getPort() { return port; }
     public void setPort(int port) { this.port = port; }
     
+    public String getResource() { return resource;  }
+    public void setResource(String resource) { this.resource = resource;  }
+
+    public String getNickName() { return (nick.length()==0)?null:nick;  }
+    public void setNickName(String nick) { this.nick = nick;  }
+
     public JabberStream openJabberStream() throws java.io.IOException{
         return new JabberStream( 
                 new meConnector( getServerN(), getServer(), getPort() ) );    

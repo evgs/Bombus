@@ -74,7 +74,10 @@ public class MessageView
     
     public void run() {
         msg=(Msg)contact.msgs.elementAt(msgIndex);
-        
+
+        if (msg.unread) contact.resetNewMsgCnt();
+        msg.unread=false;
+
         titlecolor=msg.getColor1();
         ComplexString title=new ComplexString(sd.rosterIcons);
         title.addElement(msg.getMsgHeader());
@@ -94,7 +97,8 @@ public class MessageView
                 (smiles)?sd.smilesIcons:null, 
                 getWidth()-6,
                 false, this);
-        if (msgIndex==contact.lastUnread) 
+        if (msgIndex==contact.lastUnread)
+            if (contact.needsCount())
             sd.roster.countNewMsgs();
     }
 
