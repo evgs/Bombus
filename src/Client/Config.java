@@ -49,7 +49,7 @@ public class Config {
     public boolean showOfflineContacts=true;
     public boolean showTransports=true;
     public boolean selfContact=false;
-    public boolean notInList=false;
+    public boolean notInList=true;
     public boolean ignore=false;
     
     public void LoadFromStorage(){

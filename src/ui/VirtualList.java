@@ -353,6 +353,7 @@ public abstract class VirtualList
     
     private void setRotator(){
         rotator.destroyTask();
+        if (getItemCount()<1) return;
         if (cursor>=0) {
             int itemWidth=getItemRef(cursor).getVWidth();
             if (itemWidth>=width-VL_SZ_SCROLL)
