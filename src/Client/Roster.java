@@ -251,7 +251,7 @@ public class Roster
         int tonlines=0;
         Vector tContacts=new Vector(vContacts.size());
         boolean offlines=cf.showOfflineContacts;//StaticData.getInstance().config.showOfflineContacts;
-                
+        
         Enumeration e;
         int i;
         vGroups.resetCounters();
@@ -267,8 +267,13 @@ public class Roster
                     grp.tonlines++;
                     tonlines++;
                 }
+                int gindex=c.group;
                 // hide offlines whithout new messages
-                if (offlines || online || c.getNewMsgsCount()>0 || c.group==Roster.NIL_INDEX)
+                if (offlines 
+                 || online 
+                 || c.getNewMsgsCount()>0 
+                 || gindex==Roster.NIL_INDEX 
+                 || gindex==Roster.TRANSP_INDEX)
                     grp.Contacts.addElement(c);
                 //grp.addContact(c);
             }
@@ -533,9 +538,9 @@ public class Roster
                         theStream.enableRosterNotify(false);
 
                         processRoster(data);
-                        reEnumRoster();
                         
                         setProgress("Connected",100);
+                        reEnumRoster();
                         // теперь пошлём присутствие
                         querysign=reconnect=false;
                         sendPresence(Presence.PRESENCE_ONLINE);
@@ -754,11 +759,13 @@ public class Roster
         return null;
     }
     protected void keyGreen(){
-        super.eventOk();
-        Object e=getSelectedObject();
         Displayable pview=createMsgList();
         if (pview!=null) {
-            (new MessageEdit(display,(Contact)e,null)).setParentView(pview);
+            (new MessageEdit(
+                    display,
+                    (Contact)getSelectedObject(),
+                    null)
+             ).setParentView(pview);
         }
         //reEnumRoster();
     }
@@ -973,7 +980,7 @@ public class Roster
                         //break;
                     case 6: // logoff
                     {
-                        querysign=true; displayStatus();
+                        //querysign=true; displayStatus();
                         Presence presence = new Presence(
                                 Presence.PRESENCE_OFFLINE, -1, "");
                         presence.setTo(c.getJid());
@@ -982,7 +989,7 @@ public class Roster
                     }
                     case 5: // logon
                     {
-                        querysign=true; displayStatus();
+                        //querysign=true; displayStatus();
                         Presence presence = new Presence(
                                 myStatus, 0, "");
                         presence.setTo(c.getJid());
@@ -1000,7 +1007,8 @@ public class Roster
             m.addItem(new MenuItem("Logoff",6));
         }
         if (c.group!=SELF_INDEX) {
-            m.addItem(new MenuItem("Edit",2));
+            if (c.group!=TRANSP_INDEX) 
+                m.addItem(new MenuItem("Edit",2));
             m.addItem(new MenuItem("Subscription",3));
             m.addItem(new MenuItem("Delete",4));
         }
