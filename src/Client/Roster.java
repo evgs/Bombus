@@ -71,6 +71,7 @@ public class Roster
     private Command cmdAdd=new Command("Add Contact",Command.SCREEN,3);
     //private Command cmdGroup=new Command("Group menu",Command.SCREEN,3);
     private Command cmdAlert=new Command("Alert Profile >",Command.SCREEN,8);
+    private Command cmdServiceDiscovery=new Command("Service Discovery",Command.SCREEN,9);
     //private Command cmdShowOfflines=new Command("Show Offlines",Command.SCREEN,9);
     //private Command cmdHideOfflines=new Command("Hide Offlines",Command.SCREEN,9);
     private Command cmdReconnect=new Command("Reconnect",Command.SCREEN,10);
@@ -83,13 +84,16 @@ public class Roster
     private Config cf;
     private StaticData sd=StaticData.getInstance();
     
+    public ServiceDiscoveryListener discoveryListener;
+    
     /**
      * Creates a new instance of Roster
      * Sets up the stream to the server and adds this class as a listener
      */
     public Roster(Display display /*, boolean selAccount*/) {
         super();
-        setTitleImages(StaticData.getInstance().rosterIcons);
+        //setTitleImages(StaticData.getInstance().rosterIcons);
+        setTitleImages(sd.rosterIcons);
         
         this.display=display;
         
@@ -114,6 +118,7 @@ public class Roster
         addCommand(cmdStatus);
         addCommand(cmdAlert);
         addCommand(cmdAdd);
+        addCommand(cmdServiceDiscovery);
         addCommand(cmdReconnect);
         addCommand(cmdLogoff);
         addCommand(cmdAccount);
@@ -576,6 +581,9 @@ public class Roster
                             
                         }
                     }
+                    if (discoveryListener!=null && id.startsWith("disco")) {
+                        discoveryListener.blockArrived(data);
+                    } 
                     
                 } else if (type.equals("get")){
                     JabberDataBlock query=data.getChildBlock("query");
@@ -839,33 +847,13 @@ public class Roster
             new Thread(this).start();
             return;
         }
-        if (c==cmdLogoff) {
-            logoff();
-            return;
-        }
-        if (c==cmdAccount){
-            new AccountSelect(display);
-            return;
-        }
-        if (c==cmdStatus) {
-            new StatusSelect(display);
-        }
-        if (c==cmdAlert) {
-            new AlertProfile(display);
-        }
-        if (c==cmdOptions){
-            new ConfigForm(display);
-        }
-        //        if (c==cmdHideOfflines || c==cmdShowOfflines) {
-        //            //Config cf=StaticData.getInstance().config;
-        //            cf.showOfflineContacts=!cf.showOfflineContacts;
-        //            addOptionCommands();
-        //            reEnumRoster();
-        //            moveCursorTo(cursor);
-        //        }
-        if (c==cmdContact) {
-            contactMenu((Contact) getSelectedObject());
-        }
+        if (c==cmdLogoff) { logoff(); }
+        if (c==cmdAccount){ new AccountSelect(display); }
+        if (c==cmdServiceDiscovery) { new ServiceDiscovery(display, theStream); }
+        if (c==cmdStatus) { new StatusSelect(display); }
+        if (c==cmdAlert) { new AlertProfile(display); }
+        if (c==cmdOptions){ new ConfigForm(display); }
+        if (c==cmdContact) { contactMenu((Contact) getSelectedObject()); }
         if (c==cmdAdd) {
             //new MIDPTextBox(display,"Add to roster", null, new AddContact());
             Object o=getSelectedObject();
@@ -876,17 +864,8 @@ public class Roster
             }
             new ContactEdit(display, cn);
         }
-        /*#DefaultConfiguration,Release#*///<editor-fold>
-        //        if (c==cmdSetFullScreen) {
-        //            //Config cf=StaticData.getInstance().config;
-        //            cf.fullscreen=!cf.fullscreen;
-        //            setFullScreenMode(cf.fullscreen);
-        //        }
-        /*$DefaultConfiguration,Release$*///</editor-fold>
     }
-    protected void showNotify() {
-        countNewMsgs();
-    }
+    protected void showNotify() { countNewMsgs(); }
     
     // temporary here
     public final String getProperty(final String key, final String defvalue) {

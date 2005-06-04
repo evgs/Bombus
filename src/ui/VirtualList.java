@@ -234,7 +234,7 @@ public abstract class VirtualList
         if (title!=null) wsize-=title.getVHeight();
         while (wsize>0) {
             //wsize-=getItemHeight(from);
-            // TODO: проверить на NullPointerException
+            //-TODO: проверить на NullPointerException
             wsize-=getItemRef(from).getVHeight();    
             if (wsize>=0) itemcnt++;
             from+=direction;
