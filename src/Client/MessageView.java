@@ -142,8 +142,8 @@ public class MessageView
         }
         if (c==CmdSubscr) {
             Jid j=new Jid(msg.from);
-            sd.roster.sendPresence(j.getJid(), "subscribed");
-            sd.roster.sendPresence(j.getJid(), "subscribe");
+            sd.roster.sendPresence(j.getJidFull(), "subscribed");
+            sd.roster.sendPresence(j.getJidFull(), "subscribe");
             msg.messageType=Msg.MESSAGE_TYPE_IN;
             destroyView();
         }

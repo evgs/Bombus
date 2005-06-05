@@ -37,6 +37,7 @@ public class RegForm implements CommandListener{
     public RegForm(Display display, JabberDataBlock regform, JabberStream stream) {
         service=regform.getAttribute("from");
         JabberDataBlock query=regform.getChildBlock("query");
+        xmlns=query.getAttribute("xmlns");
         // todo: обработать ошибку query
         fields=new Vector();
         
@@ -72,6 +73,7 @@ public class RegForm implements CommandListener{
             JabberDataBlock ch=((FormField) e.nextElement()).getJabberDataBlock();
             if (ch!=null) qry.addChild(ch);
         }
+        System.out.println(req.toString());
         stream.send(req);
     }
 

@@ -33,6 +33,7 @@ public class FormField {
     JabberDataBlock getJabberDataBlock(){
         JabberDataBlock j=null;
         if (formItem instanceof TextField) {
+            if (name.equals("registered")) return null;
             j=new JabberDataBlock(name, null, null);
             j.addText(((TextField)formItem).getString());
         }

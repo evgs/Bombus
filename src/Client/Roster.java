@@ -521,7 +521,8 @@ public class Roster
                     }
                 }
                 String id=(String) data.getAttribute("id");
-                if (discoveryListener!=null && id.startsWith("disco")) {
+                if (discoveryListener!=null && id!=null) 
+                if (id.startsWith("disco")) {
                     discoveryListener.blockArrived(data);
                 } 
                 if ( type.equals( "result" ) ) {
