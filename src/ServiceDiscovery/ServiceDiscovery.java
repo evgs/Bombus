@@ -40,7 +40,8 @@ public class ServiceDiscovery
     private StaticData sd=StaticData.getInstance();
     
     private Vector items;
-    private Vector stack;
+    private Vector stackItems=new Vector();
+    
     private Vector cmds;
     
     private String service;
@@ -48,6 +49,12 @@ public class ServiceDiscovery
     private boolean blockWait;
 
     private JabberStream stream;
+    
+    private class State{
+        public String service;
+        public Vector items;
+        public int cursor;
+    }
     
     /** Creates a new instance of ServiceDiscovery */
     public ServiceDiscovery(Display display, JabberStream stream) {
@@ -73,7 +80,6 @@ public class ServiceDiscovery
         service=sd.account.getServerN();
         
         items=new Vector();
-        stack=new Vector();
         //cmds=new Vector();
         
         requestQuery(NS_INFO, "disco");
@@ -164,8 +170,14 @@ public class ServiceDiscovery
         Object o= getSelectedObject();
         if (o!=null) 
         if (o instanceof Contact) {
+            
+            State st=new State();
+            st.cursor=cursor;
+            st.items=items;
+            st.service=service;
+            stackItems.addElement(st);
+            
             items=new Vector();
-            stack.addElement(service);
             addCommand(cmdBack);
             service=((Contact) o).jid.getJidFull();
             requestQuery(NS_INFO,"disco");
@@ -175,19 +187,24 @@ public class ServiceDiscovery
     public void commandAction(Command c, Displayable d){
         if (c==cmdBack){ 
 /*#M55,M55_Release#*///<editor-fold>
-//--            if (stack.isEmpty()) { 
+//--            if (stackItems.isEmpty()) { 
 //--                sd.roster.discoveryListener=null; 
 //--                destroyView(); 
 //--                return;
 //--            }
 /*$M55,M55_Release$*///</editor-fold>
-            service=(String)stack.lastElement();
-            stack.removeElement(service);
+            
+            State st=(State)stackItems.lastElement();
+            stackItems.removeElement(st);
+            
+            service=st.service;
+            items=st.items;
+            moveCursorTo(st.cursor);
+            redraw();
+            
 /*#!M55,M55_Release#*///<editor-fold>
-            if (stack.isEmpty()) removeCommand(cmdBack);
+            if (stackItems.isEmpty()) removeCommand(cmdBack);
 /*$!M55,M55_Release$*///</editor-fold>
-            items=new Vector();            
-            requestQuery(NS_INFO, "disco");
         }
         if (c==cmdRfsh) {requestQuery(NS_INFO, "disco"); }
         if (c==cmdCancel){ sd.roster.discoveryListener=null; destroyView(); }

@@ -95,6 +95,7 @@ public class Presence extends JabberDataBlock
           if (type.equals(PRS_ERROR)) {
               presenceCode=PRESENCE_ERROR;
               text.append(PRS_ERROR);
+              String errText=getChildBlock("error").getText();
           }
       } else {
           // online-kinds
