@@ -4,12 +4,13 @@
  * Created on 4 Θώνό 2005 γ., 21:12
  */
 
-package Client;
+package ServiceDiscovery;
 import java.util.*;
 import javax.microedition.lcdui.*;
 import ui.*;
 import com.alsutton.jabber.*;
 import com.alsutton.jabber.datablocks.*;
+import Client.*;
 
 /**
  *

@@ -17,11 +17,11 @@ import java.util.*;
 public class IqRegister extends JabberDataBlock{
     
     /** Creates a new instance of IqRegister */
-    public IqRegister(String username, String password) {
+    public IqRegister(String username, String password, String id) {
     super( );
 
     setTypeAttribute( "set" );
-    setAttribute( "id", "regac" );
+    setAttribute( "id", id );
 
     JabberDataBlock qB = new JabberDataBlock( "query", null, null );
     qB.setNameSpace( "jabber:iq:register" );

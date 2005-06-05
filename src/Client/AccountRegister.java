@@ -67,7 +67,7 @@ public class AccountRegister
 
     public void beginConversation(String SessionId) {
         spl.setProgress("Registering",60);
-        IqRegister iq=new IqRegister(raccount.getUserName(),raccount.getPassword());
+        IqRegister iq=new IqRegister(raccount.getUserName(),raccount.getPassword(), "regac");
         //try {
             theStream.send(iq);
         //} catch (Exception e) {e.printStackTrace();}

@@ -116,6 +116,7 @@ public class StatusSelect extends VirtualList implements CommandListener{
                 
                 if (priority<0) priority=0;
                 if (priority>99) priority=99;
+                status.setPriority(priority);
                 
                 boolean flags[]=new boolean[1];
                 chPriorityAll.getSelectedFlags(flags);

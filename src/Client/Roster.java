@@ -17,6 +17,7 @@ import javax.microedition.midlet.MIDlet;
 //import javax.microedition.media.*;
 //import Client.Contact.*;
 import ui.*;
+import ServiceDiscovery.ServiceDiscovery;
 
 //import Client.msg.*;
 
