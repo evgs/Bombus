@@ -190,7 +190,7 @@ public class JabberDataBlock
 
   public String getText()
   {
-    return textData.toString();
+    return (textData==null)?null:textData.toString();
   }
 
   /**

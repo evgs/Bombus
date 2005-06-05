@@ -62,7 +62,7 @@ public class Roster
     
     
     int messageCount;
-    Object messageIcon;
+    public Object messageIcon;
    
     boolean reconnect=false;
     boolean querysign=false;
@@ -520,8 +520,11 @@ public class Roster
                         redraw();
                     }
                 }
+                String id=(String) data.getAttribute("id");
+                if (discoveryListener!=null && id.startsWith("disco")) {
+                    discoveryListener.blockArrived(data);
+                } 
                 if ( type.equals( "result" ) ) {
-                    String id=(String) data.getAttribute("id");
                     if (id.equals("auth-s") ) {
                         // залогинились. теперь, если был реконнект, то просто пошлём статус
                         if (reconnect) {
@@ -582,9 +585,6 @@ public class Roster
                             
                         }
                     }
-                    if (discoveryListener!=null && id.startsWith("disco")) {
-                        discoveryListener.blockArrived(data);
-                    } 
                     
                 } else if (type.equals("get")){
                     JabberDataBlock query=data.getChildBlock("query");

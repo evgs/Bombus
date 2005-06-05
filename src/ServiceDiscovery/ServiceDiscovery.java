@@ -76,7 +76,7 @@ public class ServiceDiscovery
         stack=new Vector();
         //cmds=new Vector();
         
-        requestQuery(NS_INFO);
+        requestQuery(NS_INFO, "disco");
     }
     
     public int getItemCount(){ return items.size();}
@@ -92,12 +92,11 @@ public class ServiceDiscovery
         getTitleLine().setElementAt(sd.roster.messageIcon, 3);
     }
     
-    private void requestQuery(String namespace){
+    private void requestQuery(String namespace, String id){
         blockWait=true; titleUpdate(); redraw();
         JabberDataBlock req=new Iq(null, null);
         req.setTypeAttribute("get");
         req.setAttribute("to",service);
-        String id=(namespace.equals(NS_INFO))?"disco":"disco2";
         req.setAttribute("id",id);
         JabberDataBlock qry=new JabberDataBlock("query",null,null);
         qry.setNameSpace(namespace);
@@ -143,8 +142,19 @@ public class ServiceDiscovery
             }
             if (data.getAttribute("from").equals(service)) {
                 this.cmds=cmds;
-                requestQuery(NS_ITEMS);
+                requestQuery(NS_ITEMS, "disco2");
             }
+        } else if (id.equals ("discoreg")) {
+            new RegForm(display, data, stream);
+        } else if (id.equals("discoResult")) {
+            String text="Successful";
+            String title=data.getAttribute("type");
+            if (title.equals("error")) {
+                text=data.getChildBlock("error").getText();
+            }
+            Alert alert=new Alert(title, text, null, AlertType.ALARM);
+            alert.setTimeout(15*1000);
+            display.setCurrent(alert, this);
         }
         redraw();
     }
@@ -158,8 +168,8 @@ public class ServiceDiscovery
             stack.addElement(service);
             addCommand(cmdBack);
             service=((Contact) o).jid.getJidFull();
-            requestQuery(NS_INFO);
-        }
+            requestQuery(NS_INFO,"disco");
+        } 
     }
     
     public void commandAction(Command c, Displayable d){
@@ -177,9 +187,9 @@ public class ServiceDiscovery
             if (stack.isEmpty()) removeCommand(cmdBack);
 /*$!M55,M55_Release$*///</editor-fold>
             items=new Vector();            
-            requestQuery(NS_INFO);
+            requestQuery(NS_INFO, "disco");
         }
-        if (c==cmdRfsh) {requestQuery(NS_INFO); }
+        if (c==cmdRfsh) {requestQuery(NS_INFO, "disco"); }
         if (c==cmdCancel){ sd.roster.discoveryListener=null; destroyView(); }
     }
     
@@ -194,6 +204,14 @@ public class ServiceDiscovery
         public int getColor(){ return 0x000080; }
         public int getImageIndex() { return ImageList.ICON_COLLAPSED_INDEX; }
         public String toString(){ return name; }
+        public void onSelect(){
+            switch (index) {
+                case 1:
+                    requestQuery(NS_REGS, "discoreg");
+                    break;
+                default:
+            }
+        }
     }
     
 }
