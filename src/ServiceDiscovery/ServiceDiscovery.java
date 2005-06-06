@@ -158,7 +158,7 @@ public class ServiceDiscovery
             if (title.equals("error")) {
                 text=data.getChildBlock("error").getText();
             }
-            Alert alert=new Alert(title, text, null, AlertType.ALARM);
+            Alert alert=new Alert(title, text, null, null /*AlertType.ALARM*/);
             alert.setTimeout(15*1000);
             display.setCurrent(alert, this);
         }

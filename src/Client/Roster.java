@@ -123,10 +123,10 @@ public class Roster
         addCommand(cmdReconnect);
         addCommand(cmdLogoff);
         addCommand(cmdAccount);
-        /*#DefaultConfiguration,Release#*///<editor-fold>
+/*#DefaultConfiguration,Release#*///<editor-fold>
         //addCommand(cmdSetFullScreen);
         setFullScreenMode(cf.fullscreen);
-        /*$DefaultConfiguration,Release$*///</editor-fold>
+/*$DefaultConfiguration,Release$*///</editor-fold>
         addCommand(cmdOptions);
         addCommand(cmdQuit);
         

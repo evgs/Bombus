@@ -38,6 +38,7 @@ public class Contact extends IconTextElement{
 
     public String nick;
     public Jid jid;
+    public String rosterJid;    // for roster/subscription manipulating
     public int status;
     public int priority;
     public int group;
@@ -67,6 +68,7 @@ public class Contact extends IconTextElement{
     public Contact(final String Nick, final String sJid, final int Status, String subscr) {
         this();
         nick=Nick; jid= new Jid(sJid); status=Status;
+        rosterJid=sJid;
         this.subscr=subscr;
     
         jidHash=sortCode((Nick==null)?sJid:Nick);
@@ -87,6 +89,7 @@ public class Contact extends IconTextElement{
         c.origin=2; 
         c.status=status; 
         c.transport=transport;
+        c.rosterJid=rosterJid;
         return c;
     }
     
@@ -181,12 +184,12 @@ public class Contact extends IconTextElement{
     }
 
     public final String getJidNR() {
-        return jid.getJid();
+        return rosterJid;
     }
 
     public final String getNickJid() {
-        if (nick==null) return jid.getJid();
-        return nick+" <"+jid.getJid()+">";
+        if (nick==null) return rosterJid;
+        return nick+" <"+rosterJid+">";
     }
     
     /**
