@@ -5,6 +5,7 @@
  */
 
 package Client;
+import com.alsutton.jabber.datablocks.Presence;
 import java.util.*;
 import java.io.*;
 import javax.microedition.midlet.MIDlet;
@@ -43,8 +44,11 @@ public class Account extends IconTextElement{
     public static Account launchAccount(){
         StaticData sd=StaticData.getInstance();
         Account a=sd.account=Account.createFromStorage(sd.account_index);
-        if (a!=null)
+        if (a!=null){
+            sd.roster.logoff();
+            sd.roster.myStatus=Presence.PRESENCE_ONLINE;
             new Thread(sd.roster).start();
+        }
         return a;
     }
 

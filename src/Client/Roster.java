@@ -75,8 +75,8 @@ public class Roster
     private Command cmdServiceDiscovery=new Command("Service Discovery",Command.SCREEN,9);
     //private Command cmdShowOfflines=new Command("Show Offlines",Command.SCREEN,9);
     //private Command cmdHideOfflines=new Command("Hide Offlines",Command.SCREEN,9);
-    private Command cmdReconnect=new Command("Reconnect",Command.SCREEN,10);
-    private Command cmdLogoff=new Command("Logoff",Command.SCREEN,11);
+    //private Command cmdReconnect=new Command("Reconnect",Command.SCREEN,10);
+    //private Command cmdLogoff=new Command("Logoff",Command.SCREEN,11);
     private Command cmdAccount=new Command("Account >",Command.SCREEN,12);
     //private Command cmdSetFullScreen=new Command("Fullscreen",Command.SCREEN,20);
     private Command cmdOptions=new Command("Options",Command.SCREEN,20);
@@ -120,8 +120,8 @@ public class Roster
         addCommand(cmdAlert);
         addCommand(cmdAdd);
         addCommand(cmdServiceDiscovery);
-        addCommand(cmdReconnect);
-        addCommand(cmdLogoff);
+        //addCommand(cmdReconnect);
+        //addCommand(cmdLogoff);
         addCommand(cmdAccount);
 /*#DefaultConfiguration,Release#*///<editor-fold>
         //addCommand(cmdSetFullScreen);
@@ -189,7 +189,7 @@ public class Roster
             System.gc();
         };
         
-        logoff();
+        //logoff();
         
         try {
             Account a=sd.account;
@@ -322,7 +322,7 @@ public class Roster
     }
     
     
-    public int myStatus=Presence.PRESENCE_OFFLINE;
+    public int myStatus=Presence.PRESENCE_ONLINE;
     
     private Vector hContacts;
     private Vector vContacts;
@@ -471,19 +471,43 @@ public class Roster
             synchronized(hContacts) {
                 for (Enumeration e=hContacts.elements(); e.hasMoreElements();){
                     Contact c=(Contact)e.nextElement();
-                    if (c.status<Presence.PRESENCE_UNKNOWN)
+                    //if (c.status<Presence.PRESENCE_UNKNOWN)
                         c.status=Presence.PRESENCE_OFFLINE; // keep error & unknown
                 }
             }
         }
         Vector v=sd.statusList;//StaticData.getInstance().statusList;
         ExtendedStatus es=null;
+        
+        // reconnect if disconnected        
+        if (status!=Presence.PRESENCE_OFFLINE && theStream==null ) {
+            querysign=reconnect=true;
+            
+            redraw();
+            
+            new Thread(this).start();
+            return;
+        }
+        
+        // send presence
         for (Enumeration e=v.elements(); e.hasMoreElements(); ){
             es=(ExtendedStatus)e.nextElement();
             if (status==es.getImageIndex()) break;
         }
         Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
-        theStream.send( presence );
+        if (theStream!=null) {
+            theStream.send( presence );
+
+            // disconnect
+            if (status==Presence.PRESENCE_OFFLINE) {
+                try {
+                    theStream.close();
+                } catch (Exception e) { e.printStackTrace(); }
+                theStream=null;
+                System.gc();
+            }
+        }
+        
         
         presenceContact(myJid.getJidFull(), myStatus);
         reEnumRoster();
@@ -530,7 +554,7 @@ public class Roster
                         // залогинились. теперь, если был реконнект, то просто пошлём статус
                         if (reconnect) {
                             querysign=reconnect=false;
-                            sendPresence(Presence.PRESENCE_ONLINE);
+                            sendPresence(myStatus);
                             return;
                         }
                         
@@ -553,7 +577,7 @@ public class Roster
                         reEnumRoster();
                         // теперь пошлём присутствие
                         querysign=reconnect=false;
-                        sendPresence(Presence.PRESENCE_ONLINE);
+                        sendPresence(myStatus);
                         //sendPresence(Presence.PRESENCE_INVISIBLE);
                         display.setCurrent(this);
                         SplashScreen.getInstance().img=null;    // освобождаем память
@@ -819,15 +843,9 @@ public class Roster
     }
     
     public void logoff(){
+        if (theStream!=null)
         try {
-            if (theStream!=null) {
-                try {
-                    sendPresence(Presence.PRESENCE_OFFLINE);
-                    theStream.close();
-                } catch (Exception e) { e.printStackTrace(); }
-            }
-            theStream=null;
-            System.gc();
+             sendPresence(Presence.PRESENCE_OFFLINE);
         } catch (Exception e) { e.printStackTrace(); }
     };
     
@@ -840,16 +858,6 @@ public class Roster
             sd.midlet.notifyDestroyed();
             return;
         }
-        if (c==cmdReconnect) {
-            querysign=reconnect=true;
-            
-            displayStatus();
-            redraw();
-            
-            new Thread(this).start();
-            return;
-        }
-        if (c==cmdLogoff) { logoff(); }
         if (c==cmdAccount){ new AccountSelect(display); }
         if (c==cmdServiceDiscovery) { new ServiceDiscovery(display, theStream); }
         if (c==cmdStatus) { new StatusSelect(display); }
