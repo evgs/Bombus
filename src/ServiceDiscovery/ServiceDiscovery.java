@@ -19,7 +19,8 @@ import Client.*;
 public class ServiceDiscovery 
         extends VirtualList
         implements CommandListener,
-        ServiceDiscoveryListener
+        ServiceDiscoveryListener,
+        Runnable
 {
     private final static String NS_ITEMS="http://jabber.org/protocol/disco#items";
     private final static String NS_INFO="http://jabber.org/protocol/disco#info";
@@ -32,9 +33,9 @@ public class ServiceDiscovery
     private String strReg="Register";
     private String strSrch="Search";
     
-    private Command cmdRfsh=new Command("Refresh", Command.SCREEN, 10);
+    private Command cmdRfsh=new Command("Refresh", Command.SCREEN, 1);
     private Command cmdBack=new Command("Back", Command.BACK, 98);
-    private Command cmdCancel=new Command("Cancel", Command.CANCEL, 99);
+    private Command cmdCancel=new Command("Cancel", Command.EXIT, 99);
 
     private Config cf;
     private StaticData sd=StaticData.getInstance();
@@ -58,30 +59,30 @@ public class ServiceDiscovery
     
     /** Creates a new instance of ServiceDiscovery */
     public ServiceDiscovery(Display display, JabberStream stream) {
-        super();
+        super(display);
+
         setTitleImages(sd.rosterIcons);
 
         createTitle(2, null, null).addRAlign();
         getTitleLine().addElement(null);
         
-        this.display=display;
         this.stream=stream;
-        parentView=display.getCurrent();
-        display.setCurrent(this);
         sd.roster.discoveryListener=this;
         
         addCommand(cmdRfsh);
         addCommand(cmdCancel);
-/*#M55,M55_Release#*///<editor-fold>
-//--        addCommand(cmdBack);
-/*$M55,M55_Release$*///</editor-fold>
+
+        addCommand(cmdBack);
         setCommandListener(this);
 
         service=sd.account.getServerN();
         
         items=new Vector();
-        //cmds=new Vector();
         
+        new Thread(this).start();
+    }
+    
+    public void run(){
         requestQuery(NS_INFO, "disco");
     }
     
@@ -142,8 +143,8 @@ public class ServiceDiscovery
                 if (i.getTagName().equals("feature")) {
                     String var=i.getAttribute("var");
                     if (var.equals(NS_MUC)) { cmds.addElement(new DiscoCommand(0,strJoin)); }
-                    if (var.equals(NS_REGS)) { cmds.addElement(new DiscoCommand(1,strReg)); }
-                    if (var.equals(NS_SRCH)) { cmds.addElement(new DiscoCommand(2,strSrch)); }
+                    if (var.equals(NS_SRCH)) { cmds.addElement(new DiscoCommand(1,strSrch)); }
+                    if (var.equals(NS_REGS)) { cmds.addElement(new DiscoCommand(2,strReg)); }
                 } 
             }
             if (data.getAttribute("from").equals(service)) {
@@ -151,6 +152,7 @@ public class ServiceDiscovery
                 requestQuery(NS_ITEMS, "disco2");
             }
         } else if (id.equals ("discoreg")) {
+            blockWait=false;
             new RegForm(display, data, stream);
         } else if (id.equals("discoResult")) {
             String text="Successful";
@@ -186,25 +188,23 @@ public class ServiceDiscovery
     
     public void commandAction(Command c, Displayable d){
         if (c==cmdBack){ 
-/*#M55,M55_Release#*///<editor-fold>
-//--            if (stackItems.isEmpty()) { 
-//--                sd.roster.discoveryListener=null; 
-//--                destroyView(); 
-//--                return;
-//--            }
-/*$M55,M55_Release$*///</editor-fold>
+            if (stackItems.isEmpty()) { 
+                sd.roster.discoveryListener=null; 
+                destroyView(); 
+                return;
+            }
             
             State st=(State)stackItems.lastElement();
             stackItems.removeElement(st);
             
             service=st.service;
             items=st.items;
+            blockWait=false;
+            
             moveCursorTo(st.cursor);
+            titleUpdate();
             redraw();
             
-/*#!M55,M55_Release#*///<editor-fold>
-            if (stackItems.isEmpty()) removeCommand(cmdBack);
-/*$!M55,M55_Release$*///</editor-fold>
         }
         if (c==cmdRfsh) {requestQuery(NS_INFO, "disco"); }
         if (c==cmdCancel){ sd.roster.discoveryListener=null; destroyView(); }
@@ -219,11 +219,11 @@ public class ServiceDiscovery
             this.index=index; this.name=name;
         }
         public int getColor(){ return 0x000080; }
-        public int getImageIndex() { return ImageList.ICON_COLLAPSED_INDEX; }
+        public int getImageIndex() { return ImageList.ICON_GCJOIN_INDEX + index; }
         public String toString(){ return name; }
         public void onSelect(){
             switch (index) {
-                case 1:
+                case 2:
                     requestQuery(NS_REGS, "discoreg");
                     break;
                 default:

@@ -28,6 +28,7 @@ public class Transport {
         t.put("msn", new Integer(3));
         t.put("aim", new Integer(4));
         t.put("rss", new Integer(5));
+        t.put("conference", new Integer(6));
     }
     
     public int getTransportIndex(String name){
