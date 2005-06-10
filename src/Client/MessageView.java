@@ -62,7 +62,7 @@ public class MessageView
         int nextMsg=msgIndex+offset;
         if (nextMsg<0 || nextMsg>=nMsgs) return;
         msgIndex=nextMsg;
-
+        lines=null;
         (t=new Thread(this)).start();
     }
     
