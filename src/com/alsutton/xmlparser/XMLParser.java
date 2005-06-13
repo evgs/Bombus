@@ -59,32 +59,43 @@ public class XMLParser
     eventHandler = _eventHandler;
   }
 
+  private StringBuffer streamData = new StringBuffer(16);
   /**
    * Method to read until an end condition.
    *
    * @param checker The class used to check if the end condition has occurred.
    * @return A string representation of the data read.
    */
-  private String readUntilEnd( ReadEndChecker checker )
+  
+  private String readUntilEnd( int tagBracket )
     throws IOException, EndOfXMLException
   {
-    StringBuffer data = new StringBuffer(32);
-    StringBuffer xmlChar = new StringBuffer(6);
-    boolean inQuote = false;
+    //StringBuffer streamData = new StringBuffer(16);
+    streamData.setLength(0);
+    StringBuffer xmlChar = null;
+    int inQuote = 0;    // 0 or " or '
     boolean inXMLchar=false;
 
     int nextChar = getNextCharacter();
     if( nextChar == -1 )
       throw new EndOfXMLException();
-    while( nextChar != -1 && (inQuote == true || checker.shouldStop( nextChar ) == false) )
+    while( nextChar != -1)
+            //&& (inQuote == true || checker.shouldStop( nextChar ) == false) )
     {
+        if (nextChar==tagBracket)
+            if (inQuote==0) break;
+        
+        if (nextChar==' ')
+            if (inQuote==0 && tagBracket=='>') break;
+        
         switch (nextChar) {
+            case '\'':
             case '\"':        
-                if( inQuote ) inQuote=false; else inQuote=true;
+                inQuote=( inQuote==0 )? nextChar: 0;
                 break;
             case '&':
                 inXMLchar=true;
-                xmlChar.setLength(0);
+                xmlChar=new StringBuffer(6);
                 break;
             case ';':
                 if (inXMLchar) {
@@ -105,19 +116,19 @@ public class XMLParser
                 }
             default:
                 if (!inXMLchar) {
-                    if (data.length()<maxBlockSize) 
-                        data.append( (char) nextChar );
-                    else if (data.length()==maxBlockSize)
-                        data.append("...");
+                    if (streamData.length()<maxBlockSize) 
+                        streamData.append( (char) nextChar );
+                    else if (streamData.length()==maxBlockSize)
+                        streamData.append("...");
                 } else xmlChar.append( (char) nextChar );
         }
         nextChar = getNextCharacter();
     }
     
     if( nextChar != '<' && nextChar != '>')
-      data.append( (char) nextChar );
+      streamData.append( (char) nextChar );
 
-    String returnData = data.toString();
+    String returnData = streamData.toString();
     return returnData;
   }
 
@@ -189,7 +200,7 @@ public class XMLParser
 
     do
     {
-      String data = readUntilEnd ( inTagReadEndChecker );
+      String data = readUntilEnd ( '>' );
       int substringStart = 0,
           substringEnd = data.length();
 
@@ -281,7 +292,7 @@ public class XMLParser
   private void handlePlainText()
     throws IOException, EndOfXMLException
   {
-    String data = readUntilEnd ( inPlaintextReadEndChecker );
+    String data = readUntilEnd ( '<' );
     eventHandler.plaintextEncountered( data );
   }
 
@@ -347,75 +358,4 @@ public class XMLParser
     }
   }
 
-
-
-/*
-
-------------------------------------------------------
-
-Classes for handling the control of the reading stream
-
-------------------------------------------------------
-
-*/
-
-  /**
-   * Class to indicate the end of reading a plain text section
-   */
-
-  class InPlaintextReadEndChecker implements ReadEndChecker
-  {
-    /**
-     * The method to issue a stop message when a start tag symbol (&gt;)
-     * is encountered .
-     *
-     * @param c The character to check
-     * @return true if it is the symbol, false otehrwise.
-     */
-
-    public boolean shouldStop( int c )
-    {
-      return (c == '<');
-    }
-  }
-
-  /**
-   * Shared instance of the plain text end checker.
-   */
-
-  private final InPlaintextReadEndChecker inPlaintextReadEndChecker = new InPlaintextReadEndChecker();
-
-  /**
-   * Class to indicate the end of reading a tag section
-   */
-
-  class InTagReadEndChecker implements ReadEndChecker
-  {
-    /**
-     * The method to issue a stop message when either a space of close
-     * tag symbol (&lt;) is encountered .
-     *
-     * @param c The character to check.
-     * @return true if c is either symbol, false otehrwise.
-     */
-      int q;
-    public boolean shouldStop( int c )
-    {
-      if (q==c) q=0; else if (q==0){
-        if (c=='\"') q=c;
-        if (c=='\'') q=c;
-        return (c == '>' || c == ' ');
-      }
-      return (c == '>');
-    }
-    public void quote_reset(){
-        q=0;
-    }
-  }
-
-  /**
-   * Shared instance of the tag end checker.
-   */
-
-  private final InTagReadEndChecker inTagReadEndChecker = new InTagReadEndChecker();
 }
