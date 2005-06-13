@@ -14,7 +14,7 @@ import javax.microedition.lcdui.*;
  *
  * @author Eugene Stahov
  */
-public class SplashScreen extends Canvas{
+public class SplashScreen extends Canvas implements CommandListener{
     
     public final static int COLOR_PGS_REMAINED=0xffffff;
     public final static int COLOR_PGS_COMPLETE=0x0000ff;
@@ -107,5 +107,27 @@ public class SplashScreen extends Canvas{
     protected void keyPressed(int keyCode) {
         keypressed=keyCode;
         //notifyAll();
+    }
+    
+    // close splash
+    private Display display;
+    private Displayable parentView;
+    private Command cmdExit=new Command("Main Screen", Command.BACK, 99);
+    
+    public void setExit(Display display, Displayable nextDisplayable){
+        this.display=display;
+        parentView=nextDisplayable;
+        setCommandListener(this);
+        addCommand(cmdExit);
+    }
+    
+    public void commandAction(Command c, Displayable d) {
+        if (c==cmdExit) close();
+    }
+    
+    public void close(){
+        display.setCurrent(parentView);
+        repaint();
+        img=null;
     }
 }

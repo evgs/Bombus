@@ -93,6 +93,7 @@ public class Roster
      */
     public Roster(Display display /*, boolean selAccount*/) {
         super();
+        setProgress(20);
         //setTitleImages(StaticData.getInstance().rosterIcons);
         setTitleImages(sd.rosterIcons);
         
@@ -142,7 +143,7 @@ public class Roster
             // connect whithout account select
             Account.launchAccount();
         }*/
-        
+        SplashScreen.getInstance().setExit(display, this);
     }
     
     void addOptionCommands(){
@@ -159,6 +160,10 @@ public class Roster
         SplashScreen.getInstance().setProgress(pgs, percent);
         setRosterTitle(pgs);
         redraw();
+    }
+    public void setProgress(int percent){
+        SplashScreen.getInstance().setProgress(percent);
+        //redraw();
     }
     
     private void setRosterTitle(String s){
@@ -179,6 +184,7 @@ public class Roster
     
     // establishing connection process
     public void run(){
+        setProgress(25);
         if (!reconnect) {
             hContacts=new Vector();
             vGroups=new Groups();
@@ -200,6 +206,7 @@ public class Roster
         } catch( Exception e ) {
             setProgress("Failed",0);
             querysign=reconnect=false;
+            myStatus=Presence.PRESENCE_OFFLINE;
             displayStatus();
             redraw();
             e.printStackTrace();
@@ -538,6 +545,7 @@ public class Roster
                 if ( type.equals( "error" ) ) {
                     if (data.getAttribute("id").equals("auth-s")) {
                         // ошибка авторизации
+                        myStatus=Presence.PRESENCE_OFFLINE;
                         setProgress("Login failed",0);
                         querysign=reconnect=false;
                         displayStatus();
@@ -579,8 +587,8 @@ public class Roster
                         querysign=reconnect=false;
                         sendPresence(myStatus);
                         //sendPresence(Presence.PRESENCE_INVISIBLE);
-                        display.setCurrent(this);
-                        SplashScreen.getInstance().img=null;    // освобождаем память
+                        
+                        SplashScreen.getInstance().close(); // display.setCurrent(this);
                         
                     }
                     if (id.equals("getvc")) {

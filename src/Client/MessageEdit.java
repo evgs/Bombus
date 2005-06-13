@@ -20,10 +20,10 @@ public class MessageEdit implements CommandListener
     private TextBox t;
     
     private Contact to;
-    private Command CmdCancel=new Command("Cancel",Command.CANCEL,99);
-    private Command CmdSend=new Command("Send",Command.SCREEN,1);
-    private Command CmdSmile=new Command("Add Smile",Command.SCREEN,2);
-    private Command CmdInsMe=new Command("/me",Command.SCREEN,3);
+    private Command cmdCancel=new Command("Cancel",Command.CANCEL,99);
+    private Command cmdSend=new Command("Send",Command.SCREEN,1);
+    private Command cmdSmile=new Command("Add Smile",Command.SCREEN,2);
+    private Command cmdInsMe=new Command("/me",Command.SCREEN,3);
     
     /** Creates a new instance of MessageEdit */
     public MessageEdit(Display display, Contact to, String body) {
@@ -36,10 +36,10 @@ public class MessageEdit implements CommandListener
         } catch (Exception e) {
             t.setString("<large text>");
         }
-        t.addCommand(CmdSend);
-        t.addCommand(CmdInsMe);
-        t.addCommand(CmdSmile);
-        t.addCommand(CmdCancel);
+        t.addCommand(cmdSend);
+        t.addCommand(cmdInsMe);
+        t.addCommand(cmdSmile);
+        t.addCommand(cmdCancel);
         t.setCommandListener(this);
         
 /*#!M55,M55_Release#*///<editor-fold>
@@ -57,10 +57,10 @@ public class MessageEdit implements CommandListener
     }
     
     public void commandAction(Command c, Displayable d){
-        if (c==CmdCancel) { destroyView(); return; }
-        if (c==CmdInsMe) { t.insert("/me ", 0); return; }
-        if (c==CmdSmile) { new SmilePicker(display, this); }
-        if (c==CmdSend)   {
+        if (c==cmdCancel) { destroyView(); return; }
+        if (c==cmdInsMe) { t.insert("/me ", 0); return; }
+        if (c==cmdSmile) { new SmilePicker(display, this); }
+        if (c==cmdSend)   {
             Roster r=StaticData.getInstance().roster;
             String from=StaticData.getInstance().account.toString();
             //r.USERNAME+'@'+r.SERVER_NAME;
