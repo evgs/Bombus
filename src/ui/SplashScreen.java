@@ -112,7 +112,7 @@ public class SplashScreen extends Canvas implements CommandListener{
     // close splash
     private Display display;
     private Displayable parentView;
-    private Command cmdExit=new Command("Main Screen", Command.BACK, 99);
+    private Command cmdExit=new Command("Hide Splash", Command.BACK, 99);
     
     public void setExit(Display display, Displayable nextDisplayable){
         this.display=display;

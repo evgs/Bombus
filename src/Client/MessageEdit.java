@@ -12,7 +12,8 @@ import ui.VirtualList;
  *
  * @author Eugene Stahov
  */
-public class MessageEdit implements CommandListener
+public class MessageEdit 
+        implements CommandListener, Runnable
 {
     
     private Display display;
@@ -61,26 +62,33 @@ public class MessageEdit implements CommandListener
         if (c==cmdInsMe) { t.insert("/me ", 0); return; }
         if (c==cmdSmile) { new SmilePicker(display, this); }
         if (c==cmdSend)   {
-            Roster r=StaticData.getInstance().roster;
-            String from=StaticData.getInstance().account.toString();
-            //r.USERNAME+'@'+r.SERVER_NAME;
-            String body=t.getString();
-            
-            // затычка от пустых сообщений. пока так :(
-            if (body.length()==0) return;
-            
-            Msg msg=new Msg(Msg.MESSAGE_TYPE_OUT,from,null,body);
-            to.addMessage(msg);
-            //((VirtualList)parentView).moveCursorEnd();
-            
-            try {
-                r.sendMessage(to.getJid(),body);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            destroyView(); 
+            destroyView();
+            // message sending
+            new Thread(this).start();
             return; 
         }
+    }
+    
+    public void run(){
+        Roster r=StaticData.getInstance().roster;
+        String from=StaticData.getInstance().account.toString();
+        //r.USERNAME+'@'+r.SERVER_NAME;
+        String body=t.getString();
+        
+        // затычка от пустых сообщений. пока так :(
+        if (body.length()==0) return;
+        
+        Msg msg=new Msg(Msg.MESSAGE_TYPE_OUT,from,null,body);
+        to.addMessage(msg);
+        //((VirtualList)parentView).moveCursorEnd();
+        
+        try {
+            r.sendMessage(to.getJid(),body);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ((VirtualList)parentView).redraw();
+        
     }
     
     public void destroyView(){
