@@ -126,8 +126,10 @@ public class SplashScreen extends Canvas implements CommandListener{
     }
     
     public void close(){
-        display.setCurrent(parentView);
+        if (parentView!=null) display.setCurrent(parentView);
+        parentView=null;
         repaint();
         img=null;
+        s=null; // освобождение памяти
     }
 }
