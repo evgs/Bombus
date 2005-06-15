@@ -25,15 +25,15 @@ public class MessageView
     boolean smiles;
     Thread t=null;
     
-    Command CmdBack=new Command("Back",Command.BACK,99);
+    Command cmdBack=new Command("Back",Command.BACK,99);
 /*#DefaultConfiguration,Release#*///<editor-fold>
-    Command CmdTSM=new Command("Smiles", "Toggle Smiles", Command.SCREEN,1);
+    Command cmdTSM=new Command("Smiles", "Toggle Smiles", Command.SCREEN,1);
 /*$DefaultConfiguration,Release$*///</editor-fold>
 /*#!DefaultConfiguration,Release#*///<editor-fold>
-//--    Command CmdTSM=new Command("Toggle Smiles", Command.SCREEN,1);
+//--    Command cmdTSM=new Command("Toggle Smiles", Command.SCREEN,1);
 /*$!DefaultConfiguration,Release$*///</editor-fold>
 
-    Command CmdSubscr=new Command("Authorize", Command.SCREEN,2);
+    Command cmdSubscr=new Command("Authorize", Command.SCREEN,2);
     Command cmdPhoto=new Command("Photo", Command.SCREEN,3);
 
     public int getTitleBGndRGB() {return 0x338888;} 
@@ -85,8 +85,8 @@ public class MessageView
         title.addElement(null);
         setTitleLine(title);
         
-        if (msg.messageType==Msg.MESSAGE_TYPE_AUTH) addCommand(CmdSubscr);
-        else removeCommand(CmdSubscr);
+        if (msg.messageType==Msg.MESSAGE_TYPE_AUTH) addCommand(cmdSubscr);
+        else removeCommand(cmdSubscr);
         if (msg.photo!=null) addCommand(cmdPhoto);
         else removeCommand(cmdPhoto);
         
@@ -123,8 +123,8 @@ public class MessageView
         this.msgIndex=msgIndex;
         this.contact=contact;
 
-        addCommand(CmdBack);
-        addCommand(CmdTSM);
+        addCommand(cmdBack);
+        addCommand(cmdTSM);
         setCommandListener(this);
         
         (t=new Thread(this)).start();
@@ -136,18 +136,18 @@ public class MessageView
     }
     
     public void commandAction(Command c, Displayable d){
-        if (c==CmdBack) {
+        if (c==cmdBack) {
             eventOk();
             return;
         }
-        if (c==CmdSubscr) {
+        if (c==cmdSubscr) {
             Jid j=new Jid(msg.from);
             sd.roster.sendPresence(j.getJidFull(), "subscribed");
             sd.roster.sendPresence(j.getJidFull(), "subscribe");
             msg.messageType=Msg.MESSAGE_TYPE_IN;
             destroyView();
         }
-        if (c==CmdTSM) toggleSmiles();
+        if (c==cmdTSM) toggleSmiles();
         
         if (c==cmdPhoto) new PhotoView(display, msg.photo);
     }

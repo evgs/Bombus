@@ -90,12 +90,12 @@ public class JabberStream implements XMLEventListener, Runnable
     }
 
     OutputStream outStr= connectorInterface.openOutputStream();
-/*#!M55,M55_Release#*///<editor-fold>
+/*#!USE_UTF8_READER#*///<editor-fold>
     outStream = new OutputStreamWriter(outStr,"UTF-8");
-/*$!M55,M55_Release$*///</editor-fold>
-/*#M55,M55_Release#*///<editor-fold>
+/*$!USE_UTF8_READER$*///</editor-fold>
+/*#USE_UTF8_READER#*///<editor-fold>
 //--    outStream = new OutputStreamWriter(outStr);
-/*$M55,M55_Release$*///</editor-fold>
+/*$USE_UTF8_READER$*///</editor-fold>
     inpStream = connectorInterface.openInputStream();
 
     outStream.write( "<stream:stream to=\"" );
@@ -118,12 +118,12 @@ public class JabberStream implements XMLEventListener, Runnable
   {
     try
     {
-/*#DefaultConfiguration,Release#*///<editor-fold>
+/*#!USE_UTF8_READER#*///<editor-fold>
       InputStreamReader inSource = new InputStreamReader( inpStream, "UTF-8" );
-/*$DefaultConfiguration,Release$*///</editor-fold>
-/*#M55,M55_Release#*///<editor-fold>
+/*$!USE_UTF8_READER$*///</editor-fold>
+/*#USE_UTF8_READER#*///<editor-fold>
 //--      InputStreamReader inSource = new InputStreamReader( inpStream );
-/*$M55,M55_Release$*///</editor-fold>
+/*$USE_UTF8_READER$*///</editor-fold>
       XMLParser parser = new XMLParser( this );
       parser.parse( inSource );
       dispatcher.broadcastTerminatedConnection( null );
@@ -186,12 +186,12 @@ public class JabberStream implements XMLEventListener, Runnable
   public void send( String data ) throws IOException {
       
    synchronized (outStream) {   
-/*#M55,M55_Release#*///<editor-fold>
+/*#USE_UTF8_READER#*///<editor-fold>
 //--          outStream.write(toUTF(data));
-/*$M55,M55_Release$*///</editor-fold>
-/*#DefaultConfiguration,Release#*///<editor-fold>
+/*$USE_UTF8_READER$*///</editor-fold>
+/*#!USE_UTF8_READER#*///<editor-fold>
           outStream.write(data);
-/*$DefaultConfiguration,Release$*///</editor-fold>
+/*$!USE_UTF8_READER$*///</editor-fold>
           outStream.flush();
    }
   }
@@ -305,7 +305,7 @@ public class JabberStream implements XMLEventListener, Runnable
     currentBlock = parent;
   }
 
-/*#M55,M55_Release#*///<editor-fold>
+/*#USE_UTF8_READER#*///<editor-fold>
 //--  // temporary
 //--  public static String toUTF(String s) {
 //--      int i = 0;
@@ -330,7 +330,7 @@ public class JabberStream implements XMLEventListener, Runnable
 //--      
 //--      return stringbuffer.toString();
 //--  }
-/*$M55,M55_Release$*///</editor-fold>
+/*$USE_UTF8_READER$*///</editor-fold>
 
     private class TimerTaskKeepAlive extends TimerTask{
         private Timer t;

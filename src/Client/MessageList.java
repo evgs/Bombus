@@ -17,9 +17,10 @@ implements CommandListener{
     
     Contact contact;
     
-    Command CmdBack=new Command("Back",Command.BACK,99);
-    Command CmdMessage=new Command("NewMsg",Command.SCREEN,1);
-    Command cmdQuote=new Command("Quote",Command.SCREEN,2);
+    Command cmdBack=new Command("Back",Command.BACK,99);
+    Command cmdMessage=new Command("New Message",Command.SCREEN,1);
+    Command cmdResume=new Command("Resume Message",Command.SCREEN,2);
+    Command cmdQuote=new Command("Quote",Command.SCREEN,3);
     
     ImageList il;
     boolean smiles;
@@ -55,12 +56,18 @@ implements CommandListener{
 
         cursor=0;//activate
         
-        addCommand(CmdMessage);
-        addCommand(CmdBack);
+        addCommand(cmdMessage);
+        addCommand(cmdBack);
         if (getItemCount()>0)
             addCommand(cmdQuote);
         setCommandListener(this);
         moveCursorTo(contact.firstUnread());
+    }
+    
+    public void showNotify(){
+        super.showNotify();
+        if (contact.msgSuspended==null) removeCommand(cmdResume);
+        else addCommand(cmdResume);
     }
     
     public void beginPaint(){ title.setElementAt(sd.roster.messageIcon,2); }
@@ -117,18 +124,23 @@ implements CommandListener{
     }
     
     public void commandAction(Command c, Displayable d){
-        if (c==CmdBack) {
+        if (c==cmdBack) {
             //contact.lastReaded=contact.msgs.size();
             //contact.resetNewMsgCnt();            
             destroyView();
             return;
         }
-        if (c==CmdMessage) { keyGreen(); }
+        if (c==cmdMessage) { 
+            contact.msgSuspended=null; 
+            keyGreen(); 
+        }
+        if (c==cmdResume) { keyGreen(); }
         if (c==cmdQuote) {
             new MessageEdit(display,contact,((Msg)getSelectedObject()).toString());
         }
     }
     protected void keyGreen(){
-        new MessageEdit(display,contact,null);
+        new MessageEdit(display,contact,contact.msgSuspended);
+        contact.msgSuspended=null;
     }
 }

@@ -44,6 +44,8 @@ public class Contact extends IconTextElement{
     public int group;
     public int transport;
     
+    public String msgSuspended;
+    
     private int jidHash;
 
     public int origin;  //0 - from roster, 1 - from roster, appended resource, 2 - from presence

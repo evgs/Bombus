@@ -42,8 +42,8 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
     
     private MessageEdit me;
     
-    Command CmdBack=new Command("Back",Command.BACK,99);
-    Command CmdOK=new Command("Select",Command.OK,1);
+    Command cmdBack=new Command("Back",Command.BACK,99);
+    Command cmdOK=new Command("Select",Command.OK,1);
 
     /** Creates a new instance of SmilePicker */
     public SmilePicker(Display display, MessageEdit me) {
@@ -64,8 +64,8 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
         xLastCnt=imgCnt-lines*xCnt;
         if (xLastCnt>0) lines++; else xLastCnt=xCnt;
         
-        addCommand(CmdOK);
-        addCommand(CmdBack);
+        addCommand(cmdOK);
+        addCommand(cmdBack);
         setCommandListener(this);
       
     }
@@ -132,11 +132,11 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
     }
     
     public void commandAction(Command c, Displayable d){
-        if (c==CmdBack) {
+        if (c==cmdBack) {
             destroyView();
             return;
         }
-        if (c==CmdOK) { eventOk(); }
+        if (c==cmdOK) { eventOk(); }
     }
 
     public void moveCursorEnd() {

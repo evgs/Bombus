@@ -134,10 +134,10 @@ public class XMLParser
 
   private int getNextCharacter()
   throws IOException {
-/*#DefaultConfiguration,Release#*///<editor-fold>
+/*#!USE_UTF8_READER#*///<editor-fold>
       return inputReader.read();
-/*$DefaultConfiguration,Release$*///</editor-fold>
-/*#M55,M55_Release#*///<editor-fold>
+/*$!USE_UTF8_READER$*///</editor-fold>
+/*#USE_UTF8_READER#*///<editor-fold>
 //--      int i = -1;
 //--      int j = inputReader.read();
 //--      if( j == -1 ) return i;
@@ -182,7 +182,7 @@ public class XMLParser
 //--      }
 //--      //System.out.print((char)j);          
 //--      return i;
-/*$M55,M55_Release$*///</editor-fold>
+/*$USE_UTF8_READER$*///</editor-fold>
   }
   
   /**
