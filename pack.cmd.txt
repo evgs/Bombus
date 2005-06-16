@@ -1,0 +1,1 @@
+rar32 a -s -agmm_dd bombus_$WCREV$(all) @list_all.txt

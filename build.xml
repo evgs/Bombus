@@ -9,11 +9,19 @@
     <!-- version patch -->
     <target name="post-preprocess">
         <property name="versionPatcher" location="C:/Program Files/TortoiseSVN/bin/SubWCRev.exe" />
-        <property name="file" location="${preprocessed.dir}\Client\Version.java "/>
+        <property name="file1" location="${preprocessed.dir}\Client\Version.java "/>
         <exec executable="${versionPatcher}" > 
             <arg value="."/>
-            <arg value="${file}"/>
-            <arg value="${file}"/>
+            <arg value="${file1}"/>
+            <arg value="${file1}"/>
+        </exec>
+        
+        <property name="file2" location="pack.cmd.txt "/>
+        <property name="file2o" location="pack.cmd "/>
+        <exec executable="${versionPatcher}" > 
+            <arg value="."/>
+            <arg value="${file2}"/>
+            <arg value="${file2o}"/>
         </exec>
     </target>
     <!--

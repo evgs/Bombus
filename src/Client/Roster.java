@@ -803,11 +803,8 @@ public class Roster
     protected void keyGreen(){
         Displayable pview=createMsgList();
         if (pview!=null) {
-            (new MessageEdit(
-                    display,
-                    (Contact)getSelectedObject(),
-                    null)
-             ).setParentView(pview);
+            Contact c=(Contact)getSelectedObject();
+            ( new MessageEdit(display, c, c.msgSuspended) ).setParentView(pview);
         }
         //reEnumRoster();
     }

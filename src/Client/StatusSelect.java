@@ -21,6 +21,8 @@ public class StatusSelect extends VirtualList implements CommandListener{
     //private Command cmdAll=new Command("All Priorities",Command.SCREEN,3);
     private Command cmdCancel=new Command("Back",Command.BACK,99);
     /** Creates a new instance of SelectStatus */
+    private Vector statusList=StaticData.getInstance().statusList;
+    
     public StatusSelect(Display d) {
         super();
         setTitleImages(StaticData.getInstance().rosterIcons);
@@ -33,10 +35,17 @@ public class StatusSelect extends VirtualList implements CommandListener{
         addCommand(cmdCancel);
         setCommandListener(this);
         
+        int status=StaticData.getInstance().roster.myStatus;
+        int i;
+        for (i=0;i<statusList.size(); i++) {
+            if (status==((ExtendedStatus)getItemRef(i)).getImageIndex()) break;
+        }
+        moveCursorTo(i);
+        
         attachDisplay(d);
     }
     public VirtualElement getItemRef(int Index){
-        return (VirtualElement)StaticData.getInstance().statusList.elementAt(Index);
+        return (VirtualElement)statusList.elementAt(Index);
     }
     
     private ExtendedStatus getSel(){ return (ExtendedStatus)getSelectedObject();}
