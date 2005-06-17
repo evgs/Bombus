@@ -184,11 +184,15 @@ public class Roster
     
     // establishing connection process
     public void run(){
+        querysign=true;
+        displayStatus();
         setProgress(25);
         if (!reconnect) {
-            hContacts=new Vector();
-            vGroups=new Groups();
-            vContacts=new Vector(); // just for displaying
+            synchronized (hContacts) {
+                hContacts=new Vector();
+                vGroups=new Groups();
+                vContacts=new Vector(); // just for displaying
+            }
             myJid=new Jid(sd.account.getJidStr());
             updateContact(sd.account.getNickName(), myJid.getJid(), SELF_GROUP, "self", false);
             
@@ -196,7 +200,6 @@ public class Roster
         };
         
         //logoff();
-        
         try {
             Account a=sd.account;
             setProgress("Connect to "+a.getServerN(), 30);
@@ -488,7 +491,7 @@ public class Roster
         
         // reconnect if disconnected        
         if (status!=Presence.PRESENCE_OFFLINE && theStream==null ) {
-            querysign=reconnect=true;
+            reconnect=true;
             
             redraw();
             

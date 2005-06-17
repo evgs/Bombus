@@ -36,7 +36,8 @@ public class Jid {
         if (j==null) return false;
         
         String cj=j.fullJid;
-        // игнорируем регистр jid, 
+        // игнорируем регистр jid,
+        if (resourcePos!=j.resourcePos) return false;
         if (!fullJid.regionMatches(true,0,cj,0,resourcePos)) return false;
         if (!compareResource) return true;
         
@@ -44,7 +45,9 @@ public class Jid {
         int compareLen=fullJid.length();
         if (compareLen!=j.fullJid.length()) return false;
 
-        return fullJid.regionMatches(true,0,cj,0,compareLen);
+        // сравнение только ресурсов
+        compareLen-=resourcePos;
+        return fullJid.regionMatches(true,resourcePos,cj,0,compareLen);
         //int compareLen=(compareResource)?(j.getJidFull().length()):resourcePos;
         //return fullJid.regionMatches(true,0,j.fullJid,0,compareLen);
     }
@@ -57,7 +60,11 @@ public class Jid {
     
     /** выделение транспорта */
     public String getTransport(){
-        return substr(this,'@','.');
+        try {
+            return substr(this,'@','.');
+        } catch (Exception e) {
+            return "-";
+        }
     }
     
     /** выделение ресурса */

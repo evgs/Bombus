@@ -47,6 +47,7 @@ public class Account extends IconTextElement{
         if (a!=null){
             sd.roster.logoff();
             sd.roster.myStatus=Presence.PRESENCE_ONLINE;
+            //sd.roster.querysign=true;
             new Thread(sd.roster).start();
         }
         return a;

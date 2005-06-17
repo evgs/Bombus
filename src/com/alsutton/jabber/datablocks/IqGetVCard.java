@@ -54,6 +54,7 @@ public class IqGetVCard extends JabberDataBlock
         StringBuffer vc=new StringBuffer();
         //vc.append((char)0x01);
         for (int i=0; i<TOPFIELDS.length; i++){
+            // TODO: добавить вложенные поля vCard
             String field=data.getTextForChildBlock(TOPFIELDS[i].toLowerCase());
             if (field.length()>0) {
                 vc.append(TOPNAMES[i]);

@@ -80,6 +80,7 @@ public class Presence extends JabberDataBlock
   
   public void dispathch(){
       String show;
+      String errText=null;
       text=new StringBuffer();
       String type=getTypeAttribute();
       presenceCode=PRESENCE_AUTH;
@@ -95,7 +96,7 @@ public class Presence extends JabberDataBlock
           if (type.equals(PRS_ERROR)) {
               presenceCode=PRESENCE_ERROR;
               text.append(PRS_ERROR);
-              String errText=getChildBlock("error").getText();
+              errText=getChildBlock("error").toString();
           }
       } else {
           // online-kinds
@@ -107,10 +108,10 @@ public class Presence extends JabberDataBlock
           if (show.equals(PRS_DND)) presenceCode=PRESENCE_DND;
       }
           
-      show=getTextForChildBlock("status");
+      show=(errText==null)? getTextForChildBlock("status"):errText;
       if (show.length()>0) {
           text.append('(');
-          text.append(show);
+          text.append( show );
           text.append(')');
       }
       
