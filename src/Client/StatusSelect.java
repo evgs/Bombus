@@ -35,13 +35,14 @@ public class StatusSelect extends VirtualList implements CommandListener{
         addCommand(cmdCancel);
         setCommandListener(this);
         
+        /*
         int status=StaticData.getInstance().roster.myStatus;
         int i;
         for (i=0;i<statusList.size(); i++) {
             if (status==((ExtendedStatus)getItemRef(i)).getImageIndex()) break;
         }
         moveCursorTo(i);
-        
+        */
         attachDisplay(d);
     }
     public VirtualElement getItemRef(int Index){

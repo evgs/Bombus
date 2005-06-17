@@ -210,12 +210,18 @@ public class Roster
             setProgress("Failed",0);
             querysign=reconnect=false;
             myStatus=Presence.PRESENCE_OFFLINE;
+            e.printStackTrace();
+            errorLog( e.getMessage() );
             displayStatus();
             redraw();
-            e.printStackTrace();
             //l.setTitleImgL(0);//offline
         }
         //l.setCallback(this);
+    }
+    
+    private void errorLog(String s){
+            Msg m=new Msg(Msg.MESSAGE_TYPE_OUT, myJid.getJidFull(), "Error", s);
+            messageStore(m, -1);
     }
     
     public VirtualElement getItemRef(int Index){
@@ -778,7 +784,9 @@ public class Roster
         //l.setTitleImgL(0);
         //System.out.println( "Connection terminated" );
         if( e != null )
+            errorLog(e.getMessage());
             e.printStackTrace();
+            setProgress("Disconnected", 0);
         try {
             sendPresence(Presence.PRESENCE_OFFLINE);
         } catch (Exception e2) {
