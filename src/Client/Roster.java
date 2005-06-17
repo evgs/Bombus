@@ -816,6 +816,7 @@ public class Roster
         if (pview!=null) {
             Contact c=(Contact)getSelectedObject();
             ( new MessageEdit(display, c, c.msgSuspended) ).setParentView(pview);
+            c.msgSuspended=null;
         }
         //reEnumRoster();
     }

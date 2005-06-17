@@ -18,8 +18,8 @@ implements CommandListener{
     Contact contact;
     
     Command cmdBack=new Command("Back",Command.BACK,99);
-    Command cmdMessage=new Command("New Message",Command.SCREEN,1);
-    Command cmdResume=new Command("Resume Message",Command.SCREEN,2);
+    Command cmdMessage=new Command("New Message",Command.SCREEN,2);
+    Command cmdResume=new Command("Resume Message",Command.SCREEN,1);
     Command cmdQuote=new Command("Quote",Command.SCREEN,3);
     
     ImageList il;

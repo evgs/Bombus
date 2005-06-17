@@ -158,6 +158,7 @@ public class MessageView
 
     protected void keyGreen(){
         (new MessageEdit(display,contact,contact.msgSuspended)).setParentView(parentView);
+        contact.msgSuspended=null;
     }
     
     private void toggleSmiles(){
