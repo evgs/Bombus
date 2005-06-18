@@ -24,7 +24,6 @@ import Client.*;
  */
 public class Bombus extends MIDlet implements Runnable{
     
-    private Command exitCommand; // The exit command
     private Display display;    // The display for this MIDlet
     private boolean IsRunning;
     //IconTextList l;
@@ -35,7 +34,6 @@ public class Bombus extends MIDlet implements Runnable{
         SplashScreen s= SplashScreen.getInstance();
         display.setCurrent(s);
         s.setProgress("Loading",3);
-        exitCommand = new Command("Exit", Command.SCREEN, 2);
     }
     
     /** Entry point  */
@@ -89,7 +87,7 @@ public class Bombus extends MIDlet implements Runnable{
             // connect whithout account select
             selAccount=(Account.launchAccount()==null);
         }
-        if (selAccount) { new AccountSelect(display); }
+        if (selAccount) { new AccountSelect(display, true); }
     }
     
     /**

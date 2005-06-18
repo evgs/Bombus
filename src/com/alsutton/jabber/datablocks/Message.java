@@ -42,7 +42,7 @@ public class Message extends JabberDataBlock
    * @param message The message text
    */
 
-  public Message( String to, String message )
+  public Message( String to, String message , String subject)
   {
     super();
 
@@ -50,7 +50,9 @@ public class Message extends JabberDataBlock
       setAttribute( "to", to );
     if( message != null )
       setBodyText( message );
-    setAttribute("type","chat");
+    if (subject!=null) 
+        setSubject(subject);
+    setAttribute("type", "chat");
   }
 
   /**
@@ -61,7 +63,7 @@ public class Message extends JabberDataBlock
 
   public Message( String to )
   {
-    this( to, null );
+    this( to, null , null);
   }
 
   /**

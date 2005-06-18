@@ -27,9 +27,10 @@ public class AccountSelect
     Command cmdEdit=new Command("Edit",Command.ITEM,3);
     Command cmdDel=new Command("Delete",Command.ITEM,4);
     Command cmdCancel=new Command("Back",Command.BACK,99);
+    Command cmdQuit=new Command("Quit",Command.SCREEN,10);
     
     /** Creates a new instance of AccountPicker */
-    public AccountSelect(Display display) {
+    public AccountSelect(Display display, boolean enableQuit) {
         super();
         setTitleImages(StaticData.getInstance().rosterIcons);
         //this.display=display;
@@ -60,6 +61,8 @@ public class AccountSelect
         attachDisplay(display);
         addCommand(cmdAdd);
         
+        if (enableQuit) addCommand(cmdQuit);
+        
         commandState();
         setCommandListener(this);
     }
@@ -83,6 +86,10 @@ public class AccountSelect
     protected int getItemCount() { return accountList.size();  }
 
     public void commandAction(Command c, Displayable d){
+        if (c==cmdQuit) {
+            destroyView();
+            StaticData.getInstance().midlet.notifyDestroyed();
+        }
         if (c==cmdCancel) {
             destroyView();
             //Account.launchAccount();

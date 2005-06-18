@@ -536,8 +536,8 @@ public class Roster
      * Method to send a message to the specified recipient
      */
     
-    public void sendMessage(final String to, final String body) {
-        Message simpleMessage = new Message( to, body );
+    public void sendMessage(final String to, final String body, final String subject ) {
+        Message simpleMessage = new Message( to, body, subject );
         theStream.send( simpleMessage );
     }
     
@@ -879,7 +879,7 @@ public class Roster
             sd.midlet.notifyDestroyed();
             return;
         }
-        if (c==cmdAccount){ new AccountSelect(display); }
+        if (c==cmdAccount){ new AccountSelect(display, false); }
         if (c==cmdServiceDiscovery) { new ServiceDiscovery(display, theStream); }
         if (c==cmdStatus) { new StatusSelect(display); }
         if (c==cmdAlert) { new AlertProfile(display); }

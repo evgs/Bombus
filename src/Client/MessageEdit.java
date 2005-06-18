@@ -27,6 +27,8 @@ public class MessageEdit
     private Command cmdSend=new Command("Send",Command.SCREEN,1);
     private Command cmdSmile=new Command("Add Smile",Command.SCREEN,2);
     private Command cmdInsMe=new Command("/me",Command.SCREEN,3);
+
+    //private Command cmdSubject=new Command("Subject",Command.SCREEN,10);
     
     /** Creates a new instance of MessageEdit */
     public MessageEdit(Display display, Contact to, String body) {
@@ -42,6 +44,7 @@ public class MessageEdit
         t.addCommand(cmdSend);
         t.addCommand(cmdInsMe);
         t.addCommand(cmdSmile);
+        //t.addCommand(cmdSubject);
         t.addCommand(cmdSuspend);
         t.addCommand(cmdCancel);
         t.setCommandListener(this);
@@ -87,7 +90,7 @@ public class MessageEdit
         //((VirtualList)parentView).moveCursorEnd();
         
         try {
-            r.sendMessage(to.getJid(),body);
+            r.sendMessage(to.getJid(),body, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
