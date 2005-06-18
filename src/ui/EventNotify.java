@@ -93,10 +93,10 @@ public class EventNotify
         player=null;
     }
     
-/*#M55,M55_Release#*///<editor-fold>
+/*#USE_LED_PATTERN#*///<editor-fold>
 //--    public static void leds(int pattern, boolean state){
 //--        if (state) Ledcontrol.playPattern(pattern);
 //--        else       Ledcontrol.stopPattern();
 //--    }
-/*$M55,M55_Release$*///</editor-fold>
+/*$USE_LED_PATTERN$*///</editor-fold>
 }

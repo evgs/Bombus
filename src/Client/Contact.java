@@ -131,7 +131,7 @@ public class Contact extends IconTextElement{
             if (msgs.size()==1) 
                 if ( ((Msg)msgs.firstElement()).isPresence())
                     first_replace=true;
-/*#M55,M55_Release#*///<editor-fold>
+/*#USE_SIEMENS_FILES#*///<editor-fold>
 //--        Config cf=StaticData.getInstance().config;
 //--
 //--        if (cf.msgLog)
@@ -155,7 +155,7 @@ public class Contact extends IconTextElement{
 //--                NvStorage.appendFile("Log_"+histRecord, body.toString());
 //--            }
 //--        }
-/*$M55,M55_Release$*///</editor-fold>
+/*$USE_SIEMENS_FILES$*///</editor-fold>
         // если единственное сообщение - presence, то заменим его
         if (first_replace) {
             msgs.setElementAt(m,0);

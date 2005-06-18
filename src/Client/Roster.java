@@ -257,10 +257,10 @@ public class Roster
             }
         }
         messageCount=m;
-        /*#M55,M55_Release#*///<editor-fold>
-//--                int pattern=cf.m55_led_pattern;//StaticData.getInstance().config.m55_led_pattern;
+/*#USE_LED_PATTERN#*///<editor-fold>
+//--                int pattern=cf.m55LedPattern;
 //--                if (pattern>0) EventNotify.leds(pattern-1, m>0);
-        /*$M55,M55_Release$*///</editor-fold>
+/*$USE_LED_PATTERN$*///</editor-fold>
         displayStatus();
         return (m>0);
     }
@@ -556,6 +556,10 @@ public class Roster
                         // ошибка авторизации
                         myStatus=Presence.PRESENCE_OFFLINE;
                         setProgress("Login failed",0);
+                        
+                        JabberDataBlock err=data.getChildBlock("error");
+                        errorLog(err.toString());
+                        
                         querysign=reconnect=false;
                         displayStatus();
                         redraw();

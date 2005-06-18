@@ -954,6 +954,10 @@ Motorola:
 
   MessageList: команды New Message и Resume Message поменялись местами - теперь
   Resume идёт впереди
+
+  (133)
+  выводится в self-contact:
+    сообщение об ошибке Login Failed 
 ---------------------------
   known issues:
 

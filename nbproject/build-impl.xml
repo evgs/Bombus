@@ -369,6 +369,15 @@
         <antcall inheritrefs="false" inheritall="false" target="${target.to.call}">
             <param value="" name="config.active"/>
         </antcall>
+        <antcall inheritrefs="false" inheritall="false" target="${target.to.call}">
+            <param name="config.active" value="M55_Release"/>
+        </antcall>
+        <antcall inheritrefs="false" inheritall="false" target="${target.to.call}">
+            <param name="config.active" value="M55"/>
+        </antcall>
+        <antcall inheritrefs="false" inheritall="false" target="${target.to.call}">
+            <param name="config.active" value="Release"/>
+        </antcall>
     </target>
     <target name="jar-all">
         <antcall target="for-all-configs">

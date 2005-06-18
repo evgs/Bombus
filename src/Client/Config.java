@@ -32,10 +32,13 @@ public class Config {
 //--    public boolean msgLogPresence=getProperty("msg_log_presence",false);
 //--    public final String msgPath=getProperty("msg_log_path","");
 //--    public String messagesnd=getProperty("msg_snd","/sounds/message.wav");
-//--    public final String m55cfgpath=getProperty("cfg_path","");
-//--    public final int m55_led_pattern=getProperty("led_pattern",0);
+//--    public final String siemensCfgPath=getProperty("cfg_path","");
 //--    public char keyLock=getProperty("key_lock",'#');
 //--    public char keyVibra=getProperty("key_vibra",'*');
+/*$M55,M55_Release$*///</editor-fold>
+
+/*#M55,M55_Release#*///<editor-fold>
+//--    public final int m55LedPattern=getProperty("led_pattern",0);
 /*$M55,M55_Release$*///</editor-fold>
     
     //public TimeZone tz=new RuGmt(0);

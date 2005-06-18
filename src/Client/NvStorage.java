@@ -8,12 +8,12 @@ package Client;
 import java.io.*;
 import ui.strconv;
 
-/*#DefaultConfiguration,Release#*///<editor-fold>
+/*#!USE_SIEMENS_FILES#*///<editor-fold>
 import javax.microedition.rms.*;
-/*$DefaultConfiguration,Release$*///</editor-fold>
-/*#M55,M55_Release#*///<editor-fold>
+/*$!USE_SIEMENS_FILES$*///</editor-fold>
+/*#USE_SIEMENS_FILES#*///<editor-fold>
 //--import com.siemens.mp.io.File;
-/*$M55,M55_Release$*///</editor-fold>
+/*$USE_SIEMENS_FILES$*///</editor-fold>
 
 /**
  *
@@ -31,7 +31,7 @@ public class NvStorage {
     static public DataInputStream ReadFileRecord(String name, int index){
         DataInputStream istream=null;
         
-/*#DefaultConfiguration,Release#*///<editor-fold>
+/*#!USE_SIEMENS_FILES#*///<editor-fold>
         RecordStore recordStore=null;
         try {
             
@@ -44,8 +44,8 @@ public class NvStorage {
         } catch (Exception e) { }
         finally { 
             try { recordStore.closeRecordStore(); } catch (Exception e) {} }
-/*$DefaultConfiguration,Release$*///</editor-fold>
-/*#M55,M55_Release#*///<editor-fold>
+/*$!USE_SIEMENS_FILES$*///</editor-fold>
+/*#USE_SIEMENS_FILES#*///<editor-fold>
 //--
 //--        try {
 //--        File f=new File();
@@ -64,16 +64,16 @@ public class NvStorage {
 //--        istream=new DataInputStream( new ByteArrayInputStream(b) );
 //--        } catch (Exception e) { e.printStackTrace(); }
 //--        
-/*$M55,M55_Release$*///</editor-fold>
+/*$USE_SIEMENS_FILES$*///</editor-fold>
         
         return istream;
     }
-/*#M55,M55_Release#*///<editor-fold>
+/*#USE_SIEMENS_FILES#*///<editor-fold>
 //--    public static String getPath(String name, int path_index){
 //--        
 //--        String path=null;
 //--        switch (path_index) {
-//--            case PATH_CFG: path=StaticData.getInstance().config.m55cfgpath; break;
+//--            case PATH_CFG: path=StaticData.getInstance().config.siemensCfgPath; break;
 //--            case PATH_MSG: path=StaticData.getInstance().config.msgPath; break;
 //--        }
 //--        //System.out.println("path="+path);
@@ -93,7 +93,7 @@ public class NvStorage {
 //--        return path+name;
 //--    }
 //--    
-/*$M55,M55_Release$*///</editor-fold>
+/*$USE_SIEMENS_FILES$*///</editor-fold>
 
     private static ByteArrayOutputStream baos;
     /** Creates DataOutputStream based on ByteOutputStream  */
@@ -112,7 +112,7 @@ public class NvStorage {
         baos=null; // освободим для следующего
         byte[] b=lbaos.toByteArray();
         
-/*#DefaultConfiguration,Release#*///<editor-fold>
+/*#!USE_SIEMENS_FILES#*///<editor-fold>
         try {
             if (rewrite) RecordStore.deleteRecordStore(name);
         } catch (Exception e) {}
@@ -129,8 +129,8 @@ public class NvStorage {
             recordStore.closeRecordStore();
             ostream.close();
         } catch (Exception e) { e.printStackTrace(); return false; }
-/*$DefaultConfiguration,Release$*///</editor-fold>
-/*#M55,M55_Release#*///<editor-fold>
+/*$!USE_SIEMENS_FILES$*///</editor-fold>
+/*#USE_SIEMENS_FILES#*///<editor-fold>
 //--        File f=new File();
 //--        String n=getPath(name, PATH_CFG);
 //--        System.out.println("Write "+n);
@@ -145,7 +145,7 @@ public class NvStorage {
 //--            f.write(descriptor, b, 0, b.length);
 //--            f.close(descriptor);
 //--        } catch (Exception e) { e.printStackTrace(); return false; }
-/*$M55,M55_Release$*///</editor-fold>
+/*$USE_SIEMENS_FILES$*///</editor-fold>
         return true;
     }
     
@@ -154,14 +154,14 @@ public class NvStorage {
             /*System.out.println(
                     getPath(strconv.convUnicodeToAscii(URL), PATH_MSG)+" "+
                     strconv.convUnicodeToAscii(append_data));*/
-/*#M55,M55_Release#*///<editor-fold>
+/*#USE_SIEMENS_FILES#*///<editor-fold>
 //--            File file1 = new File();
 //--            int fd = file1.open(getPath(strconv.convUnicodeToAscii(URL+".txt"), PATH_MSG));
 //--            byte abyte0[] = (strconv.convUnicodeToAscii(append_data)).getBytes();
 //--            file1.seek(fd, file1.length(fd));
 //--            file1.write(fd, abyte0, 0, abyte0.length);
 //--            file1.close(fd);
-/*$M55,M55_Release$*///</editor-fold>
+/*$USE_SIEMENS_FILES$*///</editor-fold>
 
         } catch (Exception e) {
             e.printStackTrace();
