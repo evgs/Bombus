@@ -27,6 +27,8 @@ public class MessageEdit
     private Command cmdSend=new Command("Send",Command.SCREEN,1);
     private Command cmdSmile=new Command("Add Smile",Command.SCREEN,2);
     private Command cmdInsMe=new Command("/me",Command.SCREEN,3);
+    
+    private boolean composing=true;
 
     //private Command cmdSubject=new Command("Subject",Command.SCREEN,10);
     
@@ -50,6 +52,8 @@ public class MessageEdit
         t.setCommandListener(this);
         
         //t.setInitialInputMode("MIDP_LOWERCASE_LATIN");
+        new Thread(this).start() ; // composing
+        
         display.setCurrent(t);
     }
     
@@ -65,37 +69,48 @@ public class MessageEdit
         body=t.getString();
         if (body.length()==0) body=null;
         
-        if (c==cmdCancel) { destroyView(); return; }
-        if (c==cmdSuspend) { to.msgSuspended=body; destroyView(); return; }
-        if (c==cmdInsMe) { t.insert("/me ", 0); return; }
-        if (c==cmdSmile) { new SmilePicker(display, this); }
-        if (c==cmdSend && body!=null)   {
-            destroyView();
-            // message sending
-            new Thread(this).start();
-            return; 
+        if (c==cmdCancel) { 
+            composing=false; 
+            body=null; 
+            /*destroyView(); return;*/ 
         }
+        if (c==cmdSuspend) { 
+            composing=false; 
+            to.msgSuspended=body; 
+            body=null;
+            /*destroyView(); return;*/ 
+        }
+        if (c==cmdInsMe) { t.insert("/me ", 0); return; }
+        if (c==cmdSmile) { new SmilePicker(display, this); return; }
+        if (c==cmdSend && body==null) return;
+
+        // message/composing sending
+        destroyView();
+        new Thread(this).start();
+        return; 
     }
     
     
     public void run(){
         Roster r=StaticData.getInstance().roster;
-        String from=StaticData.getInstance().account.toString();
-        //r.USERNAME+'@'+r.SERVER_NAME;
+        int comp=0; // composing event off
         
-        // затычка от пустых сообщений. пока так :(
-        
-        Msg msg=new Msg(Msg.MESSAGE_TYPE_OUT,from,null,body);
-        to.addMessage(msg);
-        //((VirtualList)parentView).moveCursorEnd();
+        if (body!=null) {
+            String from=StaticData.getInstance().account.toString();
+            Msg msg=new Msg(Msg.MESSAGE_TYPE_OUT,from,null,body);
+            to.addMessage(msg);
+            
+            if (StaticData.getInstance().config.eventComposing)
+                comp=1; // composing event in message
+        } else if (to.accept_composing) comp=(composing)? 1:2;
         
         try {
-            r.sendMessage(to.getJid(),body, null);
+            if (body!=null || comp>0)
+            r.sendMessage(to.getJid(),body, null, comp);
         } catch (Exception e) {
             e.printStackTrace();
         }
         ((VirtualList)parentView).redraw();
-        
     }
     
     public void destroyView(){

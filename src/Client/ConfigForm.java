@@ -25,6 +25,7 @@ import ui.*;
  * message
  *  [] show smiles
  *  [] history
+ *  [] composing
  *
  * application
  *  [] fullscreen
@@ -75,9 +76,11 @@ public class ConfigForm implements CommandListener{
         message=new ChoiceGroup("Messages", Choice.MULTIPLE);
         message.append("smiles",null);
         message.append("history -",null);
-        mv=new boolean[2];
+        message.append("composing events",null);
+        mv=new boolean[3];
         mv[0]=cf.smiles;
         mv[1]=cf.msgLog;
+        mv[2]=cf.eventComposing;
         message.setSelectedFlags(mv);
         
         application=new ChoiceGroup("Application", Choice.MULTIPLE);
@@ -114,6 +117,7 @@ public class ConfigForm implements CommandListener{
 
             cf.smiles=mv[0];
             cf.msgLog=mv[1];
+            cf.eventComposing=mv[2];
             
             cf.fullscreen=ap[0];
             

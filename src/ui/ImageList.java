@@ -27,7 +27,7 @@ public class ImageList {
 
     public final static int ICON_MESSAGE_INDEX=0x70;
     public final static int ICON_AUTHRQ_INDEX=0x71;
-    public final static int ICON_GC2_INDEX=0x72;
+    public final static int ICON_COMPOSING_INDEX=0x72;
     public final static int ICON_EXPANDED_INDEX=0x73;
     public final static int ICON_COLLAPSED_INDEX=0x74;
     public final static int ICON_MESSAGE_BUTTONS=0x75;

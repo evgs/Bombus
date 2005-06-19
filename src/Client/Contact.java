@@ -44,6 +44,9 @@ public class Contact extends IconTextElement{
     public int group;
     public int transport;
     
+    public boolean accept_composing;
+    public Integer incomingComposing;
+    
     public String msgSuspended;
     
     private int jidHash;
@@ -115,6 +118,11 @@ public class Contact extends IconTextElement{
     public boolean needsCount(){ return (newMsgCnt<0);  }
     
     public void resetNewMsgCnt() { newMsgCnt=-1;}
+    
+    public void setComposing (boolean state) {
+        incomingComposing=(state)? new Integer(ImageList.ICON_COMPOSING_INDEX):null;
+        //System.out.println("Composing:"+state);
+    }
     
     public int compare(Contact c){
         //1. status

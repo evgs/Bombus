@@ -63,6 +63,7 @@ public class MessageView
         if (nextMsg<0 || nextMsg>=nMsgs) return;
         msgIndex=nextMsg;
         lines=null;
+        win_top=0;
         (t=new Thread(this)).start();
     }
     
@@ -90,7 +91,7 @@ public class MessageView
         if (msg.photo!=null) addCommand(cmdPhoto);
         else removeCommand(cmdPhoto);
         
-        win_top=0;
+        //win_top=0;
 
         sd.parser.parseMsg(
                 msg,

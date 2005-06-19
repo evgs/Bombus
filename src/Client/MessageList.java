@@ -52,6 +52,7 @@ implements CommandListener{
         title.addElement(contact.toString());
         title.addRAlign();
         title.addElement(null);
+        title.addElement(null);
         //setTitleLine(title);
 
         cursor=0;//activate
@@ -70,7 +71,10 @@ implements CommandListener{
         else addCommand(cmdResume);
     }
     
-    public void beginPaint(){ title.setElementAt(sd.roster.messageIcon,2); }
+    public void beginPaint(){ 
+        title.setElementAt(sd.roster.messageIcon,2);
+        title.setElementAt(contact.incomingComposing, 3);
+    }
     
     public int getItemCount(){ return contact.msgs.size(); }
     //public Element getItemRef(int Index){ return (Element) contact.msgs.elementAt(Index); }

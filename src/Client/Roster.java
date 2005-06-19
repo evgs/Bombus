@@ -497,8 +497,7 @@ public class Roster
         
         // reconnect if disconnected        
         if (status!=Presence.PRESENCE_OFFLINE && theStream==null ) {
-            reconnect=true;
-            
+            reconnect=(hContacts.size()>1);
             redraw();
             
             new Thread(this).start();
@@ -536,8 +535,17 @@ public class Roster
      * Method to send a message to the specified recipient
      */
     
-    public void sendMessage(final String to, final String body, final String subject ) {
+    public void sendMessage(final String to, final String body, final String subject , int composingState) {
         Message simpleMessage = new Message( to, body, subject );
+        if (composingState>0) {
+            JabberDataBlock event=new JabberDataBlock("x", null,null);
+            event.setNameSpace("jabber:x:event");
+            //event.addChild(new JabberDataBlock("id",null, null));
+            if (composingState==1) {
+                event.addChild(new JabberDataBlock("composing",null, null));
+            }
+            simpleMessage.addChild(event);
+        }
         theStream.send( simpleMessage );
     }
     
@@ -656,11 +664,26 @@ public class Roster
                 String from=message.getFrom();
                 String body=message.getBody().trim();
                 String tStamp=message.getTimeStamp();
-                if (body.length()==0) return;
+                
+                Contact c=presenceContact(from, -1);
+                boolean compose=false;
+                JabberDataBlock x=message.getChildBlock("x");
+                if (body.length()==0) body=null; 
+                
+                if (x!=null) {
+                    compose=(x.getChildBlock("composing")!=null);
+                    if (compose) c.accept_composing=true;
+                    if (body!=null) compose=false;
+                    c.setComposing(compose);
+                }
+                redraw();
+
+                if (body==null) return;
                 
                 String subj=message.getSubject().trim();
                 if (subj.length()==0) subj=null;
-                
+  
+            
                 Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, subj, body);
                 if (tStamp!=null) 
                     m.date=Time.dateIso8601(tStamp);
@@ -669,7 +692,7 @@ public class Roster
                 //c.msgs.addElement(m);
                 //countNewMsgs();
                 //setFocusTo(c);
-                redraw();
+                //redraw();
                 
             }
             // присутствие

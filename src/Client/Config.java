@@ -55,6 +55,8 @@ public class Config {
     public boolean notInList=true;
     public boolean ignore=false;
     
+    public boolean eventComposing=false;
+    
     public void LoadFromStorage(){
         
         DataInputStream inputStream=NvStorage.ReadFileRecord("config", 0);
@@ -69,6 +71,7 @@ public class Config {
             selfContact=inputStream.readBoolean();
             notInList=inputStream.readBoolean();
             ignore=inputStream.readBoolean();
+            eventComposing=inputStream.readBoolean();
             
             inputStream.close();
         } catch (Exception e) { e.printStackTrace(); }
@@ -90,6 +93,7 @@ public class Config {
             outputStream.writeBoolean(selfContact);
             outputStream.writeBoolean(notInList);
             outputStream.writeBoolean(ignore);
+            outputStream.writeBoolean(eventComposing);
             
         } catch (IOException e) { e.printStackTrace(); }
 
