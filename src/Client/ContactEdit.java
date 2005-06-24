@@ -77,7 +77,9 @@ public final class ContactEdit
         tTranspList.append(sd.account.getServerN(), null);
         for (Enumeration e=sd.roster.getHContacts().elements(); e.hasMoreElements(); ){
             Contact ct=(Contact)e.nextElement();
-            if (ct.jid.isTransport()) tTranspList.append(ct.getJidNR(),null);
+            Jid transpJid=new Jid(ct.getJid()); //TODO: исправить этот хак (отрезание ресурса)
+            if (transpJid.isTransport()) 
+                tTranspList.append(transpJid.getJid(),null);
         }
         tTranspList.append("<Other>",null);
         
