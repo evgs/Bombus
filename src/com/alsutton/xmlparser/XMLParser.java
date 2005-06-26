@@ -340,22 +340,20 @@ public class XMLParser
     inputReader = _inputReader;
     boolean binval=false;
     
-    try
-    {
-      while( true )
-      {
-        if (binval)
-            handleBinValue();
-        else
-            handlePlainText();
-        binval=handleTag();
-      }
+    try {
+        while( true ) {
+            if (binval)
+                handleBinValue();
+            else
+                handlePlainText();
+            binval=handleTag();
+        }
+    } catch( EndOfXMLException x ) {
+        // The EndOfXMLException is purely used to drop out of the
+        // continuous loop.
+    } catch ( Exception e ) {
+        e.printStackTrace();
     }
-    catch( EndOfXMLException x )
-    {
-      // The EndOfXMLException is purely used to drop out of the
-      // continuous loop.
-    }
-  }
+ }
 
 }
