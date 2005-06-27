@@ -93,6 +93,9 @@ public class Roster
      */
     public Roster(Display display /*, boolean selAccount*/) {
         super();
+/*#USE_LOGGER#*///<editor-fold>
+//--        NvStorage.log("---------- INIT -------------");
+/*$USE_LOGGER$*///</editor-fold>
         setProgress(20);
         //setTitleImages(StaticData.getInstance().rosterIcons);
         setTitleImages(sd.rosterIcons);
@@ -158,11 +161,17 @@ public class Roster
     }
     public void setProgress(String pgs,int percent){
         SplashScreen.getInstance().setProgress(pgs, percent);
+/*#USE_LOGGER#*///<editor-fold>
+//--        NvStorage.log(pgs+"%"+percent);
+/*$USE_LOGGER$*///</editor-fold>
         setRosterTitle(pgs);
         redraw();
     }
     public void setProgress(int percent){
         SplashScreen.getInstance().setProgress(percent);
+/*#USE_LOGGER#*///<editor-fold>
+//--        NvStorage.log("%"+percent);
+/*$USE_LOGGER$*///</editor-fold>
         //redraw();
     }
     
@@ -211,6 +220,9 @@ public class Roster
             querysign=reconnect=false;
             myStatus=Presence.PRESENCE_OFFLINE;
             e.printStackTrace();
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
             errorLog( e.getMessage() );
             displayStatus();
             redraw();
@@ -517,7 +529,12 @@ public class Roster
             if (status==Presence.PRESENCE_OFFLINE) {
                 try {
                     theStream.close();
-                } catch (Exception e) { e.printStackTrace(); }
+                } catch (Exception e) { 
+                    e.printStackTrace(); 
+/*#USE_LOGGER#*///<editor-fold>
+//--                    NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
+                }
                 theStream=null;
                 System.gc();
             }
@@ -714,6 +731,9 @@ public class Roster
             }
         } catch( Exception e ) {
             e.printStackTrace();
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
         }
     }
     
@@ -813,11 +833,17 @@ public class Roster
         if( e != null )
             errorLog(e.getMessage());
             e.printStackTrace();
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
             setProgress("Disconnected", 0);
         try {
             sendPresence(Presence.PRESENCE_OFFLINE);
         } catch (Exception e2) {
             e2.printStackTrace();
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e2);
+/*$USE_LOGGER$*///</editor-fold>
         }
         redraw();
     }
@@ -890,7 +916,12 @@ public class Roster
         if (theStream!=null)
         try {
              sendPresence(Presence.PRESENCE_OFFLINE);
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
+        }
     };
     
     public void commandAction(Command c, Displayable d){

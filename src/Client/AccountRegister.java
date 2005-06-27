@@ -51,6 +51,9 @@ public class AccountRegister
             theStream.setJabberListener( this );
         } catch( Exception e ) {
             e.printStackTrace();
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
             spl.setFailed();
         }
 
@@ -61,8 +64,12 @@ public class AccountRegister
     public void connectionTerminated( Exception e ) {
         //l.setTitleImgL(0);
         //System.out.println( "Connection terminated" );
-        if( e != null )
+        if( e != null ) {
             e.printStackTrace();
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
+        }
     }
 
     public void beginConversation(String SessionId) {
@@ -95,7 +102,12 @@ public class AccountRegister
         spl.removeCommand(cmdCancel);
         try {
             theStream.close();
-        } catch (Exception e) { e.printStackTrace();}
+        } catch (Exception e) { 
+            e.printStackTrace();
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
+        }
         destroyView();
     }
     

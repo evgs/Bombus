@@ -81,7 +81,12 @@ public class Account extends IconTextElement{
             a.nick     = inputStream.readUTF();
             a.resource = inputStream.readUTF();
             
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException e) { 
+            e.printStackTrace(); 
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
+        }
             
         return (a.userName==null)?null:a;
     }
@@ -116,7 +121,12 @@ public class Account extends IconTextElement{
                 index--;
             } while (index>-1);
             is.close();
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
+        }
         return a;
     }
     
@@ -137,6 +147,9 @@ public class Account extends IconTextElement{
             
         } catch (IOException e) {
             e.printStackTrace();
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
         }
         
     }

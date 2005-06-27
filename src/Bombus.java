@@ -65,6 +65,9 @@ public class Bombus extends MIDlet implements Runnable{
             s.setProgress("Bombus "+Version.version,7);
         } catch (Exception e) {
             e.printStackTrace();
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
         }
 
         sd.initFields(this);

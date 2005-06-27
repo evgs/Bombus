@@ -73,7 +73,7 @@ public class RegForm implements CommandListener{
             JabberDataBlock ch=((FormField) e.nextElement()).getJabberDataBlock();
             if (ch!=null) qry.addChild(ch);
         }
-        System.out.println(req.toString());
+        //System.out.println(req.toString());
         stream.send(req);
     }
 

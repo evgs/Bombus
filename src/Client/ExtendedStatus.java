@@ -45,7 +45,12 @@ public class ExtendedStatus extends IconTextElement{
             }
             
             inputStream.close();
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
+        }
         
     };
     public static void saveStatusToStorage(Vector v){
@@ -57,7 +62,12 @@ public class ExtendedStatus extends IconTextElement{
                 outputStream.writeInt(e.priority);
                 outputStream.writeUTF(e.status);
             }
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException e) { 
+            e.printStackTrace(); 
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
+        }
 
         NvStorage.writeFileRecord(outputStream, "status", 0, true);
     }

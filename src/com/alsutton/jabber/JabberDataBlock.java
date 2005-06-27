@@ -25,6 +25,7 @@
 */
 
 package com.alsutton.jabber;
+import Client.NvStorage;
 import java.util.*;
 
 /**
@@ -339,6 +340,41 @@ public class JabberDataBlock
     return data.toString();
   }
 
+/*#USE_LOGGER#*///<editor-fold>
+//--  public void formatOut(String level)
+//--  {
+//--    NvStorage.logS(level);
+//--    NvStorage.logS(getTagStart());
+//--    StringBuffer data = new StringBuffer(); 
+//--
+//--    appendXML(data, textData);
+//--    NvStorage.logS(data.toString());
+//--    //NvStorage.logCrLf();
+//--    /*
+//--     if( textData != null )
+//--    {
+//--      String text = textData.toString();
+//--      data.append( textData );
+//--    }
+//--     */
+//--
+//--    if( childBlocks != null )
+//--    {
+//--      NvStorage.logCrLf();
+//--      Enumeration e = childBlocks.elements();
+//--      while( e.hasMoreElements() )
+//--      {
+//--        JabberDataBlock thisBlock = (JabberDataBlock) e.nextElement();
+//--        thisBlock.formatOut(level+' ');
+//--      }
+//--      NvStorage.logS(level);
+//--    }
+//--
+//--    NvStorage.logS(getTagEnd());
+//--    NvStorage.logCrLf();
+//--  }
+//--
+/*$USE_LOGGER$*///</editor-fold>
   /**
    * Method to add all the attributes to a string buffer
    *

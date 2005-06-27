@@ -8,6 +8,7 @@
 
 package ui;
 
+import Client.NvStorage;
 import javax.microedition.lcdui.*;
 
 /**

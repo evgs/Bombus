@@ -25,11 +25,14 @@
 */
 
 package com.alsutton.jabber;
+import Client.NvStorage;
 import java.io.*;
 import java.util.*;
 import com.alsutton.jabber.datablocks.*;
 import com.alsutton.xmlparser.*;
 import Client.StaticData;
+
+
 
 /**
  * The stream to a jabber server.
@@ -205,8 +208,16 @@ public class JabberStream implements XMLEventListener, Runnable
   public void send( JabberDataBlock block ) //throws IOException
   {
       try {
+/*#USE_LOGGER#*///<editor-fold>
+//--          NvStorage.log(block, false);
+/*$USE_LOGGER$*///</editor-fold>
           send( block.toString() );
-      } catch (Exception e) {e.printStackTrace();}
+      } catch (Exception e) {
+          e.printStackTrace();
+/*#USE_LOGGER#*///<editor-fold>
+//--          NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
+      }
   }
 
   /**
@@ -299,7 +310,12 @@ public class JabberStream implements XMLEventListener, Runnable
 
     JabberDataBlock parent = currentBlock.getParent();
     if( parent == null )
-      dispatcher.broadcastJabberDataBlock( currentBlock );
+    {
+/*#USE_LOGGER#*///<editor-fold>
+//--        NvStorage.log(currentBlock, true);
+/*$USE_LOGGER$*///</editor-fold>
+        dispatcher.broadcastJabberDataBlock( currentBlock );
+    }
     else
       parent.addChild( currentBlock );
     currentBlock = parent;
@@ -341,10 +357,16 @@ public class JabberStream implements XMLEventListener, Runnable
         }
         public void run() {
             try {
-                sendKeepAlive();
                 System.out.println("Keep-Alive");
+/*#USE_LOGGER#*///<editor-fold>
+//--                NvStorage.log("Keep-Alive");
+/*$USE_LOGGER$*///</editor-fold>
+                sendKeepAlive();
             } catch (Exception e) {
                 e.printStackTrace();
+/*#USE_LOGGER#*///<editor-fold>
+//--                NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
             }
         }
         public void destroyTask(){

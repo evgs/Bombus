@@ -40,6 +40,12 @@ public class Config {
 /*#M55,M55_Release#*///<editor-fold>
 //--    public final int m55LedPattern=getProperty("led_pattern",0);
 /*$M55,M55_Release$*///</editor-fold>
+
+/*#USE_LOGGER#*///<editor-fold>
+//--    public boolean logMsg=getProperty("syslog_msg",false);
+//--    public boolean logEx=getProperty("syslog_exceptions",false);
+//--    public boolean logStream=getProperty("syslog_stream",false);
+/*$USE_LOGGER$*///</editor-fold>
     
     //public TimeZone tz=new RuGmt(0);
     public int gmtOffset;
@@ -74,7 +80,12 @@ public class Config {
             eventComposing=inputStream.readBoolean();
             
             inputStream.close();
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) { 
+            e.printStackTrace(); 
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
+        }
             //return null;
         profile=def_profile;
     }
@@ -95,7 +106,12 @@ public class Config {
             outputStream.writeBoolean(ignore);
             outputStream.writeBoolean(eventComposing);
             
-        } catch (IOException e) { e.printStackTrace(); }
+        } catch (IOException e) { 
+            e.printStackTrace(); 
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
+        }
 
         NvStorage.writeFileRecord(outputStream, "config", 0, true);
     }

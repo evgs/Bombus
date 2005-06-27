@@ -984,6 +984,19 @@ Motorola:
   (152)
   fix: при добавлении/редактировании контакта на x65 
   не происходил выход в ростер
+
+28.06.2005
+  (153)
+  спецверсия MIDP1 с лог-файлом
+  если в jad задан один из атрибутов: 
+syslog_stream: true
+syslog_exceptions: true
+syslog_msg: true
+  пишется файл _syslog.txt
+  syslog_stream - запись xml-блоков
+  syslog_exceptions - запись исключений.
+  syslog_msg - запись сообщений Login, Roster Request, ...
+
 ---------------------------
   known issues:
 

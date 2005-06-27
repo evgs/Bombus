@@ -109,6 +109,9 @@ public class MessageEdit
             r.sendMessage(to.getJid(),body, null, comp);
         } catch (Exception e) {
             e.printStackTrace();
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e);
+/*$USE_LOGGER$*///</editor-fold>
         }
         ((VirtualList)parentView).redraw();
     }

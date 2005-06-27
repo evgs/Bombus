@@ -5,6 +5,7 @@
  */
 
 package Client;
+import com.alsutton.jabber.JabberDataBlock;
 import java.io.*;
 import ui.strconv;
 
@@ -170,4 +171,34 @@ public class NvStorage {
         return true;
     }
     
+/*#USE_LOGGER#*///<editor-fold>
+//--    public final static void log(String logMsg){
+//--        if (StaticData.getInstance().config.logMsg) { 
+//--            logS("MSG="); 
+//--            logS(logMsg); 
+//--            logCrLf(); 
+//--        }
+//--    }
+//--    public final static void log(JabberDataBlock data, boolean incoming){
+//--        if (StaticData.getInstance().config.logStream)
+//--        {
+//--            logS(incoming?"RECV=":"SENT=");
+//--            logCrLf();
+//--            data.formatOut("");
+//--        }
+//--    }
+//--    public final static void log(Exception e){
+//--        if (StaticData.getInstance().config.logEx)
+//--        {
+//--            logS("EXCEPTION=");
+//--            logS(e.getMessage());
+//--            logCrLf();
+//--        }
+//--    }
+//--    
+//--    synchronized public final static void logS(String logMsg){
+//--        appendFile("_syslog", logMsg);
+//--    }
+//--    public final static void logCrLf(){ logS("\n"); }
+/*$USE_LOGGER$*///</editor-fold>
 }
