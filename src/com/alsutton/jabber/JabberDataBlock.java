@@ -314,6 +314,12 @@ public class JabberDataBlock
   {
     String tagStart = getTagStart();
     StringBuffer data = new StringBuffer( tagStart );
+    
+    // short xml
+    if (textData==null && childBlocks ==null ) {
+        data.insert(data.length()-1, '/');
+        return data.toString();
+    }
 
     appendXML(data, textData);
     /*
