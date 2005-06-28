@@ -84,7 +84,7 @@ public class Account extends IconTextElement{
         } catch (IOException e) { 
             e.printStackTrace(); 
 /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e);
+//--            NvStorage.log(e,"Account:87");
 /*$USE_LOGGER$*///</editor-fold>
         }
             
@@ -124,7 +124,7 @@ public class Account extends IconTextElement{
         } catch (Exception e) { 
             e.printStackTrace(); 
 /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e);
+//--            NvStorage.log(e, "Account:127");
 /*$USE_LOGGER$*///</editor-fold>
         }
         return a;
@@ -148,7 +148,7 @@ public class Account extends IconTextElement{
         } catch (IOException e) {
             e.printStackTrace();
 /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e);
+//--            NvStorage.log(e, "Account:151");
 /*$USE_LOGGER$*///</editor-fold>
         }
         

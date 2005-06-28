@@ -48,7 +48,7 @@ public class ExtendedStatus extends IconTextElement{
         } catch (Exception e) { 
             e.printStackTrace(); 
 /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e);
+//--            NvStorage.log(e, "ExS:51");
 /*$USE_LOGGER$*///</editor-fold>
         }
         
@@ -65,7 +65,7 @@ public class ExtendedStatus extends IconTextElement{
         } catch (IOException e) { 
             e.printStackTrace(); 
 /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e);
+//--            NvStorage.log(e, "ExS:68");
 /*$USE_LOGGER$*///</editor-fold>
         }
 

@@ -187,11 +187,10 @@ public class NvStorage {
 //--            data.formatOut("");
 //--        }
 //--    }
-//--    public final static void log(Exception e){
+//--    public final static void log(Exception e, String location){
 //--        if (StaticData.getInstance().config.logEx)
 //--        {
-//--            logS("EXCEPTION=");
-//--            logS(e.getMessage());
+//--            logS("EXCEPTION="+e.getMessage()+" @"+location);
 //--            logCrLf();
 //--        }
 //--    }

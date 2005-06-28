@@ -66,7 +66,7 @@ public class Bombus extends MIDlet implements Runnable{
         } catch (Exception e) {
             e.printStackTrace();
 /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e);
+//--            NvStorage.log(e, "Bombus:69");
 /*$USE_LOGGER$*///</editor-fold>
         }
 

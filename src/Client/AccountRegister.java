@@ -52,7 +52,7 @@ public class AccountRegister
         } catch( Exception e ) {
             e.printStackTrace();
 /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e);
+//--            NvStorage.log(e, "AccountRegister:55");
 /*$USE_LOGGER$*///</editor-fold>
             spl.setFailed();
         }
@@ -67,7 +67,7 @@ public class AccountRegister
         if( e != null ) {
             e.printStackTrace();
 /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e);
+//--            NvStorage.log(e, "AccountRegister:70");
 /*$USE_LOGGER$*///</editor-fold>
         }
     }
@@ -105,7 +105,7 @@ public class AccountRegister
         } catch (Exception e) { 
             e.printStackTrace();
 /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e);
+//--            NvStorage.log(e, "AccountRegister:108");
 /*$USE_LOGGER$*///</editor-fold>
         }
         destroyView();

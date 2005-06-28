@@ -196,17 +196,25 @@ public class Roster
         querysign=true;
         displayStatus();
         setProgress(25);
-        if (!reconnect) {
-            synchronized (hContacts) {
-                hContacts=new Vector();
-                vGroups=new Groups();
-                vContacts=new Vector(); // just for displaying
-            }
-            myJid=new Jid(sd.account.getJidStr());
-            updateContact(sd.account.getNickName(), myJid.getJid(), SELF_GROUP, "self", false);
-            
-            System.gc();
-        };
+        try {
+            if (!reconnect) {
+                synchronized (hContacts) {
+                    hContacts=new Vector();
+                    vGroups=new Groups();
+                    vContacts=new Vector(); // just for displaying
+                }
+                myJid=new Jid(sd.account.getJidStr());
+                updateContact(sd.account.getNickName(), myJid.getJid(), SELF_GROUP, "self", false);
+                
+                System.gc();
+            };
+        } catch (Exception e) {
+            e.printStackTrace();
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e, "Roster:214");
+/*$USE_LOGGER$*///</editor-fold>
+        }
+        setProgress(26);
         
         //logoff();
         try {
@@ -221,7 +229,7 @@ public class Roster
             myStatus=Presence.PRESENCE_OFFLINE;
             e.printStackTrace();
 /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e);
+//--            NvStorage.log(e, "Roster:232");
 /*$USE_LOGGER$*///</editor-fold>
             errorLog( e.getMessage() );
             displayStatus();
@@ -532,7 +540,7 @@ public class Roster
                 } catch (Exception e) { 
                     e.printStackTrace(); 
 /*#USE_LOGGER#*///<editor-fold>
-//--                    NvStorage.log(e);
+//--                    NvStorage.log(e, "Roster:543");
 /*$USE_LOGGER$*///</editor-fold>
                 }
                 theStream=null;
@@ -732,7 +740,7 @@ public class Roster
         } catch( Exception e ) {
             e.printStackTrace();
 /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e);
+//--            NvStorage.log(e, "Roster:743");
 /*$USE_LOGGER$*///</editor-fold>
         }
     }
@@ -804,6 +812,7 @@ public class Roster
     
     public void beginConversation(String SessionId) {
         //try {
+        setProgress("Login in progress", 42);
         Account a=sd.account;//StaticData.getInstance().account;
         Login login = new Login( 
                 a.getUserName(), 
@@ -830,19 +839,20 @@ public class Roster
     public void connectionTerminated( Exception e ) {
         //l.setTitleImgL(0);
         //System.out.println( "Connection terminated" );
-        if( e != null )
+        if( e != null ) {
             errorLog(e.getMessage());
             e.printStackTrace();
 /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e);
+//--            NvStorage.log(e, "Roster:846");
 /*$USE_LOGGER$*///</editor-fold>
-            setProgress("Disconnected", 0);
+        }
+        setProgress("Disconnected", 0);
         try {
             sendPresence(Presence.PRESENCE_OFFLINE);
         } catch (Exception e2) {
             e2.printStackTrace();
 /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e2);
+//--            NvStorage.log(e2, "Roster:855");
 /*$USE_LOGGER$*///</editor-fold>
         }
         redraw();
@@ -919,7 +929,7 @@ public class Roster
         } catch (Exception e) { 
             e.printStackTrace(); 
 /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e);
+//--            NvStorage.log(e, "Roster:932");
 /*$USE_LOGGER$*///</editor-fold>
         }
     };

@@ -83,7 +83,7 @@ public class Config {
         } catch (Exception e) { 
             e.printStackTrace(); 
 /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e);
+//--            NvStorage.log(e, "Congig:86");
 /*$USE_LOGGER$*///</editor-fold>
         }
             //return null;
@@ -109,7 +109,7 @@ public class Config {
         } catch (IOException e) { 
             e.printStackTrace(); 
 /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e);
+//--            NvStorage.log(e, "Config:112");
 /*$USE_LOGGER$*///</editor-fold>
         }
 
