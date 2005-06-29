@@ -17,7 +17,7 @@ import javax.microedition.lcdui.*;
  */
 public class AccountSelect 
         extends VirtualList 
-        implements CommandListener, Runnable{
+        implements CommandListener{
 
     Vector accountList;
     int activeAccount;
@@ -113,10 +113,6 @@ public class AccountSelect
     }
     public void eventOk(){
         destroyView();
-        new Thread(this).start();
-    }
-    
-    public void run(){
         StaticData sd=StaticData.getInstance();
         sd.config.accountIndex=cursor;
         sd.config.saveToStorage();

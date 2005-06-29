@@ -13,7 +13,7 @@ import java.util.*;
  * @author Evg_S
  */
 public final class ContactEdit
-        implements CommandListener, ItemStateListener, Runnable {
+        implements CommandListener, ItemStateListener {
     private Display display;
     //public Displayable parentView;
     
@@ -127,9 +127,12 @@ public final class ContactEdit
 
     public void commandAction(Command c, Displayable d) {
         if (c==cmdOk) {
-            if (getString(tJid)!=null) {
-                //roster.storeContact(jid,name,group, newContact);
-                new Thread(this).start();
+            String jid=getString(tJid);
+            if (jid!=null) {
+                // сохранение контакта
+                String name=getString(tNick);
+                String group=getString(tGroup);
+                roster.storeContact(jid,name,group, newContact);
                 destroyView();
                 return;
             }
@@ -138,13 +141,6 @@ public final class ContactEdit
         if (c==cmdCancel) destroyView();
     }
     
-    public void run(){
-        // сохранение контакта
-        String jid=getString(tJid);
-        String name=getString(tNick);
-        String group=getString(tGroup);
-        roster.storeContact(jid,name,group, newContact);
-    }
     private String getString(TextField t){
         if (t.size()==0) return null;
         String s=t.getString().trim();

@@ -19,8 +19,7 @@ import Client.*;
 public class ServiceDiscovery 
         extends VirtualList
         implements CommandListener,
-        ServiceDiscoveryListener,
-        Runnable
+        ServiceDiscoveryListener
 {
     private final static String NS_ITEMS="http://jabber.org/protocol/disco#items";
     private final static String NS_INFO="http://jabber.org/protocol/disco#info";
@@ -79,10 +78,6 @@ public class ServiceDiscovery
         
         items=new Vector();
         
-        new Thread(this).start();
-    }
-    
-    public void run(){
         requestQuery(NS_INFO, "disco");
     }
     

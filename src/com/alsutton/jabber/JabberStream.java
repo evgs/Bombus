@@ -57,6 +57,8 @@ public class JabberStream implements XMLEventListener, Runnable {
     
     private JabberDataBlockDispatcher dispatcher;
     
+    //private Vector sendQueue;
+    
     private boolean rosterNotify;
     
     public void enableRosterNotify(boolean en){ rosterNotify=en; }
@@ -97,14 +99,21 @@ public class JabberStream implements XMLEventListener, Runnable {
         /*$USE_UTF8_READER$*///</editor-fold>
         inpStream = connectorInterface.openInputStream();
         
+        //sendQueue=new Vector();
+        new Thread( this ). start();
+                
         StringBuffer header=new StringBuffer("<stream:stream to=\"" );
         header.append( connectorInterface.getHostname());
         header.append( "\" xmlns=\"jabber:client\" xmlns:stream=\"http://etherx.jabber.org/streams\">" );
         outStream.write(header.toString());
         outStream.flush();
+/*#USE_LOGGER#*///<editor-fold>
+//--        NvStorage.logS("SENT=");
+//--        NvStorage.logCrLf();
+//--        NvStorage.logS(header.toString());
+//--        NvStorage.logCrLf();
+/*$USE_LOGGER$*///</editor-fold>
         
-        Thread newThread = new Thread( this );
-        newThread.start();
         keepAlive=new TimerTaskKeepAlive(StaticData.getInstance().config.keepAlive);
     }
     
@@ -192,20 +201,7 @@ public class JabberStream implements XMLEventListener, Runnable {
      * @param block The data block to send to the server.
      */
     
-    public void send( JabberDataBlock block ) //throws IOException
-    {
-        try {
-            /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(block, false);
-            /*$USE_LOGGER$*///</editor-fold>
-            send( block.toString() );
-        } catch (Exception e) {
-            e.printStackTrace();
-            /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e, "JabberStream:205");
-            /*$USE_LOGGER$*///</editor-fold>
-        }
-    }
+    public void send( JabberDataBlock block )  { new SendJabberDataBlock(block); }
     
     /**
      * Set the listener to this stream.
@@ -361,4 +357,25 @@ public class JabberStream implements XMLEventListener, Runnable {
     }
     private TimerTaskKeepAlive keepAlive;
     
+    private class SendJabberDataBlock implements Runnable {
+        private JabberDataBlock data;
+        public SendJabberDataBlock(JabberDataBlock data) {
+            this.data=data;
+            new Thread(this).start();
+        }
+        public void run(){
+            try {
+                /*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(data, false);
+                /*$USE_LOGGER$*///</editor-fold>
+                send( data.toString() );
+            } catch (Exception e) {
+                e.printStackTrace();
+                /*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log(e, "JabberStream:382");
+                /*$USE_LOGGER$*///</editor-fold>
+            }
+            
+        }
+    }
 }
