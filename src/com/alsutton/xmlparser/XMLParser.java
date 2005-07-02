@@ -40,7 +40,12 @@ import java.util.*;
 public class XMLParser
 {
   /** The reader from which the stream is being read  */
+/*#USE_UTF8_READER#*///<editor-fold>
+//--  private InputStream inputReader;
+/*$USE_UTF8_READER$*///</editor-fold>
+/*#!USE_UTF8_READER#*///<editor-fold>
   private Reader inputReader;
+/*$!USE_UTF8_READER$*///</editor-fold>
 
   /** The handler for XML Events. */
 
@@ -135,6 +140,21 @@ public class XMLParser
     return returnData;
   }
 
+/*#USE_UTF8_READER#*///<editor-fold>
+//--  byte cbuf[]=new byte[512];
+//--  int cbyte;
+//--  int pbyte;
+//--  private int chRead() throws IOException{
+//--      if (cbyte>pbyte) return cbuf[pbyte++];
+//--      
+//--      int avail=inputReader.available();
+//--      if (avail<2) return inputReader.read();
+//--      cbyte=(avail<512)?avail:512;
+//--      inputReader.read(cbuf, 0,  cbyte);
+//--      pbyte=1;
+//--      return cbuf[0];
+//--  }
+/*$USE_UTF8_READER$*///</editor-fold>
   private int getNextCharacter()
   throws IOException {
 /*#!USE_UTF8_READER#*///<editor-fold>
@@ -142,7 +162,7 @@ public class XMLParser
 /*$!USE_UTF8_READER$*///</editor-fold>
 /*#USE_UTF8_READER#*///<editor-fold>
 //--      int i = -1;
-//--      int j = inputReader.read();
+//--      int j = chRead();
 //--      if( j == -1 ) return i;
 //--      
 //--      j &= 0xff; boolean flag = false;
@@ -167,16 +187,16 @@ public class XMLParser
 //--              
 //--          case 12: // '\f'
 //--          case 13: // '\r'
-//--              i = j & 0x1f;  i <<= 6;  int k = inputReader.read();
+//--              i = j & 0x1f;  i <<= 6;  int k = chRead();
 //--              if((k & 0xc0) != 128) throw new IOException("Bad UTF-8 Encoding encountered");
 //--              i += k & 0x3f; break;
 //--              
 //--          case 14: // '\016'
 //--              i = j & 0xf;  i <<= 6;
-//--              int l = inputReader.read();
+//--              int l = chRead();
 //--              if((l & 0xc0) != 128) throw new IOException("Bad UTF-8 Encoding encountered");
 //--              i += l & 0x3f;  i <<= 6; 
-//--              l = inputReader.read();
+//--              l = chRead();
 //--              if((l & 0xc0) != 128)
 //--                  throw new IOException("Bad UTF-8 Encoding encountered");
 //--              i += l & 0x3f;
@@ -337,9 +357,19 @@ public class XMLParser
    * @param _inputReader The reader for the XML stream.
    */
 
-  public void  parse ( Reader _inputReader )
+  public void  parse ( 
+/*#USE_UTF8_READER#*///<editor-fold>
+//--          InputStream _inputReader 
+/*$USE_UTF8_READER$*///</editor-fold>
+/*#!USE_UTF8_READER#*///<editor-fold>
+          Reader _inputReader 
+/*$!USE_UTF8_READER$*///</editor-fold>
+          )
     throws IOException
   {
+/*#USE_UTF8_READER#*///<editor-fold>
+//--      cbyte=pbyte=0;
+/*$USE_UTF8_READER$*///</editor-fold>
     inputReader = _inputReader;
     boolean binval=false;
     

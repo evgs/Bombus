@@ -126,14 +126,15 @@ public class JabberStream implements XMLEventListener, Runnable {
     
     public void run() {
         try {
+            XMLParser parser = new XMLParser( this );
             /*#!USE_UTF8_READER#*///<editor-fold>
       InputStreamReader inSource = new InputStreamReader( inpStream, "UTF-8" );
+            parser.parse( inSource );
             /*$!USE_UTF8_READER$*///</editor-fold>
             /*#USE_UTF8_READER#*///<editor-fold>
-//--            InputStreamReader inSource = new InputStreamReader( inpStream );
+//--//            InputStreamReader inSource = new InputStreamReader( inpStream );
+//--            parser.parse( inpStream );
             /*$USE_UTF8_READER$*///</editor-fold>
-            XMLParser parser = new XMLParser( this );
-            parser.parse( inSource );
             dispatcher.broadcastTerminatedConnection( null );
         } catch( Exception e ) {
             dispatcher.broadcastTerminatedConnection(e);
