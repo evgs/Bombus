@@ -925,6 +925,9 @@ public class Roster
     public void logoff(){
         if (theStream!=null)
         try {
+/*#USE_LOGGER#*///<editor-fold>
+//--            NvStorage.log("logoff");
+/*$USE_LOGGER$*///</editor-fold>
              sendPresence(Presence.PRESENCE_OFFLINE);
         } catch (Exception e) { 
             e.printStackTrace(); 

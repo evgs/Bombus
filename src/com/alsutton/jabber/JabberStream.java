@@ -39,11 +39,13 @@ import Client.StaticData;
  */
 
 public class JabberStream implements XMLEventListener, Runnable {
-    /**
-     * The Output stream to the server.
-     */
     
+/*#USE_UTF8_READER#*///<editor-fold>
+//--    private OutputStream outStream;
+/*$USE_UTF8_READER$*///</editor-fold>
+/*#!USE_UTF8_READER#*///<editor-fold>
     private OutputStreamWriter outStream;
+/*$!USE_UTF8_READER$*///</editor-fold>
     
     /**
      * The input stream from the server.
@@ -90,23 +92,22 @@ public class JabberStream implements XMLEventListener, Runnable {
             setJabberListener( theListener );
         }
         
-        OutputStream outStr= connectorInterface.openOutputStream();
+        inpStream = connectorInterface.openInputStream();
+        new Thread( this ). start();
         /*#!USE_UTF8_READER#*///<editor-fold>
+    OutputStream outStr= connectorInterface.openOutputStream();
     outStream = new OutputStreamWriter(outStr,"UTF-8");
         /*$!USE_UTF8_READER$*///</editor-fold>
         /*#USE_UTF8_READER#*///<editor-fold>
-//--        outStream = new OutputStreamWriter(outStr);
+//--        outStream = connectorInterface.openOutputStream();
         /*$USE_UTF8_READER$*///</editor-fold>
-        inpStream = connectorInterface.openInputStream();
         
         //sendQueue=new Vector();
-        new Thread( this ). start();
                 
         StringBuffer header=new StringBuffer("<stream:stream to=\"" );
         header.append( connectorInterface.getHostname());
         header.append( "\" xmlns=\"jabber:client\" xmlns:stream=\"http://etherx.jabber.org/streams\">" );
-        outStream.write(header.toString());
-        outStream.flush();
+        send(header.toString());
 /*#USE_LOGGER#*///<editor-fold>
 //--        NvStorage.logS("SENT=");
 //--        NvStorage.logCrLf();
@@ -186,12 +187,12 @@ public class JabberStream implements XMLEventListener, Runnable {
         
         synchronized (outStream) {
             /*#USE_UTF8_READER#*///<editor-fold>
-//--            outStream.write(toUTF(data));
+//--            outStream.write(toUTF(data).getBytes());
             /*$USE_UTF8_READER$*///</editor-fold>
             /*#!USE_UTF8_READER#*///<editor-fold>
           outStream.write(data);
             /*$!USE_UTF8_READER$*///</editor-fold>
-            outStream.flush();
+            //outStream.flush();
         }
     }
     

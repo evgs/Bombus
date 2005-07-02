@@ -33,6 +33,9 @@ package com.alsutton.xmlparser;
 import java.io.*;
 
 import java.util.*;
+/*#USE_LOGGER#*///<editor-fold>
+//--import Client.*;
+/*$USE_LOGGER$*///</editor-fold>
 
 public class XMLParser
 {
@@ -351,9 +354,18 @@ public class XMLParser
     } catch( EndOfXMLException x ) {
         // The EndOfXMLException is purely used to drop out of the
         // continuous loop.
+                /*#USE_LOGGER#*///<editor-fold>
+//--                NvStorage.log((Exception)x, "XMLParser:355");
+                /*$USE_LOGGER$*///</editor-fold>
     } catch ( Exception e ) {
         e.printStackTrace();
+                /*#USE_LOGGER#*///<editor-fold>
+//--                NvStorage.log(e, "XMLParser:357");
+                /*$USE_LOGGER$*///</editor-fold>
     }
+                /*#USE_LOGGER#*///<editor-fold>
+//--                NvStorage.log("XMLParser exit");
+                /*$USE_LOGGER$*///</editor-fold>
  }
 
 }

@@ -24,7 +24,7 @@ public class MessageEdit
     private Contact to;
     private Command cmdSuspend=new Command("Suspend",Command.BACK,90);
     private Command cmdCancel=new Command("Cancel",Command.SCREEN,99);
-    private Command cmdSend=new Command("Send",Command.SCREEN,1);
+    private Command cmdSend=new Command("Send",Command.OK,1);
     private Command cmdSmile=new Command("Add Smile",Command.SCREEN,2);
     private Command cmdInsMe=new Command("/me",Command.SCREEN,3);
     
