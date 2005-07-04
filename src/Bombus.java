@@ -26,6 +26,7 @@ public class Bombus extends MIDlet implements Runnable{
     
     private Display display;    // The display for this MIDlet
     private boolean IsRunning;
+    StaticData sd;
     //IconTextList l;
     
     /** Bombus constructor. starts splashscreen */
@@ -34,12 +35,19 @@ public class Bombus extends MIDlet implements Runnable{
         SplashScreen s= SplashScreen.getInstance();
         display.setCurrent(s);
         s.setProgress("Loading",3);
+        sd=StaticData.getInstance();
     }
     
     /** Entry point  */
     public void startApp() {
         
-        if (IsRunning) return;
+        if (IsRunning) {
+            if (sd.isMinimized) {
+                display.setCurrent(sd.roster);
+                sd.isMinimized=false;
+            }
+            return;
+        }
         
         IsRunning=true;
 
@@ -55,8 +63,6 @@ public class Bombus extends MIDlet implements Runnable{
 
     public void run(){
         
-        StaticData sd=StaticData.getInstance();
-
         SplashScreen s= SplashScreen.getInstance();
         s.setProgress(5);
         

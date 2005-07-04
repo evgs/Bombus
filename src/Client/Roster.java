@@ -80,6 +80,7 @@ public class Roster
     private Command cmdAccount=new Command("Account >",Command.SCREEN,12);
     //private Command cmdSetFullScreen=new Command("Fullscreen",Command.SCREEN,20);
     private Command cmdOptions=new Command("Options",Command.SCREEN,20);
+    private Command cmdMinimize=new Command("Minimize", Command.SCREEN, 90);
     private Command cmdQuit=new Command("Quit",Command.SCREEN,99);
     
     private Config cf;
@@ -134,6 +135,7 @@ public class Roster
         addCommand(cmdOptions);
         addCommand(cmdQuit);
         
+        
         addOptionCommands();
         //moveCursorTo(0);
         setCommandListener(this);
@@ -150,6 +152,7 @@ public class Roster
     }
     
     void addOptionCommands(){
+        addCommand(cmdMinimize);
         //Config cf=StaticData.getInstance().config;
         //        if (cf.showOfflineContacts) {
         //            addCommand(cmdHideOfflines);
@@ -800,6 +803,10 @@ public class Roster
         
         if (c.group==IGNORE_INDEX) return c;    // no signalling/focus on ignore
         
+        if (sd.isMinimized) {
+            display.setCurrent(this);
+            sd.isMinimized=false;
+        }
         setFocusTo(c);
         AlertProfile.playNotify(display, 0);
         return c;
@@ -946,6 +953,11 @@ public class Roster
             sd.midlet.notifyDestroyed();
             return;
         }
+        if (c==cmdMinimize) { 
+            sd.isMinimized=true;
+            display.setCurrent(null); 
+        }
+        
         if (c==cmdAccount){ new AccountSelect(display, false); }
         if (c==cmdServiceDiscovery) { new ServiceDiscovery(display, theStream); }
         if (c==cmdStatus) { new StatusSelect(display); }

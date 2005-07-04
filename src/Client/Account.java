@@ -189,7 +189,6 @@ public class Account extends IconTextElement{
     public void setNickName(String nick) { this.nick = nick;  }
 
     public JabberStream openJabberStream() throws java.io.IOException{
-        return new JabberStream( 
-                new meConnector( getServerN(), getServer(), getPort() ) );    
+        return new JabberStream(  getServerN(), getServer(), getPort(), null);    
     }
 }

@@ -13,7 +13,7 @@ import ui.*;
  *
  * @author Eugene Stahov
  */
-public class StatusSelect extends VirtualList implements CommandListener{
+public class StatusSelect extends VirtualList implements CommandListener, Runnable{
     
     private Command cmdOk=new Command("Select",Command.OK,1);
     private Command cmdEdit=new Command("Edit",Command.SCREEN,2);
@@ -60,11 +60,15 @@ public class StatusSelect extends VirtualList implements CommandListener{
     }
     
     public void eventOk(){
+        destroyView();
+        new Thread(this).start();
+    }
+    
+    public void run(){
         int status=getSel().getImageIndex();
         try {
             StaticData.getInstance().roster.sendPresence(status);
         } catch (Exception e) { e.printStackTrace(); }
-        destroyView();
     }
     
     public int getItemCount(){   return StaticData.getInstance().statusList.size(); }

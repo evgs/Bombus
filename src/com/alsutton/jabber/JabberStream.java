@@ -28,6 +28,7 @@ package com.alsutton.jabber;
 import Client.NvStorage;
 import java.io.*;
 import java.util.*;
+import javax.microedition.io.*;
 import com.alsutton.jabber.datablocks.*;
 import com.alsutton.xmlparser.*;
 import Client.StaticData;
@@ -39,6 +40,8 @@ import Client.StaticData;
  */
 
 public class JabberStream implements XMLEventListener, Runnable {
+    
+    private StreamConnection connection = null;
     
 /*#USE_UTF8_READER#*///<editor-fold>
 //--    private OutputStream outStream;
@@ -68,55 +71,48 @@ public class JabberStream implements XMLEventListener, Runnable {
     /**
      * Constructor. Connects to the server and sends the jabber welcome message.
      *
-     * @param connectorInterface The connector which establishes the socket for
-     * the connection
      */
     
-    public JabberStream( ConnectorInterface connectorInterface )
-    throws IOException {
-        this( connectorInterface, null );
-    }
-    
-    /**
-     * Constructor. Connects to the server and sends the jabber welcome message.
-     *
-     * @param connectorInterface The connector which establishes the socket for
-     * the connection
-     */
-    
-    public JabberStream( ConnectorInterface connectorInterface,
+    public JabberStream( String hostName, String hostAddr, int hostPort,
             JabberListener theListener )
             throws IOException {
-        dispatcher = new JabberDataBlockDispatcher();
-        if( theListener != null ) {
-            setJabberListener( theListener );
-        }
-        
-        inpStream = connectorInterface.openInputStream();
-        new Thread( this ). start();
-        /*#!USE_UTF8_READER#*///<editor-fold>
-    OutputStream outStr= connectorInterface.openOutputStream();
+        connection = (StreamConnection) 
+        Connector.open("socket://"+hostAddr+":"+hostPort );
+        /*#DefaultConfiguration,Release#*///<editor-fold>
+        try {
+            ((SocketConnection) connection).setSocketOption(SocketConnection.KEEPALIVE,1);
+        } catch (Exception e) { e.printStackTrace(); }
+        /*$DefaultConfiguration,Release$*///</editor-fold>
+    dispatcher = new JabberDataBlockDispatcher();
+    if( theListener != null ) {
+        setJabberListener( theListener );
+    }
+    
+    inpStream = connection.openInputStream();
+    new Thread( this ). start();
+    /*#!USE_UTF8_READER#*///<editor-fold>
+    OutputStream outStr= connection.openOutputStream();
     outStream = new OutputStreamWriter(outStr,"UTF-8");
-        /*$!USE_UTF8_READER$*///</editor-fold>
-        /*#USE_UTF8_READER#*///<editor-fold>
-//--        outStream = connectorInterface.openOutputStream();
-        /*$USE_UTF8_READER$*///</editor-fold>
-        
-        //sendQueue=new Vector();
-                
-        StringBuffer header=new StringBuffer("<stream:stream to=\"" );
-        header.append( connectorInterface.getHostname());
-        header.append( "\" xmlns=\"jabber:client\" xmlns:stream=\"http://etherx.jabber.org/streams\">" );
-        send(header.toString());
-/*#USE_LOGGER#*///<editor-fold>
+    /*$!USE_UTF8_READER$*///</editor-fold>
+    /*#USE_UTF8_READER#*///<editor-fold>
+//--        outStream = connection.openOutputStream();
+    /*$USE_UTF8_READER$*///</editor-fold>
+    
+    //sendQueue=new Vector();
+    
+    StringBuffer header=new StringBuffer("<stream:stream to=\"" );
+    header.append( hostName );
+    header.append( "\" xmlns=\"jabber:client\" xmlns:stream=\"http://etherx.jabber.org/streams\">" );
+    send(header.toString());
+    /*#USE_LOGGER#*///<editor-fold>
 //--        NvStorage.logS("SENT=");
 //--        NvStorage.logCrLf();
 //--        NvStorage.logS(header.toString());
 //--        NvStorage.logCrLf();
-/*$USE_LOGGER$*///</editor-fold>
-        
-        keepAlive=new TimerTaskKeepAlive(StaticData.getInstance().config.keepAlive);
-    }
+    /*$USE_LOGGER$*///</editor-fold>
+    
+    keepAlive=new TimerTaskKeepAlive(StaticData.getInstance().config.keepAlive);
+}
     
     
     /**
@@ -152,8 +148,11 @@ public class JabberStream implements XMLEventListener, Runnable {
         dispatcher.setJabberListener( null );
         try {
             send( "</stream:stream>" );
+            outStream.flush();
+            try {  Thread.sleep(500); } catch (Exception e) {};
             inpStream.close();
             outStream.close();
+            //connection.close();
         } catch( IOException e ) {
             // Ignore an IO Exceptions because they mean that the stream is
             // unavailable, which is irrelevant.

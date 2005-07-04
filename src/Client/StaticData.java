@@ -31,6 +31,8 @@ public class StaticData {
     
     public int account_index;
     
+    public boolean isMinimized;
+    
     /** Creates a new instance of StaticData */
     private StaticData() {
         account_index=-1;
