@@ -60,8 +60,9 @@ public class Config {
     public boolean selfContact=false;
     public boolean notInList=true;
     public boolean ignore=false;
-    
     public boolean eventComposing=false;
+    
+    public boolean allowMinimize=false;
     
     public void LoadFromStorage(){
         
@@ -124,6 +125,14 @@ public class Config {
         int loc=getProperty( "time_loc_offset", 0);
         gmtOffset=getProperty("time_gmt_offset", gmtloc);
         locOffset=((long)loc)*3600000;
+        
+        String platform=System.getProperty("microedition.platform");
+        if (platform.startsWith("SonyE")) {
+            allowMinimize=true;
+        }
+        /*if (platform.startsWith("Motorola")) {
+            ghostMotor=true;
+        }*/
         //System.out.println(locOffset);
     }
     

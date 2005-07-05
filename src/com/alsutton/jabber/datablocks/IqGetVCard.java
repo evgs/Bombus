@@ -16,12 +16,12 @@ import javax.microedition.lcdui.Image;
 
 public class IqGetVCard extends JabberDataBlock
 {
-    public IqGetVCard(String to) {
+    public IqGetVCard(String to, String id ) {
         super( );
         
         setTypeAttribute( "get" );
         setAttribute( "to", to );
-        setAttribute( "id", "getvc" );
+        setAttribute( "id", id );
         
         JabberDataBlock qB = new JabberDataBlock( "vCard", null, null );
         qB.setNameSpace( "vcard-temp" );
@@ -69,6 +69,11 @@ public class IqGetVCard extends JabberDataBlock
         return vc.toString();
     }
 
+   public static String getNickName(JabberDataBlock data) {
+       if (!data.isJabberNameSpace("vcard-temp")) return "";
+       return data.getTextForChildBlock(TOPFIELDS[1].toLowerCase());
+   }
+   
    public static Image getPhoto(JabberDataBlock data) {
        if (data==null) return null;
        JabberDataBlock photo=data.getChildBlock("photo");

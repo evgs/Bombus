@@ -11,6 +11,6 @@ package Client;
  * @author Evg_S
  */
 public class Version {
-    public final static String version="0.2.0.$WCREV$-RC";
+    public final static String version="0.2.0.$WCREV$";
     // this string will be patched by build.xml/post-preprocess
 }

@@ -152,7 +152,7 @@ public class Roster
     }
     
     void addOptionCommands(){
-        addCommand(cmdMinimize);
+        if (cf.allowMinimize) addCommand(cmdMinimize);
         //Config cf=StaticData.getInstance().config;
         //        if (cf.showOfflineContacts) {
         //            addCommand(cmdHideOfflines);
@@ -577,6 +577,18 @@ public class Roster
         theStream.send( simpleMessage );
     }
     
+    private Vector vCardQueue;
+    private void sendVCardReq(){
+        querysign=false; 
+        if (vCardQueue!=null) if (!vCardQueue.isEmpty()) {
+            JabberDataBlock req=(JabberDataBlock) vCardQueue.lastElement();
+            vCardQueue.removeElement(req);
+            //System.out.println(k.nick);
+            theStream.send(req);
+            querysign=true;
+        }
+        displayStatus();
+    }
     /**
      * Method to handle an incomming datablock.
      *
@@ -606,6 +618,19 @@ public class Roster
                 if (id.startsWith("disco")) {
                     discoveryListener.blockArrived(data);
                 } 
+                
+                if (id!=null) if (id.startsWith("nickvc")) {
+                    JabberDataBlock vc=data.getChildBlock("vcard");
+                    String from=data.getAttribute("from");
+                    String nick=IqGetVCard.getNickName(vc);
+                    Contact c=getContact(from, false);
+                    String group=(c.group==COMMON_INDEX)?
+                        "": vGroups.getGroup(c.group).name;
+                    storeContact(from,nick,group, false);
+                    //updateContact( nick, c.rosterJid, group, c.subscr, c.ask_subscribe);
+                    sendVCardReq();
+                }
+                
                 if ( type.equals( "result" ) ) {
                     if (id.equals("auth-s") ) {
                         // залогинились. теперь, если был реконнект, то просто пошлём статус
@@ -640,7 +665,7 @@ public class Roster
                         SplashScreen.getInstance().close(); // display.setCurrent(this);
                         
                     }
-                    if (id.equals("getvc")) {
+                    if (id.startsWith("getvc")) {
                         JabberDataBlock vc=data.getChildBlock("vcard");
                         
                         querysign=false;
@@ -1037,7 +1062,7 @@ public class Roster
                         break;
                     case 1: // info
                         querysign=true; displayStatus();
-                        theStream.send(new IqGetVCard(to));
+                        theStream.send(new IqGetVCard(to, "getvc"));
                         break;
                         
                     case 2:
@@ -1085,16 +1110,30 @@ public class Roster
                         theStream.send( presence );
                         break;
                     }
+                    case 7: // Nick resolver
+                    {
+                        vCardQueue=new Vector();
+                        for (Enumeration e=hContacts.elements(); e.hasMoreElements();){
+                            Contact k=(Contact) e.nextElement();
+                            if (k.jid.isTransport()) continue;
+                            if (k.transport==c.transport && k.nick==null && k.group>=COMMON_INDEX) {
+                                vCardQueue.addElement(new IqGetVCard(k.getJid(), "nickvc"+k.rosterJid));
+                            }
+                        }
+                        querysign=true; displayStatus();
+                        sendVCardReq();
+                    }
                 }
                 destroyView();
             }
         };
-        m.addItem(new MenuItem("vCard",1));
-        m.addItem(new MenuItem("Client Info",0));
         if (c.group==TRANSP_INDEX) {
             m.addItem(new MenuItem("Logon",5));
             m.addItem(new MenuItem("Logoff",6));
+            m.addItem(new MenuItem("Resolve Nicknames", 7));
         }
+        m.addItem(new MenuItem("vCard",1));
+        m.addItem(new MenuItem("Client Info",0));
         if (c.group!=SELF_INDEX) {
             if (c.group!=TRANSP_INDEX) 
                 m.addItem(new MenuItem("Edit",2));
