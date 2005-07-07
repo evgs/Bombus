@@ -193,7 +193,7 @@ public class JabberStream implements XMLEventListener, Runnable {
           outStream.write(data);
             /*$!USE_UTF8_READER$*///</editor-fold>
             //outStream.flush();
-          System.out.println(data);
+          //System.out.println(data);
         }
     }
     
@@ -296,7 +296,7 @@ public class JabberStream implements XMLEventListener, Runnable {
 //--            NvStorage.log(currentBlock, true);
             /*$USE_LOGGER$*///</editor-fold>
             dispatcher.broadcastJabberDataBlock( currentBlock );
-            System.out.println(currentBlock.toString());
+            //System.out.println(currentBlock.toString());
         } else
             parent.addChild( currentBlock );
         currentBlock = parent;

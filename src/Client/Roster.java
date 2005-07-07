@@ -625,8 +625,8 @@ public class Roster
                     String nick=IqGetVCard.getNickName(vc);
                     Contact c=getContact(from, false);
                     String group=(c.group==COMMON_INDEX)?
-                        "": vGroups.getGroup(c.group).name;
-                    storeContact(from,nick,group, false);
+                        null: vGroups.getGroup(c.group).name;
+                    if (nick.length()!=0)  storeContact(from,nick,group, false);
                     //updateContact( nick, c.rosterJid, group, c.subscr, c.ask_subscribe);
                     sendVCardReq();
                 }

@@ -33,6 +33,7 @@ public class ServiceDiscovery
     private String strSrch="Search";
     
     private Command cmdRfsh=new Command("Refresh", Command.SCREEN, 1);
+    private Command cmdSrv=new Command("Server", Command.SCREEN, 10);
     private Command cmdBack=new Command("Back", Command.BACK, 98);
     private Command cmdCancel=new Command("Cancel", Command.EXIT, 99);
 
@@ -69,6 +70,7 @@ public class ServiceDiscovery
         sd.roster.discoveryListener=this;
         
         addCommand(cmdRfsh);
+        addCommand(cmdSrv);
         addCommand(cmdCancel);
 
         addCommand(cmdBack);
@@ -167,7 +169,11 @@ public class ServiceDiscovery
         Object o= getSelectedObject();
         if (o!=null) 
         if (o instanceof Contact) {
-            
+            browse( ((Contact) o).jid.getJidFull() );
+        } 
+    }
+    
+    public void browse(String service){
             State st=new State();
             st.cursor=cursor;
             st.items=items;
@@ -176,9 +182,8 @@ public class ServiceDiscovery
             
             items=new Vector();
             addCommand(cmdBack);
-            service=((Contact) o).jid.getJidFull();
+            this.service=service;
             requestQuery(NS_INFO,"disco");
-        } 
     }
     
     public void commandAction(Command c, Displayable d){
@@ -202,6 +207,7 @@ public class ServiceDiscovery
             
         }
         if (c==cmdRfsh) {requestQuery(NS_INFO, "disco"); }
+        if (c==cmdSrv) { new ServerBox(); }
         if (c==cmdCancel){ sd.roster.discoveryListener=null; destroyView(); }
     }
     
@@ -225,5 +231,38 @@ public class ServiceDiscovery
             }
         }
     }
-    
+
+    private class ServerBox implements CommandListener {
+        
+        private Displayable parentView;
+        private TextBox t;
+        
+        private Command cmdCancel=new Command("Cancel",Command.BACK,99);
+        private Command cmdSend=new Command("Discover",Command.OK,1);
+        
+        /** Creates a new instance of ServerBox */
+        public ServerBox() {
+            t=new TextBox("Address",service,500,TextField.ANY);
+            t.addCommand(cmdSend);
+            t.addCommand(cmdCancel);
+            t.setCommandListener(this);
+            
+            //t.setInitialInputMode("MIDP_LOWERCASE_LATIN");
+            parentView=display.getCurrent();
+            display.setCurrent(t);
+        }
+        
+        public void commandAction(Command c, Displayable d){
+            String server=t.getString();
+            if (server.length()==0) server=null;
+            
+            if (c==cmdCancel) {
+                /*destroyView(); return;*/
+            }
+            if (c==cmdSend && server!=null) { browse(server); }
+            
+            display.setCurrent(parentView);
+            return;
+        }
+    }
 }
