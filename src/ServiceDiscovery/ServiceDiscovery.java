@@ -207,7 +207,7 @@ public class ServiceDiscovery
             
         }
         if (c==cmdRfsh) {requestQuery(NS_INFO, "disco"); }
-        if (c==cmdSrv) { new ServerBox(); }
+        if (c==cmdSrv) { new ServerBox(display, service, this); }
         if (c==cmdCancel){ sd.roster.discoveryListener=null; destroyView(); }
     }
     
@@ -229,40 +229,6 @@ public class ServiceDiscovery
                     break;
                 default:
             }
-        }
-    }
-
-    private class ServerBox implements CommandListener {
-        
-        private Displayable parentView;
-        private TextBox t;
-        
-        private Command cmdCancel=new Command("Cancel",Command.BACK,99);
-        private Command cmdSend=new Command("Discover",Command.OK,1);
-        
-        /** Creates a new instance of ServerBox */
-        public ServerBox() {
-            t=new TextBox("Address",service,500,TextField.ANY);
-            t.addCommand(cmdSend);
-            t.addCommand(cmdCancel);
-            t.setCommandListener(this);
-            
-            //t.setInitialInputMode("MIDP_LOWERCASE_LATIN");
-            parentView=display.getCurrent();
-            display.setCurrent(t);
-        }
-        
-        public void commandAction(Command c, Displayable d){
-            String server=t.getString();
-            if (server.length()==0) server=null;
-            
-            if (c==cmdCancel) {
-                /*destroyView(); return;*/
-            }
-            if (c==cmdSend && server!=null) { browse(server); }
-            
-            display.setCurrent(parentView);
-            return;
         }
     }
 }
