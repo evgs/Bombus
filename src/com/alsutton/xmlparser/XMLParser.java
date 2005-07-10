@@ -161,9 +161,9 @@ public class XMLParser
       return inputReader.read();
 /*$!USE_UTF8_READER$*///</editor-fold>
 /*#USE_UTF8_READER#*///<editor-fold>
-//--      int i = -1;
+//--      int utfChar = -1;
 //--      int j = chRead();
-//--      if( j == -1 ) return i;
+//--      if( j == -1 ) return utfChar;
 //--      
 //--      j &= 0xff; boolean flag = false;
 //--      switch(j >> 4) {
@@ -182,29 +182,29 @@ public class XMLParser
 //--          case 5: // '\005'
 //--          case 6: // '\006'
 //--          case 7: // '\007'
-//--              i = j;
+//--              utfChar = j;
 //--              break;
 //--              
 //--          case 12: // '\f'
 //--          case 13: // '\r'
-//--              i = j & 0x1f;  i <<= 6;  int k = chRead();
-//--              if((k & 0xc0) != 128) throw new IOException("Bad UTF-8 Encoding encountered");
-//--              i += k & 0x3f; break;
+//--              utfChar = j & 0x1f;  utfChar <<= 6;  int k = chRead();
+//--              if((k & 0xc0) != 0x80) throw new IOException("Bad UTF-8 Encoding encountered");
+//--              utfChar += k & 0x3f; break;
 //--              
 //--          case 14: // '\016'
-//--              i = j & 0xf;  i <<= 6;
+//--              utfChar = j & 0xf;  utfChar <<= 6;
 //--              int l = chRead();
 //--              if((l & 0xc0) != 128) throw new IOException("Bad UTF-8 Encoding encountered");
-//--              i += l & 0x3f;  i <<= 6; 
+//--              utfChar += l & 0x3f;  utfChar <<= 6; 
 //--              l = chRead();
 //--              if((l & 0xc0) != 128)
 //--                  throw new IOException("Bad UTF-8 Encoding encountered");
-//--              i += l & 0x3f;
+//--              utfChar += l & 0x3f;
 //--              break;
 //--              
 //--      }
 //--      //System.out.print((char)j);          
-//--      return i;
+//--      return utfChar;
 /*$USE_UTF8_READER$*///</editor-fold>
   }
   

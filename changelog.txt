@@ -1038,7 +1038,7 @@ syslog_msg: true
   (162)
   Contact>: изменён порядок команд для транспортов
 
-  команда Minimize - фоновоая работа Bombus. 
+  команда Minimize - фоновоая работа Bombus (SE). 
 
   автодетект платформы SonyEricsson (для команды Minimize)
 
@@ -1049,9 +1049,13 @@ syslog_msg: true
   по многочисленным пожеланиям временно убрана Options:Clock
 
 08.07.2005
-  (163)
+  (164)
   Service Discovery - добавлена команда Server - ввод адреса 
   просматриваемого сервера
+
+  (165)
+  поддержка jabber:x:data в формах Register, Search
+  инструкции в формах Register, Search теперь выводятся в начале формы
 
 ---------------------------
   known issues:

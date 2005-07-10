@@ -113,6 +113,7 @@ public class ServiceDiscovery
         JabberDataBlock query=data.getChildBlock("query");
         Vector childs=query.getChildBlocks();
         String id=data.getAttribute("id");
+        //System.out.println(id);
         if (id.equals("disco2")) {
             Vector items=new Vector();
             if (childs!=null)
@@ -150,7 +151,10 @@ public class ServiceDiscovery
             }
         } else if (id.equals ("discoreg")) {
             blockWait=false;
-            new RegForm(display, data, stream);
+            new DiscoForm(display, data, stream);
+        } else if (id.equals ("discosrch")) {
+            blockWait=false;
+            new DiscoForm(display, data, stream);
         } else if (id.equals("discoResult")) {
             String text="Successful";
             String title=data.getAttribute("type");
@@ -224,6 +228,9 @@ public class ServiceDiscovery
         public String toString(){ return name; }
         public void onSelect(){
             switch (index) {
+                case 1:
+                    requestQuery(NS_SRCH, "discosrch");
+                    break;
                 case 2:
                     requestQuery(NS_REGS, "discoreg");
                     break;

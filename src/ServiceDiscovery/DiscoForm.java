@@ -16,7 +16,7 @@ import com.alsutton.jabber.datablocks.*;
  *
  * @author Evg_S
  */
-public class RegForm implements CommandListener{
+public class DiscoForm implements CommandListener{
     
     private Display display;
     private Displayable parentView;
@@ -27,6 +27,8 @@ public class RegForm implements CommandListener{
     
     private Form form;
     
+    private boolean xData;
+    
     private Command cmdOk=new Command("Send", Command.OK, 1);
     private Command cmdCancel=new Command("Cancel", Command.BACK, 99);
     
@@ -34,22 +36,33 @@ public class RegForm implements CommandListener{
     JabberStream stream;
     
     /** Creates a new instance of RegForm */
-    public RegForm(Display display, JabberDataBlock regform, JabberStream stream) {
+    public DiscoForm(Display display, JabberDataBlock regform, JabberStream stream) {
         service=regform.getAttribute("from");
         JabberDataBlock query=regform.getChildBlock("query");
         xmlns=query.getAttribute("xmlns");
+        JabberDataBlock x=query.getChildBlock("x");
         // todo: обработать ошибку query
         fields=new Vector();
-        
         Form form=new Form(service);
+
+        // for instructions
+        fields.addElement(null);
+        form.append("-");
         
-        Vector vFields=query.getChildBlocks();
+        Vector vFields=(x!=null)? x.getChildBlocks() : query.getChildBlocks();
+        
         for (Enumeration e=vFields.elements(); e.hasMoreElements(); ){
             FormField field=new FormField((JabberDataBlock)e.nextElement());
-            fields.addElement(field);
-            if (!field.hidden)    form.append(field.formItem);
+            if (field.instructions) {
+                fields.setElementAt(field, 0);
+                form.set(0, field.formItem);
+            } else {
+                fields.addElement(field);
+                if (!field.hidden) form.append(field.formItem);
+            }
         }
         
+       
         form.setCommandListener(this);
         form.addCommand(cmdOk);
         form.addCommand(cmdCancel);
@@ -70,7 +83,9 @@ public class RegForm implements CommandListener{
         req.addChild(qry);
         
         for (Enumeration e=fields.elements(); e.hasMoreElements(); ) {
-            JabberDataBlock ch=((FormField) e.nextElement()).getJabberDataBlock();
+            FormField f=(FormField) e.nextElement();
+            if (f==null) continue;
+            JabberDataBlock ch=f.getJabberDataBlock();
             if (ch!=null) qry.addChild(ch);
         }
         //System.out.println(req.toString());
