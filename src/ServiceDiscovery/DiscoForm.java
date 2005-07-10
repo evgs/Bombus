@@ -32,15 +32,18 @@ public class DiscoForm implements CommandListener{
     private Command cmdOk=new Command("Send", Command.OK, 1);
     private Command cmdCancel=new Command("Cancel", Command.BACK, 99);
     
+    private String id;
+    
     //Roster roster=StaticData.getInstance().roster;
     JabberStream stream;
     
     /** Creates a new instance of RegForm */
-    public DiscoForm(Display display, JabberDataBlock regform, JabberStream stream) {
+    public DiscoForm(Display display, JabberDataBlock regform, JabberStream stream, String resultId) {
         service=regform.getAttribute("from");
         JabberDataBlock query=regform.getChildBlock("query");
         xmlns=query.getAttribute("xmlns");
         JabberDataBlock x=query.getChildBlock("x");
+        this.id=resultId;
         // todo: обработать ошибку query
         fields=new Vector();
         Form form=new Form(service);
@@ -49,7 +52,7 @@ public class DiscoForm implements CommandListener{
         fields.addElement(null);
         form.append("-");
         
-        Vector vFields=(x!=null)? x.getChildBlocks() : query.getChildBlocks();
+        Vector vFields=(xData=(x!=null))? x.getChildBlocks() : query.getChildBlocks();
         
         for (Enumeration e=vFields.elements(); e.hasMoreElements(); ){
             FormField field=new FormField((JabberDataBlock)e.nextElement());
@@ -82,6 +85,14 @@ public class DiscoForm implements CommandListener{
         qry.setNameSpace(xmlns);
         req.addChild(qry);
         
+        if (xData) {
+            JabberDataBlock x=new JabberDataBlock("x", null,  null);
+            x.setNameSpace("jabber:x:data");
+            x.setAttribute("type", "submit");
+            qry.addChild(x);
+            qry=x;
+        }
+        
         for (Enumeration e=fields.elements(); e.hasMoreElements(); ) {
             FormField f=(FormField) e.nextElement();
             if (f==null) continue;
@@ -89,6 +100,7 @@ public class DiscoForm implements CommandListener{
             if (ch!=null) qry.addChild(ch);
         }
         //System.out.println(req.toString());
+        System.out.println(req.toString());
         stream.send(req);
     }
 
@@ -96,7 +108,7 @@ public class DiscoForm implements CommandListener{
     public void commandAction(Command c, Displayable d){
         if (c==cmdCancel) destroyView();
         if (c==cmdOk) { 
-            sendForm("discoResult");
+            sendForm(id);
             destroyView();
         }
     }

@@ -15,7 +15,7 @@ import java.util.*;
 public final class ContactEdit
         implements CommandListener, ItemStateListener {
     private Display display;
-    //public Displayable parentView;
+    public Displayable parentView;
     
     Form f;
     TextField tJid;
@@ -36,7 +36,7 @@ public final class ContactEdit
     
     public ContactEdit(Display display, Contact c) {
         this.display=display;
-        //parentView=display.getCurrent();
+        parentView=display.getCurrent();
         
         StaticData sd=StaticData.getInstance();
         roster=sd.roster;
@@ -195,6 +195,6 @@ public final class ContactEdit
     }
     
     public void destroyView(){
-        if (display!=null)   display.setCurrent(roster);
+        if (display!=null)   display.setCurrent(parentView/*roster*/);
     }
 }

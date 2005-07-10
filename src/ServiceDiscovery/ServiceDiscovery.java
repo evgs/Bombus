@@ -151,11 +151,11 @@ public class ServiceDiscovery
             }
         } else if (id.equals ("discoreg")) {
             blockWait=false;
-            new DiscoForm(display, data, stream);
+            new DiscoForm(display, data, stream, "discoResult");
         } else if (id.equals ("discosrch")) {
             blockWait=false;
-            new DiscoForm(display, data, stream);
-        } else if (id.equals("discoResult")) {
+            new DiscoForm(display, data, stream, "discoRSearch");
+        } else if (id.startsWith("discoR")) {
             String text="Successful";
             String title=data.getAttribute("type");
             if (title.equals("error")) {
@@ -163,7 +163,9 @@ public class ServiceDiscovery
             }
             Alert alert=new Alert(title, text, null, null /*AlertType.ALARM*/);
             alert.setTimeout(15*1000);
-            display.setCurrent(alert, this);
+            if (text=="Successful" && id.endsWith("Search") ) {
+                new SearchResult(display, data);
+            } else display.setCurrent(alert, this);
         }
         redraw();
     }

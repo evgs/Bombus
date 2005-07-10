@@ -1053,12 +1053,16 @@ syslog_msg: true
   Service Discovery - добавлена команда Server - ввод адреса 
   просматриваемого сервера
 
-  (165)
+  (166)
+  заработал Search в Service Discovery.
   поддержка jabber:x:data в формах Register, Search
   инструкции в формах Register, Search теперь выводятся в начале формы
 
 ---------------------------
   known issues:
+
+  - при просмотре информации о контакте, найденном через Service Discovery,
+  поля инфы доступны для редактирования.
 
   - при Default=Vibra кнопка keyVibra не выполняет отключение вибросигнала.
 
