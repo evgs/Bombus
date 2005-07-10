@@ -1053,10 +1053,15 @@ syslog_msg: true
   Service Discovery - добавлена команда Server - ввод адреса 
   просматриваемого сервера
 
-  (166)
+11.07.2005
+0.2.1 (167)
   заработал Search в Service Discovery.
+
   поддержка jabber:x:data в формах Register, Search
+
   инструкции в формах Register, Search теперь выводятся в начале формы
+
+  правка Midlet-Version в manifest.mf
 
 ---------------------------
   known issues:
