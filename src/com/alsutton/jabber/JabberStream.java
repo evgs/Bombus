@@ -197,13 +197,15 @@ public class JabberStream implements XMLEventListener, Runnable {
     public void send( String data ) throws IOException {
         
         synchronized (outStream) {
-            /*#USE_UTF8_READER#*///<editor-fold>
+/*#USE_UTF8_READER#*///<editor-fold>
 //--            outStream.write(toUTF(data).getBytes());
-            /*$USE_UTF8_READER$*///</editor-fold>
-            /*#!USE_UTF8_READER#*///<editor-fold>
+/*$USE_UTF8_READER$*///</editor-fold>
+/*#!USE_UTF8_READER#*///<editor-fold>
             outStream.write(data);
-            /*$!USE_UTF8_READER$*///</editor-fold>
-            outStream.flush();
+/*$!USE_UTF8_READER$*///</editor-fold>
+/*#OUTSTREAM_FLUSH#*///<editor-fold>
+//--            outStream.flush();
+/*$OUTSTREAM_FLUSH$*///</editor-fold>
             //System.out.println(data);
         }
     }
