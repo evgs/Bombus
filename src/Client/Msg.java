@@ -16,11 +16,12 @@ import javax.microedition.lcdui.Image;
  */
 public class Msg //implements MessageList.Element
 {
-    
-    public final static int MESSAGE_TYPE_IN=0;
+    // without signaling
     public final static int MESSAGE_TYPE_OUT=1;
     public final static int MESSAGE_TYPE_PRESENCE=2;
-    public final static int MESSAGE_TYPE_AUTH=3;
+    // with signaling
+    public final static int MESSAGE_TYPE_IN=3;
+    public final static int MESSAGE_TYPE_AUTH=4;
     
     /** Creates a new instance of msg */
     public Msg(int messageType, String from, String subj, String body) {

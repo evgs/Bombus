@@ -37,8 +37,11 @@ public class Config {
 //--    public char keyVibra=getProperty("key_vibra",'*');
 /*$M55,M55_Release$*///</editor-fold>
 
+    public char keyHide=getProperty("key_minimize",'9');
+    public char keyOfflines=getProperty("key_vibra",'0');
+
 /*#M55,M55_Release#*///<editor-fold>
-//--    public final int m55LedPattern=getProperty("led_pattern",0);
+//--    public int m55LedPattern=0;
 /*$M55,M55_Release$*///</editor-fold>
 
 /*#USE_LOGGER#*///<editor-fold>
@@ -134,6 +137,10 @@ public class Config {
             ghostMotor=true;
         }*/
         //System.out.println(locOffset);
+/*#M55,M55_Release#*///<editor-fold>
+//--        if (platform.startsWith("M55")) 
+//--        m55LedPattern=getProperty("led_pattern",5);
+/*$M55,M55_Release$*///</editor-fold>
     }
     
     public final String getProperty(final String key, final String defvalue) {

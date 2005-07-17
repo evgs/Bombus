@@ -59,6 +59,7 @@ public class Contact extends IconTextElement{
     
     public Vector msgs;
     private int newMsgCnt=-1;
+    public int unreadType;
     public int lastUnread;
     
     public int firstUnread(){
@@ -99,7 +100,9 @@ public class Contact extends IconTextElement{
     }
     
     public int getImageIndex() {
-        if (getNewMsgsCount()>0) return ImageList.ICON_MESSAGE_INDEX;
+        if (getNewMsgsCount()>0) 
+            return 
+                ImageList.ICON_MESSAGE_INDEX + unreadType - Msg.MESSAGE_TYPE_IN;
         int st=(status==Presence.PRESENCE_OFFLINE)?offline_type:status;
         if (st<8) st+=transport<<4; 
         return st;
@@ -109,8 +112,11 @@ public class Contact extends IconTextElement{
         //return msgs.size()-lastReaded;
         if (newMsgCnt>-1) return newMsgCnt;
         int nm=0;
+        unreadType=0;
         for (Enumeration e=msgs.elements(); e.hasMoreElements(); ) {
-            if (((Msg)e.nextElement()).unread) nm++;
+            Msg m=(Msg)e.nextElement();
+            if (m.unread) nm++;
+            if (m.messageType>unreadType) unreadType=m.messageType;
         }
         return newMsgCnt=nm;
     }
@@ -172,6 +178,7 @@ public class Contact extends IconTextElement{
         msgs.addElement(m);
         if (m.unread) {
             lastUnread=msgs.size()-1;
+            if (m.messageType>unreadType) unreadType=m.messageType;
             if (newMsgCnt>=0) newMsgCnt++;
         }
     }

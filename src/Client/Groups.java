@@ -18,6 +18,7 @@ class Groups{
         g=new Vector();
         addGroup(Roster.TRANSP_GROUP);
         addGroup(Roster.SELF_GROUP);
+        addGroup(Roster.SRC_RESULT_GROUP);
         addGroup(Roster.NIL_GROUP);
         addGroup(Roster.IGNORE_GROUP);
         addGroup(Roster.COMMON_GROUP);

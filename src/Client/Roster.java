@@ -40,11 +40,13 @@ public class Roster
     public final static String TRANSP_GROUP="Transports";
     public final static int SELF_INDEX=1;
     public final static String SELF_GROUP="Self-Contact";
-    public final static int NIL_INDEX=2;
+    public final static int SRC_RESULT_INDEX=2;
+    public final static String SRC_RESULT_GROUP="Ignore-List";
+    public final static int NIL_INDEX=3;
     public final static String NIL_GROUP="Not-In-List";
-    public final static int IGNORE_INDEX=3;
+    public final static int IGNORE_INDEX=4;
     public final static String IGNORE_GROUP="Ignore-List";
-    public final static int COMMON_INDEX=4;
+    public final static int COMMON_INDEX=5;
     public final static String COMMON_GROUP="General";
     
     
@@ -1031,6 +1033,15 @@ public class Roster
                 cf.def_profile : AlertProfile.VIBRA;
             displayStatus();
             redraw();
+        }
+        
+        if (keyCode==cf.keyHide) {
+            sd.isMinimized=true;
+            display.setCurrent(null); 
+        }
+        if (keyCode==cf.keyOfflines) {
+            cf.showOfflineContacts=!cf.showOfflineContacts;
+            reEnumRoster();
         }
     }
     
