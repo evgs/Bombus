@@ -29,7 +29,6 @@ public class SearchResult
     private Command cmdAdd=new Command("Add", Command.SCREEN, 1);
     
     private Vector items;
-    private Vector vcards;
     boolean xData;
     
     /** Creates a new instance of SearchResult */
@@ -46,7 +45,6 @@ public class SearchResult
         setCommandListener(this);
         
         items=new Vector();
-        vcards=new Vector();
         
         JabberDataBlock query=result.getChildBlock("query");
         if (query==null) return;
@@ -54,11 +52,15 @@ public class SearchResult
         JabberDataBlock x=query.getChildBlock("x");
         if (x!=null) { query=x; xData=true; }
         
+        sd.roster.cleanupSearch();
+        
         for (Enumeration e=query.getChildBlocks().elements(); e.hasMoreElements(); ){
             JabberDataBlock child=(JabberDataBlock) e.nextElement();
+            
             if (child.getTagName().equals("item")) {
+                StringBuffer vcard=new StringBuffer();
                 String jid=null;
-                Form vcard=new Form(null);
+                // Form vcard=new Form(null);
                 if (!xData) { jid=child.getAttribute("jid"); }
                 // поля item
                 for (Enumeration f=child.getChildBlocks().elements(); f.hasMoreElements(); ){
@@ -74,17 +76,25 @@ public class SearchResult
                     }
                     if (name.equals("jid")) jid=value;
                     if (value!=null) if (value.length()>0)
+                    {
                         //vcard.append(new StringItem(name,value+"\n"));
-                        vcard.append(new TextField(name,value, 60, 0));
+                        vcard.append(name);
+                        vcard.append((char)0xa0);
+                        vcard.append(value);
+                        vcard.append((char)'\n');
+                    }
                 }
                 Contact serv=new Contact(null,jid,0,null);
-                serv.group=Roster.NIL_INDEX;
+                serv.group=Roster.SRC_RESULT_INDEX;
+                Msg m=new Msg(Msg.MESSAGE_TYPE_IN, jid, "Short info", vcard.toString());
+                m.unread=false;
+                serv.addMessage(m);
+                
                 items.addElement(serv);
-                vcard.setTitle(jid);
-                vcards.addElement(vcard);
+                sd.roster.addContact(serv);
             }
         }
-        
+        sd.roster.reEnumRoster();
         addCommand(cmdAdd);
     }
     
@@ -98,17 +108,16 @@ public class SearchResult
             return;
         }
         
-        if (c==cmdBack){ 
-            if (d!=this) display.setCurrent(this); else destroyView(); 
-        }
+        if (c==cmdBack) destroyView(); 
     }
     
     public void eventOk(){
-        Form f=(Form)vcards.elementAt(cursor);
+        /*Form f=(Form)vcards.elementAt(cursor);
         
         display.setCurrent(f);
         f.setCommandListener(this);
         f.addCommand(cmdBack);
-        f.addCommand(cmdAdd);
+        f.addCommand(cmdAdd);*/
+        new MessageView(display, 0, (Contact) getSelectedObject());
     }
 }

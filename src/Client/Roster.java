@@ -41,7 +41,7 @@ public class Roster
     public final static int SELF_INDEX=1;
     public final static String SELF_GROUP="Self-Contact";
     public final static int SRC_RESULT_INDEX=2;
-    public final static String SRC_RESULT_GROUP="Ignore-List";
+    public final static String SRC_RESULT_GROUP="Search results";
     public final static int NIL_INDEX=3;
     public final static String NIL_GROUP="Not-In-List";
     public final static int IGNORE_INDEX=4;
@@ -71,7 +71,8 @@ public class Roster
     
     private Command cmdStatus=new Command("Status >",Command.SCREEN,1);
     private Command cmdContact=new Command("Contact >",Command.SCREEN,2);
-    private Command cmdAdd=new Command("Add Contact",Command.SCREEN,3);
+    private Command cmdDiscard=new Command("Discard Search",Command.SCREEN,3);
+    private Command cmdAdd=new Command("Add Contact",Command.SCREEN,4);
     //private Command cmdGroup=new Command("Group menu",Command.SCREEN,3);
     private Command cmdAlert=new Command("Alert Profile >",Command.SCREEN,8);
     private Command cmdServiceDiscovery=new Command("Service Discovery",Command.SCREEN,9);
@@ -290,6 +291,16 @@ public class Roster
         return (m>0);
     }
     
+    public void cleanupSearch(){
+        int i=0;
+        while (i<hContacts.size()) {
+            if ( ((Contact)hContacts.elementAt(i)).group==SRC_RESULT_INDEX )
+                hContacts.removeElementAt(i);
+            else i++;
+        }
+        reEnumRoster();
+    }
+    
     public void reEnumRoster(){
         
         int locCursor=cursor;
@@ -336,7 +347,11 @@ public class Roster
         // not-in-list
         if (cf.notInList) vGroups.addToVector(tContacts,NIL_INDEX);
         // transports
-        if (cf.showTransports) vGroups.addToVector(tContacts,0);
+        if (cf.showTransports) vGroups.addToVector(tContacts,TRANSP_INDEX);
+        
+        // search result
+        if (vGroups.getGroup(SRC_RESULT_INDEX).tncontacts>0) 
+            vGroups.addToVector(tContacts, SRC_RESULT_INDEX);
         
         vContacts=tContacts;
 
@@ -444,7 +459,7 @@ public class Roster
             c=new Contact(null, jid, Status, "not-in-list");
             //c.origin=2;
             c.group=NIL_INDEX;
-            hContacts.addElement(c);
+            addContact(c);
         } else {
             // здесь jid с новым ресурсом
             if (c.origin==0) {
@@ -454,13 +469,16 @@ public class Roster
                 //System.out.println("add resource");
             } else {
                 c=c.clone(J, Status);
-                hContacts.addElement(c);
+                addContact(c);
                 //System.out.println("cloned");
             }
         }
         sort();
         reEnumRoster();
         return c;
+    }
+    public void addContact(Contact c) {
+        hContacts.addElement(c);
     }
     
     private void sort(){
@@ -991,13 +1009,14 @@ public class Roster
         if (c==cmdAlert) { new AlertProfile(display); }
         if (c==cmdOptions){ new ConfigForm(display); }
         if (c==cmdContact) { contactMenu((Contact) getSelectedObject()); }
+        if (c==cmdDiscard) { cleanupSearch(); }
         if (c==cmdAdd) {
             //new MIDPTextBox(display,"Add to roster", null, new AddContact());
             Object o=getSelectedObject();
             Contact cn=null;
             if (o instanceof Contact) {
                 cn=(Contact)o;
-                if (cn.group!=Roster.NIL_INDEX) cn=null;
+                if (cn.group!=NIL_INDEX && cn.group!=SRC_RESULT_INDEX) cn=null;
             }
             new ContactEdit(display, cn);
         }
@@ -1053,6 +1072,10 @@ public class Roster
             addCommand(cmdContact);
             //removeCommand(cmdGroup);
         } else removeCommand(cmdContact);
+        
+        if (atCursor instanceof Group) {
+            if (((Group) atCursor).index==SRC_RESULT_INDEX)  addCommand(cmdDiscard);
+        } else removeCommand(cmdDiscard);
         
         /*if (atCursor instanceof Group) {
             //addCommand(cmdGroup);
@@ -1145,7 +1168,7 @@ public class Roster
         }
         m.addItem(new MenuItem("vCard",1));
         m.addItem(new MenuItem("Client Info",0));
-        if (c.group!=SELF_INDEX) {
+        if (c.group!=SELF_INDEX && c.group!=SRC_RESULT_INDEX) {
             if (c.group!=TRANSP_INDEX) 
                 m.addItem(new MenuItem("Edit",2));
             m.addItem(new MenuItem("Subscription",3));
@@ -1154,7 +1177,9 @@ public class Roster
        m.attachDisplay(display);
     }
     
-    
+    /**
+     * store cotnact on server
+     */
     public void storeContact(String jid, String name, String group, boolean newContact){
         
         theStream.send(new IqQueryRoster(jid, name, group, null));

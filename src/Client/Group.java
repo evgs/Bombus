@@ -32,6 +32,8 @@ class Group extends IconTextElement {
     public int getImageIndex() {
         return collapsed?
             ImageList.ICON_COLLAPSED_INDEX
+            :(index==Roster.SRC_RESULT_INDEX)?
+                ImageList.ICON_SEARCH_INDEX
                 :ImageList.ICON_EXPANDED_INDEX;
     }
     public String toString(){ return name+" ("+onlines+'/'+ncontacts+')'; }
