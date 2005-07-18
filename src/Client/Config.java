@@ -37,8 +37,8 @@ public class Config {
 //--    public char keyVibra=getProperty("key_vibra",'*');
 /*$M55,M55_Release$*///</editor-fold>
 
-    public char keyHide=getProperty("key_minimize",'9');
-    public char keyOfflines=getProperty("key_vibra",'0');
+    public char keyHide=getProperty("key_hide",'9');
+    public char keyOfflines=getProperty("key_offlines",'0');
 
 /*#M55,M55_Release#*///<editor-fold>
 //--    public int m55LedPattern=0;

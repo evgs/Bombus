@@ -1054,13 +1054,14 @@ public class Roster
             redraw();
         }
         
-        if (keyCode==cf.keyHide) {
-            sd.isMinimized=true;
-            display.setCurrent(null); 
-        }
         if (keyCode==cf.keyOfflines) {
             cf.showOfflineContacts=!cf.showOfflineContacts;
             reEnumRoster();
+        }
+
+        if (keyCode==cf.keyHide && cf.allowMinimize) {
+            sd.isMinimized=true;
+            display.setCurrent(null); 
         }
     }
     
@@ -1100,7 +1101,7 @@ public class Roster
                         break;
                         
                     case 2:
-                        new ContactEdit(display, c );
+                        (new ContactEdit(display, c )).parentView=sd.roster;
                         return; //break;
                         
                     case 3: //subscription
