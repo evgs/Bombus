@@ -148,7 +148,7 @@ public class Contact extends IconTextElement{
 /*#USE_SIEMENS_FILES#*///<editor-fold>
 //--        Config cf=StaticData.getInstance().config;
 //--
-//--        if (cf.msgLog)
+//--        if (cf.msgLog && group!=Roster.TRANSP_INDEX && group!=Roster.SRC_RESULT_INDEX)
 //--        {
 //--            String histRecord=(nick==null)?getJidNR():nick;
 //--            String fromName=StaticData.getInstance().account.getUserName();
