@@ -106,7 +106,7 @@ public class MessageEdit
         
         try {
             if (body!=null || comp>0)
-            r.sendMessage(to.getJid(),body, null, comp);
+            r.sendMessage(to, body, null, comp);
         } catch (Exception e) {
             e.printStackTrace();
         }

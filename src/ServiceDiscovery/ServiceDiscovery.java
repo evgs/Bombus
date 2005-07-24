@@ -183,7 +183,7 @@ public class ServiceDiscovery
             State st=new State();
             st.cursor=cursor;
             st.items=items;
-            st.service=service;
+            st.service=this.service;
             stackItems.addElement(st);
             
             items=new Vector();
@@ -207,8 +207,8 @@ public class ServiceDiscovery
             items=st.items;
             blockWait=false;
             
-            moveCursorTo(st.cursor);
             titleUpdate();
+            moveCursorTo(st.cursor);
             redraw();
             
         }

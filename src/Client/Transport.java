@@ -31,8 +31,10 @@ public class Transport {
         t.put("conference", new Integer(6));
     }
     
-    public int getTransportIndex(String name){
+    public int getTransportIndex(String name, boolean resource){
         Object o=t.get(name);
-        return (o==null)?0:((Integer)o).intValue();
+        int index=(o==null)?0:((Integer)o).intValue();
+        if (resource) if (index==6) index=0;
+        return index;
     }
 }

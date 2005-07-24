@@ -44,6 +44,8 @@ public class Config {
 //--    public int m55LedPattern=0;
 /*$M55,M55_Release$*///</editor-fold>
 
+    public String defGcRoom=getProperty("gc_room","bombus");
+
 /*#USE_LOGGER#*///<editor-fold>
 //--    public boolean logMsg=getProperty("syslog_msg",false);
 //--    public boolean logEx=getProperty("syslog_exceptions",false);
@@ -129,7 +131,8 @@ public class Config {
         gmtOffset=getProperty("time_gmt_offset", gmtloc);
         locOffset=((long)loc)*3600000;
         
-        String platform=System.getProperty("microedition.platform");
+        //String platform=System.getProperty("microedition.platform");
+        String platform="";//System.getProperty("microedition.platform");
         if (platform.startsWith("SonyE")) {
             allowMinimize=true;
         }

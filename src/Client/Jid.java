@@ -57,6 +57,10 @@ public class Jid {
     public boolean isTransport(){
         return fullJid.indexOf('@')==-1;
     }
+    /** проверка наличия ресурса */
+    public boolean hasResource(){
+        return fullJid.length()!=resourcePos;
+    }
     
     /** выделение транспорта */
     public String getTransport(){

@@ -54,7 +54,7 @@ public class SubscriptionEdit extends Form implements CommandListener{
         if (c==cmdSubscrTo) { presence="subscribed"; }
         if (c==cmdSubscrDel) { presence="unsubscribed"; }
         
-        if (presence!=null) r.sendPresence(to,presence);
+        if (presence!=null) r.sendPresence(to,presence, null);
         
         destroyView();
     }

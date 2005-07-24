@@ -18,6 +18,7 @@ import javax.microedition.midlet.MIDlet;
 //import Client.Contact.*;
 import ui.*;
 import ServiceDiscovery.ServiceDiscovery;
+import GroupChat.GroupChatForm;
 
 //import Client.msg.*;
 
@@ -76,6 +77,7 @@ public class Roster
     //private Command cmdGroup=new Command("Group menu",Command.SCREEN,3);
     private Command cmdAlert=new Command("Alert Profile >",Command.SCREEN,8);
     private Command cmdServiceDiscovery=new Command("Service Discovery",Command.SCREEN,9);
+    private Command cmdGroupChat=new Command("Groupchat",Command.SCREEN,10);
     //private Command cmdShowOfflines=new Command("Show Offlines",Command.SCREEN,9);
     //private Command cmdHideOfflines=new Command("Hide Offlines",Command.SCREEN,9);
     //private Command cmdReconnect=new Command("Reconnect",Command.SCREEN,10);
@@ -128,6 +130,7 @@ public class Roster
         addCommand(cmdAlert);
         addCommand(cmdAdd);
         addCommand(cmdServiceDiscovery);
+        addCommand(cmdGroupChat);
         //addCommand(cmdReconnect);
         //addCommand(cmdLogoff);
         addCommand(cmdAccount);
@@ -457,7 +460,7 @@ public class Roster
             // здесь будем игнорить позже
             //System.out.println("new");
             c=new Contact(null, jid, Status, "not-in-list");
-            //c.origin=2;
+            c.origin=2;
             c.group=NIL_INDEX;
             addContact(c);
         } else {
@@ -576,15 +579,24 @@ public class Roster
         reEnumRoster();
     }
     
-    public void sendPresence(String to, String type) {
-        theStream.send(new Presence(to, type));
+    public void sendPresence(String to, String type, JabberDataBlock child) {
+        JabberDataBlock presence=new Presence(to, type);
+        if (child!=null) presence.addChild(child);
+        theStream.send(presence);
     }
     /**
      * Method to send a message to the specified recipient
      */
     
-    public void sendMessage(final String to, final String body, final String subject , int composingState) {
-        Message simpleMessage = new Message( to, body, subject );
+    public void sendMessage(Contact to, final String body, final String subject , int composingState) {
+        boolean groupchat=to.transport==6 && !to.jid.hasResource();
+        Message simpleMessage = new Message( 
+                to.getJid(), 
+                body, 
+                subject, 
+                groupchat 
+        );
+        if (groupchat && body==null) return;
         if (composingState>0) {
             JabberDataBlock event=new JabberDataBlock("x", null,null);
             event.setNameSpace("jabber:x:event");
@@ -594,6 +606,7 @@ public class Roster
             }
             simpleMessage.addChild(event);
         }
+        //System.out.println(simpleMessage.toString());
         theStream.send( simpleMessage );
     }
     
@@ -737,6 +750,13 @@ public class Roster
                 String from=message.getFrom();
                 String body=message.getBody().trim();
                 String tStamp=message.getTimeStamp();
+                
+                if (message.getTypeAttribute().equals("groupchat")) {
+                    // muc message
+                    int rp=from.indexOf('/');
+                    body=from.substring(rp+1)+"> "+body;
+                    from=from.substring(0, rp);
+                }
                 
                 Contact c=presenceContact(from, -1);
                 boolean compose=false;
@@ -1005,6 +1025,7 @@ public class Roster
         
         if (c==cmdAccount){ new AccountSelect(display, false); }
         if (c==cmdServiceDiscovery) { new ServiceDiscovery(display, theStream); }
+        if (c==cmdGroupChat) { new GroupChatForm(display); }
         if (c==cmdStatus) { new StatusSelect(display); }
         if (c==cmdAlert) { new AlertProfile(display); }
         if (c==cmdOptions){ new ConfigForm(display); }

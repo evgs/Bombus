@@ -34,10 +34,10 @@ public class IqVersionReply extends JabberDataBlock{
 /*#M55,M55_Release#*///<editor-fold>
 //--                "MIDP1(siemens)"
 /*$M55,M55_Release$*///</editor-fold>
-                +"\nPlatform="
-                +System.getProperty("microedition.platform")
-                +"\nLocale="
-                +System.getProperty("microedition.locale");
+                +" Platform="
+                +System.getProperty("microedition.platform");
+                //+" Locale="
+                //+System.getProperty("microedition.locale");
         query.addChild(new JabberDataBlock(query, "os",os));
     }
     

@@ -100,7 +100,7 @@ public class DiscoForm implements CommandListener{
             if (ch!=null) qry.addChild(ch);
         }
         //System.out.println(req.toString());
-        System.out.println(req.toString());
+        //System.out.println(req.toString());
         stream.send(req);
     }
 
