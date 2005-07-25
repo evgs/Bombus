@@ -130,13 +130,14 @@ public class Config {
         int loc=getProperty( "time_loc_offset", 0);
         gmtOffset=getProperty("time_gmt_offset", gmtloc);
         locOffset=((long)loc)*3600000;
-        String platform;
+
+        String platform=null;
         try {
             platform=System.getProperty("microedition.platform");
-        } catch (Exception e) {
-            platform="";
+        } finally {
+            if (platform==null) platform="";
         }
-        //String platform="";//System.getProperty("microedition.platform");
+        
         if (platform.startsWith("SonyE")) {
             allowMinimize=true;
         }
