@@ -460,13 +460,13 @@ public class Roster
             // здесь будем игнорить позже
             //System.out.println("new");
             c=new Contact(null, jid, Status, "not-in-list");
-            c.origin=2;
+            c.origin=Contact.ORIGIN_PRESENCE;
             c.group=NIL_INDEX;
             addContact(c);
         } else {
             // здесь jid с новым ресурсом
-            if (c.origin==0) {
-                c.origin=1;
+            if (c.origin==Contact.ORIGIN_ROSTER) {
+                c.origin=Contact.ORIGIN_CLONE;
                 c.status=Status;
                 c.jid=J;
                 //System.out.println("add resource");
@@ -573,9 +573,11 @@ public class Roster
                 System.gc();
             }
         }
+        Contact c=presenceContact(myJid.getJidFull(), myStatus);
+        JabberDataBlock x=presence.getChildBlock("x");
+        if (x!=null) if (x.isJabberNameSpace("http://jabber.org/protocol/muc"))
+            c.origin=Contact.ORIGIN_GC_MEMBER;
         
-        
-        presenceContact(myJid.getJidFull(), myStatus);
         reEnumRoster();
     }
     
@@ -751,14 +753,15 @@ public class Roster
                 String body=message.getBody().trim();
                 String tStamp=message.getTimeStamp();
                 
+                Contact c=presenceContact(from, -1);
                 if (message.getTypeAttribute().equals("groupchat")) {
                     // muc message
                     int rp=from.indexOf('/');
                     body=from.substring(rp+1)+"> "+body;
                     from=from.substring(0, rp);
+                    c.origin=Contact.ORIGIN_GROUPCHAT;
                 }
                 
-                Contact c=presenceContact(from, -1);
                 boolean compose=false;
                 JabberDataBlock x=message.getChildBlock("x");
                 if (body.length()==0) body=null; 

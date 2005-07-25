@@ -29,6 +29,12 @@ public class Contact extends IconTextElement{
         0x00
     };
     
+    public final static int ORIGIN_ROSTER=0;
+    public final static int ORIGIN_CLONE=1;
+    public final static int ORIGIN_PRESENCE=2;
+    public final static int ORIGIN_GROUPCHAT=3;
+    public final static int ORIGIN_GC_MEMBER=4;
+    
     /** Creates a new instance of Contact */
     private Contact (){
         //lastReaded=0;
@@ -51,7 +57,7 @@ public class Contact extends IconTextElement{
     
     private int jidHash;
 
-    public int origin;  //0 - from roster, 1 - from roster, appended resource, 2 - from presence
+    public int origin;  
     
     public String subscr;
     public int offline_type=Presence.PRESENCE_UNKNOWN;
@@ -231,7 +237,7 @@ public class Contact extends IconTextElement{
     }
      */
     
-    private int sortCode(String s){
+    private final static int sortCode(String s){
         try {
             String ls=s.toLowerCase();
             return ls.charAt(1)+ (ls.charAt(0)<<16);
