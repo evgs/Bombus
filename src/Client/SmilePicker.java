@@ -83,7 +83,7 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
     public int getColorBGnd(){ return 0xFFFFFF; }
     public void onSelect(){
         try {
-            me.AddText(
+            me.addText(
                     (String)
                     StaticData.getInstance().
                     smileTable.elementAt(cursor*xCnt+xCursor)

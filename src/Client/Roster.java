@@ -574,9 +574,6 @@ public class Roster
             }
         }
         Contact c=presenceContact(myJid.getJidFull(), myStatus);
-        JabberDataBlock x=presence.getChildBlock("x");
-        if (x!=null) if (x.isJabberNameSpace("http://jabber.org/protocol/muc"))
-            c.origin=Contact.ORIGIN_GC_MEMBER;
         
         reEnumRoster();
     }
@@ -759,7 +756,7 @@ public class Roster
                     int rp=from.indexOf('/');
                     body=from.substring(rp+1)+"> "+body;
                     from=from.substring(0, rp);
-                    c.origin=Contact.ORIGIN_GROUPCHAT;
+                    c.origin=Contact.ORIGIN_GC_MEMBER;
                 }
                 
                 boolean compose=false;
@@ -806,7 +803,13 @@ public class Roster
                         from,
                         null,
                         pr.getPresenceTxt());
-                messageStore(m, ti).priority=pr.getPriority();
+                Contact c=messageStore(m, ti);
+                c.priority=pr.getPriority();
+                JabberDataBlock x=pr.getChildBlock("x");
+                if (x!=null) if (x.isJabberNameSpace("http://jabber.org/protocol/muc"))
+                {
+                    c.origin=Contact.ORIGIN_GC_MEMBER;
+                }    
             }
         } catch( Exception e ) {
             e.printStackTrace();

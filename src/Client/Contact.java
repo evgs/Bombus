@@ -199,6 +199,7 @@ public class Contact extends IconTextElement{
     }
     
     public String toString() { 
+        if (origin==ORIGIN_GC_MEMBER) return jid.getResource();
         return (nick==null)?getJid():nick+jid.getResource(); 
     }
     //public void onSelect(){}

@@ -213,7 +213,7 @@ public class JabberDataBlock
   public boolean isJabberNameSpace(String xmlns){
       String xmlnsatr=getAttribute("xmlns");
       if (xmlnsatr==null) return false;
-      return xmlnsatr.equals(xmlns);
+      return xmlnsatr.startsWith(xmlns);
   } 
 
   public void setNameSpace(String xmlns){

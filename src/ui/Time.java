@@ -64,7 +64,7 @@ public class Time {
                 c.set(calFields[i], field);
             }
         } catch (Exception e) {    }
-        return c.getTime();
+        return new Date(c.getTime().getTime()); //FIXME
     }
 }
 

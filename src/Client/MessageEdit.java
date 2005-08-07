@@ -57,9 +57,14 @@ public class MessageEdit
         display.setCurrent(t);
     }
     
-    public void AddText(String s) {
-        t.insert(s, t.getCaretPosition());
+    public void addText(String s) {
+        //t.insert(s, t.getCaretPosition());
+        if ( !t.getString().endsWith(" ") ) append(" ");
+        append(s);  // теперь вставка происходит всегда в конец строки
+        append(" "); // хвостовой пробел
     }
+    
+    private void append(String s) { t.insert(s, t.size()); }
     
     public void setParentView(Displayable parentView){
         this.parentView=parentView;
