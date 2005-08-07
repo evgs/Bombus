@@ -11,7 +11,7 @@ import java.util.*;
  *
  * @author Evg_S
  */
-class Groups{
+public class Groups{
     
     Vector g;
     public Groups(){
@@ -45,23 +45,23 @@ class Groups{
         gr.Contacts=null;
     }
 
-    Group getGroup(int Index) {
+    public Group getGroup(int Index) {
         return (Group)g.elementAt(Index);
     }
     
-    Group getGroup(String Name) {
+    public Group getGroup(String Name) {
         for (Enumeration e=g.elements();e.hasMoreElements();){
             Group grp=(Group)e.nextElement();
             if (Name.equals(grp.name)) return grp;
         }
         return null;
     }
-    Group addGroup(String name) {
+    public Group addGroup(String name) {
         Group grp=new Group(g.size(),name);
         g.addElement(grp);
         return grp;
     }
-    Vector getStrings(){
+    public Vector getStrings(){
         Vector s=new Vector();
         for (int i=Roster.COMMON_INDEX; i<g.size(); i++) {
             s.addElement(((Group)g.elementAt(i)).name);

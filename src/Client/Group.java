@@ -13,11 +13,12 @@ import ui.*;
  *
  * @author Evg_S
  */
-class Group extends IconTextElement {
+public class Group extends IconTextElement {
     String name;
     int index;
     public int ncontacts;
     public int onlines;
+    public int imageExpandedIndex=ImageList.ICON_EXPANDED_INDEX;
     
     Vector Contacts;
     public int tonlines;
@@ -27,14 +28,15 @@ class Group extends IconTextElement {
     public Group(int index, String name) {
         super(StaticData.getInstance().rosterIcons);
         this.index=index; this.name=name;
+        
+        if (index==Roster.SRC_RESULT_INDEX) 
+            imageExpandedIndex=ImageList.ICON_SEARCH_INDEX;
     }
     public int getColor(){ return 0x000080; }
     public int getImageIndex() {
         return collapsed?
             ImageList.ICON_COLLAPSED_INDEX
-            :(index==Roster.SRC_RESULT_INDEX)?
-                ImageList.ICON_SEARCH_INDEX
-                :ImageList.ICON_EXPANDED_INDEX;
+            :imageExpandedIndex;
     }
     public String toString(){ return name+" ("+onlines+'/'+ncontacts+')'; }
     public void onSelect(){

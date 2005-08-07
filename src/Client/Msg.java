@@ -29,7 +29,7 @@ public class Msg //implements MessageList.Element
         this.from=from;
         this.body=body;
         this.subject=subj;
-        this.date=new Date(System.currentTimeMillis()+StaticData.getInstance().config.locOffset);
+        this.dateGmt=Time.localTime();
         if (messageType==MESSAGE_TYPE_IN) unread=true;
         if (messageType==MESSAGE_TYPE_AUTH) unread=true;
     }
@@ -39,10 +39,10 @@ public class Msg //implements MessageList.Element
         return getTime()+from; 
     }
     public String getTime(){
-        return '['+Time.timeString(date)+"] "; 
+        return '['+Time.timeString(dateGmt)+"] "; 
     }
     public String getDayTime(){
-        return '['+Time.dayString(date)+Time.timeString(date)+"] "; 
+        return '['+Time.dayString(dateGmt)+Time.timeString(dateGmt)+"] "; 
     }
     //private TimeZone tz(){ return StaticData.getInstance().config.tz;}
     
@@ -76,7 +76,7 @@ public class Msg //implements MessageList.Element
     public String body;
 
     /** Дата сообщения */
-    public Date date;
+    public long dateGmt;
     
     /** photo */
     public Image photo;

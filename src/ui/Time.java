@@ -15,33 +15,38 @@ public class Time {
     
     private static Calendar c=Calendar.getInstance( TimeZone.getTimeZone("GMT") );
     private static long offset=0; 
+    private static long locToGmtoffset=0;
     /** Creates a new instance of Time */
     private Time() { }
     
-    public static void setOffset(int gmtOffset){
+    public static void setOffset(int gmtOffset, int locOffset){
         offset=60*60*1000*gmtOffset;
+        locToGmtoffset=((long)locOffset)*3600000;
     }
 
     public static String lz2(int i){
         if (i<10) return "0"+i; else return String.valueOf(i);
     }
-    public static String timeString(Date date){
+    public static String timeString(long date){
         Calendar c=calDate(date);
         return lz2(c.get(Calendar.HOUR_OF_DAY))+":"+lz2(c.get(Calendar.MINUTE));
     }
     
-    private static Calendar calDate(Date date){
-        c.setTime(new Date(date.getTime()+offset));
+    private static Calendar calDate(long date){
+        c.setTime(new Date(date+offset));
         return c;
     }
     
-    public static String dayString(Date date){
+    public static String dayString(long date){
         Calendar c=calDate(date);
         return lz2(c.get(Calendar.DAY_OF_MONTH))+"."+
                lz2(c.get(Calendar.MONTH))+"."+
                lz2(c.get(Calendar.YEAR) % 100)+" ";
     }
 
+    public static long localTime(){
+        return System.currentTimeMillis()+locToGmtoffset;
+    }
     
     private final static int[] calFields=
     {Calendar.YEAR,         Calendar.MONTH,     Calendar.DATE, 
@@ -53,7 +58,7 @@ public class Time {
     //private final static int[] ofsFieldsB=
     //{ 0, 4, 6, 9, 12, 15 } ;
     
-    public static Date dateIso8601(String sdate){
+    public static long dateIso8601(String sdate){
         try {
             int l=4;    // yearlen
             for (int i=0; i<calFields.length; i++){
@@ -64,7 +69,7 @@ public class Time {
                 c.set(calFields[i], field);
             }
         } catch (Exception e) {    }
-        return new Date(c.getTime().getTime()); //FIXME
+        return c.getTime().getTime(); 
     }
 }
 

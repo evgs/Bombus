@@ -44,7 +44,7 @@ implements CommandListener{
         sd=StaticData.getInstance();
         il=sd.smilesIcons;
         smiles=sd.config.smiles;
-        Time.setOffset(sd.config.gmtOffset);
+        Time.setOffset(sd.config.gmtOffset, sd.config.locOffset);
         
         AttachList(new Vector());
 

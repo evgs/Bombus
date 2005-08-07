@@ -59,6 +59,7 @@ public class MessageEdit
     
     public void addText(String s) {
         //t.insert(s, t.getCaretPosition());
+        if ( t.size()>0 )
         if ( !t.getString().endsWith(" ") ) append(" ");
         append(s);  // теперь вставка происходит всегда в конец строки
         append(" "); // хвостовой пробел
@@ -103,10 +104,14 @@ public class MessageEdit
         if (body!=null) {
             String from=StaticData.getInstance().account.toString();
             Msg msg=new Msg(Msg.MESSAGE_TYPE_OUT,from,null,body);
-            to.addMessage(msg);
+            // не добавляем в групчат свои сообщения
+            // не шлём composing
+            if (to.origin!=Contact.ORIGIN_GROUPCHAT) {
+                to.addMessage(msg);
+                if (StaticData.getInstance().config.eventComposing)
+                    comp=1; // composing event in message
+            }
             
-            if (StaticData.getInstance().config.eventComposing)
-                comp=1; // composing event in message
         } else if (to.accept_composing) comp=(composing)? 1:2;
         
         try {

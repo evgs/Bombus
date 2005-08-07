@@ -54,7 +54,7 @@ public class Config {
     
     //public TimeZone tz=new RuGmt(0);
     public int gmtOffset;
-    public long locOffset;
+    public int locOffset;
     public int accountIndex=-1;
     public boolean fullscreen=false;
     public int def_profile=0;
@@ -127,9 +127,9 @@ public class Config {
     /** Creates a new instance of Config */
     public Config() {
         int gmtloc=TimeZone.getDefault().getRawOffset()/3600000;
-        int loc=getProperty( "time_loc_offset", 0);
+        locOffset=getProperty( "time_loc_offset", 0);
         gmtOffset=getProperty("time_gmt_offset", gmtloc);
-        locOffset=((long)loc)*3600000;
+        
 
         String platform=null;
         try {

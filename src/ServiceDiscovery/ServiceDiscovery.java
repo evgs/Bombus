@@ -5,6 +5,7 @@
  */
 
 package ServiceDiscovery;
+import GroupChat.GroupChatForm;
 import java.util.*;
 import javax.microedition.lcdui.*;
 import ui.*;
@@ -28,7 +29,7 @@ public class ServiceDiscovery
     private final static String NS_MUC="http://jabber.org/protocol/muc";
     
     
-    private String strJoin="Join Groupchat";
+    private String strJoin="Join Conference";
     private String strReg="Register";
     private String strSrch="Search";
     
@@ -230,6 +231,17 @@ public class ServiceDiscovery
         public String toString(){ return name; }
         public void onSelect(){
             switch (index) {
+                case 0: {
+                    int rp=service.indexOf('@');
+                    String room=null;
+                    String server=service;
+                    if (rp>0) {
+                        room=service.substring(0,rp);
+                        server=service.substring(rp+1);
+                    }
+                    new GroupChatForm(display, room, server);
+                    break;
+                }
                 case 1:
                     requestQuery(NS_SRCH, "discosrch");
                     break;

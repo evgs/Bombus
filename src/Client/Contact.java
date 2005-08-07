@@ -34,6 +34,7 @@ public class Contact extends IconTextElement{
     public final static int ORIGIN_PRESENCE=2;
     public final static int ORIGIN_GROUPCHAT=3;
     public final static int ORIGIN_GC_MEMBER=4;
+    public final static int ORIGIN_GC_MYSELF=5;
     
     /** Creates a new instance of Contact */
     private Contact (){
@@ -199,9 +200,11 @@ public class Contact extends IconTextElement{
     }
     
     public String toString() { 
-        if (origin==ORIGIN_GC_MEMBER) return jid.getResource();
+        if (origin>ORIGIN_GROUPCHAT) return jid.getResource();
         return (nick==null)?getJid():nick+jid.getResource(); 
     }
+    
+    public final String getName(){ return (nick==null)?getJidNR():nick; }
     //public void onSelect(){}
 
     public final String getJid() {

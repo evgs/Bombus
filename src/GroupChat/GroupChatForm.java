@@ -32,16 +32,20 @@ public class GroupChatForm implements CommandListener{
     TextField nickField;
     
     /** Creates a new instance of GroupChatForm */
-    public GroupChatForm(Display display) {
+    public GroupChatForm(Display display) { this(display, null, null); }
+    /** Creates a new instance of GroupChatForm */
+    public GroupChatForm(Display display, String room, String server) {
         this.display=display;
         parentView=display.getCurrent();
         
-        Form formJoin=new Form("Join groupchat");
-        roomField=new TextField("Room", sd.config.defGcRoom, 32, TextField.URL);
+        if (room==null) room=sd.config.defGcRoom;
+        if (server==null) server="conference."+sd.account.getServerN();
+        
+        Form formJoin=new Form("Join conference");
+        roomField=new TextField("Room", room, 32, TextField.URL);
         formJoin.append(roomField);
         
-        hostField=new TextField("at Host", sd.account.getServerN(), 32, TextField.URL);
-        hostField.insert("conference.", 0);
+        hostField=new TextField("at Host", server, 32, TextField.URL);
         formJoin.append(hostField);
 
         nickField=new TextField("Nickname", sd.account.getNickName(), 32, TextField.URL);
@@ -68,8 +72,11 @@ public class GroupChatForm implements CommandListener{
         gchat.append(nick);
         JabberDataBlock x=new JabberDataBlock("x", null, null);
         x.setNameSpace("http://jabber.org/protocol/muc");
+        String jid=gchat.toString();
+        sd.roster.mucContact(jid, Contact.ORIGIN_GC_MYSELF);
+        sd.roster.groups.getGroup(room).imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
         sd.roster.sendPresence(gchat.toString(), null, x);
-        destroyView();
+        display.setCurrent(sd.roster);
     }
     public void destroyView(){
         if (parentView!=null) display.setCurrent(parentView);
