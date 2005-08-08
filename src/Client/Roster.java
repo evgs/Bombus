@@ -768,24 +768,30 @@ public class Roster
                 String body=message.getBody().trim();
                 String tStamp=message.getTimeStamp();
                 
+                int start_me=-1;    //  не добавлять ник
                 String name=null;
-                if (message.getTypeAttribute().equals("groupchat")) {
-                    mucContact(from, Contact.ORIGIN_GROUPCHAT);
-                    int rp=from.indexOf('/');
-
-                    name=from.substring(rp+1);
-
-                    if (rp>0) from=from.substring(0, rp);
-                } 
+                try { // type=null
+                    if (message.getTypeAttribute().equals("groupchat")) {
+                        start_me=0; // добавить ник в начало
+                        mucContact(from, Contact.ORIGIN_GROUPCHAT);
+                        int rp=from.indexOf('/');
+                        
+                        name=from.substring(rp+1);
+                        
+                        if (rp>0) from=from.substring(0, rp);
+                    }
+                } catch (Exception e) {}
                 Contact c=presenceContact(from, -1);
                 if (name==null) name=c.getName();
 
                 // /me
-                int start=(body.startsWith("/me "))?3:0;
-                StringBuffer b=new StringBuffer(name);
-                if (start==0) b.append("> ");
-                b.append(body.substring(start));
-                body=b.toString();
+                if (body!=null) if (body.startsWith("/me ")) start_me=3;
+                if (start_me>=0) {
+                    StringBuffer b=new StringBuffer(name);
+                    if (start_me==0) b.append("> ");
+                    b.append(body.substring(start_me));
+                    body=b.toString();
+                }
                 
                 boolean compose=false;
                 JabberDataBlock x=message.getChildBlock("x");
@@ -1143,16 +1149,15 @@ public class Roster
             //removeCommand(cmdGroup);
         } else removeCommand(cmdContact);
         
-        if (atCursor instanceof Group) {
+        if (atCursor instanceof Group) {    // FIXME: стирать cmdLeave
             Group g=(Group)atCursor;
             if (g.index==SRC_RESULT_INDEX)  addCommand(cmdDiscard);
             if (g.imageExpandedIndex==ImageList.ICON_GCJOIN_INDEX) addCommand(cmdLeave);
-        } else removeCommand(cmdDiscard);
+        } else {
+            removeCommand(cmdDiscard);
+            removeCommand(cmdLeave);
+        }
         
-        /*if (atCursor instanceof Group) {
-            //addCommand(cmdGroup);
-            removeCommand(cmdContact);
-        }*/
     }
     
     public void contactMenu(final Contact c) {

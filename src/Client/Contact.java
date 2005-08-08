@@ -201,6 +201,7 @@ public class Contact extends IconTextElement{
     
     public String toString() { 
         if (origin>ORIGIN_GROUPCHAT) return jid.getResource();
+        if (origin==ORIGIN_GROUPCHAT) return getJid();
         return (nick==null)?getJid():nick+jid.getResource(); 
     }
     
