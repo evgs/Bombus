@@ -147,6 +147,7 @@ public class XMLParser
 //--  private int chRead() throws IOException{
 //--      if (cbyte>pbyte) return cbuf[pbyte++];
 //--      
+//--      //int avail=1;// тестим Nokia
 //--      int avail=inputReader.available();
 //--      if (avail<2) return inputReader.read();
 //--      cbyte=(avail<512)?avail:512;
