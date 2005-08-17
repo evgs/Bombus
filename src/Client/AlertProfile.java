@@ -98,7 +98,7 @@ public class AlertProfile extends VirtualList implements CommandListener {
         
         EventProfile ep=null;
         
-        boolean blFlashEn=!cf.ghostMotor;   // motorola e398 backlight bug
+        boolean blFlashEn=cf.blFlash;   // motorola e398 backlight bug
         
         switch (profile) {
             case ALL:   ep=new EventProfile(message, cf.vibraLen, blFlashEn); break;

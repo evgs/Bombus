@@ -20,6 +20,7 @@ public class Config {
     public final int vibraLen=getProperty("vibra_len",500);
     
     public boolean ghostMotor=getProperty("moto_e398",false);
+    public boolean blFlash=!ghostMotor;
 
     public boolean msgLog=getProperty("msg_log",false);
     
@@ -140,6 +141,9 @@ public class Config {
         
         if (platform.startsWith("SonyE")) {
             allowMinimize=true;
+        }
+        if (platform.startsWith("Nokia")) {
+            blFlash=false;
         }
         /*if (platform.startsWith("Motorola")) {
             ghostMotor=true;

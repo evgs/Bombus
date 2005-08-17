@@ -1142,6 +1142,12 @@ syslog_msg: true
   fix: composing event не работал из-за конференций
   fix: из меню не исчезала команда Leave room
   fix: им€ комнаты не мен€етс€ на ник последнего участника, изменившего статус
+
+18.08.2005
+  (181)
+  fix: Nokia 60 series - требуют OutputStream.flush()
+  все Nokia - заблокирована функци€ flashBacklight из-за глюка с подсветкой 
+  в 60 series
 ---------------------------
   known issues:
 
