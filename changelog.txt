@@ -1148,6 +1148,11 @@ syslog_msg: true
   fix: Nokia 60 series - требуют OutputStream.flush()
   все Nokia - заблокирована функция flashBacklight из-за глюка с подсветкой 
   в 60 series
+
+  (182)
+  fix: исходящие Composing events работают соответственно с одноимённой опцией
+  fix: увеличены размеры буферов ввода для room и host в меню Join conference
+
 ---------------------------
   known issues:
 
@@ -1171,4 +1176,4 @@ syslog_msg: true
   - при переключении аккаунтов в пятый раз Bombus виснет с белым экраном. 
     (присутствует, по крайней мере, на M55)
 
- 
+  - Nokia 60 series - не работает vibra. глюк java-машины

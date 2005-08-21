@@ -42,10 +42,10 @@ public class GroupChatForm implements CommandListener{
         if (server==null) server="conference."+sd.account.getServerN();
         
         Form formJoin=new Form("Join conference");
-        roomField=new TextField("Room", room, 32, TextField.URL);
+        roomField=new TextField("Room", room, 64, TextField.URL);
         formJoin.append(roomField);
         
-        hostField=new TextField("at Host", server, 32, TextField.URL);
+        hostField=new TextField("at Host", server, 64, TextField.URL);
         formJoin.append(hostField);
 
         nickField=new TextField("Nickname", sd.account.getNickName(), 32, TextField.URL);

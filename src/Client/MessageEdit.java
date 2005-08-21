@@ -108,11 +108,12 @@ public class MessageEdit
             // не шлём composing
             if (to.origin!=Contact.ORIGIN_GROUPCHAT) {
                 to.addMessage(msg);
-                if (StaticData.getInstance().config.eventComposing)
-                    comp=1; // composing event in message
+                comp=1; // composing event in message
             }
             
         } else if (to.accept_composing) comp=(composing)? 1:2;
+        
+        if (!StaticData.getInstance().config.eventComposing) comp=0;
         
         try {
             if (body!=null || comp>0)
