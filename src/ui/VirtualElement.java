@@ -8,15 +8,52 @@ package ui;
 import javax.microedition.lcdui.*;
 
 /**
- *
+ * интерфейс виртуального элемента списка.
  * @author Eugene Stahov
  */
 public interface VirtualElement {
     
+    /**
+     * высота элемента
+     * @return высота элемента в пикселах
+     */
     public int getVHeight();
+    
+    /**
+     * ширина элемента
+     * @return ширина элемента в пикселах
+     */
     public int getVWidth();
+    
+    /**
+     * 
+     * цвет заполнени€ фона элемента
+     * фон закрашиваетс€ автоматически перед вызовом drawItem
+     * @return RGB-цвет заполнени€ фона элемента
+     */
     public int getColorBGnd(); 
+    
+    /**
+     * цвет чернил элемента
+     * устанавливаетс€ перед вызовом drawItem
+     * @return RGB-цвет чернил элемента
+     */
     public int getColor(); 
+    
+    /**
+     * 
+     * отрисовка элемента. перед вызовом устанавливаютс€ 
+     * трансл€ци€ экранных координат <i>translate(x,y)</i> в позицию элемента
+     * и обрезание <i>setClip(0,0,width,height)</i>. 
+     * 
+     * фон закрашиваетс€ автоматически перед вызовом drawItem
+     * @param g контекст отрисовки элемента
+     * @param ofs горизонтальное смещение скроллируемой части элемента
+     * @param selected признак выбранного курсором элемента
+     */
     public void drawItem(Graphics g, int ofs, boolean selected);
+    /**
+     * Callback-вызов, осуществл€емый при выполнении OK дл€ выделенного курсором элемента
+     */
     public void onSelect();
 }

@@ -39,7 +39,7 @@ public class SearchResult
         
         setTitleImages(sd.rosterIcons);
         
-        createTitle(2, null, service);
+        createTitleItem(2, null, service);
         
         addCommand(cmdBack);
         setCommandListener(this);
@@ -104,7 +104,7 @@ public class SearchResult
     public void commandAction(Command c, Displayable d){
         if (c==cmdAdd){
             destroyView();
-            new ContactEdit(display, (Contact)getSelectedObject());
+            new ContactEdit(display, (Contact)getFocusedObject());
             return;
         }
         
@@ -118,6 +118,6 @@ public class SearchResult
         f.setCommandListener(this);
         f.addCommand(cmdBack);
         f.addCommand(cmdAdd);*/
-        new MessageView(display, 0, (Contact) getSelectedObject());
+        new MessageView(display, 0, (Contact) getFocusedObject());
     }
 }

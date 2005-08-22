@@ -73,7 +73,7 @@ implements CommandListener{
         else addCommand(cmdResume);
     }
     
-    public void beginPaint(){ 
+    protected void beginPaint(){ 
         title.setElementAt(sd.roster.messageIcon,2);
         title.setElementAt(contact.incomingComposing, 3);
     }
@@ -101,14 +101,15 @@ implements CommandListener{
         return m;
     }
 
-    public Object getSelectedObject(){
+    // overriden, т.к. элементы списка - строки.
+    public Object getFocusedObject(){
         try {
             return contact.msgs.elementAt(cursor);
         } catch (Exception e) {}
         return null;
     }
     public void eventOk(){
-        Msg msg=(Msg)getSelectedObject();
+        Msg msg=(Msg)getFocusedObject();
         if (msg!=null) {
             //if (contact.msgs.size()==cursor+1) refreshMsgCnt();
             new MessageView(display, cursor, contact);
@@ -142,7 +143,7 @@ implements CommandListener{
         }
         if (c==cmdResume) { keyGreen(); }
         if (c==cmdQuote) {
-            new MessageEdit(display,contact,((Msg)getSelectedObject()).toString());
+            new MessageEdit(display,contact,((Msg)getFocusedObject()).toString());
         }
         if (c==cmdPurge) {
             contact.msgs=new Vector();

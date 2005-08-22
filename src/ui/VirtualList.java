@@ -10,7 +10,7 @@ import java.util.*;
 import Client.*;
 
 /**
- * Реализация виртуального вертикального списка.
+ * Вертикальный список виртуальных элементов.
  * класс реализует управление списком, скроллбар,
  * вызов отрисовки отображаемых на экране элементов.
  * @author Eugene Stahov
@@ -18,28 +18,57 @@ import Client.*;
 public abstract class VirtualList         
         extends Canvas 
 {
-    /**
-     * интерфейс отрисовываемого элемента списка
-     */
-//    abstract protected int getItemHeight(int index);
-//    abstract protected int getItemWidth(int index);
-//    abstract protected void drawItem(int index, Graphics g, int ofs, boolean selected);
-//    public int getItemBGndRGB(int index) {return VL_BGND;} 
     
+    /**
+     * событие "Курсор выделил элемент"
+     * в классе VirtualList вызываемая функция не выполняет действий, необходимо
+     * переопределить (override) функцию для реализации необходимых действий
+     * @param index индекс выделенного элемента
+     */
     public void focusedItem(int index) {}
 
-    /** число элементов списка, исключая заголовок  */
+    /**
+     * число элементов виртуального списка
+     * эта функция абстрактная, должна быть переопределена при наследовании
+     * @return число элементов списка, исключая заголовок
+     */
     abstract protected int getItemCount();
+
+    /**
+     * элемент виртуального списка
+     * эта функция абстрактная, должна быть переопределена при наследовании
+     * @param index номер элемента списка. не превосходит значение, возвращённое getItemCount()
+     * @return ссылка на элемент с номером index.
+     */
     abstract protected VirtualElement getItemRef(int index);
     
-    /** отрисовка заголовка  */
+    /**
+     * цвет фона заголовка
+     * @return RGB-цвет фона заголовка
+     */
     protected int getTitleBGndRGB() {return VL_TITLE_BGND;} 
+
+    /**
+     * цвет текста заголовка
+     * @return RGB-цвет текста заголовка
+     */
     protected int getTitleRGB() {return VL_TITLE;} 
     
+    /**
+     * событие "Нажатие кнопки ОК"
+     * в классе VirtualList вызывается функция onSelect выбранного элемента, необходимо
+     * переопределить (override) функцию для реализации необходимых действий
+     */
     public void eventOk(){
         if (atCursor!=null) ((VirtualElement)atCursor).onSelect();
     }
-    public void userKeyPressed(int KeyCode){}
+    /**
+     * Обработчик дополнительных кнопок. Вызывается в случае, если код кнопки 
+     * не был обработан функцией key(keyCode)
+     * необходимо переопределить (override) функцию для реализации необходимых действий     
+     * @param keyCode код клавиши
+     */
+    public void userKeyPressed(int keyCode){}
     //////////////////////////////////
     //public static final int VL_CURSOR_SHADE   =0x000000;
     public static final int VL_CURSOR_BODY    =0x00FF00;
@@ -72,20 +101,42 @@ public abstract class VirtualList
     protected ComplexString title;
     protected ImageList titleil;
     
-    public ComplexString createTitle(int size, Object first, Object second) {
+    /**
+     * Создаёт заголовок списка на базе объекта ComplexString
+     * @param size число полей создаваемого ComplexString
+     * @param first первое поле ComplexString
+     * @param second второе поле ComplexString
+     * @return созданный объект ComplexString, присоединённый в качестве заголовка
+     */
+    public ComplexString createTitleItem(int size, Object first, Object second) {
         ComplexString title=new ComplexString(titleil);
         title.setSize(size);
         if (first!=null) title.setElementAt(first,0);
         if (second!=null) title.setElementAt(second,0);
-        setTitleLine(title);
+        setTitleItem(title);
         return title;
     }
     
-    public ComplexString getTitleLine() {return title;}
-    public void setTitleLine(ComplexString title) { this.title=title; }
+    /**
+     * ссылка на заголовок списка
+     * @return объект типа ComplexString
+     */
+    public ComplexString getTitleItem() {return title;}
+    public void setTitleItem(ComplexString title) { this.title=title; }
+    
+    /**
+     * присоединение ресурса-списка изображений к заголовку
+     * @param il ресурс-список изображений
+     */
     public void setTitleImages(ImageList il) { this.titleil=il; }
     
-    public Object getSelectedObject() { return atCursor; }    
+    /**
+     * возвращает ссылку на объект в фокусе. 
+     * в классе VirtualList возвращает VirtualElement, на который указывает курсор,
+     * однако, возможно переопределить функцию при наследовании
+     * @return ссылка на объект в фокусе.
+     */
+    public Object getFocusedObject() { return atCursor; }    
 
     protected Display display;
     protected Displayable parentView;
@@ -105,6 +156,11 @@ public abstract class VirtualList
         attachDisplay(display);
     }
     
+    /**
+     * Запоминание предыдущего отображаемого объекта, подключенного к менеджеру
+     * дисплея и подключение к дисплею виртуального списка (this) 
+     * @param display менеджер дисплея мобильного устройства {@link }
+     */
     public void attachDisplay (Display display) {
         if (this.display!=null) return;
         this.display=display;
@@ -114,7 +170,7 @@ public abstract class VirtualList
     }
 
 
-    // перерисовка активного Canvas
+    /** запуск отложенной отрисовки активного Canvas */
     public void redraw(){
         //repaint(0,0,width,height);
         Displayable d=display.getCurrent();
@@ -124,7 +180,16 @@ public abstract class VirtualList
         }
     }
     
-    public void beginPaint(){};
+    /**
+     * начало отрисовки списка.
+     * функция вызывается перед отрисовкой списка, 
+     * перед любыми обращениями к элементам списка.
+     *
+     * в классе VirtualList функция не выполняет никаких действий, необходимо
+     * переопределить (override) функцию для реализации необходимых действий
+     */
+    protected void beginPaint(){};
+    
     /**
      * отрисовка
      */
@@ -221,6 +286,14 @@ public abstract class VirtualList
 
        //full_items=fe;
     }
+    
+    
+    /**
+     * перенос координат (0.0) в абсолютные координаты (x,y)
+     * @param g графический контекст отрисовки
+     * @param x абсолютная x-координата нового начала координат 
+     * @param y абсолютная y-координата нового начала координат
+     */
     private void setAbsOrg(Graphics g, int x, int y){
         g.translate(x-g.getTranslateX(), y-g.getTranslateY());
     }
@@ -242,6 +315,12 @@ public abstract class VirtualList
         }
         return itemcnt;
     }
+    
+    
+    /**
+     * перемещение курсора на смещение.
+     * @param offset положительное или отрицательное смещение курсора
+     */
     synchronized private void moveCursor(int offset){
         int count=getItemCount();
  
@@ -271,6 +350,9 @@ public abstract class VirtualList
         
     }
 
+    /**
+     * перемещение курсора в начало списка
+     */
     public void moveCursorHome(){
         win_top=0;
         if (cursor>0) {
@@ -280,6 +362,9 @@ public abstract class VirtualList
         setRotator();
     }
 
+    /**
+     * перемещение курсора в конец списка
+     */
     public void moveCursorEnd(){
         int count=getItemCount();
         win_top=count-visibleItemsCnt(count-1, -1);
@@ -290,6 +375,10 @@ public abstract class VirtualList
         setRotator();
     }
 
+    /**
+     * перемещение курсора в индексированную позицию
+     * @param index позиция курсора в списке
+     */
     public void moveCursorTo(int index){
         int count=getItemCount();
         if (index>=count) index=count-1;    // если за последним элементом, то переместить на него
@@ -312,11 +401,16 @@ public abstract class VirtualList
         }
     }
      */
+    /** код удерживаемой кнопки */
     protected int kHold;
     public void keyRepeated(int keyCode){ key(keyCode); }
     public void keyReleased(int keyCode) { kHold=0; }
     public void keyPressed(int keyCode) { kHold=0; key(keyCode);  }
     
+    /**
+     * обработка кодов кнопок
+     * @param keyCode код нажатой кнопки
+     */
     private void key(int keyCode) {
         switch (keyCode) {
             case KEY_NUM1:  { moveCursorHome();    break; }
@@ -338,18 +432,48 @@ public abstract class VirtualList
         repaint();
     }
     
+    /**
+     * событие "Нажатие кнопки UP"
+     * в классе VirtualList функция перемещает курсор на одну позицию вверх.
+     * возможно переопределить (override) функцию для реализации необходимых действий
+     */
     protected void keyUp() { moveCursor(-1); }
+    
+    /**
+     * событие "Нажатие кнопки DOWN"
+     * в классе VirtualList функция перемещает курсор на одну позицию вверх.
+     * возможно переопределить (override) функцию для реализации необходимых действий
+     */
+    
     protected void keyDwn() { moveCursor(+1); }
+    
+    /**
+     * событие "Нажатие кнопки LEFT"
+     * в классе VirtualList функция перемещает курсор на одну страницу вверх.
+     * возможно переопределить (override) функцию для реализации необходимых действий
+     */
     protected void keyLeft() {
         int mov_org=(cursor!=-1)? cursor : win_top;
         moveCursor(-visibleItemsCnt(mov_org,-1)); 
     }
+
+    /**
+     * событие "Нажатие кнопки RIGHT"
+     * в классе VirtualList функция перемещает курсор на одну страницу вниз.
+     * возможно переопределить (override) функцию для реализации необходимых действий
+     */
     protected void keyRight() { 
         moveCursor(visibleItemsCnt(win_top,1)); 
     }
     
+    /**
+     * событие "Нажатие ЗЕЛЁНОЙ КНОПКИ"
+     * в классе VirtualList функция выполняет вызов eventOk().
+     * возможно переопределить (override) функцию для реализации необходимых действий
+     */
     protected void keyGreen() { eventOk(); }
     
+    /** перезапуск ротации скроллера длинных строк */
     private void setRotator(){
         rotator.destroyTask();
         if (getItemCount()<1) return;
@@ -393,7 +517,13 @@ public abstract class VirtualList
     private TimerTaskRotate rotator;
 
     
-    public void drawCursor (Graphics g, int width, int height){
+    /**
+     * рисование прямоугольного курсора
+     * @param g графический контекст рисования
+     * @param width ширина курсора
+     * @param height высота курсора
+     */
+    protected void drawCursor (Graphics g, int width, int height){
         //g.setColor(VL_CURSOR_SHADE);   g.drawRoundRect(x+2, y+2, width-1, height-1, 3,3);
         g.setColor(VL_CURSOR_BODY);    g.fillRect(1, 1, width-1, height-1);
         g.setColor(VL_CURSOR_OUTLINE); g.drawRect(0, 0, width-1, height-1);
@@ -405,12 +535,16 @@ public abstract class VirtualList
          */
     }
 
+    /**
+     * отсоединение от менеджера дисплея текущего виртуального списка, 
+     * присоединение к менеджеру предыдущего Displayable
+     */
     public void destroyView(){
         if (display!=null)   display.setCurrent(parentView);
     }
 
 /*#DefaultConfiguration,Release#*///<editor-fold>
-    //exists only in midp2
+    // midp2.0
     protected void sizeChanged(int w, int h) {
         width=w;
         height=h;

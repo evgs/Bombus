@@ -26,7 +26,7 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
     public StatusSelect(Display d) {
         super();
         setTitleImages(StaticData.getInstance().rosterIcons);
-        createTitle(1, "Status",null);
+        createTitleItem(1, "Status",null);
         
         addCommand(cmdOk);
         addCommand(cmdEdit);
@@ -49,7 +49,7 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
         return (VirtualElement)statusList.elementAt(Index);
     }
     
-    private ExtendedStatus getSel(){ return (ExtendedStatus)getSelectedObject();}
+    private ExtendedStatus getSel(){ return (ExtendedStatus)getFocusedObject();}
     
     public void commandAction(Command c, Displayable d){
         if (c==cmdOk) eventOk(); 

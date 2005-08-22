@@ -1149,10 +1149,16 @@ syslog_msg: true
   все Nokia - заблокирована функция flashBacklight из-за глюка с подсветкой 
   в 60 series
 
+22.08.2005
   (182)
   fix: исходящие Composing events работают соответственно с одноимённой опцией
   fix: увеличены размеры буферов ввода для room и host в меню Join conference
 
+23.08.2005
+  (183)
+  fix: теперь своё эхо в конференции не выдаёт сигнализацию
+  src: JavaDoc на VirtualList и VirtualElement
+  
 ---------------------------
   known issues:
 

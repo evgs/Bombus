@@ -64,8 +64,8 @@ public class ServiceDiscovery
 
         setTitleImages(sd.rosterIcons);
 
-        createTitle(2, null, null).addRAlign();
-        getTitleLine().addElement(null);
+        createTitleItem(2, null, null).addRAlign();
+        getTitleItem().addElement(null);
         
         this.stream=stream;
         sd.roster.discoveryListener=this;
@@ -87,14 +87,14 @@ public class ServiceDiscovery
     public int getItemCount(){ return items.size();}
     public VirtualElement getItemRef(int index) { return (VirtualElement) items.elementAt(index);}
     
-    public void beginPaint(){ getTitleLine().setElementAt(sd.roster.messageIcon,3); }
+    protected void beginPaint(){ getTitleItem().setElementAt(sd.roster.messageIcon,3); }
     
     
     private void titleUpdate(){
         int icon=(blockWait)?ImageList.ICON_RECONNECT_INDEX:0;
-        getTitleLine().setElementAt(new Integer(icon), 0);
-        getTitleLine().setElementAt(service, 1);
-        getTitleLine().setElementAt(sd.roster.messageIcon, 3);
+        getTitleItem().setElementAt(new Integer(icon), 0);
+        getTitleItem().setElementAt(service, 1);
+        getTitleItem().setElementAt(sd.roster.messageIcon, 3);
     }
     
     private void requestQuery(String namespace, String id){
@@ -173,7 +173,7 @@ public class ServiceDiscovery
     
     public void eventOk(){
         super.eventOk();
-        Object o= getSelectedObject();
+        Object o= getFocusedObject();
         if (o!=null) 
         if (o instanceof Contact) {
             browse( ((Contact) o).jid.getJidFull() );

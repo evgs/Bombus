@@ -20,7 +20,7 @@ public class Menu extends VirtualList implements CommandListener
     
     public Menu(String title) {
         super();
-        createTitle(1, title, null);
+        createTitleItem(1, title, null);
         menuitems=new Vector();
         addCommand(cmdBack);
         setCommandListener(this);

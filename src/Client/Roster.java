@@ -115,9 +115,9 @@ public class Roster
         
         setTitleImages(sd.rosterIcons);
         
-        createTitle(4, null, null).addRAlign();
-        getTitleLine().addElement(null);
-        getTitleLine().addElement(null);
+        createTitleItem(4, null, null).addRAlign();
+        getTitleItem().addElement(null);
+        getTitleItem().addElement(null);
         
         //displayStatus();
         
@@ -186,7 +186,7 @@ public class Roster
     }
     
     private void setRosterTitle(String s){
-        getTitleLine().setElementAt(s, 3);
+        getTitleItem().setElementAt(s, 3);
     }
     
     private int rscaler;
@@ -308,7 +308,7 @@ public class Roster
     public void reEnumRoster(){
         
         int locCursor=cursor;
-        Object focused=getSelectedObject();
+        Object focused=getFocusedObject();
         
         int tonlines=0;
         Vector tContacts=new Vector(vContacts.size());
@@ -770,8 +770,10 @@ public class Roster
                 
                 int start_me=-1;    //  не добавлять ник
                 String name=null;
+                boolean groupchat=false;
                 try { // type=null
                     if (message.getTypeAttribute().equals("groupchat")) {
+                        groupchat=true;
                         start_me=0; // добавить ник в начало
                         mucContact(from, Contact.ORIGIN_GROUPCHAT);
                         int rp=from.indexOf('/');
@@ -783,7 +785,6 @@ public class Roster
                 } catch (Exception e) {}
                 Contact c=presenceContact(from, -1);
                 if (name==null) name=c.getName();
-
                 // /me
                 if (body!=null) if (body.startsWith("/me ")) start_me=3;
                 if (start_me>=0) {
@@ -812,6 +813,9 @@ public class Roster
   
             
                 Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, subj, body);
+                if (groupchat) if (c.rosterJid.equals(message.getFrom())) {
+                    m.messageType=Msg.MESSAGE_TYPE_OUT;
+                }
                 if (tStamp!=null) 
                     m.dateGmt=Time.dateIso8601(tStamp);
                 messageStore(m, -1);
@@ -980,7 +984,7 @@ public class Roster
     }
     
     private Displayable createMsgList(){
-        Object e=getSelectedObject();
+        Object e=getFocusedObject();
         if (e instanceof Contact) {
             return new MessageList((Contact)e,display);
         }
@@ -989,7 +993,7 @@ public class Roster
     protected void keyGreen(){
         Displayable pview=createMsgList();
         if (pview!=null) {
-            Contact c=(Contact)getSelectedObject();
+            Contact c=(Contact)getFocusedObject();
             ( new MessageEdit(display, c, c.msgSuspended) ).setParentView(pview);
             c.msgSuspended=null;
         }
@@ -1004,10 +1008,10 @@ public class Roster
         }
         moveCursorTo(c);
     }
-    public void userKeyPressed(int KeyCode){
-        if (KeyCode==KEY_NUM0) {
+    public void userKeyPressed(int keyCode){
+        if (keyCode==KEY_NUM0) {
             if (messageCount==0) return;
-            Object atcursor=getSelectedObject();
+            Object atcursor=getFocusedObject();
             Contact c=null;
             if (atcursor instanceof Contact) c=(Contact)atcursor;
             // а если курсор на группе, то пока так.
@@ -1083,11 +1087,11 @@ public class Roster
         if (c==cmdStatus) { new StatusSelect(display); }
         if (c==cmdAlert) { new AlertProfile(display); }
         if (c==cmdOptions){ new ConfigForm(display); }
-        if (c==cmdContact) { contactMenu((Contact) getSelectedObject()); }
+        if (c==cmdContact) { contactMenu((Contact) getFocusedObject()); }
         if (c==cmdDiscard) { cleanupSearch(); }
         if (c==cmdAdd) {
             //new MIDPTextBox(display,"Add to roster", null, new AddContact());
-            Object o=getSelectedObject();
+            Object o=getFocusedObject();
             Contact cn=null;
             if (o instanceof Contact) {
                 cn=(Contact)o;
@@ -1120,7 +1124,7 @@ public class Roster
         kHold=keyCode;
         
         if (keyCode==cf.keyLock) 
-            new KeyBlock(display, getTitleLine(), cf.keyLock, cf.ghostMotor); 
+            new KeyBlock(display, getTitleItem(), cf.keyLock, cf.ghostMotor); 
 
         if (keyCode==cf.keyVibra) {
             cf.profile=(cf.profile==AlertProfile.VIBRA)? 
@@ -1163,7 +1167,7 @@ public class Roster
     public void contactMenu(final Contact c) {
         Menu m=new Menu(c.toString()){
             public void eventOk(){
-                int index=((MenuItem)getSelectedObject()).index;
+                int index=((MenuItem) getFocusedObject()).index;
                 String to=(index<3)? c.getJid() : c.getJidNR();
                 destroyView();
                 switch (index) {

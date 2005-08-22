@@ -84,7 +84,7 @@ public class MessageView
         title.addElement(msg.getMsgHeader());
         title.addRAlign();
         title.addElement(null);
-        setTitleLine(title);
+        setTitleItem(title);
         
         if (msg.messageType==Msg.MESSAGE_TYPE_AUTH) addCommand(cmdSubscr);
         else removeCommand(cmdSubscr);
@@ -103,7 +103,7 @@ public class MessageView
             sd.roster.countNewMsgs();
     }
 
-    public void beginPaint(){
+    protected void beginPaint(){
         int micon=0;
         if (contact==null) return;
         if (title==null) return;

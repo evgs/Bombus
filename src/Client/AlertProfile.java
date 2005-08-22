@@ -42,7 +42,7 @@ public class AlertProfile extends VirtualList implements CommandListener {
         
         cf=sd.config;
         
-        createTitle(1, "Alert Profile",null);
+        createTitleItem(1, "Alert Profile",null);
         
         addCommand(cmdOk);
         addCommand(cmdDef);

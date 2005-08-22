@@ -35,7 +35,7 @@ public class AccountSelect
         setTitleImages(StaticData.getInstance().rosterIcons);
         //this.display=display;
 
-        createTitle(1, "Accounts",null);
+        createTitleItem(1, "Accounts",null);
         
         accountList=new Vector();
         Account a;
@@ -96,14 +96,14 @@ public class AccountSelect
             //StaticData.getInstance().account_index=0;
         }
         if (c==cmdSelect) eventOk();
-        if (c==cmdEdit) new AccountForm(display,(Account)getSelectedObject(),false);
+        if (c==cmdEdit) new AccountForm(display,(Account)getFocusedObject(),false);
         if (c==cmdAdd) {
             Account a=new Account();
             accountList.addElement(a);
             new AccountForm(display,a,true);
         }
         if (c==cmdDel) {
-            accountList.removeElement(getSelectedObject());
+            accountList.removeElement(getFocusedObject());
             rmsUpdate();
             moveCursorHome();
             commandState();
