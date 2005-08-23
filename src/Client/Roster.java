@@ -447,8 +447,11 @@ public class Roster
             from=from.substring(0, rp); else nick=from.substring(rp+1);
         }
         updateContact(nick, from, room, "muc", false);
-        Contact c=presenceContact(from, -1);
-        if (isRoom){  c.status=Presence.PRESENCE_ONLINE;  } 
+        Contact c=presenceContact(from, isRoom?Presence.PRESENCE_ONLINE:-1);
+        if (isRoom){  
+            //c.status=Presence.PRESENCE_ONLINE;  
+            c.transport=6; //FIXME: убрать хардкод
+        } 
         if (c.origin<origin) c.origin=origin;
     }
     
@@ -606,7 +609,7 @@ public class Roster
      */
     
     public void sendMessage(Contact to, final String body, final String subject , int composingState) {
-        boolean groupchat=to.transport==6 && !to.jid.hasResource();
+        boolean groupchat=to.origin==Contact.ORIGIN_GROUPCHAT;
         Message simpleMessage = new Message( 
                 to.getJid(), 
                 body, 
@@ -775,7 +778,6 @@ public class Roster
                     if (message.getTypeAttribute().equals("groupchat")) {
                         groupchat=true;
                         start_me=0; // добавить ник в начало
-                        mucContact(from, Contact.ORIGIN_GROUPCHAT);
                         int rp=from.indexOf('/');
                         
                         name=from.substring(rp+1);
@@ -843,11 +845,8 @@ public class Roster
                         pr.getPresenceTxt());
                 Contact c=messageStore(m, ti);
                 c.priority=pr.getPriority();
-                JabberDataBlock x=pr.getChildBlock("x");
-                if (x!=null) if (x.isJabberNameSpace("http://jabber.org/protocol/muc"))
-                {
+                if (pr.findNamespace("http://jabber.org/protocol/muc")!=null)
                     mucContact(from, Contact.ORIGIN_GC_MEMBER);
-                }    
             }
         } catch( Exception e ) {
             e.printStackTrace();

@@ -35,6 +35,7 @@ public class ServiceDiscovery
     
     private Command cmdRfsh=new Command("Refresh", Command.SCREEN, 1);
     private Command cmdSrv=new Command("Server", Command.SCREEN, 10);
+    private Command cmdAdd=new Command("Add to roster", Command.SCREEN, 11);
     private Command cmdBack=new Command("Back", Command.BACK, 98);
     private Command cmdCancel=new Command("Cancel", Command.EXIT, 99);
 
@@ -72,6 +73,7 @@ public class ServiceDiscovery
         
         addCommand(cmdRfsh);
         addCommand(cmdSrv);
+        //addCommand(cmdAdd);
         addCommand(cmdCancel);
 
         addCommand(cmdBack);
@@ -212,6 +214,12 @@ public class ServiceDiscovery
             moveCursorTo(st.cursor);
             redraw();
             
+        }
+        if (c==cmdAdd){
+            destroyView();
+            Contact j=(Contact)getFocusedObject();
+            new ContactEdit(display, j);
+            return;
         }
         if (c==cmdRfsh) {requestQuery(NS_INFO, "disco"); }
         if (c==cmdSrv) { new ServerBox(display, service, this); }

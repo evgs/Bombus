@@ -169,15 +169,8 @@ public class Message extends JabberDataBlock
   }
 
   public String getTimeStamp(){
-      Vector v=getChildBlocks();
-      if (v!=null)
-      for (Enumeration e=v.elements(); e.hasMoreElements();){
-          JabberDataBlock stamp=(JabberDataBlock)e.nextElement();
-          if (stamp.getTagName().equals("x"))
-          if (stamp.isJabberNameSpace("jabber:x:delay"))
-              return stamp.getAttribute("stamp");
-      }
-      return null;
+      JabberDataBlock stamp=findNamespace("jabber:x:delay");
+      return (stamp!=null)? stamp.getAttribute("stamp") :null;
   }
   /**
    * Construct a reply message

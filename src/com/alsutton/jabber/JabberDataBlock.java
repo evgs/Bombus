@@ -203,6 +203,7 @@ public class JabberDataBlock
 
   public String getAttribute( String attributeName )
   {
+    if (attributes==null) return null;
     return (String) attributes.get( attributeName );
   }
   
@@ -216,6 +217,15 @@ public class JabberDataBlock
       return xmlnsatr.startsWith(xmlns);
   } 
 
+  public JabberDataBlock findNamespace(String xmlns) {
+      if (childBlocks==null) return null;
+      for (Enumeration e=childBlocks.elements(); e.hasMoreElements();){
+          JabberDataBlock d=(JabberDataBlock)e.nextElement();
+          if (d.isJabberNameSpace(xmlns)) return d;
+      }
+      return null;
+  }
+  
   public void setNameSpace(String xmlns){
       setAttribute("xmlns", xmlns);
   }
