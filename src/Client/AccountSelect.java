@@ -169,8 +169,12 @@ public class AccountSelect
             ipbox=new TextField("Server IP",account.getServerI(),32,TextField.URL);   f.append(ipbox);
             portbox=new TextField("Port",String.valueOf(account.getPort()),32,TextField.NUMERIC);   f.append(portbox);
             register=new ChoiceGroup(null, Choice.MULTIPLE);
+            register.append("use SSL",null);
+            register.append("plain-text password",null);
             register.append("Register Account",null);
             //TODO: if (newaccount) 
+            boolean b[]={account.getUseSSL(), account.getPlainAuth(), false};
+            register.setSelectedFlags(b);
             f.append(register);
                 
             resourcebox=new TextField("Resource",account.getResource(),32,TextField.ANY);  f.append(resourcebox);
@@ -200,6 +204,7 @@ public class AccountSelect
                 servbox.setString(user.substring(at+1));
             }
             if (item==passbox) passStars();
+            //if (item==register) {}
         }
         public void commandAction(Command c, Displayable d){
             if (c==cmdCancel) {
@@ -208,6 +213,9 @@ public class AccountSelect
                 return; 
             }
             if (c==cmdOk)   {
+                boolean b[]=new boolean[3];
+                register.getSelectedFlags(b);
+
                 String user=userbox.getString();
                 int at=user.indexOf('@');
                 if (at!=-1) user=user.substring(0, at);
@@ -217,6 +225,8 @@ public class AccountSelect
                 account.setIP(ipbox.getString());
                 account.setResource(resourcebox.getString());
                 account.setNickName(nickbox.getString());
+                account.setUseSSL(b[0]);
+                account.setPlainAuth(b[1]);
                 account.updateJidCache();
                 
                 try {
@@ -224,12 +234,10 @@ public class AccountSelect
                 } catch (Exception e) {
                     account.setPort(5222);
                 }
-                boolean b[]=new boolean[1];
-                register.getSelectedFlags(b);
                 
                 rmsUpdate();
                 commandState();
-                if (b[0]) new AccountRegister(account,display, parentView); 
+                if (b[2]) new AccountRegister(account,display, parentView); 
                 else destroyView();
                     
             }

@@ -79,14 +79,15 @@ public class JabberStream implements XMLEventListener, Runnable {
      */
     
     public JabberStream( String hostName, String hostAddr, int hostPort,
-            JabberListener theListener )
+            JabberListener theListener , boolean ssl)
             throws IOException {
+        String url=((ssl)?"ssl://":"socket://")+hostAddr+":"+hostPort ;
         connection =
                 /*#MIDP2#*///<editor-fold>
-//--                (SocketConnection) Connector.open("socket://"+hostAddr+":"+hostPort );
+//--                (SocketConnection) Connector.open(url);
         /*$MIDP2$*///</editor-fold>
         /*#!MIDP2#*///<editor-fold>
-                (StreamConnection) Connector.open("socket://"+hostAddr+":"+hostPort );
+                (StreamConnection) Connector.open(url);
         /*$!MIDP2$*///</editor-fold>
         
         /*#MIDP2#*///<editor-fold>

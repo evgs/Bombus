@@ -46,7 +46,7 @@ public class Login extends JabberDataBlock
    * @param resource The resource name to use
    */
 
-  public Login( String username, String server, String password, String sid, String resource )
+  public Login( String username, String server, String password, String sid, String resource)
   {
     super( );
 

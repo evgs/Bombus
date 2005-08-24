@@ -30,6 +30,8 @@ public class Account extends IconTextElement{
     private String IP;
     private int port=5222;
     public boolean active;
+    private boolean useSSL;
+    private boolean plainAuth;
     
     private String nick="";
     private String resource="Bombus";
@@ -80,6 +82,8 @@ public class Account extends IconTextElement{
 
             a.nick     = inputStream.readUTF();
             a.resource = inputStream.readUTF();
+            if (version>=2) a.useSSL=inputStream.readBoolean();
+            if (version>=3) a.plainAuth=inputStream.readBoolean();
             
         } catch (IOException e) { 
             e.printStackTrace(); 
@@ -135,7 +139,7 @@ public class Account extends IconTextElement{
         if (IP==null) IP="";
         
         try {
-            outputStream.writeByte(1);
+            outputStream.writeByte(3);
             outputStream.writeUTF(userName);
             outputStream.writeUTF(password);
             outputStream.writeUTF(server);
@@ -144,7 +148,9 @@ public class Account extends IconTextElement{
             
             outputStream.writeUTF(nick);
             outputStream.writeUTF(resource);
-            
+
+            outputStream.writeBoolean(useSSL);
+            outputStream.writeBoolean(plainAuth);
         } catch (IOException e) {
             e.printStackTrace();
 /*#USE_LOGGER#*///<editor-fold>
@@ -181,6 +187,12 @@ public class Account extends IconTextElement{
 
     public int getPort() { return port; }
     public void setPort(int port) { this.port = port; }
+
+    public boolean getUseSSL() { return useSSL; }
+    public void setUseSSL(boolean ssl) { this.useSSL = ssl; }
+
+    public boolean getPlainAuth() { return plainAuth; }
+    public void setPlainAuth(boolean plain) { this.plainAuth = plain; }
     
     public String getResource() { return resource;  }
     public void setResource(String resource) { this.resource = resource;  }
@@ -189,6 +201,6 @@ public class Account extends IconTextElement{
     public void setNickName(String nick) { this.nick = nick;  }
 
     public JabberStream openJabberStream() throws java.io.IOException{
-        return new JabberStream(  getServerN(), getServer(), getPort(), null);    
+        return new JabberStream(  getServerN(), getServer(), getPort(), null, getUseSSL());    
     }
 }

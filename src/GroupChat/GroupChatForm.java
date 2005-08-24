@@ -68,10 +68,11 @@ public class GroupChatForm implements CommandListener{
         StringBuffer gchat=new StringBuffer(room);
         gchat.append('@');
         gchat.append(host);
-        sd.roster.mucContact(gchat.toString(), Contact.ORIGIN_GROUPCHAT);
+        //sd.roster.mucContact(gchat.toString(), Contact.ORIGIN_GROUPCHAT);
         gchat.append('/');
         gchat.append(nick);
         String jid=gchat.toString();
+        sd.roster.mucContact(jid, Contact.ORIGIN_GROUPCHAT);
         sd.roster.mucContact(jid, Contact.ORIGIN_GC_MYSELF);
         
         JabberDataBlock x=new JabberDataBlock("x", null, null);

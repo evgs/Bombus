@@ -442,15 +442,14 @@ public class Roster
         int rp=from.indexOf('/');
         String room=from.substring(0,ri);
         String nick=null;
-        if (rp>0) {
-            if (isRoom) 
-            from=from.substring(0, rp); else nick=from.substring(rp+1);
-        }
+        if (rp>0) if (!isRoom) nick=from.substring(rp+1);
+        
         updateContact(nick, from, room, "muc", false);
         Contact c=presenceContact(from, isRoom?Presence.PRESENCE_ONLINE:-1);
         if (isRoom){  
             //c.status=Presence.PRESENCE_ONLINE;  
             c.transport=6; //FIXME: убрать хардкод
+            c.jid=new Jid(from.substring(0, rp));
         } 
         if (c.origin<origin) c.origin=origin;
     }
@@ -933,8 +932,8 @@ public class Roster
                 a.getUserName(), 
                 a.getServerN(), 
                 a.getPassword(), 
-                SessionId, 
-                a.getResource() 
+                a.getPlainAuth()?null:SessionId, 
+                a.getResource()
         );
         theStream.send( login );
         //} catch( Exception e ) {
