@@ -26,9 +26,11 @@ public class FormField {
         String body=field.getText();
         if (name.equals("field")) {
             // x:data
-            name=field.getAttribute("var");
-            label=field.getAttribute("label");
             type=field.getAttribute("type");
+            if (type.equals("fixed")) name="title";
+            else name=field.getAttribute("var");
+            label=field.getAttribute("label");
+            body=field.getTextForChildBlock("value");
         }
         
         if ( instructions=name.equals("instructions") )

@@ -1247,7 +1247,7 @@ public class Roster
         }
         m.addItem(new MenuItem("vCard",1));
         m.addItem(new MenuItem("Client Info",0));
-        if (c.group!=SELF_INDEX && c.group!=SRC_RESULT_INDEX) {
+        if (c.group!=SELF_INDEX && c.group!=SRC_RESULT_INDEX && c.origin<Contact.ORIGIN_GROUPCHAT) {
             if (c.group!=TRANSP_INDEX) 
                 m.addItem(new MenuItem("Edit",2));
             m.addItem(new MenuItem("Subscription",3));
