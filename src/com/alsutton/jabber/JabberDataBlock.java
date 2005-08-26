@@ -139,7 +139,7 @@ public class JabberDataBlock
    */
   public void addChild(String name, String text){
       JabberDataBlock child=new JabberDataBlock(name,this,null);
-      child.addText(text);
+      if (text!=null) child.addText(text);
       addChild(child);
   }
 

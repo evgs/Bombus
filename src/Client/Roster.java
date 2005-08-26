@@ -19,6 +19,7 @@ import javax.microedition.midlet.MIDlet;
 import ui.*;
 import ServiceDiscovery.ServiceDiscovery;
 import GroupChat.GroupChatForm;
+import PrivacyLists.PrivacySelect;
 
 //import Client.msg.*;
 
@@ -61,7 +62,7 @@ public class Roster
     /**
      * The stream representing the connection to ther server
      */
-    private JabberStream theStream ;
+    public JabberStream theStream ;
     
     
     int messageCount;
@@ -82,7 +83,7 @@ public class Roster
     //private Command cmdShowOfflines=new Command("Show Offlines",Command.SCREEN,9);
     //private Command cmdHideOfflines=new Command("Hide Offlines",Command.SCREEN,9);
     //private Command cmdReconnect=new Command("Reconnect",Command.SCREEN,10);
-    //private Command cmdLogoff=new Command("Logoff",Command.SCREEN,11);
+    private Command cmdPrivacy=new Command("Privacy Lists",Command.SCREEN,11);
     private Command cmdAccount=new Command("Account >",Command.SCREEN,12);
     //private Command cmdSetFullScreen=new Command("Fullscreen",Command.SCREEN,20);
     private Command cmdOptions=new Command("Options",Command.SCREEN,20);
@@ -92,7 +93,7 @@ public class Roster
     private Config cf;
     private StaticData sd=StaticData.getInstance();
     
-    public ServiceDiscoveryListener discoveryListener;
+    public JabberBlockListener discoveryListener;
     
     /**
      * Creates a new instance of Roster
@@ -132,6 +133,7 @@ public class Roster
         addCommand(cmdAdd);
         addCommand(cmdServiceDiscovery);
         addCommand(cmdGroupChat);
+        addCommand(cmdPrivacy);
         //addCommand(cmdReconnect);
         //addCommand(cmdLogoff);
         addCommand(cmdAccount);
@@ -844,8 +846,47 @@ public class Roster
                         pr.getPresenceTxt());
                 Contact c=messageStore(m, ti);
                 c.priority=pr.getPriority();
-                if (pr.findNamespace("http://jabber.org/protocol/muc")!=null)
+                if (pr.findNamespace("http://jabber.org/protocol/muc")!=null){
+                    int rp=from.indexOf('/');
+                    StringBuffer b=new StringBuffer(from.substring(rp+1));
+                    //b.append(c.origin);
+                    //b.append(c.jid.getResource());
+                    //b.deleteCharAt(0);  //FIXME:
+                    JabberDataBlock item=pr.getChildBlock("x").getChildBlock("item");
+                    if (c.origin==Contact.ORIGIN_CLONE)
+                    {
+                        String realJid=item.getAttribute("jid");
+                        if (realJid!=null) {
+                            b.append(" (");
+                            b.append(realJid);
+                            b.append(')');
+                        }
+                        b.append(" has joined the channel as ");
+                        b.append(item.getAttribute("role"));
+                        String affil=item.getAttribute("affiliation");
+                        if (!affil.equals("none")) {
+                            b.append(" and ");
+                            b.append(affil);
+                        }
+                    } else if (pr.getTypeIndex()==Presence.PRESENCE_OFFLINE) {
+                        b.append(" has left the channel");
+                    } else {
+                        b.append(" is now ");
+                        b.append(pr.getPresenceTxt());
+                    }
+                    System.out.println(b.toString());
+
+
                     mucContact(from, Contact.ORIGIN_GC_MEMBER);
+                    
+                    from=from.substring(0, rp);
+                    m=new Msg(
+                        Msg.MESSAGE_TYPE_PRESENCE,
+                        from,
+                        null,
+                        b.toString());
+                    messageStore(m, -1);
+                }
             }
         } catch( Exception e ) {
             e.printStackTrace();
@@ -1087,6 +1128,7 @@ public class Roster
         if (c==cmdOptions){ new ConfigForm(display); }
         if (c==cmdContact) { contactMenu((Contact) getFocusedObject()); }
         if (c==cmdDiscard) { cleanupSearch(); }
+        if (c==cmdPrivacy) { new PrivacySelect(display); }
         if (c==cmdAdd) {
             //new MIDPTextBox(display,"Add to roster", null, new AddContact());
             Object o=getFocusedObject();

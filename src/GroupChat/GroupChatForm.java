@@ -38,20 +38,25 @@ public class GroupChatForm implements CommandListener{
         this.display=display;
         parentView=display.getCurrent();
         
-        if (room==null) room=sd.config.defGcRoom;
-        if (server==null) server="conference."+sd.account.getServerN();
-        
         Form formJoin=new Form("Join conference");
-        roomField=new TextField("Room", room, 64, TextField.URL);
-        formJoin.append(roomField);
-        
-        hostField=new TextField("at Host", server, 64, TextField.URL);
-        formJoin.append(hostField);
 
-        nickField=new TextField("Nickname", sd.account.getNickName(), 32, TextField.URL);
-        formJoin.append(nickField);
+        // Lobo's M55 exception test
+        try {
+            if (room==null) room=sd.config.defGcRoom;
+            if (server==null) server="conference."+sd.account.getServerN();
+            
+            roomField=new TextField("Room", room, 64, TextField.URL);
+            formJoin.append(roomField);
+            
+            hostField=new TextField("at Host", server, 64, TextField.URL);
+            formJoin.append(hostField);
+            
+            nickField=new TextField("Nickname", sd.account.getNickName(), 32, TextField.URL);
+            formJoin.append(nickField);
+            
+            formJoin.addCommand(cmdJoin);
+        } catch (Exception e) { formJoin.append(e.toString()); }
         
-        formJoin.addCommand(cmdJoin);
         formJoin.addCommand(cmdCancel);
         formJoin.setCommandListener(this);
         display.setCurrent(formJoin);
@@ -73,7 +78,7 @@ public class GroupChatForm implements CommandListener{
         gchat.append(nick);
         String jid=gchat.toString();
         sd.roster.mucContact(jid, Contact.ORIGIN_GROUPCHAT);
-        sd.roster.mucContact(jid, Contact.ORIGIN_GC_MYSELF);
+        //sd.roster.mucContact(jid, Contact.ORIGIN_GC_MYSELF);
         
         JabberDataBlock x=new JabberDataBlock("x", null, null);
         x.setNameSpace("http://jabber.org/protocol/muc");

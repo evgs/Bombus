@@ -20,7 +20,7 @@ import Client.*;
 public class ServiceDiscovery 
         extends VirtualList
         implements CommandListener,
-        ServiceDiscoveryListener
+        JabberBlockListener
 {
     private final static String NS_ITEMS="http://jabber.org/protocol/disco#items";
     private final static String NS_INFO="http://jabber.org/protocol/disco#info";

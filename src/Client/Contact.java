@@ -99,7 +99,7 @@ public class Contact extends IconTextElement{
         c.jidHash=jidHash;
         c.subscr=subscr;
         c.offline_type=offline_type;
-        c.origin=2; 
+        c.origin=ORIGIN_CLONE; 
         c.status=status; 
         c.transport=Transport.getInstance().getTransportIndex(newjid.getTransport(), newjid.hasResource()); //<<<<
 
@@ -152,7 +152,7 @@ public class Contact extends IconTextElement{
         if (m.isPresence()) 
             if (msgs.size()==1) 
                 if ( ((Msg)msgs.firstElement()).isPresence())
-                    first_replace=true;
+                    if (origin!=ORIGIN_GROUPCHAT) first_replace=true;
 /*#USE_SIEMENS_FILES#*///<editor-fold>
 //--        Config cf=StaticData.getInstance().config;
 //--

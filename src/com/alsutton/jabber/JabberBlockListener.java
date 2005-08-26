@@ -10,7 +10,7 @@ package com.alsutton.jabber;
  *
  * @author Evg_S
  */
-public interface ServiceDiscoveryListener {
+public interface JabberBlockListener {
     
   /**
    * Method to handle an incomming block.
