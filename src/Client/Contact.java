@@ -29,12 +29,13 @@ public class Contact extends IconTextElement{
         0x00
     };
     
-    public final static int ORIGIN_ROSTER=0;
-    public final static int ORIGIN_CLONE=1;
-    public final static int ORIGIN_PRESENCE=2;
-    public final static int ORIGIN_GROUPCHAT=3;
-    public final static int ORIGIN_GC_MEMBER=4;
-    public final static int ORIGIN_GC_MYSELF=5;
+    public final static byte ORIGIN_ROSTER=0;
+    public final static byte ORIGIN_ROSTERRES=1;
+    public final static byte ORIGIN_CLONE=2;
+    public final static byte ORIGIN_PRESENCE=3;
+    public final static byte ORIGIN_GROUPCHAT=4;
+    public final static byte ORIGIN_GC_MEMBER=5;
+    public final static byte ORIGIN_GC_MYSELF=6;
     
     /** Creates a new instance of Contact */
     private Contact (){
@@ -58,7 +59,8 @@ public class Contact extends IconTextElement{
     
     private int jidHash;
 
-    public int origin;  
+    public byte origin;
+    public boolean gcMyself;
     
     public String subscr;
     public int offline_type=Presence.PRESENCE_UNKNOWN;

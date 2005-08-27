@@ -298,13 +298,33 @@ public class Roster
     }
     
     public void cleanupSearch(){
-        int i=0;
-        while (i<hContacts.size()) {
-            if ( ((Contact)hContacts.elementAt(i)).group==SRC_RESULT_INDEX )
-                hContacts.removeElementAt(i);
-            else i++;
+        int index=0;
+        while (index<hContacts.size()) {
+            if ( ((Contact) hContacts.elementAt(index)).group==SRC_RESULT_INDEX )
+                hContacts.removeElementAt(index);
+            else index++;
         }
         reEnumRoster();
+    }
+    
+    public void cleanupGroup(){
+        if (!(atCursor instanceof Group)) return;
+        Group g=(Group)atCursor;
+        if (!g.collapsed) return;
+        int gi=g.index;
+
+        int index=0;
+        while (index<hContacts.size()) {
+            Contact contact=(Contact)hContacts.elementAt(index);
+            if (contact.group==gi) {
+                if ( contact.origin>Contact.ORIGIN_ROSTERRES
+                     && contact.status==Presence.PRESENCE_OFFLINE
+                     && contact.getNewMsgsCount()==0 )
+                    hContacts.removeElementAt(index);
+                else index++; 
+            }
+            else index++; 
+        }
     }
     
     public void reEnumRoster(){
@@ -437,7 +457,7 @@ public class Roster
         }
     }
 
-    public final void mucContact(String from, int origin){
+    public final void mucContact(String from, byte origin){
         // muc message
         boolean isRoom=(origin==Contact.ORIGIN_GROUPCHAT);
         int ri=from.indexOf('@');
@@ -453,6 +473,10 @@ public class Roster
             c.transport=6; //FIXME: убрать хардкод
             c.jid=new Jid(from.substring(0, rp));
         } 
+        if (origin==Contact.ORIGIN_GC_MYSELF) {
+            origin=Contact.ORIGIN_CLONE;
+            c.gcMyself=true;
+        }
         if (c.origin<origin) c.origin=origin;
     }
     
@@ -488,7 +512,7 @@ public class Roster
         } else {
             // здесь jid с новым ресурсом
             if (c.origin==Contact.ORIGIN_ROSTER) {
-                c.origin=Contact.ORIGIN_CLONE;
+                c.origin=Contact.ORIGIN_ROSTERRES;
                 c.status=Status;
                 c.jid=J;
                 //System.out.println("add resource");
@@ -1018,9 +1042,11 @@ public class Roster
     
     public void eventOk(){
         super.eventOk();
+        cleanupGroup();
         createMsgList();
         reEnumRoster();
     }
+    
     
     private Displayable createMsgList(){
         Object e=getFocusedObject();
@@ -1116,7 +1142,7 @@ public class Roster
                 for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
                     Contact contact=(Contact)e.nextElement();
                     if (contact.group==gi) {
-                        if (contact.origin==Contact.ORIGIN_GC_MYSELF)
+                        if (contact.gcMyself)
                             sendPresence(contact.getJid(), "unavailable", null);
                         contact.status=Presence.PRESENCE_OFFLINE;
                     }

@@ -78,12 +78,14 @@ public class GroupChatForm implements CommandListener{
         gchat.append(nick);
         String jid=gchat.toString();
         sd.roster.mucContact(jid, Contact.ORIGIN_GROUPCHAT);
-        //sd.roster.mucContact(jid, Contact.ORIGIN_GC_MYSELF);
-        
+        // требуется для возможности нормального выхода
+        sd.roster.mucContact(jid, Contact.ORIGIN_GC_MYSELF); 
+        //sd.roster.activeRooms.addElement(jid);
+ 
         JabberDataBlock x=new JabberDataBlock("x", null, null);
         x.setNameSpace("http://jabber.org/protocol/muc");
         sd.roster.groups.getGroup(room).imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
-        sd.roster.sendPresence(gchat.toString(), null, x);
+        sd.roster.sendPresence(jid, null, x);
         display.setCurrent(sd.roster);
     }
     public void destroyView(){
