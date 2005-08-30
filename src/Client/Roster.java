@@ -470,7 +470,7 @@ public class Roster
         Contact c=presenceContact(from, isRoom?Presence.PRESENCE_ONLINE:-1);
         if (isRoom){  
             //c.status=Presence.PRESENCE_ONLINE;  
-            c.transport=6; //FIXME: убрать хардкод
+            c.transport=7; //FIXME: убрать хардкод
             c.jid=new Jid(from.substring(0, rp));
         } 
         if (origin==Contact.ORIGIN_GC_MYSELF) {
@@ -870,13 +870,19 @@ public class Roster
                         pr.getPresenceTxt());
                 Contact c=messageStore(m, ti);
                 c.priority=pr.getPriority();
-                if (pr.findNamespace("http://jabber.org/protocol/muc")!=null){
+                JabberDataBlock xmuc=pr.findNamespace("http://jabber.org/protocol/muc");
+                if (xmuc!=null){
                     int rp=from.indexOf('/');
                     StringBuffer b=new StringBuffer(from.substring(rp+1));
                     //b.append(c.origin);
                     //b.append(c.jid.getResource());
                     //b.deleteCharAt(0);  //FIXME:
-                    JabberDataBlock item=pr.getChildBlock("x").getChildBlock("item");
+                    JabberDataBlock item=xmuc.getChildBlock("item");
+                    
+                    String role=item.getAttribute("role");
+                    String affil=item.getAttribute("affiliation");
+                    if (role.startsWith("moderator")) c.transport=6; //FIXME: убрать хардкод
+                    
                     if (c.origin==Contact.ORIGIN_CLONE)
                     {
                         String realJid=item.getAttribute("jid");
@@ -886,8 +892,7 @@ public class Roster
                             b.append(')');
                         }
                         b.append(" has joined the channel as ");
-                        b.append(item.getAttribute("role"));
-                        String affil=item.getAttribute("affiliation");
+                        b.append(role);
                         if (!affil.equals("none")) {
                             b.append(" and ");
                             b.append(affil);
@@ -1211,6 +1216,9 @@ public class Roster
     }
     
     public void focusedItem(int index) {
+        //TODO: refactor this code
+        // код должен вызываться при отрисовке (?)
+        if (!isShown()) return;
         if (vContacts==null) return;
         if (index>=vContacts.size()) return;
         Object atCursor=vContacts.elementAt(index);
