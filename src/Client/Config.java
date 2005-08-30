@@ -31,6 +31,8 @@ public class Config {
 /*$DefaultConfiguration,Release$*///</editor-fold>
 /*#M55,M55_Release#*///<editor-fold>
 //--    public boolean msgLogPresence=getProperty("msg_log_presence",false);
+//--    public boolean msgLogConfPresence=getProperty("msg_log_conf_presence",false);
+//--    public boolean msgLogConf=getProperty("msg_log_conf",false);
 //--    public final String msgPath=getProperty("msg_log_path","");
 //--    public String messagesnd=getProperty("msg_snd","/sounds/message.wav");
 //--    public final String siemensCfgPath=getProperty("cfg_path","");

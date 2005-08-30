@@ -467,12 +467,26 @@ public class Roster
         if (rp>0) if (!isRoom) nick=from.substring(rp+1);
         
         updateContact(nick, from, room, "muc", false);
+        /*
         Contact c=presenceContact(from, isRoom?Presence.PRESENCE_ONLINE:-1);
         if (isRoom){  
             //c.status=Presence.PRESENCE_ONLINE;  
             c.transport=7; //FIXME: убрать хардкод
             c.jid=new Jid(from.substring(0, rp));
-        } 
+            c.origin=Contact.ORIGIN_GROUPCHAT;
+        }
+         */ 
+        Contact c;
+        if (isRoom){
+            c=presenceContact(from.substring(0, rp), Presence.PRESENCE_ONLINE);
+            //c.status=Presence.PRESENCE_ONLINE;  
+            c.transport=7; //FIXME: убрать хардкод
+            c.rosterJid=from;
+            c.origin=Contact.ORIGIN_GROUPCHAT;
+            c.priority=99;
+        } else {
+            c=presenceContact(from, -1);
+        }
         if (origin==Contact.ORIGIN_GC_MYSELF) {
             origin=Contact.ORIGIN_CLONE;
             c.gcMyself=true;

@@ -163,7 +163,17 @@ public class Contact extends IconTextElement{
 //--            String histRecord=(nick==null)?getJidNR():nick;
 //--            String fromName=StaticData.getInstance().account.getUserName();
 //--            if (m.messageType!=Msg.MESSAGE_TYPE_OUT) fromName=toString();
-//--            if (m.messageType!=Msg.MESSAGE_TYPE_PRESENCE || cf.msgLogPresence)
+//--            boolean allowLog=false;
+//--            switch (m.messageType) {
+//--                case Msg.MESSAGE_TYPE_PRESENCE:
+//--                    if (origin>=ORIGIN_GROUPCHAT && cf.msgLogConfPresence) allowLog=true;
+//--                    if (origin<ORIGIN_GROUPCHAT && cf.msgLogPresence) allowLog=true;
+//--                    break;
+//--                default:
+//--                    if (origin>=ORIGIN_GROUPCHAT && cf.msgLogConf) allowLog=true;
+//--                    if (origin<ORIGIN_GROUPCHAT) allowLog=true;
+//--            }
+//--            if (allowLog)
 //--                //if (!first_replace || !m.)
 //--            {
 //--                StringBuffer body=new StringBuffer(m.getDayTime());

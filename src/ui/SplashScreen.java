@@ -132,5 +132,6 @@ public class SplashScreen extends Canvas implements CommandListener{
         repaint();
         img=null;
         s=null; // освобождение памяти
+        System.gc();
     }
 }

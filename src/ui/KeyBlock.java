@@ -50,6 +50,8 @@ public class KeyBlock extends Canvas implements Runnable{
         repaint();
 
         new Thread(this).start();
+        
+        System.gc();   // heap cleanup
     }
     
     public void run(){
@@ -105,5 +107,8 @@ public class KeyBlock extends Canvas implements Runnable{
         if (motorola_backlight) display.flashBacklight(Integer.MAX_VALUE);
 /*$DefaultConfiguration,Release$*///</editor-fold>
         if (display!=null)   display.setCurrent(parentView);
+        img=null;
+        
+        System.gc();
     }    
 }
