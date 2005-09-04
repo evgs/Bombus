@@ -30,6 +30,7 @@ public class GroupChatForm implements CommandListener{
     TextField roomField;
     TextField hostField;
     TextField nickField;
+    TextField passField;
     
     /** Creates a new instance of GroupChatForm */
     public GroupChatForm(Display display) { this(display, null, null); }
@@ -41,21 +42,24 @@ public class GroupChatForm implements CommandListener{
         Form formJoin=new Form("Join conference");
 
         // Lobo's M55 exception test
-        try {
-            if (room==null) room=sd.config.defGcRoom;
-            if (server==null) server="conference."+sd.account.getServerN();
-            
-            roomField=new TextField("Room", room, 64, TextField.URL);
-            formJoin.append(roomField);
-            
-            hostField=new TextField("at Host", server, 64, TextField.URL);
-            formJoin.append(hostField);
-            
-            nickField=new TextField("Nickname", sd.account.getNickName(), 32, TextField.ANY);
-            formJoin.append(nickField);
-            
-            formJoin.addCommand(cmdJoin);
-        } catch (Exception e) { formJoin.append(e.toString()); }
+        //try {
+        if (room==null) room=sd.config.defGcRoom;
+        if (server==null) server="conference."+sd.account.getServerN();
+        
+        roomField=new TextField("Room", room, 64, TextField.URL);
+        formJoin.append(roomField);
+        
+        hostField=new TextField("at Host", server, 64, TextField.URL);
+        formJoin.append(hostField);
+        
+        nickField=new TextField("Nickname", sd.account.getNickName(), 32, TextField.ANY);
+        formJoin.append(nickField);
+        
+        passField=new TextField("Password", "", 32, TextField.ANY);
+        formJoin.append(passField);
+        
+        formJoin.addCommand(cmdJoin);
+        //} catch (Exception e) { formJoin.append(e.toString()); }
         
         formJoin.addCommand(cmdCancel);
         formJoin.setCommandListener(this);
@@ -67,6 +71,7 @@ public class GroupChatForm implements CommandListener{
         String nick=nickField.getString();
         String host=hostField.getString();
         String room=roomField.getString();
+        String pass=passField.getString();
         if (nick.length()==0) return;
         if (room.length()==0) return;
         if (host.length()==0) return;
@@ -84,6 +89,10 @@ public class GroupChatForm implements CommandListener{
  
         JabberDataBlock x=new JabberDataBlock("x", null, null);
         x.setNameSpace("http://jabber.org/protocol/muc");
+        if (pass.length()!=0) {
+            // adding password to presence
+            x.addChild("password", pass);
+        }
         sd.roster.groups.getGroup(room).imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
         sd.roster.sendPresence(jid, null, x);
         display.setCurrent(sd.roster);

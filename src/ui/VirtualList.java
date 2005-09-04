@@ -335,7 +335,7 @@ public abstract class VirtualList
                 if (cursor>=win_top+visibleItemsCnt(win_top,1))  win_top+=offset;
                 // теперь сместим курсор, если он вне экрана
                 int vt=win_top+visibleItemsCnt(win_top,1);
-                if (cursor>=vt) cursor=vt-1;
+                if (vt>0 && cursor>=vt) cursor=vt-1;
             }
             focusedItem(cursor);
             

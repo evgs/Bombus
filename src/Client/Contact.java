@@ -47,6 +47,7 @@ public class Contact extends IconTextElement{
     public String nick;
     public Jid jid;
     public String rosterJid;    // for roster/subscription manipulating
+    public String realJid;      // for muc usage
     public int status;
     public int priority;
     public int group;

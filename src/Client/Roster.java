@@ -463,10 +463,10 @@ public class Roster
         int ri=from.indexOf('@');
         int rp=from.indexOf('/');
         String room=from.substring(0,ri);
-        String nick=null;
-        if (rp>0) if (!isRoom) nick=from.substring(rp+1);
+        //String nick=null;
+        //if (rp>0) if (!isRoom) nick=from.substring(rp+1);
         
-        updateContact(nick, from, room, "muc", false);
+        updateContact(null /*nick*/ , from, room, "muc", false);
         /*
         Contact c=presenceContact(from, isRoom?Presence.PRESENCE_ONLINE:-1);
         if (isRoom){  
@@ -895,6 +895,11 @@ public class Roster
                     
                     String role=item.getAttribute("role");
                     String affil=item.getAttribute("affiliation");
+                    String chNick=item.getAttribute("nick");
+                    
+                    JabberDataBlock status=xmuc.getChildBlock("status");
+                    String statusCode=(status==null)? "" : status.getAttribute("code");
+
                     if (role.startsWith("moderator")) c.transport=6; //FIXME: убрать хардкод
                     
                     if (c.origin==Contact.ORIGIN_CLONE)
@@ -904,6 +909,7 @@ public class Roster
                             b.append(" (");
                             b.append(realJid);
                             b.append(')');
+                            c.realJid=realJid;  //for moderating purposes
                         }
                         b.append(" has joined the channel as ");
                         b.append(role);
@@ -912,6 +918,21 @@ public class Roster
                             b.append(affil);
                         }
                     } else if (pr.getTypeIndex()==Presence.PRESENCE_OFFLINE) {
+                        String reason=item.getTextForChildBlock("reason");
+                        if (statusCode.equals("303")) {
+                            b.append(" is now known as ");
+                            b.append(chNick);
+                        } else if (statusCode.equals("307")){
+                            b.append(" was kicked (");
+                            b.append(reason);
+                            b.append(")");
+                            if ((c.rosterJid.equals(from))) leaveRoom(c.group);
+                        } else if (statusCode.equals("301")){
+                            b.append(" was banned (");
+                            b.append(reason);
+                            b.append(")");
+                            if ((c.rosterJid.equals(from))) leaveRoom(c.group);
+                        } else
                         b.append(" has left the channel");
                     } else {
                         b.append(" is now ");
@@ -1155,18 +1176,7 @@ public class Roster
         if (c==cmdServiceDiscovery) { new ServiceDiscovery(display, theStream); }
         if (c==cmdGroupChat) { new GroupChatForm(display); }
         if (c==cmdLeave) {
-            if (atCursor instanceof Group) {
-                int gi=((Group)atCursor).index;
-                // найдём self-jid в комнате
-                for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
-                    Contact contact=(Contact)e.nextElement();
-                    if (contact.group==gi) {
-                        if (contact.gcMyself)
-                            sendPresence(contact.getJid(), "unavailable", null);
-                        contact.status=Presence.PRESENCE_OFFLINE;
-                    }
-                }
-            };
+            if (atCursor instanceof Group) leaveRoom( ((Group)atCursor).index );
         }
         if (c==cmdStatus) { new StatusSelect(display); }
         if (c==cmdAlert) { new AlertProfile(display); }
@@ -1185,6 +1195,18 @@ public class Roster
             new ContactEdit(display, cn);
         }
     }
+    private void leaveRoom(int groupIndex){
+        // найдём self-jid в комнате
+        for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
+            Contact contact=(Contact)e.nextElement();
+            if (contact.group==groupIndex) {
+                if (contact.gcMyself)
+                    sendPresence(contact.getJid(), "unavailable", null);
+                contact.status=Presence.PRESENCE_OFFLINE;
+            }
+        }
+    }
+    
     protected void showNotify() { countNewMsgs(); }
     
     // temporary here
@@ -1325,11 +1347,33 @@ public class Roster
                         }
                         querysign=true; displayStatus();
                         sendVCardReq();
+                        break;
+                    }
+                    case 8: // kick
+                    {
+                        Hashtable attrs=new Hashtable();
+                        attrs.put("role", "none");
+                        attrs.put("nick", c.jid.getResource().substring(1));
+                        setMucMod(c, attrs);
+                        break;
+                    }
+                    case 9: // ban
+                    {
+                        Hashtable attrs=new Hashtable();
+                        attrs.put("affiliation", "outcast");
+                        attrs.put("jid", c.realJid);
+                        setMucMod(c, attrs);
+                        break;
                     }
                 }
                 destroyView();
             }
         };
+        
+        if (c.realJid!=null) {
+            m.addItem(new MenuItem("Kick",8));
+            m.addItem(new MenuItem("Ban",9));
+        }
         if (c.group==TRANSP_INDEX) {
             m.addItem(new MenuItem("Logon",5));
             m.addItem(new MenuItem("Logoff",6));
@@ -1346,6 +1390,18 @@ public class Roster
        m.attachDisplay(display);
     }
     
+    void setMucMod(Contact contact, Hashtable itemAttributes){
+        JabberDataBlock iq=new JabberDataBlock("iq", null, null);
+        iq.setTypeAttribute("set");
+        iq.setAttribute("to", contact.jid.getJid());
+        JabberDataBlock query=new JabberDataBlock("query", null, null);
+        iq.addChild(query);
+        query.setNameSpace("http://jabber.org/protocol/muc#admin");
+        JabberDataBlock item=new JabberDataBlock("item", null, itemAttributes);
+        query.addChild(item);
+        System.out.println(iq);
+        theStream.send(iq);
+    }
     /**
      * store cotnact on server
      */
