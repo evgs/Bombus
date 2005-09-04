@@ -55,7 +55,11 @@ public class GroupChatForm implements CommandListener{
         nickField=new TextField("Nickname", sd.account.getNickName(), 32, TextField.ANY);
         formJoin.append(nickField);
         
-        passField=new TextField("Password", "", 32, TextField.ANY);
+        passField=new TextField("Password", "", 32, TextField.ANY 
+/*#MIDP2#*///<editor-fold>
+//--                    | TextField.NON_PREDICTIVE
+/*$MIDP2$*///</editor-fold>
+                );
         formJoin.append(passField);
         
         formJoin.addCommand(cmdJoin);
