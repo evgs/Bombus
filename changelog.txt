@@ -1245,6 +1245,10 @@ syslog_msg: true
   fix: пароли теперь запрещено добавлять в T9/iTap  (MIDP2) (TextField.NON_PREDICTIVE)
   (пока за исключением форм в ServiceDiscovery)
 
+06.09.2005
+  (193) 
+  обновление иконок
+
 ---------------------------
   known issues:
 
