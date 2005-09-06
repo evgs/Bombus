@@ -87,6 +87,7 @@ public class Roster
     private Command cmdAccount=new Command("Account >",Command.SCREEN,12);
     //private Command cmdSetFullScreen=new Command("Fullscreen",Command.SCREEN,20);
     private Command cmdOptions=new Command("Options",Command.SCREEN,20);
+    private Command cmdInfo=new Command("Info", Command.SCREEN, 80);
     private Command cmdMinimize=new Command("Minimize", Command.SCREEN, 90);
     private Command cmdQuit=new Command("Quit",Command.SCREEN,99);
     
@@ -135,7 +136,7 @@ public class Roster
         addCommand(cmdGroupChat);
         addCommand(cmdPrivacy);
         //addCommand(cmdReconnect);
-        //addCommand(cmdLogoff);
+        addCommand(cmdInfo);
         addCommand(cmdAccount);
 /*#DefaultConfiguration,Release#*///<editor-fold>
         //addCommand(cmdSetFullScreen);
@@ -1184,6 +1185,7 @@ public class Roster
         if (c==cmdContact) { contactMenu((Contact) getFocusedObject()); }
         if (c==cmdDiscard) { cleanupSearch(); }
         if (c==cmdPrivacy) { new PrivacySelect(display); }
+        if (c==cmdInfo) { new Info.InfoWindow(display); }
         if (c==cmdAdd) {
             //new MIDPTextBox(display,"Add to roster", null, new AddContact());
             Object o=getFocusedObject();

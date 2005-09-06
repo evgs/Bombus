@@ -6,6 +6,7 @@
 
 package Client;
 
+import Info.Version;
 import java.io.*;
 import java.util.*;
 //import javax.microedition.rms.*;
@@ -136,7 +137,7 @@ public class Config {
 
         String platform=null;
         try {
-            platform=System.getProperty("microedition.platform");
+            platform=Version.platform();
         } finally {
             if (platform==null) platform="";
         }
