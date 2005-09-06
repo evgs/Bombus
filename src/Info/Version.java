@@ -4,7 +4,7 @@
  * Created on 23 јпрель 2005 г., 22:44
  */
 
-package Client;
+package Info;
 
 /**
  *

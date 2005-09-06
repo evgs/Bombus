@@ -5,6 +5,8 @@
  */
 
 package com.alsutton.jabber.datablocks;
+
+import Info.Version;
 import com.alsutton.jabber.*;
 import java.util.*;
 import Client.*;

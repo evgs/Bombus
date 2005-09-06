@@ -16,6 +16,8 @@ import javax.microedition.lcdui.*;
 import ui.*;
 
 import Client.*;
+import Info.Version;
+
 
 /** Entry point class
  *
