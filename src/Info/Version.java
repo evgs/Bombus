@@ -26,7 +26,8 @@ public class Version {
 
 
     public static String platform() {
-        return System.getProperty("microedition.platform");
+        String platform=System.getProperty("microedition.platform");
+        return (platform==null)? "Motorola-generic":platform;
     }
 
     public static String getOs() {

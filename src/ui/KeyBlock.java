@@ -7,6 +7,7 @@
 package ui;
 
 import javax.microedition.lcdui.*;
+import java.util.*;
 
 /**
  *
@@ -31,6 +32,8 @@ public class KeyBlock extends Canvas implements Runnable{
     private char exitKey;
     private int kHold;
     
+    private TimerTaskClock tc;
+    
     boolean motorola_backlight;
     
     /** Creates a new instance */
@@ -50,6 +53,8 @@ public class KeyBlock extends Canvas implements Runnable{
         repaint();
 
         new Thread(this).start();
+        
+        tc=new TimerTaskClock();
         
         System.gc();   // heap cleanup
     }
@@ -86,6 +91,13 @@ public class KeyBlock extends Canvas implements Runnable{
         g.translate(0, y);
         status.drawItem(g, 0, false);
         
+        String time=Time.timeString(Time.localTime());
+        int tw=f.stringWidth(time);
+        g.translate(width/2, -h);
+        g.setColor(COLOR_BLK_BGND);
+        g.fillRect(-tw/2-5, -h, tw+10, h);
+        g.setColor(COLOR_BLK_TEXT);
+        g.drawString(time, 0, 0, Graphics.BOTTOM | Graphics.HCENTER);
     }
     
     public void keyPressed(int keyCode) { 
@@ -108,7 +120,22 @@ public class KeyBlock extends Canvas implements Runnable{
 /*$DefaultConfiguration,Release$*///</editor-fold>
         if (display!=null)   display.setCurrent(parentView);
         img=null;
-        
+        tc.stop();
         System.gc();
-    }    
+    }
+    
+    private class TimerTaskClock extends TimerTask {
+        private Timer t;
+        public TimerTaskClock(){
+            t=new Timer();
+            t.schedule(this, 10, 20000);
+        }
+        public void run() {
+            repaint();
+        }
+        public void stop(){
+            cancel();
+            t.cancel();
+        }
+    }
 }

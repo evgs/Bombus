@@ -87,7 +87,7 @@ public class Roster
     private Command cmdAccount=new Command("Account >",Command.SCREEN,12);
     //private Command cmdSetFullScreen=new Command("Fullscreen",Command.SCREEN,20);
     private Command cmdOptions=new Command("Options",Command.SCREEN,20);
-    private Command cmdInfo=new Command("Info", Command.SCREEN, 80);
+    private Command cmdInfo=new Command("About", Command.SCREEN, 80);
     private Command cmdMinimize=new Command("Minimize", Command.SCREEN, 90);
     private Command cmdQuit=new Command("Quit",Command.SCREEN,99);
     

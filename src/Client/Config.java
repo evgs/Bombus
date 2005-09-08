@@ -9,6 +9,7 @@ package Client;
 import Info.Version;
 import java.io.*;
 import java.util.*;
+import ui.Time;
 //import javax.microedition.rms.*;
 
 /**
@@ -20,8 +21,8 @@ public class Config {
     public final int keepAlive=getProperty("keep_alive",200);
     public final int vibraLen=getProperty("vibra_len",500);
     
-    public boolean ghostMotor=getProperty("moto_e398",false);
-    public boolean blFlash=!ghostMotor;
+    public boolean ghostMotor;//=getProperty("moto_e398",false);
+    public boolean blFlash=true;
 
     public boolean msgLog=getProperty("msg_log",false);
     
@@ -133,6 +134,7 @@ public class Config {
         int gmtloc=TimeZone.getDefault().getRawOffset()/3600000;
         locOffset=getProperty( "time_loc_offset", 0);
         gmtOffset=getProperty("time_gmt_offset", gmtloc);
+        Time.setOffset(gmtOffset, locOffset);
         
 
         String platform=null;
@@ -148,9 +150,10 @@ public class Config {
         if (platform.startsWith("Nokia")) {
             blFlash=false;
         }
-        /*if (platform.startsWith("Motorola")) {
+        if (platform.startsWith("Moto")) {
             ghostMotor=true;
-        }*/
+            blFlash=false;
+        }
         //System.out.println(locOffset);
 /*#M55,M55_Release#*///<editor-fold>
 //--        if (platform.startsWith("M55")) 
