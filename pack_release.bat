@@ -1,4 +1,4 @@
 echo on
-call moto.bat
+rem call moto.bat
 del bombus*.rar
 call pack.cmd
