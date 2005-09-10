@@ -300,10 +300,12 @@ public class Roster
     
     public void cleanupSearch(){
         int index=0;
-        while (index<hContacts.size()) {
-            if ( ((Contact) hContacts.elementAt(index)).group==SRC_RESULT_INDEX )
-                hContacts.removeElementAt(index);
-            else index++;
+        synchronized (hContacts) {
+            while (index<hContacts.size()) {
+                if ( ((Contact) hContacts.elementAt(index)).group==SRC_RESULT_INDEX )
+                    hContacts.removeElementAt(index);
+                else index++;
+            }
         }
         reEnumRoster();
     }
@@ -315,16 +317,18 @@ public class Roster
         int gi=g.index;
 
         int index=0;
-        while (index<hContacts.size()) {
-            Contact contact=(Contact)hContacts.elementAt(index);
-            if (contact.group==gi) {
-                if ( contact.origin>Contact.ORIGIN_ROSTERRES
-                     && contact.status==Presence.PRESENCE_OFFLINE
-                     && contact.getNewMsgsCount()==0 )
-                    hContacts.removeElementAt(index);
+        synchronized (hContacts) {
+            while (index<hContacts.size()) {
+                Contact contact=(Contact)hContacts.elementAt(index);
+                if (contact.group==gi) {
+                    if ( contact.origin>Contact.ORIGIN_ROSTERRES
+                         && contact.status==Presence.PRESENCE_OFFLINE
+                         && contact.getNewMsgsCount()==0 )
+                        hContacts.removeElementAt(index);
+                    else index++; 
+                }
                 else index++; 
             }
-            else index++; 
         }
     }
     
@@ -354,11 +358,16 @@ public class Roster
                 }
                 int gindex=c.group;
                 // hide offlines whithout new messages
-                if (offlines 
+                if (
+                 offlines 
                  || online 
                  || c.getNewMsgsCount()>0 
                  || gindex==Roster.NIL_INDEX 
-                 || gindex==Roster.TRANSP_INDEX)
+                 || gindex==Roster.TRANSP_INDEX
+                 //  *ВРЕМЕННО* на контакт комнаты в группе конференции 
+                 //  не распространяется Show offlines
+                 || c.origin==Contact.ORIGIN_GROUPCHAT 
+                    )
                     grp.Contacts.addElement(c);
                 //grp.addContact(c);
             }
@@ -425,7 +434,7 @@ public class Roster
         Contact c=getContact(J,false);
         if (c==null) {
             c=new Contact(Nick, Jid, Presence.PRESENCE_OFFLINE, null);
-            hContacts.addElement(c);
+            addContact(c);
         }
         for (Enumeration e=hContacts.elements();e.hasMoreElements();) {
             c=(Contact)e.nextElement();
@@ -450,11 +459,13 @@ public class Roster
     
     private final void removeTrash(){
         int index=0;
-        while (index<hContacts.size()) {
-            Contact c=(Contact)hContacts.elementAt(index);
-            if (c.offline_type<0) {
-                hContacts.removeElementAt(index);
-            } else index++;
+        synchronized (hContacts) {
+            while (index<hContacts.size()) {
+                Contact c=(Contact)hContacts.elementAt(index);
+                if (c.offline_type<0) {
+                    hContacts.removeElementAt(index);
+                } else index++;
+            }
         }
     }
 
@@ -542,7 +553,7 @@ public class Roster
         return c;
     }
     public void addContact(Contact c) {
-        hContacts.addElement(c);
+        synchronized (hContacts) { hContacts.addElement(c); }
     }
     
     private void sort(){
