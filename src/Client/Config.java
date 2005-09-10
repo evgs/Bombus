@@ -96,11 +96,7 @@ public class Config {
             inputStream.close();
         } catch (Exception e) { 
             e.printStackTrace(); 
-/*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e, "Congig:86");
-/*$USE_LOGGER$*///</editor-fold>
         }
-            //return null;
         profile=def_profile;
         updateTime();
     }

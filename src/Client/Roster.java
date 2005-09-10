@@ -481,7 +481,7 @@ public class Roster
         if (isRoom){
             c=presenceContact(from.substring(0, rp), Presence.PRESENCE_ONLINE);
             //c.status=Presence.PRESENCE_ONLINE;  
-            c.transport=7; //FIXME: убрать хардкод
+            //c.transport=7; //FIXME: убрать хардкод
             c.rosterJid=from;
             c.origin=Contact.ORIGIN_GROUPCHAT;
             c.priority=99;
@@ -901,7 +901,7 @@ public class Roster
                     JabberDataBlock status=xmuc.getChildBlock("status");
                     String statusCode=(status==null)? "" : status.getAttribute("code");
 
-                    if (role.startsWith("moderator")) c.transport=6; //FIXME: убрать хардкод
+                    c.transport=(role.startsWith("moderator"))? 6:0; //FIXME: убрать хардкод
                     
                     if (c.origin==Contact.ORIGIN_CLONE)
                     {
@@ -955,9 +955,6 @@ public class Roster
             }
         } catch( Exception e ) {
             e.printStackTrace();
-/*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e, "Roster:743");
-/*$USE_LOGGER$*///</editor-fold>
         }
     }
     

@@ -91,7 +91,7 @@ public class Contact extends IconTextElement{
         //msgs.removeAllElements();
         
         //calculating transport
-        transport=Transport.getInstance().getTransportIndex(jid.getTransport(), jid.hasResource()); 
+        transport=Transport.getInstance().getTransportIndex(jid.getTransport()); 
     }
     
     public Contact clone(Jid newjid, final int status) {
@@ -104,7 +104,7 @@ public class Contact extends IconTextElement{
         c.offline_type=offline_type;
         c.origin=ORIGIN_CLONE; 
         c.status=status; 
-        c.transport=Transport.getInstance().getTransportIndex(newjid.getTransport(), newjid.hasResource()); //<<<<
+        c.transport=Transport.getInstance().getTransportIndex(newjid.getTransport()); //<<<<
 
         c.rosterJid=rosterJid;
         return c;

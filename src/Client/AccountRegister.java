@@ -51,9 +51,6 @@ public class AccountRegister
             theStream.setJabberListener( this );
         } catch( Exception e ) {
             e.printStackTrace();
-/*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e, "AccountRegister:55");
-/*$USE_LOGGER$*///</editor-fold>
             spl.setFailed();
         }
 
@@ -66,9 +63,6 @@ public class AccountRegister
         //System.out.println( "Connection terminated" );
         if( e != null ) {
             e.printStackTrace();
-/*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e, "AccountRegister:70");
-/*$USE_LOGGER$*///</editor-fold>
         }
     }
 
