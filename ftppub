@@ -1,0 +1,14 @@
+open ************
+user *****************
+cd ********************
+put ftp/config.php config.php
+cd *uilds
+put *******.ra*
+cd *eta/midp2.0
+put dist/Release/B*******ar B*******ar
+put dist/Release/B*******ad B*******ad
+cd ../midp1.0
+put dist/M55_Release/B*******ar B*******ar
+put dist/M55_Release/B*******ad B*******ad
+close
+quit
