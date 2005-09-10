@@ -40,12 +40,27 @@ public class Time {
     public static String dayString(long date){
         Calendar c=calDate(date);
         return lz2(c.get(Calendar.DAY_OF_MONTH))+"."+
-               lz2(c.get(Calendar.MONTH))+"."+
+               lz2(c.get(Calendar.MONTH)+1)+"."+
                lz2(c.get(Calendar.YEAR) % 100)+" ";
     }
 
     public static long localTime(){
         return System.currentTimeMillis()+locToGmtoffset;
+    }
+    
+    public static String utcLocalTime(){
+        long date=localTime();
+        c.setTime(new Date(date));
+        return String.valueOf(c.get(Calendar.YEAR))+
+                lz2(c.get(Calendar.MONTH))+
+                lz2(c.get(Calendar.DAY_OF_MONTH)+1)+
+                'T'+timeString(date)+':'+lz2(c.get(Calendar.SECOND));
+    }
+    
+    public static String dispLocalTime(){
+        long date=localTime();
+        Calendar c=calDate(date);
+        return dayString(date)+timeString(date);
     }
     
     private final static int[] calFields=

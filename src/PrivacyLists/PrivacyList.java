@@ -29,14 +29,15 @@ public class PrivacyList extends IconTextElement{
         this.name=name;
     }
     
-    public int getImageIndex() {return ImageList.ICON_REGISTER_INDEX; }
+    public int getImageIndex() {return (isActive)?
+        ImageList.ICON_PRIVACY_ACTIVE:
+        ImageList.ICON_PRIVACY_PASSIVE; }
     public int getColor() {return 0; }
     
     private String name;
     public String toString() {
         StringBuffer result=new StringBuffer((name==null)? "<none>": name);
         result.append(' ');
-        if (isActive) result.append('*');
         if (isDefault) result.append("(default)");
         return result.toString();
     }
@@ -55,6 +56,7 @@ public class PrivacyList extends IconTextElement{
         qry.setNameSpace("jabber:iq:privacy");
         pl.addChild(qry);
         
+        //System.out.println(pl);
         StaticData.getInstance().roster.theStream.send(pl);
     }
 }

@@ -27,12 +27,12 @@ public class IqVersionReply extends JabberDataBlock{
         JabberDataBlock query=new JabberDataBlock("query",this,null);
         addChild(query);
         query.setNameSpace("jabber:iq:version");
-        query.addChild(new JabberDataBlock(query, "name","Bombus"));
-        query.addChild(new JabberDataBlock(query, "version",Version.version));
+        query.addChild("name","Bombus");
+        query.addChild("version",Version.version);
         String os=Version.getOs();
                 //+" Locale="
                 //+System.getProperty("microedition.locale");
-        query.addChild(new JabberDataBlock(query, "os",os));
+        query.addChild("os",os);
     }
     
     // constructs version request

@@ -805,6 +805,11 @@ public class Roster
                             //String xmlns=query.getAttribute("xmlns");
                             //if (xmlns!=null) if (xmlns.equals("jabber:iq:version"))
                             theStream.send(new IqVersionReply(data));
+                        // проверяем на запрос локального времени клиента
+                        if (query.isJabberNameSpace("jabber:iq:time"))
+                            //String xmlns=query.getAttribute("xmlns");
+                            //if (xmlns!=null) if (xmlns.equals("jabber:iq:version"))
+                            theStream.send(new IqTimeReply(data));
                     }
                 } else if (type.equals("set")) {
                     processRoster(data);

@@ -58,17 +58,6 @@ public class PrivacySelect
         }
     }
     
-    /*  <iq type="result" >
-     *      <query xmlns="jabber:iq:privacy">
-     *          <list name="Ignore-List" >
-     *              <item action="deny" type="group" value="Ignore-List" order="0" >
-     *                  <presence-out/>
-     *                  <iq/>
-     *              </item>
-     *          </list>
-     *      </query>
-     *  </iq>
-     */
     public void blockArrived(JabberDataBlock data){
         
     }
@@ -76,14 +65,8 @@ public class PrivacySelect
     private void generateIgnoreList(){
         JabberDataBlock ignoreList=new JabberDataBlock("list", null, null);
         ignoreList.setAttribute("name", Roster.IGNORE_GROUP);
-        JabberDataBlock item=new JabberDataBlock("item", null, null);
+        JabberDataBlock item=PrivacyItem.itemIgnoreList().constructBlock();
         ignoreList.addChild(item);
-        item.setAttribute("action", "deny");
-        item.setAttribute("type","group");
-        item.setAttribute("value", Roster.IGNORE_GROUP);
-        item.setAttribute("order", "0");
-        item.addChild("presence-out", null);
-        item.addChild("iq", null);
         PrivacyList.privacyListRq(true, ignoreList);
     }
 }
