@@ -1,14 +1,16 @@
 open ************
 user *****************
 cd ********************
+type binary
 put ftp/config.php config.php
-cd *uilds
-put *******.ra*
-cd *eta/midp2.0
-put dist/Release/B*******ar B*******ar
-put dist/Release/B*******ad B*******ad
+cd builds
+put bombus*.rar
+put changelog.txt
+cd beta/midp2.0
+put ftp/midp2.0/Bombus.jar Bombus.jar
+put ftp/midp2.0/Bombus.jad Bombus.jad
 cd ../midp1.0
-put dist/M55_Release/B*******ar B*******ar
-put dist/M55_Release/B*******ad B*******ad
+put ftp/midp1.0/Bombus.jar Bombus.jar
+put ftp/midp1.0/B*******ad B*******ad
 close
 quit

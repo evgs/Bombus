@@ -112,7 +112,7 @@ public class ServiceDiscovery
         stream.send(req);
     }
     
-    public void blockArrived(JabberDataBlock data) {
+    public int blockArrived(JabberDataBlock data) {
         JabberDataBlock query=data.getChildBlock("query");
         Vector childs=query.getChildBlocks();
         String id=data.getAttribute("id");
@@ -171,6 +171,7 @@ public class ServiceDiscovery
             } else display.setCurrent(alert, this);
         }
         redraw();
+        return JabberBlockListener.BLOCK_REJECTED;
     }
     
     public void eventOk(){

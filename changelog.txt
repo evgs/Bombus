@@ -1288,6 +1288,8 @@ syslog_msg: true
   (203)
   JEP-0090 Время клиента (jabber:iq:time)
 
+  (205)
+  Privacy Lists - получает состояние active/Default
 ---------------------------
   known issues:
 

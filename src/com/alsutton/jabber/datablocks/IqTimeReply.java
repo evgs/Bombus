@@ -29,7 +29,6 @@ public class IqTimeReply extends JabberDataBlock{
         query.setNameSpace("jabber:iq:time");
         query.addChild("utc",ui.Time.utcLocalTime());
         query.addChild("display", ui.Time.dispLocalTime());
-        System.out.println(this);
     }
     public String getTagName() {
         return "iq";

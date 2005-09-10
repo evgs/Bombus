@@ -223,6 +223,13 @@ public class JabberStream implements XMLEventListener, Runnable {
      * Set the listener to this stream.
      */
     
+    public void addBlockListener(JabberBlockListener listener) { 
+        dispatcher.addBlockListener(listener);
+    }
+    public void cancelBlockListener(JabberBlockListener listener) { 
+        dispatcher.cancelBlockListener(listener);
+    }
+    
     public void setJabberListener( JabberListener listener ) {
         dispatcher.setJabberListener( listener );
     }

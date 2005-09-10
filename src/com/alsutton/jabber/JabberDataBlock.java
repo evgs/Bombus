@@ -137,10 +137,11 @@ public class JabberDataBlock
    * @param name The child block name to add
    * @param text The child block text body to add
    */
-  public void addChild(String name, String text){
+  public JabberDataBlock addChild(String name, String text){
       JabberDataBlock child=new JabberDataBlock(name,this,null);
       if (text!=null) child.addText(text);
       addChild(child);
+      return child;
   }
 
 

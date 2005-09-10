@@ -199,7 +199,8 @@ public final class MessageParser {
                         l=new ComplexString(il);     // новая строка
                         l.setColor(color);
                     }
-                    if (c>0x1f) {  s.append(c); w+=cw; }
+                    if (c>0x1f) {  s.append(c); w+=cw; } 
+                    else if (c==0x09) {  s.append((char)0x20); w+=cw; }
                 }
                 i++;
             }

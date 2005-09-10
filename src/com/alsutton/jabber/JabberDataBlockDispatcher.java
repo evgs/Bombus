@@ -41,6 +41,8 @@ public class JabberDataBlockDispatcher extends Thread
    */
 
   private JabberListener listener = null;
+  
+  private Vector blockListeners=new Vector();
 
   /**
    * The list of messages waiting to be dispatched
@@ -75,6 +77,15 @@ public class JabberDataBlockDispatcher extends Thread
     listener = _listener;
   }
 
+  public void addBlockListener(JabberBlockListener listener) {
+      synchronized (blockListeners) { blockListeners.addElement(listener); }
+  }
+  public void cancelBlockListener(JabberBlockListener listener) {
+      synchronized (blockListeners) { 
+          try { blockListeners.removeElement(listener); }
+          catch (Exception e) {e.printStackTrace(); }
+      }
+  }
   /**
    * Method to add a datablock to the dispatch queue
    *
@@ -108,6 +119,15 @@ public class JabberDataBlockDispatcher extends Thread
 
       JabberDataBlock dataBlock = (JabberDataBlock) waitingQueue.elementAt(0);
       waitingQueue.removeElementAt( 0 );
+      int i=0;
+      synchronized (blockListeners) {
+          while (i<blockListeners.size()) {
+              int processResult=((JabberBlockListener)blockListeners.elementAt(i)).blockArrived(dataBlock);
+              if (processResult==JabberBlockListener.BLOCK_PROCESSED) break;
+              if (processResult==JabberBlockListener.NO_MORE_BLOCKS) { blockListeners.removeElementAt(i); break; }
+              i++;
+          }
+      }
       if( listener != null )
         listener.blockArrived( dataBlock );
     }

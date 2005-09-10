@@ -19,25 +19,31 @@ import Client.*;
  */
 public class PrivacyItem extends IconTextElement{
     
+    public final static String types[]={"jid", "group", "subscription"};
     public final static int ITEM_JID=0;
     public final static int ITEM_GROUP=1;
     public final static int ITEM_SUBSCR=2;
-    private final static String types[]={"jid", "group", "subscription"};
+
+    public final static String actions[]={"allow", "block"};
+    public final static int ITEM_ALLOW=0;
+    public final static int ITEM_BLOCK=1;
+
+    public final static String stanzas[]={"message", "presence-in", "presence-out", "iq"};
+    public final static int STANZA_MSG=0;
+    public final static int STANZA_PRESENCE_IN=1;
+    public final static int STANZA_PRESENCE_OUT=2;
+    public final static int STANZA_IQ=3;
     
-    private int type;    //jid|group|subscription
-    private String value;
-    private boolean action_allow;
-    private int order;
+    public final static String subscrs[]={"none", "from", "to", "both"};
     
-    boolean message;
-    boolean presenceIn;
-    boolean presenceOut;
-    boolean iq;
+    int type;    //jid|group|subscription
+    String value=new String();
+    int action=1;
+    int order;
+    boolean stanzasSet[]=new boolean[4];
     
     public int getImageIndex(){
-        return (action_allow)? 
-            ImageList.ICON_PRIVACY_ALLOW:
-            ImageList.ICON_PRIVACY_BLOCK;
+        return action+ ImageList.ICON_PRIVACY_ALLOW;
     }
     
     public int getColor() { return 0; }
@@ -53,20 +59,20 @@ public class PrivacyItem extends IconTextElement{
         String t=item.getTypeAttribute();
         for (type=0; type<2; type++) if (t.equals(types[type])) break;
         value=item.getAttribute("value");
-        action_allow=item.getAttribute("action").equals("allow");
+        action=item.getAttribute("action").equals("allow")?0:1;
         order=Integer.parseInt(item.getAttribute("order"));
-        message=item.getChildBlock("message")!=null;
-        presenceIn=item.getChildBlock("presence-in")!=null;
-        presenceOut=item.getChildBlock("presence-out")!=null;
-        iq=item.getChildBlock("iq")!=null;
+        int index;
+        for (index=0; index<4; index++) {
+            if (item.getChildBlock(stanzas[index])!=null) stanzasSet[index]=true;
+        }
     }
     
     public static PrivacyItem itemIgnoreList(){
         PrivacyItem item=new PrivacyItem();
         item.type=ITEM_GROUP;
         item.value=Roster.IGNORE_GROUP;
-        item.iq=true;
-        item.presenceOut=true;
+        item.stanzasSet[STANZA_IQ]=true;
+        item.stanzasSet[STANZA_PRESENCE_OUT]=true;
         return item;
     }
     
@@ -74,12 +80,12 @@ public class PrivacyItem extends IconTextElement{
         JabberDataBlock item=new JabberDataBlock("item", null, null);
         item.setTypeAttribute(types[type]);
         item.setAttribute("value", value);
-        item.setAttribute("action", (action_allow)? "allow":"deny" );
+        item.setAttribute("action", actions[action] );
         item.setAttribute("order", String.valueOf(order));
-        if (message) item.addChild("message", null);
-        if (presenceIn) item.addChild("presence-in", null);
-        if (presenceOut) item.addChild("presence-out", null);
-        if (iq) item.addChild("iq", null);
+        int index;
+        for (index=0; index<4; index++) {
+            if (stanzasSet[index]) item.addChild(stanzas[index], null);
+        }
         return item;
     }
 }
