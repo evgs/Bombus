@@ -39,6 +39,9 @@ public class ConfigForm implements CommandListener{
     ChoiceGroup roster;
     ChoiceGroup message;
     ChoiceGroup application;
+    TextField fieldGmt;
+    TextField fieldLoc;
+    
     
     Command cmdOk=new Command("OK",Command.OK,1);
     Command cmdCancel=new Command("Cancel",Command.BACK,99);
@@ -89,12 +92,35 @@ public class ConfigForm implements CommandListener{
         ap[0]=cf.fullscreen;
         application.setSelectedFlags(ap);
         
+        fieldGmt=new TextField("GMT offset", String.valueOf(cf.gmtOffset), 4, 
+/*#MIDP2#*///<editor-fold>
+//--                TextField.DECIMAL
+/*$MIDP2$*///</editor-fold>
+/*#!MIDP2#*///<editor-fold>
+                TextField.ANY
+/*$!MIDP2$*///</editor-fold>
+                );
+        fieldLoc=new TextField("Clock offset", String.valueOf(cf.locOffset), 4, 
+/*#MIDP2#*///<editor-fold>
+//--                TextField.DECIMAL
+/*$MIDP2$*///</editor-fold>
+/*#!MIDP2#*///<editor-fold>
+                TextField.ANY
+/*$!MIDP2$*///</editor-fold>
+                );
+        
+        
         //if (newaccount)
         f.append(roster);
         f.append(message);
 /*#DefaultConfiguration,Release#*///<editor-fold>
         f.append(application);
 /*$DefaultConfiguration,Release$*///</editor-fold>
+        
+        f.append("Time settings (hours)\n");
+        
+        f.append(fieldGmt);
+        f.append(fieldLoc);
         
         f.addCommand(cmdOk);
         f.addCommand(cmdCancel);
@@ -120,6 +146,11 @@ public class ConfigForm implements CommandListener{
             cf.eventComposing=mv[2];
             
             cf.fullscreen=ap[0];
+            
+            cf.gmtOffset=Integer.parseInt(fieldGmt.getString());
+            cf.locOffset=Integer.parseInt(fieldLoc.getString());
+            
+            cf.updateTime();
             
             StaticData.getInstance().roster.reEnumRoster();
             destroyView();

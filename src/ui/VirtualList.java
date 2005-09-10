@@ -305,14 +305,16 @@ public abstract class VirtualList
         int wsize=height;
         int itemcnt=0;
         if (title!=null) wsize-=title.getVHeight();
-        while (wsize>0) {
-            //wsize-=getItemHeight(from);
-            wsize-=getItemRef(from).getVHeight();    
-            if (wsize>=0) itemcnt++;
-            from+=direction;
-            if (from<0) break; // вылет вверх
-            if (from>=count) break;
-        }
+        try { //TODO: убрать затычку, синхронизировать
+            while (wsize>0) {
+                //wsize-=getItemHeight(from);
+                wsize-=getItemRef(from).getVHeight();    
+                if (wsize>=0) itemcnt++;
+                from+=direction;
+                if (from<0) break; // вылет вверх
+                if (from>=count) break;
+            }
+        } catch (Exception e) {e.printStackTrace();}
         return itemcnt;
     }
     

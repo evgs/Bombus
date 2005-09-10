@@ -57,7 +57,7 @@ public class GroupChatForm implements CommandListener{
         
         passField=new TextField("Password", "", 32, TextField.ANY 
 /*#MIDP2#*///<editor-fold>
-//--                    | TextField.NON_PREDICTIVE
+//--                    | TextField.SENSITIVE
 /*$MIDP2$*///</editor-fold>
                 );
         formJoin.append(passField);

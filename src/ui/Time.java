@@ -21,7 +21,7 @@ public class Time {
     
     public static void setOffset(int gmtOffset, int locOffset){
         offset=60*60*1000*gmtOffset;
-        locToGmtoffset=((long)locOffset)*3600000;
+        locToGmtoffset=((long)locOffset)*60*60*1000;
     }
 
     public static String lz2(int i){

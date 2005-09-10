@@ -90,6 +90,9 @@ public class Config {
             ignore=inputStream.readBoolean();
             eventComposing=inputStream.readBoolean();
             
+            gmtOffset=inputStream.readInt();
+            locOffset=inputStream.readInt();
+            
             inputStream.close();
         } catch (Exception e) { 
             e.printStackTrace(); 
@@ -99,6 +102,7 @@ public class Config {
         }
             //return null;
         profile=def_profile;
+        updateTime();
     }
     
     public void saveToStorage(){
@@ -116,7 +120,9 @@ public class Config {
             outputStream.writeBoolean(notInList);
             outputStream.writeBoolean(ignore);
             outputStream.writeBoolean(eventComposing);
-            
+
+            outputStream.writeInt(gmtOffset);
+            outputStream.writeInt(locOffset);
         } catch (IOException e) { 
             e.printStackTrace(); 
 /*#USE_LOGGER#*///<editor-fold>
@@ -127,22 +133,18 @@ public class Config {
         NvStorage.writeFileRecord(outputStream, "config", 0, true);
     }
 
-    
+
+    public void updateTime(){
+        Time.setOffset(gmtOffset, locOffset);
+    }
     
     /** Creates a new instance of Config */
     public Config() {
         int gmtloc=TimeZone.getDefault().getRawOffset()/3600000;
         locOffset=getProperty( "time_loc_offset", 0);
         gmtOffset=getProperty("time_gmt_offset", gmtloc);
-        Time.setOffset(gmtOffset, locOffset);
-        
 
-        String platform=null;
-        try {
-            platform=Version.platform();
-        } finally {
-            if (platform==null) platform="";
-        }
+        String platform=Version.platform();
         
         if (platform.startsWith("SonyE")) {
             allowMinimize=true;

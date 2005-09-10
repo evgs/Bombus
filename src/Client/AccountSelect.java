@@ -192,7 +192,7 @@ public class AccountSelect
         private void passStars(){
             if (passbox.size()==0) passbox.setConstraints(TextField.URL
 /*#MIDP2#*///<editor-fold>
-//--                    | TextField.NON_PREDICTIVE
+//--                    | TextField.SENSITIVE
 /*$MIDP2$*///</editor-fold>
                     );
         }
