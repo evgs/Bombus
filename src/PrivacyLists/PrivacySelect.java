@@ -23,14 +23,18 @@ import com.alsutton.jabber.*;
 public class PrivacySelect 
         extends VirtualList 
         implements CommandListener,
-        JabberBlockListener
+        JabberBlockListener,
+        MIDPTextBox.TextBoxNotify
 {
     private Vector list=new Vector();
     
     private Command cmdCancel=new Command ("Back", Command.BACK, 99);
     private Command cmdActivate=new Command ("Activate", Command.SCREEN, 10);
     private Command cmdDefault=new Command ("Set default", Command.SCREEN, 11);
-    private Command cmdEdit=new Command ("Edit list", Command.SCREEN, 12);
+    private Command cmdNewList=new Command ("New list", Command.SCREEN, 12);
+    private Command cmdDelete=new Command ("Delete list", Command.SCREEN, 13);
+    //private Command cmdEdit=new Command ("Edit list", Command.SCREEN, 14);
+    private Command cmdIL=new Command ("Make Ignore-List", Command.SCREEN, 16);
     
     JabberStream stream=StaticData.getInstance().roster.theStream;
     
@@ -41,29 +45,29 @@ public class PrivacySelect
         addCommand(cmdActivate);
         addCommand(cmdDefault);
         addCommand(cmdCancel);
-        addCommand(cmdEdit);
+        addCommand(cmdNewList);
+        addCommand(cmdDelete);
+        //addCommand(cmdEdit);
+        addCommand(cmdIL);
         setCommandListener(this);
-        list.addElement(new PrivacyList(Roster.IGNORE_GROUP));
         list.addElement(new PrivacyList(null));//none
         
         getLists();
     }
 
     private void getLists(){
-        JabberDataBlock request=new JabberDataBlock("iq", null, null);
-        request.setTypeAttribute("get");
-        request.setAttribute("id", "getplists");
-        request.addChild("query",null).setNameSpace("jabber:iq:privacy");
         stream.addBlockListener(this);
-        stream.send(request);
+        PrivacyList.privacyListRq(false, null, "getplists");
     }
     
     protected int getItemCount() { return list.size(); }
     protected VirtualElement getItemRef(int index) { return (VirtualElement) list.elementAt(index); }
     public void commandAction(Command c, Displayable d) {
-        if (c==cmdCancel) destroyView();
+        if (c==cmdCancel) {
+            destroyView();
+            stream.cancelBlockListener(this);
+        }
         if (c==cmdActivate || c==cmdDefault) {
-            generateIgnoreList();
             PrivacyList active=((PrivacyList)getFocusedObject());
             for (Enumeration e=list.elements(); e.hasMoreElements(); ) {
                 PrivacyList pl=(PrivacyList)e.nextElement();
@@ -71,15 +75,30 @@ public class PrivacySelect
                 if (c==cmdActivate) pl.isActive=state; else pl.isDefault=state;
             }
             ((PrivacyList)getFocusedObject()).activate( (c==cmdActivate)? "active":"default" ); 
-            redraw();
+            getLists();
         }
-        if (c==cmdEdit) {
-            stream.cancelBlockListener(this);
-            new PrivacyForm(display, PrivacyItem.itemIgnoreList());
+        if (c==cmdIL) {
+            generateIgnoreList();
+            //new PrivacyForm(display, PrivacyItem.itemIgnoreList());
+            getLists();
         }
+        if (c==cmdDelete) {
+            if (atCursor!=null) {
+                PrivacyList pl=(PrivacyList) atCursor;
+                if (pl.name!=null) pl.deleteList();
+                getLists();
+            }
+        }
+        if (c==cmdNewList) new MIDPTextBox(display, "New list name", "", this, TextField.URL);
+    }
+    
+    // MIDPTextBox interface
+    public void OkNotify(String listName) {
+        if (listName.length()>0) (new PrivacyModifyList(display, new PrivacyList(listName))).setParentView(parentView);
     }
     
     public int blockArrived(JabberDataBlock data){
+        if (data.getTypeAttribute().equals("result"))
         if (data.getAttribute("id").equals("getplists")) {
             data=data.findNamespace("jabber:iq:privacy");
             if (data!=null) {
@@ -110,11 +129,17 @@ public class PrivacySelect
         return JabberBlockListener.BLOCK_REJECTED;
     }
 
+    public void eventOk(){
+        if (atCursor!=null) {
+            PrivacyList pl=(PrivacyList) atCursor;
+            if (pl.name!=null) new PrivacyModifyList(display, pl);
+        }
+    }
     private void generateIgnoreList(){
         JabberDataBlock ignoreList=new JabberDataBlock("list", null, null);
         ignoreList.setAttribute("name", Roster.IGNORE_GROUP);
         JabberDataBlock item=PrivacyItem.itemIgnoreList().constructBlock();
         ignoreList.addChild(item);
-        PrivacyList.privacyListRq(true, ignoreList);
+        PrivacyList.privacyListRq(true, ignoreList, "ignlst");
     }
 }

@@ -53,7 +53,7 @@ public class MIDPTextBox implements CommandListener {
      */
     public void commandAction(Command command, Displayable displayable) {
         if (command==cmdCancel) { destroyView(); return;}
-        if (command==cmdOK) { tbn.OkNotify(t.getString()); destroyView(); return;}
+        if (command==cmdOK) { destroyView(); tbn.OkNotify(t.getString()); return;}
     }
 
     public void destroyView(){

@@ -10,7 +10,7 @@
 
 package PrivacyLists;
 import java.util.*;
-import com.alsutton.jabber.datablocks.Iq;
+import com.alsutton.jabber.*;
 import ui.*;
 import Client.*;
 import com.alsutton.jabber.*;
@@ -21,12 +21,13 @@ import com.alsutton.jabber.*;
  */
 public class PrivacyList extends IconTextElement{
     
-    /** Creates a new instance of PrivacyList */
+    String name;
     boolean isActive;
     boolean isDefault;
     
     Vector rules=new Vector(); 
     
+    /** Creates a new instance of PrivacyList */
     public PrivacyList(String name) {
         super(StaticData.getInstance().rosterIcons);
         this.name=name;
@@ -37,7 +38,6 @@ public class PrivacyList extends IconTextElement{
         ImageList.ICON_PRIVACY_PASSIVE; }
     public int getColor() {return 0; }
     
-    private String name;
     public String toString() {
         StringBuffer result=new StringBuffer((name==null)? "<none>": name);
         result.append(' ');
@@ -45,21 +45,42 @@ public class PrivacyList extends IconTextElement{
         return result.toString();
     }
     
+    
+    public void generateList(){
+        JabberDataBlock list = listBlock();
+        for (Enumeration e=rules.elements(); e.hasMoreElements(); ) {
+            JabberDataBlock item=((PrivacyItem)e.nextElement()).constructBlock();
+            list.addChild(item);
+        }
+        PrivacyList.privacyListRq(true, list, "storelst");
+    }
+
+    private JabberDataBlock listBlock() {
+        JabberDataBlock list=new JabberDataBlock("list", null, null);
+        list.setAttribute("name", name);
+        return list;
+    }
+    
+    public void deleteList(){
+        JabberDataBlock list=listBlock();
+        PrivacyList.privacyListRq(true, list, "storelst");
+    }
+  
     public void activate (String atr) {
         JabberDataBlock a=new JabberDataBlock(atr, null, null);
         a.setAttribute("name", name);
-        privacyListRq(true, a);
+        privacyListRq(true, a, "plset");
     }
     
-    public final static void privacyListRq(boolean out, JabberDataBlock child){
+    public final static void privacyListRq(boolean set, JabberDataBlock child, String id){
         JabberDataBlock pl=new JabberDataBlock("iq", null, null);
-        pl.setTypeAttribute((out)?"set":"get");
-        JabberDataBlock qry=new JabberDataBlock("query", null, null);
-        qry.addChild(child);
+        pl.setTypeAttribute((set)?"set":"get");
+        pl.setAttribute("id", id);
+        JabberDataBlock qry=pl.addChild("query", null);
         qry.setNameSpace("jabber:iq:privacy");
-        pl.addChild(qry);
+        if (child!=null) qry.addChild(child);
         
-        //System.out.println(pl);
+        System.out.println(pl);
         StaticData.getInstance().roster.theStream.send(pl);
     }
 }

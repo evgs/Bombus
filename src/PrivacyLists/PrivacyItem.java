@@ -24,7 +24,7 @@ public class PrivacyItem extends IconTextElement{
     public final static int ITEM_GROUP=1;
     public final static int ITEM_SUBSCR=2;
 
-    public final static String actions[]={"allow", "block"};
+    public final static String actions[]={"allow", "deny"};
     public final static int ITEM_ALLOW=0;
     public final static int ITEM_BLOCK=1;
 

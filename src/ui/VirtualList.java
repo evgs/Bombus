@@ -537,6 +537,10 @@ public abstract class VirtualList
          */
     }
 
+    public void setParentView(Displayable parentView){
+        this.parentView=parentView;
+    }
+    
     /**
      * отсоединение от менеджера дисплея текущего виртуального списка, 
      * присоединение к менеджеру предыдущего Displayable
