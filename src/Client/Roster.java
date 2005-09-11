@@ -492,7 +492,7 @@ public class Roster
         if (isRoom){
             c=presenceContact(from.substring(0, rp), Presence.PRESENCE_ONLINE);
             //c.status=Presence.PRESENCE_ONLINE;  
-            //c.transport=7; //FIXME: убрать хардкод
+            c.transport=7; //FIXME: убрать хардкод
             c.rosterJid=from;
             c.origin=Contact.ORIGIN_GROUPCHAT;
             c.priority=99;
