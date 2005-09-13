@@ -1305,7 +1305,7 @@ syslog_msg: true
   нет вывода сообщений об ошибках.
 
 13.09.2005
-  (208)
+  (209)
   fix: NullPointerException в Privacy Lists - при изначально пустом Privacy lists
   и невидимый обрыв соединения.
 
