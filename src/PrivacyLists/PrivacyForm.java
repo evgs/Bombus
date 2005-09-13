@@ -84,13 +84,13 @@ public class PrivacyForm
             Object rfocus=StaticData.getInstance().roster.getFocusedObject();
             switch (index) {
                 case 0: //jid
-                    if (rfocus instanceof Contact) {
+                    if (targetList!=null) if (rfocus instanceof Contact) {
                         textValue.setString(((Contact)rfocus).getJidNR());
                     }
                     form.set(2, textValue);
                     break;
                 case 1: //group
-                    textValue.setString( ( (rfocus instanceof Group)?
+                    if (targetList!=null) textValue.setString( ( (rfocus instanceof Group)?
                         (Group)rfocus : 
                         StaticData.getInstance().roster.
                             groups.getGroup(((Contact)rfocus).group)
@@ -127,7 +127,8 @@ public class PrivacyForm
                 item.order=order;
                 choiseStanzas.getSelectedFlags(item.stanzasSet);
                 
-                if (!targetList.contains(item)) targetList.addElement(item); 
+                if (targetList!=null) 
+                    if (!targetList.contains(item)) targetList.addElement(item); 
                 destroyView();
             } catch (Exception e) {e.printStackTrace();}
         }
