@@ -85,7 +85,7 @@ public class SearchResult
                     }
                 }
                 Contact serv=new Contact(null,jid,0,null);
-                serv.group=Roster.SRC_RESULT_INDEX;
+                serv.group=Groups.SRC_RESULT_INDEX;
                 Msg m=new Msg(Msg.MESSAGE_TYPE_IN, jid, "Short info", vcard.toString());
                 m.unread=false;
                 serv.addMessage(m);

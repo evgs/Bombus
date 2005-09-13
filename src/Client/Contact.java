@@ -119,7 +119,7 @@ public class Contact extends IconTextElement{
         return st;
     }
     public int getNewMsgsCount() {
-        if (group==Roster.IGNORE_INDEX) return 0;
+        if (group==Groups.IGNORE_INDEX) return 0;
         //return msgs.size()-lastReaded;
         if (newMsgCnt>-1) return newMsgCnt;
         int nm=0;
@@ -159,7 +159,7 @@ public class Contact extends IconTextElement{
 /*#USE_SIEMENS_FILES#*///<editor-fold>
 //--        Config cf=StaticData.getInstance().config;
 //--
-//--        if (cf.msgLog && group!=Roster.TRANSP_INDEX && group!=Roster.SRC_RESULT_INDEX)
+//--        if (cf.msgLog && group!=Groups.TRANSP_INDEX && group!=Groups.SRC_RESULT_INDEX)
 //--        {
 //--            String histRecord=(nick==null)?getJidNR():nick;
 //--            String fromName=StaticData.getInstance().account.getUserName();

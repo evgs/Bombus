@@ -88,11 +88,11 @@ public final class ContactEdit
             // edit contact
             tJid.setString(jid);
             tNick.setString(c.nick);
-            sel=c.group-Roster.COMMON_INDEX;
+            sel=c.group-Groups.COMMON_INDEX;
             if (sel==-1) sel=groups.size()-1;
             if (sel<0) sel=0;
             tGroup.setString(group(sel));
-            if (c.group!=Roster.NIL_INDEX  && c.group!=Roster.SRC_RESULT_INDEX) {
+            if (c.group!=Groups.NIL_INDEX  && c.group!=Groups.SRC_RESULT_INDEX) {
                 // edit contact
                 f.setTitle(jid);
                 cmdOk=new Command("Update", Command.OK, 1);

@@ -9,6 +9,8 @@
  */
 
 package PrivacyLists;
+
+import Client.Groups;
 import Client.Roster;
 import Client.StaticData;
 import javax.microedition.lcdui.*;
@@ -105,19 +107,21 @@ public class PrivacySelect
                 list=new Vector();                
                 String activeList="";
                 String defaultList="";
-                for (Enumeration e=data.getChildBlocks().elements(); e.hasMoreElements();) {
-                    JabberDataBlock pe=(JabberDataBlock) e.nextElement();
-                    String tag=pe.getTagName();
-                    String name=pe.getAttribute("name");
-                    if (tag.equals("active")) activeList=name;
-                    if (tag.equals("default")) defaultList=name;
-                    if (tag.equals("list")) {
-                        PrivacyList pl=new PrivacyList(name);
-                        pl.isActive=(name.equals(activeList));
-                        pl.isDefault=(name.equals(defaultList));
-                        list.addElement(pl);
+                try {
+                    for (Enumeration e=data.getChildBlocks().elements(); e.hasMoreElements();) {
+                        JabberDataBlock pe=(JabberDataBlock) e.nextElement();
+                        String tag=pe.getTagName();
+                        String name=pe.getAttribute("name");
+                        if (tag.equals("active")) activeList=name;
+                        if (tag.equals("default")) defaultList=name;
+                        if (tag.equals("list")) {
+                            PrivacyList pl=new PrivacyList(name);
+                            pl.isActive=(name.equals(activeList));
+                            pl.isDefault=(name.equals(defaultList));
+                            list.addElement(pl);
+                        }
                     }
-                }
+                } catch (Exception e) {}
                 PrivacyList nullList=new PrivacyList(null);
                 nullList.isActive=activeList.length()==0;
                 nullList.isDefault=defaultList.length()==0;
@@ -137,7 +141,7 @@ public class PrivacySelect
     }
     private void generateIgnoreList(){
         JabberDataBlock ignoreList=new JabberDataBlock("list", null, null);
-        ignoreList.setAttribute("name", Roster.IGNORE_GROUP);
+        ignoreList.setAttribute("name", Groups.IGNORE_GROUP);
         JabberDataBlock item=PrivacyItem.itemIgnoreList().constructBlock();
         ignoreList.addChild(item);
         PrivacyList.privacyListRq(true, ignoreList, "ignlst");

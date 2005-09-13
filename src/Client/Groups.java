@@ -5,6 +5,7 @@
  */
 
 package Client;
+
 import java.util.*;
 
 /**
@@ -14,14 +15,28 @@ import java.util.*;
 public class Groups{
     
     Vector g;
+    
+    public final static int TRANSP_INDEX=0;
+    public final static String TRANSP_GROUP="Transports";
+    public final static int SELF_INDEX=1;
+    public final static String SELF_GROUP="Self-Contact";
+    public final static int SRC_RESULT_INDEX=2;
+    public final static String SRC_RESULT_GROUP="Search results";
+    public final static int NIL_INDEX=3;
+    public final static String NIL_GROUP="Not-In-List";
+    public final static int IGNORE_INDEX=4;
+    public final static String IGNORE_GROUP="Ignore-List";
+    public final static int COMMON_INDEX=5;
+    public final static String COMMON_GROUP="General";
+    
     public Groups(){
         g=new Vector();
-        addGroup(Roster.TRANSP_GROUP);
-        addGroup(Roster.SELF_GROUP);
-        addGroup(Roster.SRC_RESULT_GROUP);
-        addGroup(Roster.NIL_GROUP);
-        addGroup(Roster.IGNORE_GROUP);
-        addGroup(Roster.COMMON_GROUP);
+        addGroup(Groups.TRANSP_GROUP);
+        addGroup(Groups.SELF_GROUP);
+        addGroup(Groups.SRC_RESULT_GROUP);
+        addGroup(Groups.NIL_GROUP);
+        addGroup(Groups.IGNORE_GROUP);
+        addGroup(Groups.COMMON_GROUP);
     }
     
     public void resetCounters(){
@@ -63,10 +78,10 @@ public class Groups{
     }
     public Vector getStrings(){
         Vector s=new Vector();
-        for (int i=Roster.COMMON_INDEX; i<g.size(); i++) {
+        for (int i=Groups.COMMON_INDEX; i<g.size(); i++) {
             s.addElement(((Group)g.elementAt(i)).name);
         }
-        s.addElement(Roster.IGNORE_GROUP);
+        s.addElement(Groups.IGNORE_GROUP);
         return s;
     }
     public int getCount() {return g.size();}

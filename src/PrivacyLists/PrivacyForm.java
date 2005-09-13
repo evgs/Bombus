@@ -9,6 +9,7 @@
  */
 
 package PrivacyLists;
+import Client.*;
 import javax.microedition.lcdui.*;
 import java.util.*;
 
@@ -80,12 +81,33 @@ public class PrivacyForm
     private void switchType() {
         int index=choiseType.getSelectedIndex();
         try {
-            if (index==2) {
+            Object rfocus=StaticData.getInstance().roster.getFocusedObject();
+            switch (index) {
+                case 0: //jid
+                    if (rfocus instanceof Contact) {
+                        textValue.setString(((Contact)rfocus).getJidNR());
+                    }
+                    form.set(2, textValue);
+                    break;
+                case 1: //group
+                    textValue.setString( ( (rfocus instanceof Group)?
+                        (Group)rfocus : 
+                        StaticData.getInstance().roster.
+                            groups.getGroup(((Contact)rfocus).group)
+                        ).getName());
+
+                    form.set(2, textValue);
+                    
+                case 2: //subscription
+                    form.set(2, choiceSubscr);
+            }
+            /*if (index==2) {
                 form.set(2, choiceSubscr);
             } else {
                 textValue.setLabel(PrivacyItem.types[index]);
                 form.set(2, textValue);
             }
+             */
         } catch (Exception e) {/* При смене на самого себя */ }
     }
     

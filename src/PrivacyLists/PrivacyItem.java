@@ -70,7 +70,7 @@ public class PrivacyItem extends IconTextElement{
     public static PrivacyItem itemIgnoreList(){
         PrivacyItem item=new PrivacyItem();
         item.type=ITEM_GROUP;
-        item.value=Roster.IGNORE_GROUP;
+        item.value=Groups.IGNORE_GROUP;
         item.stanzasSet[STANZA_IQ]=true;
         item.stanzasSet[STANZA_PRESENCE_OUT]=true;
         return item;
