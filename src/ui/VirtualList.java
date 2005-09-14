@@ -226,6 +226,7 @@ public abstract class VirtualList
         int i=win_top;
         int fe=0;
         
+        atEnd=false;
         try {
             // try вместо проверки на конец списка
             while (yp<height) {
@@ -252,7 +253,7 @@ public abstract class VirtualList
                 i++;
                 if ((yp+=lh)<=height) fe++;   // число цельных элементов в окне
             }
-        } catch (Exception e) { };
+        } catch (Exception e) { atEnd=true; }
 
         // очистка остатка окна
         int clrH=height-yp+1;
