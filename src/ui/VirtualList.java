@@ -226,30 +226,33 @@ public abstract class VirtualList
         int i=win_top;
         int fe=0;
         
-        while (yp<height) {
-
-            if (atEnd=(i>=count)) break;    // нечего более рисовать
-            VirtualElement el=getItemRef(i);
-            
-            boolean sel=(i==cursor);
-            
-            int lh=el.getVHeight();
-            
-            setAbsOrg(g, 0, yp);
-
-            g.setClip(0,0, item_mw, lh);
-            g.setColor(el.getColorBGnd());
-            g.fillRect(0,0, item_mw, lh);
-            if (sel) {
-                drawCursor(g, item_mw, lh);
-                atCursor=el;
+        try {
+            // try вместо проверки на конец списка
+            while (yp<height) {
+                
+                //if (atEnd=(i>=count)) break;    // нечего более рисовать
+                VirtualElement el=getItemRef(i);
+                
+                boolean sel=(i==cursor);
+                
+                int lh=el.getVHeight();
+                
+                setAbsOrg(g, 0, yp);
+                
+                g.setClip(0,0, item_mw, lh);
+                g.setColor(el.getColorBGnd());
+                g.fillRect(0,0, item_mw, lh);
+                if (sel) {
+                    drawCursor(g, item_mw, lh);
+                    atCursor=el;
+                }
+                g.setColor(el.getColor());
+                el.drawItem(g, (sel)?offset:0, sel);
+                
+                i++;
+                if ((yp+=lh)<=height) fe++;   // число цельных элементов в окне
             }
-            g.setColor(el.getColor());
-            el.drawItem(g, (sel)?offset:0, sel);
-            
-            i++;
-            if ((yp+=lh)<=height) fe++;   // число цельных элементов в окне
-        }
+        } catch (Exception e) { };
 
         // очистка остатка окна
         int clrH=height-yp+1;

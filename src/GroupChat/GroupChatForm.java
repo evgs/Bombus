@@ -79,12 +79,12 @@ public class GroupChatForm implements CommandListener{
         if (nick.length()==0) return;
         if (room.length()==0) return;
         if (host.length()==0) return;
-        StringBuffer gchat=new StringBuffer(room);
+        StringBuffer gchat=new StringBuffer(room.trim());
         gchat.append('@');
-        gchat.append(host);
+        gchat.append(host.trim());
         //sd.roster.mucContact(gchat.toString(), Contact.ORIGIN_GROUPCHAT);
         gchat.append('/');
-        gchat.append(nick);
+        gchat.append(nick.trim());
         String jid=gchat.toString();
         sd.roster.mucContact(jid, Contact.ORIGIN_GROUPCHAT);
         // требуется для возможности нормального выхода

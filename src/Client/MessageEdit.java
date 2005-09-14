@@ -5,6 +5,7 @@
  */
 
 package Client;
+import GroupChat.AppendNick;
 import javax.microedition.lcdui.*;
 import ui.VirtualList;
 
@@ -26,7 +27,8 @@ public class MessageEdit
     private Command cmdCancel=new Command("Cancel",Command.SCREEN,99);
     private Command cmdSend=new Command("Send",Command.OK,1);
     private Command cmdSmile=new Command("Add Smile",Command.SCREEN,2);
-    private Command cmdInsMe=new Command("/me",Command.SCREEN,3);
+    private Command cmdInsNick=new Command("Nicknames",Command.SCREEN,3);
+    private Command cmdInsMe=new Command("/me",Command.SCREEN,4);
     
     private boolean composing=true;
 
@@ -46,7 +48,8 @@ public class MessageEdit
         t.addCommand(cmdSend);
         t.addCommand(cmdInsMe);
         t.addCommand(cmdSmile);
-        //t.addCommand(cmdSubject);
+        if (to.origin>=Contact.ORIGIN_GROUPCHAT)
+            t.addCommand(cmdInsNick);
         t.addCommand(cmdSuspend);
         t.addCommand(cmdCancel);
         t.setCommandListener(this);
@@ -88,6 +91,7 @@ public class MessageEdit
         }
         if (c==cmdInsMe) { t.insert("/me ", 0); return; }
         if (c==cmdSmile) { new SmilePicker(display, this); return; }
+        if (c==cmdInsNick) { new AppendNick(display, to); return; }
         if (c==cmdSend && body==null) return;
 
         // message/composing sending
