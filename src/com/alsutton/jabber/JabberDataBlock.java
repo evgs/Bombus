@@ -305,23 +305,21 @@ public class JabberDataBlock
 
   public String toString()
   {
-    String tagStart = getTagStart();
-    StringBuffer data = new StringBuffer( tagStart );
-    
+    StringBuffer data = new StringBuffer( "<" );
+    data.append( getTagName() );
+    if( attributes != null )
+      addAttributeToStringBuffer( data );
+
     // short xml
     if (textData==null && childBlocks ==null ) {
-        data.insert(data.length()-1, '/');
+        data.append("/>");
         return data.toString();
     }
+    
+    data.append( '>' );
+    
 
     appendXML(data, textData);
-    /*
-     if( textData != null )
-    {
-      String text = textData.toString();
-      data.append( textData );
-    }
-     */
 
     if( childBlocks != null )
     {
@@ -333,47 +331,14 @@ public class JabberDataBlock
       }
     }
 
-    String endTag = getTagEnd();
-    data.append( endTag );
+    // end tag
+    data.append( "</" );
+    data.append( getTagName() );
+    data.append( '>' );
 
     return data.toString();
   }
 
-/*#USE_LOGGER#*///<editor-fold>
-//--  public void formatOut(String level)
-//--  {
-//--    NvStorage.logS(level);
-//--    NvStorage.logS(getTagStart());
-//--    StringBuffer data = new StringBuffer(); 
-//--
-//--    appendXML(data, textData);
-//--    NvStorage.logS(data.toString());
-//--    //NvStorage.logCrLf();
-//--    /*
-//--     if( textData != null )
-//--    {
-//--      String text = textData.toString();
-//--      data.append( textData );
-//--    }
-//--     */
-//--
-//--    if( childBlocks != null )
-//--    {
-//--      NvStorage.logCrLf();
-//--      Enumeration e = childBlocks.elements();
-//--      while( e.hasMoreElements() )
-//--      {
-//--        JabberDataBlock thisBlock = (JabberDataBlock) e.nextElement();
-//--        thisBlock.formatOut(level+' ');
-//--      }
-//--      NvStorage.logS(level);
-//--    }
-//--
-//--    NvStorage.logS(getTagEnd());
-//--    NvStorage.logCrLf();
-//--  }
-//--
-/*$USE_LOGGER$*///</editor-fold>
   /**
    * Method to add all the attributes to a string buffer
    *
@@ -402,7 +367,7 @@ public class JabberDataBlock
    * @return The start tag string
    */
 
-  public String getTagStart()
+  public StringBuffer getTagStart()
   {
     StringBuffer tagStart = new StringBuffer( "<" );
     tagStart.append( getTagName() );
@@ -410,25 +375,7 @@ public class JabberDataBlock
       addAttributeToStringBuffer( tagStart );
     tagStart.append( '>' );
 
-    return tagStart.toString();
-  }
-
-  /**
-   * Method to return the end of tag string as a string
-   *
-   * @return The end tag string
-   */
-
-  public String getTagEnd()
-  {
-    /*StringBuffer end = new StringBuffer( "</" );
-    end.append( getTagName() );
-    end.append( '>' );
-
-    return end.toString();
-     */
-    
-    return "</"+getTagName()+'>';
+    return tagStart;
   }
 
   /**
