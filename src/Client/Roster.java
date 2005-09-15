@@ -1383,7 +1383,7 @@ public class Roster
     }
     
     public void setQuerySign(boolean requestState) {
-        querysign=true;
+        querysign=requestState;
         updateTitle();
     }
     void setMucMod(Contact contact, Hashtable itemAttributes){

@@ -162,9 +162,8 @@ public class Presence extends JabberDataBlock
   public String getPresenceTxt(){ return text.toString(); }
   
   private String getShow(){
-      try {
-          return getChildBlockText("show");
-      } catch (Exception e) { return PRS_ONLINE; }
+      String show=getChildBlockText("show");
+      return (show.length()==0)? PRS_ONLINE: getChildBlockText("show");
   }
 
   /**
