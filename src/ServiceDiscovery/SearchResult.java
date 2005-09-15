@@ -69,13 +69,13 @@ public class SearchResult
                     String value;
                     if (xData) {
                         name=field.getAttribute("var");
-                        value=field.getTextForChildBlock("value");
+                        value=field.getChildBlockText("value");
                     } else {
                         name=field.getTagName();
                         value=field.getText();
                     }
                     if (name.equals("jid")) jid=value;
-                    if (value!=null) if (value.length()>0)
+                    if (value.length()>0)
                     {
                         //vcard.append(new StringItem(name,value+"\n"));
                         vcard.append(name);

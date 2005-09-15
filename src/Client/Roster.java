@@ -188,8 +188,7 @@ public class Roster
     
     // establishing connection process
     public void run(){
-        querysign=true;
-        displayStatus();
+        setQuerySign(true);
         setProgress(25);
         try {
             if (!reconnect) {
@@ -220,14 +219,14 @@ public class Roster
             theStream.setJabberListener( this );
         } catch( Exception e ) {
             setProgress("Failed",0);
-            querysign=reconnect=false;
+            reconnect=false;
             myStatus=Presence.PRESENCE_OFFLINE;
             e.printStackTrace();
 /*#USE_LOGGER#*///<editor-fold>
 //--            NvStorage.log(e, "Roster:232");
 /*$USE_LOGGER$*///</editor-fold>
             errorLog( e.getMessage() );
-            displayStatus();
+            setQuerySign(false);
             redraw();
             //l.setTitleImgL(0);//offline
         }
@@ -247,7 +246,7 @@ public class Roster
         return vContacts.size();
     };
     
-    private void displayStatus(){
+    private void updateTitle(){
         int s=querysign?ImageList.ICON_RECONNECT_INDEX:myStatus;
         int profile=cf.profile;//StaticData.getInstance().config.profile;
         Object en=(profile>1)? new Integer(profile+ImageList.ICON_PROFILE_INDEX):null;
@@ -276,7 +275,7 @@ public class Roster
 //--                int pattern=cf.m55LedPattern;
 //--                if (pattern>0) EventNotify.leds(pattern-1, m>0);
 /*$USE_LED_PATTERN$*///</editor-fold>
-        displayStatus();
+        updateTitle();
         return (m>0);
     }
     
@@ -293,7 +292,6 @@ public class Roster
     }
     
     public void cleanupGroup(){
-        if (!(atCursor instanceof Group)) return;
         Group g=(Group)atCursor;
         if (!g.collapsed) return;
         int gi=g.index;
@@ -580,9 +578,8 @@ public class Roster
      */
     
     public void sendPresence(int status) {
-        querysign=false;
         myStatus=status;
-        displayStatus();
+        setQuerySign(false);
         if (status==Presence.PRESENCE_OFFLINE) {
             synchronized(hContacts) {
                 for (Enumeration e=hContacts.elements(); e.hasMoreElements();){
@@ -673,7 +670,7 @@ public class Roster
             theStream.send(req);
             querysign=true;
         }
-        displayStatus();
+        updateTitle();
     }
     /**
      * Method to handle an incomming datablock.
@@ -694,8 +691,8 @@ public class Roster
                         JabberDataBlock err=data.getChildBlock("error");
                         errorLog(err.toString());
                         
-                        querysign=reconnect=false;
-                        displayStatus();
+                        reconnect=false;
+                        setQuerySign(false);
                         redraw();
                     }
                 }
@@ -917,7 +914,7 @@ public class Roster
                             b.append(affil);
                         }
                     } else if (pr.getTypeIndex()==Presence.PRESENCE_OFFLINE) {
-                        String reason=item.getTextForChildBlock("reason");
+                        String reason=item.getChildBlockText("reason");
                         if (statusCode.equals("303")) {
                             b.append(" is now known as ");
                             b.append(chNick);
@@ -974,8 +971,8 @@ public class Roster
                     boolean ask= (i.getAttribute("ask")!=null);
 
                     // найдём группу
-                    JabberDataBlock g=i.getChildBlock("group");
-                    String group=(g==null)?Groups.COMMON_GROUP:g.getText();
+                    String group=i.getChildBlockText("group");
+                    if (group.length()==0) group=Groups.COMMON_GROUP;
 
                     // так можно проверить, когда пришёл jabber:iq:roster,
                     // на запрос ростера или при обновлении
@@ -1057,18 +1054,12 @@ public class Roster
         if( e != null ) {
             errorLog(e.getMessage());
             e.printStackTrace();
-/*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e, "Roster:846");
-/*$USE_LOGGER$*///</editor-fold>
         }
         setProgress("Disconnected", 0);
         try {
             sendPresence(Presence.PRESENCE_OFFLINE);
         } catch (Exception e2) {
             e2.printStackTrace();
-/*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e2, "Roster:855");
-/*$USE_LOGGER$*///</editor-fold>
         }
         redraw();
     }
@@ -1078,9 +1069,10 @@ public class Roster
     
     public void eventOk(){
         super.eventOk();
-        cleanupGroup();
-        createMsgList();
-        reEnumRoster();
+        if (createMsgList()==null) {
+            cleanupGroup();
+            reEnumRoster();
+        }
     }
     
     
@@ -1115,10 +1107,10 @@ public class Roster
             Object atcursor=getFocusedObject();
             Contact c=null;
             if (atcursor instanceof Contact) c=(Contact)atcursor;
-            // а если курсор на группе, то пока так.
+            // а если курсор на группе, то искать с самого начала.
             else c=(Contact)hContacts.firstElement();
             
-            Enumeration i=hContacts.elements();
+            /*Enumeration i=hContacts.elements();
             Contact p=null;
             while (i.hasMoreElements()){
                 p=(Contact)i.nextElement();
@@ -1127,14 +1119,22 @@ public class Roster
             if (c==null) c=p;   // последний элемент хэша
             
             // ищем сообщение
-            boolean search=true;
-            while (search) {
+            //boolean search=true;
+            while (true) {
                 if (!i.hasMoreElements()) i=hContacts.elements();
                 p=(Contact)i.nextElement();
                 if (p==c) break; // полный круг пройден
-                if (p.getNewMsgsCount()>0)
-                    setFocusTo(p);
-                
+                if (p.getNewMsgsCount()>0) { setFocusTo(p); break; }
+            }
+             */
+            Enumeration i=hContacts.elements();
+            
+            int pass=0; // 0=ищем курсор, 1=ищем
+            while (pass<2) {
+                if (!i.hasMoreElements()) i=hContacts.elements();
+                Contact p=(Contact)i.nextElement();
+                if (pass==1) if (p.getNewMsgsCount()>0) { setFocusTo(p); break; }
+                if (p==c) pass++; // полный круг пройден
             }
         }
     }
@@ -1142,15 +1142,9 @@ public class Roster
     public void logoff(){
         if (theStream!=null)
         try {
-/*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log("logoff");
-/*$USE_LOGGER$*///</editor-fold>
              sendPresence(Presence.PRESENCE_OFFLINE);
         } catch (Exception e) { 
             e.printStackTrace(); 
-/*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e, "Roster:932");
-/*$USE_LOGGER$*///</editor-fold>
         }
     };
     
@@ -1206,7 +1200,7 @@ public class Roster
     
     protected void showNotify() { countNewMsgs(); }
     
-    // temporary here
+    /*// temporary here
     public final String getProperty(final String key, final String defvalue) {
         try {
             String s=sd.midlet.getAppProperty(key);//StaticData.getInstance().midlet.getAppProperty(key);
@@ -1214,7 +1208,7 @@ public class Roster
         } catch (Exception e) {
             return defvalue;
         }
-    }
+    }*/
     
     //void resetStrCache(){
     //System.out.println("reset roster cache");
@@ -1233,7 +1227,7 @@ public class Roster
         if (keyCode==cf.keyVibra) {
             cf.profile=(cf.profile==AlertProfile.VIBRA)? 
                 cf.def_profile : AlertProfile.VIBRA;
-            displayStatus();
+            updateTitle();
             redraw();
         }
         
@@ -1279,11 +1273,11 @@ public class Roster
                 destroyView();
                 switch (index) {
                     case 0: // info
-                        querysign=true; displayStatus();
+                        setQuerySign(true); 
                         theStream.send(new IqVersionReply(to));
                         break;
                     case 1: // info
-                        querysign=true; displayStatus();
+                        setQuerySign(true); 
                         theStream.send(new IqGetVCard(to, "getvc"));
                         break;
                         
@@ -1295,7 +1289,7 @@ public class Roster
                         new SubscriptionEdit(display, c);
                         return; //break;
                     case 4:
-                        new YesNoAlert(display, parentView, "Delete contact?", c.getNickJid()){
+                        new YesNoAlert(display, sd.roster, "Delete contact?", c.getNickJid()){
                             public void yes() {
                                 for (Enumeration e=hContacts.elements();e.hasMoreElements();) {
                                     Contact c2=(Contact)e. nextElement();
@@ -1342,7 +1336,7 @@ public class Roster
                                 vCardQueue.addElement(new IqGetVCard(k.getJid(), "nickvc"+k.rosterJid));
                             }
                         }
-                        querysign=true; displayStatus();
+                        setQuerySign(true); 
                         sendVCardReq();
                         break;
                     }
@@ -1365,6 +1359,7 @@ public class Roster
                 }
                 destroyView();
             }
+
         };
         
         if (c.realJid!=null) {
@@ -1387,6 +1382,10 @@ public class Roster
        m.attachDisplay(display);
     }
     
+    public void setQuerySign(boolean requestState) {
+        querysign=true;
+        updateTitle();
+    }
     void setMucMod(Contact contact, Hashtable itemAttributes){
         JabberDataBlock iq=new JabberDataBlock("iq", null, null);
         iq.setTypeAttribute("set");

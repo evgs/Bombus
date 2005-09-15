@@ -162,7 +162,7 @@ public class ServiceDiscovery
             String text="Successful";
             String title=data.getAttribute("type");
             if (title.equals("error")) {
-                text=data.getChildBlock("error").getText();
+                text=data.getChildBlockText("error");
             }
             Alert alert=new Alert(title, text, null, null /*AlertType.ALARM*/);
             alert.setTimeout(15*1000);

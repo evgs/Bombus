@@ -108,7 +108,7 @@ public class Presence extends JabberDataBlock
           if (show.equals(PRS_DND)) presenceCode=PRESENCE_DND;
       }
           
-      show=(errText==null)? getTextForChildBlock("status"):errText;
+      show=(errText==null)? getChildBlockText("status"):errText;
       if (show.length()>0) {
           text.append('(');
           text.append( show );
@@ -141,7 +141,7 @@ public class Presence extends JabberDataBlock
 
   public int getPriority(){
       try {
-          return Integer.parseInt(getTextForChildBlock("priority"));
+          return Integer.parseInt(getChildBlockText("priority"));
       } catch (Exception e) {return -1;}
   }
   
@@ -163,7 +163,7 @@ public class Presence extends JabberDataBlock
   
   private String getShow(){
       try {
-          return getChildBlock("show").getText();
+          return getChildBlockText("show");
       } catch (Exception e) { return PRS_ONLINE; }
   }
 

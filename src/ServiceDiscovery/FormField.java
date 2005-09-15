@@ -30,7 +30,7 @@ public class FormField {
             if (type.equals("fixed")) name="title";
             else name=field.getAttribute("var");
             label=field.getAttribute("label");
-            body=field.getTextForChildBlock("value");
+            body=field.getChildBlockText("value");
         }
         
         if ( instructions=name.equals("instructions") )
@@ -48,8 +48,7 @@ public class FormField {
             if (name.equals("registered")) return null;
             String value=((TextField)formItem).getString();
             if (type==null) {
-                j=new JabberDataBlock(name, null, null);
-                j.addText(value);
+                j=new JabberDataBlock(null, name, value);
             } else {
                 // x:data
                 j=new JabberDataBlock("field", null, null);

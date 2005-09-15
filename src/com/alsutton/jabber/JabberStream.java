@@ -265,11 +265,6 @@ public class JabberStream implements XMLEventListener, Runnable {
             
         } else if ( name.equals( "stream:stream" ) ) {
             String SessionId=(String)attributes.get("id");
-            
-            /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(new JabberDataBlock(name, null, attributes), true);
-            /*$USE_LOGGER$*///</editor-fold>
-            
             dispatcher.broadcastBeginConversation(SessionId);
         } else if ( name.equals( "message" ) )
             currentBlock = new Message( currentBlock, attributes );
@@ -289,7 +284,7 @@ public class JabberStream implements XMLEventListener, Runnable {
     
     public void plaintextEncountered( String text ) {
         if( currentBlock != null ) {
-            currentBlock.addText( text );
+            currentBlock.setText( text );
         }
     }
     
@@ -360,15 +355,9 @@ public class JabberStream implements XMLEventListener, Runnable {
         public void run() {
             try {
                 System.out.println("Keep-Alive");
-                /*#USE_LOGGER#*///<editor-fold>
-//--                NvStorage.log("Keep-Alive");
-                /*$USE_LOGGER$*///</editor-fold>
                 sendKeepAlive();
             } catch (Exception e) {
                 e.printStackTrace();
-                /*#USE_LOGGER#*///<editor-fold>
-//--                NvStorage.log(e, "JabberStream:350");
-                /*$USE_LOGGER$*///</editor-fold>
             }
         }
         public void destroyTask(){

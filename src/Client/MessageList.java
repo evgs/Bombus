@@ -22,6 +22,7 @@ implements CommandListener{
     Command cmdResume=new Command("Resume Message",Command.SCREEN,1);
     Command cmdQuote=new Command("Quote",Command.SCREEN,3);
     Command cmdPurge=new Command("Clear List", Command.SCREEN, 10);
+    Command cmdContact=new Command("Contact >",Command.SCREEN,11);
     
     ImageList il;
     boolean smiles;
@@ -61,6 +62,7 @@ implements CommandListener{
         addCommand(cmdMessage);
         addCommand(cmdBack);
         addCommand(cmdPurge);
+        addCommand(cmdContact);
         if (getItemCount()>0)
             addCommand(cmdQuote);
         setCommandListener(this);
@@ -150,6 +152,9 @@ implements CommandListener{
             AttachList(new Vector());
             System.gc();
             redraw();
+        }
+        if (c==cmdContact) {
+            sd.roster.contactMenu(contact);
         }
     }
     protected void keyGreen(){

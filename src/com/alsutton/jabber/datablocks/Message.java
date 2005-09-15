@@ -96,9 +96,7 @@ public class Message extends JabberDataBlock
 
   public void setBodyText( String text )
   {
-    JabberDataBlock body = new JabberDataBlock( "body", null, null );
-    body.addText( text );
-    addChild( body );
+    addChild( "body", text );
   }
 
   /**
@@ -138,12 +136,7 @@ public class Message extends JabberDataBlock
    * @param text The string to go in the message subject
    */
 
-  public void setSubject( String text )
-  {
-    JabberDataBlock subject = new JabberDataBlock( "subject", null, null );
-    subject.addText( text );
-    addChild( subject );
-  }
+  public void setSubject( String text ) { addChild( "subject", text ); }
 
 
   /**
@@ -152,10 +145,7 @@ public class Message extends JabberDataBlock
    * @return A string representing the message subject
    */
 
-  public String getSubject()
-  {
-    return getTextForChildBlock( "subject" );
-  }
+  public String getSubject() {  return getChildBlockText( "subject" );  }
 
   /**
    * Method to get the message body
@@ -163,10 +153,7 @@ public class Message extends JabberDataBlock
    * @return The message body as a string
    */
 
-  public String getBody()
-  {
-    return getTextForChildBlock( "body" );
-  }
+  public String getBody() { return getChildBlockText( "body" ); }
 
   public String getTimeStamp(){
       JabberDataBlock stamp=findNamespace("jabber:x:delay");

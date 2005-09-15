@@ -46,51 +46,37 @@ public class Login extends JabberDataBlock
    * @param resource The resource name to use
    */
 
-  public Login( String username, String server, String password, String sid, String resource)
-  {
-    super( );
-
-    setAttribute( "id", "auth-s" );
-    setAttribute( "type", "set" );
-    setAttribute( "to", server);
-
-    JabberDataBlock queryBlock = new JabberDataBlock( "query", null, null );
-    queryBlock.setNameSpace( "jabber:iq:auth" );
-
-    addChild(queryBlock);
-
-    if( username != null )
-    {
-      JabberDataBlock usernameBlock = new JabberDataBlock( "username", null, null );
-      usernameBlock.addText( username );
-      queryBlock.addChild( usernameBlock );
+    public Login( String username, String server, String password, String sid, String resource) {
+        super( );
+        
+        setAttribute( "id", "auth-s" );
+        setAttribute( "type", "set" );
+        setAttribute( "to", server);
+        
+        JabberDataBlock queryBlock = new JabberDataBlock( "query", null, null );
+        queryBlock.setNameSpace( "jabber:iq:auth" );
+        
+        addChild(queryBlock);
+        
+        if( username != null ) queryBlock.addChild( "username", username );
+        
+        if( password != null ) {
+            String digest=null;
+            String pwdtype;
+            if (sid!=null) {
+                pwdtype="digest";
+                SHA1 a=new SHA1();
+                a.init();
+                a.updateASCII(sid+password);
+                a.finish();
+                digest=a.getDigestHex();
+            } else pwdtype="password";//plain
+            // plain text
+            queryBlock.addChild(pwdtype, (digest==null)?password:digest  );
+        }
+        
+        if( resource != null ) queryBlock.addChild( "resource", resource  );
     }
-
-    if( password != null )
-    {
-      String digest=null;
-      String pwdtype;
-      if (sid!=null) {
-          pwdtype="digest";
-          SHA1 a=new SHA1();
-          a.init();
-          a.updateASCII(sid+password);
-          a.finish();
-          digest=a.getDigestHex();
-      } else pwdtype="password";//plain
-        // plain text
-      JabberDataBlock passwordBlock = new JabberDataBlock( pwdtype, null, null );
-      passwordBlock.addText( (digest==null)?password:digest );
-      queryBlock.addChild( passwordBlock );
-    }
-
-    if( resource != null )
-    {
-      JabberDataBlock resourceBlock = new JabberDataBlock( "resource", null, null );
-      resourceBlock.addText( resource );
-      queryBlock.addChild( resourceBlock );
-   }
-  }
 
   /**
    * Method to return the tag name

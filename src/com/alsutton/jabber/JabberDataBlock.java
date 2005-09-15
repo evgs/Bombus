@@ -51,7 +51,7 @@ public class JabberDataBlock
    * A string representing all the text within the data block
    */
 
-  protected StringBuffer textData = null;
+  protected String textData = null;
 
   /**
    * This blocks' parent
@@ -115,7 +115,7 @@ public class JabberDataBlock
   public JabberDataBlock( JabberDataBlock _parent, String _tagName, String _body  )
   {
     this( _tagName, _parent, null );
-    addText(_body);
+    setText(_body);
   }
   /**
    * Method to add a child to the list of child blocks
@@ -139,7 +139,7 @@ public class JabberDataBlock
    */
   public JabberDataBlock addChild(String name, String text){
       JabberDataBlock child=new JabberDataBlock(name,this,null);
-      if (text!=null) child.addText(text);
+      if (text!=null) child.setText(text);
       addChild(child);
       return child;
   }
@@ -151,13 +151,7 @@ public class JabberDataBlock
    * @param text The text to add
    */
 
-  public void addText( String text )
-  {
-    if( textData == null )
-      textData = new StringBuffer();
-
-    textData.append( text );
-  }
+  public void setText( String text ) { textData=text; }
 
   /**
    * Method to get the parent of this block
@@ -165,10 +159,7 @@ public class JabberDataBlock
    * @return This blocks parent
    */
 
-  public JabberDataBlock getParent()
-  {
-    return parent;
-  }
+  public JabberDataBlock getParent() { return parent; }
 
 
   /**
@@ -192,7 +183,7 @@ public class JabberDataBlock
 
   public String getText()
   {
-    return (textData==null)?null:textData.toString();
+    return (textData==null)?"":textData.toString();
   }
 
   /**
@@ -282,25 +273,16 @@ public class JabberDataBlock
    * Method to return the text for a given child block
    */
 
-  public String getTextForChildBlock( String blockname )
+  public String getChildBlockText( String blockname )
   {
-    if( childBlocks == null )
+      try {
+        JabberDataBlock child=getChildBlock(blockname);
+        return child.getText();
+      } catch (Exception e) {}
       return "";
-
-    for( int i = 0 ; i < childBlocks.size() ; i++ )
-    {
-      JabberDataBlock thisBlock = (JabberDataBlock) childBlocks.elementAt( i );
-      if( thisBlock.getTagName().equals( blockname ) )
-      {
-        if (thisBlock.textData==null) return "";  
-        return thisBlock.getText();
-      }
-    }
-
-    return "";
   }
   
-      private void appendXML(StringBuffer dest, StringBuffer src){
+      private void appendXML(StringBuffer dest, String src){
         if (src==null) return;
         for (int i=0;i<src.length();i++){
             char ch=src.charAt(i);

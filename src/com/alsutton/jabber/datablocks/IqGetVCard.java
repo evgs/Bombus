@@ -55,7 +55,7 @@ public class IqGetVCard extends JabberDataBlock
         //vc.append((char)0x01);
         for (int i=0; i<TOPFIELDS.length; i++){
             // TODO: добавить вложенные поля vCard
-            String field=data.getTextForChildBlock(TOPFIELDS[i].toLowerCase());
+            String field=data.getChildBlockText(TOPFIELDS[i].toLowerCase());
             if (field.length()>0) {
                 vc.append(TOPNAMES[i]);
                 vc.append((char)0xa0);
@@ -71,7 +71,7 @@ public class IqGetVCard extends JabberDataBlock
 
    public static String getNickName(JabberDataBlock data) {
        if (!data.isJabberNameSpace("vcard-temp")) return "";
-       return data.getTextForChildBlock(TOPFIELDS[1].toLowerCase());
+       return data.getChildBlockText(TOPFIELDS[1].toLowerCase());
    }
    
    public static Image getPhoto(JabberDataBlock data) {
