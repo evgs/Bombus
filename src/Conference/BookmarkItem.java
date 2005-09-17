@@ -47,10 +47,17 @@ public class BookmarkItem extends IconTextElement{
         password=data.getChildBlockText("password");
     }
     
+    public BookmarkItem(String jid, String nick, String password){
+        this();
+        this.name=this.jid=jid;
+        this.nick=nick;
+        this.password=password;
+    }
+    
     public JabberDataBlock constructBlock() {
         JabberDataBlock data=new JabberDataBlock((isUrl)?"url":"conference", null, null);
         data.setAttribute("name", name);
-        data.setAttribute((isUrl)?"jid":"url", jid);
+        data.setAttribute((isUrl)?"url":"jid", jid);
         if (autojoin) data.setAttribute("autojoin", "true");
         if (nick.length()>0) data.addChild("nick",nick);
         if (password.length()>0) data.addChild("password",password);

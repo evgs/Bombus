@@ -27,6 +27,8 @@ public class Bookmarks
     
     private Vector bookmarks;
     
+    private BookmarkItem toAdd;
+    
     private Command cmdCancel=new Command ("Back", Command.BACK, 99);
     private Command cmdJoin=new Command ("Join", Command.SCREEN, 10);
     private Command cmdRfsh=new Command ("Refresh", Command.SCREEN, 11);
@@ -34,11 +36,12 @@ public class Bookmarks
 
     JabberStream stream=StaticData.getInstance().roster.theStream;
     /** Creates a new instance of Bookmarks */
-    public Bookmarks(Display display) {
+    public Bookmarks(Display display, BookmarkItem toAdd) {
         super (display);
         createTitleItem(1, "Privacy Lists", null);
         
         bookmarks=new Vector();
+        this.toAdd=toAdd;
         
         loadBookmarks();
         addCommand(cmdCancel);
@@ -84,6 +87,12 @@ public class Bookmarks
                 }
                 //StaticData.getInstance().roster.bookmarks=
                 this.bookmarks=bookmarks;
+                
+                if (toAdd!=null) {
+                    bookmarks.addElement(toAdd);
+                    saveBookmarks();
+                }
+                
                 if (display!=null) redraw();
                 return JabberBlockListener.NO_MORE_BLOCKS;
             }
@@ -104,6 +113,25 @@ public class Bookmarks
         if (c==cmdCancel) exitBookmarks();
         if (c==cmdJoin) eventOk();
         if (c==cmdRfsh) loadBookmarks();
+        if (c==cmdDel) deleteBookmark();
+    }
+    
+    private void deleteBookmark(){
+        BookmarkItem del=(BookmarkItem)atCursor;
+        if (del==null) return;
+        if (del.isUrl) return;
+        bookmarks.removeElement(del);
+        saveBookmarks();
+        redraw();
+    }
+    
+    private void saveBookmarks() {
+        JabberDataBlock rq=new JabberDataBlock("storage", null, null);
+        rq.setNameSpace("storage:bookmarks");
+        for (Enumeration e=bookmarks.elements(); e.hasMoreElements(); ) {
+            rq.addChild( ((BookmarkItem)e.nextElement()).constructBlock() );
+        }
+        bookmarksRq(true, rq, "getbookmarks");
     }
 
     private void exitBookmarks(){
