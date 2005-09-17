@@ -46,7 +46,7 @@ public class Contact extends IconTextElement{
 
     public String nick;
     public Jid jid;
-    public String rosterJid;    // for roster/subscription manipulating
+    public String bareJid;    // for roster/subscription manipulating
     public String realJid;      // for muc usage
     public int status;
     public int priority;
@@ -84,7 +84,7 @@ public class Contact extends IconTextElement{
     public Contact(final String Nick, final String sJid, final int Status, String subscr) {
         this();
         nick=Nick; jid= new Jid(sJid); status=Status;
-        rosterJid=sJid;
+        bareJid=sJid;
         this.subscr=subscr;
     
         jidHash=sortCode((Nick==null)?sJid:Nick);
@@ -106,7 +106,7 @@ public class Contact extends IconTextElement{
         c.status=status; 
         c.transport=StaticData.getInstance().getTransportIndex(newjid.getTransport()); //<<<<
 
-        c.rosterJid=rosterJid;
+        c.bareJid=bareJid;
         return c;
     }
     
@@ -226,12 +226,12 @@ public class Contact extends IconTextElement{
     }
 
     public final String getJidNR() {
-        return rosterJid;
+        return bareJid;
     }
 
     public final String getNickJid() {
-        if (nick==null) return rosterJid;
-        return nick+" <"+rosterJid+">";
+        if (nick==null) return bareJid;
+        return nick+" <"+bareJid+">";
     }
     
     /**

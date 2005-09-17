@@ -474,7 +474,7 @@ public class Roster
             c=presenceContact(from.substring(0, rp), Presence.PRESENCE_ONLINE);
             //c.status=Presence.PRESENCE_ONLINE;  
             c.transport=7; //FIXME: убрать хардкод
-            c.rosterJid=from;
+            c.bareJid=from;
             c.origin=Contact.ORIGIN_GROUPCHAT;
             c.priority=99;
         } else {
@@ -847,7 +847,7 @@ public class Roster
   
             
                 Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, subj, body);
-                if (groupchat) if (c.rosterJid.equals(message.getFrom())) {
+                if (groupchat) if (c.bareJid.equals(message.getFrom())) {
                     m.messageType=Msg.MESSAGE_TYPE_OUT;
                 }
                 if (tStamp!=null) 
@@ -919,12 +919,12 @@ public class Roster
                             b.append(" was kicked (");
                             b.append(reason);
                             b.append(")");
-                            if ((c.rosterJid.equals(from))) leaveRoom(c.group);
+                            if ((c.bareJid.equals(from))) leaveRoom(c.group);
                         } else if (statusCode.equals("301")){
                             b.append(" was banned (");
                             b.append(reason);
                             b.append(")");
-                            if ((c.rosterJid.equals(from))) leaveRoom(c.group);
+                            if ((c.bareJid.equals(from))) leaveRoom(c.group);
                         } else
                         b.append(" has left the channel");
                     } else {
@@ -1330,7 +1330,7 @@ public class Roster
                             Contact k=(Contact) e.nextElement();
                             if (k.jid.isTransport()) continue;
                             if (k.transport==c.transport && k.nick==null && k.group>=Groups.COMMON_INDEX) {
-                                vCardQueue.addElement(new IqGetVCard(k.getJid(), "nickvc"+k.rosterJid));
+                                vCardQueue.addElement(new IqGetVCard(k.getJid(), "nickvc"+k.bareJid));
                             }
                         }
                         setQuerySign(true); 
