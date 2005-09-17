@@ -60,7 +60,7 @@ public class ServiceDiscovery
     }
     
     /** Creates a new instance of ServiceDiscovery */
-    public ServiceDiscovery(Display display, JabberStream stream) {
+    public ServiceDiscovery(Display display) {
         super(display);
 
         setTitleImages(sd.rosterIcons);
@@ -68,8 +68,9 @@ public class ServiceDiscovery
         createTitleItem(2, null, null).addRAlign();
         getTitleItem().addElement(null);
         
-        this.stream=stream;
-        sd.roster.discoveryListener=this;
+        stream=sd.roster.theStream;
+        stream.addBlockListener(this);
+        //sd.roster.discoveryListener=this;
         
         addCommand(cmdRfsh);
         addCommand(cmdSrv);
@@ -113,9 +114,12 @@ public class ServiceDiscovery
     }
     
     public int blockArrived(JabberDataBlock data) {
+        if (!(data instanceof Iq)) return JabberBlockListener.BLOCK_REJECTED;
+        String id=data.getAttribute("id");
+        if (!id.startsWith("disco")) return JabberBlockListener.BLOCK_REJECTED;
+
         JabberDataBlock query=data.getChildBlock("query");
         Vector childs=query.getChildBlocks();
-        String id=data.getAttribute("id");
         //System.out.println(id);
         if (id.equals("disco2")) {
             Vector items=new Vector();
@@ -171,7 +175,7 @@ public class ServiceDiscovery
             } else display.setCurrent(alert, this);
         }
         redraw();
-        return JabberBlockListener.BLOCK_REJECTED;
+        return JabberBlockListener.BLOCK_PROCESSED;
     }
     
     public void eventOk(){
@@ -199,8 +203,7 @@ public class ServiceDiscovery
     public void commandAction(Command c, Displayable d){
         if (c==cmdBack){ 
             if (stackItems.isEmpty()) { 
-                sd.roster.discoveryListener=null; 
-                destroyView(); 
+                exitDiscovery();
                 return;
             }
             
@@ -217,14 +220,14 @@ public class ServiceDiscovery
             
         }
         if (c==cmdAdd){
-            destroyView();
+            exitDiscovery();
             Contact j=(Contact)getFocusedObject();
             new ContactEdit(display, j);
             return;
         }
         if (c==cmdRfsh) {requestQuery(NS_INFO, "disco"); }
         if (c==cmdSrv) { new ServerBox(display, service, this); }
-        if (c==cmdCancel){ sd.roster.discoveryListener=null; destroyView(); }
+        if (c==cmdCancel) exitDiscovery();
     }
     
     private class DiscoCommand extends IconTextElement {
@@ -260,5 +263,9 @@ public class ServiceDiscovery
                 default:
             }
         }
+    }
+    private void exitDiscovery(){
+        stream.cancelBlockListener(this);
+        destroyView();
     }
 }

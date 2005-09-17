@@ -37,10 +37,10 @@ public class SplashScreen extends Canvas implements CommandListener{
     }
      */
     
-    private static SplashScreen s;
+    private static SplashScreen instance;
     public static SplashScreen getInstance(){
-        if (s==null) s=new SplashScreen();
-        return s;
+        if (instance==null) instance=new SplashScreen();
+        return instance;
     }
     
     /** Creates a new instance of SplashScreen */
@@ -131,7 +131,7 @@ public class SplashScreen extends Canvas implements CommandListener{
         parentView=null;
         repaint();
         img=null;
-        s=null; // освобождение памяти
+        instance=null; // освобождение памяти
         System.gc();
     }
 }

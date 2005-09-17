@@ -8,7 +8,7 @@
  * Open. You can then make changes to the template in the Source Editor.
  */
 
-package GroupChat;
+package Conference;
 
 import ui.*;
 import Client.*;

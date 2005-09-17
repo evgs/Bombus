@@ -120,6 +120,7 @@ public class JabberDataBlockDispatcher extends Thread
       JabberDataBlock dataBlock = (JabberDataBlock) waitingQueue.elementAt(0);
       waitingQueue.removeElementAt( 0 );
       int i=0;
+      try {
       synchronized (blockListeners) {
           while (i<blockListeners.size()) {
               int processResult=((JabberBlockListener)blockListeners.elementAt(i)).blockArrived(dataBlock);
@@ -130,6 +131,7 @@ public class JabberDataBlockDispatcher extends Thread
       }
       if( listener != null )
         listener.blockArrived( dataBlock );
+      } catch (Exception e) {e.printStackTrace();}
     }
   }
 

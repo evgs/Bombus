@@ -8,7 +8,7 @@
  * Open. You can then make changes to the template in the Source Editor.
  */
 
-package GroupChat;
+package Conference;
 import Client.*;
 import com.alsutton.jabber.JabberDataBlock;
 import ui.*;
@@ -18,7 +18,7 @@ import javax.microedition.lcdui.*;
  *
  * @author EvgS
  */
-public class GroupChatForm implements CommandListener{
+public class ConferenceForm implements CommandListener{
     
     private Display display;
     private Displayable parentView;
@@ -33,9 +33,9 @@ public class GroupChatForm implements CommandListener{
     TextField passField;
     
     /** Creates a new instance of GroupChatForm */
-    public GroupChatForm(Display display) { this(display, null, null); }
+    public ConferenceForm(Display display) { this(display, null, null); }
     /** Creates a new instance of GroupChatForm */
-    public GroupChatForm(Display display, String room, String server) {
+    public ConferenceForm(Display display, String room, String server) {
         this.display=display;
         parentView=display.getCurrent();
         

@@ -5,7 +5,7 @@
  */
 
 package Client;
-import GroupChat.AppendNick;
+import Conference.AppendNick;
 import javax.microedition.lcdui.*;
 import ui.VirtualList;
 

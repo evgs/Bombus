@@ -100,36 +100,38 @@ public class PrivacySelect
     }
     
     public int blockArrived(JabberDataBlock data){
-        if (data.getTypeAttribute().equals("result"))
-        if (data.getAttribute("id").equals("getplists")) {
-            data=data.findNamespace("jabber:iq:privacy");
-            if (data!=null) {
-                list=new Vector();                
-                String activeList="";
-                String defaultList="";
-                try {
-                    for (Enumeration e=data.getChildBlocks().elements(); e.hasMoreElements();) {
-                        JabberDataBlock pe=(JabberDataBlock) e.nextElement();
-                        String tag=pe.getTagName();
-                        String name=pe.getAttribute("name");
-                        if (tag.equals("active")) activeList=name;
-                        if (tag.equals("default")) defaultList=name;
-                        if (tag.equals("list")) {
-                            PrivacyList pl=new PrivacyList(name);
-                            pl.isActive=(name.equals(activeList));
-                            pl.isDefault=(name.equals(defaultList));
-                            list.addElement(pl);
+        try {
+            if (data.getTypeAttribute().equals("result"))
+                if (data.getAttribute("id").equals("getplists")) {
+                data=data.findNamespace("jabber:iq:privacy");
+                if (data!=null) {
+                    list=new Vector();
+                    String activeList="";
+                    String defaultList="";
+                    try {
+                        for (Enumeration e=data.getChildBlocks().elements(); e.hasMoreElements();) {
+                            JabberDataBlock pe=(JabberDataBlock) e.nextElement();
+                            String tag=pe.getTagName();
+                            String name=pe.getAttribute("name");
+                            if (tag.equals("active")) activeList=name;
+                            if (tag.equals("default")) defaultList=name;
+                            if (tag.equals("list")) {
+                                PrivacyList pl=new PrivacyList(name);
+                                pl.isActive=(name.equals(activeList));
+                                pl.isDefault=(name.equals(defaultList));
+                                list.addElement(pl);
+                            }
                         }
-                    }
-                } catch (Exception e) {}
-                PrivacyList nullList=new PrivacyList(null);
-                nullList.isActive=activeList.length()==0;
-                nullList.isDefault=defaultList.length()==0;
-                list.addElement(nullList);//none
-            }
-            redraw();
-            return JabberBlockListener.NO_MORE_BLOCKS;
-        }
+                    } catch (Exception e) {}
+                    PrivacyList nullList=new PrivacyList(null);
+                    nullList.isActive=activeList.length()==0;
+                    nullList.isDefault=defaultList.length()==0;
+                    list.addElement(nullList);//none
+                }
+                redraw();
+                return JabberBlockListener.NO_MORE_BLOCKS;
+                }
+        } catch (Exception e) { e.printStackTrace(); }
         return JabberBlockListener.BLOCK_REJECTED;
     }
 

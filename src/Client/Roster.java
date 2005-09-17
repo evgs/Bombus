@@ -18,7 +18,7 @@ import javax.microedition.midlet.MIDlet;
 //import Client.Contact.*;
 import ui.*;
 import ServiceDiscovery.ServiceDiscovery;
-import GroupChat.GroupChatForm;
+import Conference.ConferenceForm;
 import PrivacyLists.PrivacySelect;
 
 //import Client.msg.*;
@@ -76,7 +76,7 @@ public class Roster
     private Config cf;
     private StaticData sd=StaticData.getInstance();
     
-    public JabberBlockListener discoveryListener;
+    //public JabberBlockListener discoveryListener;
     
     /**
      * Creates a new instance of Roster
@@ -697,10 +697,6 @@ public class Roster
                     }
                 }
                 String id=(String) data.getAttribute("id");
-                if (discoveryListener!=null && id!=null) 
-                if (id.startsWith("disco")) {
-                    discoveryListener.blockArrived(data);
-                } 
                 
                 if (id!=null) if (id.startsWith("nickvc")) {
                     JabberDataBlock vc=data.getChildBlock("vcard");
@@ -1163,8 +1159,8 @@ public class Roster
         }
         
         if (c==cmdAccount){ new AccountSelect(display, false); }
-        if (c==cmdServiceDiscovery) { new ServiceDiscovery(display, theStream); }
-        if (c==cmdGroupChat) { new GroupChatForm(display); }
+        if (c==cmdServiceDiscovery) { new ServiceDiscovery(display); }
+        if (c==cmdGroupChat) { new ConferenceForm(display); }
         if (c==cmdLeave) {
             if (atCursor instanceof Group) leaveRoom( ((Group)atCursor).index );
         }
