@@ -55,7 +55,7 @@ public class PrivacyItem extends IconTextElement{
     }
     
     public PrivacyItem(JabberDataBlock item) {
-        super(StaticData.getInstance().rosterIcons);
+        this();
         String t=item.getTypeAttribute();
         for (type=0; type<2; type++) if (t.equals(types[type])) break;
         value=item.getAttribute("value");

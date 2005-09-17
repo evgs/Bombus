@@ -109,9 +109,12 @@ public class Account extends IconTextElement{
         jid=s.toString();
         //jid=userName+'@'+server+'/'+resource;
     }
-    public String getJidStr(){
+    public String getJid(){
         return userName+'@'+server+'/'+resource;
     }
+    /*public String getBareJid(){
+        return userName+'@'+server;
+    }*/
     
     public static Account createFromStorage(int index) {
         Account a=null;

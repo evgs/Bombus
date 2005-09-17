@@ -5,7 +5,7 @@
  */
 
 package ServiceDiscovery;
-import GroupChat.GroupChatForm;
+import Conference.ConferenceForm;
 import java.util.*;
 import javax.microedition.lcdui.*;
 import ui.*;
@@ -251,7 +251,7 @@ public class ServiceDiscovery
                         room=service.substring(0,rp);
                         server=service.substring(rp+1);
                     }
-                    new GroupChatForm(display, room, server);
+                    new ConferenceForm(display, room, server);
                     break;
                 }
                 case 1:

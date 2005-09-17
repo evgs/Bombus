@@ -22,9 +22,9 @@ public class ConferenceForm implements CommandListener{
     
     private Display display;
     private Displayable parentView;
-    StaticData sd=StaticData.getInstance();
     
-    Command cmdJoin=new Command("Join", Command.OK, 1);
+    Command cmdJoin=new Command("Join", Command.SCREEN, 1);
+    Command cmdBookmarks=new Command("Bookmarks", Command.SCREEN, 2);
     Command cmdCancel=new Command ("Cancel", Command.BACK, 99);
     
     TextField roomField;
@@ -32,6 +32,7 @@ public class ConferenceForm implements CommandListener{
     TextField nickField;
     TextField passField;
     
+    StaticData sd=StaticData.getInstance();
     /** Creates a new instance of GroupChatForm */
     public ConferenceForm(Display display) { this(display, null, null); }
     /** Creates a new instance of GroupChatForm */
@@ -63,6 +64,7 @@ public class ConferenceForm implements CommandListener{
         formJoin.append(passField);
         
         formJoin.addCommand(cmdJoin);
+        formJoin.addCommand(cmdBookmarks);
         //} catch (Exception e) { formJoin.append(e.toString()); }
         
         formJoin.addCommand(cmdCancel);
@@ -71,6 +73,7 @@ public class ConferenceForm implements CommandListener{
     }
     public void commandAction(Command c, Displayable d){
         if (c==cmdCancel) { destroyView(); }
+        if (c==cmdBookmarks) { new Bookmarks(display); }
         if (c!=cmdJoin) return;
         String nick=nickField.getString();
         String host=hostField.getString();
@@ -85,10 +88,16 @@ public class ConferenceForm implements CommandListener{
         //sd.roster.mucContact(gchat.toString(), Contact.ORIGIN_GROUPCHAT);
         gchat.append('/');
         gchat.append(nick.trim());
-        String jid=gchat.toString();
-        sd.roster.mucContact(jid, Contact.ORIGIN_GROUPCHAT);
+        join(gchat.toString(),pass);
+        
+        display.setCurrent(sd.roster);
+    }
+    public static void join(String name, String pass) {
+        StaticData sd=StaticData.getInstance();
+        
+        sd.roster.mucContact(name, Contact.ORIGIN_GROUPCHAT);
         // требуется для возможности нормального выхода
-        sd.roster.mucContact(jid, Contact.ORIGIN_GC_MYSELF); 
+        sd.roster.mucContact(name, Contact.ORIGIN_GC_MYSELF); 
         //sd.roster.activeRooms.addElement(jid);
  
         JabberDataBlock x=new JabberDataBlock("x", null, null);
@@ -97,9 +106,8 @@ public class ConferenceForm implements CommandListener{
             // adding password to presence
             x.addChild("password", pass);
         }
-        sd.roster.groups.getGroup(room).imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
-        sd.roster.sendPresence(jid, null, x);
-        display.setCurrent(sd.roster);
+        //sd.roster.groups.getGroup(name.substring(0, name.indexOf('@'))).imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
+        sd.roster.sendPresence(name, null, x);
     }
     public void destroyView(){
         if (parentView!=null) display.setCurrent(parentView);

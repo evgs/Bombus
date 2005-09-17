@@ -197,7 +197,7 @@ public class Roster
                     groups=new Groups();
                     vContacts=new Vector(); // just for displaying
                 }
-                myJid=new Jid(sd.account.getJidStr());
+                myJid=new Jid(sd.account.getJid());
                 updateContact(sd.account.getNickName(), myJid.getJid(), Groups.SELF_GROUP, "self", false);
                 
                 System.gc();
@@ -459,6 +459,7 @@ public class Roster
         //if (rp>0) if (!isRoom) nick=from.substring(rp+1);
         
         updateContact(null /*nick*/ , from, room, "muc", false);
+        groups.getGroup(room).imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
         /*
         Contact c=presenceContact(from, isRoom?Presence.PRESENCE_ONLINE:-1);
         if (isRoom){  
