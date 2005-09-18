@@ -25,7 +25,7 @@ public class DiscoForm implements CommandListener{
     private String xmlns;
     private String service;
     
-    private Form form;
+    //private Form form;
     
     private boolean xData;
     

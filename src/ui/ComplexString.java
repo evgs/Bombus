@@ -152,7 +152,7 @@ public class ComplexString extends Vector implements VirtualElement{
         if (height!=0) return height;
         for (int i=0;i<elementCount;i++){
             int h=0;
-            Object o=o=elementData[i];
+            Object o=elementData[i];
             if (o instanceof String) { h=font.getHeight(); } else
             if (o instanceof Integer) {
                 int a=((Integer)o).intValue();

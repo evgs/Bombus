@@ -53,7 +53,7 @@ public class AccountSelect
         if (accountList.isEmpty()) {
             a=Account.createFromJad();
             if (a!=null) {
-                a.updateJidCache();
+                //a.updateJidCache();
                 accountList.addElement(a);
                 rmsUpdate();
             }
@@ -231,7 +231,7 @@ public class AccountSelect
                 account.setNickName(nickbox.getString());
                 account.setUseSSL(b[0]);
                 account.setPlainAuth(b[1]);
-                account.updateJidCache();
+                //account.updateJidCache();
                 
                 try {
                     account.setPort(Integer.parseInt(portbox.getString()));

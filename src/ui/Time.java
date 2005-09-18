@@ -59,7 +59,7 @@ public class Time {
     
     public static String dispLocalTime(){
         long date=localTime();
-        Calendar c=calDate(date);
+        //Calendar c=calDate(date);
         return dayString(date)+timeString(date);
     }
     

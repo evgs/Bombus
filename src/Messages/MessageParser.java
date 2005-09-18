@@ -41,7 +41,7 @@ public final class MessageParser {
             // счёт номера строки, он же номер смайла
             int strnumber=0;
             // вложение
-            int level=0; 
+            // int level=0; 
             boolean strhaschars=false;
             boolean endline=false;
             
@@ -91,7 +91,8 @@ public final class MessageParser {
                         firstSmile=true;
                     }
                 }
-            } catch (EOFException e) { f.close(); }
+            } catch (EOFException e) { /* неправильный файл смайлов */ }
+            f.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

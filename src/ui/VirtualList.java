@@ -504,9 +504,14 @@ public abstract class VirtualList
         }
         public void run() {
             // прокрутка только раз
-            if (hold==0)
-                if (offset>=Max) hold=6;  else offset+=20;
-            else {offset=0;cancel();}
+            if (hold==0) {
+                if (offset>=Max) hold=6;  
+                else offset+=20;
+            }
+            else { 
+            	offset=0;
+            	cancel();
+            }
             
             redraw();
             //System.out.println("Offset "+offset);

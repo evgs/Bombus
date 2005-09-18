@@ -36,7 +36,7 @@ public class Account extends IconTextElement{
     private String nick="";
     private String resource="Bombus";
     
-    private String jid;
+    //private String jid;
         
     /** Creates a new instance of Account */
     public Account() {
@@ -95,7 +95,7 @@ public class Account extends IconTextElement{
         return (a.userName==null)?null:a;
     }
 
-    public void updateJidCache(){
+    public String toString(){
         StringBuffer s=new StringBuffer();
         if (nick.length()!=0)
             s.append(nick);
@@ -106,7 +106,7 @@ public class Account extends IconTextElement{
         }
         s.append('/');
         s.append(resource);
-        jid=s.toString();
+        return s.toString();
         //jid=userName+'@'+server+'/'+resource;
     }
     public String getJid(){
@@ -124,7 +124,7 @@ public class Account extends IconTextElement{
             do {
                 if (is.available()==0) {a=null; break;}
                 a=createFromDataInputStream(is);
-                a.updateJidCache();
+                //a.updateJidCache();
                 index--;
             } while (index>-1);
             is.close();
@@ -164,7 +164,7 @@ public class Account extends IconTextElement{
     }
     
     //public void onSelect(){ }
-    public String toString(){ return jid; }
+    //public String toString(){ return jid; }
     public int getColor(){ return 0x000000; }
     //public int getColorBGnd() {return 0xffffff;}
     protected int getImageIndex() {return active?0:5;}

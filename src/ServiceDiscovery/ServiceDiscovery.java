@@ -39,7 +39,6 @@ public class ServiceDiscovery
     private Command cmdBack=new Command("Back", Command.BACK, 98);
     private Command cmdCancel=new Command("Cancel", Command.EXIT, 99);
 
-    private Config cf;
     private StaticData sd=StaticData.getInstance();
     
     private Vector items;
@@ -52,12 +51,6 @@ public class ServiceDiscovery
     private boolean blockWait;
 
     private JabberStream stream;
-    
-    private class State{
-        public String service;
-        public Vector items;
-        public int cursor;
-    }
     
     /** Creates a new instance of ServiceDiscovery */
     public ServiceDiscovery(Display display) {
@@ -268,4 +261,9 @@ public class ServiceDiscovery
         stream.cancelBlockListener(this);
         destroyView();
     }
+}
+class State{
+    public String service;
+    public Vector items;
+    public int cursor;
 }

@@ -94,7 +94,7 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
     
         
     public void drawItem(Graphics g, int ofs, boolean selected){
-        int max=(smileIndex==lines-1)? xLastCnt:xCnt;
+        //int max=(smileIndex==lines-1)? xLastCnt:xCnt;
         for (int i=0;i<xCnt;i++) {
             il.drawImage(g, smileIndex*xCnt + i, i*imgWidth+CURSOR_HOFFSET, CURSOR_VOFFSET);
         }
