@@ -881,9 +881,6 @@ public class Roster
                 if (xmuc!=null){
                     int rp=from.indexOf('/');
                     StringBuffer b=new StringBuffer(from.substring(rp+1));
-                    //b.append(c.origin);
-                    //b.append(c.jid.getResource());
-                    //b.deleteCharAt(0);  //FIXME:
                     JabberDataBlock item=xmuc.getChildBlock("item");
                     
                     String role=item.getAttribute("role");
@@ -1273,7 +1270,7 @@ public class Roster
                         setQuerySign(true); 
                         theStream.send(new IqVersionReply(to));
                         break;
-                    case 1: // info
+                    case 1: // vCard
                         setQuerySign(true); 
                         theStream.send(new IqGetVCard(to, "getvc"));
                         break;
