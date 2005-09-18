@@ -273,17 +273,17 @@ public class XMLParser
         continue;
       }
 
-      substringStart = valueStart;
-      char startChar = data.charAt( substringStart );
-      if( startChar  == '\"' || startChar  == '\'' )
-        substringStart++;
+      //substringStart = valueStart;
+      //char startChar = data.charAt( substringStart );
+      //if( startChar  == '\"' || startChar  == '\'' )
+      //  substringStart++;
 
-      substringEnd = stringLength;
-      char endChar = data.charAt( substringEnd-1 );
-      if( substringEnd > substringStart && endChar  == '\"' || endChar  == '\'' )
-        substringEnd--;
+      //substringEnd = stringLength;
+      //char endChar = data.charAt( substringEnd-1 );
+      //if( substringEnd > substringStart && endChar  == '\"' || endChar  == '\'' )
+      //  substringEnd--;
 
-      attributes.put( attributeName, data.substring( substringStart, substringEnd ) );
+      attributes.put( attributeName, data.substring( valueStart, stringLength ) );
     } while( hasMoreData );
 
     if( tagName.startsWith( "?") )

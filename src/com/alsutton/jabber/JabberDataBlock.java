@@ -284,7 +284,8 @@ public class JabberDataBlock
   
       private void appendXML(StringBuffer dest, String src){
         if (src==null) return;
-        for (int i=0;i<src.length();i++){
+        int len=src.length();
+        for (int i=0;i<len;i++){
             char ch=src.charAt(i);
             switch (ch) {
                 case '&':   dest.append("&amp;"); break;
@@ -356,7 +357,8 @@ public class JabberDataBlock
       buffer.append( ' ' );
       buffer.append( nextKey );
       buffer.append( "=\"" );
-      buffer.append( nextValue );
+      appendXML(buffer, nextValue);
+      //buffer.append( nextValue );
       buffer.append( '\"' );
     }
   }
