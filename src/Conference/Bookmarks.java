@@ -38,7 +38,7 @@ public class Bookmarks
     /** Creates a new instance of Bookmarks */
     public Bookmarks(Display display, BookmarkItem toAdd) {
         super (display);
-        createTitleItem(1, "Privacy Lists", null);
+        createTitleItem(1, "Bookmarks", null);
         
         bookmarks=new Vector();
         this.toAdd=toAdd;
@@ -82,9 +82,11 @@ public class Bookmarks
                 JabberDataBlock storage=data.findNamespace("jabber:iq:private").
                         findNamespace("storage:bookmarks");
                 Vector bookmarks=new Vector();
-                for (Enumeration e=storage.getChildBlocks().elements(); e.hasMoreElements(); ){
-                    bookmarks.addElement(new BookmarkItem((JabberDataBlock)e.nextElement()));
-                }
+                try {
+                    for (Enumeration e=storage.getChildBlocks().elements(); e.hasMoreElements(); ){
+                        bookmarks.addElement(new BookmarkItem((JabberDataBlock)e.nextElement()));
+                    }
+                } catch (Exception e) { /* no any bookmarks */}
                 //StaticData.getInstance().roster.bookmarks=
                 this.bookmarks=bookmarks;
                 
