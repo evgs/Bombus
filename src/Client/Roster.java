@@ -389,7 +389,7 @@ public class Roster
     public void moveCursorTo(Object focused){
         if (focused!=null) {
             int c=vContacts.indexOf(focused);
-            if (c>=0) moveCursorTo(c);
+            if (c>=0) moveCursorTo(c, false);
         }
     }
     

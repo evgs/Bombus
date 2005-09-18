@@ -134,7 +134,7 @@ public class MessageView
     public void eventOk(){
         destroyView();
         if (contact.msgs.size()>1)
-        ((VirtualList)parentView).moveCursorTo(msgIndex);
+        ((VirtualList)parentView).moveCursorTo(msgIndex, true);
     }
     
     public void commandAction(Command c, Displayable d){

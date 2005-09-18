@@ -66,7 +66,7 @@ implements CommandListener{
         if (getItemCount()>0)
             addCommand(cmdQuote);
         setCommandListener(this);
-        moveCursorTo(contact.firstUnread());
+        moveCursorTo(contact.firstUnread(), true);
     }
     
     public void showNotify(){

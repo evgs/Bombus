@@ -208,7 +208,7 @@ public class ServiceDiscovery
             blockWait=false;
             
             titleUpdate();
-            moveCursorTo(st.cursor);
+            moveCursorTo(st.cursor, true);
             redraw();
             
         }

@@ -92,6 +92,8 @@ public abstract class VirtualList
     
     protected int cursor;
     protected boolean atEnd;
+    protected boolean blockChangeFocus;
+    
     protected VirtualElement atCursor;
     
     protected int win_top;    // первый элемент
@@ -360,6 +362,7 @@ public abstract class VirtualList
      * перемещение курсора в начало списка
      */
     public void moveCursorHome(){
+        blockChangeFocus=true;
         win_top=0;
         if (cursor>0) {
             cursor=0;
@@ -372,6 +375,7 @@ public abstract class VirtualList
      * перемещение курсора в конец списка
      */
     public void moveCursorEnd(){
+        blockChangeFocus=true;
         int count=getItemCount();
         win_top=count-visibleItemsCnt(count-1, -1);
         if (cursor>=0) {
@@ -385,9 +389,10 @@ public abstract class VirtualList
      * перемещение курсора в индексированную позицию
      * @param index позиция курсора в списке
      */
-    public void moveCursorTo(int index){
+    public void moveCursorTo(int index, boolean force){
         int count=getItemCount();
         if (index>=count) index=count-1;    // если за последним элементом, то переместить на него
+        else if ((!force) && blockChangeFocus) return;
         
         //int ih=getItemHeight(0);
         //int h=height;
@@ -443,7 +448,10 @@ public abstract class VirtualList
      * в классе VirtualList функция перемещает курсор на одну позицию вверх.
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
-    protected void keyUp() { moveCursor(-1); }
+    protected void keyUp() { 
+        blockChangeFocus=true; 
+        moveCursor(-1);  
+    }
     
     /**
      * событие "Нажатие кнопки DOWN"
@@ -451,7 +459,10 @@ public abstract class VirtualList
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
     
-    protected void keyDwn() { moveCursor(+1); }
+    protected void keyDwn() { 
+        blockChangeFocus=true; 
+        moveCursor(+1); 
+    }
     
     /**
      * событие "Нажатие кнопки LEFT"
@@ -459,6 +470,7 @@ public abstract class VirtualList
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
     protected void keyLeft() {
+        blockChangeFocus=true; 
         int mov_org=(cursor!=-1)? cursor : win_top;
         moveCursor(-visibleItemsCnt(mov_org,-1)); 
     }
@@ -469,6 +481,7 @@ public abstract class VirtualList
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
     protected void keyRight() { 
+        blockChangeFocus=true; 
         moveCursor(visibleItemsCnt(win_top,1)); 
     }
     
@@ -482,11 +495,12 @@ public abstract class VirtualList
     /** перезапуск ротации скроллера длинных строк */
     private void setRotator(){
         rotator.destroyTask();
+        System.out.println("block");
         if (getItemCount()<1) return;
         if (cursor>=0) {
             int itemWidth=getItemRef(cursor).getVWidth();
-            if (itemWidth>=width-VL_SZ_SCROLL)
-                rotator=new TimerTaskRotate( itemWidth - width/2 );
+            if (itemWidth>=width-VL_SZ_SCROLL) itemWidth-=width/2; else itemWidth=0;
+            rotator=new TimerTaskRotate( itemWidth );
         }
     }
     // cursor rotator
@@ -497,13 +511,15 @@ public abstract class VirtualList
         private int hold;
         public TimerTaskRotate(int max){
             offset=0;
-            if (max<1) return;
+            //if (max<1) return;
             Max=max;
             t=new Timer();
-            t.schedule(this, 3000, 500);
+            t.schedule(this, 2000, 300);
         }
         public void run() {
             // прокрутка только раз
+            blockChangeFocus=false;
+            System.out.println("allow");
             if (hold==0) {
                 if (offset>=Max) hold=6;  
                 else offset+=20;
