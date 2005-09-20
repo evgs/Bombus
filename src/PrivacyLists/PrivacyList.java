@@ -80,7 +80,7 @@ public class PrivacyList extends IconTextElement{
         qry.setNameSpace("jabber:iq:privacy");
         if (child!=null) qry.addChild(child);
         
-        System.out.println(pl);
+        //System.out.println(pl);
         StaticData.getInstance().roster.theStream.send(pl);
     }
 }

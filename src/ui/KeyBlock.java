@@ -56,7 +56,7 @@ public class KeyBlock extends Canvas implements Runnable{
         
         tc=new TimerTaskClock();
         
-        System.gc();   // heap cleanup
+        //System.gc();   // heap cleanup
     }
     
     public void run(){

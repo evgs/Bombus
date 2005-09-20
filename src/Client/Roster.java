@@ -928,7 +928,7 @@ public class Roster
                         b.append(" is now ");
                         b.append(pr.getPresenceTxt());
                     }
-                    System.out.println(b.toString());
+                    //System.out.println(b.toString());
 
 
                     mucContact(from, Contact.ORIGIN_GC_MEMBER);
@@ -1389,7 +1389,7 @@ public class Roster
         query.setNameSpace("http://jabber.org/protocol/muc#admin");
         JabberDataBlock item=new JabberDataBlock("item", null, itemAttributes);
         query.addChild(item);
-        System.out.println(iq);
+        //System.out.println(iq);
         theStream.send(iq);
     }
     /**
