@@ -17,12 +17,12 @@ public class Version {
     public final static String url="http://bombus.jrudevels.org";
     
     private static final String os=
-/*#DefaultConfiguration,Release#*///<editor-fold>
-                "MIDP2";
-/*$DefaultConfiguration,Release$*///</editor-fold>
-/*#M55,M55_Release#*///<editor-fold>
-//--                "MIDP1(siemens)";
-/*$M55,M55_Release$*///</editor-fold>
+/*#MIDP2#*///<editor-fold>
+//--                "MIDP2";
+/*$MIDP2$*///</editor-fold>
+/*#!MIDP2#*///<editor-fold>
+                "MIDP1(siemens)";
+/*$!MIDP2$*///</editor-fold>
 
 
     public static String platform() {

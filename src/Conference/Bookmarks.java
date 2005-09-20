@@ -33,17 +33,20 @@ public class Bookmarks
     private Command cmdJoin=new Command ("Join", Command.SCREEN, 10);
     private Command cmdRfsh=new Command ("Refresh", Command.SCREEN, 11);
     private Command cmdDel=new Command ("Delete", Command.SCREEN, 12);
+    
+    Roster roster=StaticData.getInstance().roster;
 
-    JabberStream stream=StaticData.getInstance().roster.theStream;
+    JabberStream stream=roster.theStream;
     /** Creates a new instance of Bookmarks */
     public Bookmarks(Display display, BookmarkItem toAdd) {
         super (display);
         createTitleItem(1, "Bookmarks", null);
         
-        bookmarks=new Vector();
+        
         this.toAdd=toAdd;
         
-        loadBookmarks();
+        bookmarks=roster.bookmarks;
+        if (bookmarks==null) loadBookmarks();
         addCommand(cmdCancel);
         addCommand(cmdJoin);
         addCommand(cmdRfsh);
@@ -51,7 +54,7 @@ public class Bookmarks
         setCommandListener(this);
     }
     
-    public int getItemCount() { return bookmarks.size(); }
+    public int getItemCount() { return (bookmarks==null)?0: bookmarks.size(); }
     public VirtualElement getItemRef(int index) { return (VirtualElement) bookmarks.elementAt(index); }
     
     public void loadBookmarks() {
@@ -96,6 +99,7 @@ public class Bookmarks
                 }
                 
                 if (display!=null) redraw();
+                roster.bookmarks=this.bookmarks=bookmarks;
                 return JabberBlockListener.NO_MORE_BLOCKS;
             }
         } catch (Exception e) { }
@@ -124,6 +128,7 @@ public class Bookmarks
         if (del.isUrl) return;
         bookmarks.removeElement(del);
         saveBookmarks();
+        roster.bookmarks=this.bookmarks=bookmarks;
         redraw();
     }
     

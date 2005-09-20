@@ -113,9 +113,9 @@ public class ConfigForm implements CommandListener{
         //if (newaccount)
         f.append(roster);
         f.append(message);
-/*#DefaultConfiguration,Release#*///<editor-fold>
-        f.append(application);
-/*$DefaultConfiguration,Release$*///</editor-fold>
+/*#MIDP2#*///<editor-fold>
+//--        f.append(application);
+/*$MIDP2$*///</editor-fold>
         
         f.append("Time settings (hours)\n");
         
@@ -161,8 +161,8 @@ public class ConfigForm implements CommandListener{
 
     public void destroyView(){
         if (display!=null)   display.setCurrent(parentView);
-/*#DefaultConfiguration,Release#*///<editor-fold>
-        ((Canvas)parentView).setFullScreenMode(cf.fullscreen);
-/*$DefaultConfiguration,Release$*///</editor-fold>
+/*#MIDP2#*///<editor-fold>
+//--        ((Canvas)parentView).setFullScreenMode(cf.fullscreen);
+/*$MIDP2$*///</editor-fold>
     }
 }

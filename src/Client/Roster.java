@@ -53,6 +53,15 @@ public class Roster
     boolean reconnect=false;
     boolean querysign=false;
     
+    public int myStatus=Presence.PRESENCE_ONLINE;
+    
+    private Vector hContacts;
+    private Vector vContacts;
+    public Groups groups;
+    
+    public Vector bookmarks;
+
+    
     private Command cmdStatus=new Command("Status >",Command.SCREEN,1);
     private Command cmdContact=new Command("Contact >",Command.SCREEN,2);
     private Command cmdDiscard=new Command("Discard Search",Command.SCREEN,3);
@@ -120,10 +129,10 @@ public class Roster
         //addCommand(cmdReconnect);
         addCommand(cmdInfo);
         addCommand(cmdAccount);
-/*#DefaultConfiguration,Release#*///<editor-fold>
-        //addCommand(cmdSetFullScreen);
-        setFullScreenMode(cf.fullscreen);
-/*$DefaultConfiguration,Release$*///</editor-fold>
+/*#MIDP2#*///<editor-fold>
+//--        //addCommand(cmdSetFullScreen);
+//--        setFullScreenMode(cf.fullscreen);
+/*$MIDP2$*///</editor-fold>
         addCommand(cmdOptions);
         addCommand(cmdQuit);
         
@@ -196,6 +205,7 @@ public class Roster
                     hContacts=new Vector();
                     groups=new Groups();
                     vContacts=new Vector(); // just for displaying
+                    bookmarks=null;
                 }
                 myJid=new Jid(sd.account.getJid());
                 updateContact(sd.account.getNickName(), myJid.getJid(), Groups.SELF_GROUP, "self", false);
@@ -379,26 +389,16 @@ public class Roster
         
         // вернём курсор на прежний элемент
         // TODO: синхронизировать!
-        if (locCursor==cursor) moveCursorTo(focused);
+        if ( locCursor==cursor && focused!=null ) {
+            int c=vContacts.indexOf(focused);
+            if (c>=0) moveCursorTo(c, false);
+        }
         if (cursor>=vContacts.size()) moveCursorEnd(); // вернём курсор из нирваны
         
         focusedItem(cursor);
         redraw();
     }
     
-    public void moveCursorTo(Object focused){
-        if (focused!=null) {
-            int c=vContacts.indexOf(focused);
-            if (c>=0) moveCursorTo(c, false);
-        }
-    }
-    
-    
-    public int myStatus=Presence.PRESENCE_ONLINE;
-    
-    private Vector hContacts;
-    private Vector vContacts;
-    public Groups groups;
     
     public Vector getHContacts() {return hContacts;}
     
@@ -958,7 +958,6 @@ public class Roster
             for (Enumeration e=cont.elements(); e.hasMoreElements();){
                 JabberDataBlock i=(JabberDataBlock)e.nextElement();
                 if (i.getTagName().equals("item")) {
-                    //String name=strconv.convAscii2Utf8(i.getAttribute("name"));
                     String name=i.getAttribute("name");
                     String jid=i.getAttribute("jid");
                     String subscr=i.getAttribute("subscription");
@@ -1093,7 +1092,8 @@ public class Roster
             g.collapsed=false;
             reEnumRoster();
         }
-        moveCursorTo(c);
+        int index=vContacts.indexOf(c);
+        if (index>=0) moveCursorTo(index, true);
     }
     public void userKeyPressed(int keyCode){
         if (keyCode==KEY_NUM0) {

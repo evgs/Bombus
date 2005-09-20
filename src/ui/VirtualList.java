@@ -72,12 +72,12 @@ public abstract class VirtualList
     //////////////////////////////////
     //public static final int VL_CURSOR_SHADE   =0x000000;
     public static final int VL_CURSOR_BODY    =0x00FF00;
-/*#DefaultConfiguration,Release#*///<editor-fold>
-    public static final int VL_CURSOR_OUTLINE =0x008800;
-/*$DefaultConfiguration,Release$*///</editor-fold>
-/*#M55,M55_Release#*///<editor-fold>
-//--    public static final int VL_CURSOR_OUTLINE =VL_CURSOR_BODY;
-/*$M55,M55_Release$*///</editor-fold>
+/*#MIDP2#*///<editor-fold>
+//--    public static final int VL_CURSOR_OUTLINE =0x008800;
+/*$MIDP2$*///</editor-fold>
+/*#!MIDP2#*///<editor-fold>
+    public static final int VL_CURSOR_OUTLINE =VL_CURSOR_BODY;
+/*$!MIDP2$*///</editor-fold>
     public static final int VL_SCROLL_PTR     =0x0033ff;
     public static final int VL_SCROLL_BGND    =0x888888;
     public static final int VL_BGND           =0xFFFFFF;
@@ -574,12 +574,11 @@ public abstract class VirtualList
         if (display!=null)   display.setCurrent(parentView);
     }
 
-/*#DefaultConfiguration,Release#*///<editor-fold>
-    // midp2.0
-    protected void sizeChanged(int w, int h) {
-        width=w;
-        height=h;
-    }
-/*$DefaultConfiguration,Release$*///</editor-fold>
+/*#MIDP2#*///<editor-fold>
+//--    protected void sizeChanged(int w, int h) {
+//--        width=w;
+//--        height=h;
+//--    }
+/*$MIDP2$*///</editor-fold>
 
 }

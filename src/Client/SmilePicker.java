@@ -20,14 +20,14 @@ import java.util.Vector;
  */
 public class SmilePicker extends VirtualList implements CommandListener, VirtualElement{
 
-/*#M55,M55_Release#*///<editor-fold>
-//--    private final static int CURSOR_VOFFSET=1;
-//--    private final static int CURSOR_HOFFSET=2;
-/*$M55,M55_Release$*///</editor-fold>
-/*#!M55,M55_Release#*///<editor-fold>
     private final static int CURSOR_HOFFSET=2;
-    private final static int CURSOR_VOFFSET=2;
-/*$!M55,M55_Release$*///</editor-fold>
+
+/*#!MIDP2#*///<editor-fold>
+    private final static int CURSOR_VOFFSET=1;
+/*$!MIDP2$*///</editor-fold>
+/*#MIDP2#*///<editor-fold>
+//--    private final static int CURSOR_VOFFSET=2;
+/*$MIDP2$*///</editor-fold>
     
     private int imgCnt;
     private int xCnt;

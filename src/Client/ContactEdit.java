@@ -53,14 +53,14 @@ public final class ContactEdit
         tGroup=new TextField("Group",null, 32, TextField.ANY);
         
         
-/*#DefaultConfiguration,Release#*///<editor-fold>
-        tGrpList=new ChoiceGroup("Existing groups", Choice.POPUP);
-        tTranspList=new ChoiceGroup("Transport", Choice.POPUP);
-/*$DefaultConfiguration,Release$*///</editor-fold>
-/*#!DefaultConfiguration,Release#*///<editor-fold>
-//--        tGrpList=new ChoiceGroup("Existing groups", Choice.EXCLUSIVE);
-//--        tTranspList=new ChoiceGroup("Transport", Choice.EXCLUSIVE);
-/*$!DefaultConfiguration,Release$*///</editor-fold>
+/*#MIDP2#*///<editor-fold>
+//--        tGrpList=new ChoiceGroup("Existing groups", Choice.POPUP);
+//--        tTranspList=new ChoiceGroup("Transport", Choice.POPUP);
+/*$MIDP2$*///</editor-fold>
+/*#!MIDP2#*///<editor-fold>
+        tGrpList=new ChoiceGroup("Existing groups", Choice.EXCLUSIVE);
+        tTranspList=new ChoiceGroup("Transport", Choice.EXCLUSIVE);
+/*$!MIDP2$*///</editor-fold>
         
         ngroups=0;
         if (groups!=null) {

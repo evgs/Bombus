@@ -26,12 +26,7 @@ public class MessageView
     Thread t=null;
     
     Command cmdBack=new Command("Back",Command.BACK,99);
-/*#DefaultConfiguration,Release#*///<editor-fold>
-    Command cmdTSM=new Command("Smiles", "Toggle Smiles", Command.SCREEN,1);
-/*$DefaultConfiguration,Release$*///</editor-fold>
-/*#!DefaultConfiguration,Release#*///<editor-fold>
-//--    Command cmdTSM=new Command("Toggle Smiles", Command.SCREEN,1);
-/*$!DefaultConfiguration,Release$*///</editor-fold>
+    Command cmdTSM=new Command("Smiles", Command.SCREEN,1);
 
     Command cmdSubscr=new Command("Authorize", Command.SCREEN,2);
     Command cmdPhoto=new Command("Photo", Command.SCREEN,3);

@@ -8,15 +8,15 @@ package ui;
 import javax.microedition.lcdui.*;
 import java.io.InputStream;
 
-/*#DefaultConfiguration,Release#*///<editor-fold>
-import javax.microedition.media.*;
-/*$DefaultConfiguration,Release$*///</editor-fold>
+/*#MIDP2#*///<editor-fold>
+//--import javax.microedition.media.*;
+/*$MIDP2$*///</editor-fold>
 
-/*#M55,M55_Release#*///<editor-fold>
-//--import com.siemens.mp.game.*;
-//--import com.siemens.mp.media.*;
-//--import com.siemens.mp.m55.*;
-/*$M55,M55_Release$*///</editor-fold>
+/*#!MIDP2#*///<editor-fold>
+import com.siemens.mp.game.*;
+import com.siemens.mp.media.*;
+import com.siemens.mp.m55.*;
+/*$!MIDP2$*///</editor-fold>
 
 /**
  *
@@ -29,13 +29,13 @@ public class EventNotify
     private EventProfile ep;
     
     private Display display;
-/*#DefaultConfiguration,Release#*///<editor-fold>
-    private static Player player;
-/*$DefaultConfiguration,Release$*///</editor-fold>
-/*#M55,M55_Release#*///<editor-fold>
+/*#MIDP2#*///<editor-fold>
 //--    private static Player player;
-//--    
-/*$M55,M55_Release$*///</editor-fold>
+/*$MIDP2$*///</editor-fold>
+/*#!MIDP2#*///<editor-fold>
+    private static Player player;
+    
+/*$!MIDP2$*///</editor-fold>
     
     /** Creates a new instance of EventNotify */
     public EventNotify(Display display, EventProfile ep) {
@@ -44,48 +44,48 @@ public class EventNotify
     }
     
     public void startNotify (){
-/*#DefaultConfiguration,Release#*///<editor-fold>
-        release();
-        
-        if (ep.soundName!=null)
-        try {
-            InputStream is = getClass().getResourceAsStream(ep.soundName);
-            //Player p = Manager.createPlayer(is, "audio/X-wav");
-            player = Manager.createPlayer(is, ep.soundType);
-            player.prefetch();
-            player.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        if (ep.enableLights) display.flashBacklight(1000);
-        if (ep.lenVibra>0) display.vibrate(ep.lenVibra);
-        
-/*$DefaultConfiguration,Release$*///</editor-fold>
-        
-/*#M55,M55_Release#*///<editor-fold>
+/*#MIDP2#*///<editor-fold>
+//--        release();
+//--        
 //--        if (ep.soundName!=null)
 //--        try {
-//--            player = Manager.createPlayer(ep.soundName);
-//--            player.realize();
+//--            InputStream is = getClass().getResourceAsStream(ep.soundName);
+//--            //Player p = Manager.createPlayer(is, "audio/X-wav");
+//--            player = Manager.createPlayer(is, ep.soundType);
 //--            player.prefetch();
 //--            player.start();
 //--        } catch (Exception e) {
 //--            e.printStackTrace();
 //--        }
-//--        if (ep.lenVibra>0) Vibrator.triggerVibrator(ep.lenVibra);
-//--        if (ep.enableLights) new Thread(this).start();
-/*$M55,M55_Release$*///</editor-fold>
+//--        if (ep.enableLights) display.flashBacklight(1000);
+//--        if (ep.lenVibra>0) display.vibrate(ep.lenVibra);
+//--        
+/*$MIDP2$*///</editor-fold>
+        
+/*#!MIDP2#*///<editor-fold>
+        if (ep.soundName!=null)
+        try {
+            player = Manager.createPlayer(ep.soundName);
+            player.realize();
+            player.prefetch();
+            player.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (ep.lenVibra>0) Vibrator.triggerVibrator(ep.lenVibra);
+        if (ep.enableLights) new Thread(this).start();
+/*$!MIDP2$*///</editor-fold>
     }
     
     public void run(){
-/*#M55,M55_Release#*///<editor-fold>
-//--        try {
-//--            new Light();
-//--            Light.setLightOn();
-//--            Thread.sleep(1500);
-//--            Light.setLightOff();
-//--        } catch (Exception e) { e.printStackTrace();}
-/*$M55,M55_Release$*///</editor-fold>
+/*#!MIDP2#*///<editor-fold>
+        try {
+            new Light();
+            Light.setLightOn();
+            Thread.sleep(1500);
+            Light.setLightOff();
+        } catch (Exception e) { e.printStackTrace();}
+/*$!MIDP2$*///</editor-fold>
     }
     
     public void release(){
