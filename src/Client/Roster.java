@@ -1093,7 +1093,7 @@ public class Roster
             reEnumRoster();
         }
         int index=vContacts.indexOf(c);
-        if (index>=0) moveCursorTo(index, true);
+        if (index>=0) moveCursorTo(index, false);
     }
     public void userKeyPressed(int keyCode){
         if (keyCode==KEY_NUM0) {
