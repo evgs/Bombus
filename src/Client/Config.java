@@ -26,28 +26,28 @@ public class Config {
 
     public boolean msgLog=getProperty("msg_log",false);
     
-/*#MIDP2#*///<editor-fold>
-//--    public String messagesnd=getProperty("msg_snd","/sounds/message.amr");
-//--    public char keyLock=getProperty("key_lock",'*');
-//--    public char keyVibra=getProperty("key_vibra",'#');
-/*$MIDP2$*///</editor-fold>
-/*#!MIDP2#*///<editor-fold>
-    public boolean msgLogPresence=getProperty("msg_log_presence",false);
-    public boolean msgLogConfPresence=getProperty("msg_log_conf_presence",false);
-    public boolean msgLogConf=getProperty("msg_log_conf",false);
-    public final String msgPath=getProperty("msg_log_path","");
-    public String messagesnd=getProperty("msg_snd","/sounds/message.wav");
-    public final String siemensCfgPath=getProperty("cfg_path","");
-    public char keyLock=getProperty("key_lock",'#');
-    public char keyVibra=getProperty("key_vibra",'*');
-/*$!MIDP2$*///</editor-fold>
+/*#!MIDP1#*///<editor-fold>
+    public String messagesnd=getProperty("msg_snd","/sounds/message.amr");
+    public char keyLock=getProperty("key_lock",'*');
+    public char keyVibra=getProperty("key_vibra",'#');
+/*$!MIDP1$*///</editor-fold>
+/*#MIDP1#*///<editor-fold>
+//--    public boolean msgLogPresence=getProperty("msg_log_presence",false);
+//--    public boolean msgLogConfPresence=getProperty("msg_log_conf_presence",false);
+//--    public boolean msgLogConf=getProperty("msg_log_conf",false);
+//--    public final String msgPath=getProperty("msg_log_path","");
+//--    public String messagesnd=getProperty("msg_snd","/sounds/message.wav");
+//--    public final String siemensCfgPath=getProperty("cfg_path","");
+//--    public char keyLock=getProperty("key_lock",'#');
+//--    public char keyVibra=getProperty("key_vibra",'*');
+/*$MIDP1$*///</editor-fold>
 
     public char keyHide=getProperty("key_hide",'9');
     public char keyOfflines=getProperty("key_offlines",'0');
 
-/*#!MIDP2#*///<editor-fold>
-    public int m55LedPattern=0;
-/*$!MIDP2$*///</editor-fold>
+/*#USE_LED_PATTERN#*///<editor-fold>
+//--    public int m55LedPattern=0;
+/*$USE_LED_PATTERN$*///</editor-fold>
 
     public String defGcRoom=getProperty("gc_room","bombus");
 

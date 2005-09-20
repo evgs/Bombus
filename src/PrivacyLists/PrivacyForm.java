@@ -23,12 +23,12 @@ public class PrivacyForm
         ItemStateListener {
     
     private final static int POPUP=
-            /*#MIDP2#*///<editor-fold>
-//--            ChoiceGroup.POPUP;
-            /*$MIDP2$*///</editor-fold>
-            /*#!MIDP2#*///<editor-fold>
-            ChoiceGroup.EXCLUSIVE;
-            /*$!MIDP2$*///</editor-fold>
+            /*#!MIDP1#*///<editor-fold>
+            ChoiceGroup.POPUP;
+            /*$!MIDP1$*///</editor-fold>
+            /*#MIDP1#*///<editor-fold>
+//--            ChoiceGroup.EXCLUSIVE;
+            /*$MIDP1$*///</editor-fold>
 
     private Display display;
     private Displayable parentView;

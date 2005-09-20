@@ -93,29 +93,29 @@ public class ConfigForm implements CommandListener{
         application.setSelectedFlags(ap);
         
         fieldGmt=new TextField("GMT offset", String.valueOf(cf.gmtOffset), 4, 
-/*#MIDP2#*///<editor-fold>
-//--                TextField.DECIMAL
-/*$MIDP2$*///</editor-fold>
-/*#!MIDP2#*///<editor-fold>
-                TextField.ANY
-/*$!MIDP2$*///</editor-fold>
+/*#!MIDP1#*///<editor-fold>
+                TextField.DECIMAL
+/*$!MIDP1$*///</editor-fold>
+/*#MIDP1#*///<editor-fold>
+//--                TextField.ANY
+/*$MIDP1$*///</editor-fold>
                 );
         fieldLoc=new TextField("Clock offset", String.valueOf(cf.locOffset), 4, 
-/*#MIDP2#*///<editor-fold>
-//--                TextField.DECIMAL
-/*$MIDP2$*///</editor-fold>
-/*#!MIDP2#*///<editor-fold>
-                TextField.ANY
-/*$!MIDP2$*///</editor-fold>
+/*#!MIDP1#*///<editor-fold>
+                TextField.DECIMAL
+/*$!MIDP1$*///</editor-fold>
+/*#MIDP1#*///<editor-fold>
+//--                TextField.ANY
+/*$MIDP1$*///</editor-fold>
                 );
         
         
         //if (newaccount)
         f.append(roster);
         f.append(message);
-/*#MIDP2#*///<editor-fold>
-//--        f.append(application);
-/*$MIDP2$*///</editor-fold>
+/*#!MIDP1#*///<editor-fold>
+        f.append(application);
+/*$!MIDP1$*///</editor-fold>
         
         f.append("Time settings (hours)\n");
         
@@ -161,8 +161,8 @@ public class ConfigForm implements CommandListener{
 
     public void destroyView(){
         if (display!=null)   display.setCurrent(parentView);
-/*#MIDP2#*///<editor-fold>
-//--        ((Canvas)parentView).setFullScreenMode(cf.fullscreen);
-/*$MIDP2$*///</editor-fold>
+/*#!MIDP1#*///<editor-fold>
+        ((Canvas)parentView).setFullScreenMode(cf.fullscreen);
+/*$!MIDP1$*///</editor-fold>
     }
 }

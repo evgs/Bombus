@@ -32,9 +32,9 @@ public class SubscriptionEdit extends Form implements CommandListener{
         s.append(c.subscr);
         if (c.ask_subscribe) s.append(",ask");
         
-/*#MIDP2#*///<editor-fold>
-//--        append("\n");
-/*$MIDP2$*///</editor-fold>
+/*#!MIDP1#*///<editor-fold>
+        append("\n");
+/*$!MIDP1$*///</editor-fold>
         append(s.toString());
         //setString(s.toString());
 

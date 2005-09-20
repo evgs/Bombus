@@ -58,9 +58,9 @@ public class ConferenceForm implements CommandListener{
         formJoin.append(nickField);
         
         passField=new TextField("Password", "", 32, TextField.ANY 
-/*#MIDP2#*///<editor-fold>
-//--                    | TextField.SENSITIVE
-/*$MIDP2$*///</editor-fold>
+/*#!MIDP1#*///<editor-fold>
+                    | TextField.SENSITIVE
+/*$!MIDP1$*///</editor-fold>
                 );
         formJoin.append(passField);
         

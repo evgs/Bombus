@@ -41,12 +41,12 @@ import Client.StaticData;
 
 public class JabberStream implements XMLEventListener, Runnable {
     
-    /*#MIDP2#*///<editor-fold>
-//--    private SocketConnection connection = null;
-    /*$MIDP2$*///</editor-fold>
-    /*#!MIDP2#*///<editor-fold>
-    private StreamConnection connection = null;
-    /*$!MIDP2$*///</editor-fold>
+    /*#!MIDP1#*///<editor-fold>
+    private SocketConnection connection = null;
+    /*$!MIDP1$*///</editor-fold>
+    /*#MIDP1#*///<editor-fold>
+//--    private StreamConnection connection = null;
+    /*$MIDP1$*///</editor-fold>
     
     /*#USE_UTF8_READER#*///<editor-fold>
 //--    private OutputStream outStream;
@@ -83,18 +83,18 @@ public class JabberStream implements XMLEventListener, Runnable {
             throws IOException {
         String url=((ssl)?"ssl://":"socket://")+hostAddr+":"+hostPort ;
         connection =
-                /*#MIDP2#*///<editor-fold>
-//--                (SocketConnection) Connector.open(url);
-        /*$MIDP2$*///</editor-fold>
-        /*#!MIDP2#*///<editor-fold>
-                (StreamConnection) Connector.open(url);
-        /*$!MIDP2$*///</editor-fold>
+/*#!MIDP1#*///<editor-fold>
+                (SocketConnection) Connector.open(url);
+/*$!MIDP1$*///</editor-fold>
+/*#MIDP1#*///<editor-fold>
+//--                (StreamConnection) Connector.open(url);
+/*$MIDP1$*///</editor-fold>
         
-        /*#MIDP2#*///<editor-fold>
-//--        try {
-//--            connection.setSocketOption(SocketConnection.KEEPALIVE,1);
-//--        } catch (Exception e) { e.printStackTrace(); }
-        /*$MIDP2$*///</editor-fold>
+/*#!MIDP1#*///<editor-fold>
+        try {
+            connection.setSocketOption(SocketConnection.KEEPALIVE,1);
+        } catch (Exception e) { e.printStackTrace(); }
+/*$!MIDP1$*///</editor-fold>
         dispatcher = new JabberDataBlockDispatcher();
         if( theListener != null ) {
             setJabberListener( theListener );
@@ -102,13 +102,13 @@ public class JabberStream implements XMLEventListener, Runnable {
         
         inpStream = connection.openInputStream();
         new Thread( this ). start();
-        /*#!USE_UTF8_READER#*///<editor-fold>
+/*#!USE_UTF8_READER#*///<editor-fold>
         OutputStream outStr= connection.openOutputStream();
         outStream = new OutputStreamWriter(outStr,"UTF-8");
-        /*$!USE_UTF8_READER$*///</editor-fold>
-        /*#USE_UTF8_READER#*///<editor-fold>
+/*$!USE_UTF8_READER$*///</editor-fold>
+/*#USE_UTF8_READER#*///<editor-fold>
 //--        outStream = connection.openOutputStream();
-        /*$USE_UTF8_READER$*///</editor-fold>
+/*$USE_UTF8_READER$*///</editor-fold>
         
         //sendQueue=new Vector();
         
@@ -135,14 +135,14 @@ public class JabberStream implements XMLEventListener, Runnable {
     public void run() {
         try {
             XMLParser parser = new XMLParser( this );
-            /*#!USE_UTF8_READER#*///<editor-fold>
+/*#!USE_UTF8_READER#*///<editor-fold>
             InputStreamReader inSource = new InputStreamReader( inpStream, "UTF-8" );
             parser.parse( inSource );
-            /*$!USE_UTF8_READER$*///</editor-fold>
-            /*#USE_UTF8_READER#*///<editor-fold>
+/*$!USE_UTF8_READER$*///</editor-fold>
+/*#USE_UTF8_READER#*///<editor-fold>
 //--//            InputStreamReader inSource = new InputStreamReader( inpStream );
 //--            parser.parse( inpStream );
-            /*$USE_UTF8_READER$*///</editor-fold>
+/*$USE_UTF8_READER$*///</editor-fold>
             dispatcher.broadcastTerminatedConnection( null );
         } catch( Exception e ) {
             dispatcher.broadcastTerminatedConnection(e);
@@ -318,7 +318,7 @@ public class JabberStream implements XMLEventListener, Runnable {
         currentBlock = parent;
     }
     
-    /*#USE_UTF8_READER#*///<editor-fold>
+/*#USE_UTF8_READER#*///<editor-fold>
 //--    // temporary
 //--    public static String toUTF(String s) {
 //--        int i = 0;
@@ -343,7 +343,7 @@ public class JabberStream implements XMLEventListener, Runnable {
 //--
 //--        return stringbuffer.toString();
 //--    }
-    /*$USE_UTF8_READER$*///</editor-fold>
+/*$USE_UTF8_READER$*///</editor-fold>
     
     private class TimerTaskKeepAlive extends TimerTask{
         private Timer t;

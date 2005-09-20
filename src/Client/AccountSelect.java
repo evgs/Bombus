@@ -191,9 +191,9 @@ public class AccountSelect
 
         private void passStars(){
             if (passbox.size()==0) passbox.setConstraints(TextField.URL
-/*#MIDP2#*///<editor-fold>
-//--                    | TextField.SENSITIVE
-/*$MIDP2$*///</editor-fold>
+/*#!MIDP1#*///<editor-fold>
+                    | TextField.SENSITIVE
+/*$!MIDP1$*///</editor-fold>
                     );
         }
         

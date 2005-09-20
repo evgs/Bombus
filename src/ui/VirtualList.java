@@ -72,12 +72,12 @@ public abstract class VirtualList
     //////////////////////////////////
     //public static final int VL_CURSOR_SHADE   =0x000000;
     public static final int VL_CURSOR_BODY    =0x00FF00;
-/*#MIDP2#*///<editor-fold>
-//--    public static final int VL_CURSOR_OUTLINE =0x008800;
-/*$MIDP2$*///</editor-fold>
-/*#!MIDP2#*///<editor-fold>
-    public static final int VL_CURSOR_OUTLINE =VL_CURSOR_BODY;
-/*$!MIDP2$*///</editor-fold>
+/*#!MIDP1#*///<editor-fold>
+    public static final int VL_CURSOR_OUTLINE =0x008800;
+/*$!MIDP1$*///</editor-fold>
+/*#MIDP1#*///<editor-fold>
+//--    public static final int VL_CURSOR_OUTLINE =VL_CURSOR_BODY;
+/*$MIDP1$*///</editor-fold>
     public static final int VL_SCROLL_PTR     =0x0033ff;
     public static final int VL_SCROLL_BGND    =0x888888;
     public static final int VL_BGND           =0xFFFFFF;
@@ -495,7 +495,6 @@ public abstract class VirtualList
     /** перезапуск ротации скроллера длинных строк */
     private void setRotator(){
         rotator.destroyTask();
-        System.out.println("block");
         if (getItemCount()<1) return;
         if (cursor>=0) {
             int itemWidth=getItemRef(cursor).getVWidth();
@@ -519,7 +518,6 @@ public abstract class VirtualList
         public void run() {
             // прокрутка только раз
             blockChangeFocus=false;
-            System.out.println("allow");
             if (hold==0) {
                 if (offset>=Max) hold=6;  
                 else offset+=20;
@@ -574,11 +572,11 @@ public abstract class VirtualList
         if (display!=null)   display.setCurrent(parentView);
     }
 
-/*#MIDP2#*///<editor-fold>
-//--    protected void sizeChanged(int w, int h) {
-//--        width=w;
-//--        height=h;
-//--    }
-/*$MIDP2$*///</editor-fold>
+/*#!MIDP1#*///<editor-fold>
+    protected void sizeChanged(int w, int h) {
+        width=w;
+        height=h;
+    }
+/*$!MIDP1$*///</editor-fold>
 
 }

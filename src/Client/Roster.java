@@ -129,10 +129,10 @@ public class Roster
         //addCommand(cmdReconnect);
         addCommand(cmdInfo);
         addCommand(cmdAccount);
-/*#MIDP2#*///<editor-fold>
-//--        //addCommand(cmdSetFullScreen);
-//--        setFullScreenMode(cf.fullscreen);
-/*$MIDP2$*///</editor-fold>
+/*#!MIDP1#*///<editor-fold>
+        //addCommand(cmdSetFullScreen);
+        setFullScreenMode(cf.fullscreen);
+/*$!MIDP1$*///</editor-fold>
         addCommand(cmdOptions);
         addCommand(cmdQuit);
         

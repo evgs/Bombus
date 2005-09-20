@@ -65,9 +65,9 @@ public class KeyBlock extends Canvas implements Runnable{
         } catch (Exception e) {};
         
         display.setCurrent(this);
-/*#MIDP2#*///<editor-fold>
-//--        if (motorola_backlight) display.flashBacklight(0);
-/*$MIDP2$*///</editor-fold>
+/*#!MIDP1#*///<editor-fold>
+        if (motorola_backlight) display.flashBacklight(0);
+/*$!MIDP1$*///</editor-fold>
     }
     
     public void paint(Graphics g){
@@ -115,9 +115,9 @@ public class KeyBlock extends Canvas implements Runnable{
 
     private void destroyView(){
         status.setElementAt(null,6);
-/*#MIDP2#*///<editor-fold>
-//--        if (motorola_backlight) display.flashBacklight(Integer.MAX_VALUE);
-/*$MIDP2$*///</editor-fold>
+/*#!MIDP1#*///<editor-fold>
+        if (motorola_backlight) display.flashBacklight(Integer.MAX_VALUE);
+/*$!MIDP1$*///</editor-fold>
         if (display!=null)   display.setCurrent(parentView);
         img=null;
         tc.stop();

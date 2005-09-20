@@ -73,7 +73,7 @@ public class Bookmarks
         JabberDataBlock query=request.addChild("query", null);
         query.setNameSpace("jabber:iq:private");
         query.addChild(child);
-        System.out.println(request.toString());
+        //System.out.println(request.toString());
         stream.send(request);
     }
     
