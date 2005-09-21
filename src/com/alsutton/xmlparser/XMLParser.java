@@ -142,16 +142,15 @@ public class XMLParser
 
 /*#USE_UTF8_READER#*///<editor-fold>
 //--  byte cbuf[]=new byte[512];
-//--  int cbyte;
+//--  int length;
 //--  int pbyte;
 //--  private int chRead() throws IOException{
-//--      if (cbyte>pbyte) return cbuf[pbyte++];
+//--      if (length>pbyte) return cbuf[pbyte++];
 //--      
 //--      //int avail=1;// тестим Nokia
 //--      int avail=inputReader.available();
 //--      if (avail<2) return inputReader.read();
-//--      cbyte=(avail<512)?avail:512;
-//--      inputReader.read(cbuf, 0,  cbyte);
+//--      length= inputReader.read(cbuf, 0, (avail<512)?avail:512 );
 //--      pbyte=1;
 //--      return cbuf[0];
 //--  }
@@ -369,7 +368,7 @@ public class XMLParser
     throws IOException
   {
 /*#USE_UTF8_READER#*///<editor-fold>
-//--      cbyte=pbyte=0;
+//--      length=pbyte=0;
 /*$USE_UTF8_READER$*///</editor-fold>
     inputReader = _inputReader;
     boolean binval=false;

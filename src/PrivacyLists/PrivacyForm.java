@@ -97,9 +97,13 @@ public class PrivacyForm
                         ).getName());
 
                     form.set(2, textValue);
-                    
+                    break;
                 case 2: //subscription
                     form.set(2, choiceSubscr);
+                    break;
+                    
+                case 3:
+                    form.set(2, new StringItem(null,"(ANY)"));
             }
             /*if (index==2) {
                 form.set(2, choiceSubscr);
@@ -118,6 +122,7 @@ public class PrivacyForm
                 int type=choiseType.getSelectedIndex();
                 String value=textValue.getString();
                 if (type==2) value=PrivacyItem.subscrs[choiceSubscr.getSelectedIndex()];
+                if (type!=PrivacyItem.ITEM_ANY) 
                 if (value.length()==0) return;
                 int order=Integer.parseInt(textOrder.getString());
                 

@@ -19,10 +19,11 @@ import Client.*;
  */
 public class PrivacyItem extends IconTextElement{
     
-    public final static String types[]={"jid", "group", "subscription"};
+    public final static String types[]={"jid", "group", "subscription", "ANY"};
     public final static int ITEM_JID=0;
     public final static int ITEM_GROUP=1;
     public final static int ITEM_SUBSCR=2;
+    public final static int ITEM_ANY=3;
 
     public final static String actions[]={"allow", "deny"};
     public final static int ITEM_ALLOW=0;
@@ -36,7 +37,7 @@ public class PrivacyItem extends IconTextElement{
     
     public final static String subscrs[]={"none", "from", "to", "both"};
     
-    int type;    //jid|group|subscription
+    int type;    //jid|group|subscription|ANY
     String value=new String();
     int action=1;
     int order;
@@ -47,7 +48,7 @@ public class PrivacyItem extends IconTextElement{
     }
     
     public int getColor() { return 0; }
-    public String toString() { return value; }
+    public String toString() { return (type==ITEM_ANY)?"ANY":value; }
     
     /** Creates a new instance of PrivacyItem */
     public PrivacyItem() {
@@ -57,7 +58,10 @@ public class PrivacyItem extends IconTextElement{
     public PrivacyItem(JabberDataBlock item) {
         this();
         String t=item.getTypeAttribute();
-        for (type=0; type<2; type++) if (t.equals(types[type])) break;
+        if (t==null) type=ITEM_ANY;
+        else 
+            for (type=0; type<2; type++) 
+                if (t.equals(types[type])) break;
         value=item.getAttribute("value");
         action=item.getAttribute("action").equals("allow")?0:1;
         order=Integer.parseInt(item.getAttribute("order"));
@@ -78,8 +82,10 @@ public class PrivacyItem extends IconTextElement{
     
     public JabberDataBlock constructBlock() {
         JabberDataBlock item=new JabberDataBlock("item", null, null);
-        item.setTypeAttribute(types[type]);
-        item.setAttribute("value", value);
+        if (type!=ITEM_ANY) {
+            item.setTypeAttribute(types[type]);
+            item.setAttribute("value", value);
+        }
         item.setAttribute("action", actions[action] );
         item.setAttribute("order", String.valueOf(order));
         int index;
