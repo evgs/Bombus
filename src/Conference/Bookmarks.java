@@ -46,7 +46,9 @@ public class Bookmarks
         this.toAdd=toAdd;
         
         bookmarks=roster.bookmarks;
-        if (bookmarks==null) loadBookmarks();
+        if ( bookmarks==null ) loadBookmarks(); 
+        else if (toAdd!=null) addBookmark();
+        
         addCommand(cmdCancel);
         addCommand(cmdJoin);
         addCommand(cmdRfsh);
@@ -93,10 +95,7 @@ public class Bookmarks
                 //StaticData.getInstance().roster.bookmarks=
                 this.bookmarks=bookmarks;
                 
-                if (toAdd!=null) {
-                    bookmarks.addElement(toAdd);
-                    saveBookmarks();
-                }
+                addBookmark();
                 
                 if (display!=null) redraw();
                 roster.bookmarks=this.bookmarks=bookmarks;
@@ -104,6 +103,13 @@ public class Bookmarks
             }
         } catch (Exception e) { }
         return JabberBlockListener.BLOCK_REJECTED;
+    }
+
+    private void addBookmark() {
+        if (toAdd!=null) {
+            this.bookmarks.addElement(toAdd);
+            saveBookmarks();
+        }
     }
     
     public void eventOk(){
