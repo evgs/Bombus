@@ -34,24 +34,24 @@ public class PrivacyForm
     private Displayable parentView;
     private PrivacyItem item;
     
-    private Vector targetList;
+    private PrivacyList targetList;
     
     Form form=new Form("Privacy rule");
     ChoiceGroup choiceAction=new ChoiceGroup("Action", POPUP, PrivacyItem.actions, null);
     ChoiceGroup choiseType=new ChoiceGroup("Type", POPUP, PrivacyItem.types, null);
     ChoiceGroup choiseStanzas=new ChoiceGroup("Stanzas", ChoiceGroup.MULTIPLE, PrivacyItem.stanzas, null);
     TextField textValue;
-    TextField textOrder;
+    //TextField textOrder;
     ChoiceGroup choiceSubscr=new ChoiceGroup("Subscription", POPUP, PrivacyItem.subscrs, null);
     
     Command cmdCancel=new Command("Cancel", Command.BACK, 99);
     Command cmdOk=new Command("OK", Command.OK, 1);
     /** Creates a new instance of PrivacyForm */
-    public PrivacyForm(Display display, PrivacyItem item, Vector list) {
+    public PrivacyForm(Display display, PrivacyItem item, PrivacyList plist) {
         this.display=display;
         parentView=display.getCurrent();
         this.item=item;
-        targetList=list;
+        targetList=plist;
         
         textValue=new TextField(null, item.value, 64, TextField.URL);
         
@@ -64,8 +64,8 @@ public class PrivacyForm
         choiseType.setSelectedIndex(item.type, true);
         switchType();
         
-        textOrder=new TextField("Order", String.valueOf(item.order), 64, TextField.NUMERIC);
-        form.append(textOrder);
+        //textOrder=new TextField("Order", String.valueOf(item.order), 64, TextField.NUMERIC);
+        //form.append(textOrder);
         
         form.append(choiseStanzas);
         choiseStanzas.setSelectedFlags(item.stanzasSet);
@@ -124,16 +124,19 @@ public class PrivacyForm
                 if (type==2) value=PrivacyItem.subscrs[choiceSubscr.getSelectedIndex()];
                 if (type!=PrivacyItem.ITEM_ANY) 
                 if (value.length()==0) return;
-                int order=Integer.parseInt(textOrder.getString());
+                //int order=Integer.parseInt(textOrder.getString());
                 
                 item.action=choiceAction.getSelectedIndex();
                 item.type=type;
                 item.value=value;
-                item.order=order;
+                //item.order=order;
                 choiseStanzas.getSelectedFlags(item.stanzasSet);
                 
                 if (targetList!=null) 
-                    if (!targetList.contains(item)) targetList.addElement(item); 
+                    if (!targetList.rules.contains(item)) {
+                        targetList.addRule(item);
+                        item.order=targetList.rules.indexOf(item)*10;
+                    }
                 destroyView();
             } catch (Exception e) {e.printStackTrace();}
         }

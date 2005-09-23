@@ -72,6 +72,16 @@ public class PrivacyList extends IconTextElement{
         privacyListRq(true, a, "plset");
     }
     
+    public void addRule(PrivacyItem rule) {
+        int index=0;
+        while (index<rules.size()) {
+            if ( rule.order <= ((PrivacyItem)rules.elementAt(index)).order ) break;
+            index++;
+        }
+        rules.insertElementAt(rule, index);
+    }
+
+    
     public final static void privacyListRq(boolean set, JabberDataBlock child, String id){
         JabberDataBlock pl=new JabberDataBlock("iq", null, null);
         pl.setTypeAttribute((set)?"set":"get");
