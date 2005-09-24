@@ -63,9 +63,9 @@ public class Roster
 
     
     private Command cmdStatus=new Command("Status >",Command.SCREEN,1);
-    private Command cmdContact=new Command("Contact >",Command.SCREEN,2);
-    private Command cmdDiscard=new Command("Discard Search",Command.SCREEN,3);
-    private Command cmdLeave=new Command("Leave Room",Command.SCREEN,3);
+    private Command cmdActions=new Command("Actions >",Command.SCREEN,2);
+    //private Command cmdDiscard=new Command("Discard Search",Command.SCREEN,3);
+    //private Command cmdLeave=new Command("Leave Room",Command.SCREEN,3);
     private Command cmdAdd=new Command("Add Contact",Command.SCREEN,4);
     //private Command cmdGroup=new Command("Group menu",Command.SCREEN,3);
     private Command cmdAlert=new Command("Alert Profile >",Command.SCREEN,8);
@@ -121,6 +121,7 @@ public class Roster
         vContacts=new Vector(); // just for displaying
         
         addCommand(cmdStatus);
+        addCommand(cmdActions);
         addCommand(cmdAlert);
         addCommand(cmdAdd);
         addCommand(cmdServiceDiscovery);
@@ -1171,14 +1172,14 @@ public class Roster
         if (c==cmdAccount){ new AccountSelect(display, false); }
         if (c==cmdServiceDiscovery) { new ServiceDiscovery(display); }
         if (c==cmdGroupChat) { new ConferenceForm(display); }
-        if (c==cmdLeave) {
+        /*if (c==cmdLeave) {
             if (atCursor instanceof Group) leaveRoom( ((Group)atCursor).index );
-        }
+        }*/
         if (c==cmdStatus) { new StatusSelect(display); }
         if (c==cmdAlert) { new AlertProfile(display); }
         if (c==cmdOptions){ new ConfigForm(display); }
-        if (c==cmdContact) { contactMenu((Contact) getFocusedObject()); }
-        if (c==cmdDiscard) { cleanupSearch(); }
+        if (c==cmdActions) { actionsMenu(getFocusedObject()); }
+        //if (c==cmdDiscard) { cleanupSearch(); }
         if (c==cmdPrivacy) { new PrivacySelect(display); }
         if (c==cmdInfo) { new Info.InfoWindow(display); }
         if (c==cmdAdd) {
@@ -1248,7 +1249,7 @@ public class Roster
         }
     }
     
-    public void focusedItem(int index) {
+    /*public void focusedItem(int index) {
         //TODO: refactor this code
         // код должен вызываться при отрисовке (?)
         if (!isShown()) return;
@@ -1256,9 +1257,9 @@ public class Roster
         if (index>=vContacts.size()) return;
         Object atCursor=vContacts.elementAt(index);
         if (atCursor instanceof Contact) {
-            addCommand(cmdContact);
+            addCommand(cmdActions);
             //removeCommand(cmdGroup);
-        } else removeCommand(cmdContact);
+        } else removeCommand(cmdActions);
         
         if (atCursor instanceof Group) {    // FIXME: стирать cmdLeave
             Group g=(Group)atCursor;
@@ -1270,12 +1271,20 @@ public class Roster
         }
         
     }
+     */
     
-    public void contactMenu(final Contact c) {
-        Menu m=new Menu(c.toString()){
+    public void actionsMenu(final Object item) {
+        final boolean isContact=( item instanceof Contact );
+        final Contact c=(isContact)? (Contact) item: null;
+        final Group g=(isContact)? null: (Group) item;
+        
+        Menu m=new Menu(item.toString()){
+            
             public void eventOk(){
+                
                 int index=((MenuItem) getFocusedObject()).index;
-                String to=(index<3)? c.getJid() : c.getJidNR();
+                String to=null;
+                if (isContact) to=(index<3)? c.getJid() : c.getJidNR();
                 destroyView();
                 switch (index) {
                     case 0: // info
@@ -1362,28 +1371,44 @@ public class Roster
                         setMucMod(c, attrs);
                         break;
                     }
+                    case 21:
+                    {
+                        leaveRoom( g.index );
+                        break;
+                    }
+                    case 22:
+                    {
+                        cleanupSearch();
+                        break;
+                    }
                 }
                 destroyView();
             }
 
         };
-        
-        if (c.realJid!=null) {
-            m.addItem(new MenuItem("Kick",8));
-            m.addItem(new MenuItem("Ban",9));
-        }
-        if (c.group==Groups.TRANSP_INDEX) {
-            m.addItem(new MenuItem("Logon",5));
-            m.addItem(new MenuItem("Logoff",6));
-            m.addItem(new MenuItem("Resolve Nicknames", 7));
-        }
-        m.addItem(new MenuItem("vCard",1));
-        m.addItem(new MenuItem("Client Info",0));
-        if (c.group!=Groups.SELF_INDEX && c.group!=Groups.SRC_RESULT_INDEX && c.origin<Contact.ORIGIN_GROUPCHAT) {
-            if (c.group!=Groups.TRANSP_INDEX) 
-                m.addItem(new MenuItem("Edit",2));
-            m.addItem(new MenuItem("Subscription",3));
-            m.addItem(new MenuItem("Delete",4));
+        if (isContact) {
+            if (c.realJid!=null) {
+                m.addItem(new MenuItem("Kick",8));
+                m.addItem(new MenuItem("Ban",9));
+            }
+            if (c.group==Groups.TRANSP_INDEX) {
+                m.addItem(new MenuItem("Logon",5));
+                m.addItem(new MenuItem("Logoff",6));
+                m.addItem(new MenuItem("Resolve Nicknames", 7));
+            }
+            m.addItem(new MenuItem("vCard",1));
+            m.addItem(new MenuItem("Client Info",0));
+            if (c.group!=Groups.SELF_INDEX && c.group!=Groups.SRC_RESULT_INDEX && c.origin<Contact.ORIGIN_GROUPCHAT) {
+                if (c.group!=Groups.TRANSP_INDEX)
+                    m.addItem(new MenuItem("Edit",2));
+                m.addItem(new MenuItem("Subscription",3));
+                m.addItem(new MenuItem("Delete",4));
+            }
+        } else {
+            if (g.imageExpandedIndex==ImageList.ICON_GCJOIN_INDEX) 
+                m.addItem(new MenuItem("Leave Room",21));
+            if (g.index==Groups.SRC_RESULT_INDEX)  
+                m.addItem(new MenuItem("Discard Search",22));
         }
        m.attachDisplay(display);
     }

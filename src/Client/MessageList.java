@@ -154,7 +154,7 @@ implements CommandListener{
             redraw();
         }
         if (c==cmdContact) {
-            sd.roster.contactMenu(contact);
+            sd.roster.actionsMenu(contact);
         }
     }
     protected void keyGreen(){
