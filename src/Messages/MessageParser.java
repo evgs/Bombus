@@ -19,13 +19,13 @@ import Client.Msg;
 public final class MessageParser {
     
     public int Smile=-1;   // нет смайлика в узле
-    private String chs;     // символы смайликов
+    private String smileChars;     // символы смайликов
     private Vector child;
     
     /** Creates a new instance of SmileTree */
     public MessageParser() {
         child=new Vector ();
-        chs=new String();
+        smileChars=new String();
     }
     /**
      * Smile table loader
@@ -99,10 +99,10 @@ public final class MessageParser {
     }
     private void addChild(char c, MessageParser child){
         this.child.addElement(child);
-        chs=chs+c;
+        smileChars=smileChars+c;
     }
     public MessageParser findChild(char c){
-        int index=chs.indexOf(c);
+        int index=smileChars.indexOf(c);
         return (index==-1)?null:(MessageParser)child.elementAt(index);
     }
 

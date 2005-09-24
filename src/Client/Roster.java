@@ -1005,7 +1005,16 @@ public class Roster
             display.setCurrent(this);
             sd.isMinimized=false;
         }
-        setFocusTo(c);
+        
+        Group g=groups.getGroup(c.group);
+        if (g.collapsed) {
+            g.collapsed=false;
+            reEnumRoster();
+        }
+        
+        int index=vContacts.indexOf(c);
+        if (index>=0) moveCursorTo(index, false);
+
         AlertProfile.playNotify(display, 0);
         return c;
     }
@@ -1086,15 +1095,6 @@ public class Roster
         //reEnumRoster();
     }
     
-    public void setFocusTo(Contact c){
-        Group g=groups.getGroup(c.group);
-        if (g.collapsed) {
-            g.collapsed=false;
-            reEnumRoster();
-        }
-        int index=vContacts.indexOf(c);
-        if (index>=0) moveCursorTo(index, false);
-    }
     public void userKeyPressed(int keyCode){
         if (keyCode==KEY_NUM0) {
             if (messageCount==0) return;
@@ -1127,7 +1127,19 @@ public class Roster
             while (pass<2) {
                 if (!i.hasMoreElements()) i=hContacts.elements();
                 Contact p=(Contact)i.nextElement();
-                if (pass==1) if (p.getNewMsgsCount()>0) { setFocusTo(p); break; }
+                if (pass==1) if (p.getNewMsgsCount()>0) { 
+
+                    Group g=groups.getGroup(p.group);
+                    if (g.collapsed) {
+                        g.collapsed=false;
+                        reEnumRoster();
+                    }
+                    
+                    int index=vContacts.indexOf(p);
+                    if (index>=0) moveCursorTo(index, true);
+                    
+                    break; 
+                }
                 if (p==c) pass++; // полный круг пройден
             }
         }
