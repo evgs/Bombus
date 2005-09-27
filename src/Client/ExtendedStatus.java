@@ -5,6 +5,8 @@
  */
 
 package Client;
+
+import java.util.Enumeration;
 import java.io.*;
 import java.util.Vector;
 import ui.IconTextElement;
@@ -93,4 +95,14 @@ public class ExtendedStatus extends IconTextElement{
 
     public int getPriority() { return priority; }
     public void setPriority(int p) { priority=p; }
+
+    static ExtendedStatus getStatus(final int status) {
+        ExtendedStatus es=null;
+        for (Enumeration e=StaticData.getInstance().statusList.elements(); e.hasMoreElements(); ){
+            es=(ExtendedStatus)e.nextElement();
+            if (status==es.getImageIndex()) break;
+        }
+
+        return es;
+    }
 }

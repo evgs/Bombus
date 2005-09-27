@@ -459,8 +459,10 @@ public class Roster
         //String nick=null;
         //if (rp>0) if (!isRoom) nick=from.substring(rp+1);
         
-        updateContact(null /*nick*/ , from, room, "muc", false);
-        groups.getGroup(room).imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
+        //updateContact(null /*nick*/ , from, room, "muc", false);
+        Group grp=groups.getGroup(room);
+        if (grp==null) grp=groups.addGroup(room);
+        grp.imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
         /*
         Contact c=presenceContact(from, isRoom?Presence.PRESENCE_ONLINE:-1);
         if (isRoom){  
@@ -477,7 +479,8 @@ public class Roster
             c.transport=7; //FIXME: убрать хардкод
             c.bareJid=from;
             c.origin=Contact.ORIGIN_GROUPCHAT;
-            c.priority=99;
+            //c.priority=99;
+            c.jidHash=0;
         } else {
             c=presenceContact(from, -1);
         }
@@ -485,6 +488,8 @@ public class Roster
             origin=Contact.ORIGIN_CLONE;
             c.gcMyself=true;
         }
+        c.group=grp.index;
+        c.offline_type=Presence.PRESENCE_OFFLINE;
         if (c.origin<origin) c.origin=origin;
     }
     
@@ -582,7 +587,7 @@ public class Roster
     public void sendPresence(int status) {
         myStatus=status;
         setQuerySign(false);
-        if (status==Presence.PRESENCE_OFFLINE) {
+        if (myStatus==Presence.PRESENCE_OFFLINE) {
             synchronized(hContacts) {
                 for (Enumeration e=hContacts.elements(); e.hasMoreElements();){
                     Contact c=(Contact)e.nextElement();
@@ -591,11 +596,11 @@ public class Roster
                 }
             }
         }
-        Vector v=sd.statusList;//StaticData.getInstance().statusList;
-        ExtendedStatus es=null;
+        //Vector v=sd.statusList;//StaticData.getInstance().statusList;
+        //ExtendedStatus es=null;
         
         // reconnect if disconnected        
-        if (status!=Presence.PRESENCE_OFFLINE && theStream==null ) {
+        if (myStatus!=Presence.PRESENCE_OFFLINE && theStream==null ) {
             reconnect=(hContacts.size()>1);
             redraw();
             
@@ -604,13 +609,12 @@ public class Roster
         }
         
         // send presence
-        for (Enumeration e=v.elements(); e.hasMoreElements(); ){
-            es=(ExtendedStatus)e.nextElement();
-            if (status==es.getImageIndex()) break;
-        }
+        ExtendedStatus es= ExtendedStatus.getStatus(myStatus);
         Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
         if (theStream!=null) {
             theStream.send( presence );
+            
+            sendConferencePresence();
 
             // disconnect
             if (status==Presence.PRESENCE_OFFLINE) {
@@ -629,6 +633,18 @@ public class Roster
         Contact c=presenceContact(myJid.getJidFull(), myStatus);
         
         reEnumRoster();
+    }
+    
+    public void sendConferencePresence() {
+        ExtendedStatus es= ExtendedStatus.getStatus(myStatus);
+        Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
+        for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
+            Contact c=(Contact) e.nextElement();
+            if (c.origin!=Contact.ORIGIN_GROUPCHAT) continue;
+            if (c.status==Presence.PRESENCE_OFFLINE) continue;
+            presence.setAttribute("to", c.getJid());
+            theStream.send(presence);
+        }
     }
     
     public void sendPresence(String to, String type, JabberDataBlock child) {
@@ -654,7 +670,7 @@ public class Roster
             event.setNameSpace("jabber:x:event");
             //event.addChild(new JabberDataBlock("id",null, null));
             if (composingState==1) {
-                event.addChild(new JabberDataBlock("composing",null, null));
+                event.addChild(new JabberDataBlock("composing", null, null));
             }
             simpleMessage.addChild(event);
         }
@@ -881,7 +897,9 @@ public class Roster
                 JabberDataBlock xmuc=pr.findNamespace("http://jabber.org/protocol/muc");
                 if (xmuc!=null){
                     int rp=from.indexOf('/');
-                    StringBuffer b=new StringBuffer(from.substring(rp+1));
+                    String nick=from.substring(rp+1);
+                    c.sortCode(nick);
+                    StringBuffer b=new StringBuffer(nick);
                     JabberDataBlock item=xmuc.getChildBlock("item");
                     
                     String role=item.getAttribute("role");
@@ -891,7 +909,9 @@ public class Roster
                     JabberDataBlock status=xmuc.getChildBlock("status");
                     String statusCode=(status==null)? "" : status.getAttribute("code");
 
-                    c.transport=(role.startsWith("moderator"))? 6:0; //FIXME: убрать хардкод
+                    boolean moderator=role.startsWith("moderator");
+                    c.transport=(moderator)? 6:0; //FIXME: убрать хардкод
+                    c.jidHash=c.jidHash & 0x3fffffff | ((moderator)? 0:0x40000000);
                     
                     if (c.origin==Contact.ORIGIN_CLONE)
                     {
@@ -933,6 +953,7 @@ public class Roster
 
 
                     mucContact(from, Contact.ORIGIN_GC_MEMBER);
+                    c.nick=nick;
                     
                     from=from.substring(0, rp);
                     m=new Msg(
@@ -1193,15 +1214,37 @@ public class Roster
             new ContactEdit(display, cn);
         }
     }
-    private void leaveRoom(int groupIndex){
+    
+    private Contact conferenceSelfContact(int groupIndex) {
         // найдём self-jid в комнате
         for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
             Contact contact=(Contact)e.nextElement();
-            if (contact.group==groupIndex) {
-                if (contact.gcMyself)
-                    sendPresence(contact.getJid(), "unavailable", null);
+            if (contact.group==groupIndex && contact.gcMyself) 
+                return contact;
+        }
+        return null;
+    }
+    
+    private void reEnterRoom(int groupIndex) {
+        Contact myself=conferenceSelfContact(groupIndex);
+        sendPresence(myself.getJid(), null, null);
+
+        for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
+            Contact contact=(Contact)e.nextElement();
+            if (contact.group==groupIndex && contact.origin==Contact.ORIGIN_GROUPCHAT) 
+                contact.status=Presence.PRESENCE_ONLINE;
+        }
+        
+    }
+    private void leaveRoom(int groupIndex){
+        Contact myself=conferenceSelfContact(groupIndex);
+        sendPresence(myself.getJid(), "unavailable", null);
+        myself.status=Presence.PRESENCE_OFFLINE;
+
+        for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
+            Contact contact=(Contact)e.nextElement();
+            if (contact.group==groupIndex) 
                 contact.status=Presence.PRESENCE_OFFLINE;
-            }
         }
     }
     
@@ -1373,12 +1416,17 @@ public class Roster
                     }
                     case 21:
                     {
-                        leaveRoom( g.index );
+                        cleanupSearch();
                         break;
                     }
                     case 22:
                     {
-                        cleanupSearch();
+                        leaveRoom( g.index );
+                        break;
+                    }
+                    case 23:
+                    {
+                        reEnterRoom( g.index );
                         break;
                     }
                 }
@@ -1405,10 +1453,13 @@ public class Roster
                 m.addItem(new MenuItem("Delete",4));
             }
         } else {
-            if (g.imageExpandedIndex==ImageList.ICON_GCJOIN_INDEX) 
-                m.addItem(new MenuItem("Leave Room",21));
             if (g.index==Groups.SRC_RESULT_INDEX)  
-                m.addItem(new MenuItem("Discard Search",22));
+                m.addItem(new MenuItem("Discard Search",21));
+            if (g.imageExpandedIndex==ImageList.ICON_GCJOIN_INDEX) 
+                if (conferenceSelfContact(g.index).status==Presence.PRESENCE_OFFLINE) 
+                    m.addItem(new MenuItem("Re-Enter Room",23));
+                else
+                    m.addItem(new MenuItem("Leave Room",22));
         }
        m.attachDisplay(display);
     }

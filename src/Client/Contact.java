@@ -58,7 +58,7 @@ public class Contact extends IconTextElement{
     
     public String msgSuspended;
     
-    private int jidHash;
+    public int jidHash;
 
     public byte origin;
     public boolean gcMyself;
@@ -87,7 +87,7 @@ public class Contact extends IconTextElement{
         bareJid=sJid;
         this.subscr=subscr;
     
-        jidHash=sortCode((Nick==null)?sJid:Nick);
+        sortCode((Nick==null)?sJid:Nick);
         //msgs.removeAllElements();
         
         //calculating transport
@@ -213,7 +213,7 @@ public class Contact extends IconTextElement{
     }
     
     public String toString() { 
-        if (origin>ORIGIN_GROUPCHAT) return jid.getResource();
+        if (origin>ORIGIN_GROUPCHAT) return nick;
         if (origin==ORIGIN_GROUPCHAT) return getJid();
         return (nick==null)?getJid():nick+jid.getResource(); 
     }
@@ -255,10 +255,11 @@ public class Contact extends IconTextElement{
     }
      */
     
-    private final static int sortCode(String s){
+    public final void sortCode(String s){
         try {
             String ls=s.toLowerCase();
-            return ls.charAt(1)+ (ls.charAt(0)<<16);
-        } catch (Exception e) { return 0; }
+            jidHash= ls.charAt(1)+ (ls.charAt(0)<<16);
+            
+        } catch (Exception e) { }
     }
 }
