@@ -412,7 +412,7 @@ public class Roster
         if (subscr.equals("remove")) status=-1;
         
         Jid J=new Jid(Jid);
-        Contact c=getContact(J,false);
+        Contact c=getContact(J,false); // контакт по bare jid
         if (c==null) {
             c=new Contact(Nick, Jid, Presence.PRESENCE_OFFLINE, null);
             addContact(c);
@@ -484,13 +484,14 @@ public class Roster
         } else {
             c=presenceContact(from, -1);
         }
-        if (origin==Contact.ORIGIN_GC_MYSELF) {
+        /*if (origin==Contact.ORIGIN_GC_MYSELF) {
             origin=Contact.ORIGIN_CLONE;
             c.gcMyself=true;
-        }
+        }*/
         c.group=grp.index;
         c.offline_type=Presence.PRESENCE_OFFLINE;
         if (c.origin<origin) c.origin=origin;
+        sort();
     }
     
     public final Contact presenceContact(final String jid, int Status) {
@@ -505,7 +506,6 @@ public class Roster
                 //if (c.status<7 || c.status==Presence.PRESENCE_ASK) 
                 c.status=Status;
                 sort();
-                reEnumRoster();//redraw();
                 //System.out.println("updated");
             }
             return c;
@@ -536,7 +536,6 @@ public class Roster
             }
         }
         sort();
-        reEnumRoster();
         return c;
     }
     public void addContact(Contact c) {
@@ -561,6 +560,7 @@ public class Roster
                 hContacts.setElementAt(temp,i+1);
             }
         }
+        reEnumRoster();
     }
     
     private final Contact getContact(int index) {
@@ -632,16 +632,16 @@ public class Roster
         }
         Contact c=presenceContact(myJid.getJidFull(), myStatus);
         
-        reEnumRoster();
+        //reEnumRoster();
     }
     
     public void sendConferencePresence() {
         ExtendedStatus es= ExtendedStatus.getStatus(myStatus);
-        Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
         for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
             Contact c=(Contact) e.nextElement();
             if (c.origin!=Contact.ORIGIN_GROUPCHAT) continue;
             if (c.status==Presence.PRESENCE_OFFLINE) continue;
+            Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
             presence.setAttribute("to", c.getJid());
             theStream.send(presence);
         }
@@ -1219,7 +1219,7 @@ public class Roster
         // найдём self-jid в комнате
         for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
             Contact contact=(Contact)e.nextElement();
-            if (contact.group==groupIndex && contact.gcMyself) 
+            if (contact.group==groupIndex && contact.origin==Contact.ORIGIN_GC_MYSELF) 
                 return contact;
         }
         return null;

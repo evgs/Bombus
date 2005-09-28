@@ -61,7 +61,7 @@ public class Contact extends IconTextElement{
     public int jidHash;
 
     public byte origin;
-    public boolean gcMyself;
+    //public boolean gcMyself;
     
     public String subscr;
     public int offline_type=Presence.PRESENCE_UNKNOWN;
@@ -144,6 +144,11 @@ public class Contact extends IconTextElement{
     public int compare(Contact c){
         //1. status
         int cmp;
+        //if (origin>=ORIGIN_GROUPCHAT && c.origin>=ORIGIN_GROUPCHAT) {
+        //    if ((cmp=origin-c.origin) !=0) return cmp;
+        //} else {
+        //    if ((cmp=status-c.status) !=0) return cmp;
+        //}
         if ((cmp=status-c.status) !=0) return cmp;
         if ((cmp=jidHash-c.jidHash) !=0) return cmp;
         if ((cmp=c.priority-priority) !=0) return cmp;

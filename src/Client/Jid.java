@@ -15,12 +15,6 @@ public class Jid {
     private String fullJid;
     private int resourcePos;
     
-    private static String substr(Jid j, char begin, char end){
-        int beginIndex=j.fullJid.indexOf(begin)+1;
-        int endIndex=j.fullJid.indexOf(end,beginIndex);
-        return j.fullJid.substring(beginIndex, endIndex);
-    }
-    
     /** Creates a new instance of Jid */
     public Jid(String s) {
         setJid(s);
@@ -65,7 +59,9 @@ public class Jid {
     /** выделение транспорта */
     public String getTransport(){
         try {
-            return substr(this,'@','.');
+            int beginIndex=fullJid.indexOf('@')+1;
+            int endIndex=fullJid.indexOf('.',beginIndex);
+            return fullJid.substring(beginIndex, endIndex);
         } catch (Exception e) {
             return "-";
         }
