@@ -53,10 +53,8 @@ public class Login extends JabberDataBlock
         setAttribute( "type", "set" );
         setAttribute( "to", server);
         
-        JabberDataBlock queryBlock = new JabberDataBlock( "query", null, null );
+        JabberDataBlock queryBlock = addChild("query", null );
         queryBlock.setNameSpace( "jabber:iq:auth" );
-        
-        addChild(queryBlock);
         
         if( username != null ) queryBlock.addChild( "username", username );
         

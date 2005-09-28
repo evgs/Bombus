@@ -18,18 +18,16 @@ public class IqRegister extends JabberDataBlock{
     
     /** Creates a new instance of IqRegister */
     public IqRegister(String username, String password, String id) {
-    super( );
-
-    setTypeAttribute( "set" );
-    setAttribute( "id", id );
-
-    JabberDataBlock qB = new JabberDataBlock( "query", null, null );
-    qB.setNameSpace( "jabber:iq:register" );
-    qB.addChild("username",username);
-    qB.addChild("password",password);
-    
-    addChild(qB);
-
+        super( );
+        
+        setTypeAttribute( "set" );
+        setAttribute( "id", id );
+        
+        JabberDataBlock qB = addChild("query", null );
+        qB.setNameSpace( "jabber:iq:register" );
+        qB.addChild("username",username);
+        qB.addChild("password",password);
+        
     }
   public String getTagName()
   {

@@ -166,7 +166,7 @@ public class Contact extends IconTextElement{
 //--
 //--        if (cf.msgLog && group!=Groups.TRANSP_INDEX && group!=Groups.SRC_RESULT_INDEX)
 //--        {
-//--            String histRecord=(nick==null)?getJidNR():nick;
+//--            String histRecord=(nick==null)?getBareJid():nick;
 //--            String fromName=StaticData.getInstance().account.getUserName();
 //--            if (m.messageType!=Msg.MESSAGE_TYPE_OUT) fromName=toString();
 //--            boolean allowLog=false;
@@ -223,14 +223,14 @@ public class Contact extends IconTextElement{
         return (nick==null)?getJid():nick+jid.getResource(); 
     }
     
-    public final String getName(){ return (nick==null)?getJidNR():nick; }
+    public final String getName(){ return (nick==null)?getBareJid():nick; }
     //public void onSelect(){}
 
     public final String getJid() {
         return jid.getJidFull();
     }
 
-    public final String getJidNR() {
+    public final String getBareJid() {
         return bareJid;
     }
 

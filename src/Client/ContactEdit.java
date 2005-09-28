@@ -84,7 +84,7 @@ public final class ContactEdit
         tTranspList.append("<Other>",null);
         
         if (c!=null) {
-            String jid=c.getJidNR();
+            String jid=c.getBareJid();
             // edit contact
             tJid.setString(jid);
             tNick.setString(c.nick);

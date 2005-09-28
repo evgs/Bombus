@@ -99,9 +99,8 @@ public class ServiceDiscovery
         req.setTypeAttribute("get");
         req.setAttribute("to",service);
         req.setAttribute("id",id);
-        JabberDataBlock qry=new JabberDataBlock("query",null,null);
+        JabberDataBlock qry=req.addChild("query",null);
         qry.setNameSpace(namespace);
-        req.addChild(qry);
         
         stream.send(req);
     }

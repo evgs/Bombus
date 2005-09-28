@@ -670,7 +670,7 @@ public class Roster
             event.setNameSpace("jabber:x:event");
             //event.addChild(new JabberDataBlock("id",null, null));
             if (composingState==1) {
-                event.addChild(new JabberDataBlock("composing", null, null));
+                event.addChild("composing", null);
             }
             simpleMessage.addChild(event);
         }
@@ -1327,7 +1327,7 @@ public class Roster
                 
                 int index=((MenuItem) getFocusedObject()).index;
                 String to=null;
-                if (isContact) to=(index<3)? c.getJid() : c.getJidNR();
+                if (isContact) to=(index<3)? c.getJid() : c.getBareJid();
                 destroyView();
                 switch (index) {
                     case 0: // info
@@ -1360,7 +1360,7 @@ public class Roster
                                     hContacts.removeElement(c);
                                     reEnumRoster();
                                 } else
-                                    theStream.send(new IqQueryRoster(c.getJidNR(),null,null,"remove"));
+                                    theStream.send(new IqQueryRoster(c.getBareJid(),null,null,"remove"));
                             };
                         };
                         return;
@@ -1472,8 +1472,7 @@ public class Roster
         JabberDataBlock iq=new JabberDataBlock("iq", null, null);
         iq.setTypeAttribute("set");
         iq.setAttribute("to", contact.jid.getJid());
-        JabberDataBlock query=new JabberDataBlock("query", null, null);
-        iq.addChild(query);
+        JabberDataBlock query=iq.addChild("query", null);
         query.setNameSpace("http://jabber.org/protocol/muc#admin");
         JabberDataBlock item=new JabberDataBlock("item", null, itemAttributes);
         query.addChild(item);

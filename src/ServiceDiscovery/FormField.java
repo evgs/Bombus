@@ -42,7 +42,7 @@ public class FormField {
         
         if ( name.equals("key") ) hidden=true; 
     }
-    JabberDataBlock getJabberDataBlock(){
+    JabberDataBlock constructJabberDataBlock(){
         JabberDataBlock j=null;
         if (formItem instanceof TextField) {
             if (name.equals("registered")) return null;

@@ -34,11 +34,8 @@ public class IqQueryRoster extends JabberDataBlock
     setTypeAttribute( "get" );
     setAttribute( "id", "getros" );
 
-    JabberDataBlock qB = new JabberDataBlock( "query", null, null );
+    JabberDataBlock qB = addChild("query", null);
     qB.setNameSpace( "jabber:iq:roster" );
-
-    addChild(qB);
-
   }
   
   /** add to roster*/
@@ -48,7 +45,7 @@ public class IqQueryRoster extends JabberDataBlock
     setTypeAttribute( "set" );
     setAttribute( "id", "addros" );
 
-    JabberDataBlock qB = new JabberDataBlock( "query", this, null );
+    JabberDataBlock qB = addChild("query", null );
     qB.setNameSpace( "jabber:iq:roster" );
         JabberDataBlock item=new JabberDataBlock("item",qB,null);
         item.setAttribute("jid", jid);
@@ -58,7 +55,6 @@ public class IqQueryRoster extends JabberDataBlock
             item.addChild(new JabberDataBlock(item,"group",group));
         }
         qB.addChild(item);
-    addChild(qB);
   }
   /**
    * Method to return the tag name

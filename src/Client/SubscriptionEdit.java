@@ -25,7 +25,7 @@ public class SubscriptionEdit extends Form implements CommandListener{
     /** Creates a new instance of YesNoAlert */
     public SubscriptionEdit(Display display, Contact c) {
         super("Subscription");
-        to=c.getJidNR();
+        to=c.getBareJid();
         StringBuffer s=new StringBuffer(c.getNickJid());
         s.append('\n');
         s.append("subscr:");

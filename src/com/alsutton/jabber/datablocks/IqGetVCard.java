@@ -23,10 +23,8 @@ public class IqGetVCard extends JabberDataBlock
         setAttribute( "to", to );
         setAttribute( "id", id );
         
-        JabberDataBlock qB = new JabberDataBlock( "vCard", null, null );
+        JabberDataBlock qB = addChild("vCard", null);
         qB.setNameSpace( "vcard-temp" );
-        
-        addChild(qB);
     }
     
     

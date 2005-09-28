@@ -24,8 +24,7 @@ public class IqTimeReply extends JabberDataBlock{
         setTypeAttribute("result");
         setAttribute("id",request.getAttribute("id"));
         setAttribute("to",request.getAttribute("from"));
-        JabberDataBlock query=new JabberDataBlock("query",this,null);
-        addChild(query);
+        JabberDataBlock query=addChild("query",null);
         query.setNameSpace("jabber:iq:time");
         query.addChild("utc",ui.Time.utcLocalTime());
         query.addChild("display", ui.Time.dispLocalTime());

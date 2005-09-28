@@ -24,8 +24,7 @@ public class IqVersionReply extends JabberDataBlock{
         setTypeAttribute("result");
         setAttribute("id",request.getAttribute("id"));
         setAttribute("to",request.getAttribute("from"));
-        JabberDataBlock query=new JabberDataBlock("query",this,null);
-        addChild(query);
+        JabberDataBlock query=addChild("query",null);
         query.setNameSpace("jabber:iq:version");
         query.addChild("name","Bombus");
         query.addChild("version",Version.version);
@@ -41,8 +40,7 @@ public class IqVersionReply extends JabberDataBlock{
         setTypeAttribute("get");
         setAttribute("to",to);
         setAttribute("id","getver");
-        JabberDataBlock query=new JabberDataBlock("query",this,null);
-        addChild(query);
+        JabberDataBlock query=addChild("query",null);
         query.setNameSpace("jabber:iq:version");
     }
     

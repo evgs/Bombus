@@ -85,7 +85,7 @@ public class PrivacyForm
             switch (index) {
                 case 0: //jid
                     if (targetList!=null) if (rfocus instanceof Contact) {
-                        textValue.setString(((Contact)rfocus).getJidNR());
+                        textValue.setString(((Contact)rfocus).getBareJid());
                     }
                     form.set(2, textValue);
                     break;
