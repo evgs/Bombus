@@ -560,7 +560,7 @@ public class Roster
                 hContacts.setElementAt(temp,i+1);
             }
         }
-        reEnumRoster();
+        //reEnumRoster();
     }
     
     private final Contact getContact(int index) {
@@ -632,7 +632,7 @@ public class Roster
         }
         Contact c=presenceContact(myJid.getJidFull(), myStatus);
         
-        //reEnumRoster();
+        reEnumRoster();
     }
     
     public void sendConferencePresence() {
@@ -875,7 +875,6 @@ public class Roster
                 //countNewMsgs();
                 //setFocusTo(c);
                 //redraw();
-                
             }
             // присутствие
             else if( data instanceof Presence ) {
@@ -963,6 +962,7 @@ public class Roster
                         b.toString());
                     messageStore(m, -1);
                 }
+                reEnumRoster();
             }
         } catch( Exception e ) {
             e.printStackTrace();
