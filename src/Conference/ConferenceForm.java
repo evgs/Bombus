@@ -114,6 +114,7 @@ public class ConferenceForm implements CommandListener{
         }
         //sd.roster.groups.getGroup(name.substring(0, name.indexOf('@'))).imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
         sd.roster.sendPresence(name, null, x);
+        sd.roster.reEnumRoster();
     }
     public void destroyView(){
         if (parentView!=null) display.setCurrent(parentView);

@@ -483,6 +483,7 @@ public class Roster
             c.jidHash=0;
         } else {
             c=presenceContact(from, -1);
+            c.nick=from.substring(rp+1);
         }
         /*if (origin==Contact.ORIGIN_GC_MYSELF) {
             origin=Contact.ORIGIN_CLONE;
@@ -952,7 +953,7 @@ public class Roster
 
 
                     mucContact(from, Contact.ORIGIN_GC_MEMBER);
-                    c.nick=nick;
+                    //c.nick=nick;
                     
                     from=from.substring(0, rp);
                     m=new Msg(

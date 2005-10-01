@@ -62,6 +62,7 @@ public class ServiceDiscovery
         getTitleItem().addElement(null);
         
         stream=sd.roster.theStream;
+        stream.cancelBlockListenerByClass(this.getClass());
         stream.addBlockListener(this);
         //sd.roster.discoveryListener=this;
         
