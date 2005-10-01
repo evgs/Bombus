@@ -86,7 +86,7 @@ public class JabberDataBlockDispatcher extends Thread
           catch (Exception e) {e.printStackTrace(); }
       }
   }
-  public void cancelBlockListenerByClass(Class removeClass){
+  /*public void cancelBlockListenerByClass(Class removeClass){
       synchronized (blockListeners) {
           int index=0;
           while (index<blockListeners.size()) {
@@ -95,6 +95,8 @@ public class JabberDataBlockDispatcher extends Thread
           }
       }
   }
+   */
+  
   /**
    * Method to add a datablock to the dispatch queue
    *

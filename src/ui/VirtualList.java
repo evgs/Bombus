@@ -114,7 +114,7 @@ public abstract class VirtualList
         ComplexString title=new ComplexString(titleil);
         title.setSize(size);
         if (first!=null) title.setElementAt(first,0);
-        if (second!=null) title.setElementAt(second,0);
+        if (second!=null) title.setElementAt(second,1);
         setTitleItem(title);
         return title;
     }

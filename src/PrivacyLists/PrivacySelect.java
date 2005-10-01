@@ -43,7 +43,8 @@ public class PrivacySelect
     /** Creates a new instance of PrivacySelect */
     public PrivacySelect(Display display) {
         super(display);
-        createTitleItem(1, "Privacy Lists", null);
+        setTitleImages(StaticData.getInstance().rosterIcons);
+        createTitleItem(2, null, "Privacy Lists");
         addCommand(cmdActivate);
         addCommand(cmdDefault);
         addCommand(cmdCancel);
@@ -57,8 +58,14 @@ public class PrivacySelect
         getLists();
     }
 
+    private void processIcon(boolean processing){
+        getTitleItem().setElementAt((processing)?(Object)new Integer(ImageList.ICON_RECONNECT_INDEX):(Object)null, 0);
+        redraw();
+    }
+   
     private void getLists(){
         stream.addBlockListener(this);
+        processIcon(true);
         PrivacyList.privacyListRq(false, null, "getplists");
     }
     
@@ -128,7 +135,9 @@ public class PrivacySelect
                     nullList.isDefault=defaultList.length()==0;
                     list.addElement(nullList);//none
                 }
-                redraw();
+                
+                processIcon(false);
+                
                 return JabberBlockListener.NO_MORE_BLOCKS;
                 }
         } catch (Exception e) { e.printStackTrace(); }

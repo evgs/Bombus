@@ -106,8 +106,6 @@ public class Roster
         
         //msgNotify=new EventNotify(display, Profile.getProfile(0) );
         
-        setTitleImages(sd.rosterIcons);
-        
         createTitleItem(4, null, null).addRAlign();
         getTitleItem().addElement(null);
         getTitleItem().addElement(null);

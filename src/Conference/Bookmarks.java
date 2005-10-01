@@ -40,7 +40,8 @@ public class Bookmarks
     /** Creates a new instance of Bookmarks */
     public Bookmarks(Display display, BookmarkItem toAdd) {
         super (display);
-        createTitleItem(1, "Bookmarks", null);
+        setTitleImages(StaticData.getInstance().rosterIcons);
+        createTitleItem(2, null, "Bookmarks");
         
         
         this.toAdd=toAdd;
@@ -54,6 +55,11 @@ public class Bookmarks
         addCommand(cmdRfsh);
         addCommand(cmdDel);
         setCommandListener(this);
+    }
+    
+    private void processIcon(boolean processing){
+        getTitleItem().setElementAt((processing)?(Object)new Integer(ImageList.ICON_RECONNECT_INDEX):(Object)null, 0);
+        redraw();
     }
     
     public int getItemCount() { return (bookmarks==null)?0: bookmarks.size(); }
@@ -75,6 +81,8 @@ public class Bookmarks
         JabberDataBlock query=request.addChild("query", null);
         query.setNameSpace("jabber:iq:private");
         query.addChild(child);
+        
+        processIcon(true);
         //System.out.println(request.toString());
         stream.send(request);
     }
@@ -99,6 +107,8 @@ public class Bookmarks
                 
                 if (display!=null) redraw();
                 roster.bookmarks=this.bookmarks=bookmarks;
+                
+                processIcon(false);
                 return JabberBlockListener.NO_MORE_BLOCKS;
             }
         } catch (Exception e) { }

@@ -230,9 +230,9 @@ public class JabberStream implements XMLEventListener, Runnable {
         dispatcher.cancelBlockListener(listener);
     }
     
-    public void cancelBlockListenerByClass(Class removeClass) {
+    /*public void cancelBlockListenerByClass(Class removeClass) {
         dispatcher.cancelBlockListenerByClass(removeClass);
-    }
+    }*/
     
     public void setJabberListener( JabberListener listener ) {
         dispatcher.setJabberListener( listener );

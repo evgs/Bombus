@@ -1408,6 +1408,8 @@ syslog_msg: true
   fix: NullPointerException при отрисовке ростера при неудачном присоединении 
   к конференции
 
+  (244) 
+  значок "запрос серверу" в Bookmarks и Privacy Lists
 ---------------------------
   known issues:
 
