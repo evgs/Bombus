@@ -49,16 +49,17 @@ public final class MessageParser {
                     p1;
             
             InputStream in=this.getClass().getResourceAsStream(resource);
-            DataInputStream f=new DataInputStream(in);
+            //DataInputStream f=new DataInputStream(in);
             
             StringBuffer s=new StringBuffer(10);
             boolean firstSmile=true;
             
-            try { // eof
-                char c;
+            //try { // eof
+                int c;
                 while (true) {
-                    c=(char)f.readUnsignedByte();
-                    
+                    c=in.read();
+                    //System.out.println(c);
+                    if (c<0) break;
                     switch (c) {
                         case 0x0d:
                         case 0x0a:
@@ -76,12 +77,12 @@ public final class MessageParser {
                             p=this;// в начало дерева
                             break;
                         default:
-                            if (firstSmile) s.append(c);
+                            if (firstSmile) s.append((char)c);
                             strhaschars=true;
-                            p1=p.findChild(c);
+                            p1=p.findChild((char)c);
                             if (p1==null) {
                                 p1=new MessageParser();
-                                p.addChild(c,p1);
+                                p.addChild((char)c,p1);
                             }
                             p=p1;
                     }
@@ -91,8 +92,8 @@ public final class MessageParser {
                         firstSmile=true;
                     }
                 }
-            } catch (EOFException e) { /* неправильный файл смайлов */ }
-            f.close();
+            //} catch (Exception e) { /* неправильный файл смайлов */ }
+            in.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

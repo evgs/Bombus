@@ -9,6 +9,7 @@ package com.alsutton.jabber.datablocks;
 import com.alsutton.jabber.*;
 import java.util.*;
 import javax.microedition.lcdui.Image;
+import VCard.*;
 
 /**
  * Class representing the iq message block
@@ -38,24 +39,25 @@ public class IqGetVCard extends JabberDataBlock
     return "iq";
   }
   
-      private final static String TOPFIELDS []={
-        "FN",  "NICKNAME",  "BDAY",  "LOCALITY", "COUNTRY", "URL", "DESC"
-    }; 
-    private final static String TOPNAMES []={
-        "Name",  "Nick",  "Birthday",  "City", "Country", "URL", "About"
-    }; 
-    
     
    public static String dispatchVCard(JabberDataBlock data) {
+       new vCard();
         if (data==null) return "No vCard available";
         if (!data.isJabberNameSpace("vcard-temp")) return "unknown vCard namespace";
         StringBuffer vc=new StringBuffer();
         //vc.append((char)0x01);
-        for (int i=0; i<TOPFIELDS.length; i++){
+        for (int i=0; i<vCard.vCardFields.size(); i++){
             // TODO: добавить вложенные поля vCard
-            String field=data.getChildBlockText(TOPFIELDS[i].toLowerCase());
+            String f1=(String)vCard.vCardFields.elementAt(i);
+            String f2=(String)vCard.vCardFields2.elementAt(i);
+            JabberDataBlock d2=data;
+            if (f2!=null) {
+                d2=data.getChildBlock(f2.toLowerCase());
+            }
+            
+            String field=d2.getChildBlockText(f1.toLowerCase());
             if (field.length()>0) {
-                vc.append(TOPNAMES[i]);
+                vc.append(vCard.vCardLabels.elementAt(i));
                 vc.append((char)0xa0);
                 vc.append(field);
                 vc.append((char)'\n');
@@ -69,7 +71,7 @@ public class IqGetVCard extends JabberDataBlock
 
    public static String getNickName(JabberDataBlock data) {
        if (!data.isJabberNameSpace("vcard-temp")) return "";
-       return data.getChildBlockText(TOPFIELDS[1].toLowerCase());
+       return data.getChildBlockText(((String)(vCard.vCardFields.elementAt(1))).toLowerCase());
    }
    
    public static Image getPhoto(JabberDataBlock data) {
