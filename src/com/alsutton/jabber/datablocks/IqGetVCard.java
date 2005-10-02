@@ -48,22 +48,24 @@ public class IqGetVCard extends JabberDataBlock
         //vc.append((char)0x01);
         for (int i=0; i<vCard.vCardFields.size(); i++){
             // TODO: добавить вложенные поля vCard
-            String f1=(String)vCard.vCardFields.elementAt(i);
-            String f2=(String)vCard.vCardFields2.elementAt(i);
-            JabberDataBlock d2=data;
-            if (f2!=null) {
-                d2=data.getChildBlock(f2.toLowerCase());
-            }
-            
-            String field=d2.getChildBlockText(f1.toLowerCase());
-            if (field.length()>0) {
-                vc.append(vCard.vCardLabels.elementAt(i));
-                vc.append((char)0xa0);
-                vc.append(field);
-                vc.append((char)'\n');
-            }
-        }
-        if (data.getChildBlock("photo")!=null) {
+            try {
+                String f1=(String)vCard.vCardFields.elementAt(i);
+                String f2=(String)vCard.vCardFields2.elementAt(i);
+                JabberDataBlock d2=data;
+                if (f2!=null) {
+                    d2=data.getChildBlock(f2);
+                }
+                
+                String field=d2.getChildBlockText(f1);
+                if (field.length()>0) {
+                    vc.append(vCard.vCardLabels.elementAt(i));
+                    vc.append((char)0xa0);
+                    vc.append(field);
+                    vc.append((char)'\n');
+                } 
+            } catch (Exception e) {/**/}
+        } 
+        if (data.getChildBlock("PHOTO")!=null) {
             vc.append("Photo available");
         }
         return vc.toString();
@@ -71,15 +73,15 @@ public class IqGetVCard extends JabberDataBlock
 
    public static String getNickName(JabberDataBlock data) {
        if (!data.isJabberNameSpace("vcard-temp")) return "";
-       return data.getChildBlockText(((String)(vCard.vCardFields.elementAt(1))).toLowerCase());
+       return data.getChildBlockText((String)(vCard.vCardFields.elementAt(1)));
    }
    
    public static Image getPhoto(JabberDataBlock data) {
        if (data==null) return null;
-       JabberDataBlock photo=data.getChildBlock("photo");
+       JabberDataBlock photo=data.getChildBlock("PHOTO");
        if (photo==null) return null;
        try {
-           photo=photo.getChildBlock("binval");
+           photo=photo.getChildBlock("BINVAL");
            byte src[]=(byte[])photo.getChildBlocks().lastElement();
            return Image.createImage(src, 0, src.length);
        } catch (Exception e) {

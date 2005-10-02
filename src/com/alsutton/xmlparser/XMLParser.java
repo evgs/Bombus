@@ -247,7 +247,7 @@ public class XMLParser
 
       if( tagName == null )
       {
-        tagName = data.toLowerCase();
+        tagName = data;//.toLowerCase();
         continue;
       }
 
@@ -288,7 +288,7 @@ public class XMLParser
     if( tagName.startsWith( "?") )
       return false;
 
-    tagName = tagName.toLowerCase();
+    //tagName = tagName;//.toLowerCase();
     
     boolean binflag=false;
     if( startTag )

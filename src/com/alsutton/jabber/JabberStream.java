@@ -260,7 +260,7 @@ public class JabberStream implements XMLEventListener, Runnable {
             // M55 STUB
 /*#MIDP2#*///<editor-fold>
 //--            // photo reading
-//--            if ( name.equals("binval") ){
+//--            if ( name.equals("BINVAL") ){
 //--                return true;
 //--            }
 /*$MIDP2$*///</editor-fold>

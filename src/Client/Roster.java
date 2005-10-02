@@ -762,7 +762,7 @@ public class Roster
                         
                     }
                     if (id.startsWith("getvc")) {
-                        JabberDataBlock vc=data.getChildBlock("vcard");
+                        JabberDataBlock vc=data.getChildBlock("vCard");
                         
                         querysign=false;
                         String from=data.getAttribute("from");
@@ -1459,6 +1459,7 @@ public class Roster
                     m.addItem(new MenuItem("Re-Enter Room",23));
                 else
                     m.addItem(new MenuItem("Leave Room",22));
+            //m.addItem(new MenuItem("Cleanup offlines"))
         }
        m.attachDisplay(display);
     }

@@ -57,7 +57,7 @@ public class IqVersionReply extends JabberDataBlock{
         StringBuffer vc=new StringBuffer();
         //vc.append((char)0x01);
         for (int i=0; i<TOPFIELDS.length; i++){
-            String field=data.getChildBlockText(TOPFIELDS[i].toLowerCase());
+            String field=data.getChildBlockText(TOPFIELDS[i]);
             if (field.length()>0) {
                 vc.append(TOPFIELDS[i]);
                 vc.append((char)0xa0);
