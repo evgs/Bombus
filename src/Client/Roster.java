@@ -716,7 +716,7 @@ public class Roster
                 String id=(String) data.getAttribute("id");
                 
                 if (id!=null) if (id.startsWith("nickvc")) {
-                    JabberDataBlock vc=data.getChildBlock("vcard");
+                    JabberDataBlock vc=data.getChildBlock("vCard");
                     String from=data.getAttribute("from");
                     String nick=IqGetVCard.getNickName(vc);
                     Contact c=getContact(from, false);
@@ -1316,6 +1316,7 @@ public class Roster
      */
     
     public void actionsMenu(final Object item) {
+        if (item==null) return;
         final boolean isContact=( item instanceof Contact );
         final Contact c=(isContact)? (Contact) item: null;
         final Group g=(isContact)? null: (Group) item;
@@ -1434,10 +1435,6 @@ public class Roster
 
         };
         if (isContact) {
-            if (c.realJid!=null) {
-                m.addItem(new MenuItem("Kick",8));
-                m.addItem(new MenuItem("Ban",9));
-            }
             if (c.group==Groups.TRANSP_INDEX) {
                 m.addItem(new MenuItem("Logon",5));
                 m.addItem(new MenuItem("Logoff",6));
@@ -1450,6 +1447,10 @@ public class Roster
                     m.addItem(new MenuItem("Edit",2));
                 m.addItem(new MenuItem("Subscription",3));
                 m.addItem(new MenuItem("Delete",4));
+            }
+            if (c.realJid!=null) {
+                m.addItem(new MenuItem("Kick",8));
+                m.addItem(new MenuItem("Ban",9));
             }
         } else {
             if (g.index==Groups.SRC_RESULT_INDEX)  

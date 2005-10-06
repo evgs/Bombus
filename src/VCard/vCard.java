@@ -21,20 +21,20 @@ public class vCard {
     public static Vector vCardFields;
     public static Vector vCardFields2;
     public static Vector vCardLabels;
+    
+    public Vector vCardData;
     /** Creates a new instance of vCard */
     public vCard() {
         if (vCardFields==null) fieldsLoader();
     }
     
     private void fieldsLoader(){
-        StringBuffer field=new StringBuffer();
-        StringBuffer label=new StringBuffer();
+        StringBuffer buf=new StringBuffer();
         
         vCardFields=new Vector();
         vCardFields2=new Vector();
         vCardLabels=new Vector();
         
-        boolean isLabel=false;
         InputStream in=this.getClass().getResourceAsStream("/vcard.txt");
         try {
             while (true) {
@@ -43,25 +43,23 @@ public class vCard {
                 switch (c) {
                     case 0x0d:
                     case 0x0a:
-                        isLabel=false;
-                        if (field.length()>0 && label.length()>0){
-                            vCardFields.addElement(field.toString());
-                            vCardLabels.addElement(label.toString());
+                        if (buf.length()>0){
+                            //vCardFields.addElement(field.toString());
+                            vCardLabels.addElement(buf.toString());
                         }
-                        field.setLength(0);
-                        label.setLength(0);
+                        buf.setLength(0);
                         break;
                     case 0x09:
-                        isLabel=true;
+                        vCardFields.addElement(buf.toString());
+                        buf.setLength(0);
                         break;
                     case '/':
                         vCardFields2.setSize(vCardFields.size()+1);
-                        vCardFields2.setElementAt(field.toString(), vCardFields.size());
-                        field.setLength(0);
+                        vCardFields2.setElementAt(buf.toString(), vCardFields.size());
+                        buf.setLength(0);
                         break;
                     default:
-                        if (isLabel) label.append((char)c);
-                        else field.append((char)c);
+                        buf.append((char)c);
                 }
             }
             in.close();

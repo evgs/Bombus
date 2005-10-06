@@ -152,7 +152,8 @@ public class Contact extends IconTextElement{
         if ((cmp=status-c.status) !=0) return cmp;
         if ((cmp=jidHash-c.jidHash) !=0) return cmp;
         if ((cmp=c.priority-priority) !=0) return cmp;
-        return 0;
+        return c.transport-transport;
+        //return 0;
     };
     
     public void addMessage(Msg m) {

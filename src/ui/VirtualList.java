@@ -228,6 +228,8 @@ public abstract class VirtualList
         int i=win_top;
         int fe=0;
         
+        VirtualElement atCursor=null;
+        
         atEnd=false;
         try {
             // try вместо проверки на конец списка
@@ -257,6 +259,7 @@ public abstract class VirtualList
             }
         } catch (Exception e) { atEnd=true; }
 
+        this.atCursor=atCursor;
         // очистка остатка окна
         int clrH=height-yp+1;
         if (clrH>0) {
