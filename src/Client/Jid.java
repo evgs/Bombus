@@ -41,7 +41,7 @@ public class Jid {
 
         // сравнение только ресурсов
         compareLen-=resourcePos;
-        return fullJid.regionMatches(true,resourcePos,cj,resourcePos,compareLen);
+        return fullJid.regionMatches(false,resourcePos,cj,resourcePos,compareLen);
         //int compareLen=(compareResource)?(j.getJidFull().length()):resourcePos;
         //return fullJid.regionMatches(true,0,j.fullJid,0,compareLen);
     }

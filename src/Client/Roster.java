@@ -453,7 +453,7 @@ public class Roster
         boolean isRoom=(origin==Contact.ORIGIN_GROUPCHAT);
         int ri=from.indexOf('@');
         int rp=from.indexOf('/');
-        String room=from.substring(0,ri);
+        String room=from.substring(0,ri).toLowerCase();
         //String nick=null;
         //if (rp>0) if (!isRoom) nick=from.substring(rp+1);
         

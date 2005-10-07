@@ -152,6 +152,8 @@ public class ConfigForm implements CommandListener{
             
             cf.updateTime();
             
+            cf.saveToStorage();
+            
             StaticData.getInstance().roster.reEnumRoster();
             destroyView();
         }
