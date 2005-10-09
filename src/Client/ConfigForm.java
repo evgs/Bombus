@@ -145,7 +145,7 @@ public class ConfigForm implements CommandListener{
             cf.msgLog=mv[1];
             cf.eventComposing=mv[2];
             
-            cf.fullscreen=ap[0];
+            VirtualList.fullscreen=cf.fullscreen=ap[0];
             
             cf.gmtOffset=Integer.parseInt(fieldGmt.getString());
             cf.locOffset=Integer.parseInt(fieldLoc.getString());

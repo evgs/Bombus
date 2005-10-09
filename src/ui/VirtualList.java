@@ -86,6 +86,11 @@ public abstract class VirtualList
     public static final int VL_TITLE          =0x33ffff;
     
     public static final int SIEMENS_GREEN=-11;
+    public static final int NOKIA_GREEN=-10;
+    public static final int MOTOROLA_GREEN=-10;
+    
+    public static int greenKeyCode=SIEMENS_GREEN;
+    public static boolean fullscreen=false;
     
     int width;
     int height;
@@ -149,6 +154,10 @@ public abstract class VirtualList
         height=getHeight();
         // rotator
         rotator=new TimerTaskRotate(0);
+/*#!MIDP1#*///<editor-fold>
+        //addCommand(cmdSetFullScreen);
+        setFullScreenMode(fullscreen);
+/*$!MIDP1$*///</editor-fold>
     }
 
     
@@ -437,7 +446,7 @@ public abstract class VirtualList
                     case RIGHT: { keyRight(); break; }
                     case FIRE:  { eventOk(); break; }
                     default: 
-                        if (keyCode==SIEMENS_GREEN) { keyGreen(); break; }
+                        if (keyCode==greenKeyCode) { keyGreen(); break; }
                         userKeyPressed(keyCode);
                 }
         }

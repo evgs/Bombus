@@ -10,6 +10,8 @@ import Info.Version;
 import java.io.*;
 import java.util.*;
 import ui.Time;
+import ui.VirtualElement;
+import ui.VirtualList;
 //import javax.microedition.rms.*;
 
 /**
@@ -57,13 +59,11 @@ public class Config {
 //--    public boolean logStream=getProperty("syslog_stream",false);
 /*$USE_LOGGER$*///</editor-fold>
     
+    // non-volatile values
     //public TimeZone tz=new RuGmt(0);
-    public int gmtOffset;
-    public int locOffset;
     public int accountIndex=-1;
     public boolean fullscreen=false;
     public int def_profile=0;
-    public int profile=0;
     public boolean smiles=true;
     public boolean showOfflineContacts=true;
     public boolean showTransports=true;
@@ -71,9 +71,13 @@ public class Config {
     public boolean notInList=true;
     public boolean ignore=false;
     public boolean eventComposing=false;
-    
+    public int gmtOffset;
+    public int locOffset;
+
+    // runtime values
     public boolean allowMinimize=false;
-    
+    public int profile=0;
+
     public void LoadFromStorage(){
         
         DataInputStream inputStream=NvStorage.ReadFileRecord("config", 0);
@@ -99,6 +103,7 @@ public class Config {
         }
         profile=def_profile;
         updateTime();
+        VirtualList.fullscreen=fullscreen;
     }
     
     public void saveToStorage(){
@@ -140,6 +145,8 @@ public class Config {
         locOffset=getProperty( "time_loc_offset", 0);
         gmtOffset=getProperty("time_gmt_offset", gmtloc);
 
+        int greenKeyCode=VirtualList.SIEMENS_GREEN;
+        
         String platform=Version.platform();
         
         if (platform.startsWith("SonyE")) {
@@ -147,11 +154,18 @@ public class Config {
         }
         if (platform.startsWith("Nokia")) {
             blFlash=false;
+            greenKeyCode=VirtualList.NOKIA_GREEN;
         }
         if (platform.startsWith("Moto")) {
             ghostMotor=true;
             blFlash=false;
+            greenKeyCode=VirtualList.MOTOROLA_GREEN;
         }
+        if (platform.startsWith("j2me")) {
+            greenKeyCode=VirtualList.MOTOROLA_GREEN;
+        }
+        
+        VirtualList.greenKeyCode=greenKeyCode;
         //System.out.println(locOffset);
 /*#USE_LED_PATTERN#*///<editor-fold>
 //--        if (platform.startsWith("M55")) 
