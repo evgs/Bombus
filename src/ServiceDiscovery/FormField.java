@@ -31,14 +31,17 @@ public class FormField {
             else name=field.getAttribute("var");
             label=field.getAttribute("label");
             body=field.getChildBlockText("value");
+            formItem=new TextField(label, body, 64, 0);
+        } else {
+            // not x-data
+            if ( instructions=name.equals("instructions") )
+                formItem=new StringItem("Instructions", body);
+            else if ( name.equals("title") )
+                formItem=new StringItem(null, body);
+            else
+                formItem=new TextField(label, body, 64, 0);
         }
         
-        if ( instructions=name.equals("instructions") )
-            formItem=new StringItem("Instructions", body);
-        else if ( name.equals("title") )
-            formItem=new StringItem(null, body);
-        else
-            formItem=new TextField(label, body, 64, 0);
         
         if ( name.equals("key") ) hidden=true; 
     }

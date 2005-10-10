@@ -31,7 +31,7 @@ public class ServerBox implements CommandListener {
         this.display=display;
         this.sd=sd;
         
-        t=new TextBox("Address",service,500,TextField.ANY);
+        t=new TextBox("Address",service,500,TextField.URL);
         t.addCommand(cmdSend);
         t.addCommand(cmdCancel);
         t.setCommandListener(this);

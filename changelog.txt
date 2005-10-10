@@ -1437,6 +1437,16 @@ syslog_msg: true
   (250)
   пробная поддержка "зелёной кнопки" на Nokia и Motorola
   поддержка fullscreen во всех окнах типа VirtualList
+
+10.10.2005
+  (251)
+  fix: ограничение ввода в поле Service Discovery:Address 
+  установлено в TextField.URL
+
+  конфигуратор комнаты (Actions>Configure Room на группе конференции). 
+  работает только для Owner
+  known issue: команда видна и админам, но не выполняется ими.
+
 ---------------------------
   known issues:
 

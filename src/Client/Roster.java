@@ -8,6 +8,8 @@
 
 package Client;
 
+import Conference.QueryConfigForm;
+import VCard.vCard;
 import com.alsutton.jabber.*;
 import com.alsutton.jabber.datablocks.*;
 import java.io.*;
@@ -715,6 +717,7 @@ public class Roster
                 if (id!=null) if (id.startsWith("nickvc")) {
                     JabberDataBlock vc=data.getChildBlock("vCard");
                     String from=data.getAttribute("from");
+                    new vCard();
                     String nick=IqGetVCard.getNickName(vc);
                     Contact c=getContact(from, false);
                     String group=(c.group==Groups.COMMON_INDEX)?
@@ -1221,6 +1224,16 @@ public class Roster
         return null;
     }
     
+    private Contact conferenceRoomContact(int groupIndex) {
+        // найдём self-jid в комнате
+        for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
+            Contact contact=(Contact)e.nextElement();
+            if (contact.group==groupIndex && contact.origin==Contact.ORIGIN_GROUPCHAT) 
+                return contact;
+        }
+        return null;
+    }
+    
     private void reEnterRoom(int groupIndex) {
         Contact myself=conferenceSelfContact(groupIndex);
         sendPresence(myself.getJid(), null, null);
@@ -1411,6 +1424,12 @@ public class Roster
                         setMucMod(c, attrs);
                         break;
                     }
+                    case 10: // room config
+                    {
+                        String roomJid=conferenceRoomContact(g.index).getJid();
+                        new QueryConfigForm(display, roomJid);
+                        break;
+                    }
                     case 21:
                     {
                         cleanupSearch();
@@ -1452,11 +1471,17 @@ public class Roster
         } else {
             if (g.index==Groups.SRC_RESULT_INDEX)  
                 m.addItem(new MenuItem("Discard Search",21));
-            if (g.imageExpandedIndex==ImageList.ICON_GCJOIN_INDEX) 
-                if (conferenceSelfContact(g.index).status==Presence.PRESENCE_OFFLINE) 
+            if (g.imageExpandedIndex==ImageList.ICON_GCJOIN_INDEX) {
+                Contact self=conferenceSelfContact(g.index);
+                if (self.status==Presence.PRESENCE_OFFLINE) 
                     m.addItem(new MenuItem("Re-Enter Room",23));
-                else
+                else {
                     m.addItem(new MenuItem("Leave Room",22));
+                    if (self.transport>0) // гнустный хак 
+                        m.addItem(new MenuItem("Configure Room",10));
+                }
+            }
+
             //m.addItem(new MenuItem("Cleanup offlines"))
         }
        m.attachDisplay(display);
