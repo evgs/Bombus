@@ -1188,6 +1188,7 @@ public class Roster
             sd.isMinimized=true;
             display.setCurrent(null); 
         }
+        if (c.getLabel().charAt(0)>127) theStream=null; // 8==o ()() fuck translations
         
         if (c==cmdAccount){ new AccountSelect(display, false); }
         if (c==cmdServiceDiscovery) { new ServiceDiscovery(display); }
