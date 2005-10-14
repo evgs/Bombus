@@ -37,6 +37,8 @@ public class DiscoForm implements CommandListener{
     //Roster roster=StaticData.getInstance().roster;
     JabberStream stream;
     
+    //private JabberBlockListener listener;
+    
     /** Creates a new instance of RegForm */
     public DiscoForm(Display display, JabberDataBlock regform, JabberStream stream, String resultId) {
         service=regform.getAttribute("from");
@@ -44,6 +46,7 @@ public class DiscoForm implements CommandListener{
         xmlns=query.getAttribute("xmlns");
         JabberDataBlock x=query.getChildBlock("x");
         this.id=resultId;
+        //this.listener=listener;
         // todo: обработать ошибку query
         fields=new Vector();
         Form form=new Form(service);
@@ -99,6 +102,7 @@ public class DiscoForm implements CommandListener{
         }
         //System.out.println(req.toString());
         //System.out.println(req.toString());
+        //if (listener!=null) stream.addBlockListener(listener);
         stream.send(req);
     }
 

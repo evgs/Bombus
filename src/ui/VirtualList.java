@@ -27,6 +27,7 @@ public abstract class VirtualList
      */
     public void focusedItem(int index) {}
 
+
     /**
      * число элементов виртуального списка
      * эта функция абстрактная, должна быть переопределена при наследовании

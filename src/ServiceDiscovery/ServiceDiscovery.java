@@ -62,7 +62,8 @@ public class ServiceDiscovery
         getTitleItem().addElement(null);
         
         stream=sd.roster.theStream;
-        //stream.cancelBlockListenerByClass(this.getClass());
+        stream.cancelBlockListenerByClass(this.getClass());
+        stream.addBlockListener(this);
         //sd.roster.discoveryListener=this;
         
         addCommand(cmdRfsh);
@@ -102,7 +103,7 @@ public class ServiceDiscovery
         JabberDataBlock qry=req.addChild("query",null);
         qry.setNameSpace(namespace);
 
-        stream.addBlockListener(this);
+        //stream.addBlockListener(this);
         stream.send(req);
     }
     
@@ -168,7 +169,7 @@ public class ServiceDiscovery
             } else display.setCurrent(alert, this);
         }
         redraw();
-        return JabberBlockListener.NO_MORE_BLOCKS;
+        return JabberBlockListener.BLOCK_PROCESSED;
     }
     
     public void eventOk(){

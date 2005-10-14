@@ -59,6 +59,9 @@ public class Roster
     
     private Vector hContacts;
     private Vector vContacts;
+    
+    private Vector paintVContacts;  // для атомных операций.
+    
     public Groups groups;
     
     public Vector bookmarks;
@@ -246,12 +249,16 @@ public class Roster
             messageStore(m, -1);
     }
     
+    public void beginPaint() {
+        paintVContacts=vContacts;
+    }
+    
     public VirtualElement getItemRef(int Index){
-        return (VirtualElement) vContacts.elementAt(Index);
+        return (VirtualElement) paintVContacts.elementAt(Index);
     }
     
     public int getItemCount(){
-        return vContacts.size();
+        return paintVContacts.size();
     };
     
     private void updateTitle(){
@@ -320,7 +327,7 @@ public class Roster
         }
     }
     
-    public void reEnumRoster(){
+    synchronized public void reEnumRoster(){
         
         int locCursor=cursor;
         Object focused=getFocusedObject();

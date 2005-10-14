@@ -170,7 +170,7 @@ public final class MessageParser {
                             return l;
                         }
                         v.addElement(l);    // добавим l в v
-                        if (notify!=null) notify.notifyRepaint(v);
+                        if (notify!=null) notify.notifyRepaint(v, msg);
                         l=new ComplexString(il);     // новая строка
                         l.setColor(color);
                         w=0;
@@ -197,7 +197,7 @@ public final class MessageParser {
                         }
 
                         v.addElement(l);    // добавим l в v
-                        if (notify!=null) notify.notifyRepaint(v);
+                        if (notify!=null) notify.notifyRepaint(v, msg);
                         l=new ComplexString(il);     // новая строка
                         l.setColor(color);
                     }
@@ -219,7 +219,7 @@ public final class MessageParser {
             if (!l.isEmpty()) v.addElement(l);  // последняя строка
 
             if (notify!=null) {
-                notify.notifyRepaint(v);
+                notify.notifyRepaint(v, msg);
                 notify.notifyFinalized();
             }
             state++;
@@ -229,7 +229,7 @@ public final class MessageParser {
     }
 
     public interface NotifyAddLine {
-        void notifyRepaint(Vector v);
+        void notifyRepaint(Vector v, Msg parsedMsg);
         void notifyFinalized();
     }
 }
