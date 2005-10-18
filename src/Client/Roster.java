@@ -307,8 +307,10 @@ public class Roster
     }
     
     public void cleanupGroup(){
+        if (atCursor==null) return;
         Group g=(Group)atCursor;
         if (!g.collapsed) return;
+        
         int gi=g.index;
 
         int index=0;
@@ -327,81 +329,11 @@ public class Roster
         }
     }
     
-    synchronized public void reEnumRoster(){
-        
-        int locCursor=cursor;
-        Object focused=getFocusedObject();
-        
-        int tonlines=0;
-        Vector tContacts=new Vector(vContacts.size());
-        boolean offlines=cf.showOfflineContacts;//StaticData.getInstance().config.showOfflineContacts;
-        
-        Enumeration e;
-        int i;
-        groups.resetCounters();
-        
-        synchronized (hContacts) {
-            for (e=hContacts.elements();e.hasMoreElements();){
-                Contact c=(Contact)e.nextElement();
-                boolean online=c.status<5;
-                // group counters
-                Group grp=groups.getGroup(c.group);
-                grp.tncontacts++;
-                if (online) {
-                    grp.tonlines++;
-                    tonlines++;
-                }
-                int gindex=c.group;
-                // hide offlines whithout new messages
-                if (
-                 offlines 
-                 || online 
-                 || c.getNewMsgsCount()>0 
-                 || gindex==Groups.NIL_INDEX 
-                 || gindex==Groups.TRANSP_INDEX
-                 //  *ВРЕМЕННО* на контакт комнаты в группе конференции 
-                 //  не распространяется Show offlines
-                 || c.origin==Contact.ORIGIN_GROUPCHAT 
-                    )
-                    grp.Contacts.addElement(c);
-                //grp.addContact(c);
-            }
-        }
-        // self-contact group
-        if (cf.selfContact || groups.getGroup(Groups.SELF_INDEX).tonlines>1)
-            groups.addToVector(tContacts, Groups.SELF_INDEX);
-        // adding groups
-        for (i=Groups.COMMON_INDEX;i<groups.getCount();i++)
-            groups.addToVector(tContacts,i);
-        // hiddens
-        if (cf.ignore) groups.addToVector(tContacts,Groups.IGNORE_INDEX);
-        // not-in-list
-        if (cf.notInList) groups.addToVector(tContacts,Groups.NIL_INDEX);
-        // transports
-        if (cf.showTransports) groups.addToVector(tContacts,Groups.TRANSP_INDEX);
-        
-        // search result
-        if (groups.getGroup(Groups.SRC_RESULT_INDEX).tncontacts>0) 
-            groups.addToVector(tContacts, Groups.SRC_RESULT_INDEX);
-        
-        vContacts=tContacts;
-
-        int tnContacts=hContacts.size();
-        setRosterTitle("("+tonlines+"/"+tnContacts+")");
-        
-        //resetStrCache();
-        if (cursor<0) cursor=0;
-        
-        // вернём курсор на прежний элемент
-        // TODO: синхронизировать!
-        if ( locCursor==cursor && focused!=null ) {
-            int c=vContacts.indexOf(focused);
-            if (c>=0) moveCursorTo(c, false);
-        }
-        if (cursor>=vContacts.size()) moveCursorEnd(); // вернём курсор из нирваны
-        
-        focusedItem(cursor);
-        redraw();
+    ReEnumerator reEnumerator=null;
+    
+    public void reEnumRoster(){
+        if (reEnumerator==null) reEnumerator=new ReEnumerator();
+        reEnumerator.queueEnum();
     }
     
     
@@ -1518,5 +1450,100 @@ public class Roster
         theStream.send(new IqQueryRoster(jid, name, group, null));
         if (newContact) theStream.send(new Presence(jid,"subscribe"));
     }
-    
+
+    private class ReEnumerator implements Runnable{
+
+        Thread thread;
+        int pendingRepaints=0;
+        
+        synchronized public void queueEnum() {
+            pendingRepaints++;
+            if (thread==null) (thread=new Thread(this)).start();
+        }
+        
+        public void run(){
+            try {
+                while (pendingRepaints>0) {
+                    //System.out.println(pendingRepaints);
+                    pendingRepaints=0;
+                    
+                    int locCursor=cursor;
+                    Object focused=getFocusedObject();
+                    
+                    int tonlines=0;
+                    Vector tContacts=new Vector(vContacts.size());
+                    boolean offlines=cf.showOfflineContacts;//StaticData.getInstance().config.showOfflineContacts;
+                    
+                    Enumeration e;
+                    int i;
+                    groups.resetCounters();
+                    
+                    synchronized (hContacts) {
+                        for (e=hContacts.elements();e.hasMoreElements();){
+                            Contact c=(Contact)e.nextElement();
+                            boolean online=c.status<5;
+                            // group counters
+                            Group grp=groups.getGroup(c.group);
+                            grp.tncontacts++;
+                            if (online) {
+                                grp.tonlines++;
+                                tonlines++;
+                            }
+                            int gindex=c.group;
+                            // hide offlines whithout new messages
+                            if (
+                                    offlines
+                                    || online
+                                    || c.getNewMsgsCount()>0
+                                    || gindex==Groups.NIL_INDEX
+                                    || gindex==Groups.TRANSP_INDEX
+                                    //  *ВРЕМЕННО* на контакт комнаты в группе конференции
+                                    //  не распространяется Show offlines
+                                    || c.origin==Contact.ORIGIN_GROUPCHAT
+                                    )
+                                grp.Contacts.addElement(c);
+                            //grp.addContact(c);
+                        }
+                    }
+                    // self-contact group
+                    if (cf.selfContact || groups.getGroup(Groups.SELF_INDEX).tonlines>1)
+                        groups.addToVector(tContacts, Groups.SELF_INDEX);
+                    // adding groups
+                    for (i=Groups.COMMON_INDEX;i<groups.getCount();i++)
+                        groups.addToVector(tContacts,i);
+                    // hiddens
+                    if (cf.ignore) groups.addToVector(tContacts,Groups.IGNORE_INDEX);
+                    // not-in-list
+                    if (cf.notInList) groups.addToVector(tContacts,Groups.NIL_INDEX);
+                    // transports
+                    if (cf.showTransports) groups.addToVector(tContacts,Groups.TRANSP_INDEX);
+                    
+                    // search result
+                    if (groups.getGroup(Groups.SRC_RESULT_INDEX).tncontacts>0)
+                        groups.addToVector(tContacts, Groups.SRC_RESULT_INDEX);
+                    
+                    vContacts=tContacts;
+                    
+                    int tnContacts=hContacts.size();
+                    setRosterTitle("("+tonlines+"/"+tnContacts+")");
+                    
+                    //resetStrCache();
+                    if (cursor<0) cursor=0;
+                    
+                    // вернём курсор на прежний элемент
+                    // TODO: синхронизировать!
+                    if ( locCursor==cursor && focused!=null ) {
+                        int c=vContacts.indexOf(focused);
+                        if (c>=0) moveCursorTo(c, false);
+                    }
+                    if (cursor>=vContacts.size()) moveCursorEnd(); // вернём курсор из нирваны
+                    
+                    focusedItem(cursor);
+                    redraw();
+                }
+            } catch (Exception e) {e.printStackTrace();}
+            thread=null;
+        }
+    }
 }
+

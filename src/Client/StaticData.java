@@ -18,8 +18,8 @@ public class StaticData {
     
     private static StaticData sd;
     
-    public MessageParser parser;
-    public Vector smileTable;
+    //public MessageParser parser;
+    //public Vector smileTable;
     public ImageList rosterIcons;
     public ImageList smilesIcons;
     public Roster roster;
@@ -45,8 +45,8 @@ public class StaticData {
         midlet=m;
         rosterIcons=new ImageList("/images/skin.png",13,12);
         smilesIcons=new ImageList("/images/smiles.png",15,15);
-        smileTable=new Vector(32);
-        parser=new MessageParser("/images/smiles.txt", smileTable);
+        //smileTable=new Vector(32);
+        //parser=new MessageParser("/images/smiles.txt", smileTable);
         config=new Config();
         config.LoadFromStorage();
         account_index=config.accountIndex;

@@ -5,6 +5,7 @@
  */
 
 package Client;
+import Messages.MessageParser;
 import ui.*;
 import javax.microedition.lcdui.*;
 import java.util.*;
@@ -89,7 +90,7 @@ public class MessageView
         
         //win_top=0;
 
-        sd.parser.parseMsg(
+        MessageParser.getInstance().parseMsg(
                 msg,
                 (smiles)?sd.smilesIcons:null, 
                 getWidth()-6,

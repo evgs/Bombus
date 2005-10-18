@@ -5,6 +5,7 @@
  */
 
 package Client;
+import Messages.MessageParser;
 import ui.*;
 import java.util.*;
 import javax.microedition.lcdui.*;
@@ -90,7 +91,7 @@ implements CommandListener{
         if (msg.unread) contact.resetNewMsgCnt();
         msg.unread=false;
 
-        m= (ComplexString)StaticData.getInstance().parser.
+        m= (ComplexString)MessageParser.getInstance().
                 parseMsg( msg, (smiles)?il:null, getWidth()-6, true, null);
         m.setColor(msg.getColor1());
         

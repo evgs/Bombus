@@ -5,6 +5,7 @@
  */
 
 package Client;
+import Messages.MessageParser;
 import ui.*;
 import javax.microedition.lcdui.*;
 import java.util.Vector;
@@ -44,6 +45,8 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
     
     Command cmdBack=new Command("Back",Command.BACK,99);
     Command cmdOK=new Command("Select",Command.OK,1);
+    
+    private Vector smileTable;
 
     /** Creates a new instance of SmilePicker */
     public SmilePicker(Display display, MessageEdit me) {
@@ -52,7 +55,9 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
         
         il = StaticData.getInstance().smilesIcons;
         
-        imgCnt=StaticData.getInstance().smileTable.size();
+        smileTable=MessageParser.getInstance().getSmileTable();
+        
+        imgCnt=smileTable.size();
         //il.getCount();
         
         imgWidth=il.getWidth()+2*CURSOR_HOFFSET;
@@ -83,11 +88,7 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
     public int getColorBGnd(){ return 0xFFFFFF; }
     public void onSelect(){
         try {
-            me.addText(
-                    (String)
-                    StaticData.getInstance().
-                    smileTable.elementAt(cursor*xCnt+xCursor)
-                    );
+            me.addText( (String) smileTable.elementAt(cursor*xCnt+xCursor) );
         } catch (Exception e) { /*e.printStackTrace();*/  }
         destroyView();
     };

@@ -18,14 +18,16 @@ import Client.Msg;
  */
 public final class MessageParser {
     
-    public int Smile=-1;   // нет смайлика в узле
-    private String smileChars;     // символы смайликов
-    private Vector child;
+    private Vector smileTable;
     
-    /** Creates a new instance of SmileTree */
-    public MessageParser() {
-        child=new Vector ();
-        smileChars=new String();
+    private Leaf root;
+
+    // Singleton
+    private static MessageParser instance=null;
+    
+    public static MessageParser getInstance() {
+        if (instance==null) instance=new MessageParser("/images/smiles.txt");
+        return instance;
     }
     /**
      * Smile table loader
@@ -33,8 +35,32 @@ public final class MessageParser {
      * @param smileTable - (result) Vector of smile's string-representations
      */
     
-    public MessageParser(String resource, Vector smileTable) {
-        this();
+    public Vector getSmileTable() { return smileTable; }
+    
+    private class Leaf {
+        public int Smile=-1;   // нет смайлика в узле
+        public String smileChars;     // символы смайликов
+        public Vector child;
+
+        public Leaf() {
+            child=new Vector();
+            smileChars=new String();
+        }
+        
+        public Leaf findChild(char c){
+            int index=smileChars.indexOf(c);
+            return (index==-1)?null:(Leaf)child.elementAt(index);
+        }
+
+        private void addChild(char c, Leaf child){
+            this.child.addElement(child);
+            smileChars=smileChars+c;
+        }
+    }
+    
+    private MessageParser(String resource) {
+        smileTable=new Vector();
+        root=new Leaf();
         // opening file;
         try { // generic errors
             
@@ -45,7 +71,7 @@ public final class MessageParser {
             boolean strhaschars=false;
             boolean endline=false;
             
-            MessageParser p=this,   // этой ссылкой будем ходить по дереву
+            Leaf p=root,   // этой ссылкой будем ходить по дереву
                     p1;
             
             InputStream in=this.getClass().getResourceAsStream(resource);
@@ -74,14 +100,14 @@ public final class MessageParser {
                             //s=new StringBuffer(6);
                             firstSmile=false;
                             
-                            p=this;// в начало дерева
+                            p=root;// в начало дерева
                             break;
                         default:
                             if (firstSmile) s.append((char)c);
                             strhaschars=true;
                             p1=p.findChild((char)c);
                             if (p1==null) {
-                                p1=new MessageParser();
+                                p1=new Leaf();
                                 p.addChild((char)c,p1);
                             }
                             p=p1;
@@ -97,14 +123,6 @@ public final class MessageParser {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    private void addChild(char c, MessageParser child){
-        this.child.addElement(child);
-        smileChars=smileChars+c;
-    }
-    public MessageParser findChild(char c){
-        int index=smileChars.indexOf(c);
-        return (index==-1)?null:(MessageParser)child.elementAt(index);
     }
 
     public Vector parseMsg(
@@ -135,7 +153,7 @@ public final class MessageParser {
             int i=0;
             if (txt!=null)
             while (i<txt.length()) {
-                MessageParser p1,p=this;
+                Leaf p1,p=root;
                 int smileIndex=-1;
                 int smileStart=i;
                 int smileEnd=i;
