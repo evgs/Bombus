@@ -198,6 +198,7 @@ public class Roster
     
     // establishing connection process
     public void run(){
+        Iq.setXmlLang(cf.xmlLang);
         setQuerySign(true);
         setProgress(25);
         try {
@@ -1432,7 +1433,7 @@ public class Roster
         updateTitle();
     }
     void setMucMod(Contact contact, Hashtable itemAttributes){
-        JabberDataBlock iq=new JabberDataBlock("iq", null, null);
+        JabberDataBlock iq=new Iq();
         iq.setTypeAttribute("set");
         iq.setAttribute("to", contact.jid.getJid());
         JabberDataBlock query=iq.addChild("query", null);

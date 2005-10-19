@@ -27,11 +27,11 @@ public class FormField {
         if (name.equals("field")) {
             // x:data
             type=field.getAttribute("type");
-            if (type.equals("fixed")) name="title";
-            else name=field.getAttribute("var");
+            name=field.getAttribute("var");
             label=field.getAttribute("label");
             body=field.getChildBlockText("value");
-            formItem=new TextField(label, body, 64, 0);
+            if (type.equals("fixed")) formItem=new StringItem(null, body);
+            else formItem=new TextField(label, body, 64, 0);
         } else {
             // not x-data
             if ( instructions=name.equals("instructions") )
@@ -42,7 +42,7 @@ public class FormField {
                 formItem=new TextField(label, body, 64, 0);
         }
         
-        
+        if (name!=null)
         if ( name.equals("key") ) hidden=true; 
     }
     JabberDataBlock constructJabberDataBlock(){

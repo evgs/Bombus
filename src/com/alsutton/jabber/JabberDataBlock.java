@@ -80,10 +80,10 @@ public class JabberDataBlock
    * @param parent The parent of this data block
    */
 
-  public JabberDataBlock( JabberDataBlock _parent )
-  {
-    this( "unknown", _parent, null );
-  }
+  //public JabberDataBlock( JabberDataBlock _parent )
+  //{
+  //  this( "unknown", _parent, null );
+  //}
 
   /**
    * Constructor including an Attribute list

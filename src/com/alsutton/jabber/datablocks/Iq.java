@@ -41,9 +41,22 @@ public class Iq extends JabberDataBlock
    * @param _attributes The list of element attributes
    */
 
+    private static String xmlLang=null;
+    
+    public static void setXmlLang(String lang){
+        xmlLang=lang;
+    }
+    
   public Iq( JabberDataBlock _parent, Hashtable _attributes )
   {
     super( _parent, _attributes );
+  }
+
+  public Iq( )
+  {
+    super();
+    setAttribute("xml:lang", xmlLang);
+    
   }
 
   /**

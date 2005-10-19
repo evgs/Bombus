@@ -14,6 +14,7 @@ import Client.StaticData;
 import ServiceDiscovery.DiscoForm;
 import com.alsutton.jabber.JabberBlockListener;
 import com.alsutton.jabber.JabberDataBlock;
+import com.alsutton.jabber.datablocks.Iq;
 import com.alsutton.jabber.JabberStream;
 import javax.microedition.lcdui.Display;
 
@@ -27,7 +28,7 @@ public class QueryConfigForm implements JabberBlockListener{
     private Display display;
     /** Creates a new instance of QueryConfigForm */
     public QueryConfigForm(Display display, String roomJid) {
-        JabberDataBlock getform=new JabberDataBlock("iq", null, null);
+        JabberDataBlock getform=new Iq();
         getform.setTypeAttribute("get");
         getform.setAttribute("to", roomJid);
         getform.addChild("query", null).setNameSpace(OWNER_XMLNS);
@@ -43,7 +44,7 @@ public class QueryConfigForm implements JabberBlockListener{
         if (query!=null) {
             StaticData.getInstance().roster.setQuerySign(false);
             if (data.getTypeAttribute().equals("result")) {
-                new DiscoForm(display, data, StaticData.getInstance().roster.theStream, "muc_owner");
+                new DiscoForm(display, data, StaticData.getInstance().roster.theStream, "muc_owner", null);
             }
             return JabberBlockListener.NO_MORE_BLOCKS;
         }

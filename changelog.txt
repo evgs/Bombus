@@ -1465,6 +1465,10 @@ syslog_msg: true
   в пустом ростере
 
   асинхронная обработка ростера
+
+  (255)
+  Service Discovery: начаты Ad-Hoc Commands (JEP-0050)
+  Service Discovery: fix x:data - не работали формы на mod_irc
 ---------------------------
   known issues:
 

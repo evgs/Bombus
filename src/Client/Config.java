@@ -53,6 +53,7 @@ public class Config {
 
     public String defGcRoom=getProperty("gc_room","bombus");
 
+    public String xmlLang=getProperty("xml_lang",null);
 /*#USE_LOGGER#*///<editor-fold>
 //--    public boolean logMsg=getProperty("syslog_msg",false);
 //--    public boolean logEx=getProperty("syslog_exceptions",false);

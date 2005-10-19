@@ -9,6 +9,7 @@
  */
 
 package PrivacyLists;
+import com.alsutton.jabber.datablocks.Iq;
 import java.util.*;
 import com.alsutton.jabber.*;
 import ui.*;
@@ -83,7 +84,7 @@ public class PrivacyList extends IconTextElement{
 
     
     public final static void privacyListRq(boolean set, JabberDataBlock child, String id){
-        JabberDataBlock pl=new JabberDataBlock("iq", null, null);
+        JabberDataBlock pl=new Iq();
         pl.setTypeAttribute((set)?"set":"get");
         pl.setAttribute("id", id);
         JabberDataBlock qry=pl.addChild("query", null);

@@ -14,6 +14,7 @@ import javax.microedition.lcdui.*;
 import ui.*;
 import java.util.*;
 import com.alsutton.jabber.*;
+import com.alsutton.jabber.datablocks.Iq;
 
 /**
  *
@@ -74,7 +75,7 @@ public class Bookmarks
     
     // пока здесь, но вообще-то это storageRq
     public void bookmarksRq(boolean set, JabberDataBlock child, String id) {
-        JabberDataBlock request=new JabberDataBlock("iq", null, null);
+        JabberDataBlock request=new Iq();
         request.setTypeAttribute((set)?"set":"get");
         //request.setAttribute("to", StaticData.getInstance().account.getBareJid());
         request.setAttribute("id", id);

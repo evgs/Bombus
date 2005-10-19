@@ -27,11 +27,14 @@ public class ServiceDiscovery
     private final static String NS_REGS="jabber:iq:register";
     private final static String NS_SRCH="jabber:iq:search";
     private final static String NS_MUC="http://jabber.org/protocol/muc";
+    private final static String NODE_CMDS="http://jabber.org/protocol/commands";
     
     
-    private String strJoin="Join Conference";
-    private String strReg="Register";
-    private String strSrch="Search";
+    private final static String strJoin="Join Conference";
+    private final static String strReg="Register";
+    private final static String strSrch="Search";
+    private final static String strCmds="Execute";
+    private final int AD_HOC_INDEX=16;
     
     private Command cmdRfsh=new Command("Refresh", Command.SCREEN, 1);
     private Command cmdSrv=new Command("Server", Command.SCREEN, 10);
@@ -47,6 +50,7 @@ public class ServiceDiscovery
     private Vector cmds;
     
     private String service;
+    private String node;
 
     private boolean blockWait;
 
@@ -96,14 +100,31 @@ public class ServiceDiscovery
     
     private void requestQuery(String namespace, String id){
         blockWait=true; titleUpdate(); redraw();
-        JabberDataBlock req=new Iq(null, null);
+        JabberDataBlock req=new Iq();
         req.setTypeAttribute("get");
         req.setAttribute("to",service);
         req.setAttribute("id",id);
         JabberDataBlock qry=req.addChild("query",null);
         qry.setNameSpace(namespace);
+        qry.setAttribute("node", node);
 
         //stream.addBlockListener(this);
+        stream.send(req);
+    }
+    
+    private void requestCommand(String namespace, String id){
+        blockWait=true; titleUpdate(); redraw();
+        JabberDataBlock req=new Iq();
+        req.setTypeAttribute("set");
+        req.setAttribute("to",service);
+        req.setAttribute("id",id);
+        JabberDataBlock qry=req.addChild("command",null);
+        qry.setNameSpace(namespace);
+        qry.setAttribute("node", node);
+        qry.setAttribute("action", "execute");
+
+        //stream.addBlockListener(this);
+        System.out.println(req.toString());
         stream.send(req);
     }
     
@@ -112,7 +133,7 @@ public class ServiceDiscovery
         String id=data.getAttribute("id");
         if (!id.startsWith("disco")) return JabberBlockListener.BLOCK_REJECTED;
 
-        JabberDataBlock query=data.getChildBlock("query");
+        JabberDataBlock query=data.getChildBlock((id.equals("discocmd"))?"command":"query");
         Vector childs=query.getChildBlocks();
         //System.out.println(id);
         if (id.equals("disco2")) {
@@ -123,7 +144,13 @@ public class ServiceDiscovery
                 if (i.getTagName().equals("item")){
                     String name=i.getAttribute("name");
                     String jid=i.getAttribute("jid");
-                    Contact serv=new Contact(name,jid,0,null);
+                    String node=i.getAttribute("node");
+                    Object serv=null;
+                    if (node==null) { 
+                        serv=new Contact(name,jid,0,null);
+                    } else {
+                        serv=new Node(name, node);
+                    }
                     items.addElement(serv);
                 }
             }
@@ -144,6 +171,7 @@ public class ServiceDiscovery
                     if (var.equals(NS_MUC)) { cmds.addElement(new DiscoCommand(0,strJoin)); }
                     if (var.equals(NS_SRCH)) { cmds.addElement(new DiscoCommand(1,strSrch)); }
                     if (var.equals(NS_REGS)) { cmds.addElement(new DiscoCommand(2,strReg)); }
+                    if (var.equals(NODE_CMDS)) { cmds.addElement(new DiscoCommand(AD_HOC_INDEX,strCmds)); } 
                 } 
             }
             if (data.getAttribute("from").equals(service)) {
@@ -152,10 +180,13 @@ public class ServiceDiscovery
             }
         } else if (id.equals ("discoreg")) {
             blockWait=false;
-            new DiscoForm(display, data, stream, "discoResult");
+            new DiscoForm(display, data, stream, "discoResult", "query");
+        } else if (id.equals ("discocmd")) {
+            blockWait=false;
+            new DiscoForm(display, data, stream, "discoResult", "command");
         } else if (id.equals ("discosrch")) {
             blockWait=false;
-            new DiscoForm(display, data, stream, "discoRSearch");
+            new DiscoForm(display, data, stream, "discoRSearch", "query");
         } else if (id.startsWith("discoR")) {
             String text="Successful";
             String title=data.getAttribute("type");
@@ -177,20 +208,25 @@ public class ServiceDiscovery
         Object o= getFocusedObject();
         if (o!=null) 
         if (o instanceof Contact) {
-            browse( ((Contact) o).jid.getJidFull() );
-        } 
+            browse( ((Contact) o).jid.getJidFull(), null );
+        }
+        if (o instanceof Node) {
+            browse( service, ((Node) o).getNode() );
+        }
     }
     
-    public void browse(String service){
+    public void browse(String service, String node){
             State st=new State();
             st.cursor=cursor;
             st.items=items;
             st.service=this.service;
+            st.node=this.node;
             stackItems.addElement(st);
             
             items=new Vector();
             addCommand(cmdBack);
             this.service=service;
+            this.node=node;
             requestQuery(NS_INFO,"disco");
     }
     
@@ -254,6 +290,9 @@ public class ServiceDiscovery
                 case 2:
                     requestQuery(NS_REGS, "discoreg");
                     break;
+                    
+                case AD_HOC_INDEX:
+                    requestCommand(NODE_CMDS, "discocmd");
                 default:
             }
         }
@@ -265,6 +304,7 @@ public class ServiceDiscovery
 }
 class State{
     public String service;
+    public String node;
     public Vector items;
     public int cursor;
 }

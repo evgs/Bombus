@@ -47,7 +47,7 @@ public class ServerBox implements CommandListener {
         if (c==cmdCancel) {
             /*destroyView(); return;*/
         }
-        if (c==cmdSend && server!=null) { sd.browse(server); }
+        if (c==cmdSend && server!=null) { sd.browse(server, null); }
         
         display.setCurrent(sd);
         return;
