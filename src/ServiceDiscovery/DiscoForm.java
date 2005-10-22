@@ -24,6 +24,7 @@ public class DiscoForm implements CommandListener{
     private Vector fields;
     private String xmlns;
     private String service;
+    private String node;
     
     private String childName;
     
@@ -47,6 +48,7 @@ public class DiscoForm implements CommandListener{
         this.childName=childName;
         JabberDataBlock query=regform.getChildBlock(childName);
         xmlns=query.getAttribute("xmlns");
+        node=query.getAttribute("node");
         JabberDataBlock x=query.getChildBlock("x");
         this.id=resultId;
         //this.listener=listener;
@@ -89,6 +91,8 @@ public class DiscoForm implements CommandListener{
         req.setAttribute("id",id);
         JabberDataBlock qry=req.addChild(childName,null);
         qry.setNameSpace(xmlns);
+        //qry.setAttribute("action", "complete");
+        qry.setAttribute("node", node);
         
         if (xData) {
             JabberDataBlock x=qry.addChild("x", null);
@@ -103,7 +107,7 @@ public class DiscoForm implements CommandListener{
             JabberDataBlock ch=f.constructJabberDataBlock();
             if (ch!=null) qry.addChild(ch);
         }
-        System.out.println(req.toString());
+        //System.out.println(req.toString());
         //if (listener!=null) stream.addBlockListener(listener);
         stream.send(req);
     }

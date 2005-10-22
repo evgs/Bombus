@@ -124,7 +124,7 @@ public class ServiceDiscovery
         qry.setAttribute("action", "execute");
 
         //stream.addBlockListener(this);
-        System.out.println(req.toString());
+        //System.out.println(req.toString());
         stream.send(req);
     }
     
