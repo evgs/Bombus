@@ -602,7 +602,7 @@ public class Roster
                 subject, 
                 groupchat 
         );
-        if (groupchat && body==null) return;
+        if (groupchat && body==null /*&& subject==null*/) return;
         if (composingState>0) {
             JabberDataBlock event=new JabberDataBlock("x", null,null);
             event.setNameSpace("jabber:x:event");

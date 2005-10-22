@@ -21,6 +21,7 @@ public class MessageEdit
     private Displayable parentView;
     private TextBox t;
     private String body;
+    private String subj;
     
     private Contact to;
     private Command cmdSuspend=new Command("Suspend",Command.BACK,90);
@@ -29,6 +30,7 @@ public class MessageEdit
     private Command cmdSmile=new Command("Add Smile",Command.SCREEN,2);
     private Command cmdInsNick=new Command("Nicknames",Command.SCREEN,3);
     private Command cmdInsMe=new Command("/me",Command.SCREEN,4);
+    private Command cmdSubj=new Command("Set Subject", Command.SCREEN, 5);
     
     private boolean composing=true;
 
@@ -53,6 +55,9 @@ public class MessageEdit
         t.addCommand(cmdSuspend);
         t.addCommand(cmdCancel);
         t.setCommandListener(this);
+        
+        if (to.origin==Contact.ORIGIN_GROUPCHAT)
+            t.addCommand(cmdSubj);
         
         //t.setInitialInputMode("MIDP_LOWERCASE_LATIN");
         new Thread(this).start() ; // composing
@@ -93,7 +98,10 @@ public class MessageEdit
         if (c==cmdSmile) { new SmilePicker(display, this); return; }
         if (c==cmdInsNick) { new AppendNick(display, to); return; }
         if (c==cmdSend && body==null) return;
-
+        if (c==cmdSubj) {
+            subj=body;
+            body="/me has set the topic to: "+subj;
+        }
         // message/composing sending
         destroyView();
         new Thread(this).start();
@@ -105,9 +113,9 @@ public class MessageEdit
         Roster r=StaticData.getInstance().roster;
         int comp=0; // composing event off
         
-        if (body!=null) {
+        if (body!=null /*|| subj!=null*/ ) {
             String from=StaticData.getInstance().account.toString();
-            Msg msg=new Msg(Msg.MESSAGE_TYPE_OUT,from,null,body);
+            Msg msg=new Msg(Msg.MESSAGE_TYPE_OUT,from,subj,body);
             // не добавляем в групчат свои сообщения
             // не шлём composing
             if (to.origin!=Contact.ORIGIN_GROUPCHAT) {
@@ -120,8 +128,8 @@ public class MessageEdit
         if (!StaticData.getInstance().config.eventComposing) comp=0;
         
         try {
-            if (body!=null || comp>0)
-            r.sendMessage(to, body, null, comp);
+            if (body!=null /*|| subj!=null*/ || comp>0)
+            r.sendMessage(to, body, subj, comp);
         } catch (Exception e) {
             e.printStackTrace();
         }
