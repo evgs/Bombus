@@ -12,6 +12,7 @@ package PrivacyLists;
 import Client.*;
 import javax.microedition.lcdui.*;
 import java.util.*;
+import ui.ConstMIDP;
 
 /**
  *
@@ -22,14 +23,6 @@ public class PrivacyForm
         CommandListener,
         ItemStateListener {
     
-    private final static int POPUP=
-            /*#!MIDP1#*///<editor-fold>
-            ChoiceGroup.POPUP;
-            /*$!MIDP1$*///</editor-fold>
-            /*#MIDP1#*///<editor-fold>
-//--            ChoiceGroup.EXCLUSIVE;
-            /*$MIDP1$*///</editor-fold>
-
     private Display display;
     private Displayable parentView;
     private PrivacyItem item;
@@ -37,12 +30,12 @@ public class PrivacyForm
     private PrivacyList targetList;
     
     Form form=new Form("Privacy rule");
-    ChoiceGroup choiceAction=new ChoiceGroup("Action", POPUP, PrivacyItem.actions, null);
-    ChoiceGroup choiseType=new ChoiceGroup("Type", POPUP, PrivacyItem.types, null);
+    ChoiceGroup choiceAction=new ChoiceGroup("Action", ConstMIDP.CHOICE_POPUP, PrivacyItem.actions, null);
+    ChoiceGroup choiseType=new ChoiceGroup("Type", ConstMIDP.CHOICE_POPUP, PrivacyItem.types, null);
     ChoiceGroup choiseStanzas=new ChoiceGroup("Stanzas", ChoiceGroup.MULTIPLE, PrivacyItem.stanzas, null);
     TextField textValue;
     //TextField textOrder;
-    ChoiceGroup choiceSubscr=new ChoiceGroup("Subscription", POPUP, PrivacyItem.subscrs, null);
+    ChoiceGroup choiceSubscr=new ChoiceGroup("Subscription", ConstMIDP.CHOICE_POPUP, PrivacyItem.subscrs, null);
     
     Command cmdCancel=new Command("Cancel", Command.BACK, 99);
     Command cmdOk=new Command("OK", Command.OK, 1);

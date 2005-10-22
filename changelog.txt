@@ -1469,6 +1469,12 @@ syslog_msg: true
   (255)
   Service Discovery: начаты Ad-Hoc Commands (JEP-0050)
   Service Discovery: fix x:data - не работали формы на mod_irc
+
+22.10.2005
+  (256)
+  fix: снова работает конфигурирование комнаты
+
+  x:data - обработка типов boolean и list-single  
 ---------------------------
   known issues:
 
