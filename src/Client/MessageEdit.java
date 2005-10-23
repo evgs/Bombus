@@ -99,6 +99,7 @@ public class MessageEdit
         if (c==cmdInsNick) { new AppendNick(display, to); return; }
         if (c==cmdSend && body==null) return;
         if (c==cmdSubj) {
+            if (body==null) return;
             subj=body;
             body="/me has set the topic to: "+subj;
         }

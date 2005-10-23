@@ -5,6 +5,7 @@
  */
 
 package Client;
+import VCard.vCard;
 import java.util.*;
 import ui.IconTextElement;
 import ui.ImageList;
@@ -71,6 +72,8 @@ public class Contact extends IconTextElement{
     private int newMsgCnt=-1;
     public int unreadType;
     public int lastUnread;
+    
+    public vCard vcard;
     
     public int firstUnread(){
         int c=0;

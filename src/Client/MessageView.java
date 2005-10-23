@@ -85,8 +85,8 @@ public class MessageView
         
         if (msg.messageType==Msg.MESSAGE_TYPE_AUTH) addCommand(cmdSubscr);
         else removeCommand(cmdSubscr);
-        if (msg.photo!=null) addCommand(cmdPhoto);
-        else removeCommand(cmdPhoto);
+        //if (msg.photo!=null) addCommand(cmdPhoto);
+        //else removeCommand(cmdPhoto);
         
         //win_top=0;
 
@@ -148,7 +148,7 @@ public class MessageView
         }
         if (c==cmdTSM) toggleSmiles();
         
-        if (c==cmdPhoto) new PhotoView(display, msg.photo);
+        //if (c==cmdPhoto) new PhotoView(display, msg.photo);
     }
     
     public void userKeyPressed(int KeyCode){
@@ -167,40 +167,3 @@ public class MessageView
     }
 }
 
-class PhotoView implements CommandListener {
-    
-    private Display display;
-    private Displayable parentView;
-    
-    protected Command cmdCancel=new Command("Cancel", Command.BACK, 99);
-    //protected Command cmdOK=new Command("OK", Command.OK, 1);
-    
-    private Form f;
-    
-    /**
-     * constructor
-     */
-   
-    public PhotoView(Display display, Image photo) {
-        f=new Form("Photo");
-        
-        f.append(photo);
-        f.addCommand(cmdCancel);
-        f.setCommandListener(this);
-        
-        this.display=display;
-        parentView=display.getCurrent();
-        display.setCurrent(f);
-    }
-    
-    /**
-     * Called when action should be handled
-     */
-    public void commandAction(Command command, Displayable displayable) {
-        if (command==cmdCancel) { destroyView(); return;}
-    }
-
-    public void destroyView(){
-        if (display!=null)   display.setCurrent(parentView);
-    }
-}

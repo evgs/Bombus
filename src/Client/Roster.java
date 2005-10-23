@@ -10,6 +10,7 @@ package Client;
 
 import Conference.QueryConfigForm;
 import VCard.vCard;
+import VCard.vCardForm;
 import com.alsutton.jabber.*;
 import com.alsutton.jabber.datablocks.*;
 import java.io.*;
@@ -656,14 +657,13 @@ public class Roster
                 String id=(String) data.getAttribute("id");
                 
                 if (id!=null) if (id.startsWith("nickvc")) {
-                    JabberDataBlock vc=data.getChildBlock("vCard");
-                    String from=data.getAttribute("from");
-                    new vCard();
-                    String nick=IqGetVCard.getNickName(vc);
+                    vCard vc=new vCard(data);//.getNickName();
+                    String from=vc.getJid();
+                    String nick=vc.getNickName();
                     Contact c=getContact(from, false);
                     String group=(c.group==Groups.COMMON_INDEX)?
                         null: groups.getGroup(c.group).name;
-                    if (nick.length()!=0)  storeContact(from,nick,group, false);
+                    if (nick==null)  storeContact(from,nick,group, false);
                     //updateContact( nick, c.rosterJid, group, c.subscr, c.ask_subscribe);
                     sendVCardReq();
                 }
@@ -703,18 +703,11 @@ public class Roster
                         
                     }
                     if (id.startsWith("getvc")) {
-                        JabberDataBlock vc=data.getChildBlock("vCard");
-                        
-                        querysign=false;
-                        String from=data.getAttribute("from");
-                        String body=IqGetVCard.dispatchVCard(vc);
-
-                        Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, "vCard "+from, body);
-                        m.photo=IqGetVCard.getPhoto(vc);
-
-                        messageStore(m, -1);
-                        redraw();
-                            
+                        setQuerySign(false);
+                        vCard vcard=new vCard(data);
+                        Contact c=presenceContact(vcard.getJid(),-1);
+                        c.vcard=vcard;
+                        new vCardForm(display, vcard, c.group==Groups.SELF_INDEX);
                     }
                     if (id.equals("getver")) {
                         JabberDataBlock vc=data.getChildBlock("query");
@@ -1287,6 +1280,10 @@ public class Roster
                         theStream.send(new IqVersionReply(to));
                         break;
                     case 1: // vCard
+                        if (c.vcard!=null) {
+                            new vCardForm(display, c.vcard, c.group==Groups.SELF_INDEX);
+                            return;
+                        }
                         setQuerySign(true); 
                         theStream.send(new IqGetVCard(to, "getvc"));
                         break;

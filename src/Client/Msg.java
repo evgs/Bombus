@@ -78,8 +78,5 @@ public class Msg //implements MessageList.Element
     /** Дата сообщения */
     public long dateGmt;
     
-    /** photo */
-    public Image photo;
-
     public boolean unread = false;
 }

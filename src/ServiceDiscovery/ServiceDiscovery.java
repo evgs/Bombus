@@ -34,7 +34,7 @@ public class ServiceDiscovery
     private final static String strReg="Register";
     private final static String strSrch="Search";
     private final static String strCmds="Execute";
-    private final int AD_HOC_INDEX=16;
+    private final int AD_HOC_INDEX=17;
     
     private Command cmdRfsh=new Command("Refresh", Command.SCREEN, 1);
     private Command cmdSrv=new Command("Server", Command.SCREEN, 10);
@@ -110,6 +110,7 @@ public class ServiceDiscovery
         qry.setAttribute("node", node);
 
         //stream.addBlockListener(this);
+        //System.out.println(">> "+req.toString());
         stream.send(req);
     }
     
@@ -130,6 +131,8 @@ public class ServiceDiscovery
     }
     
     public int blockArrived(JabberDataBlock data) {
+        //System.out.println("<< "+data.toString());
+        
         if (!(data instanceof Iq)) return JabberBlockListener.BLOCK_REJECTED;
         String id=data.getAttribute("id");
         if (!id.startsWith("disco")) return JabberBlockListener.BLOCK_REJECTED;

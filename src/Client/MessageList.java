@@ -6,6 +6,7 @@
 
 package Client;
 import Messages.MessageParser;
+import VCard.vCard;
 import ui.*;
 import java.util.*;
 import javax.microedition.lcdui.*;
@@ -150,6 +151,7 @@ implements CommandListener{
         }
         if (c==cmdPurge) {
             contact.msgs=new Vector();
+            contact.vcard=null;
             AttachList(new Vector());
             System.gc();
             redraw();
