@@ -31,12 +31,12 @@ public class Groups{
     
     public Groups(){
         g=new Vector();
-        addGroup(Groups.TRANSP_GROUP);
-        addGroup(Groups.SELF_GROUP);
-        addGroup(Groups.SRC_RESULT_GROUP);
-        addGroup(Groups.NIL_GROUP);
-        addGroup(Groups.IGNORE_GROUP);
-        addGroup(Groups.COMMON_GROUP);
+        addGroup(Groups.TRANSP_GROUP, null);
+        addGroup(Groups.SELF_GROUP, null);
+        addGroup(Groups.SRC_RESULT_GROUP, null);
+        addGroup(Groups.NIL_GROUP, null);
+        addGroup(Groups.IGNORE_GROUP, null);
+        addGroup(Groups.COMMON_GROUP, null);
     }
     
     public void resetCounters(){
@@ -71,8 +71,8 @@ public class Groups{
         }
         return null;
     }
-    public Group addGroup(String name) {
-        Group grp=new Group(g.size(),name);
+    public Group addGroup(String name, String label) {
+        Group grp=new Group(g.size(),name, label);
         g.addElement(grp);
         return grp;
     }

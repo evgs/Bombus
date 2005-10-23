@@ -361,7 +361,7 @@ public class Roster
                     groups.getGroup(Groups.TRANSP_INDEX) :
                     groups.getGroup(grpName);
                 if (group==null) {
-                    group=groups.addGroup(grpName);
+                    group=groups.addGroup(grpName, null);
                 }
                 c.nick=Nick;
                 c.group=group.index;
@@ -392,13 +392,14 @@ public class Roster
         boolean isRoom=(origin==Contact.ORIGIN_GROUPCHAT);
         int ri=from.indexOf('@');
         int rp=from.indexOf('/');
-        String room=from.substring(0,ri).toLowerCase();
+        String room=from.substring(0,ri);
+        String roomJid=from.substring(0,rp).toLowerCase();
         //String nick=null;
         //if (rp>0) if (!isRoom) nick=from.substring(rp+1);
         
         //updateContact(null /*nick*/ , from, room, "muc", false);
-        Group grp=groups.getGroup(room);
-        if (grp==null) grp=groups.addGroup(room);
+        Group grp=groups.getGroup(roomJid);
+        if (grp==null) grp=groups.addGroup(roomJid, room);
         grp.imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
         /*
         Contact c=presenceContact(from, isRoom?Presence.PRESENCE_ONLINE:-1);
@@ -1131,7 +1132,7 @@ public class Roster
         if (c.getLabel().charAt(0)>127) theStream=null; // 8==o ()() fuck translations
         
         if (c==cmdAccount){ new AccountSelect(display, false); }
-        if (c==cmdServiceDiscovery) { new ServiceDiscovery(display); }
+        if (c==cmdServiceDiscovery) { new ServiceDiscovery(display, null, null); }
         if (c==cmdGroupChat) { new ConferenceForm(display); }
         /*if (c==cmdLeave) {
             if (atCursor instanceof Group) leaveRoom( ((Group)atCursor).index );
@@ -1386,6 +1387,11 @@ public class Roster
                         reEnterRoom( g.index );
                         break;
                     }
+                    case 30:
+                    {
+                        new ServiceDiscovery(display, c.getJid(), "http://jabber.org/protocol/commands");
+                        return;
+                    }
                 }
                 destroyView();
             }
@@ -1397,6 +1403,8 @@ public class Roster
                 m.addItem(new MenuItem("Logoff",6));
                 m.addItem(new MenuItem("Resolve Nicknames", 7));
             }
+            if (c.group==Groups.SELF_INDEX) m.addItem(new MenuItem("Commands",30));
+            
             m.addItem(new MenuItem("vCard",1));
             m.addItem(new MenuItem("Client Info",0));
             if (c.group!=Groups.SELF_INDEX && c.group!=Groups.SRC_RESULT_INDEX && c.origin<Contact.ORIGIN_GROUPCHAT) {

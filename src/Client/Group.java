@@ -15,6 +15,7 @@ import ui.*;
  */
 public class Group extends IconTextElement {
     String name;
+    String label;
     int index;
     public int ncontacts;
     public int onlines;
@@ -25,9 +26,12 @@ public class Group extends IconTextElement {
     public int tncontacts;
     
     boolean collapsed;
-    public Group(int index, String name) {
+    
+    public Group(int index, String name, String label) {
         super(StaticData.getInstance().rosterIcons);
-        this.index=index; this.name=name;
+        this.index=index; 
+        this.name=name;
+        this.label=label;
         
         if (index==Groups.SRC_RESULT_INDEX) 
             imageExpandedIndex=ImageList.ICON_SEARCH_INDEX;
@@ -40,7 +44,7 @@ public class Group extends IconTextElement {
     }
     
     public String getName() { return name; }
-    public String toString(){ return name+" ("+onlines+'/'+ncontacts+')'; }
+    public String toString(){ return ((label==null)?name:label)+" ("+onlines+'/'+ncontacts+')'; }
     public void onSelect(){
         collapsed=!collapsed;
     }

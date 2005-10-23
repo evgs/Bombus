@@ -57,7 +57,7 @@ public class ServiceDiscovery
     private JabberStream stream;
     
     /** Creates a new instance of ServiceDiscovery */
-    public ServiceDiscovery(Display display) {
+    public ServiceDiscovery(Display display, String service, String node) {
         super(display);
 
         setTitleImages(sd.rosterIcons);
@@ -78,7 +78,8 @@ public class ServiceDiscovery
         addCommand(cmdBack);
         setCommandListener(this);
 
-        service=sd.account.getServerN();
+        this.node=node;
+        this.service=(service!=null)?service:sd.account.getServerN();
         
         items=new Vector();
         

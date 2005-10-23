@@ -135,6 +135,8 @@ public final class MessageParser {
     {
         Vector v=new Vector();
         
+        //boolean noWrapSpace=false;
+        
         int state=0;
         if (msg.subject==null) state=1;
         while (state<2) {
@@ -201,6 +203,7 @@ public final class MessageParser {
                     i=smileStart;
                     char c=txt.charAt(i);
                     int cw=f.charWidth(c);
+                    if (c!=0x20)
                     if (w+cw>width || c==0x0d || c==0x0a || c==0xa0) {
                         l.addElement(s.toString());    // последн€€ подстрока в l
                         s.setLength(0); w=0;
