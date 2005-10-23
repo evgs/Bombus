@@ -64,6 +64,7 @@ public class vCard {
         
        JabberDataBlock photo=vcard.getChildBlock("PHOTO");
        if (photo==null) return;
+/*#!MIDP1#*///<editor-fold>
        try {
            photo=photo.getChildBlock("BINVAL");
            byte src[]=(byte[])photo.getChildBlocks().lastElement();
@@ -74,6 +75,7 @@ public class vCard {
                this.photo=Image.createImage(1,1); // stub
            } catch (Exception img) {/**/};
        }
+/*$!MIDP1$*///</editor-fold>
     }
 
     public JabberDataBlock constructVCard(){

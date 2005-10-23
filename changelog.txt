@@ -1502,6 +1502,8 @@ syslog_msg: true
   םודמ vCard.
   ÂÍÈÌÀÍÈÅ! Bombus ÍÅ ÑÎÕÐÀÍ‗ÅÒ טלו‏שווסÿ ג vCard פמעמ!
 
+  (262)
+  fix: MIDP1 ט מבנאבמעךא vCard ס פמעמ
 ---------------------------
   known issues:
 
