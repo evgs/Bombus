@@ -935,16 +935,9 @@ public class Roster
     
     Contact messageStore(Msg message, int status){
         Contact c=presenceContact(message.from,status);
-        /*getContact(message.from, true);
-        if (c==null) {
-            // contact not in list
-            if (cf.notInList) {
-                c=new Contact(null, message.from, Presence.PRESENCE_UNKNOWN);
-                c.group=NIL_INDEX;
-                hContacts.addElement(c);
-                reEnumRoster();
-            }
-        }*/
+        if (c.group==Groups.NIL_INDEX) 
+            if (!cf.notInList) return c;
+
         if (c==null) return c;  // not to store/signal not-in-list message
         c.addMessage(message);
         //message.from=c.getNickJid();
@@ -1269,8 +1262,11 @@ public class Roster
         Menu m=new Menu(item.toString()){
             
             public void eventOk(){
-                
-                int index=((MenuItem) getFocusedObject()).index;
+                MenuItem me=(MenuItem) getFocusedObject();
+                if (me==null) {
+                    destroyView(); return;
+                }
+                int index=me.index;
                 String to=null;
                 if (isContact) to=(index<3)? c.getJid() : c.getBareJid();
                 destroyView();

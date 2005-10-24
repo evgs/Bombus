@@ -263,6 +263,11 @@ public class Contact extends IconTextElement{
         return result;
     }
      */
+    public final void purge() {
+        msgs=new Vector();
+        vcard=null;
+        resetNewMsgCnt();
+    }
     
     public final void sortCode(String s){
         try {

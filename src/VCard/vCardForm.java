@@ -53,11 +53,18 @@ public class vCardForm
             }
             if (item!=null) {
                 f.append(item);
-                f.append("\n");
+/*#!MIDP1#*///<editor-fold>
+                f.append(new Spacer(256, 3));
+/*$!MIDP1$*///</editor-fold>
+/*#MIDP1#*///<editor-fold>
+//--                f.append("\n");
+/*$MIDP1$*///</editor-fold>
             }
         }
         Image photo=vcard.getPhoto();
         if (photo!=null) f.append(photo);
+        
+        f.append("[end of vCard]");
         
         f.addCommand(cmdCancel);
         if (editable) f.addCommand(cmdPublish);

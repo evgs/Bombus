@@ -93,11 +93,15 @@ public class vCard {
             String f1=(String)vCard.vCardFields.elementAt(i);
             String f2=(String)vCard.vCardFields2.elementAt(i);
             
-            JabberDataBlock subLevel=
-                    (f2==null) ? child : child.addChild(f2, null);
+            JabberDataBlock subLevel=child;
+            if (f2!=null) {
+                subLevel=child.getChildBlock(f2);
+                if (subLevel==null) subLevel=child.addChild(f2, null);
+            }
             subLevel.addChild(f1, field);
             
         }
+        System.out.println(vcard.toString());
         return vcard;
     }
     

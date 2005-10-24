@@ -150,8 +150,7 @@ implements CommandListener{
             new MessageEdit(display,contact,((Msg)getFocusedObject()).toString());
         }
         if (c==cmdPurge) {
-            contact.msgs=new Vector();
-            contact.vcard=null;
+            contact.purge();
             AttachList(new Vector());
             System.gc();
             redraw();
