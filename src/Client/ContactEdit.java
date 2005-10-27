@@ -173,12 +173,19 @@ public final class ContactEdit
         if (item==tTranspList) {
             int index=tTranspList.getSelectedIndex();
             if (index==tTranspList.size()-1) return;
+            
             String transport=tTranspList.getString(index);
-            int at=tJid.getString().indexOf('@');
+            
+            String jid=tJid.getString();
+            StringBuffer jidBuf=new StringBuffer(jid);
+            
+            int at=jid.indexOf('@');
             if (at<0) at=tJid.size();
-            tJid.delete(at, tJid.size()-at);
-            tJid.insert("@",at);
-            tJid.insert(transport, at+1);
+            
+            jidBuf.setLength(at);
+            jidBuf.append('@');
+            jidBuf.append(transport);
+            tJid.setString(jidBuf.toString());
         }
         if (item==tJid) {
             String s1=tJid.getString();

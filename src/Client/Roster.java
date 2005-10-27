@@ -1280,8 +1280,7 @@ public class Roster
                             new vCardForm(display, c.vcard, c.group==Groups.SELF_INDEX);
                             return;
                         }
-                        setQuerySign(true); 
-                        theStream.send(new IqGetVCard(to, "getvc"));
+                        vCard.request(c.getJid());
                         break;
                         
                     case 2:
@@ -1336,7 +1335,7 @@ public class Roster
                             Contact k=(Contact) e.nextElement();
                             if (k.jid.isTransport()) continue;
                             if (k.transport==c.transport && k.nick==null && k.group>=Groups.COMMON_INDEX) {
-                                vCardQueue.addElement(new IqGetVCard(k.getJid(), "nickvc"+k.bareJid));
+                                vCardQueue.addElement(vCard.getVCardReq(k.getJid(), "nickvc"+k.bareJid));
                             }
                         }
                         setQuerySign(true); 

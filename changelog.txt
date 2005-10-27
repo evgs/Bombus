@@ -1515,6 +1515,13 @@ syslog_msg: true
 
   fix: NullPointerException при выполнении OK в пустом Actions
 
+28.10.2005
+  (264)
+  fix: FS#104 При добавлении через Add Contact нового icq-контакта 
+  при выборе в поле транспорта icq.jabber.ru приложение падает с ошибкой 
+  StringIndexOutOfBounds. (Nokia-specific bug)
+
+  команда Refresh в форме vCard - перечитать vCard с сервера
 ---------------------------
   known issues:
 

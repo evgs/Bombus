@@ -26,6 +26,7 @@ public class vCardForm
     
     protected Command cmdCancel=new Command("Cancel", Command.BACK, 99);
     protected Command cmdPublish=new Command("Publish", Command.OK, 1);
+    protected Command cmdRefresh=new Command("Refresh", Command.SCREEN, 2);
     
     private Form f;
     private Vector items=new Vector();
@@ -67,6 +68,7 @@ public class vCardForm
         f.append("[end of vCard]");
         
         f.addCommand(cmdCancel);
+        f.addCommand(cmdRefresh);
         if (editable) f.addCommand(cmdPublish);
         f.setCommandListener(this);
         display.setCurrent(f);
@@ -74,6 +76,10 @@ public class vCardForm
     
     public void commandAction(Command c, Displayable d) {
         if (c==cmdCancel) destroyView();
+        if (c==cmdRefresh) {
+            vCard.request(vcard.getJid());
+            destroyView();
+        }
         if (c!=cmdPublish) return;
         
         for (int index=0; index<vcard.getCount(); index++) {

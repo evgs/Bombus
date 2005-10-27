@@ -9,6 +9,7 @@
  */
 
 package VCard;
+import Client.StaticData;
 import com.alsutton.jabber.JabberDataBlock;
 import com.alsutton.jabber.datablocks.Iq;
 import java.util.*;
@@ -109,7 +110,7 @@ public class vCard {
     
     public String getNickName() { return getVCardData(NICK_INDEX);}
     
-    /*public static JabberDataBlock getVCardReq(String to, String id ) 
+    public static JabberDataBlock getVCardReq(String to, String id ) 
     {
         JabberDataBlock req=new Iq();
         req.setTypeAttribute("get");
@@ -118,7 +119,12 @@ public class vCard {
         req.addChild("vCard", null).setNameSpace( "vcard-temp" );
 
         return req;
-    }*/
+    }
+    
+    public static void request(String jid) {
+        StaticData.getInstance().roster.setQuerySign(true); 
+        StaticData.getInstance().roster.theStream.send(getVCardReq(jid, "getvc"));
+    }
     
     private void fieldsLoader(){
         StringBuffer buf=new StringBuffer();
