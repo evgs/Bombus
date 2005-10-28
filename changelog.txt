@@ -1522,6 +1522,10 @@ syslog_msg: true
   StringIndexOutOfBounds. (Nokia-specific bug)
 
   команда Refresh в форме vCard - перечитать vCard с сервера
+
+  (265)
+  fix: Исключение при Resolve Nicknames
+
 ---------------------------
   known issues:
 

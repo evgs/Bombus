@@ -663,7 +663,7 @@ public class Roster
                     Contact c=getContact(from, false);
                     String group=(c.group==Groups.COMMON_INDEX)?
                         null: groups.getGroup(c.group).name;
-                    if (nick==null)  storeContact(from,nick,group, false);
+                    if (nick!=null)  storeContact(from,nick,group, false);
                     //updateContact( nick, c.rosterJid, group, c.subscr, c.ask_subscribe);
                     sendVCardReq();
                 }
