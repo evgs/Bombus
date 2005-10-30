@@ -94,7 +94,7 @@ implements CommandListener{
 
         m= (ComplexString)MessageParser.getInstance().
                 parseMsg( msg, (smiles)?il:null, getWidth()-6, true, null);
-        m.setColor(msg.getColor1());
+        m.setColor(msg.getColor());
         
         /*if (msg.messageType==Msg.MESSAGE_TYPE_AUTH) {
             m.addImage(ImageList.ICON_AUTHRQ_INDEX);

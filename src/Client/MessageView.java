@@ -76,7 +76,7 @@ public class MessageView
         if (msg.unread) contact.resetNewMsgCnt();
         msg.unread=false;
 
-        titlecolor=msg.getColor1();
+        titlecolor=msg.getColor();
         ComplexString title=new ComplexString(sd.rosterIcons);
         title.addElement(msg.getMsgHeader());
         title.addRAlign();

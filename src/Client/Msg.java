@@ -19,9 +19,10 @@ public class Msg //implements MessageList.Element
     // without signaling
     public final static int MESSAGE_TYPE_OUT=1;
     public final static int MESSAGE_TYPE_PRESENCE=2;
+    public final static int MESSAGE_TYPE_HISTORY=3;
     // with signaling
-    public final static int MESSAGE_TYPE_IN=3;
-    public final static int MESSAGE_TYPE_AUTH=4;
+    public final static int MESSAGE_TYPE_IN=10;
+    public final static int MESSAGE_TYPE_AUTH=11;
     
     /** Creates a new instance of msg */
     public Msg(int messageType, String from, String subj, String body) {
@@ -46,16 +47,17 @@ public class Msg //implements MessageList.Element
     }
     //private TimeZone tz(){ return StaticData.getInstance().config.tz;}
     
-    public int getColor1() {
+    public int getColor() {
         switch (messageType) {
             case MESSAGE_TYPE_IN: return 0x0000B0;
             case MESSAGE_TYPE_OUT: return 0xB00000;
             case MESSAGE_TYPE_PRESENCE: return 0x006000;
             case MESSAGE_TYPE_AUTH: return 0x400040;
+            case MESSAGE_TYPE_HISTORY: return 0x535353;
         }
         return 0;
     }
-    public int getColor2(){ return 0; }
+    //public int getColor2(){ return 0; }
     public String toString(){
         return (messageType==MESSAGE_TYPE_PRESENCE)?getTime()+body:body; 
     }

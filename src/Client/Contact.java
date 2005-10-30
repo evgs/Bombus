@@ -76,12 +76,12 @@ public class Contact extends IconTextElement{
     public vCard vcard;
     
     public int firstUnread(){
-        int c=0;
+        int unreadIndex=0;
         for (Enumeration e=msgs.elements(); e.hasMoreElements();) {
             if (((Msg)e.nextElement()).unread) break;
-            c++;
+            unreadIndex++;
         }
-        return c;
+        return unreadIndex;
     }
 
     public Contact(final String Nick, final String sJid, final int Status, String subscr) {
@@ -98,25 +98,27 @@ public class Contact extends IconTextElement{
     }
     
     public Contact clone(Jid newjid, final int status) {
-        Contact c=new Contact();
-        c.group=group; 
-        c.jid=newjid; 
-        c.nick=nick;
-        c.jidHash=jidHash;
-        c.subscr=subscr;
-        c.offline_type=offline_type;
-        c.origin=ORIGIN_CLONE; 
-        c.status=status; 
-        c.transport=StaticData.getInstance().getTransportIndex(newjid.getTransport()); //<<<<
+        Contact clone=new Contact();
+        clone.group=group; 
+        clone.jid=newjid; 
+        clone.nick=nick;
+        clone.jidHash=jidHash;
+        clone.subscr=subscr;
+        clone.offline_type=offline_type;
+        clone.origin=ORIGIN_CLONE; 
+        clone.status=status; 
+        clone.transport=StaticData.getInstance().getTransportIndex(newjid.getTransport()); //<<<<
 
-        c.bareJid=bareJid;
-        return c;
+        clone.bareJid=bareJid;
+        return clone;
     }
     
     public int getImageIndex() {
         if (getNewMsgsCount()>0) 
-            return 
-                ImageList.ICON_MESSAGE_INDEX + unreadType - Msg.MESSAGE_TYPE_IN;
+            switch (unreadType) {
+                case Msg.MESSAGE_TYPE_AUTH: return ImageList.ICON_AUTHRQ_INDEX;
+                default: return ImageList.ICON_MESSAGE_INDEX;
+            }
         int st=(status==Presence.PRESENCE_OFFLINE)?offline_type:status;
         if (st<8) st+=transport<<4; 
         return st;
@@ -126,11 +128,13 @@ public class Contact extends IconTextElement{
         //return msgs.size()-lastReaded;
         if (newMsgCnt>-1) return newMsgCnt;
         int nm=0;
-        unreadType=0;
+        unreadType=Msg.MESSAGE_TYPE_IN;
         for (Enumeration e=msgs.elements(); e.hasMoreElements(); ) {
             Msg m=(Msg)e.nextElement();
-            if (m.unread) nm++;
-            if (m.messageType>unreadType) unreadType=m.messageType;
+            if (m.unread) { 
+                nm++;
+                if (m.messageType==Msg.MESSAGE_TYPE_AUTH) unreadType=m.messageType;
+            }
         }
         return newMsgCnt=nm;
     }

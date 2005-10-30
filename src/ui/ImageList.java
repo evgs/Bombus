@@ -18,7 +18,9 @@ public class ImageList {
     public final static int ICON_INVISIBLE_INDEX=0x51;
     public final static int ICON_ERROR_INDEX=0x52;
     public final static int ICON_TRASHCAN_INDEX=0x53;
-    public final static int ICON_RECONNECT_INDEX=0x54;
+    public final static int ICON_PROGRESS_INDEX=0x54;
+    
+    public final static int ICON_MODERATOR_INDEX=0x60;
     
     public final static int ICON_PRIVACY_ACTIVE=0x66;
     public final static int ICON_PRIVACY_PASSIVE=0x67;

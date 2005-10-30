@@ -93,7 +93,7 @@ public class ServiceDiscovery
     
     
     private void titleUpdate(){
-        int icon=(blockWait)?ImageList.ICON_RECONNECT_INDEX:0;
+        int icon=(blockWait)?ImageList.ICON_PROGRESS_INDEX:0;
         getTitleItem().setElementAt(new Integer(icon), 0);
         getTitleItem().setElementAt(service, 1);
         getTitleItem().setElementAt(sd.roster.messageIcon, 3);

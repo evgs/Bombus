@@ -44,7 +44,6 @@ public class Bookmarks
         setTitleImages(StaticData.getInstance().rosterIcons);
         createTitleItem(2, null, "Bookmarks");
         
-        
         this.toAdd=toAdd;
         
         bookmarks=roster.bookmarks;
@@ -59,12 +58,12 @@ public class Bookmarks
     }
     
     private void processIcon(boolean processing){
-        getTitleItem().setElementAt((processing)?(Object)new Integer(ImageList.ICON_RECONNECT_INDEX):(Object)null, 0);
+        getTitleItem().setElementAt((processing)?(Object)new Integer(ImageList.ICON_PROGRESS_INDEX):(Object)null, 0);
         redraw();
     }
     
-    public int getItemCount() { return (bookmarks==null)?0: bookmarks.size(); }
-    public VirtualElement getItemRef(int index) { return (VirtualElement) bookmarks.elementAt(index); }
+    protected int getItemCount() { return (bookmarks==null)?0: bookmarks.size(); }
+    protected VirtualElement getItemRef(int index) { return (VirtualElement) bookmarks.elementAt(index); }
     
     public void loadBookmarks() {
         stream.addBlockListener(this);

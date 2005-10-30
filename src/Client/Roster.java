@@ -9,6 +9,7 @@
 package Client;
 
 import Conference.QueryConfigForm;
+import Conference.affiliation.Affiliations;
 import VCard.vCard;
 import VCard.vCardForm;
 import com.alsutton.jabber.*;
@@ -264,7 +265,7 @@ public class Roster
     };
     
     private void updateTitle(){
-        int s=querysign?ImageList.ICON_RECONNECT_INDEX:myStatus;
+        int s=querysign?ImageList.ICON_PROGRESS_INDEX:myStatus;
         int profile=cf.profile;//StaticData.getInstance().config.profile;
         Object en=(profile>1)? new Integer(profile+ImageList.ICON_PROFILE_INDEX):null;
         title.setElementAt(new Integer(s), 2);
@@ -797,11 +798,17 @@ public class Roster
   
             
                 Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, subj, body);
-                if (groupchat) if (c.bareJid.equals(message.getFrom())) {
-                    m.messageType=Msg.MESSAGE_TYPE_OUT;
-                }
                 if (tStamp!=null) 
                     m.dateGmt=Time.dateIso8601(tStamp);
+                if (groupchat) {
+                    if (c.bareJid.equals(message.getFrom())) {
+                        m.messageType=Msg.MESSAGE_TYPE_OUT;
+                        m.unread=false;
+                    } else try {
+                        long enterTime=((Msg)c.msgs.elementAt(0)).dateGmt;
+                        if (m.dateGmt<=enterTime) m.messageType=Msg.MESSAGE_TYPE_HISTORY;
+                    } catch (Exception e) { e.printStackTrace(); }
+                }
                 messageStore(m, -1);
                 //Contact c=getContact(from);
                 //c.msgs.addElement(m);
@@ -941,10 +948,13 @@ public class Roster
         if (c==null) return c;  // not to store/signal not-in-list message
         c.addMessage(message);
         //message.from=c.getNickJid();
+        /*
         switch (message.messageType) {
             case Msg.MESSAGE_TYPE_PRESENCE:
             case Msg.MESSAGE_TYPE_OUT: return c;
-        }
+        }*/
+        if (!message.unread) return c;
+        
         if (countNewMsgs()) reEnumRoster();
         
         if (c.group==Groups.IGNORE_INDEX) return c;    // no signalling/focus on ignore
@@ -963,7 +973,8 @@ public class Roster
         int index=vContacts.indexOf(c);
         if (index>=0) moveCursorTo(index, false);
 
-        AlertProfile.playNotify(display, 0);
+        if (message.messageType!=Msg.MESSAGE_TYPE_HISTORY) 
+            AlertProfile.playNotify(display, 0);
         return c;
     }
     
@@ -1364,6 +1375,21 @@ public class Roster
                         new QueryConfigForm(display, roomJid);
                         break;
                     }
+                    case 11: // owners
+                    case 12: // admins
+                    case 13: // members
+                    case 14: // outcasts
+                    {
+                        String roomJid=conferenceRoomContact(g.index).getJid();
+                        new Affiliations(display, roomJid, index-10);
+                        return;
+                    }
+                    /*case 15: // affiliation
+                    {
+                        String roomJid=conferenceRoomContact(g.index).getJid();
+                        new AffiliationModify(display, roomJid, c.realJid, affiliation)(display, roomJid, index-10);
+                    }
+                     */
                     case 21:
                     {
                         cleanupSearch();
@@ -1408,6 +1434,7 @@ public class Roster
             if (c.realJid!=null) {
                 m.addItem(new MenuItem("Kick",8));
                 m.addItem(new MenuItem("Ban",9));
+                //m.addItem(new MenuItem("Set Attiliation",15));
             }
         } else {
             if (g.index==Groups.SRC_RESULT_INDEX)  
@@ -1418,11 +1445,15 @@ public class Roster
                     m.addItem(new MenuItem("Re-Enter Room",23));
                 else {
                     m.addItem(new MenuItem("Leave Room",22));
-                    if (self.transport>0) // гнустный хак 
+                    if (self.transport>0) { // гнустный хак 
                         m.addItem(new MenuItem("Configure Room",10));
+                        m.addItem(new MenuItem("Owners",11));
+                        m.addItem(new MenuItem("Admins",12));
+                        m.addItem(new MenuItem("Members",13));
+                        m.addItem(new MenuItem("Outcasts (Ban)",14));
+                    }
                 }
             }
-
             //m.addItem(new MenuItem("Cleanup offlines"))
         }
        m.attachDisplay(display);
