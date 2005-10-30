@@ -62,7 +62,7 @@ public class FormField {
                     }
                 }
             }
-            else formItem=new TextField(label, body, 64, 0);
+            else formItem=new TextField(label, body, 200, 0);
         } else {
             // not x-data
             if ( instructions=name.equals("instructions") )
