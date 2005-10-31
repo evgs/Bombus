@@ -10,8 +10,8 @@ package Client;
 
 import Conference.QueryConfigForm;
 import Conference.affiliation.Affiliations;
-import VCard.vCard;
-import VCard.vCardForm;
+import vcard.vCard;
+import vcard.vCardForm;
 import com.alsutton.jabber.*;
 import com.alsutton.jabber.datablocks.*;
 import java.io.*;

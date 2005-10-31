@@ -6,7 +6,7 @@
 
 package Client;
 import Messages.MessageParser;
-import VCard.vCard;
+import vcard.vCard;
 import ui.*;
 import java.util.*;
 import javax.microedition.lcdui.*;

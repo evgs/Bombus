@@ -8,7 +8,7 @@
  * Open. You can then make changes to the template in the Source Editor.
  */
 
-package VCard;
+package vcard;
 import Client.StaticData;
 import java.util.*;
 import javax.microedition.lcdui.*;

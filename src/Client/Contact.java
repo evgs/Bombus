@@ -5,7 +5,7 @@
  */
 
 package Client;
-import VCard.vCard;
+import vcard.vCard;
 import java.util.*;
 import ui.IconTextElement;
 import ui.ImageList;

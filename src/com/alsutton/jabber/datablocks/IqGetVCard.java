@@ -9,7 +9,6 @@ package com.alsutton.jabber.datablocks;
 import com.alsutton.jabber.*;
 import java.util.*;
 import javax.microedition.lcdui.Image;
-import VCard.*;
 
 /**
  * Class representing the iq message block
