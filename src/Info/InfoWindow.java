@@ -41,15 +41,15 @@ public class InfoWindow implements CommandListener{
 /*$!MIDP1$*///</editor-fold>
                 ));
         
-        StringBuffer mem=new StringBuffer("\n\nMemory:\n");
-        mem.append("Free=");
+        StringBuffer memInfo=new StringBuffer("\n\nMemory:\n");
+        memInfo.append("Free=");
         //mem.append(Runtime.getRuntime().freeMemory()>>10);
         //mem.append("\nFree=");
         System.gc();
-        mem.append(Runtime.getRuntime().freeMemory()>>10);
-        mem.append("\nTotal=");
-        mem.append(Runtime.getRuntime().totalMemory()>>10);
-        form.append(mem.toString());
+        memInfo.append(Runtime.getRuntime().freeMemory()>>10);
+        memInfo.append("\nTotal=");
+        memInfo.append(Runtime.getRuntime().totalMemory()>>10);
+        form.append(memInfo.toString());
      
         form.setCommandListener(this);
         display.setCurrent(form);

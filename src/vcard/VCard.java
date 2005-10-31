@@ -51,8 +51,8 @@ public class VCard {
         
         for (int i=0; i<itemsCount; i++){
             try {
-                String f1=(String)vCard.vCardFields.elementAt(i);
-                String f2=(String)vCard.vCardFields2.elementAt(i);
+                String f1=(String)VCard.vCardFields.elementAt(i);
+                String f2=(String)VCard.vCardFields2.elementAt(i);
                 
                 JabberDataBlock d2=
                         (f2==null) ? vcard : vcard.getChildBlock(f2);
@@ -91,8 +91,8 @@ public class VCard {
             String field=getVCardData(i);
             if (field==null) continue;
             
-            String f1=(String)vCard.vCardFields.elementAt(i);
-            String f2=(String)vCard.vCardFields2.elementAt(i);
+            String f1=(String)VCard.vCardFields.elementAt(i);
+            String f2=(String)VCard.vCardFields2.elementAt(i);
             
             JabberDataBlock subLevel=child;
             if (f2!=null) {

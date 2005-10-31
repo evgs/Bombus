@@ -30,10 +30,10 @@ public class vCardForm
     
     private Form f;
     private Vector items=new Vector();
-    private vCard vcard;
+    private VCard vcard;
     
     /** Creates a new instance of vCardForm */
-    public vCardForm(Display display, vCard vcard, boolean editable) {
+    public vCardForm(Display display, VCard vcard, boolean editable) {
         this.display=display;
         parentView=display.getCurrent();
         
@@ -44,7 +44,7 @@ public class vCardForm
         
         for (int index=0; index<vcard.getCount(); index++) {
             String data=vcard.getVCardData(index);
-            String name=(String)vCard.vCardLabels.elementAt(index);
+            String name=(String)VCard.vCardLabels.elementAt(index);
             Item item=null;
             if (editable) {
                 item=new TextField(name, data, 200, TextField.ANY);
@@ -77,7 +77,7 @@ public class vCardForm
     public void commandAction(Command c, Displayable d) {
         if (c==cmdCancel) destroyView();
         if (c==cmdRefresh) {
-            vCard.request(vcard.getJid());
+            VCard.request(vcard.getJid());
             destroyView();
         }
         if (c!=cmdPublish) return;
