@@ -20,7 +20,7 @@ import javax.microedition.lcdui.Image;
  *
  * @author EvgS
  */
-public class vCard {
+public class VCard {
 
     public final static int NICK_INDEX=1;
     
@@ -34,11 +34,11 @@ public class vCard {
     Image photo;
     
     /** Creates a new instance of vCard */
-    public vCard() {
+    public VCard() {
         if (vCardFields==null) fieldsLoader();
     }
     
-    public vCard(JabberDataBlock data) {
+    public VCard(JabberDataBlock data) {
         this();
         jid=data.getAttribute("from");
         int itemsCount=getCount();
