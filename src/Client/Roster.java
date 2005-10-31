@@ -10,7 +10,7 @@ package Client;
 
 import Conference.QueryConfigForm;
 import Conference.affiliation.Affiliations;
-import vcard.vCard;
+import vcard.VCard;
 import vcard.vCardForm;
 import com.alsutton.jabber.*;
 import com.alsutton.jabber.datablocks.*;
@@ -658,7 +658,7 @@ public class Roster
                 String id=(String) data.getAttribute("id");
                 
                 if (id!=null) if (id.startsWith("nickvc")) {
-                    vCard vc=new vCard(data);//.getNickName();
+                    VCard vc=new VCard(data);//.getNickName();
                     String from=vc.getJid();
                     String nick=vc.getNickName();
                     Contact c=getContact(from, false);
@@ -705,7 +705,7 @@ public class Roster
                     }
                     if (id.startsWith("getvc")) {
                         setQuerySign(false);
-                        vCard vcard=new vCard(data);
+                        VCard vcard=new VCard(data);
                         Contact c=presenceContact(vcard.getJid(),-1);
                         c.vcard=vcard;
                         new vCardForm(display, vcard, c.group==Groups.SELF_INDEX);
@@ -1291,7 +1291,7 @@ public class Roster
                             new vCardForm(display, c.vcard, c.group==Groups.SELF_INDEX);
                             return;
                         }
-                        vCard.request(c.getJid());
+                        VCard.request(c.getJid());
                         break;
                         
                     case 2:
@@ -1346,7 +1346,7 @@ public class Roster
                             Contact k=(Contact) e.nextElement();
                             if (k.jid.isTransport()) continue;
                             if (k.transport==c.transport && k.nick==null && k.group>=Groups.COMMON_INDEX) {
-                                vCardQueue.addElement(vCard.getVCardReq(k.getJid(), "nickvc"+k.bareJid));
+                                vCardQueue.addElement(VCard.getVCardReq(k.getJid(), "nickvc"+k.bareJid));
                             }
                         }
                         setQuerySign(true); 
