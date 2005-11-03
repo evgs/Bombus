@@ -28,6 +28,8 @@ public class Config {
 
     public boolean msgLog=getProperty("msg_log",false);
     
+    public boolean muc119=getProperty("muc_119",true);	// before muc 1.19 use muc#owner instead of muc#admin
+    
 /*#!MIDP1#*///<editor-fold>
     public String messagesnd=getProperty("msg_snd","/sounds/message.amr");
     public char keyLock=getProperty("key_lock",'*');

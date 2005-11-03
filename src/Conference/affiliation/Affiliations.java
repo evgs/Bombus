@@ -53,6 +53,14 @@ public class Affiliations
     public Affiliations(Display display, String room, int affiliationIndex) {
         super (display);
         this.room=room;
+	
+	//fix for old muc
+	switch (affiliationIndex) {
+	    case AffiliationItem.AFFILIATION_OWNER:
+	    case AffiliationItem.AFFILIATION_ADMIN:
+		if (!StaticData.getInstance().config.muc119) namespace="http://jabber.org/protocol/muc#owner";
+	}
+	
         this.id=AffiliationItem.getAffiliationName(affiliationIndex);
         setTitleImages(StaticData.getInstance().rosterIcons);
         createTitleItem(2, null, id);
