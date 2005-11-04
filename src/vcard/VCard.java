@@ -127,44 +127,52 @@ public class VCard {
     }
     
     private void fieldsLoader(){
-        StringBuffer buf=new StringBuffer();
+	Vector table=stringLoader("/vcard.txt", 3);
+
+	vCardFields=(Vector) table.elementAt(1);
+        vCardFields2=(Vector) table.elementAt(0);
+        vCardLabels=(Vector) table.elementAt(2);
         
-        vCardFields=new Vector();
-        vCardFields2=new Vector();
-        vCardLabels=new Vector();
-        
-        InputStream in=this.getClass().getResourceAsStream("/vcard.txt");
-        try {
-            while (true) {
-                int c=in.read();
-                if (c<0) break;
-                switch (c) {
-                    case 0x0d:
-                    case 0x0a:
-                        if (buf.length()>0){
-                            //vCardFields.addElement(field.toString());
-                            vCardLabels.addElement(buf.toString());
-                        }
-                        buf.setLength(0);
-                        break;
-                    case 0x09:
-                        vCardFields.addElement(buf.toString());
-                        buf.setLength(0);
-                        break;
-                    case '/':
-                        vCardFields2.setSize(vCardFields.size()+1);
-                        vCardFields2.setElementAt(buf.toString(), vCardFields.size());
-                        buf.setLength(0);
-                        break;
-                    default:
-                        buf.append((char)c);
-                }
-            }
-            in.close();
-            vCardFields2.setSize(vCardFields.size());
-        } catch (Exception e) {}
     }
 
+    public static Vector stringLoader(String resource, int columns) {
+	StringBuffer buf=new StringBuffer();
+	
+	Vector table=new Vector(columns);
+	for (int i=0; i<columns; i++) {
+	    table.addElement(new Vector());
+	}
+	Vector row=new Vector(columns);
+	InputStream in=new VCard().getClass().getResourceAsStream(resource);
+	try {
+	    while (true) {
+		int c=in.read();
+		if (c<0) break;
+		switch (c) {
+		    case '#': 
+		    case 0x09:
+		    case 0x0d:
+		    case 0x0a:
+			row.addElement((buf.length()==0)? null: buf.toString());
+			buf.setLength(0);
+			if (c==0x09) break;
+			
+			if (row.isEmpty()) break;
+			
+			for (int i=0; i<columns; i++) {
+			    Vector col=(Vector)table.elementAt(i);
+			    col.addElement( (i<row.size())? row.elementAt(i):null );
+			}
+			row=new Vector(columns);
+			break;
+		    default:
+			buf.append((char)c);
+		}
+	    }
+	    in.close();
+	} catch (Exception e) {}
+	return table;
+    }
     public String getVCardData(int index) {
         return (String) vCardData.elementAt(index);
     }

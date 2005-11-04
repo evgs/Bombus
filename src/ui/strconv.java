@@ -1,4 +1,4 @@
-package ui;
+package locale;
 /*
  * strconv.java
  *

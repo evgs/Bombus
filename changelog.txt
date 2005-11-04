@@ -1556,10 +1556,9 @@ syslog_msg: true
   //MU-Conference 0.6.0
   //(в версии стандарта 1.19 у списков admin & owner изменился namespace с
   //muc#owner на muc#admin):
-  в jad-файл добавить атрибут
-    muc_119: 0
   для того, чтоб на старых muc-серверах owner мог редактировать списки
-  owners и admins
+  owners и admins, в jad-файл добавить атрибут
+    muc_119: 0
 
 
 ---------------------------

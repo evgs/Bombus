@@ -205,7 +205,7 @@ public class JabberStream implements XMLEventListener, Runnable {
             outStream.write(data);
 /*$!USE_UTF8_READER$*///</editor-fold>
 /*#OUTSTREAM_FLUSH#*///<editor-fold>
-//--            outStream.flush();
+            outStream.flush();
 /*$OUTSTREAM_FLUSH$*///</editor-fold>
             //System.out.println(data);
         }
@@ -259,10 +259,10 @@ public class JabberStream implements XMLEventListener, Runnable {
             // TODO: remove stub
             // M55 STUB
 /*#MIDP2#*///<editor-fold>
-//--            // photo reading
-//--            if ( name.equals("BINVAL") ){
-//--                return true;
-//--            }
+            // photo reading
+            if ( name.equals("BINVAL") ){
+                return true;
+            }
 /*$MIDP2$*///</editor-fold>
             
             if (rosterNotify) if (name.equals("item")) dispatcher.rosterNotify();
