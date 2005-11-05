@@ -111,10 +111,10 @@ public class ConfigForm implements
 				ConstMIDP.TEXTFIELD_DECIMAL       );
         
         
-	files=new StringLoader().stringLoader("/sounds/res.txt",2);
+	files=new StringLoader().stringLoader("/sounds/res.txt",3);
         soundFile=new ChoiceGroup("Sound", ConstMIDP.CHOICE_POPUP);
 	
-	for (Enumeration f=files[1].elements(); f.hasMoreElements(); ) {
+	for (Enumeration f=files[2].elements(); f.hasMoreElements(); ) {
 	    soundFile.append( (String)f.nextElement(), null );
 	}
 	
@@ -166,8 +166,10 @@ public class ConfigForm implements
             
             VirtualList.fullscreen=cf.fullscreen=ap[0];
             
-            cf.gmtOffset=Integer.parseInt(fieldGmt.getString());
-            cf.locOffset=Integer.parseInt(fieldLoc.getString());
+	    try {
+		cf.gmtOffset=Integer.parseInt(fieldGmt.getString());
+		cf.locOffset=Integer.parseInt(fieldLoc.getString());
+	    } catch (Exception e) { return; }
 	    
 	    cf.sounsMsgIndex=soundFile.getSelectedIndex();
 	    

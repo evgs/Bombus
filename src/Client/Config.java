@@ -120,7 +120,7 @@ public class Config {
     }
     
     public void loadSoundName(){
-	Vector files[]=new StringLoader().stringLoader("/sounds/res.txt", 2);
+	Vector files[]=new StringLoader().stringLoader("/sounds/res.txt", 3);
 	messageSndType=(String) files[0].elementAt(sounsMsgIndex);
 	messagesnd=(String) files[1].elementAt(sounsMsgIndex);
     }
