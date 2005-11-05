@@ -7,7 +7,7 @@
 package Client;
 import com.alsutton.jabber.JabberDataBlock;
 import java.io.*;
-import locale.strconv;
+import util.strconv;
 
 /*#!USE_SIEMENS_FILES#*///<editor-fold>
 import javax.microedition.rms.*;

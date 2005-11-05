@@ -8,7 +8,7 @@ package Client;
 import java.util.Enumeration;
 import java.util.Vector;
 import javax.microedition.lcdui.*;
-import locale.StringLoader;
+import util.StringLoader;
 import ui.*;
 
 /**

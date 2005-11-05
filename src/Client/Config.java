@@ -9,7 +9,7 @@ package Client;
 import Info.Version;
 import java.io.*;
 import java.util.*;
-import locale.StringLoader;
+import util.StringLoader;
 import ui.Time;
 import ui.VirtualElement;
 import ui.VirtualList;

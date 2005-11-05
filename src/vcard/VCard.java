@@ -15,7 +15,7 @@ import com.alsutton.jabber.datablocks.Iq;
 import java.util.*;
 import java.io.*;
 import javax.microedition.lcdui.Image;
-import locale.StringLoader;
+import util.StringLoader;
 
 /**
  *
