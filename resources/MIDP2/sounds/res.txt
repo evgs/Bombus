@@ -1,3 +1,5 @@
-audio/amr	/sounds/message.amr
-audio/x-wav	/sounds/message.wav
-audio/midi	/sounds/message.mid
+//type	path	desc
+audio/amr	/sounds/message.amr	message.amr
+audio/x-wav	/sounds/message.wav	message.wav
+audio/midi	/sounds/message.mid	message.mid
+		no sounds

@@ -1,3 +1,4 @@
+//vCard descriptions
 	FN	Full Name
 	NICKNAME	Nickname
 	BDAY	Birthday

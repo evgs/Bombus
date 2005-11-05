@@ -1,2 +1,4 @@
-audio/x-wav	/sounds/message.wav
-audio/x-mid	/sounds/message.mid
+//type	path	desc
+audio/x-wav	/sounds/message.wav	message.wav
+audio/x-mid	/sounds/message.mid	message.mid
+		no sounds
