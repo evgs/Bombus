@@ -190,11 +190,7 @@ public class AccountSelect
         }
 
         private void passStars(){
-            if (passbox.size()==0) passbox.setConstraints(TextField.URL
-/*#!MIDP1#*///<editor-fold>
-                    | TextField.SENSITIVE
-/*$!MIDP1$*///</editor-fold>
-                    );
+            if (passbox.size()==0) passbox.setConstraints(TextField.URL | ConstMIDP.TEXTFIELD_SENSITIVE );
         }
         
         public void itemStateChanged(Item item) {

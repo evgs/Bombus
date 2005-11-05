@@ -36,9 +36,9 @@ public class InfoWindow implements CommandListener{
         form.append(Version.getOs());
         form.append("\n");
         form.append (new StringItem(null, Version.url
-/*#!MIDP1#*///<editor-fold>
+//#if !(MIDP1)
                 , Item.HYPERLINK
-/*$!MIDP1$*///</editor-fold>
+//#endif
                 ));
         
         StringBuffer memInfo=new StringBuffer("\n\nMemory:\n");

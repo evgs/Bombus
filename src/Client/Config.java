@@ -36,11 +36,10 @@ public class Config {
     public String messagesnd;
     public String messageSndType;
     
-    /*#!MIDP1#*///<editor-fold>
+//#if !(MIDP1)
     public char keyLock=getProperty("key_lock",'*');
     public char keyVibra=getProperty("key_vibra",'#');
-    /*$!MIDP1$*///</editor-fold>
-    /*#MIDP1#*///<editor-fold>
+//#else
 //--    public boolean msgLogPresence=getProperty("msg_log_presence",false);
 //--    public boolean msgLogConfPresence=getProperty("msg_log_conf_presence",false);
 //--    public boolean msgLogConf=getProperty("msg_log_conf",false);
@@ -48,23 +47,18 @@ public class Config {
 //--    public final String siemensCfgPath=getProperty("cfg_path","");
 //--    public char keyLock=getProperty("key_lock",'#');
 //--    public char keyVibra=getProperty("key_vibra",'*');
-    /*$MIDP1$*///</editor-fold>
+//#endif
     
     public char keyHide=getProperty("key_hide",'9');
     public char keyOfflines=getProperty("key_offlines",'0');
     
-    /*#USE_LED_PATTERN#*///<editor-fold>
+//#if USE_LED_PATTERN
 //--    public int m55LedPattern=0;
-    /*$USE_LED_PATTERN$*///</editor-fold>
+//#endif
     
     public String defGcRoom=getProperty("gc_room","bombus");
     
     public String xmlLang=getProperty("xml_lang",null);
-    /*#USE_LOGGER#*///<editor-fold>
-//--    public boolean logMsg=getProperty("syslog_msg",false);
-//--    public boolean logEx=getProperty("syslog_exceptions",false);
-//--    public boolean logStream=getProperty("syslog_stream",false);
-    /*$USE_LOGGER$*///</editor-fold>
     
     // non-volatile values
     //public TimeZone tz=new RuGmt(0);
@@ -146,12 +140,7 @@ public class Config {
 	    
 	    outputStream.writeInt(sounsMsgIndex);
 	    
-	} catch (IOException e) {
-	    e.printStackTrace();
-	    /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e, "Config:112");
-	    /*$USE_LOGGER$*///</editor-fold>
-	}
+	} catch (IOException e) { e.printStackTrace(); }
 	
 	NvStorage.writeFileRecord(outputStream, "config", 0, true);
     }
@@ -189,10 +178,10 @@ public class Config {
 	
 	VirtualList.greenKeyCode=greenKeyCode;
 	//System.out.println(locOffset);
-	/*#USE_LED_PATTERN#*///<editor-fold>
+//#if USE_LED_PATTERN
 //--        if (platform.startsWith("M55"))
 //--        m55LedPattern=getProperty("led_pattern",5);
-	/*$USE_LED_PATTERN$*///</editor-fold>
+//#endif
     }
     
     public final String getProperty(final String key, final String defvalue) {

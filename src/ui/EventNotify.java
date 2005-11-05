@@ -8,16 +8,16 @@ package ui;
 import javax.microedition.lcdui.*;
 import java.io.InputStream;
 
-/*#!MIDP1#*///<editor-fold>
+//#if !(MIDP1)
 import javax.microedition.media.*;
 import javax.microedition.media.PlayerListener;
-/*$!MIDP1$*///</editor-fold>
+//#endif
 
-/*#MIDP1#*///<editor-fold>
+//#if MIDP1
 //--import com.siemens.mp.game.*;
 //--import com.siemens.mp.media.*;
 //--import com.siemens.mp.m55.*;
-/*$MIDP1$*///</editor-fold>
+//#endif
 
 /**
  *

@@ -41,19 +41,17 @@ import Client.StaticData;
 
 public class JabberStream implements XMLEventListener, Runnable {
     
-    /*#!MIDP1#*///<editor-fold>
+//#if !(MIDP1)
     private SocketConnection connection = null;
-    /*$!MIDP1$*///</editor-fold>
-    /*#MIDP1#*///<editor-fold>
+//#else
 //--    private StreamConnection connection = null;
-    /*$MIDP1$*///</editor-fold>
+//#endif
     
-    /*#USE_UTF8_READER#*///<editor-fold>
+//#if USE_UTF8_READER
 //--    private OutputStream outStream;
-    /*$USE_UTF8_READER$*///</editor-fold>
-    /*#!USE_UTF8_READER#*///<editor-fold>
+//#else
     private OutputStreamWriter outStream;
-    /*$!USE_UTF8_READER$*///</editor-fold>
+//#endif
     
     /**
      * The input stream from the server.
@@ -83,18 +81,17 @@ public class JabberStream implements XMLEventListener, Runnable {
             throws IOException {
         String url=((ssl)?"ssl://":"socket://")+hostAddr+":"+hostPort ;
         connection =
-/*#!MIDP1#*///<editor-fold>
+//#if !(MIDP1)
                 (SocketConnection) Connector.open(url);
-/*$!MIDP1$*///</editor-fold>
-/*#MIDP1#*///<editor-fold>
+//#else
 //--                (StreamConnection) Connector.open(url);
-/*$MIDP1$*///</editor-fold>
+//#endif
         
-/*#!MIDP1#*///<editor-fold>
+//#if !(MIDP1)
         try {
             connection.setSocketOption(SocketConnection.KEEPALIVE,1);
         } catch (Exception e) { e.printStackTrace(); }
-/*$!MIDP1$*///</editor-fold>
+//#endif
         dispatcher = new JabberDataBlockDispatcher();
         if( theListener != null ) {
             setJabberListener( theListener );
@@ -102,13 +99,12 @@ public class JabberStream implements XMLEventListener, Runnable {
         
         inpStream = connection.openInputStream();
         new Thread( this ). start();
-/*#!USE_UTF8_READER#*///<editor-fold>
+//#if !(USE_UTF8_READER)
         OutputStream outStr= connection.openOutputStream();
         outStream = new OutputStreamWriter(outStr,"UTF-8");
-/*$!USE_UTF8_READER$*///</editor-fold>
-/*#USE_UTF8_READER#*///<editor-fold>
+//#else
 //--        outStream = connection.openOutputStream();
-/*$USE_UTF8_READER$*///</editor-fold>
+//#endif
         
         //sendQueue=new Vector();
         
@@ -116,12 +112,6 @@ public class JabberStream implements XMLEventListener, Runnable {
         header.append( hostName );
         header.append( "\" xmlns=\"jabber:client\" xmlns:stream=\"http://etherx.jabber.org/streams\">" );
         send(header.toString());
-        /*#USE_LOGGER#*///<editor-fold>
-//--        NvStorage.logS("SENT=");
-//--        NvStorage.logCrLf();
-//--        NvStorage.logS(header.toString());
-//--        NvStorage.logCrLf();
-        /*$USE_LOGGER$*///</editor-fold>
         
         keepAlive=new TimerTaskKeepAlive(StaticData.getInstance().config.keepAlive);
     }
@@ -135,14 +125,13 @@ public class JabberStream implements XMLEventListener, Runnable {
     public void run() {
         try {
             XMLParser parser = new XMLParser( this );
-/*#!USE_UTF8_READER#*///<editor-fold>
+//#if !(USE_UTF8_READER)
             InputStreamReader inSource = new InputStreamReader( inpStream, "UTF-8" );
             parser.parse( inSource );
-/*$!USE_UTF8_READER$*///</editor-fold>
-/*#USE_UTF8_READER#*///<editor-fold>
+//#else
 //--//            InputStreamReader inSource = new InputStreamReader( inpStream );
 //--            parser.parse( inpStream );
-/*$USE_UTF8_READER$*///</editor-fold>
+//#endif
             dispatcher.broadcastTerminatedConnection( null );
         } catch( Exception e ) {
             dispatcher.broadcastTerminatedConnection(e);
@@ -198,15 +187,15 @@ public class JabberStream implements XMLEventListener, Runnable {
     public void send( String data ) throws IOException {
         
         synchronized (outStream) {
-/*#USE_UTF8_READER#*///<editor-fold>
+//#if USE_UTF8_READER
 //--            outStream.write(toUTF(data).getBytes());
-/*$USE_UTF8_READER$*///</editor-fold>
-/*#!USE_UTF8_READER#*///<editor-fold>
+//#else
             outStream.write(data);
-/*$!USE_UTF8_READER$*///</editor-fold>
-/*#OUTSTREAM_FLUSH#*///<editor-fold>
+//#endif
+	    
+//#if OUTSTREAM_FLUSH
             outStream.flush();
-/*$OUTSTREAM_FLUSH$*///</editor-fold>
+//#endif
             //System.out.println(data);
         }
     }
@@ -258,12 +247,12 @@ public class JabberStream implements XMLEventListener, Runnable {
             currentBlock = new JabberDataBlock( name, currentBlock, attributes );
             // TODO: remove stub
             // M55 STUB
-/*#MIDP2#*///<editor-fold>
+//#if !(MIDP1)
             // photo reading
             if ( name.equals("BINVAL") ){
                 return true;
             }
-/*$MIDP2$*///</editor-fold>
+//#endif
             
             if (rosterNotify) if (name.equals("item")) dispatcher.rosterNotify();
             
@@ -312,9 +301,6 @@ public class JabberStream implements XMLEventListener, Runnable {
         
         JabberDataBlock parent = currentBlock.getParent();
         if( parent == null ) {
-            /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(currentBlock, true);
-            /*$USE_LOGGER$*///</editor-fold>
             dispatcher.broadcastJabberDataBlock( currentBlock );
             //System.out.println(currentBlock.toString());
         } else
@@ -322,7 +308,7 @@ public class JabberStream implements XMLEventListener, Runnable {
         currentBlock = parent;
     }
     
-/*#USE_UTF8_READER#*///<editor-fold>
+//#if USE_UTF8_READER
 //--    // temporary
 //--    public static String toUTF(String s) {
 //--        int i = 0;
@@ -347,7 +333,7 @@ public class JabberStream implements XMLEventListener, Runnable {
 //--
 //--        return stringbuffer.toString();
 //--    }
-/*$USE_UTF8_READER$*///</editor-fold>
+//#endif
     
     private class TimerTaskKeepAlive extends TimerTask{
         private Timer t;
@@ -382,17 +368,8 @@ public class JabberStream implements XMLEventListener, Runnable {
         }
         public void run(){
             try {
-                /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(data, false);
-                /*$USE_LOGGER$*///</editor-fold>
                 send( data.toString() );
-            } catch (Exception e) {
-                e.printStackTrace();
-                /*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e, "JabberStream:382");
-                /*$USE_LOGGER$*///</editor-fold>
-            }
-            
+            } catch (Exception e) {e.printStackTrace(); }
         }
     }
 }

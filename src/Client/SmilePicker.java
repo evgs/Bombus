@@ -23,12 +23,11 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
 
     private final static int CURSOR_HOFFSET=2;
 
-/*#MIDP1#*///<editor-fold>
+//#if MIDP1
 //--    private final static int CURSOR_VOFFSET=1;
-/*$MIDP1$*///</editor-fold>
-/*#!MIDP1#*///<editor-fold>
+//#else
     private final static int CURSOR_VOFFSET=2;
-/*$!MIDP1$*///</editor-fold>
+//#endif
     
     private int imgCnt;
     private int xCnt;

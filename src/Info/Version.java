@@ -6,6 +6,8 @@
 
 package Info;
 
+import ui.ConstMIDP;
+
 /**
  *
  * @author Evg_S
@@ -15,14 +17,6 @@ public class Version {
     // this string will be patched by build.xml/post-preprocess
     
     public final static String url="http://bombus.jrudevels.org";
-    
-    private static final String os=
-/*#!MIDP1#*///<editor-fold>
-                "MIDP2";
-/*$!MIDP1$*///</editor-fold>
-/*#MIDP1#*///<editor-fold>
-//--                "MIDP1(siemens)";
-/*$MIDP1$*///</editor-fold>
 
 
     public static String platform() {
@@ -31,6 +25,6 @@ public class Version {
     }
 
     public static String getOs() {
-        return Version.os + " Platform=" +Version.platform();
+        return ConstMIDP.MIDP + " Platform=" +Version.platform();
     }
 }

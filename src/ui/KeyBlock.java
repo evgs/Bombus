@@ -65,9 +65,9 @@ public class KeyBlock extends Canvas implements Runnable{
         } catch (Exception e) {};
         
         display.setCurrent(this);
-/*#!MIDP1#*///<editor-fold>
+//#if !(MIDP1)
         if (motorola_backlight) display.flashBacklight(0);
-/*$!MIDP1$*///</editor-fold>
+//#endif
     }
     
     public void paint(Graphics g){
@@ -81,12 +81,11 @@ public class KeyBlock extends Canvas implements Runnable{
         if (img!=null) g.drawImage(img, width/2, 0, Graphics.TOP|Graphics.HCENTER);
         
         int h=f.getHeight()+1;
-/*#ALCATEL_FONT#*///<editor-fold>
+//#if ALCATEL_FONT
 //--        int y=height-h-4;
-/*$ALCATEL_FONT$*///</editor-fold>
-/*#!ALCATEL_FONT#*///<editor-fold>
+//#else
         int y=height-h;
-/*$!ALCATEL_FONT$*///</editor-fold>
+//#endif
         g.setColor(COLOR_BLK_TEXT);
         g.translate(0, y);
         status.drawItem(g, 0, false);
@@ -115,9 +114,9 @@ public class KeyBlock extends Canvas implements Runnable{
 
     private void destroyView(){
         status.setElementAt(null,6);
-/*#!MIDP1#*///<editor-fold>
+//#if !(MIDP1)
         if (motorola_backlight) display.flashBacklight(Integer.MAX_VALUE);
-/*$!MIDP1$*///</editor-fold>
+//#endif
         if (display!=null)   display.setCurrent(parentView);
         img=null;
         tc.stop();

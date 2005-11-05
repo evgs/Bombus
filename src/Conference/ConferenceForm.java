@@ -57,11 +57,7 @@ public class ConferenceForm implements CommandListener{
         nickField=new TextField("Nickname", sd.account.getNickName(), 32, TextField.ANY);
         formJoin.append(nickField);
         
-        passField=new TextField("Password", "", 32, TextField.ANY 
-/*#!MIDP1#*///<editor-fold>
-                    | TextField.SENSITIVE
-/*$!MIDP1$*///</editor-fold>
-                );
+        passField=new TextField("Password", "", 32, TextField.ANY | ConstMIDP.TEXTFIELD_SENSITIVE );
         formJoin.append(passField);
         
         formJoin.addCommand(cmdJoin);

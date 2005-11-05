@@ -85,12 +85,7 @@ public class Account extends IconTextElement{
             if (version>=2) a.useSSL=inputStream.readBoolean();
             if (version>=3) a.plainAuth=inputStream.readBoolean();
             
-        } catch (IOException e) { 
-            e.printStackTrace(); 
-/*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e,"Account:87");
-/*$USE_LOGGER$*///</editor-fold>
-        }
+        } catch (IOException e) { e.printStackTrace(); }
             
         return (a.userName==null)?null:a;
     }
@@ -128,12 +123,7 @@ public class Account extends IconTextElement{
                 index--;
             } while (index>-1);
             is.close();
-        } catch (Exception e) { 
-            e.printStackTrace(); 
-/*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e, "Account:127");
-/*$USE_LOGGER$*///</editor-fold>
-        }
+        } catch (Exception e) { e.printStackTrace(); }
         return a;
     }
     
@@ -156,9 +146,6 @@ public class Account extends IconTextElement{
             outputStream.writeBoolean(plainAuth);
         } catch (IOException e) {
             e.printStackTrace();
-/*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e, "Account:151");
-/*$USE_LOGGER$*///</editor-fold>
         }
         
     }

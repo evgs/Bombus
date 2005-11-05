@@ -98,9 +98,6 @@ public class AccountRegister
             theStream.close();
         } catch (Exception e) { 
             e.printStackTrace();
-/*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e, "AccountRegister:108");
-/*$USE_LOGGER$*///</editor-fold>
         }
         destroyView();
     }

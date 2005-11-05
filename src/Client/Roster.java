@@ -100,10 +100,8 @@ public class Roster
      */
     public Roster(Display display /*, boolean selAccount*/) {
         super();
-/*#USE_LOGGER#*///<editor-fold>
-//--        NvStorage.log("---------- INIT -------------");
-/*$USE_LOGGER$*///</editor-fold>
-        setProgress(20);
+
+	setProgress(20);
         //setTitleImages(StaticData.getInstance().rosterIcons);
         setTitleImages(sd.rosterIcons);
         
@@ -168,17 +166,11 @@ public class Roster
     }
     public void setProgress(String pgs,int percent){
         SplashScreen.getInstance().setProgress(pgs, percent);
-/*#USE_LOGGER#*///<editor-fold>
-//--        NvStorage.log(pgs+"%"+percent);
-/*$USE_LOGGER$*///</editor-fold>
         setRosterTitle(pgs);
         redraw();
     }
     public void setProgress(int percent){
         SplashScreen.getInstance().setProgress(percent);
-/*#USE_LOGGER#*///<editor-fold>
-//--        NvStorage.log("%"+percent);
-/*$USE_LOGGER$*///</editor-fold>
         //redraw();
     }
     
@@ -218,9 +210,6 @@ public class Roster
             };
         } catch (Exception e) {
             e.printStackTrace();
-/*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e, "Roster:214");
-/*$USE_LOGGER$*///</editor-fold>
         }
         setProgress(26);
         
@@ -236,9 +225,6 @@ public class Roster
             reconnect=false;
             myStatus=Presence.PRESENCE_OFFLINE;
             e.printStackTrace();
-/*#USE_LOGGER#*///<editor-fold>
-//--            NvStorage.log(e, "Roster:232");
-/*$USE_LOGGER$*///</editor-fold>
             errorLog( e.getMessage() );
             setQuerySign(false);
             redraw();
@@ -289,10 +275,10 @@ public class Roster
             }
         }
         messageCount=m;
-/*#USE_LED_PATTERN#*///<editor-fold>
+//#if USE_LED_PATTERN
 //--                int pattern=cf.m55LedPattern;
 //--                if (pattern>0) EventNotify.leds(pattern-1, m>0);
-/*$USE_LED_PATTERN$*///</editor-fold>
+//#endif
         updateTitle();
         return (m>0);
     }
@@ -561,12 +547,7 @@ public class Roster
             if (status==Presence.PRESENCE_OFFLINE) {
                 try {
                     theStream.close();
-                } catch (Exception e) { 
-                    e.printStackTrace(); 
-/*#USE_LOGGER#*///<editor-fold>
-//--                    NvStorage.log(e, "Roster:543");
-/*$USE_LOGGER$*///</editor-fold>
-                }
+                } catch (Exception e) { e.printStackTrace(); }
                 theStream=null;
                 System.gc();
             }

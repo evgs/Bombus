@@ -56,12 +56,11 @@ public class SplashScreen extends Canvas implements CommandListener{
         int xp=pos*width/100;
         int xt=width/2;
         int h=f.getHeight()+1;
-/*#ALCATEL_FONT#*///<editor-fold>
+//#if ALCATEL_FONT
 //--        int y=height-h-4;
-/*$ALCATEL_FONT$*///</editor-fold>
-/*#!ALCATEL_FONT#*///<editor-fold>
+//#else
         int y=height-h;
-/*$!ALCATEL_FONT$*///</editor-fold>
+//#endif
         
         g.setColor(COLOR_PGS_BGND);
         g.fillRect(0,0, width, height);

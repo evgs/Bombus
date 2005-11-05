@@ -169,7 +169,7 @@ public class Contact extends IconTextElement{
             if (msgs.size()==1) 
                 if ( ((Msg)msgs.firstElement()).isPresence())
                     if (origin!=ORIGIN_GROUPCHAT) first_replace=true;
-/*#USE_SIEMENS_FILES#*///<editor-fold>
+//#if USE_SIEMENS_FILES
 //--        Config cf=StaticData.getInstance().config;
 //--
 //--        if (cf.msgLog && group!=Groups.TRANSP_INDEX && group!=Groups.SRC_RESULT_INDEX)
@@ -203,7 +203,7 @@ public class Contact extends IconTextElement{
 //--                NvStorage.appendFile("Log_"+histRecord, body.toString());
 //--            }
 //--        }
-/*$USE_SIEMENS_FILES$*///</editor-fold>
+//#endif
         // если единственное сообщение - presence, то заменим его
         if (first_replace) {
             msgs.setElementAt(m,0);

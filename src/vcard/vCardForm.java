@@ -54,12 +54,11 @@ public class vCardForm
             }
             if (item!=null) {
                 f.append(item);
-/*#!MIDP1#*///<editor-fold>
+//#if !(MIDP1)
                 f.append(new Spacer(256, 3));
-/*$!MIDP1$*///</editor-fold>
-/*#MIDP1#*///<editor-fold>
+//#else
 //--                f.append("\n");
-/*$MIDP1$*///</editor-fold>
+//#endif
             }
         }
         Image photo=vcard.getPhoto();

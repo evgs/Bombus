@@ -9,12 +9,11 @@ import com.alsutton.jabber.JabberDataBlock;
 import java.io.*;
 import util.strconv;
 
-/*#!USE_SIEMENS_FILES#*///<editor-fold>
+//#if !(USE_SIEMENS_FILES)
 import javax.microedition.rms.*;
-/*$!USE_SIEMENS_FILES$*///</editor-fold>
-/*#USE_SIEMENS_FILES#*///<editor-fold>
+//#else
 //--import com.siemens.mp.io.File;
-/*$USE_SIEMENS_FILES$*///</editor-fold>
+//#endif
 
 /**
  *
@@ -32,7 +31,7 @@ public class NvStorage {
     static public DataInputStream ReadFileRecord(String name, int index){
         DataInputStream istream=null;
         
-/*#!USE_SIEMENS_FILES#*///<editor-fold>
+//#if !(USE_SIEMENS_FILES)
         RecordStore recordStore=null;
         try {
             
@@ -45,8 +44,7 @@ public class NvStorage {
         } catch (Exception e) { }
         finally { 
             try { recordStore.closeRecordStore(); } catch (Exception e) {} }
-/*$!USE_SIEMENS_FILES$*///</editor-fold>
-/*#USE_SIEMENS_FILES#*///<editor-fold>
+//#else
 //--
 //--        try {
 //--        File f=new File();
@@ -65,11 +63,11 @@ public class NvStorage {
 //--        istream=new DataInputStream( new ByteArrayInputStream(b) );
 //--        } catch (Exception e) { e.printStackTrace(); }
 //--        
-/*$USE_SIEMENS_FILES$*///</editor-fold>
+//#endif
         
         return istream;
     }
-/*#USE_SIEMENS_FILES#*///<editor-fold>
+//#if USE_SIEMENS_FILES
 //--    public static String getPath(String name, int path_index){
 //--        
 //--        String path=null;
@@ -94,7 +92,7 @@ public class NvStorage {
 //--        return path+name;
 //--    }
 //--    
-/*$USE_SIEMENS_FILES$*///</editor-fold>
+//#endif
 
     private static ByteArrayOutputStream baos;
     /** Creates DataOutputStream based on ByteOutputStream  */
@@ -113,7 +111,7 @@ public class NvStorage {
         baos=null; // освободим для следующего
         byte[] b=lbaos.toByteArray();
         
-/*#!USE_SIEMENS_FILES#*///<editor-fold>
+//#if !(USE_SIEMENS_FILES)
         try {
             if (rewrite) RecordStore.deleteRecordStore(name);
         } catch (Exception e) {}
@@ -130,8 +128,7 @@ public class NvStorage {
             recordStore.closeRecordStore();
             ostream.close();
         } catch (Exception e) { e.printStackTrace(); return false; }
-/*$!USE_SIEMENS_FILES$*///</editor-fold>
-/*#USE_SIEMENS_FILES#*///<editor-fold>
+//#else
 //--        File f=new File();
 //--        String n=getPath(name, PATH_CFG);
 //--        System.out.println("Write "+n);
@@ -146,7 +143,7 @@ public class NvStorage {
 //--            f.write(descriptor, b, 0, b.length);
 //--            f.close(descriptor);
 //--        } catch (Exception e) { e.printStackTrace(); return false; }
-/*$USE_SIEMENS_FILES$*///</editor-fold>
+//#endif
         return true;
     }
     
@@ -155,14 +152,14 @@ public class NvStorage {
             /*System.out.println(
                     getPath(strconv.convUnicodeToAscii(URL), PATH_MSG)+" "+
                     strconv.convUnicodeToAscii(append_data));*/
-/*#USE_SIEMENS_FILES#*///<editor-fold>
+//#if USE_SIEMENS_FILES
 //--            File file1 = new File();
 //--            int fd = file1.open(getPath(strconv.convUnicodeToAscii(URL+".txt"), PATH_MSG));
 //--            byte abyte0[] = (strconv.convUnicodeToAscii(append_data)).getBytes();
 //--            file1.seek(fd, file1.length(fd));
 //--            file1.write(fd, abyte0, 0, abyte0.length);
 //--            file1.close(fd);
-/*$USE_SIEMENS_FILES$*///</editor-fold>
+//#endif
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -171,7 +168,7 @@ public class NvStorage {
         return true;
     }
     
-/*#USE_LOGGER#*///<editor-fold>
+//#if USE_LOGGER
 //--    public final static void log(String logMsg){
 //--        if (StaticData.getInstance().config.logMsg) { 
 //--            logS("MSG="); 
@@ -199,5 +196,5 @@ public class NvStorage {
 //--        appendFile("_syslog", logMsg);
 //--    }
 //--    public final static void logCrLf(){ logS("\n"); }
-/*$USE_LOGGER$*///</editor-fold>
+//#endif
 }

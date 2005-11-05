@@ -33,19 +33,15 @@ package com.alsutton.xmlparser;
 import java.io.*;
 
 import java.util.*;
-/*#USE_LOGGER#*///<editor-fold>
-//--import Client.*;
-/*$USE_LOGGER$*///</editor-fold>
 
 public class XMLParser
 {
   /** The reader from which the stream is being read  */
-/*#USE_UTF8_READER#*///<editor-fold>
+//#if USE_UTF8_READER
 //--  private InputStream inputReader;
-/*$USE_UTF8_READER$*///</editor-fold>
-/*#!USE_UTF8_READER#*///<editor-fold>
+//#else
   private Reader inputReader;
-/*$!USE_UTF8_READER$*///</editor-fold>
+//#endif
 
   /** The handler for XML Events. */
 
@@ -140,7 +136,7 @@ public class XMLParser
     return returnData;
   }
 
-/*#USE_UTF8_READER#*///<editor-fold>
+//#if USE_UTF8_READER
 //--  byte cbuf[]=new byte[512];
 //--  int length;
 //--  int pbyte;
@@ -154,13 +150,12 @@ public class XMLParser
 //--      pbyte=1;
 //--      return cbuf[0];
 //--  }
-/*$USE_UTF8_READER$*///</editor-fold>
+//#endif
   private int getNextCharacter()
   throws IOException {
-/*#!USE_UTF8_READER#*///<editor-fold>
+//#if !(USE_UTF8_READER)
       return inputReader.read();
-/*$!USE_UTF8_READER$*///</editor-fold>
-/*#USE_UTF8_READER#*///<editor-fold>
+//#else
 //--      int utfChar = -1;
 //--      int j = chRead();
 //--      if( j == -1 ) return utfChar;
@@ -205,7 +200,7 @@ public class XMLParser
 //--      }
 //--      //System.out.print((char)j);          
 //--      return utfChar;
-/*$USE_UTF8_READER$*///</editor-fold>
+//#endif
   }
   
   /**
@@ -358,18 +353,17 @@ public class XMLParser
    */
 
   public void  parse ( 
-/*#USE_UTF8_READER#*///<editor-fold>
+//#if USE_UTF8_READER
 //--          InputStream _inputReader 
-/*$USE_UTF8_READER$*///</editor-fold>
-/*#!USE_UTF8_READER#*///<editor-fold>
+//#else
           Reader _inputReader 
-/*$!USE_UTF8_READER$*///</editor-fold>
+//#endif
           )
     throws IOException
   {
-/*#USE_UTF8_READER#*///<editor-fold>
+//#if USE_UTF8_READER
 //--      length=pbyte=0;
-/*$USE_UTF8_READER$*///</editor-fold>
+//#endif
     inputReader = _inputReader;
     boolean binval=false;
     
@@ -384,18 +378,8 @@ public class XMLParser
     } catch( EndOfXMLException x ) {
         // The EndOfXMLException is purely used to drop out of the
         // continuous loop.
-                /*#USE_LOGGER#*///<editor-fold>
-//--                NvStorage.log((Exception)x, "XMLParser:355");
-                /*$USE_LOGGER$*///</editor-fold>
     } catch ( Exception e ) {
         e.printStackTrace();
-                /*#USE_LOGGER#*///<editor-fold>
-//--                NvStorage.log(e, "XMLParser:357");
-                /*$USE_LOGGER$*///</editor-fold>
     }
-                /*#USE_LOGGER#*///<editor-fold>
-//--                NvStorage.log("XMLParser exit");
-                /*$USE_LOGGER$*///</editor-fold>
  }
-
 }
