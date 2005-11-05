@@ -5,7 +5,10 @@
  */
 
 package Client;
+import java.util.Enumeration;
+import java.util.Vector;
 import javax.microedition.lcdui.*;
+import locale.StringLoader;
 import ui.*;
 
 /**
@@ -31,7 +34,12 @@ import ui.*;
  *  [] fullscreen
  */
 
-public class ConfigForm implements CommandListener{
+public class ConfigForm implements
+	CommandListener 
+//#if !(MIDP1)
+	,ItemCommandListener
+//#endif
+{
     private Display display;
     private Displayable parentView;
 
@@ -39,17 +47,22 @@ public class ConfigForm implements CommandListener{
     ChoiceGroup roster;
     ChoiceGroup message;
     ChoiceGroup application;
+    
+    ChoiceGroup soundFile;
+    
     TextField fieldGmt;
     TextField fieldLoc;
     
     
     Command cmdOk=new Command("OK",Command.OK,1);
+    Command cmdSign=new Command("- (Sign)",Command.ITEM,2);
     Command cmdCancel=new Command("Cancel",Command.BACK,99);
     
     Config cf;
     boolean ra[];
     boolean mv[];
     boolean ap[];
+    Vector files[];
     
     /** Creates a new instance of ConfigForm */
     public ConfigForm(Display display) {
@@ -93,34 +106,40 @@ public class ConfigForm implements CommandListener{
         application.setSelectedFlags(ap);
         
         fieldGmt=new TextField("GMT offset", String.valueOf(cf.gmtOffset), 4, 
-/*#!MIDP1#*///<editor-fold>
-                TextField.DECIMAL
-/*$!MIDP1$*///</editor-fold>
-/*#MIDP1#*///<editor-fold>
-//--                TextField.ANY
-/*$MIDP1$*///</editor-fold>
-                );
+				ConstMIDP.TEXTFIELD_DECIMAL       );
         fieldLoc=new TextField("Clock offset", String.valueOf(cf.locOffset), 4, 
-/*#!MIDP1#*///<editor-fold>
-                TextField.DECIMAL
-/*$!MIDP1$*///</editor-fold>
-/*#MIDP1#*///<editor-fold>
-//--                TextField.ANY
-/*$MIDP1$*///</editor-fold>
-                );
+				ConstMIDP.TEXTFIELD_DECIMAL       );
         
         
-        //if (newaccount)
-        f.append(roster);
+	files=new StringLoader().stringLoader("/sounds/res.txt",2);
+        soundFile=new ChoiceGroup("Sound", ConstMIDP.CHOICE_POPUP);
+	
+	for (Enumeration f=files[1].elements(); f.hasMoreElements(); ) {
+	    soundFile.append( (String)f.nextElement(), null );
+	}
+	
+	soundFile.setSelectedIndex(cf.sounsMsgIndex, true);
+	
+	f.append(roster);
         f.append(message);
-/*#!MIDP1#*///<editor-fold>
+	
+	f.append(soundFile);
+	
+//#if !(MIDP1)
         f.append(application);
-/*$!MIDP1$*///</editor-fold>
+//#endif
         
         f.append("Time settings (hours)\n");
         
         f.append(fieldGmt);
         f.append(fieldLoc);
+
+//#if !(MIDP1)
+        fieldGmt.setItemCommandListener(this);
+        fieldLoc.setItemCommandListener(this);
+	fieldGmt.addCommand(cmdSign);
+	fieldLoc.addCommand(cmdSign);
+//#endif
         
         f.addCommand(cmdOk);
         f.addCommand(cmdCancel);
@@ -149,6 +168,10 @@ public class ConfigForm implements CommandListener{
             
             cf.gmtOffset=Integer.parseInt(fieldGmt.getString());
             cf.locOffset=Integer.parseInt(fieldLoc.getString());
+	    
+	    cf.sounsMsgIndex=soundFile.getSelectedIndex();
+	    
+	    cf.loadSoundName();
             
             cf.updateTime();
             
@@ -161,10 +184,22 @@ public class ConfigForm implements CommandListener{
         if (c==cmdCancel) destroyView();
     }
 
+//#if !(MIDP1)
+    public void commandAction(Command command, Item item) {
+	TextField field=(TextField) item;
+	StringBuffer body=new StringBuffer( field.getString() );
+	if ( body.charAt(0)=='-' ) 
+	    body.deleteCharAt(0);
+	else
+	    body.insert(0,'-');
+	field.setString(body.toString());
+    }
+//#endif
     public void destroyView(){
         if (display!=null)   display.setCurrent(parentView);
-/*#!MIDP1#*///<editor-fold>
+//#if !(MIDP1)
         ((Canvas)parentView).setFullScreenMode(cf.fullscreen);
-/*$!MIDP1$*///</editor-fold>
+//#endif
     }
+
 }

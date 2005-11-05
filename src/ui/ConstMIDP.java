@@ -11,17 +11,20 @@
 package ui;
 
 import javax.microedition.lcdui.ChoiceGroup;
+import javax.microedition.lcdui.TextField;
 
 /**
  *
  * @author EvgS
  */
 public class ConstMIDP {
-/*#!MIDP1#*///<editor-fold>
-    public final static int CHOICE_POPUP=ChoiceGroup.POPUP;
-/*$!MIDP1$*///</editor-fold>
-/*#MIDP1#*///<editor-fold>
-//--    public final static int CHOICE_POPUP=ChoiceGroup.EXCLUSIVE;
-/*$MIDP1$*///</editor-fold>
     
+//#if !(MIDP1)
+    public final static int TEXTFIELD_DECIMAL=	TextField.DECIMAL;
+    public final static int CHOICE_POPUP=	ChoiceGroup.POPUP;
+//#else
+//--    public final static int TEXTFIELD_DECIMAL=	TextField.ANY;
+//--    public final static int CHOICE_POPUP=	ChoiceGroup.EXCLUSIVE;
+//#endif
+
 }

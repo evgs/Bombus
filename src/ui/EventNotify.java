@@ -26,7 +26,10 @@ public class EventNotify
         implements Runnable
 {
     
-    private EventProfile ep;
+    private int lenVibra;
+    private boolean enableLights;
+    private String soundName;
+    private String soundType;
     
     private Display display;
 /*#!MIDP1#*///<editor-fold>
@@ -38,54 +41,63 @@ public class EventNotify
 /*$MIDP1$*///</editor-fold>
     
     /** Creates a new instance of EventNotify */
-    public EventNotify(Display display, EventProfile ep) {
+    public EventNotify(
+	Display display, 
+	String soundMediaType, 
+	String soundFileName, 
+	int vibraLength, 
+	boolean enableLights
+    ) {
         this.display=display;
-        this.ep=ep;
+	this.soundName=soundFileName;
+	this.soundType=soundMediaType;
+	this.lenVibra=vibraLength;
+	this.enableLights=enableLights;
     }
     
     public void startNotify (){
-/*#!MIDP1#*///<editor-fold>
+//#if !(MIDP1)
         release();
         
-        if (ep.soundName!=null)
+        if (soundName!=null)
         try {
-            InputStream is = getClass().getResourceAsStream(ep.soundName);
+            InputStream is = getClass().getResourceAsStream(soundName);
             //Player p = Manager.createPlayer(is, "audio/X-wav");
-            player = Manager.createPlayer(is, ep.soundType);
+            player = Manager.createPlayer(is, soundType);
             player.prefetch();
             player.start();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (ep.enableLights) display.flashBacklight(1000);
-        if (ep.lenVibra>0) display.vibrate(ep.lenVibra);
+        if (enableLights) display.flashBacklight(1000);
+        if (lenVibra>0) display.vibrate(lenVibra);
         
-/*$!MIDP1$*///</editor-fold>
+//#endif
         
-/*#MIDP1#*///<editor-fold>
-//--        if (ep.soundName!=null)
+//#if MIDP1
+//--        if (soundName!=null)
 //--        try {
-//--            player = Manager.createPlayer(ep.soundName);
+//--            player = Manager.createPlayer(soundName);
 //--            player.realize();
 //--            player.prefetch();
 //--            player.start();
 //--        } catch (Exception e) {
 //--            e.printStackTrace();
 //--        }
-//--        if (ep.lenVibra>0) Vibrator.triggerVibrator(ep.lenVibra);
-//--        if (ep.enableLights) new Thread(this).start();
-/*$MIDP1$*///</editor-fold>
+//--        if (lenVibra>0) Vibrator.triggerVibrator(lenVibra);
+//--        if (enableLights) new Thread(this).start();
+//#endif
     }
     
     public void run(){
-/*#MIDP1#*///<editor-fold>
+//#if MIDP1
 //--        try {
 //--            new Light();
 //--            Light.setLightOn();
 //--            Thread.sleep(1500);
 //--            Light.setLightOff();
 //--        } catch (Exception e) { e.printStackTrace();}
-/*$MIDP1$*///</editor-fold>
+//#endif
     }
     
     public void release(){
@@ -93,10 +105,10 @@ public class EventNotify
         player=null;
     }
     
-/*#USE_LED_PATTERN#*///<editor-fold>
+//#if USE_LED_PATTERN
 //--    public static void leds(int pattern, boolean state){
 //--        if (state) Ledcontrol.playPattern(pattern);
 //--        else       Ledcontrol.stopPattern();
 //--    }
-/*$USE_LED_PATTERN$*///</editor-fold>
+//#endif
 }

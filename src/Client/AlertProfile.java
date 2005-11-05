@@ -22,8 +22,6 @@ public class AlertProfile extends VirtualList implements CommandListener {
     
     private final static String[] alertNames=
     { "Auto", "All signals", "Vibra", "Sound", "No signals"};
-    /*private final static int[] alertCodes=
-    { AUTO, ALL, VIBRA, SOUND, NONE };*/
     
     private Profile profile=new Profile();
     int defp;
@@ -93,19 +91,20 @@ public class AlertProfile extends VirtualList implements CommandListener {
     public static void playNotify(Display display, int event) {
         Config cf=StaticData.getInstance().config;
         String message=cf.messagesnd;
+	String type=cf.messageSndType;
         int profile=cf.profile;
         if (profile==AUTO) profile=ALL;
         
-        EventProfile ep=null;
+        EventNotify notify=null;
         
         boolean blFlashEn=cf.blFlash;   // motorola e398 backlight bug
         
         switch (profile) {
-            case ALL:   ep=new EventProfile(message, cf.vibraLen, blFlashEn); break;
-            case NONE:  ep=new EventProfile(null,    0,           false    ); break;
-            case VIBRA: ep=new EventProfile(null,    cf.vibraLen, blFlashEn); break;
-            case SOUND: ep=new EventProfile(message, 0,           blFlashEn); break;
+            case ALL:   notify=new EventNotify(display, type, message, cf.vibraLen, blFlashEn); break;
+            case NONE:  notify=new EventNotify(display, null, null,    0,           false    ); break;
+            case VIBRA: notify=new EventNotify(display, null, null,    cf.vibraLen, blFlashEn); break;
+            case SOUND: notify=new EventNotify(display, type, message, 0,           blFlashEn); break;
         }
-        if (ep!=null) new EventNotify (display, ep).startNotify();
+        if (notify!=null) notify.startNotify();
     }
 }

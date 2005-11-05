@@ -1,0 +1,2 @@
+audio/x-wav	/sounds/message.wav
+audio/x-mid	/sounds/message.mid

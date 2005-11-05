@@ -1,0 +1,3 @@
+audio/amr	/sounds/message.amr
+audio/x-wav	/sounds/message.wav
+audio/midi	/sounds/message.mid

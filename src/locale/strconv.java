@@ -37,7 +37,7 @@ public class strconv {
         for (int i=0;i<s.length();i++){
             char ch=s.charAt(i);
             if (ch==0x401) ch=0xa8; //¨
-            if (ch==0x451) ch=0xb8; //¨
+            if (ch==0x451) ch=0xb8; //¸
             if (ch>0x409) ch+=0xc0-0x410;
             b.append(ch);
             //setCharAt(i, ch);
