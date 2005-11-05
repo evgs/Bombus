@@ -10,6 +10,7 @@ import java.io.InputStream;
 
 /*#!MIDP1#*///<editor-fold>
 import javax.microedition.media.*;
+import javax.microedition.media.PlayerListener;
 /*$!MIDP1$*///</editor-fold>
 
 /*#MIDP1#*///<editor-fold>
@@ -23,7 +24,8 @@ import javax.microedition.media.*;
  * @author Eugene Stahov
  */
 public class EventNotify 
-        implements Runnable
+        implements Runnable,
+	PlayerListener
 {
     
     private int lenVibra;
@@ -32,13 +34,8 @@ public class EventNotify
     private String soundType;
     
     private Display display;
-/*#!MIDP1#*///<editor-fold>
+
     private static Player player;
-/*$!MIDP1$*///</editor-fold>
-/*#MIDP1#*///<editor-fold>
-//--    private static Player player;
-//--    
-/*$MIDP1$*///</editor-fold>
     
     /** Creates a new instance of EventNotify */
     public EventNotify(
@@ -56,14 +53,15 @@ public class EventNotify
     }
     
     public void startNotify (){
-//#if !(MIDP1)
         release();
+//#if !(MIDP1)
         
         if (soundName!=null)
         try {
             InputStream is = getClass().getResourceAsStream(soundName);
             //Player p = Manager.createPlayer(is, "audio/X-wav");
             player = Manager.createPlayer(is, soundType);
+	    player.addPlayerListener(this);
             player.prefetch();
             player.start();
         } catch (Exception e) {
@@ -78,6 +76,7 @@ public class EventNotify
 //--        if (soundName!=null)
 //--        try {
 //--            player = Manager.createPlayer(soundName);
+//--		player.addPlayerListener(this);
 //--            player.realize();
 //--            player.prefetch();
 //--            player.start();
@@ -100,8 +99,11 @@ public class EventNotify
 //#endif
     }
     
-    public void release(){
-        if (player!=null) player.close();
+    public synchronized void release(){
+        if (player!=null) {
+	    player.removePlayerListener(this);
+	    player.close();
+	}
         player=null;
     }
     
@@ -111,4 +113,11 @@ public class EventNotify
 //--        else       Ledcontrol.stopPattern();
 //--    }
 //#endif
+
+    public void playerUpdate(Player player, String string, Object object) {
+	if (string.equals(PlayerListener.END_OF_MEDIA)) {
+	    System.out.println(string);
+	    release();
+	}
+    }
 }
