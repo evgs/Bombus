@@ -30,12 +30,16 @@ public class EventNotify
     
     private int lenVibra;
     private boolean enableLights;
+    private boolean toneSequence;
     private String soundName;
     private String soundType;
     
     private Display display;
 
     private static Player player;
+    
+    private final static String tone="A6E6J6";
+    private final static int VOLUME=100;
     
     /** Creates a new instance of EventNotify */
     public EventNotify(
@@ -50,6 +54,7 @@ public class EventNotify
 	this.soundType=soundMediaType;
 	this.lenVibra=vibraLength;
 	this.enableLights=enableLights;
+	toneSequence= soundType.equals("tone");
     }
     
     public void startNotify (){
@@ -84,19 +89,33 @@ public class EventNotify
 //--            e.printStackTrace();
 //--        }
 //--        if (lenVibra>0) Vibrator.triggerVibrator(lenVibra);
-//--        if (enableLights) new Thread(this).start();
+//--        
 //#endif
+	if (toneSequence 
+//#if MIDP1
+//--	|| enableLights
+//#endif
+	) new Thread(this).start();
     }
     
     public void run(){
+        try {
 //#if MIDP1
-//--        try {
-//--            new Light();
-//--            Light.setLightOn();
-//--            Thread.sleep(1500);
-//--            Light.setLightOff();
-//--        } catch (Exception e) { e.printStackTrace();}
+//--	    if (enableLights) { new Light(); Light.setLightOn(); }
 //#endif
+	    if (toneSequence) {
+		for (int i=0; i<tone.length(); ) {
+		    int note=(tone.charAt(i++)-'A')+12*(tone.charAt(i++)-'0');
+		    int duration=150;
+		    Manager.playTone(note, duration, VOLUME);
+		    Thread.sleep(duration);
+		}
+	    }
+//#if MIDP1
+//--            Thread.sleep(1500);
+//--	    if (enableLights) { Light.setLightOff(); }
+//#endif
+        } catch (Exception e) { e.printStackTrace();}
     }
     
     public synchronized void release(){

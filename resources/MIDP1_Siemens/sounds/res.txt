@@ -1,4 +1,4 @@
 //type	path	desc
 audio/x-wav	/sounds/message.wav	message.wav
 audio/x-mid	/sounds/message.mid	message.mid
-		no sounds
+tone		tone sequence

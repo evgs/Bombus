@@ -2,4 +2,4 @@
 audio/amr	/sounds/message.amr	message.amr
 audio/x-wav	/sounds/message.wav	message.wav
 audio/midi	/sounds/message.mid	message.mid
-		no sounds
+tone		tone sequence

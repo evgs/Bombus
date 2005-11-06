@@ -56,10 +56,13 @@ public class SearchResult
         
         for (Enumeration e=query.getChildBlocks().elements(); e.hasMoreElements(); ){
             JabberDataBlock child=(JabberDataBlock) e.nextElement();
-            
+	    
             if (child.getTagName().equals("item")) {
                 StringBuffer vcard=new StringBuffer();
                 String jid=null;
+		
+	        int status=Presence.PRESENCE_ONLINE;
+
                 // Form vcard=new Form(null);
                 if (!xData) { jid=child.getAttribute("jid"); }
                 // поля item
@@ -83,8 +86,10 @@ public class SearchResult
                         vcard.append(value);
                         vcard.append((char)'\n');
                     }
+		    // заточка под jit
+		    if (name.equals("status")) if (value.equals("offline")) status=Presence.PRESENCE_OFFLINE;
                 }
-                Contact serv=new Contact(null,jid,0,null);
+                Contact serv=new Contact(null, jid, status, null);
                 serv.group=Groups.SRC_RESULT_INDEX;
                 Msg m=new Msg(Msg.MESSAGE_TYPE_IN, jid, "Short info", vcard.toString());
                 m.unread=false;
