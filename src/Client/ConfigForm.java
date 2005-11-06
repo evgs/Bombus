@@ -39,7 +39,7 @@ public class ConfigForm implements
 //#if !(MIDP1)
 	,ItemCommandListener
 //#endif
-	,ItemStateListener, Runnable
+	,ItemStateListener
 {
     private Display display;
     private Displayable parentView;
@@ -214,15 +214,11 @@ public class ConfigForm implements
 
     public void itemStateChanged(Item item) {
 	if (item==sndVol || item==soundFile) {
-	    new Thread(this).start();
-	}
-    }
-
-    public void run() {
 	    int sound=soundFile.getSelectedIndex();
 	    String soundFile=(String)files[1].elementAt(sound);
 	    String soundType=(String)files[0].elementAt(sound);
 	    new EventNotify(display, soundType, soundFile, sndVol.getValue()*10, 0, false).startNotify();
+	}
     }
 
 }
