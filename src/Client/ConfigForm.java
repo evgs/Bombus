@@ -39,6 +39,7 @@ public class ConfigForm implements
 //#if !(MIDP1)
 	,ItemCommandListener
 //#endif
+	,ItemStateListener
 {
     private Display display;
     private Displayable parentView;
@@ -49,6 +50,7 @@ public class ConfigForm implements
     ChoiceGroup application;
     
     ChoiceGroup soundFile;
+    Gauge sndVol;
     
     TextField fieldGmt;
     TextField fieldLoc;
@@ -119,11 +121,14 @@ public class ConfigForm implements
 	}
 	
 	soundFile.setSelectedIndex(cf.sounsMsgIndex, true);
-	
+
 	f.append(roster);
         f.append(message);
 	
 	f.append(soundFile);
+	
+	sndVol=new Gauge("Sound volume", true, 10,  cf.soundVol/10);
+	f.append(sndVol);
 	
 //#if !(MIDP1)
         f.append(application);
@@ -145,6 +150,7 @@ public class ConfigForm implements
         f.addCommand(cmdCancel);
         
         f.setCommandListener(this);
+	f.setItemStateListener(this);
         
         display.setCurrent(f);
     }
@@ -172,6 +178,8 @@ public class ConfigForm implements
 	    } catch (Exception e) { return; }
 	    
 	    cf.sounsMsgIndex=soundFile.getSelectedIndex();
+	    
+	    cf.soundVol=sndVol.getValue()*10;
 	    
 	    cf.loadSoundName();
             
@@ -202,6 +210,15 @@ public class ConfigForm implements
 //#if !(MIDP1)
         ((Canvas)parentView).setFullScreenMode(cf.fullscreen);
 //#endif
+    }
+
+    public void itemStateChanged(Item item) {
+	if (item==sndVol || item==soundFile) {
+	    int sound=soundFile.getSelectedIndex();
+	    String soundFile=(String)files[1].elementAt(sound);
+	    String soundType=(String)files[0].elementAt(sound);
+	    new EventNotify(display, soundType, soundFile, sndVol.getValue()*10, 0, false).startNotify();
+	}
     }
 
 }

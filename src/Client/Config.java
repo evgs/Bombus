@@ -36,6 +36,8 @@ public class Config {
     public String messagesnd;
     public String messageSndType;
     
+    public int soundVol=100;
+    
 //#if !(MIDP1)
     public char keyLock=getProperty("key_lock",'*');
     public char keyVibra=getProperty("key_vibra",'#');
@@ -100,6 +102,7 @@ public class Config {
 		locOffset=inputStream.readInt();
 		
 		sounsMsgIndex=inputStream.readInt();
+		soundVol=inputStream.readInt();
 		
 		inputStream.close();
 	    } catch (Exception e) {
@@ -139,6 +142,7 @@ public class Config {
 	    outputStream.writeInt(locOffset);
 	    
 	    outputStream.writeInt(sounsMsgIndex);
+	    outputStream.writeInt(soundVol);
 	    
 	} catch (IOException e) { e.printStackTrace(); }
 	

@@ -11,11 +11,13 @@ import java.io.InputStream;
 //#if !(MIDP1)
 import javax.microedition.media.*;
 import javax.microedition.media.PlayerListener;
+import javax.microedition.media.control.VolumeControl;
 //#endif
 
 //#if MIDP1
 //--import com.siemens.mp.game.*;
 //--import com.siemens.mp.media.*;
+//--import com.siemens.mp.media.control.VolumeControl;
 //--import com.siemens.mp.m55.*;
 //#endif
 
@@ -39,13 +41,14 @@ public class EventNotify
     private static Player player;
     
     private final static String tone="A6E6J6";
-    private final static int VOLUME=100;
+    private int sndVolume;
     
     /** Creates a new instance of EventNotify */
     public EventNotify(
 	Display display, 
 	String soundMediaType, 
 	String soundFileName, 
+	int sndVolume,
 	int vibraLength, 
 	boolean enableLights
     ) {
@@ -54,7 +57,8 @@ public class EventNotify
 	this.soundType=soundMediaType;
 	this.lenVibra=vibraLength;
 	this.enableLights=enableLights;
-	toneSequence= soundType.equals("tone");
+	if (soundType!=null) toneSequence= soundType.equals("tone");
+	this.sndVolume=sndVolume;
     }
     
     public void startNotify (){
@@ -68,10 +72,14 @@ public class EventNotify
             player = Manager.createPlayer(is, soundType);
 	    player.addPlayerListener(this);
             player.prefetch();
+	    
+	    try {
+		VolumeControl vol=(VolumeControl) player.getControl("VolumeControl");
+		vol.setLevel(sndVolume);
+	    } catch (Exception e) { e.printStackTrace(); }
+
             player.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) { }
         if (enableLights) display.flashBacklight(1000);
         if (lenVibra>0) display.vibrate(lenVibra);
         
@@ -84,10 +92,12 @@ public class EventNotify
 //--		player.addPlayerListener(this);
 //--            player.realize();
 //--            player.prefetch();
+//--	        try {
+//--		    VolumeControl vol=(VolumeControl) player.getControl("VolumeControl");
+//--		    vol.setLevel(sndVolume);
+//--		} catch (Exception e) { e.printStackTrace(); }
 //--            player.start();
-//--        } catch (Exception e) {
-//--            e.printStackTrace();
-//--        }
+//--        } catch (Exception e) { }
 //--        if (lenVibra>0) Vibrator.triggerVibrator(lenVibra);
 //--        
 //#endif
@@ -107,7 +117,7 @@ public class EventNotify
 		for (int i=0; i<tone.length(); ) {
 		    int note=(tone.charAt(i++)-'A')+12*(tone.charAt(i++)-'0');
 		    int duration=150;
-		    Manager.playTone(note, duration, VOLUME);
+		    Manager.playTone(note, duration, sndVolume);
 		    Thread.sleep(duration);
 		}
 	    }
@@ -134,9 +144,6 @@ public class EventNotify
 //#endif
 
     public void playerUpdate(Player player, String string, Object object) {
-	if (string.equals(PlayerListener.END_OF_MEDIA)) {
-	    System.out.println(string);
-	    release();
-	}
+	if (string.equals(PlayerListener.END_OF_MEDIA)) {    release(); }
     }
 }
