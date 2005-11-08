@@ -341,7 +341,7 @@ public abstract class VirtualList
      * перемещение курсора на смещение.
      * @param offset положительное или отрицательное смещение курсора
      */
-    synchronized private void moveCursor(int offset){
+    synchronized private void moveCursor(int offset, boolean enableRotation){
         int count=getItemCount();
  
         if (cursor>=0) {
@@ -366,7 +366,7 @@ public abstract class VirtualList
         int up_bound=count-visibleItemsCnt(count-1,-1);
         if (win_top>up_bound) win_top=up_bound; 
 
-        if (getItemCount()>0) setRotator();
+        if (enableRotation) if (getItemCount()>0) setRotator();
         
     }
 
@@ -411,7 +411,7 @@ public abstract class VirtualList
         //if (title!=null) { h-=title.getHeight(); }
         //if (ih==0) ih=10;
         //full_items=h/ih;
-        moveCursor(index-cursor); 
+        moveCursor(index-cursor, force); 
     }
 
     /*public void moveCursorTo(Object focused){
@@ -462,7 +462,7 @@ public abstract class VirtualList
      */
     protected void keyUp() { 
         blockChangeFocus=true; 
-        moveCursor(-1);  
+        moveCursor(-1, true);  
     }
     
     /**
@@ -473,7 +473,7 @@ public abstract class VirtualList
     
     protected void keyDwn() { 
         blockChangeFocus=true; 
-        moveCursor(+1); 
+        moveCursor(+1, true); 
     }
     
     /**
@@ -484,7 +484,7 @@ public abstract class VirtualList
     protected void keyLeft() {
         blockChangeFocus=true; 
         int mov_org=(cursor!=-1)? cursor : win_top;
-        moveCursor(-visibleItemsCnt(mov_org,-1)); 
+        moveCursor(-visibleItemsCnt(mov_org,-1), true); 
     }
 
     /**
@@ -494,7 +494,7 @@ public abstract class VirtualList
      */
     protected void keyRight() { 
         blockChangeFocus=true; 
-        moveCursor(visibleItemsCnt(win_top,1)); 
+        moveCursor(visibleItemsCnt(win_top,1), true); 
     }
     
     /**

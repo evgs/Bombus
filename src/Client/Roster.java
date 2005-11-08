@@ -944,19 +944,25 @@ public class Roster
             display.setCurrent(this);
             sd.isMinimized=false;
         }
-        
-        Group g=groups.getGroup(c.group);
-        if (g.collapsed) {
-            g.collapsed=false;
-            reEnumRoster();
-        }
-        
-        int index=vContacts.indexOf(c);
-        if (index>=0) moveCursorTo(index, false);
+        focusToContact(c);
 
         if (message.messageType!=Msg.MESSAGE_TYPE_HISTORY) 
             AlertProfile.playNotify(display, 0);
         return c;
+    }
+
+    private void focusToContact(final Contact c) {
+	
+	Group g=groups.getGroup(c.group);
+	if (g.collapsed) {
+	    g.collapsed=false;
+	    reEnumerator.queueEnum(c);
+	    //reEnumRoster();
+	} else {
+	    
+	    int index=vContacts.indexOf(c);
+	    if (index>=0) moveCursorTo(index, false);
+	}
     }
     
     
@@ -1068,16 +1074,7 @@ public class Roster
                 if (!i.hasMoreElements()) i=hContacts.elements();
                 Contact p=(Contact)i.nextElement();
                 if (pass==1) if (p.getNewMsgsCount()>0) { 
-
-                    Group g=groups.getGroup(p.group);
-                    if (g.collapsed) {
-                        g.collapsed=false;
-                        reEnumRoster();
-                    }
-                    
-                    int index=vContacts.indexOf(p);
-                    if (index>=0) moveCursorTo(index, true);
-                    
+		    focusToContact(p);
                     break; 
                 }
                 if (p==c) pass++; // полный круг пройден
@@ -1468,7 +1465,14 @@ public class Roster
 
         Thread thread;
         int pendingRepaints=0;
+	
+	Object desiredFocus;
         
+        public void queueEnum(Object focusTo) {
+	    desiredFocus=focusTo;
+	    queueEnum();
+        }
+	
         synchronized public void queueEnum() {
             pendingRepaints++;
             if (thread==null) (thread=new Thread(this)).start();
@@ -1481,7 +1485,8 @@ public class Roster
                     pendingRepaints=0;
                     
                     int locCursor=cursor;
-                    Object focused=getFocusedObject();
+                    Object focused=(desiredFocus==null)?getFocusedObject():desiredFocus;
+		    desiredFocus=null;
                     
                     int tonlines=0;
                     Vector tContacts=new Vector(vContacts.size());
