@@ -216,6 +216,22 @@ public class Message extends JabberDataBlock
      * @return <B>from</B> field as a string
      */
     public String getFrom() {
+	//try {
+	//    // jep-0146
+	//    JabberDataBlock fwd=findNamespace("jabber:x:forward");
+	//    JabberDataBlock from=fwd.getChildBlock("from");
+	//    return from.getAttribute("jid");
+	//} catch (Exception ex) { /* normal case if not forwarded message */ };
+	
+	try {
+	    // jep-0033 extended stanza addressing from psi
+	    JabberDataBlock addresses=getChildBlock("addresses");
+	    for (Enumeration e=addresses.getChildBlocks().elements(); e.hasMoreElements(); ) {
+		JabberDataBlock adr=(JabberDataBlock) e.nextElement();
+		if (adr.getTypeAttribute().equals("ofrom")) return adr.getAttribute("jid");
+	    }
+	} catch (Exception e) { /* normal case if not forwarded message */ };
+	
         return (String) attributes.get( "from" );
     }
 }

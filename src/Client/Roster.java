@@ -734,7 +734,7 @@ public class Roster
                 String from=message.getFrom();
                 String body=message.getBody().trim();
                 String tStamp=message.getTimeStamp();
-                
+		
                 int start_me=-1;    //  не добавлять ник
                 String name=null;
                 boolean groupchat=false;

@@ -39,7 +39,7 @@ public class ConfigForm implements
 //#if !(MIDP1)
 	,ItemCommandListener
 //#endif
-	,ItemStateListener
+	//,ItemStateListener
 {
     private Display display;
     private Displayable parentView;
@@ -49,7 +49,7 @@ public class ConfigForm implements
     ChoiceGroup message;
     ChoiceGroup application;
     
-    ChoiceGroup soundFile;
+    ChoiceGroup sndFile;
     Gauge sndVol;
     
     TextField fieldGmt;
@@ -58,6 +58,7 @@ public class ConfigForm implements
     
     Command cmdOk=new Command("OK",Command.OK,1);
     Command cmdSign=new Command("- (Sign)",Command.ITEM,2);
+    Command cmdPlaySound=new Command("Test sound",Command.ITEM,10);
     Command cmdCancel=new Command("Cancel",Command.BACK,99);
     
     Config cf;
@@ -114,21 +115,30 @@ public class ConfigForm implements
         
         
 	files=new StringLoader().stringLoader("/sounds/res.txt",3);
-        soundFile=new ChoiceGroup("Sound", ConstMIDP.CHOICE_POPUP);
+        sndFile=new ChoiceGroup("Sound", ConstMIDP.CHOICE_POPUP);
 	
 	for (Enumeration f=files[2].elements(); f.hasMoreElements(); ) {
-	    soundFile.append( (String)f.nextElement(), null );
+	    sndFile.append( (String)f.nextElement(), null );
 	}
 	
-	soundFile.setSelectedIndex(cf.sounsMsgIndex, true);
+	sndFile.setSelectedIndex(cf.sounsMsgIndex, true);
 
 	f.append(roster);
         f.append(message);
 	
-	f.append(soundFile);
+	f.append(sndFile);
 	
 	sndVol=new Gauge("Sound volume", true, 10,  cf.soundVol/10);
 	f.append(sndVol);
+
+//#if !(MIDP1)
+	sndFile.addCommand(cmdPlaySound);
+	sndFile.setItemCommandListener(this);
+	sndVol.addCommand(cmdPlaySound);
+	sndVol.setItemCommandListener(this);
+//#else
+//--	f.addCommand(cmdPlaySound);
+//#endif
 	
 //#if !(MIDP1)
         f.append(application);
@@ -140,17 +150,17 @@ public class ConfigForm implements
         f.append(fieldLoc);
 
 //#if !(MIDP1)
-        fieldGmt.setItemCommandListener(this);
-        fieldLoc.setItemCommandListener(this);
 	fieldGmt.addCommand(cmdSign);
+        fieldGmt.setItemCommandListener(this);
 	fieldLoc.addCommand(cmdSign);
+        fieldLoc.setItemCommandListener(this);
 //#endif
         
         f.addCommand(cmdOk);
         f.addCommand(cmdCancel);
         
         f.setCommandListener(this);
-	f.setItemStateListener(this);
+	//f.setItemStateListener(this);
         
         display.setCurrent(f);
     }
@@ -177,7 +187,7 @@ public class ConfigForm implements
 		cf.locOffset=Integer.parseInt(fieldLoc.getString());
 	    } catch (Exception e) { return; }
 	    
-	    cf.sounsMsgIndex=soundFile.getSelectedIndex();
+	    cf.sounsMsgIndex=sndFile.getSelectedIndex();
 	    
 	    cf.soundVol=sndVol.getValue()*10;
 	    
@@ -190,12 +200,18 @@ public class ConfigForm implements
             StaticData.getInstance().roster.reEnumRoster();
             destroyView();
         }
-        
+//#if MIDP1
+//--        if (c==cmdPlaySound) testSound();
+//#endif
         if (c==cmdCancel) destroyView();
     }
 
 //#if !(MIDP1)
     public void commandAction(Command command, Item item) {
+	if (command==cmdPlaySound) {
+	    testSound();
+	    return;
+	}
 	TextField field=(TextField) item;
 	StringBuffer body=new StringBuffer( field.getString() );
 	if ( body.charAt(0)=='-' ) 
@@ -205,6 +221,7 @@ public class ConfigForm implements
 	field.setString(body.toString());
     }
 //#endif
+    
     public void destroyView(){
         if (display!=null)   display.setCurrent(parentView);
 //#if !(MIDP1)
@@ -212,13 +229,14 @@ public class ConfigForm implements
 //#endif
     }
 
-    public void itemStateChanged(Item item) {
-	if (item==sndVol || item==soundFile) {
-	    int sound=soundFile.getSelectedIndex();
-	    String soundFile=(String)files[1].elementAt(sound);
-	    String soundType=(String)files[0].elementAt(sound);
-	    new EventNotify(display, soundType, soundFile, sndVol.getValue()*10, 0, false).startNotify();
-	}
+    /*public void itemStateChanged(Item item) {
+	if (item==sndVol || item==soundFile) 
+     */
+    private void testSound(){
+	int sound=sndFile.getSelectedIndex();
+	String soundFile=(String)files[1].elementAt(sound);
+	String soundType=(String)files[0].elementAt(sound);
+	new EventNotify(display, soundType, soundFile, sndVol.getValue()*10, 0, false).startNotify();
     }
 
 }
