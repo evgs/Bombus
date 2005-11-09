@@ -944,24 +944,24 @@ public class Roster
             display.setCurrent(this);
             sd.isMinimized=false;
         }
-        focusToContact(c);
+        focusToContact(c, false);
 
         if (message.messageType!=Msg.MESSAGE_TYPE_HISTORY) 
             AlertProfile.playNotify(display, 0);
         return c;
     }
 
-    private void focusToContact(final Contact c) {
+    private void focusToContact(final Contact c, boolean force) {
 	
 	Group g=groups.getGroup(c.group);
 	if (g.collapsed) {
 	    g.collapsed=false;
-	    reEnumerator.queueEnum(c);
+	    reEnumerator.queueEnum(c, force);
 	    //reEnumRoster();
 	} else {
 	    
 	    int index=vContacts.indexOf(c);
-	    if (index>=0) moveCursorTo(index, false);
+	    if (index>=0) moveCursorTo(index, force);
 	}
     }
     
@@ -1074,7 +1074,7 @@ public class Roster
                 if (!i.hasMoreElements()) i=hContacts.elements();
                 Contact p=(Contact)i.nextElement();
                 if (pass==1) if (p.getNewMsgsCount()>0) { 
-		    focusToContact(p);
+		    focusToContact(p, true);
                     break; 
                 }
                 if (p==c) pass++; // полный круг пройден
@@ -1465,11 +1465,13 @@ public class Roster
 
         Thread thread;
         int pendingRepaints=0;
+	boolean force;
 	
 	Object desiredFocus;
         
-        public void queueEnum(Object focusTo) {
+        public void queueEnum(Object focusTo, boolean force) {
 	    desiredFocus=focusTo;
+	    this.force=force;
 	    queueEnum();
         }
 	
@@ -1552,7 +1554,8 @@ public class Roster
                     // TODO: синхронизировать!
                     if ( locCursor==cursor && focused!=null ) {
                         int c=vContacts.indexOf(focused);
-                        if (c>=0) moveCursorTo(c, false);
+                        if (c>=0) moveCursorTo(c, force);
+			force=false;
                     }
                     if (cursor>=vContacts.size()) moveCursorEnd(); // вернём курсор из нирваны
                     
