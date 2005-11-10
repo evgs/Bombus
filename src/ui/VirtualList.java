@@ -108,6 +108,15 @@ public abstract class VirtualList
     protected ComplexString title;
     protected ImageList titleil;
     
+    private boolean wrapping = true;
+
+    /**
+     * Разрешает заворачивание списка в кольцо (перенос курсора через конец списка)
+     * по умолчанию установлен true
+     * @param wrap будучи переданным true, разрешает перенос курсора через конец списка
+     */
+    public void enableListWrapping(boolean wrap) { this.wrapping=wrap; }
+    
     /**
      * Создаёт заголовок списка на базе объекта ComplexString
      * @param size число полей создаваемого ComplexString
@@ -460,7 +469,8 @@ public abstract class VirtualList
      * в классе VirtualList функция перемещает курсор на одну позицию вверх.
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
-    protected void keyUp() { 
+    protected void keyUp() {
+	if (wrapping) if (cursor==0) { moveCursorEnd(); return; }
         blockChangeFocus=true; 
         moveCursor(-1, true);  
     }
@@ -472,6 +482,7 @@ public abstract class VirtualList
      */
     
     protected void keyDwn() { 
+	if (wrapping) if (cursor==getItemCount()-1) { moveCursorHome(); return; }
         blockChangeFocus=true; 
         moveCursor(+1, true); 
     }
@@ -482,6 +493,7 @@ public abstract class VirtualList
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
     protected void keyLeft() {
+	//if (cursor==0) { moveCursorEnd(); return; }
         blockChangeFocus=true; 
         int mov_org=(cursor!=-1)? cursor : win_top;
         moveCursor(-visibleItemsCnt(mov_org,-1), true); 
@@ -493,6 +505,7 @@ public abstract class VirtualList
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
     protected void keyRight() { 
+	//if (cursor==getItemCount()-1) { moveCursorHome(); return; }
         blockChangeFocus=true; 
         moveCursor(visibleItemsCnt(win_top,1), true); 
     }

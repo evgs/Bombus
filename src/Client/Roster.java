@@ -407,6 +407,7 @@ public class Roster
             c.origin=Contact.ORIGIN_GROUPCHAT;
             //c.priority=99;
             c.jidHash=0;
+	    c.conferenceJoinTime=Time.localTime();
         } else {
             c=presenceContact(from, -1);
             c.nick=from.substring(rp+1);
@@ -785,10 +786,9 @@ public class Roster
                     if (c.bareJid.equals(message.getFrom())) {
                         m.messageType=Msg.MESSAGE_TYPE_OUT;
                         m.unread=false;
-                    } else try {
-                        long enterTime=((Msg)c.msgs.elementAt(0)).dateGmt;
-                        if (m.dateGmt<=enterTime) m.messageType=Msg.MESSAGE_TYPE_HISTORY;
-                    } catch (Exception e) { e.printStackTrace(); }
+                    } else {
+                        if (m.dateGmt<=c.conferenceJoinTime) m.messageType=Msg.MESSAGE_TYPE_HISTORY;
+                    } 
                 }
                 messageStore(m, -1);
                 //Contact c=getContact(from);

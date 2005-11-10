@@ -50,7 +50,7 @@ public class ConfigForm implements
     ChoiceGroup application;
     
     ChoiceGroup sndFile;
-    Gauge sndVol;
+    //Gauge sndVol;
     
     TextField fieldGmt;
     TextField fieldLoc;
@@ -128,14 +128,14 @@ public class ConfigForm implements
 	
 	f.append(sndFile);
 	
-	sndVol=new Gauge("Sound volume", true, 10,  cf.soundVol/10);
-	f.append(sndVol);
+	//sndVol=new Gauge("Sound volume", true, 10,  cf.soundVol/10);
+	//f.append(sndVol);
 
 //#if !(MIDP1)
 	sndFile.addCommand(cmdPlaySound);
 	sndFile.setItemCommandListener(this);
-	sndVol.addCommand(cmdPlaySound);
-	sndVol.setItemCommandListener(this);
+	//sndVol.addCommand(cmdPlaySound);
+	//sndVol.setItemCommandListener(this);
 //#else
 //--	f.addCommand(cmdPlaySound);
 //#endif
@@ -189,7 +189,7 @@ public class ConfigForm implements
 	    
 	    cf.sounsMsgIndex=sndFile.getSelectedIndex();
 	    
-	    cf.soundVol=sndVol.getValue()*10;
+	    //cf.soundVol=sndVol.getValue()*10;
 	    
 	    cf.loadSoundName();
             
@@ -236,7 +236,7 @@ public class ConfigForm implements
 	int sound=sndFile.getSelectedIndex();
 	String soundFile=(String)files[1].elementAt(sound);
 	String soundType=(String)files[0].elementAt(sound);
-	new EventNotify(display, soundType, soundFile, sndVol.getValue()*10, 0, false).startNotify();
+	new EventNotify(display, soundType, soundFile, 0, false).startNotify();
     }
 
 }

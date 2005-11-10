@@ -48,7 +48,9 @@ implements CommandListener{
         il=sd.smilesIcons;
         smiles=sd.config.smiles;
         //sd.config.updateTime();
-        
+    
+	enableListWrapping(false);
+	
         AttachList(new Vector());
 
         title=new ComplexString(sd.rosterIcons);

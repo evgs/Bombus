@@ -115,6 +115,8 @@ public class MessageView
     /** Creates a new instance of MessageView */
     public MessageView(Display display, int msgIndex, Contact contact) {
         super(display);
+	
+	enableListWrapping(false);
 
         sd=StaticData.getInstance();
         smiles=sd.config.smiles;

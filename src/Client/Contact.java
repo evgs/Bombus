@@ -75,6 +75,8 @@ public class Contact extends IconTextElement{
     
     public VCard vcard;
     
+    public long conferenceJoinTime;
+    
     public int firstUnread(){
         int unreadIndex=0;
         for (Enumeration e=msgs.elements(); e.hasMoreElements();) {

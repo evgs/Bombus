@@ -41,14 +41,14 @@ public class EventNotify
     private static Player player;
     
     private final static String tone="A6E6J6";
-    private int sndVolume;
+    //private int sndVolume;
     
     /** Creates a new instance of EventNotify */
     public EventNotify(
 	Display display, 
 	String soundMediaType, 
 	String soundFileName, 
-	int sndVolume,
+	//int sndVolume,
 	int vibraLength, 
 	boolean enableLights
     ) {
@@ -58,7 +58,7 @@ public class EventNotify
 	this.lenVibra=vibraLength;
 	this.enableLights=enableLights;
 	if (soundType!=null) toneSequence= soundType.equals("tone");
-	this.sndVolume=sndVolume;
+	//this.sndVolume=100;
     }
     
     public void startNotify (){
@@ -73,10 +73,10 @@ public class EventNotify
 	    player.addPlayerListener(this);
             player.prefetch();
 	    
-	    try {
-		VolumeControl vol=(VolumeControl) player.getControl("VolumeControl");
-		vol.setLevel(sndVolume);
-	    } catch (Exception e) { e.printStackTrace(); }
+//	    try {
+//		VolumeControl vol=(VolumeControl) player.getControl("VolumeControl");
+//		vol.setLevel(sndVolume);
+//	    } catch (Exception e) { e.printStackTrace(); }
 
             player.start();
         } catch (Exception e) { }
@@ -92,10 +92,10 @@ public class EventNotify
 //--		player.addPlayerListener(this);
 //--            player.realize();
 //--            player.prefetch();
-//--	        try {
-//--		    VolumeControl vol=(VolumeControl) player.getControl("VolumeControl");
-//--		    vol.setLevel(sndVolume);
-//--		} catch (Exception e) { e.printStackTrace(); }
+//--//	        try {
+//--//		    VolumeControl vol=(VolumeControl) player.getControl("VolumeControl");
+//--//		    vol.setLevel(sndVolume);
+//--//		} catch (Exception e) { e.printStackTrace(); }
 //--            player.start();
 //--        } catch (Exception e) { }
 //--        if (lenVibra>0) Vibrator.triggerVibrator(lenVibra);
@@ -117,7 +117,7 @@ public class EventNotify
 		for (int i=0; i<tone.length(); ) {
 		    int note=(tone.charAt(i++)-'A')+12*(tone.charAt(i++)-'0');
 		    int duration=150;
-		    Manager.playTone(note, duration, sndVolume);
+		    Manager.playTone(note, duration, 100);
 		    Thread.sleep(duration);
 		}
 	    }
