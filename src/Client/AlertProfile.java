@@ -103,7 +103,7 @@ public class AlertProfile extends VirtualList implements CommandListener {
         switch (profile) {
             case ALL:   notify=new EventNotify(display, type, message, cf.vibraLen, blFlashEn); break;
             case NONE:  notify=new EventNotify(display, null, null,    0,           false    ); break;
-            case VIBRA: notify=new EventNotify(display, null, null,    cf.vibraLen, blFlashEn); break;
+            case VIBRA: notify=new EventNotify(display, null, null,    cf.vibraLen, false    ); break;
             case SOUND: notify=new EventNotify(display, type, message, 0,           blFlashEn); break;
         }
         if (notify!=null) notify.startNotify();
