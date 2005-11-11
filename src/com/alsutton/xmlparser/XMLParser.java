@@ -51,7 +51,7 @@ public class XMLParser
 
   private String rootTag = null;
   
-  public int maxBlockSize=4096-3; //max array for m55=4096?
+  private static final int MAX_BLOCK_SIZE=4096-3; //max array for m55=4096?
 
   /** Constructor, Used to override default dispatcher.
    *
@@ -93,8 +93,8 @@ public class XMLParser
             if (inQuote==0 && tagBracket=='>') break;
         
         switch (nextChar) {
-            case '\'':
-            case '\"':        
+            case '\'': // '
+            case '\"': // "       
                 inQuote=( inQuote==0 )? nextChar: 0;
                 break;
             case '&':
@@ -120,9 +120,9 @@ public class XMLParser
                 }
             default:
                 if (!inXMLchar) {
-                    if (streamData.length()<maxBlockSize) 
+                    if (streamData.length()<MAX_BLOCK_SIZE) 
                         streamData.append( (char) nextChar );
-                    else if (streamData.length()==maxBlockSize)
+                    else if (streamData.length()==MAX_BLOCK_SIZE)
                         streamData.append("...");
                 } else xmlChar.append( (char) nextChar );
         }
@@ -130,7 +130,7 @@ public class XMLParser
     }
     
     if( nextChar != '<' && nextChar != '>')
-      streamData.append( (char) nextChar );
+      streamData.append( (char) '\n' );
 
     String returnData = streamData.toString();
     return returnData;
@@ -234,7 +234,7 @@ public class XMLParser
         substringEnd--;
       }
 
-      hasMoreData = data.endsWith( " " );
+      hasMoreData = data.endsWith( "\n" );
       if( hasMoreData )
         substringEnd--;
 
