@@ -23,6 +23,14 @@
             <arg value="${file2}"/>
             <arg value="${file2o}"/>
         </exec>
+
+        <property name="file3" location="ftp/config.php.txt "/>
+        <property name="file3o" location="ftp/config.php "/>
+        <exec executable="${versionPatcher}" > 
+            <arg value="./"/>
+            <arg value="${file3}"/>
+            <arg value="${file3o}"/>
+        </exec>
     </target>
     <!--
 
