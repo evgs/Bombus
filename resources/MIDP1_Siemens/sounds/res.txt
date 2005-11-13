@@ -1,5 +1,5 @@
 //type	path	desc
 audio/x-wav	/sounds/message.wav	message.wav
 audio/x-mid	/sounds/message.mid	message.mid
-audio/x-tone-seq	/sounds/mary.seq	mary.seq
+//audio/x-tone-seq	/sounds/mary.seq	mary.seq
 tone		tone sequence
