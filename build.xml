@@ -6,7 +6,7 @@
     <description>Builds, tests, and runs the project .</description>
     <import file="nbproject/build-impl.xml"/>
 
-    <!-- version patch -->
+    <!-- version patch in Sources -->
     <target name="post-preprocess">
         <property name="versionPatcher" location="C:/Program Files/TortoiseSVN/bin/SubWCRev.exe" />
         <property name="file1" location="${preprocessed.dir}\Info\Version.java "/>
@@ -16,6 +16,33 @@
             <arg value="${file1}"/>
         </exec>
         
+    </target>
+
+    <!-- version patch in manifest -->
+    <target name="pre-jar">
+        <property name="versionPatcher" location="C:/Program Files/TortoiseSVN/bin/SubWCRev.exe" />
+        <property name="manifest" location="${build.dir}/manifest.mf "/>
+
+        <exec executable="${versionPatcher}" > 
+            <arg value="."/>
+            <arg value="${manifest}"/>
+            <arg value="${manifest}"/>
+        </exec>
+        
+    </target>
+
+    <target name="post-jar">
+        <!-- version patch in jad -->
+        <property name="versionPatcher" location="C:/Program Files/TortoiseSVN/bin/SubWCRev.exe" />
+        <property name="jad" location="${dist.dir}/Bombus.jad "/>
+
+        <exec executable="${versionPatcher}" > 
+            <arg value="."/>
+            <arg value="${jad}"/>
+            <arg value="${jad}"/>
+        </exec>
+        
+        <!-- version patch in arch packer -->
         <property name="file2" location="pack.cmd.txt "/>
         <property name="file2o" location="pack.cmd "/>
         <exec executable="${versionPatcher}" > 
@@ -24,6 +51,7 @@
             <arg value="${file2o}"/>
         </exec>
 
+        <!-- version patch in server files -->
         <property name="file3" location="ftp/config.php.txt "/>
         <property name="file3o" location="ftp/config.php "/>
         <exec executable="${versionPatcher}" > 
