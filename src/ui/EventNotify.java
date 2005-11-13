@@ -63,44 +63,39 @@ public class EventNotify
     
     public void startNotify (){
         release();
-//#if !(MIDP1)
-        
         if (soundName!=null)
         try {
+//#if !(MIDP1)        
             InputStream is = getClass().getResourceAsStream(soundName);
             //Player p = Manager.createPlayer(is, "audio/X-wav");
             player = Manager.createPlayer(is, soundType);
+//#else
+//--            player = Manager.createPlayer(soundName);
+//#endif
 	    player.addPlayerListener(this);
-            player.prefetch();
+	    player.realize();
+	    player.prefetch();
 	    
+
 //	    try {
 //		VolumeControl vol=(VolumeControl) player.getControl("VolumeControl");
 //		vol.setLevel(sndVolume);
 //	    } catch (Exception e) { e.printStackTrace(); }
 
-            player.start();
+	    player.start();
         } catch (Exception e) { }
-        if (enableLights) display.flashBacklight(1000);
-        if (lenVibra>0) display.vibrate(lenVibra);
-        
+
+//#if !(MIDP1)        
+	if (enableLights) display.flashBacklight(1000);
+//#endif
+
+    if (lenVibra>0)
+//#if !(MIDP1)
+         display.vibrate(lenVibra);
+//#else
+//--        Vibrator.triggerVibrator(lenVibra);
 //#endif
         
-//#if MIDP1
-//--        if (soundName!=null)
-//--        try {
-//--            player = Manager.createPlayer(soundName);
-//--		player.addPlayerListener(this);
-//--            player.realize();
-//--            player.prefetch();
-//--//	        try {
-//--//		    VolumeControl vol=(VolumeControl) player.getControl("VolumeControl");
-//--//		    vol.setLevel(sndVolume);
-//--//		} catch (Exception e) { e.printStackTrace(); }
-//--            player.start();
-//--        } catch (Exception e) { }
-//--        if (lenVibra>0) Vibrator.triggerVibrator(lenVibra);
-//--        
-//#endif
 	if (toneSequence 
 //#if MIDP1
 //--	|| enableLights

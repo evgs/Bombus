@@ -2,4 +2,5 @@
 audio/amr	/sounds/message.amr	message.amr
 audio/x-wav	/sounds/message.wav	message.wav
 audio/midi	/sounds/message.mid	message.mid
+audio/x-tone-seq	/sounds/mary.seq	mary.seq
 tone		tone sequence
