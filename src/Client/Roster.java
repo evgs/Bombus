@@ -1174,7 +1174,7 @@ public class Roster
         }
     }
     
-    protected void showNotify() { countNewMsgs(); }
+    protected void showNotify() { super.showNotify(); countNewMsgs(); }
     
     /*// temporary here
     public final String getProperty(final String key, final String defvalue) {

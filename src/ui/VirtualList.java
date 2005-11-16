@@ -95,6 +95,8 @@ public abstract class VirtualList
     int width;
     int height;
     
+    Image offscreen;
+    
     protected int cursor;
     protected boolean atEnd;
     protected boolean blockChangeFocus;
@@ -167,9 +169,10 @@ public abstract class VirtualList
         //addCommand(cmdSetFullScreen);
         setFullScreenMode(fullscreen);
 //#endif
+	System.out.println(hasPointerEvents());
     }
 
-    
+    /** Creates a new instance of VirtualList */
     public VirtualList(Display display) {
         this();
         
@@ -199,6 +202,37 @@ public abstract class VirtualList
             ((Canvas)d).repaint();
         }
     }
+
+    /** ¬ызываетс€ после скрыти€ VirtualList. переопредел€ет наследуемый метод 
+     * Canvas.hideNotify(). действие по умолчанию - освобождение экранного 
+     * буфера offscreen, используемого при работе без автоматической двойной буферизации
+     */
+    protected void hideNotify() {
+	offscreen=null;
+    }
+    
+    /** ¬ызываетс€ перед вызовом отрисовки VirtualList. переопредел€ет наследуемый метод 
+     * Canvas.showNotify(). действие по умолчанию - создание экранного 
+     * буфера offscreen, используемого при работе без автоматической двойной буферизации
+     */
+    protected void showNotify() {
+	if (!isDoubleBuffered()) 
+	    offscreen=Image.createImage(width, height);
+    }
+    
+    /** ¬ызываетс€ при изменении размера отображаемой области. переопредел€ет наследуемый метод 
+     * Canvas.sizeChanged(int width, int heigth). сохран€ет новые размеры области рисовани€.
+     * также создаЄт новый экранный буфер offscreen, используемый при работе без автоматической 
+     * двойной буферизации
+     */
+//#if !(MIDP1)
+    protected void sizeChanged(int w, int h) {
+        width=w;
+        height=h;
+	if (!isDoubleBuffered()) 
+	    offscreen=Image.createImage(width, height);
+    }
+//#endif
     
     /**
      * начало отрисовки списка.
@@ -213,7 +247,8 @@ public abstract class VirtualList
     /**
      * отрисовка
      */
-    public void paint(Graphics g) {
+    public void paint(Graphics graphics) {
+	Graphics g=(offscreen==null)? graphics: offscreen.getGraphics();
         // заголовок окна
         
         beginPaint();
@@ -311,7 +346,8 @@ public abstract class VirtualList
 
         setAbsOrg(g, 0, 0);
 
-       //full_items=fe;
+	if (offscreen!=null) graphics.drawImage(offscreen, 0,0, Graphics.TOP | Graphics.LEFT );
+	//full_items=fe;
     }
     
     
@@ -596,12 +632,5 @@ public abstract class VirtualList
     public void destroyView(){
         if (display!=null)   display.setCurrent(parentView);
     }
-
-//#if !(MIDP1)
-    protected void sizeChanged(int w, int h) {
-        width=w;
-        height=h;
-    }
-//#endif
 
 }
