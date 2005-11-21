@@ -346,10 +346,9 @@ public class JabberStream implements XMLEventListener, Runnable {
             try {
                 System.out.println("Keep-Alive");
                 sendKeepAlive();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            } catch (Exception e) { e.printStackTrace(); }
         }
+	
         public void destroyTask(){
             if (t!=null){
                 this.cancel();

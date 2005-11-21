@@ -35,6 +35,7 @@ import java.util.*;
 
 public class JabberDataBlock
 {
+    private final static int MAX_CHILDS=400;
   /**
    * The name of this tag
    */
@@ -123,12 +124,11 @@ public class JabberDataBlock
    * @param newData The child block to add
    */
 
-  public void addChild( Object newData )
-  {
-    if( childBlocks == null )
-      childBlocks = new Vector();
-
-    childBlocks.addElement( newData );
+  public void addChild( Object newData ) {
+      if( childBlocks == null )
+	  childBlocks = new Vector();
+      if (childBlocks.size()<MAX_CHILDS)
+	  childBlocks.addElement( newData );
   }
   
   /**

@@ -8,6 +8,7 @@ package ui;
 import javax.microedition.lcdui.*;
 import java.util.*;
 import Client.*;
+import ui.controls.ScrollBar;
 
 /**
  * Вертикальный список виртуальных элементов.
@@ -159,6 +160,7 @@ public abstract class VirtualList
     protected Display display;
     protected Displayable parentView;
 
+    ScrollBar scrollbar;
     /** Creates a new instance of VirtualList */
     public VirtualList() {
         width=getWidth();
@@ -169,7 +171,9 @@ public abstract class VirtualList
         //addCommand(cmdSetFullScreen);
         setFullScreenMode(fullscreen);
 //#endif
-	System.out.println(hasPointerEvents());
+	
+	scrollbar=new ScrollBar();
+	scrollbar.setHasPointerEvents(hasPointerEvents());
     }
 
     /** Creates a new instance of VirtualList */
@@ -268,18 +272,18 @@ public abstract class VirtualList
         
         int count=getItemCount(); // размер списка
         
-        boolean scrollbar=(visibleItemsCnt(0,1)<count) ;
+        boolean scroll=(visibleItemsCnt(0,1)<count) ;
 
         if (count==0) {
             cursor=(cursor==-1)?-1:0; 
             win_top=0;
         }
 
-        int item_mw=(scrollbar) ?(width-VL_SZ_SCROLL) : (width);
+        int itemMaxWidth=(scroll) ?(width-scrollbar.getScrollWidth()) : (width);
         // элементы окна
         // отрисовка
         int i=win_top;
-        int fe=0;
+        int fullyDrawedItems=0;
         
         VirtualElement atCursor=null;
         
@@ -297,18 +301,18 @@ public abstract class VirtualList
                 
                 setAbsOrg(g, 0, yp);
                 
-                g.setClip(0,0, item_mw, lh);
+                g.setClip(0,0, itemMaxWidth, lh);
                 g.setColor(el.getColorBGnd());
-                g.fillRect(0,0, item_mw, lh);
+                g.fillRect(0,0, itemMaxWidth, lh);
                 if (sel) {
-                    drawCursor(g, item_mw, lh);
+                    drawCursor(g, itemMaxWidth, lh);
                     atCursor=el;
                 }
                 g.setColor(el.getColor());
                 el.drawItem(g, (sel)?offset:0, sel);
                 
                 i++;
-                if ((yp+=lh)<=height) fe++;   // число цельных элементов в окне
+                if ((yp+=lh)<=height) fullyDrawedItems++;   // число цельных элементов в окне
             }
         } catch (Exception e) { atEnd=true; }
 
@@ -317,31 +321,24 @@ public abstract class VirtualList
         int clrH=height-yp+1;
         if (clrH>0) {
             setAbsOrg(g, 0,yp);
-            g.setClip(0, 0, item_mw, clrH);
+            g.setClip(0, 0, itemMaxWidth, clrH);
             g.setColor(VL_BGND);
             //g.setColor(VL_CURSOR_OUTLINE);
-            g.fillRect(0, 0, item_mw, clrH);
+            g.fillRect(0, 0, itemMaxWidth, clrH);
         }
 
         // рисование скроллбара
         //g.setColor(VL_BGND);
-        if (scrollbar) {
-            setAbsOrg(g, item_mw, list_top);
-            int sh=height-list_top;
-            g.setClip(0, 0, VL_SZ_SCROLL, sh);
+        if (scroll) {
+	    
+            setAbsOrg(g, 0, list_top);
+            g.setClip(0, 0, width, height-list_top);
 
-            //if (i>=count) return;
-            //иначе 
-            //g.drawRect(width-5, ytl, 4, height-ytl);
-            g.setColor(VL_SCROLL_BGND);
-            g.fillRect(1, 1, VL_SZ_SCROLL-2, sh-1);
-            g.setColor(VL_BGND);
-            g.drawRect(0,0,VL_SZ_SCROLL-1,sh-1);
-            
-            int scroll_sz=(sh*fe)/count;
-            int scroll_st=(sh*win_top)/count;
-            g.setColor(VL_SCROLL_PTR);
-            g.drawRect(0,scroll_st,VL_SZ_SCROLL-1,scroll_sz);
+	    scrollbar.setPostion(win_top);
+	    scrollbar.setSize(count);
+	    scrollbar.setWindowSize(fullyDrawedItems);
+	    
+	    scrollbar.draw(g);
         }
 
         setAbsOrg(g, 0, 0);
