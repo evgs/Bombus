@@ -1653,6 +1653,8 @@ syslog_msg: true
 
   (308) SVN-репозиторий. (https://opencvs.csie.org/bombus/trunk)
 
+  (309)
+
 ---------------------------
   known issues:
 
