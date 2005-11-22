@@ -1651,7 +1651,8 @@ syslog_msg: true
 
   начало реализации скроллбара
 
-  
+  (308) SVN-репозиторий. (https://opencvs.csie.org/bombus/trunk)
+
 ---------------------------
   known issues:
 
