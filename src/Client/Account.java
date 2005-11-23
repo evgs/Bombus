@@ -43,10 +43,10 @@ public class Account extends IconTextElement{
         super(StaticData.getInstance().rosterIcons);
     }
     
-    public static Account launchAccount(){
-        StaticData sd=StaticData.getInstance();
-        Account a=sd.account=Account.createFromStorage(sd.account_index);
-        if (a!=null){
+    public static Account loadAccount(boolean launch){
+	StaticData sd=StaticData.getInstance();
+	Account a=sd.account=Account.createFromStorage(sd.account_index);
+        if (a!=null && launch){
             sd.roster.logoff();
             sd.roster.myStatus=Presence.PRESENCE_ONLINE;
             //sd.roster.querysign=true;

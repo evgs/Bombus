@@ -74,6 +74,10 @@ public class Config {
     public boolean notInList=true;
     public boolean ignore=false;
     public boolean eventComposing=false;
+    
+    public boolean autoLogin=true;
+    public boolean autoJoinConferences=false;
+    
     public int gmtOffset;
     public int locOffset;
     
@@ -103,6 +107,9 @@ public class Config {
 		
 		sounsMsgIndex=inputStream.readInt();
 		soundVol=inputStream.readInt();
+		
+		autoLogin=inputStream.readBoolean();
+		autoJoinConferences=inputStream.readBoolean();
 		
 		inputStream.close();
 	    } catch (Exception e) {
@@ -143,6 +150,9 @@ public class Config {
 	    
 	    outputStream.writeInt(sounsMsgIndex);
 	    outputStream.writeInt(soundVol);
+	    
+	    outputStream.writeBoolean(autoLogin);
+	    outputStream.writeBoolean(autoJoinConferences);
 	    
 	} catch (IOException e) { e.printStackTrace(); }
 	

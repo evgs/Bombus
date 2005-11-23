@@ -93,7 +93,9 @@ public class Bombus extends MIDlet implements Runnable{
         
         if (!selAccount) {
             // connect whithout account select
-            selAccount=(Account.launchAccount()==null);
+	    boolean autologin=sd.config.autoLogin;
+            selAccount=(Account.loadAccount(autologin)==null);
+	    if (!autologin) s.close();
         }
         if (selAccount) { new AccountSelect(display, true); }
     }

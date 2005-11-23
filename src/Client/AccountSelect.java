@@ -117,7 +117,7 @@ public class AccountSelect
         sd.config.accountIndex=cursor;
         sd.config.saveToStorage();
         sd.account_index=cursor;
-        Account.launchAccount();
+        Account.loadAccount(true);
     }
 
     private void rmsUpdate(){

@@ -30,6 +30,10 @@ import ui.*;
  *  [] history
  *  [] composing
  *
+ * startup actions
+ *  [] login
+ *  [] Join conferences
+ *
  * application
  *  [] fullscreen
  */
@@ -47,6 +51,7 @@ public class ConfigForm implements
     Form f;
     ChoiceGroup roster;
     ChoiceGroup message;
+    ChoiceGroup startup;
     ChoiceGroup application;
     
     ChoiceGroup sndFile;
@@ -65,6 +70,7 @@ public class ConfigForm implements
     boolean ra[];
     boolean mv[];
     boolean ap[];
+    boolean su[];
     Vector files[];
     
     /** Creates a new instance of ConfigForm */
@@ -101,6 +107,14 @@ public class ConfigForm implements
         mv[1]=cf.msgLog;
         mv[2]=cf.eventComposing;
         message.setSelectedFlags(mv);
+
+	startup=new ChoiceGroup("Startup actions", Choice.MULTIPLE);
+        startup.append("autologin",null);
+        startup.append("join conferences",null);
+        su=new boolean[2];
+        su[0]=cf.autoLogin;
+        su[1]=cf.autoJoinConferences;
+        startup.setSelectedFlags(su);
         
         application=new ChoiceGroup("Application", Choice.MULTIPLE);
         application.append("fullscreen",null);
@@ -140,6 +154,7 @@ public class ConfigForm implements
 //--	f.addCommand(cmdPlaySound);
 //#endif
 	
+	f.append(startup);
 //#if !(MIDP1)
         f.append(application);
 //#endif
@@ -170,6 +185,8 @@ public class ConfigForm implements
             roster.getSelectedFlags(ra);
             message.getSelectedFlags(mv);
             application.getSelectedFlags(ap);
+	    startup.getSelectedFlags(su);
+	    
             cf.showOfflineContacts=ra[0];
             cf.selfContact=ra[1];
             cf.showTransports=ra[2];
@@ -179,6 +196,9 @@ public class ConfigForm implements
             cf.smiles=mv[0];
             cf.msgLog=mv[1];
             cf.eventComposing=mv[2];
+	    
+	    cf.autoLogin=su[0];
+	    cf.autoJoinConferences=su[1];
             
             VirtualList.fullscreen=cf.fullscreen=ap[0];
             
