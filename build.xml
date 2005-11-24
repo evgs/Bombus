@@ -6,59 +6,101 @@
     <description>Builds, tests, and runs the project .</description>
     <import file="nbproject/build-impl.xml"/>
 
-    <!-- version patch in Sources -->
-    <target name="post-preprocess">
+
+    <!-- release tasks -->
+    <target name="for-release-configs">
+        <antcall inheritrefs="false" inheritall="false" target="${target.to.call}">
+            <param name="config.active" value="M55_Release"/>
+        </antcall>
+        <antcall inheritrefs="false" inheritall="false" target="${target.to.call}">
+            <param name="config.active" value="Release"/>
+        </antcall>
+    </target>
+
+    <target name="rebuild-release">
+        <antcall target="for-release-configs">
+            <param value="rebuild" name="target.to.call"/>
+        </antcall>
+    </target>
+
+    <target name="deploy-release">
+        <antcall target="for-release-configs">
+            <param value="deploy" name="target.to.call"/>
+        </antcall>
+
+        <!-- version patch in arch packer -->
+	<copy file="pack.cmd.txt" tofile="pack.cmd" overwrite="true" />
+	<replace 
+	    file="pack.cmd"
+	    propertyFile="resources/.version">
+	  <replacefilter 
+	    token="$BOMBUSREV$"
+	    property="bombus.revision"/>
+	</replace>
+
+        <!-- version patch in server files -->
+	<copy file="ftp/config.php.txt" tofile="ftp/config.php" overwrite="true" />
+	<replace 
+	    file="ftp/config.php"
+	    propertyFile="resources/.version">
+	  <replacefilter 
+	    token="$BOMBUSVERSION$"
+	    property="bombus.revision"/>
+	</replace>
+    </target>
+
+
+    <!-- prepare version patch -->
+    <target name="post-init">
         <property name="versionPatcher" location="C:/Program Files/TortoiseSVN/bin/SubWCRev.exe" />
-        <property name="file1" location="${preprocessed.dir}\Info\Version.java "/>
+        <property name="file_in" location="resources\version.properties "/>
+        <property name="file_out" location="resources\.version "/>
         <exec executable="${versionPatcher}" > 
             <arg value="."/>
-            <arg value="${file1}"/>
-            <arg value="${file1}"/>
+            <arg value="${file_in}"/>
+            <arg value="${file_out}"/>
         </exec>
         
+    </target>
+
+    <!-- version patch in Sources -->
+    <target name="post-preprocess">
+	<replace 
+	    file="${preprocessed.dir}\Info\Version.java"
+	    propertyFile="resources/.version">
+	  <replacefilter 
+	    token="$BOMBUSVERSION$"
+	    property="bombus.version"/>
+	</replace>
     </target>
 
     <!-- version patch in manifest -->
     <target name="pre-jar">
-        <property name="versionPatcher" location="C:/Program Files/TortoiseSVN/bin/SubWCRev.exe" />
-        <property name="manifest" location="${build.dir}/manifest.mf "/>
-
-        <exec executable="${versionPatcher}" > 
-            <arg value="."/>
-            <arg value="${manifest}"/>
-            <arg value="${manifest}"/>
-        </exec>
-        
+	<replace 
+	    file="${build.dir}/manifest.mf"
+	    propertyFile="resources/.version">
+	  <replacefilter 
+	    token="$BOMBUSVERSION$"
+	    property="bombus.version"/>
+	  <replacefilter 
+	    token="$MIDLETVERSION$"
+	    property="bombus.midlet"/>
+	</replace>
     </target>
+
 
     <target name="post-jar">
         <!-- version patch in jad -->
-        <property name="versionPatcher" location="C:/Program Files/TortoiseSVN/bin/SubWCRev.exe" />
-        <property name="jad" location="${dist.dir}/Bombus.jad "/>
-
-        <exec executable="${versionPatcher}" > 
-            <arg value="."/>
-            <arg value="${jad}"/>
-            <arg value="${jad}"/>
-        </exec>
-        
-        <!-- version patch in arch packer -->
-        <property name="file2" location="pack.cmd.txt "/>
-        <property name="file2o" location="pack.cmd "/>
-        <exec executable="${versionPatcher}" > 
-            <arg value="."/>
-            <arg value="${file2}"/>
-            <arg value="${file2o}"/>
-        </exec>
-
-        <!-- version patch in server files -->
-        <property name="file3" location="ftp/config.php.txt "/>
-        <property name="file3o" location="ftp/config.php "/>
-        <exec executable="${versionPatcher}" > 
-            <arg value="./"/>
-            <arg value="${file3}"/>
-            <arg value="${file3o}"/>
-        </exec>
+	<replace 
+	    file="${dist.dir}/Bombus.jad"
+	    propertyFile="resources/.version">
+	  <replacefilter 
+	    token="$BOMBUSVERSION$"
+	    property="bombus.version"/>
+	  <replacefilter 
+	    token="$MIDLETVERSION$"
+	    property="bombus.midlet"/>
+	</replace>
     </target>
     <!--
 

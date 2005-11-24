@@ -174,7 +174,6 @@ public abstract class MessageDigest
 
     /**
      * Return a string representation of this object.
-     */
     public String toString() {
     	ByteArrayOutputStream ou = new ByteArrayOutputStream();
     	PrintStream p = new PrintStream(ou);
@@ -191,6 +190,7 @@ public abstract class MessageDigest
     	p.println();
     	return (ou.toString());
     }
+     */
     
     public String getDigestHex()
     {

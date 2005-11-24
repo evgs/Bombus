@@ -16,7 +16,7 @@ import ui.ConstMIDP;
  * @author Evg_S
  */
 public class Version {
-    public final static String version="0.3.0.$WCREV$";
+    public final static String version="$BOMBUSVERSION$";
     // this string will be patched by build.xml/post-preprocess
     
     public final static String url="http://bombus.jrudevels.org";
