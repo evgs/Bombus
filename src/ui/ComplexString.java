@@ -2,6 +2,9 @@
  * ComplexString.java
  *
  * Created on 12 Март 2005 г., 0:35
+ *
+ * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package ui;

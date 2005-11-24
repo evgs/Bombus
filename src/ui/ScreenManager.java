@@ -3,8 +3,8 @@
  *
  * Created on 1 Ноябрь 2005 г., 0:39
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
+ * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package ui;

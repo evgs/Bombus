@@ -2,6 +2,9 @@
  * RegForm.java
  *
  * Created on 5 Θώνό 2005 γ., 20:04
+ *
+ * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package ServiceDiscovery;

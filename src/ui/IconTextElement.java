@@ -2,6 +2,9 @@
  * IconTextList.java
  *
  * Created on 30 январь 2005 г., 18:19
+ *
+ * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package ui;

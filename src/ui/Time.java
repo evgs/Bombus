@@ -2,6 +2,9 @@
  * Time.java
  *
  * Created on 20 Февраль 2005 г., 13:03
+ *
+ * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package ui;

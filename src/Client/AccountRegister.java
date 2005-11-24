@@ -2,6 +2,9 @@
  * AccountRegister.java
  *
  * Created on 24 јпрель 2005 г., 2:36
+ *
+ * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package Client;

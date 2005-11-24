@@ -2,6 +2,9 @@
  * SmilePicker.java
  *
  * Created on 6 Март 2005 г., 11:50
+ *
+ * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package Client;

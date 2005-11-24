@@ -2,6 +2,10 @@
  * Bombus.java
  *
  * Created on 5 ‗םגאנü 2005 ד., 21:46
+ *
+ * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
+ *
  * שלוכü=bombus
  * Al-Colibry :)
  */

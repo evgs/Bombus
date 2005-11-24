@@ -2,6 +2,9 @@
  * ContactEdit.java
  *
  * Created on 7 Май 2005 г., 2:15
+ *
+ * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package Client;

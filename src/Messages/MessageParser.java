@@ -2,6 +2,9 @@
  * SmileTree.java
  *
  * Created on 6 Февраль 2005 г., 19:38
+ *
+ * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package Messages;

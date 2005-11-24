@@ -2,6 +2,9 @@
  * ServiceDiscovery.java
  *
  * Created on 4 Θώνό 2005 γ., 21:12
+ *
+ * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package ServiceDiscovery;

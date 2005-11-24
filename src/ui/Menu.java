@@ -2,6 +2,9 @@
  * Menu.java
  *
  * Created on 1 Май 2005 г., 20:48
+ *
+ * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package ui;

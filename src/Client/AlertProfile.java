@@ -2,6 +2,9 @@
  * Profile.java
  *
  * Created on 28 Март 2005 г., 0:05
+ *
+ * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package Client;

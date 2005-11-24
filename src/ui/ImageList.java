@@ -2,6 +2,9 @@
  * ImageListC.java
  *
  * Created on 31 январь 2005 г., 0:06
+ *
+ * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 /**

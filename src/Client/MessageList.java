@@ -2,6 +2,9 @@
  * MessageList.java
  *
  * Created on 19 Февраль 2005 г., 23:54
+ *
+ * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package Client;
