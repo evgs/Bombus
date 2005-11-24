@@ -28,7 +28,7 @@
             <param value="deploy" name="target.to.call"/>
         </antcall>
 
-        <!-- version patch in arch packer -->
+        <!-- version patch in arch packer 
 	<copy file="pack.cmd.txt" tofile="pack.cmd" overwrite="true" />
 	<replace 
 	    file="pack.cmd"
@@ -36,17 +36,28 @@
 	  <replacefilter 
 	    token="$BOMBUSREV$"
 	    property="bombus.revision"/>
-	</replace>
+	</replace> -->
 
         <!-- version patch in server files -->
-	<copy file="ftp/config.php.txt" tofile="ftp/config.php" overwrite="true" />
+	<copy file="private/config.php.txt" tofile="ftp/config.php" overwrite="true" />
+	<property file="resources/.version" />
 	<replace 
-	    file="ftp/config.php"
-	    propertyFile="resources/.version">
-	  <replacefilter 
+	    file="ftp/config.php" 
 	    token="$BOMBUSVERSION$"
-	    property="bombus.revision"/>
-	</replace>
+	    value="${bombus.version}"/>
+
+	<delete>
+	    <fileset dir="ftp" includes="bombus*.zip" />
+	</delete>
+	
+	<tstamp>
+	    <format property="bombus.tstamp" pattern="MM_dd"/>	    
+	</tstamp>
+	<zip destfile="ftp/bombus_${bombus.revision}(all)${bombus.tstamp}.zip">
+	    <zipfileset dir="ftp/midp1.0" prefix="siemens-midp1.0"/>
+	    <zipfileset dir="ftp/midp2.0" prefix="midp2.0"/>
+	    <zipfileset file="changelog.txt"/>
+	</zip>
     </target>
 
 
@@ -65,42 +76,34 @@
 
     <!-- version patch in Sources -->
     <target name="post-preprocess">
+	<property file="resources/.version" />
 	<replace 
-	    file="${preprocessed.dir}\Info\Version.java"
-	    propertyFile="resources/.version">
-	  <replacefilter 
+	    file="${preprocessed.dir}\Info\Version.java"  
 	    token="$BOMBUSVERSION$"
-	    property="bombus.version"/>
-	</replace>
+	    value="${bombus.version}"/>
     </target>
 
     <!-- version patch in manifest -->
     <target name="pre-jar">
-	<replace 
-	    file="${build.dir}/manifest.mf"
-	    propertyFile="resources/.version">
-	  <replacefilter 
+	<property file="resources/.version" />
+	<replace file="${build.dir}/manifest.mf"  
 	    token="$BOMBUSVERSION$"
-	    property="bombus.version"/>
-	  <replacefilter 
+	    value="${bombus.version}"/>
+	<replace file="${build.dir}/manifest.mf"  
 	    token="$MIDLETVERSION$"
-	    property="bombus.midlet"/>
-	</replace>
+	    value="${bombus.midlet}"/>
     </target>
 
 
     <target name="post-jar">
         <!-- version patch in jad -->
-	<replace 
-	    file="${dist.dir}/Bombus.jad"
-	    propertyFile="resources/.version">
-	  <replacefilter 
+	<property file="resources/.version" />
+	<replace file="${dist.dir}/Bombus.jad"
 	    token="$BOMBUSVERSION$"
-	    property="bombus.version"/>
-	  <replacefilter 
+	    value="${bombus.version}"/>
+	<replace file="${dist.dir}/Bombus.jad"
 	    token="$MIDLETVERSION$"
-	    property="bombus.midlet"/>
-	</replace>
+	    value="${bombus.midlet}"/>
     </target>
     <!--
 

@@ -1,1 +1,0 @@
-rar32 a -s -agmm_dd bombus_$BOMBUSREV$(all) @list_all.txt
