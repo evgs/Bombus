@@ -10,6 +10,7 @@
 package ui.controls;
 
 import javax.microedition.lcdui.Graphics;
+import ui.VirtualList;
 
 /**
  *
@@ -21,11 +22,20 @@ public class ScrollBar {
     private static final int COLOR_SCROLL_BGND    =0x888888;
     public static final int COLOR_BGND           =0xFFFFFF;
     private static final int WIDTH_SCROLL_1      =4;
-    private static final int WIDTH_SCROLL_2      =10;
+    private static final int WIDTH_SCROLL_2      =8;
     
     private int size;
     private int windowSize;
-    private int postion;
+    private int position;
+    
+    private int scrollerX;
+    
+    private int drawHeight;
+    
+    private int point_y;    // точка, за которую "держится" указатель
+    
+    private int scrollerSize;
+    private int scrollerPos;
     
     private boolean hasPointerEvents;
     
@@ -45,11 +55,11 @@ public class ScrollBar {
     }
 
     public int getPostion() {
-        return postion;
+        return position;
     }
 
     public void setPostion(int postion) {
-        this.postion = postion;
+        this.position = postion;
     }
 
     public void setHasPointerEvents(boolean hasPointerEvents) {
@@ -61,11 +71,31 @@ public class ScrollBar {
         return scrollWidth;
     }
 
+    public void pointerPressed(int x, int y, VirtualList v) {
+	if (x<scrollerX) return; // not in area
+	if (y<scrollerPos) { v.keyLeft(); v.repaint(); return; } // page up
+	if (y>scrollerPos+scrollerSize) { v.keyRight(); v.repaint(); return; } // page down
+	point_y=y-scrollerPos;
+    }
+    public void pointerDragged(int x, int y, VirtualList v) {
+	if (point_y<0) return;
+	int new_top=y-point_y;
+	int new_pos=(new_top*size)/drawHeight;
+	System.err.println(new_top+" "+new_pos+" "+y+" "+point_y+" ");
+	if ((position-new_pos)==0) return;
+	if (new_pos<0) new_pos=0;
+	if (new_pos+windowSize>size) new_pos=size-windowSize;
+	v.win_top=new_pos; v.repaint();
+    }
+    public void pointerReleased(int x, int y, VirtualList v) { 	point_y=-1; }
+    
     public void draw(Graphics g) {
-	int drawHeight=g.getClipHeight();
+	drawHeight=g.getClipHeight();
 	int drawWidth=g.getClipWidth();
+	
+	scrollerX=drawWidth-scrollWidth;
 
-	g.translate(drawWidth-scrollWidth, 0);
+	g.translate(scrollerX, 0);
 
         g.setColor(COLOR_SCROLL_BGND);
 	g.fillRect(1, 1, scrollWidth-2, drawHeight-2);
@@ -75,10 +105,12 @@ public class ScrollBar {
             
 	drawHeight-=minimumHeight;
         
-	int scrollerSize=(drawHeight*windowSize)/size+minimumHeight;
+	scrollerSize=(drawHeight*windowSize)/size+minimumHeight;
 	
-	int scrollerPos=(drawHeight*postion)/size;
+	scrollerPos=(drawHeight*position)/size;
         g.setColor(COLOR_SCROLL_PTR);
         g.drawRect(0, scrollerPos, scrollWidth-1, scrollerSize);
+	
+	//scrollerPos+=g.getTranslateY();
     }
 }

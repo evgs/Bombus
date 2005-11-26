@@ -111,7 +111,7 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
         g.translate(-x,0);
     } 
     
-    protected void keyLeft(){ 
+    public void keyLeft(){ 
         if (xCursor>0) xCursor--; 
         else {
             if (cursor==0) return;
@@ -119,7 +119,7 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
             keyUp();
         }
     }
-    protected void keyRight(){ 
+    public void keyRight(){ 
         if ( xCursor < ( (cursor<lines-1)?(xCnt-1):(xLastCnt-1) ) ) 
             xCursor++; 
         else {
@@ -128,7 +128,7 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
             keyDwn();
         }
     }
-    protected void keyDwn(){
+    public void keyDwn(){
         super.keyDwn();
         if (cursor!=lines-1) return;
         if (xCursor >= xLastCnt) xCursor=xLastCnt-1;

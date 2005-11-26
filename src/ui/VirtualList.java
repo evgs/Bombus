@@ -107,7 +107,8 @@ public abstract class VirtualList
     
     protected VirtualElement atCursor;
     
-    protected int win_top;    // первый элемент
+    //protected 
+    public int win_top;    // первый элемент
     //int full_items; // полностью изображено в окне
     protected int offset;     // смещение курсора
     
@@ -471,9 +472,14 @@ public abstract class VirtualList
      */
     /** код удерживаемой кнопки */
     protected int kHold;
-    public void keyRepeated(int keyCode){ key(keyCode); }
-    public void keyReleased(int keyCode) { kHold=0; }
-    public void keyPressed(int keyCode) { kHold=0; key(keyCode);  }
+    
+    protected void keyRepeated(int keyCode){ key(keyCode); }
+    protected void keyReleased(int keyCode) { kHold=0; }
+    protected void keyPressed(int keyCode) { kHold=0; key(keyCode);  }
+    
+    protected void pointerPressed(int x, int y) { scrollbar.pointerPressed(x, y, this); }
+    protected void pointerDragged(int x, int y) { scrollbar.pointerDragged(x, y, this); }
+    protected void pointerReleased(int x, int y) { scrollbar.pointerReleased(x, y, this); }
     
     /**
      * обработка кодов кнопок
@@ -505,7 +511,7 @@ public abstract class VirtualList
      * в классе VirtualList функция перемещает курсор на одну позицию вверх.
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
-    protected void keyUp() {
+    public void keyUp() {
 	if (wrapping) if (cursor==0) { moveCursorEnd(); return; }
         blockChangeFocus=true; 
         moveCursor(-1, true);  
@@ -517,7 +523,7 @@ public abstract class VirtualList
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
     
-    protected void keyDwn() { 
+    public void keyDwn() { 
 	if (wrapping) if (cursor==getItemCount()-1) { moveCursorHome(); return; }
         blockChangeFocus=true; 
         moveCursor(+1, true); 
@@ -528,7 +534,7 @@ public abstract class VirtualList
      * в классе VirtualList функция перемещает курсор на одну страницу вверх.
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
-    protected void keyLeft() {
+    public void keyLeft() {
 	//if (cursor==0) { moveCursorEnd(); return; }
         blockChangeFocus=true; 
         int mov_org=(cursor!=-1)? cursor : win_top;
@@ -540,7 +546,7 @@ public abstract class VirtualList
      * в классе VirtualList функция перемещает курсор на одну страницу вниз.
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
-    protected void keyRight() { 
+    public void keyRight() { 
 	//if (cursor==getItemCount()-1) { moveCursorHome(); return; }
         blockChangeFocus=true; 
         moveCursor(visibleItemsCnt(win_top,1), true); 

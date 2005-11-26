@@ -213,11 +213,12 @@ public final class SHA1 extends MessageDigest {
         update(input, 0, input.length);
     }
 
+    /* 
     public synchronized void update(byte input[], int offset, int len) {
         for (int i = 0; i < len; i++) {
             update(input[i+offset]);
         }
-    }
+    }*/
 
     /**
      * Complete processing on the message digest.
