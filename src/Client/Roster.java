@@ -60,7 +60,7 @@ public class Roster
     boolean reconnect=false;
     boolean querysign=false;
     
-    public int myStatus=Presence.PRESENCE_ONLINE;
+    public int myStatus=Presence.PRESENCE_OFFLINE;
     
     private Vector hContacts;
     private Vector vContacts;
@@ -153,6 +153,9 @@ public class Roster
             // connect whithout account select
             Account.launchAccount();
         }*/
+	//setRosterTitle("offline");
+	updateTitle();
+	
         SplashScreen.getInstance().setExit(display, this);
     }
     

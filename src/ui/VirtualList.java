@@ -117,6 +117,11 @@ public abstract class VirtualList
     
     private boolean wrapping = true;
 
+    private int itemBorder[];
+    // doubleclick
+    private int lastClickY;
+    private int lastClickItem;
+    private long lastClickTime;
     /**
      * Разрешает заворачивание списка в кольцо (перенос курсора через конец списка)
      * по умолчанию установлен true
@@ -175,6 +180,8 @@ public abstract class VirtualList
         //addCommand(cmdSetFullScreen);
         setFullScreenMode(fullscreen);
 //#endif
+	
+	itemBorder=new int[32];
 	
 	scrollbar=new ScrollBar();
 	scrollbar.setHasPointerEvents(hasPointerEvents());
@@ -273,6 +280,7 @@ public abstract class VirtualList
 
 
         int yp=list_top;
+	itemBorder[0]=list_top;
         
         int count=getItemCount(); // размер списка
         
@@ -316,6 +324,7 @@ public abstract class VirtualList
                 el.drawItem(g, (sel)?offset:0, sel);
                 
                 i++;
+		itemBorder[i-win_top]=yp+lh;
                 if ((yp+=lh)<=height) fullyDrawedItems++;   // число цельных элементов в окне
             }
         } catch (Exception e) { atEnd=true; }
@@ -343,7 +352,7 @@ public abstract class VirtualList
 	    scrollbar.setWindowSize(fullyDrawedItems);
 	    
 	    scrollbar.draw(g);
-        }
+        } else scrollbar.setSize(0);
 
         setAbsOrg(g, 0, 0);
 
@@ -477,7 +486,29 @@ public abstract class VirtualList
     protected void keyReleased(int keyCode) { kHold=0; }
     protected void keyPressed(int keyCode) { kHold=0; key(keyCode);  }
     
-    protected void pointerPressed(int x, int y) { scrollbar.pointerPressed(x, y, this); }
+    protected void pointerPressed(int x, int y) { 
+	if (scrollbar.pointerPressed(x, y, this)) return; 
+	int i=0;
+	while (i<32) {
+	    if (y<itemBorder[i]) break;
+	    i++;
+	}
+	if (i==0 || i==32) return;
+	//System.out.println(i);
+	if (cursor>=0) moveCursorTo(win_top+i-1, true);
+	
+	long clickTime=System.currentTimeMillis();
+	if (cursor==lastClickItem)
+	    if (lastClickY-y<5 && y-lastClickY<5) 
+		if (clickTime-lastClickTime<500){
+		    y=0;    // запрет "тройного клика"
+		    eventOk();
+		}
+	lastClickTime=clickTime;
+	lastClickY=y;
+	lastClickItem=cursor;
+	repaint();
+    }
     protected void pointerDragged(int x, int y) { scrollbar.pointerDragged(x, y, this); }
     protected void pointerReleased(int x, int y) { scrollbar.pointerReleased(x, y, this); }
     

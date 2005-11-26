@@ -71,21 +71,23 @@ public class ScrollBar {
         return scrollWidth;
     }
 
-    public void pointerPressed(int x, int y, VirtualList v) {
-	if (x<scrollerX) return; // not in area
-	if (y<scrollerPos) { v.keyLeft(); v.repaint(); return; } // page up
-	if (y>scrollerPos+scrollerSize) { v.keyRight(); v.repaint(); return; } // page down
+    public boolean pointerPressed(int x, int y, VirtualList v) {
+	if (size==0) return false;
+	if (x<scrollerX) return false; // not in area
+	if (y<scrollerPos) { v.keyLeft(); v.repaint(); return true; } // page up
+	if (y>scrollerPos+scrollerSize) { v.keyRight(); v.repaint(); return true; } // page down
 	point_y=y-scrollerPos;
+	return true;
     }
-    public void pointerDragged(int x, int y, VirtualList v) {
-	if (point_y<0) return;
+    public boolean pointerDragged(int x, int y, VirtualList v) {
+	if (point_y<0) return false;
 	int new_top=y-point_y;
 	int new_pos=(new_top*size)/drawHeight;
-	System.err.println(new_top+" "+new_pos+" "+y+" "+point_y+" ");
-	if ((position-new_pos)==0) return;
+	if ((position-new_pos)==0) return true;
 	if (new_pos<0) new_pos=0;
 	if (new_pos+windowSize>size) new_pos=size-windowSize;
 	v.win_top=new_pos; v.repaint();
+	return true;
     }
     public void pointerReleased(int x, int y, VirtualList v) { 	point_y=-1; }
     
