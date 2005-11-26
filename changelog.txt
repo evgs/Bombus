@@ -1659,6 +1659,9 @@ syslog_msg: true
   
   (311) 
   лицензия modified BSD license
+
+  теперь паковка происходит в zip
+
 ---------------------------
   known issues:
 

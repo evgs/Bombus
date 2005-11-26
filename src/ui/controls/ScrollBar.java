@@ -30,7 +30,7 @@ public class ScrollBar {
     private boolean hasPointerEvents;
     
     private int minimumHeight=3;
-    private int scrollWidth=WIDTH_SCROLL_2;
+    private int scrollWidth=WIDTH_SCROLL_1;
     
     /** Creates a new instance of ScrollBar */
     public ScrollBar() {
@@ -54,6 +54,7 @@ public class ScrollBar {
 
     public void setHasPointerEvents(boolean hasPointerEvents) {
         this.hasPointerEvents = hasPointerEvents;
+	scrollWidth=(hasPointerEvents)? WIDTH_SCROLL_2: WIDTH_SCROLL_1;
     }
 
     public int getScrollWidth() {
