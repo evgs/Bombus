@@ -47,17 +47,28 @@
 	    value="${bombus.version}"/>
 
 	<delete>
-	    <fileset dir="ftp" includes="bombus*.zip" />
+	    <fileset dir="ftp" includes="bombus*.*" />
 	</delete>
 	
 	<tstamp>
 	    <format property="bombus.tstamp" pattern="MM_dd"/>	    
 	</tstamp>
-	<zip destfile="ftp/bombus_${bombus.revision}(all)${bombus.tstamp}.zip">
+	<property name="destfile" location="ftp/bombus_${bombus.revision}(all)${bombus.tstamp}" />
+	<zip destfile="${destfile}.zip">
 	    <zipfileset dir="ftp/midp1.0" prefix="siemens-midp1.0"/>
 	    <zipfileset dir="ftp/midp2.0" prefix="midp2.0"/>
 	    <zipfileset file="changelog.txt"/>
 	</zip>
+
+	<tar destfile="${destfile}.tar">
+	    <tarfileset dir="ftp/midp1.0" prefix="siemens-midp1.0"/>
+	    <tarfileset dir="ftp/midp2.0" prefix="midp2.0"/>
+	    <tarfileset file="changelog.txt"/>
+	</tar>
+	<bzip2 src="${destfile}.tar" destfile="${destfile}.tar.bz2"/>
+	<delete>
+	    <fileset dir="ftp" includes="bombus*.tar" />
+	</delete>
     </target>
 
 

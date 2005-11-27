@@ -60,6 +60,7 @@ public class ConfigForm implements
     ChoiceGroup sndFile;
     //Gauge sndVol;
     
+    TextField keepAlive;
     TextField fieldGmt;
     TextField fieldLoc;
     
@@ -125,7 +126,9 @@ public class ConfigForm implements
         ap[0]=cf.fullscreen;
         application.setSelectedFlags(ap);
         
-        fieldGmt=new TextField("GMT offset", String.valueOf(cf.gmtOffset), 4, 
+	keepAlive=new TextField("Keep-Alive period", String.valueOf(cf.keepAlive), 4,
+				ConstMIDP.TEXTFIELD_DECIMAL       );
+	fieldGmt=new TextField("GMT offset", String.valueOf(cf.gmtOffset), 4, 
 				ConstMIDP.TEXTFIELD_DECIMAL       );
         fieldLoc=new TextField("Clock offset", String.valueOf(cf.locOffset), 4, 
 				ConstMIDP.TEXTFIELD_DECIMAL       );
@@ -161,7 +164,8 @@ public class ConfigForm implements
 //#if !(MIDP1)
         f.append(application);
 //#endif
-        
+	f.append(keepAlive);
+	
         f.append("Time settings (hours)\n");
         
         f.append(fieldGmt);
@@ -208,6 +212,7 @@ public class ConfigForm implements
 	    try {
 		cf.gmtOffset=Integer.parseInt(fieldGmt.getString());
 		cf.locOffset=Integer.parseInt(fieldLoc.getString());
+		cf.keepAlive=Integer.parseInt(keepAlive.getString());
 	    } catch (Exception e) { return; }
 	    
 	    cf.sounsMsgIndex=sndFile.getSelectedIndex();

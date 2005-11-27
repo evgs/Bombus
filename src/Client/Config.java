@@ -24,10 +24,11 @@ import ui.VirtualList;
  */
 public class Config {
     
-    public final int keepAlive=getProperty("keep_alive",200);
     public final int vibraLen=getProperty("vibra_len",500);
     
-    public boolean ghostMotor;//=getProperty("moto_e398",false);
+    public int keepAlive=getProperty("keep_alive",200);
+
+    public boolean ghostMotor=getProperty("moto_e398",false);
     public boolean blFlash=true;
     
     public boolean msgLog=getProperty("msg_log",false);
@@ -114,6 +115,8 @@ public class Config {
 		autoLogin=inputStream.readBoolean();
 		autoJoinConferences=inputStream.readBoolean();
 		
+		keepAlive=inputStream.readInt();
+
 		inputStream.close();
 	    } catch (Exception e) {
 		e.printStackTrace();
@@ -156,6 +159,8 @@ public class Config {
 	    
 	    outputStream.writeBoolean(autoLogin);
 	    outputStream.writeBoolean(autoJoinConferences);
+	    
+	    outputStream.writeInt(keepAlive);
 	    
 	} catch (IOException e) { e.printStackTrace(); }
 	
