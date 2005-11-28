@@ -10,6 +10,7 @@
 package Client;
 
 import java.util.*;
+import ui.ImageList;
 
 /**
  *
@@ -17,7 +18,7 @@ import java.util.*;
  */
 public class Groups{
     
-    Vector g;
+    Vector groups;
     
     public final static int TRANSP_INDEX=0;
     public final static String TRANSP_GROUP="Transports";
@@ -33,7 +34,7 @@ public class Groups{
     public final static String COMMON_GROUP="General";
     
     public Groups(){
-        g=new Vector();
+        groups=new Vector();
         addGroup(Groups.TRANSP_GROUP, null);
         addGroup(Groups.SELF_GROUP, null);
         addGroup(Groups.SRC_RESULT_GROUP, null);
@@ -43,7 +44,7 @@ public class Groups{
     }
     
     public void resetCounters(){
-        for (Enumeration e=g.elements();e.hasMoreElements();){
+        for (Enumeration e=groups.elements();e.hasMoreElements();){
             Group grp=(Group)e.nextElement();
             grp.tncontacts=grp.tonlines=0;
             grp.Contacts=new Vector();
@@ -64,29 +65,32 @@ public class Groups{
     }
 
     public Group getGroup(int Index) {
-        return (Group)g.elementAt(Index);
+        return (Group)groups.elementAt(Index);
     }
     
     public Group getGroup(String Name) {
-        for (Enumeration e=g.elements();e.hasMoreElements();){
+        for (Enumeration e=groups.elements();e.hasMoreElements();){
             Group grp=(Group)e.nextElement();
             if (Name.equals(grp.name)) return grp;
         }
         return null;
     }
     public Group addGroup(String name, String label) {
-        Group grp=new Group(g.size(),name, label);
-        g.addElement(grp);
+        Group grp=new Group(groups.size(),name, label);
+        groups.addElement(grp);
         return grp;
     }
-    public Vector getStrings(){
+
+    public Vector getRosterGroupNames(){
         Vector s=new Vector();
-        for (int i=Groups.COMMON_INDEX; i<g.size(); i++) {
-            s.addElement(((Group)g.elementAt(i)).name);
+        for (int i=Groups.COMMON_INDEX; i<groups.size(); i++) {
+	    Group grp=(Group) groups.elementAt(i);
+	    if (grp.imageExpandedIndex!=ImageList.ICON_GCJOIN_INDEX)
+            s.addElement(grp.name);
         }
         s.addElement(Groups.IGNORE_GROUP);
         return s;
     }
-    public int getCount() {return g.size();}
+    public int getCount() {return groups.size();}
     
 }

@@ -1677,6 +1677,10 @@ syslog_msg: true
   Options: Keep-Alive. одноимённый атрибут из jad используется только в 
   том случае, если rms-настройки пусты
 
+  (318)
+  fix: список Existing Groups в форме Add/Edit Contact теперь не содержит названия
+  конференций
+
 ---------------------------
   known issues:
 
