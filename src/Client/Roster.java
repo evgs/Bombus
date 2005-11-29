@@ -11,6 +11,7 @@
 
 package Client;
 
+import Conference.ConferenceGroup;
 import Conference.QueryConfigForm;
 import Conference.affiliation.Affiliations;
 import vcard.VCard;
@@ -393,8 +394,9 @@ public class Roster
         
         //updateContact(null /*nick*/ , from, room, "muc", false);
         Group grp=groups.getGroup(roomJid);
-        if (grp==null) grp=groups.addGroup(roomJid, room);
-        grp.imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
+	
+        if (grp==null) grp=groups.addGroup(new ConferenceGroup(roomJid, room) );
+        //grp.imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
         /*
         Contact c=presenceContact(from, isRoom?Presence.PRESENCE_ONLINE:-1);
         if (isRoom){  
@@ -414,14 +416,14 @@ public class Roster
             //c.priority=99;
             c.jidHash=0;
 	    c.conferenceJoinTime=Time.localTime();
+	    ((ConferenceGroup)grp).setConference(c);
         } else {
             c=presenceContact(from, -1);
             c.nick=from.substring(rp+1);
+	    if (origin==Contact.ORIGIN_GC_MYSELF) {
+		((ConferenceGroup)grp).setSelfContact(c);
+	    }
         }
-        /*if (origin==Contact.ORIGIN_GC_MYSELF) {
-            origin=Contact.ORIGIN_CLONE;
-            c.gcMyself=true;
-        }*/
         c.group=grp.index;
         c.offline_type=Presence.PRESENCE_OFFLINE;
         if (c.origin<origin) c.origin=origin;
@@ -1137,47 +1139,24 @@ public class Roster
         }
     }
     
-    private Contact conferenceSelfContact(int groupIndex) {
-        // найдём self-jid в комнате
-        for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
-            Contact contact=(Contact)e.nextElement();
-            if (contact.group==groupIndex && contact.origin==Contact.ORIGIN_GC_MYSELF) 
-                return contact;
-        }
-        return null;
-    }
-    
-    private Contact conferenceRoomContact(int groupIndex) {
-        // найдём self-jid в комнате
-        for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
-            Contact contact=(Contact)e.nextElement();
-            if (contact.group==groupIndex && contact.origin==Contact.ORIGIN_GROUPCHAT) 
-                return contact;
-        }
-        return null;
-    }
-    
-    private void reEnterRoom(int groupIndex) {
-        Contact myself=conferenceSelfContact(groupIndex);
-        sendPresence(myself.getJid(), null, null);
 
-        for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
-            Contact contact=(Contact)e.nextElement();
-            if (contact.group==groupIndex && contact.origin==Contact.ORIGIN_GROUPCHAT) 
-                contact.status=Presence.PRESENCE_ONLINE;
-        }
-        
+    private void reEnterRoom(Group group) {
+	ConferenceGroup confGroup=(ConferenceGroup)group;
+        sendPresence(confGroup.getSelfContact().getJid(), null, null);
+
+	confGroup.getConference().status=Presence.PRESENCE_ONLINE;
     }
-    private void leaveRoom(int groupIndex){
-        Contact myself=conferenceSelfContact(groupIndex);
+    private void leaveRoom(int index){
+	Group group=groups.getGroup(index);
+	ConferenceGroup confGroup=(ConferenceGroup)group;
+	Contact myself=confGroup.getSelfContact();
         sendPresence(myself.getJid(), "unavailable", null);
-        myself.status=Presence.PRESENCE_OFFLINE;
-
+	
         for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
             Contact contact=(Contact)e.nextElement();
-            if (contact.group==groupIndex) 
-                contact.status=Presence.PRESENCE_OFFLINE;
+            if (contact.group==index) contact.status=Presence.PRESENCE_OFFLINE; 
         }
+
     }
     
     protected void showNotify() { super.showNotify(); countNewMsgs(); }
@@ -1355,7 +1334,7 @@ public class Roster
                     }
                     case 10: // room config
                     {
-                        String roomJid=conferenceRoomContact(g.index).getJid();
+                        String roomJid=((ConferenceGroup)g).getConference().getJid();
                         new QueryConfigForm(display, roomJid);
                         break;
                     }
@@ -1364,7 +1343,7 @@ public class Roster
                     case 13: // members
                     case 14: // outcasts
                     {
-                        String roomJid=conferenceRoomContact(g.index).getJid();
+                        String roomJid=((ConferenceGroup)g).getConference().getJid();
                         new Affiliations(display, roomJid, index-10);
                         return;
                     }
@@ -1386,7 +1365,7 @@ public class Roster
                     }
                     case 23:
                     {
-                        reEnterRoom( g.index );
+                        reEnterRoom( g );
                         break;
                     }
                     case 30:
@@ -1423,8 +1402,8 @@ public class Roster
         } else {
             if (g.index==Groups.SRC_RESULT_INDEX)  
                 m.addItem(new MenuItem("Discard Search",21));
-            if (g.imageExpandedIndex==ImageList.ICON_GCJOIN_INDEX) {
-                Contact self=conferenceSelfContact(g.index);
+            if (g instanceof ConferenceGroup) {
+                Contact self=((ConferenceGroup)g).getSelfContact();
                 if (self.status==Presence.PRESENCE_OFFLINE) 
                     m.addItem(new MenuItem("Re-Enter Room",23));
                 else {
@@ -1527,7 +1506,7 @@ public class Roster
                                     //  не распространяется Show offlines
                                     || c.origin==Contact.ORIGIN_GROUPCHAT
                                     )
-                                grp.Contacts.addElement(c);
+                                grp.contacts.addElement(c);
                             //grp.addContact(c);
                         }
                     }

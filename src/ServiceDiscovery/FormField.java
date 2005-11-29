@@ -38,6 +38,7 @@ public class FormField {
             label=field.getAttribute("label");
             if (label==null) label=name;
             body=field.getChildBlockText("value");
+	    hidden= type.equals("hidden"); 
             if (type.equals("fixed")) formItem=new StringItem(label, body); 
             else if (type.equals("boolean")) {
                 ChoiceGroup ch=new ChoiceGroup(null,ChoiceGroup.MULTIPLE);
@@ -65,6 +66,7 @@ public class FormField {
                     }
                 }
             }
+	    // text-single
             else formItem=new TextField(label, body, 200, 0);
         } else {
             // not x-data

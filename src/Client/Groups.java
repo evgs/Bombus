@@ -47,21 +47,21 @@ public class Groups{
         for (Enumeration e=groups.elements();e.hasMoreElements();){
             Group grp=(Group)e.nextElement();
             grp.tncontacts=grp.tonlines=0;
-            grp.Contacts=new Vector();
+            grp.contacts=new Vector();
         }
     }
     
     public void addToVector(Vector d, int index){
         Group gr=getGroup(index);
-        if (gr.Contacts.size()>0){
+        if (gr.contacts.size()>0){
             d.addElement(gr);
-            if (!gr.collapsed) for (Enumeration e=gr.Contacts.elements();e.hasMoreElements();){
+            if (!gr.collapsed) for (Enumeration e=gr.contacts.elements();e.hasMoreElements();){
                 d.addElement(e.nextElement());
             }
         }
         gr.onlines=gr.tonlines;
         gr.ncontacts=gr.tncontacts;
-        gr.Contacts=null;
+        gr.contacts=null;
     }
 
     public Group getGroup(int Index) {
@@ -76,9 +76,13 @@ public class Groups{
         return null;
     }
     public Group addGroup(String name, String label) {
-        Group grp=new Group(groups.size(),name, label);
-        groups.addElement(grp);
-        return grp;
+        return addGroup(new Group(name) );
+    }
+    
+    public Group addGroup(Group group) {
+	group.index=groups.size();
+        groups.addElement(group);
+        return group;
     }
 
     public Vector getRosterGroupNames(){

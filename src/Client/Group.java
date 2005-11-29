@@ -18,26 +18,24 @@ import ui.*;
  */
 public class Group extends IconTextElement {
     String name;
-    String label;
-    int index;
+    int index; // group index
     public int ncontacts;
     public int onlines;
     public int imageExpandedIndex=ImageList.ICON_EXPANDED_INDEX;
+        
+    public Vector contacts;
     
-    Vector Contacts;
+    //Vector tcontacts;
     public int tonlines;
     public int tncontacts;
     
     boolean collapsed;
     
-    public Group(int index, String name, String label) {
+    public Group(String name /*, String label*/) {
         super(StaticData.getInstance().rosterIcons);
-        this.index=index; 
         this.name=name;
-        this.label=label;
+        /*this.label=label;*/
         
-        if (index==Groups.SRC_RESULT_INDEX) 
-            imageExpandedIndex=ImageList.ICON_SEARCH_INDEX;
     }
     public int getColor(){ return 0x000080; }
     public int getImageIndex() {
@@ -47,9 +45,19 @@ public class Group extends IconTextElement {
     }
     
     public String getName() { return name; }
-    public String toString(){ return ((label==null)?name:label)+" ("+onlines+'/'+ncontacts+')'; }
+    protected String title(String titleStart) {
+	return titleStart+" ("+onlines+'/'+ncontacts+')';
+    }
+    public String toString(){ return title(name);  }
+
     public void onSelect(){
         collapsed=!collapsed;
+    }
+
+    public void setIndex(int index) {
+	this.index = index;
+        if (index==Groups.SRC_RESULT_INDEX) 
+            imageExpandedIndex=ImageList.ICON_SEARCH_INDEX;
     }
     
 }

@@ -178,8 +178,12 @@ public class ServiceDiscovery
                     if (var.equals(NS_MUC)) { cmds.addElement(new DiscoCommand(0,strJoin)); }
                     if (var.equals(NS_SRCH)) { cmds.addElement(new DiscoCommand(1,strSrch)); }
                     if (var.equals(NS_REGS)) { cmds.addElement(new DiscoCommand(2,strReg)); }
-                    if (var.equals(NODE_CMDS)) { cmds.addElement(new DiscoCommand(AD_HOC_INDEX,strCmds)); } 
-                } 
+                    //if (var.equals(NODE_CMDS)) { cmds.addElement(new DiscoCommand(AD_HOC_INDEX,strCmds)); } 
+                }
+		if (i.getTagName().equals("identity")) {
+		    String category=i.getAttribute("category");
+		    if (category.equals("automation")) { cmds.addElement(new DiscoCommand(AD_HOC_INDEX,strCmds)); } 
+		}
             }
             if (data.getAttribute("from").equals(service)) {
                 this.cmds=cmds;

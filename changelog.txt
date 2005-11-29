@@ -1681,6 +1681,10 @@ syslog_msg: true
   fix: список Existing Groups в форме Add/Edit Contact теперь не содержит названия
   конференций
 
+  (319)
+  fix: (ad-hoc) лишние команды Execute при работе с disco rss.jabber.ru
+  немного рефакторинга в конференциях
+
 ---------------------------
   known issues:
 
