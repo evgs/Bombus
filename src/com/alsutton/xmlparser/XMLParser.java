@@ -142,12 +142,27 @@ public class XMLParser
 //--  int pbyte;
 //--  private int chRead() throws IOException{
 //--      if (length>pbyte) return cbuf[pbyte++];
+//--      /*if (length>pbyte) {
+//--	  //System.out.println((char)cbuf[pbyte]);
+//--	  return cbuf[pbyte++];
+//--      }*/
 //--      
 //--      //int avail=1;// тестим Nokia
 //--      int avail=inputReader.available();
 //--      if (avail<2) return inputReader.read();
+//--      /*if (avail<2) {
+//--          System.out.println(" single-byte");
+//--	  int ch=inputReader.read();
+//--          System.out.println((char)ch);
+//--	  return ch;
+//--      }*/
+//--      
+//--      //System.out.println(" prebuffering "+avail);
+//--      
 //--      length= inputReader.read(cbuf, 0, (avail<512)?avail:512 );
 //--      pbyte=1;
+//--      
+//--      //System.out.println((char)cbuf[0]);
 //--      return cbuf[0];
 //--  }
 //#endif

@@ -46,7 +46,7 @@ public final class ContactEdit
         roster=sd.roster;
         
         Vector groups=sd.roster.groups.getRosterGroupNames();
-        cf=StaticData.getInstance().config;
+        cf=Config.getInstance();
         
         f=new Form("Add contact");
         

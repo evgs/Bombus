@@ -24,16 +24,16 @@ import ui.VirtualList;
  */
 public class Config {
     
-    public final int vibraLen=getProperty("vibra_len",500);
+    public final int vibraLen=getIntProperty("vibra_len",500);
     
-    public int keepAlive=getProperty("keep_alive",200);
+    public int keepAlive=getIntProperty("keep_alive",200);
 
-    public boolean ghostMotor=getProperty("moto_e398",false);
+    public boolean ghostMotor=getBooleanProperty("moto_e398",false);
     public boolean blFlash=true;
     
-    public boolean msgLog=getProperty("msg_log",false);
+    public boolean msgLog=getBooleanProperty("msg_log",false);
     
-    public boolean muc119=getProperty("muc_119",true);	// before muc 1.19 use muc#owner instead of muc#admin
+    public boolean muc119=getBooleanProperty("muc_119",true);	// before muc 1.19 use muc#owner instead of muc#admin
     
     public int sounsMsgIndex=0;
 
@@ -43,28 +43,28 @@ public class Config {
     public int soundVol=100;
     
 //#if !(MIDP1)
-    public char keyLock=getProperty("key_lock",'*');
-    public char keyVibra=getProperty("key_vibra",'#');
+    public char keyLock=getCharProperty("key_lock",'*');
+    public char keyVibra=getCharProperty("key_vibra",'#');
 //#else
-//--    public boolean msgLogPresence=getProperty("msg_log_presence",false);
-//--    public boolean msgLogConfPresence=getProperty("msg_log_conf_presence",false);
-//--    public boolean msgLogConf=getProperty("msg_log_conf",false);
-//--    public final String msgPath=getProperty("msg_log_path","");
-//--    public final String siemensCfgPath=getProperty("cfg_path","");
-//--    public char keyLock=getProperty("key_lock",'#');
-//--    public char keyVibra=getProperty("key_vibra",'*');
+//--    public boolean msgLogPresence=getBooleanProperty("msg_log_presence",false);
+//--    public boolean msgLogConfPresence=getBooleanProperty("msg_log_conf_presence",false);
+//--    public boolean msgLogConf=getBooleanProperty("msg_log_conf",false);
+//--    public final String msgPath=getStringProperty("msg_log_path","");
+//--    public final String siemensCfgPath=getStringProperty("cfg_path","");
+//--    public char keyLock=getCharProperty("key_lock",'#');
+//--    public char keyVibra=getCharProperty("key_vibra",'*');
 //#endif
     
-    public char keyHide=getProperty("key_hide",'9');
-    public char keyOfflines=getProperty("key_offlines",'0');
+    public char keyHide=getCharProperty("key_hide",'9');
+    public char keyOfflines=getCharProperty("key_offlines",'0');
     
 //#if USE_LED_PATTERN
 //--    public int m55LedPattern=0;
 //#endif
     
-    public String defGcRoom=getProperty("gc_room","bombus");
+    public String defGcRoom=getStringProperty("gc_room","bombus");
     
-    public String xmlLang=getProperty("xml_lang",null);
+    public String xmlLang=getStringProperty("xml_lang",null);
     
     // non-volatile values
     //public TimeZone tz=new RuGmt(0);
@@ -89,8 +89,50 @@ public class Config {
     public boolean allowMinimize=false;
     public int profile=0;
     
+    // Singleton
+    private static Config instance;
+    public static Config getInstance(){
+	if (instance==null) instance=new Config();
+	return instance;
+    }
     
-    public void LoadFromStorage(){
+    /** Creates a new instance of Config */
+    private Config() {
+	
+	int gmtloc=TimeZone.getDefault().getRawOffset()/3600000;
+	locOffset=getIntProperty( "time_loc_offset", 0);
+	gmtOffset=getIntProperty("time_gmt_offset", gmtloc);
+	
+	int greenKeyCode=VirtualList.SIEMENS_GREEN;
+	
+	String platform=Version.platform();
+	
+	if (platform.startsWith("SonyE")) {
+	    allowMinimize=true;
+	}
+	if (platform.startsWith("Nokia")) {
+	    blFlash=false;
+	    greenKeyCode=VirtualList.NOKIA_GREEN;
+	}
+	if (platform.startsWith("Moto")) {
+	    ghostMotor=true;
+	    blFlash=false;
+	    greenKeyCode=VirtualList.MOTOROLA_GREEN;
+	}
+	if (platform.startsWith("j2me")) {
+	    greenKeyCode=VirtualList.MOTOROLA_GREEN;
+	}
+	
+	VirtualList.greenKeyCode=greenKeyCode;
+	//System.out.println(locOffset);
+//#if USE_LED_PATTERN
+//--        if (platform.startsWith("M55"))
+//--        m55LedPattern=getIntProperty("led_pattern",5);
+//#endif
+	loadFromStorage();
+    }
+    
+    private void loadFromStorage(){
 	
 	DataInputStream inputStream=NvStorage.ReadFileRecord("config", 0);
 	if (inputStream!=null)
@@ -172,78 +214,40 @@ public class Config {
 	Time.setOffset(gmtOffset, locOffset);
     }
     
-    /** Creates a new instance of Config */
-    public Config() {
-	int gmtloc=TimeZone.getDefault().getRawOffset()/3600000;
-	locOffset=getProperty( "time_loc_offset", 0);
-	gmtOffset=getProperty("time_gmt_offset", gmtloc);
-	
-	int greenKeyCode=VirtualList.SIEMENS_GREEN;
-	
-	String platform=Version.platform();
-	
-	if (platform.startsWith("SonyE")) {
-	    allowMinimize=true;
-	}
-	if (platform.startsWith("Nokia")) {
-	    blFlash=false;
-	    greenKeyCode=VirtualList.NOKIA_GREEN;
-	}
-	if (platform.startsWith("Moto")) {
-	    ghostMotor=true;
-	    blFlash=false;
-	    greenKeyCode=VirtualList.MOTOROLA_GREEN;
-	}
-	if (platform.startsWith("j2me")) {
-	    greenKeyCode=VirtualList.MOTOROLA_GREEN;
-	}
-	
-	VirtualList.greenKeyCode=greenKeyCode;
-	//System.out.println(locOffset);
-//#if USE_LED_PATTERN
-//--        if (platform.startsWith("M55"))
-//--        m55LedPattern=getProperty("led_pattern",5);
-//#endif
+    
+    public final String getStringProperty(final String key, final String defvalue) {
+	String s=StaticData.getInstance().midlet.getAppProperty(key);
+	return (s==null)?defvalue:s;
     }
     
-    public final String getProperty(final String key, final String defvalue) {
+    public final int getIntProperty(final String key, final int defvalue) {
 	try {
 	    String s=StaticData.getInstance().midlet.getAppProperty(key);
-	    return (s==null)?defvalue:s;
+	    return Integer.parseInt(s); //throws NullPointerException or NumberFormatException
 	} catch (Exception e) {
+	    // возвращает defvalue, если атрибут не существует или имеет неправильный формат
 	    return defvalue;
 	}
     }
     
-    public final int getProperty(final String key, final int defvalue) {
+    public final char getCharProperty(final String key, final char defvalue) {
 	try {
 	    String s=StaticData.getInstance().midlet.getAppProperty(key);
-	    return (s==null)?defvalue:Integer.parseInt(s);
+	    return s.charAt(0); //throws NullPointerException или IndexOutOfBoundsException
 	} catch (Exception e) {
+	    // возвращает defvalue, если атрибут не существует или имеет неправильный формат
 	    return defvalue;
 	}
     }
     
-    public final char getProperty(final String key, final char defvalue) {
-	try {
-	    String s=StaticData.getInstance().midlet.getAppProperty(key);
-	    return (s==null)?defvalue:s.charAt(0);
-	} catch (Exception e) {
-	    return defvalue;
-	}
-    }
-    
-    public final boolean getProperty(final String key, final boolean defvalue) {
-	try {
-	    String s=StaticData.getInstance().midlet.getAppProperty(key);
-	    if (s==null) return defvalue;
-	    if (s.equals("true")) return true;
-	    if (s.equals("yes")) return true;
-	    if (s.equals("1")) return true;
-	    return false;
-	} catch (Exception e) {
-	    return defvalue;
-	}
+    public final boolean getBooleanProperty(final String key, final boolean defvalue) {
+	String s=StaticData.getInstance().midlet.getAppProperty(key);
+	
+	if (s==null) return defvalue;
+	if (s.equals("true")) return true; 
+	if (s.equals("yes")) return true;
+	if (s.equals("1")) return true;
+	return false;
     }
     
 }

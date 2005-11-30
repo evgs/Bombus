@@ -58,7 +58,7 @@ public class Affiliations
 	switch (affiliationIndex) {
 	    case AffiliationItem.AFFILIATION_OWNER:
 	    case AffiliationItem.AFFILIATION_ADMIN:
-		if (!StaticData.getInstance().config.muc119) namespace="http://jabber.org/protocol/muc#owner";
+		if (!Config.getInstance().muc119) namespace="http://jabber.org/protocol/muc#owner";
 	}
 	
         this.id=AffiliationItem.getAffiliationName(affiliationIndex);

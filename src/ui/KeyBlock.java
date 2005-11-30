@@ -9,7 +9,7 @@
 
 package ui;
 
-import Client.StaticData;
+import Client.Config;
 import javax.microedition.lcdui.*;
 import java.util.*;
 
@@ -61,7 +61,7 @@ public class KeyBlock extends Canvas implements Runnable{
         tc=new TimerTaskClock();
         
 //#if !(MIDP1)
-        setFullScreenMode(StaticData.getInstance().config.fullscreen);
+        setFullScreenMode(Config.getInstance().fullscreen);
 //#endif
         //System.gc();   // heap cleanup
     }

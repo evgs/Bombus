@@ -41,7 +41,7 @@ public class AlertProfile extends VirtualList implements CommandListener {
         StaticData sd=StaticData.getInstance();
         setTitleImages(sd.rosterIcons);
         
-        cf=sd.config;
+        cf=Config.getInstance();
         
         createTitleItem(1, "Alert Profile",null);
         
@@ -92,7 +92,7 @@ public class AlertProfile extends VirtualList implements CommandListener {
 
     /** */
     public static void playNotify(Display display, int event) {
-        Config cf=StaticData.getInstance().config;
+        Config cf=Config.getInstance();
         String message=cf.messagesnd;
 	String type=cf.messageSndType;
 	int volume=cf.soundVol;

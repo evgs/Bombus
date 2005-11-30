@@ -25,13 +25,13 @@
  */
 
 package com.alsutton.jabber;
+import Client.Config;
 import Client.NvStorage;
 import java.io.*;
 import java.util.*;
 import javax.microedition.io.*;
 import com.alsutton.jabber.datablocks.*;
 import com.alsutton.xmlparser.*;
-import Client.StaticData;
 
 
 
@@ -113,7 +113,7 @@ public class JabberStream implements XMLEventListener, Runnable {
         header.append( "\" xmlns=\"jabber:client\" xmlns:stream=\"http://etherx.jabber.org/streams\">" );
         send(header.toString());
         
-        keepAlive=new TimerTaskKeepAlive(StaticData.getInstance().config.keepAlive);
+        keepAlive=new TimerTaskKeepAlive(Config.getInstance().keepAlive);
     }
     
     
@@ -188,7 +188,12 @@ public class JabberStream implements XMLEventListener, Runnable {
         
         synchronized (outStream) {
 //#if USE_UTF8_READER
-//--            outStream.write(toUTF(data).getBytes());
+//--	    //byte a[]=toUTF(data);
+//--	    //for (int i=0;i<a.length; i++){
+//--	    //	System.out.print(" "+((char)a[i])+"="+a[i]);
+//--	    //}
+//--	    //System.out.println();
+//--            outStream.write(toUTF(data));
 //#else
             outStream.write(data);
 //#endif
@@ -310,7 +315,7 @@ public class JabberStream implements XMLEventListener, Runnable {
     
 //#if USE_UTF8_READER
 //--    // temporary
-//--    public static String toUTF(String s) {
+//--    private byte[] toUTF(String s) {
 //--        int i = 0;
 //--        StringBuffer stringbuffer=new StringBuffer();
 //--
@@ -331,7 +336,12 @@ public class JabberStream implements XMLEventListener, Runnable {
 //--            }
 //--        }
 //--
-//--        return stringbuffer.toString();
+//--	int len=stringbuffer.length();
+//--	byte bytes[]=new byte[len];
+//--	for (i=0; i<len; i++) { 
+//--	    bytes[i]=(byte)stringbuffer.charAt(i);
+//--	}
+//--	return bytes;
 //--    }
 //#endif
     

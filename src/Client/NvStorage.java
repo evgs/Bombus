@@ -75,8 +75,8 @@ public class NvStorage {
 //--        
 //--        String path=null;
 //--        switch (path_index) {
-//--            case PATH_CFG: path=StaticData.getInstance().config.siemensCfgPath; break;
-//--            case PATH_MSG: path=StaticData.getInstance().config.msgPath; break;
+//--            case PATH_CFG: path=Config.getInstance().siemensCfgPath; break;
+//--            case PATH_MSG: path=Config.getInstance().msgPath; break;
 //--        }
 //--        //System.out.println("path="+path);
 //--        //System.out.println("path="+path+name);

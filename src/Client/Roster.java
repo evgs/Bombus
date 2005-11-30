@@ -111,7 +111,7 @@ public class Roster
         
         this.display=display;
         
-        cf=sd.config;
+        cf=Config.getInstance();
         
         //msgNotify=new EventNotify(display, Profile.getProfile(0) );
         
@@ -861,6 +861,14 @@ public class Roster
                         if (statusCode.equals("303")) {
                             b.append(" is now known as ");
                             b.append(chNick);
+			    // исправим jid
+			    /* пока не работает
+			    String newJid=from.substring(0,rp+1)+chNick;
+			    System.out.println(newJid);
+			    c.jid.setJid(newJid);
+			    c.bareJid=newJid;
+			     */
+			    
                         } else if (statusCode.equals("307")){
                             b.append(" was kicked (");
                             b.append(reason);

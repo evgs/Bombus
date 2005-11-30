@@ -31,8 +31,6 @@ public class StaticData {
     
     public Account account;
     
-    public Config config;
-    
     public int account_index;
     
     public boolean isMinimized;
@@ -40,9 +38,7 @@ public class StaticData {
     private Hashtable transports;
     
     /** Creates a new instance of StaticData */
-    private StaticData() {
-        account_index=-1;
-    }
+    private StaticData() { }
     
     public void initFields(MIDlet m) {
         midlet=m;
@@ -50,9 +46,8 @@ public class StaticData {
         smilesIcons=new ImageList("/images/smiles.png",15,15);
         //smileTable=new Vector(32);
         //parser=new MessageParser("/images/smiles.txt", smileTable);
-        config=new Config();
-        config.LoadFromStorage();
-        account_index=config.accountIndex;
+        //config.LoadFromStorage();
+        //account_index=Config.getInstance().accountIndex;
         //account=Account.createFromRMS(account_index);
         statusList=ExtendedStatus.createStatusList();
         

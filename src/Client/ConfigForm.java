@@ -82,7 +82,7 @@ public class ConfigForm implements
         this.display=display;
         parentView=display.getCurrent();
         
-        cf=StaticData.getInstance().config;
+        cf=Config.getInstance();
         
         f=new Form("Options");
         roster=new ChoiceGroup("Roster elements", Choice.MULTIPLE);

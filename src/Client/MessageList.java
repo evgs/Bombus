@@ -49,7 +49,7 @@ implements CommandListener{
         this.contact=contact;
         sd=StaticData.getInstance();
         il=sd.smilesIcons;
-        smiles=sd.config.smiles;
+        smiles=Config.getInstance().smiles;
         //sd.config.updateTime();
     
 	enableListWrapping(false);

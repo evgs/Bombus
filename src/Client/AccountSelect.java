@@ -44,7 +44,7 @@ public class AccountSelect
         Account a;
         
         int index=0;
-        activeAccount=StaticData.getInstance().config.accountIndex;
+        activeAccount=Config.getInstance().accountIndex;
         do {
             a=Account.createFromStorage(index);
             if (a!=null) {
@@ -116,10 +116,9 @@ public class AccountSelect
     }
     public void eventOk(){
         destroyView();
-        StaticData sd=StaticData.getInstance();
-        sd.config.accountIndex=cursor;
-        sd.config.saveToStorage();
-        sd.account_index=cursor;
+	Config cf=Config.getInstance();
+        cf.accountIndex=cursor;
+        cf.saveToStorage();
         Account.loadAccount(true);
     }
 

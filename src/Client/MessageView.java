@@ -122,7 +122,7 @@ public class MessageView
 	enableListWrapping(false);
 
         sd=StaticData.getInstance();
-        smiles=sd.config.smiles;
+        smiles=Config.getInstance().smiles;
         this.msgIndex=msgIndex;
         this.contact=contact;
 

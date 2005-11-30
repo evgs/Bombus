@@ -175,7 +175,7 @@ public class Contact extends IconTextElement{
                 if ( ((Msg)msgs.firstElement()).isPresence())
                     if (origin!=ORIGIN_GROUPCHAT) first_replace=true;
 //#if USE_SIEMENS_FILES
-//--        Config cf=StaticData.getInstance().config;
+//--        Config cf=Config.getInstance();
 //--
 //--        if (cf.msgLog && group!=Groups.TRANSP_INDEX && group!=Groups.SRC_RESULT_INDEX)
 //--        {

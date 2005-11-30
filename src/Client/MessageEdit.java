@@ -129,7 +129,7 @@ public class MessageEdit
             
         } else if (to.accept_composing) comp=(composing)? 1:2;
         
-        if (!StaticData.getInstance().config.eventComposing) comp=0;
+        if (!Config.getInstance().eventComposing) comp=0;
         
         try {
             if (body!=null /*|| subj!=null*/ || comp>0)

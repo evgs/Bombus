@@ -80,6 +80,7 @@ public class Bombus extends MIDlet implements Runnable{
         }
 
         sd.initFields(this);
+	Config cf=Config.getInstance();
         //s.setProgress(10);
         
         /*s.setProgress("* - Account setup",12);
@@ -90,14 +91,14 @@ public class Bombus extends MIDlet implements Runnable{
         }*/
         s.setProgress(17);
 
-        boolean selAccount=( (sd.account_index<0) || s.keypressed!=0);
+        boolean selAccount=( (cf.accountIndex<0) || s.keypressed!=0);
         if (selAccount) s.setProgress("Entering setup",20);
 
         sd.roster=new Roster(display);
         
         if (!selAccount) {
             // connect whithout account select
-	    boolean autologin=sd.config.autoLogin;
+	    boolean autologin=cf.autoLogin;
             selAccount=(Account.loadAccount(autologin)==null);
 	    if (!autologin) s.close();
         }

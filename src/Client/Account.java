@@ -48,7 +48,7 @@ public class Account extends IconTextElement{
     
     public static Account loadAccount(boolean launch){
 	StaticData sd=StaticData.getInstance();
-	Account a=sd.account=Account.createFromStorage(sd.account_index);
+	Account a=sd.account=Account.createFromStorage(Config.getInstance().accountIndex);
         if (a!=null && launch){
             sd.roster.logoff();
             sd.roster.myStatus=Presence.PRESENCE_ONLINE;
