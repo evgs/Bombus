@@ -223,7 +223,7 @@ public class Roster
         //logoff();
         try {
             Account a=sd.account;
-            setProgress("Connect to "+a.getServerN(), 30);
+            setProgress("Connect to "+a.getServer(), 30);
             theStream= a.openJabberStream();
             setProgress("Login", 40);
             theStream.setJabberListener( this );
@@ -992,7 +992,7 @@ public class Roster
         Account a=sd.account;//StaticData.getInstance().account;
         Login login = new Login( 
                 a.getUserName(), 
-                a.getServerN(), 
+                a.getServer(), 
                 a.getPassword(), 
                 a.getPlainAuth()?null:SessionId, 
                 a.getResource()

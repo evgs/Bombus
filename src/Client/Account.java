@@ -30,7 +30,7 @@ public class Account extends IconTextElement{
     private String userName;
     private String password;
     private String server;
-    private String IP;
+    private String hostAddr;
     private int port=5222;
     public boolean active;
     private boolean useSSL;
@@ -65,7 +65,7 @@ public class Account extends IconTextElement{
             a.userName=m.getAppProperty("def_user");
             a.password=m.getAppProperty("def_pass");
             a.server=m.getAppProperty("def_server");
-            a.IP=m.getAppProperty("def_ip");
+            a.hostAddr=m.getAppProperty("def_ip");
         } catch (Exception e) { }
             if (a.server==null) return null;
         return a;
@@ -80,7 +80,7 @@ public class Account extends IconTextElement{
             a.userName = inputStream.readUTF();
             a.password = inputStream.readUTF();
             a.server   = inputStream.readUTF();
-            a.IP       = inputStream.readUTF();
+            a.hostAddr = inputStream.readUTF();
             a.port     = inputStream.readInt();
 
             a.nick     = inputStream.readUTF();
@@ -132,14 +132,14 @@ public class Account extends IconTextElement{
     
     public void saveToDataOutputStream(DataOutputStream outputStream){
         
-        if (IP==null) IP="";
+        if (hostAddr==null) hostAddr="";
         
         try {
             outputStream.writeByte(3);
             outputStream.writeUTF(userName);
             outputStream.writeUTF(password);
             outputStream.writeUTF(server);
-            outputStream.writeUTF(IP);
+            outputStream.writeUTF(hostAddr);
             outputStream.writeInt(port);
             
             outputStream.writeUTF(nick);
@@ -166,17 +166,12 @@ public class Account extends IconTextElement{
     public String getPassword() {  return password;  }
     public void setPassword(String password) { this.password = password;  }
 
-    public String getServer() {
-        if (IP==null)  return server;
-        if (IP.length()==0)  return server;
-        return IP;
-    }
-    public String getServerN() { return server; }
-    public String getServerI() { return IP; }
+    public String getServer() { return server; }
+    public String getHostAddr() { return hostAddr; }
     
     public void setServer(String server) { this.server = server; }
 
-    public void setIP(String IP) { this.IP = IP; }
+    public void setHostAddr(String hostAddr) { this.hostAddr = hostAddr; }
 
     public int getPort() { return port; }
     public void setPort(int port) { this.port = port; }
@@ -194,6 +189,15 @@ public class Account extends IconTextElement{
     public void setNickName(String nick) { this.nick = nick;  }
 
     public JabberStream openJabberStream() throws java.io.IOException{
-        return new JabberStream(  getServerN(), getServer(), getPort(), null, getUseSSL());    
+	StringBuffer url=new StringBuffer();
+	    url.append((useSSL)?"ssl":"socket");
+	    url.append("://");
+	    if (hostAddr!=null) if (hostAddr.length()>0)
+		url.append(hostAddr);
+	    else
+		url.append(server);
+	    url.append(':');
+	    url.append(port) ;
+        return new JabberStream(  getServer(), url.toString(), null);    
     }
 }

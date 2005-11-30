@@ -49,7 +49,7 @@ public class AccountRegister
     }
     public void run() {
         try {
-            spl.setProgress("Connect to"+raccount.getServerN(),30);
+            spl.setProgress("Connect to"+raccount.getServer(),30);
             theStream= raccount.openJabberStream();
             theStream.setJabberListener( this );
         } catch( Exception e ) {

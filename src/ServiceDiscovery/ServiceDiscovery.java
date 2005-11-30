@@ -82,7 +82,7 @@ public class ServiceDiscovery
         setCommandListener(this);
 
         this.node=node;
-        this.service=(service!=null)?service:sd.account.getServerN();
+        this.service=(service!=null)?service:sd.account.getServer();
         
         items=new Vector();
         

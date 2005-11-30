@@ -45,7 +45,7 @@ public class ConferenceForm implements CommandListener{
         // Lobo's M55 exception test
         //try {
         if (room==null) room=Config.getInstance().defGcRoom;
-        if (server==null) server="conference."+sd.account.getServerN();
+        if (server==null) server="conference."+sd.account.getServer();
         
         roomField=new TextField("Room", room, 64, TextField.URL);
         formJoin.append(roomField);

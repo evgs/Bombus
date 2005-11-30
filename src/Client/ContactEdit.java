@@ -72,7 +72,7 @@ public final class ContactEdit
         int sel=0;
         
         // Transport droplist
-        tTranspList.append(sd.account.getServerN(), null);
+        tTranspList.append(sd.account.getServer(), null);
         for (Enumeration e=sd.roster.getHContacts().elements(); e.hasMoreElements(); ){
             Contact ct=(Contact)e.nextElement();
             Jid transpJid=new Jid(ct.getJid()); //TODO: исправить этот хак (отрезание ресурса)

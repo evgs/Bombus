@@ -167,8 +167,8 @@ public class AccountSelect
             passbox=new TextField("Password",account.getPassword(),32,
                     TextField.URL|TextField.PASSWORD);  f.append(passbox); passStars();
                     
-            servbox=new TextField("Server",account.getServerN(),32,TextField.URL);    f.append(servbox);
-            ipbox=new TextField("Server Addr/IP",account.getServerI(),32,TextField.URL);   f.append(ipbox);
+            servbox=new TextField("Server",account.getServer(),32,TextField.URL);    f.append(servbox);
+            ipbox=new TextField("Server Addr/IP",account.getHostAddr(),32,TextField.URL);   f.append(ipbox);
             portbox=new TextField("Port",String.valueOf(account.getPort()),32,TextField.NUMERIC);   f.append(portbox);
             register=new ChoiceGroup(null, Choice.MULTIPLE);
             register.append("use SSL",null);
@@ -224,7 +224,7 @@ public class AccountSelect
                 account.setUserName(user.trim());
                 account.setPassword(passbox.getString());
                 account.setServer(servbox.getString().trim());
-                account.setIP(ipbox.getString());
+                account.setHostAddr(ipbox.getString());
                 account.setResource(resourcebox.getString());
                 account.setNickName(nickbox.getString());
                 account.setUseSSL(b[0]);
