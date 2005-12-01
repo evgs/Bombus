@@ -14,6 +14,7 @@ package Client;
 import Conference.ConferenceGroup;
 import Conference.QueryConfigForm;
 import Conference.affiliation.Affiliations;
+import midlet.Bombus;
 import vcard.VCard;
 import vcard.vCardForm;
 import com.alsutton.jabber.*;
@@ -956,10 +957,8 @@ public class Roster
         
         if (c.group==Groups.IGNORE_INDEX) return c;    // no signalling/focus on ignore
         
-        if (sd.isMinimized) {
-            display.setCurrent(this);
-            sd.isMinimized=false;
-        }
+        Bombus.getInstance().hideApp(false);
+	
         focusToContact(c, false);
 
         if (message.messageType!=Msg.MESSAGE_TYPE_HISTORY) 
@@ -1112,15 +1111,11 @@ public class Roster
             destroyView();
             logoff();
             //StaticData sd=StaticData.getInstance();
-            cf.saveToStorage();
+            //cf.saveToStorage();
 	    Bombus.getInstance().notifyDestroyed();
-            sd.midlet.notifyDestroyed();
             return;
         }
-        if (c==cmdMinimize) { 
-            Bombus.getInstance().isMinimized=true;
-            display.setCurrent(null); 
-        }
+        if (c==cmdMinimize) { Bombus.getInstance().hideApp(true);  }
         if (c.getLabel().charAt(0)>127) theStream=null; // 8==o ()() fuck translations
         
         if (c==cmdAccount){ new AccountSelect(display, false); }
@@ -1207,8 +1202,7 @@ public class Roster
         }
 
         if (keyCode==cf.keyHide && cf.allowMinimize) {
-            sd.isMinimized=true;
-            display.setCurrent(null); 
+            Bombus.getInstance().hideApp(true);
         }
     }
     

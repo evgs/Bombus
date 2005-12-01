@@ -8,11 +8,9 @@
  */
 
 package Client;
-import Messages.MessageParser;
 import java.util.Hashtable;
 import ui.ImageList;
 import java.util.Vector;
-import javax.microedition.midlet.MIDlet;
 /**
  *
  * @author Eugene Stahov
@@ -27,13 +25,13 @@ public class StaticData {
     public ImageList smilesIcons;
     public Roster roster;
     public Vector statusList;
-    public MIDlet midlet;
+    //public MIDlet midlet;
     
     public Account account;
     
     public int account_index;
     
-    public boolean isMinimized;
+    //public boolean isMinimized;
     
     private Hashtable transports;
     

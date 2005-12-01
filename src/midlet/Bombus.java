@@ -14,6 +14,8 @@
  *
  * @author Eugene Stahov
  */
+package midlet;
+
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
 
@@ -31,7 +33,8 @@ import Info.Version;
 public class Bombus extends MIDlet implements Runnable{
     
     private Display display;    // The display for this MIDlet
-    private boolean IsRunning;
+    private boolean isRunning;
+    private boolean isMinimized;
     StaticData sd;
     //IconTextList l;
     
@@ -49,15 +52,12 @@ public class Bombus extends MIDlet implements Runnable{
     /** Entry point  */
     public void startApp() {
         
-        if (IsRunning) {
-            if (sd.isMinimized) {
-                display.setCurrent(sd.roster);
-                sd.isMinimized=false;
-            }
+        if (isRunning) {
+	    hideApp(false);
             return;
         }
         
-        IsRunning=true;
+        isRunning=true;
 
         new Thread(this).start();
     }
@@ -116,6 +116,17 @@ public class Bombus extends MIDlet implements Runnable{
     public void destroyApp(boolean unconditional) {
     }
 
+    public void hideApp(boolean hide) {
+	if (hide) {
+	    display.setCurrent(null);
+	} else {
+            if (isMinimized) {
+                display.setCurrent(sd.roster);
+            }
+	}
+        isMinimized=hide;
+    }
+    
     public static Bombus getInstance() {
         return instance;
     }

@@ -8,6 +8,7 @@
  */
 
 package Client;
+import midlet.Bombus;
 import ui.*;
 import java.io.*;
 import java.util.*;

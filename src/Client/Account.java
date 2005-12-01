@@ -12,6 +12,7 @@ import com.alsutton.jabber.datablocks.Presence;
 import java.util.*;
 import java.io.*;
 import javax.microedition.midlet.MIDlet;
+import midlet.Bombus;
 import ui.IconTextElement;
 import ui.ImageList;
 import javax.microedition.rms.*;

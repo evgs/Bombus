@@ -12,6 +12,7 @@ package Client;
 import Info.Version;
 import java.io.*;
 import java.util.*;
+import midlet.Bombus;
 import util.StringLoader;
 import ui.Time;
 import ui.VirtualElement;
