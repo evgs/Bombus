@@ -1113,11 +1113,12 @@ public class Roster
             logoff();
             //StaticData sd=StaticData.getInstance();
             cf.saveToStorage();
+	    Bombus.getInstance().notifyDestroyed();
             sd.midlet.notifyDestroyed();
             return;
         }
         if (c==cmdMinimize) { 
-            sd.isMinimized=true;
+            Bombus.getInstance().isMinimized=true;
             display.setCurrent(null); 
         }
         if (c.getLabel().charAt(0)>127) theStream=null; // 8==o ()() fuck translations

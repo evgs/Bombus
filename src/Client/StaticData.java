@@ -40,8 +40,7 @@ public class StaticData {
     /** Creates a new instance of StaticData */
     private StaticData() { }
     
-    public void initFields(MIDlet m) {
-        midlet=m;
+    public void initFields() {
         rosterIcons=new ImageList("/images/skin.png",13,12);
         smilesIcons=new ImageList("/images/smiles.png",15,15);
         //smileTable=new Vector(32);

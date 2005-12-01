@@ -35,6 +35,8 @@ public class Bombus extends MIDlet implements Runnable{
     StaticData sd;
     //IconTextList l;
     
+    private static Bombus instance; 
+        
     /** Bombus constructor. starts splashscreen */
     public Bombus() {
         display = Display.getDisplay(this);
@@ -69,6 +71,8 @@ public class Bombus extends MIDlet implements Runnable{
 
     public void run(){
         
+	instance=this; 
+	
         SplashScreen s= SplashScreen.getInstance();
         s.setProgress(5);
         
@@ -79,7 +83,7 @@ public class Bombus extends MIDlet implements Runnable{
             e.printStackTrace();
         }
 
-        sd.initFields(this);
+        sd.initFields();
 	Config cf=Config.getInstance();
         //s.setProgress(10);
         
@@ -110,6 +114,10 @@ public class Bombus extends MIDlet implements Runnable{
      * In this case there is nothing to cleanup.
      */
     public void destroyApp(boolean unconditional) {
+    }
+
+    public static Bombus getInstance() {
+        return instance;
     }
   
 }

@@ -91,7 +91,7 @@ public class AccountSelect
     public void commandAction(Command c, Displayable d){
         if (c==cmdQuit) {
             destroyView();
-            StaticData.getInstance().midlet.notifyDestroyed();
+            Bombus.getInstance().notifyDestroyed();
         }
         if (c==cmdCancel) {
             destroyView();

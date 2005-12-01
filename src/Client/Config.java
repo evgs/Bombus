@@ -216,38 +216,42 @@ public class Config {
     
     
     public final String getStringProperty(final String key, final String defvalue) {
-	String s=StaticData.getInstance().midlet.getAppProperty(key);
-	return (s==null)?defvalue:s;
+	try {
+	    String s=Bombus.getInstance().getAppProperty(key);
+	    return (s==null)?defvalue:s;
+	} catch (Exception e) {	}
+        // возвращает defvalue, если атрибут не существует или имеет неправильный формат
+        return defvalue;
     }
     
     public final int getIntProperty(final String key, final int defvalue) {
 	try {
-	    String s=StaticData.getInstance().midlet.getAppProperty(key);
+	    String s=Bombus.getInstance().getAppProperty(key);
 	    return Integer.parseInt(s); //throws NullPointerException or NumberFormatException
-	} catch (Exception e) {
-	    // возвращает defvalue, если атрибут не существует или имеет неправильный формат
-	    return defvalue;
-	}
+	} catch (Exception e) { }
+        // возвращает defvalue, если атрибут не существует или имеет неправильный формат
+	return defvalue;
     }
     
     public final char getCharProperty(final String key, final char defvalue) {
 	try {
-	    String s=StaticData.getInstance().midlet.getAppProperty(key);
+	    String s=Bombus.getInstance().getAppProperty(key);
 	    return s.charAt(0); //throws NullPointerException или IndexOutOfBoundsException
-	} catch (Exception e) {
-	    // возвращает defvalue, если атрибут не существует или имеет неправильный формат
-	    return defvalue;
-	}
+	} catch (Exception e) {	}
+        // возвращает defvalue, если атрибут не существует или имеет неправильный формат
+        return defvalue;
     }
     
     public final boolean getBooleanProperty(final String key, final boolean defvalue) {
-	String s=StaticData.getInstance().midlet.getAppProperty(key);
-	
-	if (s==null) return defvalue;
-	if (s.equals("true")) return true; 
-	if (s.equals("yes")) return true;
-	if (s.equals("1")) return true;
-	return false;
+	try {
+	    String s=Bombus.getInstance().getAppProperty(key);
+	    if (s.equals("true")) return true;
+	    if (s.equals("yes")) return true;
+	    if (s.equals("1")) return true;
+            return false;
+	} catch (Exception e) { }
+        // возвращает defvalue, если атрибут не существует 
+        return defvalue;
     }
     
 }

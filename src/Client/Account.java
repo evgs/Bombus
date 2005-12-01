@@ -60,7 +60,7 @@ public class Account extends IconTextElement{
 
     public static Account createFromJad(){
         Account a=new Account();
-        MIDlet m=StaticData.getInstance().midlet;
+        MIDlet m=Bombus.getInstance();
         try {
             a.userName=m.getAppProperty("def_user");
             a.password=m.getAppProperty("def_pass");
