@@ -958,7 +958,8 @@ public class Roster
         
         if (c.group==Groups.IGNORE_INDEX) return c;    // no signalling/focus on ignore
         
-        Bombus.getInstance().hideApp(false);
+	if (cf.popupFromMinimized)
+	    Bombus.getInstance().hideApp(false);
 	
         focusToContact(c, false);
 

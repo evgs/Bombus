@@ -89,6 +89,7 @@ public class Config {
     
     // runtime values
     public boolean allowMinimize=false;
+    public boolean popupFromMinimized=true;
     public int profile=0;
     
     // Singleton
@@ -160,6 +161,8 @@ public class Config {
 		autoJoinConferences=inputStream.readBoolean();
 		
 		keepAlive=inputStream.readInt();
+		
+		popupFromMinimized=inputStream.readBoolean();
 
 		inputStream.close();
 	    } catch (Exception e) {
@@ -205,6 +208,8 @@ public class Config {
 	    outputStream.writeBoolean(autoJoinConferences);
 	    
 	    outputStream.writeInt(keepAlive);
+
+	    outputStream.writeBoolean(popupFromMinimized);
 	    
 	} catch (IOException e) { e.printStackTrace(); }
 	

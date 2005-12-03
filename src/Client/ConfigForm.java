@@ -122,8 +122,12 @@ public class ConfigForm implements
         
         application=new ChoiceGroup("Application", Choice.MULTIPLE);
         application.append("fullscreen",null);
-        ap=new boolean[1];
+	if (cf.allowMinimize)
+	    application.append("popup from background",null);
+        ap=new boolean[2];
         ap[0]=cf.fullscreen;
+	ap[1]=cf.popupFromMinimized;
+	
         application.setSelectedFlags(ap);
         
 	keepAlive=new TextField("Keep-Alive period", String.valueOf(cf.keepAlive), 4,
@@ -208,6 +212,7 @@ public class ConfigForm implements
 	    cf.autoJoinConferences=su[1];
             
             VirtualList.fullscreen=cf.fullscreen=ap[0];
+	    cf.popupFromMinimized=ap[1];
             
 	    try {
 		cf.gmtOffset=Integer.parseInt(fieldGmt.getString());
