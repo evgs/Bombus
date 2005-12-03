@@ -36,7 +36,7 @@ public class SearchResult
         
         String service=result.getAttribute("from");
         
-        setTitleImages(sd.rosterIcons);
+        setTitleImages(sd.getRosterIcons());
         
         createTitleItem(2, null, service);
         

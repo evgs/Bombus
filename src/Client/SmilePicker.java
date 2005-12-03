@@ -55,7 +55,7 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
         super(display);
         this.me=me;
         
-        il = StaticData.getInstance().smilesIcons;
+        il = StaticData.getInstance().getSmilesIcons();
         
         smileTable=MessageParser.getInstance().getSmileTable();
         

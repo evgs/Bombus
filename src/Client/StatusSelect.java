@@ -24,11 +24,11 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
     //private Command cmdAll=new Command("All Priorities",Command.SCREEN,3);
     private Command cmdCancel=new Command("Back",Command.BACK,99);
     /** Creates a new instance of SelectStatus */
-    private Vector statusList=StaticData.getInstance().statusList;
+    private Vector statusList=StatusList.getInstance().statusList;
     
     public StatusSelect(Display d) {
         super();
-        setTitleImages(StaticData.getInstance().rosterIcons);
+        setTitleImages(StaticData.getInstance().getRosterIcons());
         createTitleItem(1, "Status",null);
         
         addCommand(cmdOk);
@@ -74,10 +74,10 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
         } catch (Exception e) { e.printStackTrace(); }
     }
     
-    public int getItemCount(){   return StaticData.getInstance().statusList.size(); }
+    public int getItemCount(){   return StatusList.getInstance().statusList.size(); }
     
     private void save(){
-        ExtendedStatus.saveStatusToStorage(StaticData.getInstance().statusList);
+        StatusList.getInstance().saveStatusToStorage();
     }
 
     class StatusForm implements CommandListener{
@@ -138,7 +138,7 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
                 boolean flags[]=new boolean[1];
                 chPriorityAll.getSelectedFlags(flags);
                 if (flags[0]) {
-                    for (Enumeration e=StaticData.getInstance().statusList.elements(); e.hasMoreElements();) {
+                    for (Enumeration e=StatusList.getInstance().statusList.elements(); e.hasMoreElements();) {
                         ((ExtendedStatus)e.nextElement()).setPriority(priority);
                     }
                 }

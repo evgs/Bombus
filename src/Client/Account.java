@@ -44,7 +44,7 @@ public class Account extends IconTextElement{
         
     /** Creates a new instance of Account */
     public Account() {
-        super(StaticData.getInstance().rosterIcons);
+        super(StaticData.getInstance().getRosterIcons());
     }
     
     public static Account loadAccount(boolean launch){

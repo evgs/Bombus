@@ -36,7 +36,7 @@ public class AccountSelect
     /** Creates a new instance of AccountPicker */
     public AccountSelect(Display display, boolean enableQuit) {
         super();
-        setTitleImages(StaticData.getInstance().rosterIcons);
+        setTitleImages(StaticData.getInstance().getRosterIcons());
         //this.display=display;
 
         createTitleItem(1, "Accounts",null);

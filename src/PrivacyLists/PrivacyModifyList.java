@@ -41,7 +41,7 @@ public class PrivacyModifyList
     /** Creates a new instance of PrivacySelect */
     public PrivacyModifyList(Display display, PrivacyList privacyList) {
         super(display);
-        setTitleImages(StaticData.getInstance().rosterIcons);
+        setTitleImages(StaticData.getInstance().getRosterIcons());
         createTitleItem(2, null, "Privacy Lists" );
         addCommand(cmdCancel);
         addCommand(cmdEdit);

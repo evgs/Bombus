@@ -32,7 +32,7 @@ public class Group extends IconTextElement {
     boolean collapsed;
     
     public Group(String name /*, String label*/) {
-        super(StaticData.getInstance().rosterIcons);
+        super(StaticData.getInstance().getRosterIcons());
         this.name=name;
         /*this.label=label;*/
         

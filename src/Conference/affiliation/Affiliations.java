@@ -62,7 +62,7 @@ public class Affiliations
 	}
 	
         this.id=AffiliationItem.getAffiliationName(affiliationIndex);
-        setTitleImages(StaticData.getInstance().rosterIcons);
+        setTitleImages(StaticData.getInstance().getRosterIcons());
         createTitleItem(2, null, id);
         items=new Vector();
         

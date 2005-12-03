@@ -44,7 +44,7 @@ public class Contact extends IconTextElement{
     /** Creates a new instance of Contact */
     private Contact (){
         //lastReaded=0;
-        super(StaticData.getInstance().rosterIcons);
+        super(StaticData.getInstance().getRosterIcons());
         msgs=new Vector();
     }
 

@@ -54,24 +54,13 @@ public class ImageList {
     //int count,total;
     /** Creates a new instance of ImageListC */
     public ImageList(String resource, int sizeX, int sizeY) {
-        loadMulty(resource, sizeX, sizeY);
-    }
-    
-    private void loadMulty
-            (
-            String resName, //!< Name of image in resouce
-            int sizeX, int sizeY 
-            ) 
-    {
         try {
-            resImage = Image.createImage(resName);
-        } catch (Exception e) {
-        }
+            resImage = Image.createImage(resource);
+        } catch (Exception e) { }
         height = sizeY; //resImage.getHeight()/countY;
         width = sizeX;  //resImage.getWidth()/countX;
-        //this.count=resImage.getWidth()/width;
-        //total=count*(resImage.getHeight()/height);
     }
+    
     public void drawImage(Graphics g, int index, int x, int y){
         int ho=g.getClipHeight();
         int wo=g.getClipWidth();

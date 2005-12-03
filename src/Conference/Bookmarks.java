@@ -40,7 +40,7 @@ public class Bookmarks
     /** Creates a new instance of Bookmarks */
     public Bookmarks(Display display, BookmarkItem toAdd) {
         super (display);
-        setTitleImages(StaticData.getInstance().rosterIcons);
+        setTitleImages(StaticData.getInstance().getRosterIcons());
         createTitleItem(2, null, "Bookmarks");
         
         this.toAdd=toAdd;

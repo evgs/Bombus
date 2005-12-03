@@ -51,7 +51,7 @@ public class AffiliationItem extends IconTextElement{
         
     /** Creates a new instance of AffiliationItem */
     public AffiliationItem(String jid, String affiliation) {
-        super(StaticData.getInstance().rosterIcons);
+        super(StaticData.getInstance().getRosterIcons());
         this.jid=jid;
         for (int index=1; index<5; index++) {
             if (affiliation.equals(getAffiliationName(index))) this.affiliation=index;

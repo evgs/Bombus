@@ -21,10 +21,9 @@ public class StaticData {
     
     //public MessageParser parser;
     //public Vector smileTable;
-    public ImageList rosterIcons;
-    public ImageList smilesIcons;
+    private ImageList rosterIcons;
+    private ImageList smilesIcons;
     public Roster roster;
-    public Vector statusList;
     //public MIDlet midlet;
     
     public Account account;
@@ -39,14 +38,11 @@ public class StaticData {
     private StaticData() { }
     
     public void initFields() {
-        rosterIcons=new ImageList("/images/skin.png",13,12);
-        smilesIcons=new ImageList("/images/smiles.png",15,15);
         //smileTable=new Vector(32);
         //parser=new MessageParser("/images/smiles.txt", smileTable);
         //config.LoadFromStorage();
         //account_index=Config.getInstance().accountIndex;
         //account=Account.createFromRMS(account_index);
-        statusList=ExtendedStatus.createStatusList();
         
         transports=new Hashtable();
         transports.put("icq", new Integer(1));
@@ -67,5 +63,15 @@ public class StaticData {
     public static StaticData getInstance(){
         if (sd==null) sd=new StaticData();
         return sd;
+    }
+
+    public ImageList getRosterIcons() {
+	if (rosterIcons==null) rosterIcons=new ImageList("/images/skin.png",13,12);
+        return rosterIcons;
+    }
+
+    public ImageList getSmilesIcons() {
+        if (smilesIcons==null) smilesIcons=new ImageList("/images/smiles.png",15,15);
+        return smilesIcons;
     }
 }

@@ -108,7 +108,7 @@ public class Roster
 
 	setProgress(20);
         //setTitleImages(StaticData.getInstance().rosterIcons);
-        setTitleImages(sd.rosterIcons);
+        setTitleImages(sd.getRosterIcons());
         
         this.display=display;
         
@@ -546,7 +546,7 @@ public class Roster
         }
         
         // send presence
-        ExtendedStatus es= ExtendedStatus.getStatus(myStatus);
+        ExtendedStatus es= StatusList.getInstance().getStatus(myStatus);
         Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
         if (theStream!=null) {
             theStream.send( presence );
@@ -568,7 +568,7 @@ public class Roster
     }
     
     public void sendConferencePresence() {
-        ExtendedStatus es= ExtendedStatus.getStatus(myStatus);
+        ExtendedStatus es= StatusList.getInstance().getStatus(myStatus);
         for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
             Contact c=(Contact) e.nextElement();
             if (c.origin!=Contact.ORIGIN_GROUPCHAT) continue;

@@ -39,7 +39,7 @@ public class AlertProfile extends VirtualList implements CommandListener {
     public AlertProfile(Display d) {
         super();
         StaticData sd=StaticData.getInstance();
-        setTitleImages(sd.rosterIcons);
+        setTitleImages(sd.getRosterIcons());
         
         cf=Config.getInstance();
         
@@ -61,7 +61,7 @@ public class AlertProfile extends VirtualList implements CommandListener {
     public VirtualElement getItemRef(int Index){ index=Index; return profile;}
     private class Profile extends IconTextElement {
         public Profile(){
-            super(StaticData.getInstance().rosterIcons);
+            super(StaticData.getInstance().getRosterIcons());
         }
         //public void onSelect(){}
         public int getColor(){ return 0; }

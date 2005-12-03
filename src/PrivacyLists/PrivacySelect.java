@@ -43,7 +43,7 @@ public class PrivacySelect
     /** Creates a new instance of PrivacySelect */
     public PrivacySelect(Display display) {
         super(display);
-        setTitleImages(StaticData.getInstance().rosterIcons);
+        setTitleImages(StaticData.getInstance().getRosterIcons());
         createTitleItem(2, null, "Privacy Lists");
         addCommand(cmdActivate);
         addCommand(cmdDefault);

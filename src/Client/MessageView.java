@@ -80,7 +80,7 @@ public class MessageView
         msg.unread=false;
 
         titlecolor=msg.getColor();
-        ComplexString title=new ComplexString(sd.rosterIcons);
+        ComplexString title=new ComplexString(sd.getRosterIcons());
         title.addElement(msg.getMsgHeader());
         title.addRAlign();
         title.addElement(null);
@@ -95,7 +95,7 @@ public class MessageView
 
         MessageParser.getInstance().parseMsg(
                 msg,
-                (smiles)?sd.smilesIcons:null, 
+                (smiles)?sd.getSmilesIcons():null, 
                 getWidth()-6,
                 false, this);
         if (msgIndex==contact.lastUnread)

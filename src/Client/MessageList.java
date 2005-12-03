@@ -48,7 +48,7 @@ implements CommandListener{
         super(display);
         this.contact=contact;
         sd=StaticData.getInstance();
-        il=sd.smilesIcons;
+        il=sd.getSmilesIcons();
         smiles=Config.getInstance().smiles;
         //sd.config.updateTime();
     
@@ -56,7 +56,7 @@ implements CommandListener{
 	
         AttachList(new Vector());
 
-        title=new ComplexString(sd.rosterIcons);
+        title=new ComplexString(sd.getRosterIcons());
         
         title.addElement(contact.toString());
         title.addRAlign();
