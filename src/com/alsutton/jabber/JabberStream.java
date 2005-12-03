@@ -179,7 +179,13 @@ public class JabberStream implements XMLEventListener, Runnable {
      * @param The data to send to the server.
      */
     public void sendKeepAlive() throws IOException {
-        send(" ");
+	switch (Config.getInstance().keepAliveType){
+	case 1: 
+	    send(" ");
+	    break;
+	default:
+	    send("<iq/>");
+	}
     }
     
     public void send( String data ) throws IOException {
