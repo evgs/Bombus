@@ -8,6 +8,7 @@
  */
 
 package Client;
+import images.RosterIcons;
 import midlet.Bombus;
 import ui.*;
 import java.io.*;
@@ -36,7 +37,7 @@ public class AccountSelect
     /** Creates a new instance of AccountPicker */
     public AccountSelect(Display display, boolean enableQuit) {
         super();
-        setTitleImages(StaticData.getInstance().getRosterIcons());
+        setTitleImages(RosterIcons.getInstance());
         //this.display=display;
 
         createTitleItem(1, "Accounts",null);

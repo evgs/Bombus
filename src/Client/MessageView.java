@@ -9,6 +9,8 @@
 
 package Client;
 import Messages.MessageParser;
+import images.RosterIcons;
+import images.SmilesIcons;
 import ui.*;
 import javax.microedition.lcdui.*;
 import java.util.*;
@@ -80,7 +82,7 @@ public class MessageView
         msg.unread=false;
 
         titlecolor=msg.getColor();
-        ComplexString title=new ComplexString(sd.getRosterIcons());
+        ComplexString title=new ComplexString(RosterIcons.getInstance());
         title.addElement(msg.getMsgHeader());
         title.addRAlign();
         title.addElement(null);
@@ -95,7 +97,7 @@ public class MessageView
 
         MessageParser.getInstance().parseMsg(
                 msg,
-                (smiles)?sd.getSmilesIcons():null, 
+                (smiles)?SmilesIcons.getInstance():null, 
                 getWidth()-6,
                 false, this);
         if (msgIndex==contact.lastUnread)

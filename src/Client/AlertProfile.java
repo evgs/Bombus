@@ -9,6 +9,7 @@
 
 package Client;
 
+import images.RosterIcons;
 import ui.*;
 import javax.microedition.lcdui.*;
 
@@ -38,8 +39,7 @@ public class AlertProfile extends VirtualList implements CommandListener {
     /** Creates a new instance of SelectStatus */
     public AlertProfile(Display d) {
         super();
-        StaticData sd=StaticData.getInstance();
-        setTitleImages(sd.getRosterIcons());
+        setTitleImages(RosterIcons.getInstance());
         
         cf=Config.getInstance();
         
@@ -61,7 +61,7 @@ public class AlertProfile extends VirtualList implements CommandListener {
     public VirtualElement getItemRef(int Index){ index=Index; return profile;}
     private class Profile extends IconTextElement {
         public Profile(){
-            super(StaticData.getInstance().getRosterIcons());
+            super(RosterIcons.getInstance());
         }
         //public void onSelect(){}
         public int getColor(){ return 0; }

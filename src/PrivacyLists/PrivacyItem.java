@@ -9,6 +9,7 @@
  */
 
 package PrivacyLists;
+import images.RosterIcons;
 import ui.*;
 import com.alsutton.jabber.*;
 import Client.*;
@@ -52,7 +53,7 @@ public class PrivacyItem extends IconTextElement{
     
     /** Creates a new instance of PrivacyItem */
     public PrivacyItem() {
-        super(StaticData.getInstance().getRosterIcons());
+        super(RosterIcons.getInstance());
     }
     
     public PrivacyItem(JabberDataBlock item) {

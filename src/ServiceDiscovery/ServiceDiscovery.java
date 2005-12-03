@@ -9,6 +9,7 @@
 
 package ServiceDiscovery;
 import Conference.ConferenceForm;
+import images.RosterIcons;
 import java.util.*;
 import javax.microedition.lcdui.*;
 import ui.*;
@@ -63,7 +64,7 @@ public class ServiceDiscovery
     public ServiceDiscovery(Display display, String service, String node) {
         super(display);
 
-        setTitleImages(sd.getRosterIcons());
+        setTitleImages(RosterIcons.getInstance());
 
         createTitleItem(2, null, null).addRAlign();
         getTitleItem().addElement(null);
@@ -276,7 +277,7 @@ public class ServiceDiscovery
         int index;
         
         public DiscoCommand(int index, String name) {
-            super(StaticData.getInstance().getRosterIcons());
+            super(RosterIcons.getInstance());
             this.index=index; this.name=name;
         }
         public int getColor(){ return 0x000080; }

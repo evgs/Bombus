@@ -9,6 +9,7 @@
 
 package Client;
 import Messages.MessageParser;
+import images.SmilesIcons;
 import ui.*;
 import javax.microedition.lcdui.*;
 import java.util.Vector;
@@ -55,7 +56,7 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
         super(display);
         this.me=me;
         
-        il = StaticData.getInstance().getSmilesIcons();
+        il = SmilesIcons.getInstance();
         
         smileTable=MessageParser.getInstance().getSmileTable();
         

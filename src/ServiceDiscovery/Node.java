@@ -11,6 +11,7 @@
 package ServiceDiscovery;
 
 import Client.StaticData;
+import images.RosterIcons;
 import ui.IconTextElement;
 import ui.ImageList;
 
@@ -27,7 +28,7 @@ public class Node extends IconTextElement{
     public int getColor() { return 0; }
     /** Creates a new instance of Item */
     public Node(String name, String node) {
-        super(StaticData.getInstance().getRosterIcons());
+        super(RosterIcons.getInstance());
         this.name=name;
         this.node=node;
     }

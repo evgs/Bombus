@@ -9,6 +9,7 @@
 
 package Client;
 
+import images.RosterIcons;
 import java.util.Enumeration;
 import java.io.*;
 import java.util.Vector;
@@ -28,7 +29,7 @@ public class ExtendedStatus extends IconTextElement{
     
     /** Creates a new instance of ExtendedStatus */
     public ExtendedStatus(int index, String name) {
-        super(StaticData.getInstance().getRosterIcons());
+        super(RosterIcons.getInstance());
         this.index=index;
         this.name=name;
     }

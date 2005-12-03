@@ -8,6 +8,7 @@
  */
 
 package ServiceDiscovery;
+import images.RosterIcons;
 import java.util.*;
 import javax.microedition.lcdui.*;
 import ui.*;
@@ -36,7 +37,7 @@ public class SearchResult
         
         String service=result.getAttribute("from");
         
-        setTitleImages(sd.getRosterIcons());
+        setTitleImages(RosterIcons.getInstance());
         
         createTitleItem(2, null, service);
         

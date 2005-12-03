@@ -10,6 +10,7 @@
 package Conference;
 import Client.StaticData;
 import com.alsutton.jabber.JabberDataBlock;
+import images.RosterIcons;
 import ui.*;
 
 /**
@@ -31,7 +32,7 @@ public class BookmarkItem extends IconTextElement{
     
     /** Creates a new instance of BookmarkItem */
     public BookmarkItem() {
-        super(StaticData.getInstance().getRosterIcons());
+        super(RosterIcons.getInstance());
     }
     
     public BookmarkItem(JabberDataBlock data) {

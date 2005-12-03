@@ -9,6 +9,7 @@
 
 package Client;
 import com.alsutton.jabber.datablocks.Presence;
+import images.RosterIcons;
 import java.util.*;
 import java.io.*;
 import javax.microedition.midlet.MIDlet;
@@ -44,7 +45,7 @@ public class Account extends IconTextElement{
         
     /** Creates a new instance of Account */
     public Account() {
-        super(StaticData.getInstance().getRosterIcons());
+        super(RosterIcons.getInstance());
     }
     
     public static Account loadAccount(boolean launch){

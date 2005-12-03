@@ -9,6 +9,8 @@
 
 package Client;
 import Messages.MessageParser;
+import images.RosterIcons;
+import images.SmilesIcons;
 import vcard.VCard;
 import ui.*;
 import java.util.*;
@@ -48,7 +50,7 @@ implements CommandListener{
         super(display);
         this.contact=contact;
         sd=StaticData.getInstance();
-        il=sd.getSmilesIcons();
+        il=SmilesIcons.getInstance();
         smiles=Config.getInstance().smiles;
         //sd.config.updateTime();
     
@@ -56,7 +58,7 @@ implements CommandListener{
 	
         AttachList(new Vector());
 
-        title=new ComplexString(sd.getRosterIcons());
+        title=new ComplexString(RosterIcons.getInstance());
         
         title.addElement(contact.toString());
         title.addRAlign();

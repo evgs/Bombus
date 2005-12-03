@@ -12,6 +12,7 @@ package PrivacyLists;
 
 import Client.Roster;
 import Client.StaticData;
+import images.RosterIcons;
 import javax.microedition.lcdui.*;
 import ui.*;
 import java.util.*;
@@ -41,7 +42,7 @@ public class PrivacyModifyList
     /** Creates a new instance of PrivacySelect */
     public PrivacyModifyList(Display display, PrivacyList privacyList) {
         super(display);
-        setTitleImages(StaticData.getInstance().getRosterIcons());
+        setTitleImages(RosterIcons.getInstance());
         createTitleItem(2, null, "Privacy Lists" );
         addCommand(cmdCancel);
         addCommand(cmdEdit);

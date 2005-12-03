@@ -15,6 +15,7 @@ import com.alsutton.jabber.JabberBlockListener;
 import com.alsutton.jabber.JabberDataBlock;
 import com.alsutton.jabber.JabberStream;
 import com.alsutton.jabber.datablocks.Iq;
+import images.RosterIcons;
 import java.util.Enumeration;
 import java.util.Vector;
 import javax.microedition.lcdui.*;
@@ -62,7 +63,7 @@ public class Affiliations
 	}
 	
         this.id=AffiliationItem.getAffiliationName(affiliationIndex);
-        setTitleImages(StaticData.getInstance().getRosterIcons());
+        setTitleImages(RosterIcons.getInstance());
         createTitleItem(2, null, id);
         items=new Vector();
         

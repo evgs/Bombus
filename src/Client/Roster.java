@@ -14,6 +14,7 @@ package Client;
 import Conference.ConferenceGroup;
 import Conference.QueryConfigForm;
 import Conference.affiliation.Affiliations;
+import images.RosterIcons;
 import midlet.Bombus;
 import vcard.VCard;
 import vcard.vCardForm;
@@ -108,7 +109,7 @@ public class Roster
 
 	setProgress(20);
         //setTitleImages(StaticData.getInstance().rosterIcons);
-        setTitleImages(sd.getRosterIcons());
+        setTitleImages(RosterIcons.getInstance());
         
         this.display=display;
         

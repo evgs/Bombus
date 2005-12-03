@@ -8,6 +8,7 @@
  */
 
 package Client;
+import images.RosterIcons;
 import java.util.*;
 import javax.microedition.lcdui.*;
 import ui.*;
@@ -28,7 +29,7 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
     
     public StatusSelect(Display d) {
         super();
-        setTitleImages(StaticData.getInstance().getRosterIcons());
+        setTitleImages(RosterIcons.getInstance());
         createTitleItem(1, "Status",null);
         
         addCommand(cmdOk);

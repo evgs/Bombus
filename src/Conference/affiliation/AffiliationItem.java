@@ -12,6 +12,7 @@ package Conference.affiliation;
 
 import Client.StaticData;
 import com.alsutton.jabber.JabberDataBlock;
+import images.RosterIcons;
 import ui.IconTextElement;
 import ui.ImageList;
 
@@ -51,7 +52,7 @@ public class AffiliationItem extends IconTextElement{
         
     /** Creates a new instance of AffiliationItem */
     public AffiliationItem(String jid, String affiliation) {
-        super(StaticData.getInstance().getRosterIcons());
+        super(RosterIcons.getInstance());
         this.jid=jid;
         for (int index=1; index<5; index++) {
             if (affiliation.equals(getAffiliationName(index))) this.affiliation=index;

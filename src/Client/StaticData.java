@@ -21,8 +21,6 @@ public class StaticData {
     
     //public MessageParser parser;
     //public Vector smileTable;
-    private ImageList rosterIcons;
-    private ImageList smilesIcons;
     public Roster roster;
     //public MIDlet midlet;
     
@@ -65,13 +63,4 @@ public class StaticData {
         return sd;
     }
 
-    public ImageList getRosterIcons() {
-	if (rosterIcons==null) rosterIcons=new ImageList("/images/skin.png",13,12);
-        return rosterIcons;
-    }
-
-    public ImageList getSmilesIcons() {
-        if (smilesIcons==null) smilesIcons=new ImageList("/images/smiles.png",15,15);
-        return smilesIcons;
-    }
 }

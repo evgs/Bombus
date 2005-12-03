@@ -9,6 +9,7 @@
 
 package Conference;
 import Client.*;
+import images.RosterIcons;
 import javax.microedition.lcdui.*;
 import ui.*;
 import java.util.*;
@@ -40,7 +41,7 @@ public class Bookmarks
     /** Creates a new instance of Bookmarks */
     public Bookmarks(Display display, BookmarkItem toAdd) {
         super (display);
-        setTitleImages(StaticData.getInstance().getRosterIcons());
+        setTitleImages(RosterIcons.getInstance());
         createTitleItem(2, null, "Bookmarks");
         
         this.toAdd=toAdd;

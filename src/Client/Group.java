@@ -8,6 +8,7 @@
  */
 
 package Client;
+import images.RosterIcons;
 import java.util.*;
 import ui.*;
 
@@ -32,7 +33,7 @@ public class Group extends IconTextElement {
     boolean collapsed;
     
     public Group(String name /*, String label*/) {
-        super(StaticData.getInstance().getRosterIcons());
+        super(RosterIcons.getInstance());
         this.name=name;
         /*this.label=label;*/
         

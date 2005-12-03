@@ -8,6 +8,7 @@
  */
 
 package Client;
+import images.RosterIcons;
 import vcard.VCard;
 import java.util.*;
 import ui.IconTextElement;
@@ -44,7 +45,7 @@ public class Contact extends IconTextElement{
     /** Creates a new instance of Contact */
     private Contact (){
         //lastReaded=0;
-        super(StaticData.getInstance().getRosterIcons());
+        super(RosterIcons.getInstance());
         msgs=new Vector();
     }
 
