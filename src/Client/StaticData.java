@@ -19,16 +19,11 @@ public class StaticData {
     
     private static StaticData sd;
     
-    //public MessageParser parser;
-    //public Vector smileTable;
     public Roster roster;
-    //public MIDlet midlet;
     
     public Account account;
     
     public int account_index;
-    
-    //public boolean isMinimized;
     
     private Hashtable transports;
     
@@ -36,11 +31,6 @@ public class StaticData {
     private StaticData() { }
     
     public void initFields() {
-        //smileTable=new Vector(32);
-        //parser=new MessageParser("/images/smiles.txt", smileTable);
-        //config.LoadFromStorage();
-        //account_index=Config.getInstance().accountIndex;
-        //account=Account.createFromRMS(account_index);
         
         transports=new Hashtable();
         transports.put("icq", new Integer(1));

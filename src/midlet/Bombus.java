@@ -83,30 +83,20 @@ public class Bombus extends MIDlet implements Runnable{
             e.printStackTrace();
         }
 
-        s.setProgress("Bombus:static",8);
         sd.initFields();
-        s.setProgress("Bombus:config",8);
+        s.setProgress(10);
 	Config cf=Config.getInstance();
-        //s.setProgress(10);
-        
-        /*s.setProgress("* - Account setup",12);
-        try {
-            wait(1000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-        s.setProgress(17);
 
+	s.setProgress(17);
         boolean selAccount=( (cf.accountIndex<0) || s.keypressed!=0);
         if (selAccount) s.setProgress("Entering setup",20);
 
-        s.setProgress("Bombus:roster",21);
+        s.setProgress(23);
         sd.roster=new Roster(display);
         
         if (!selAccount) {
             // connect whithout account select
 	    boolean autologin=cf.autoLogin;
-            s.setProgress("Bombus:account",22);
             selAccount=(Account.loadAccount(autologin)==null);
 	    if (!autologin) s.close();
         }

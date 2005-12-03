@@ -75,8 +75,8 @@ public class Roster
     public Vector bookmarks;
 
     
-    private Command cmdStatus=new Command("Status >",Command.SCREEN,1);
-    private Command cmdActions=new Command("Actions >",Command.SCREEN,2);
+    private Command cmdStatus=new Command("Status >",Command.SCREEN,2);
+    private Command cmdActions=new Command("Actions >",Command.SCREEN,1);
     //private Command cmdDiscard=new Command("Discard Search",Command.SCREEN,3);
     //private Command cmdLeave=new Command("Leave Room",Command.SCREEN,3);
     private Command cmdAdd=new Command("Add Contact",Command.SCREEN,4);
@@ -1423,7 +1423,7 @@ public class Roster
             }
             //m.addItem(new MenuItem("Cleanup offlines"))
         }
-       m.attachDisplay(display);
+       if (m.getItemCount()>0) m.attachDisplay(display);
     }
     
     public void setQuerySign(boolean requestState) {
