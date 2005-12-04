@@ -99,9 +99,8 @@ public class SplashScreen extends Canvas implements CommandListener{
     }
     public void setProgress(String caption, int progress){
         capt=caption;
-        pos=progress;
         System.out.println(capt);
-        repaint();
+	setProgress(progress);
     }
     public int getProgress(){
         return pos;

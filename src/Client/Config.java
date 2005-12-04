@@ -95,13 +95,16 @@ public class Config {
     // Singleton
     private static Config instance;
     public static Config getInstance(){
-	if (instance==null) instance=new Config();
+	if (instance==null) {
+	    instance=new Config();
+	    instance.loadFromStorage();
+	    instance.loadSoundName();
+	}
 	return instance;
     }
     
     /** Creates a new instance of Config */
     private Config() {
-	
 	int gmtloc=TimeZone.getDefault().getRawOffset()/3600000;
 	locOffset=getIntProperty( "time_loc_offset", 0);
 	gmtOffset=getIntProperty("time_gmt_offset", gmtloc);
@@ -127,49 +130,43 @@ public class Config {
 	}
 	
 	VirtualList.greenKeyCode=greenKeyCode;
-	//System.out.println(locOffset);
 //#if USE_LED_PATTERN
 //--        if (platform.startsWith("M55"))
 //--        m55LedPattern=getIntProperty("led_pattern",5);
 //#endif
-	loadFromStorage();
     }
     
-    private void loadFromStorage(){
-	
-	DataInputStream inputStream=NvStorage.ReadFileRecord("config", 0);
-	if (inputStream!=null)
-	    try {
-		accountIndex = inputStream.readInt();
-		showOfflineContacts=inputStream.readBoolean();
-		fullscreen=inputStream.readBoolean();
-		def_profile = inputStream.readInt();
-		smiles=inputStream.readBoolean();
-		showTransports=inputStream.readBoolean();
-		selfContact=inputStream.readBoolean();
-		notInList=inputStream.readBoolean();
-		ignore=inputStream.readBoolean();
-		eventComposing=inputStream.readBoolean();
-		
-		gmtOffset=inputStream.readInt();
-		locOffset=inputStream.readInt();
-		
-		sounsMsgIndex=inputStream.readInt();
-		soundVol=inputStream.readInt();
-		
-		autoLogin=inputStream.readBoolean();
-		autoJoinConferences=inputStream.readBoolean();
-		
-		keepAlive=inputStream.readInt();
-		
-		popupFromMinimized=inputStream.readBoolean();
-
-		inputStream.close();
-	    } catch (Exception e) {
-		e.printStackTrace();
-	    }
-	
-	loadSoundName();
+    protected void loadFromStorage(){
+	try {
+	    DataInputStream inputStream=NvStorage.ReadFileRecord("config", 0);
+	    accountIndex = inputStream.readInt();
+	    showOfflineContacts=inputStream.readBoolean();
+	    fullscreen=inputStream.readBoolean();
+	    def_profile = inputStream.readInt();
+	    smiles=inputStream.readBoolean();
+	    showTransports=inputStream.readBoolean();
+	    selfContact=inputStream.readBoolean();
+	    notInList=inputStream.readBoolean();
+	    ignore=inputStream.readBoolean();
+	    eventComposing=inputStream.readBoolean();
+	    
+	    gmtOffset=inputStream.readInt();
+	    locOffset=inputStream.readInt();
+	    
+	    sounsMsgIndex=inputStream.readInt();
+	    soundVol=inputStream.readInt();
+	    
+	    autoLogin=inputStream.readBoolean();
+	    autoJoinConferences=inputStream.readBoolean();
+	    
+	    keepAlive=inputStream.readInt();
+	    
+	    popupFromMinimized=inputStream.readBoolean();
+	    
+	    inputStream.close();
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
 	
 	profile=def_profile;
 	updateTime();

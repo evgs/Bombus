@@ -42,6 +42,7 @@ public class Bombus extends MIDlet implements Runnable{
         
     /** Bombus constructor. starts splashscreen */
     public Bombus() {
+	instance=this; 
         display = Display.getDisplay(this);
         SplashScreen s= SplashScreen.getInstance();
         display.setCurrent(s);
@@ -71,8 +72,6 @@ public class Bombus extends MIDlet implements Runnable{
 
     public void run(){
         
-	instance=this; 
-	
         SplashScreen s= SplashScreen.getInstance();
         s.setProgress(5);
         
