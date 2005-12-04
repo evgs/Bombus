@@ -122,11 +122,16 @@ public class ConfigForm implements
         
         application=new ChoiceGroup("Application", Choice.MULTIPLE);
         application.append("fullscreen",null);
+        application.append("heap monitor",null);
+	if (!cf.ghostMotor)
+            application.append("flash backlight",null);
 	if (cf.allowMinimize)
 	    application.append("popup from background",null);
-        ap=new boolean[2];
+        ap=new boolean[4];
         ap[0]=cf.fullscreen;
-	ap[1]=cf.popupFromMinimized;
+	ap[1]=cf.memMonitor;
+	ap[2]=cf.blFlash;
+	ap[3]=cf.popupFromMinimized;
 	
         application.setSelectedFlags(ap);
         
@@ -212,7 +217,9 @@ public class ConfigForm implements
 	    cf.autoJoinConferences=su[1];
             
             VirtualList.fullscreen=cf.fullscreen=ap[0];
-	    cf.popupFromMinimized=ap[1];
+	    VirtualList.memMonitor=cf.memMonitor=ap[1];
+	    cf.blFlash=ap[2];
+	    cf.popupFromMinimized=ap[3];
             
 	    try {
 		cf.gmtOffset=Integer.parseInt(fieldGmt.getString());

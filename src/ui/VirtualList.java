@@ -95,6 +95,7 @@ public abstract class VirtualList
     
     public static int greenKeyCode=SIEMENS_GREEN;
     public static boolean fullscreen=false;
+    public static boolean memMonitor;
     
     int width;
     int height;
@@ -278,6 +279,11 @@ public abstract class VirtualList
             title.drawItem(g,0,false);
         }
 
+	if (memMonitor) {
+	    int ram=(int)((Runtime.getRuntime().freeMemory()*32)/Runtime.getRuntime().totalMemory());
+	    g.setColor(0xffffff);  g.fillRect(width-34,0,34,3);
+	    g.setColor(0x00007f);  g.fillRect(width-33,1,ram,2);
+	}
 
         int yp=list_top;
 	itemBorder[0]=list_top;

@@ -87,9 +87,11 @@ public class Config {
     public int gmtOffset;
     public int locOffset;
     
+    public boolean popupFromMinimized=true;
+    public boolean memMonitor;
+
     // runtime values
     public boolean allowMinimize=false;
-    public boolean popupFromMinimized=true;
     public int profile=0;
     
     // Singleton
@@ -97,6 +99,10 @@ public class Config {
     public static Config getInstance(){
 	if (instance==null) {
 	    instance=new Config();
+	    // эти методы инициализации находятся вне конструктора,
+	    // т.к. используют вызовы класса NvStorage, который, в свою очередь,
+	    // использует поля Config (доступ через Config.getInstacne).
+	    // вызов вне конструктора позволяет избежать рекурсии
 	    instance.loadFromStorage();
 	    instance.loadSoundName();
 	}
@@ -163,6 +169,9 @@ public class Config {
 	    
 	    popupFromMinimized=inputStream.readBoolean();
 	    
+	    blFlash=inputStream.readBoolean();
+	    memMonitor=inputStream.readBoolean();
+	    
 	    inputStream.close();
 	} catch (Exception e) {
 	    e.printStackTrace();
@@ -171,6 +180,7 @@ public class Config {
 	profile=def_profile;
 	updateTime();
 	VirtualList.fullscreen=fullscreen;
+	VirtualList.memMonitor=memMonitor;
     }
     
     public void loadSoundName(){
@@ -207,6 +217,9 @@ public class Config {
 	    outputStream.writeInt(keepAlive);
 
 	    outputStream.writeBoolean(popupFromMinimized);
+	    
+	    outputStream.writeBoolean(blFlash);
+	    outputStream.writeBoolean(memMonitor);
 	    
 	} catch (IOException e) { e.printStackTrace(); }
 	

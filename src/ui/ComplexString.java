@@ -21,7 +21,7 @@ public class ComplexString extends Vector implements VirtualElement{
     public final static int IMAGE=0x00000000;
     public final static int COLOR=0x01000000;
     public final static int RALIGN=0x02000000;
-    
+
     private Font font=Font.getDefaultFont();
     private int height;
     private int width;
@@ -93,6 +93,7 @@ public class ComplexString extends Vector implements VirtualElement{
                         case RALIGN:
                             ralign=true;
                             w=g.getClipWidth()-1;
+			    break;
                     }
                 } // Integer
             } // if ob!=null
