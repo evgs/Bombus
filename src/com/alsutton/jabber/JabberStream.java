@@ -181,10 +181,10 @@ public class JabberStream implements XMLEventListener, Runnable {
     public void sendKeepAlive() throws IOException {
 	switch (Config.getInstance().keepAliveType){
 	case 1: 
-	    send(" ");
+	    send("<iq/>");
 	    break;
 	default:
-	    send("<iq/>");
+	    send(" ");
 	}
     }
     

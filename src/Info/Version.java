@@ -28,7 +28,7 @@ public class Version {
     }
 
     public static String getOs() {
-        return ConstMIDP.MIDP + " Platform=" +Version.platform()+"extInfo= "+extInfo();
+        return ConstMIDP.MIDP + " Platform=" +Version.platform()+"; extInfo= "+extInfo();
     }
 
     private static String extInfo() {
