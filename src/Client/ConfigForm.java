@@ -120,18 +120,21 @@ public class ConfigForm implements
         su[1]=cf.autoJoinConferences;
         startup.setSelectedFlags(su);
         
+        ap=new boolean[4];
+	int apctr=0;
         application=new ChoiceGroup("Application", Choice.MULTIPLE);
+//#if !(MIDP1)
+        ap[apctr++]=cf.fullscreen;
         application.append("fullscreen",null);
+//#endif
         application.append("heap monitor",null);
 	if (!cf.ghostMotor)
             application.append("flash backlight",null);
 	if (cf.allowMinimize)
 	    application.append("popup from background",null);
-        ap=new boolean[4];
-        ap[0]=cf.fullscreen;
-	ap[1]=cf.memMonitor;
-	ap[2]=cf.blFlash;
-	ap[3]=cf.popupFromMinimized;
+	ap[apctr++]=cf.memMonitor;
+	ap[apctr++]=cf.blFlash;
+	ap[apctr++]=cf.popupFromMinimized;
 	
         application.setSelectedFlags(ap);
         
@@ -170,9 +173,9 @@ public class ConfigForm implements
 //#endif
 	
 	f.append(startup);
-//#if !(MIDP1)
-        f.append(application);
-//#endif
+
+	f.append(application);
+
 	f.append(keepAlive);
 	
         f.append("Time settings (hours)\n");
@@ -216,10 +219,13 @@ public class ConfigForm implements
 	    cf.autoLogin=su[0];
 	    cf.autoJoinConferences=su[1];
             
-            VirtualList.fullscreen=cf.fullscreen=ap[0];
-	    VirtualList.memMonitor=cf.memMonitor=ap[1];
-	    cf.blFlash=ap[2];
-	    cf.popupFromMinimized=ap[3];
+	    int apctr=0;
+//#if !(MIDP1)
+            VirtualList.fullscreen=cf.fullscreen=ap[apctr++];
+//#endif
+	    VirtualList.memMonitor=cf.memMonitor=ap[apctr++];
+	    cf.blFlash=ap[apctr++];
+	    cf.popupFromMinimized=ap[apctr++];
             
 	    try {
 		cf.gmtOffset=Integer.parseInt(fieldGmt.getString());

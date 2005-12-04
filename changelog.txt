@@ -1727,6 +1727,8 @@ syslog_msg: true
   (332)
   fix: были перепутаны с точностью до наоборот значения атрибута keep_alive_type
 
+  (333)
+  категория Options:Aplication теперь доступна и на MIDP1
 ---------------------------
   known issues:
 
