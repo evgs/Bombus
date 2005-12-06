@@ -1729,6 +1729,9 @@ syslog_msg: true
 
   (333)
   категория Options:Aplication теперь доступна и на MIDP1
+
+  (334)
+  fix: сохранение default AlertProfile (было сломано в 320) 
 ---------------------------
   known issues:
 

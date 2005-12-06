@@ -77,6 +77,7 @@ public class AlertProfile extends VirtualList implements CommandListener {
         if (c==cmdOk) eventOk(); 
         if (c==cmdDef) { 
             cf.def_profile=defp=cursor;
+	    cf.saveToStorage();
             redraw();
         }
         if (c==cmdCancel) destroyView();
