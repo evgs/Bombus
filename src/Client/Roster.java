@@ -1182,7 +1182,7 @@ public class Roster
     //stringCache=new Vector(vContacts.capacity());
     //}
     
-    public void keyRepeated(int keyCode) {
+    protected void keyRepeated(int keyCode) {
         super.keyRepeated(keyCode);
         if (kHold==keyCode) return;
         //kHold=keyCode;
@@ -1207,7 +1207,29 @@ public class Roster
             Bombus.getInstance().hideApp(true);
         }
     }
-    
+
+    protected void keyPressed(int keyCode){
+	super.keyPressed(keyCode);
+	if (keyCode=='3') searchGroup(-1);
+	if (keyCode=='9') searchGroup(1);
+	
+    }
+    private void searchGroup(int direction){
+	synchronized (vContacts) {
+	    int size=vContacts.size();
+	    int pos=cursor;
+	    int count=size;
+	    try {
+		while (count>0) {
+		    pos+=direction;
+		    if (pos<0) pos=size-1;
+		    if (pos>=size) pos=0;
+		    if (vContacts.elementAt(pos) instanceof Group) break;
+		}
+		moveCursorTo(pos, true);
+	    } catch (Exception e) { }
+	}
+    }
     /*public void focusedItem(int index) {
         //TODO: refactor this code
         // код должен вызываться при отрисовке (?)
