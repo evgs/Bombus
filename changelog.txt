@@ -1732,6 +1732,15 @@ syslog_msg: true
 
   (334)
   fix: сохранение default AlertProfile (было сломано в 320) 
+
+  (336)
+  убрано extInfo из ответа jabber:iq:version
+
+  ещё один фикс Ad-Hoc
+
+  при обрывах соединения (не выбор статуса Offline) в self-contact
+  записывается сообщение об ошибке (Exception)
+
 ---------------------------
   known issues:
 

@@ -374,7 +374,7 @@ public class XMLParser
           Reader _inputReader 
 //#endif
           )
-    throws IOException
+    throws IOException, EndOfXMLException
   {
 //#if USE_UTF8_READER
 //--      length=pbyte=0;
@@ -382,7 +382,7 @@ public class XMLParser
     inputReader = _inputReader;
     boolean binval=false;
     
-    try {
+    //try {
         while( true ) {
             if (binval)
                 handleBinValue();
@@ -390,11 +390,11 @@ public class XMLParser
                 handlePlainText();
             binval=handleTag();
         }
-    } catch( EndOfXMLException x ) {
+    //} catch( EndOfXMLException x ) {
         // The EndOfXMLException is purely used to drop out of the
         // continuous loop.
-    } catch ( Exception e ) {
-        e.printStackTrace();
-    }
+    //} catch ( Exception e ) {
+    //    e.printStackTrace();
+    //}
  }
 }

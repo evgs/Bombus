@@ -28,10 +28,7 @@ public class Version {
     }
 
     public static String getOs() {
-        return ConstMIDP.MIDP + " Platform=" +Version.platform()+"; extInfo= "+extInfo();
+        return ConstMIDP.MIDP + " Platform=" +Version.platform();
     }
 
-    private static String extInfo() {
-        return "manufacturer: "+System.getProperty("device.manufacturer")+"  model:"+System.getProperty("device.model");
-    }
 }

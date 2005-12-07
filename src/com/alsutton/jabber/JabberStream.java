@@ -130,7 +130,7 @@ public class JabberStream implements XMLEventListener, Runnable {
 //--//            InputStreamReader inSource = new InputStreamReader( inpStream );
 //--            parser.parse( inpStream );
 //#endif
-            dispatcher.broadcastTerminatedConnection( null );
+            //dispatcher.broadcastTerminatedConnection( null );
         } catch( Exception e ) {
             dispatcher.broadcastTerminatedConnection(e);
         }

@@ -183,7 +183,10 @@ public class ServiceDiscovery
                 }
 		if (i.getTagName().equals("identity")) {
 		    String category=i.getAttribute("category");
-		    if (category.equals("automation")) { cmds.addElement(new DiscoCommand(AD_HOC_INDEX,strCmds)); } 
+		    String type=i.getAttribute("type");
+		    if (category.equals("automation") && type.equals("command-node"))  { 
+			cmds.addElement(new DiscoCommand(AD_HOC_INDEX,strCmds)); 
+		    } 
 		}
             }
             if (data.getAttribute("from").equals(service)) {
