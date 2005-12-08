@@ -31,7 +31,7 @@ public class Config {
     public int keepAliveType=getIntProperty("keep_alive_type",0);
 
     public boolean ghostMotor=getBooleanProperty("moto_e398",false);
-    public boolean blFlash=true;
+    public boolean blFlash=!ghostMotor; //true;
     
     public boolean msgLog=getBooleanProperty("msg_log",false);
     
