@@ -12,6 +12,7 @@ import images.RosterIcons;
 import java.util.*;
 import javax.microedition.lcdui.*;
 import ui.*;
+import ui.controls.NumberField;
 
 /**
  *
@@ -86,7 +87,7 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
         public Displayable parentView;
         
         private Form f;
-        private TextField tfPriority;
+        private NumberField tfPriority;
         private TextField tfMessage;
         
         private ChoiceGroup chPriorityAll;
@@ -103,10 +104,7 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
             
             f=new Form(status.getName());
             
-            tfPriority=new TextField(
-                    "Priority", 
-                    String.valueOf(status.getPriority()), 
-                    3, TextField.NUMERIC);
+            tfPriority=new NumberField("Priority", status.getPriority(), -128, 128);
             f.append(tfPriority);
 
             chPriorityAll=new ChoiceGroup(null, ChoiceGroup.MULTIPLE);
@@ -127,13 +125,7 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
             if (c==cmdOk) {
                 status.setMessage(tfMessage.getString());
                 
-                int priority=0;
-                try { 
-                    priority=Integer.parseInt(tfPriority.getString()); 
-                } catch (Exception x) {};
-                
-                if (priority<0) priority=0;
-                if (priority>99) priority=99;
+		int priority=tfPriority.getValue();
                 status.setPriority(priority);
                 
                 boolean flags[]=new boolean[1];

@@ -11,6 +11,7 @@ package Client;
 import java.util.Enumeration;
 import java.util.Vector;
 import javax.microedition.lcdui.*;
+import ui.controls.NumberField;
 import util.StringLoader;
 import ui.*;
 
@@ -60,13 +61,12 @@ public class ConfigForm implements
     ChoiceGroup sndFile;
     //Gauge sndVol;
     
-    TextField keepAlive;
-    TextField fieldGmt;
-    TextField fieldLoc;
-    
+    NumberField keepAlive;
+    NumberField fieldLoc;
+    NumberField fieldGmt;
     
     Command cmdOk=new Command("OK",Command.OK,1);
-    Command cmdSign=new Command("- (Sign)",Command.ITEM,2);
+    //Command cmdSign=new Command("- (Sign)",Command.ITEM,2);
     Command cmdPlaySound=new Command("Test sound",Command.ITEM,10);
     Command cmdCancel=new Command("Cancel",Command.BACK,99);
     
@@ -138,13 +138,9 @@ public class ConfigForm implements
 	
         application.setSelectedFlags(ap);
         
-	keepAlive=new TextField("Keep-Alive period", String.valueOf(cf.keepAlive), 4,
-				ConstMIDP.TEXTFIELD_DECIMAL       );
-	fieldGmt=new TextField("GMT offset", String.valueOf(cf.gmtOffset), 4, 
-				ConstMIDP.TEXTFIELD_DECIMAL       );
-        fieldLoc=new TextField("Clock offset", String.valueOf(cf.locOffset), 4, 
-				ConstMIDP.TEXTFIELD_DECIMAL       );
-        
+	keepAlive=new NumberField("Keep-Alive period", cf.keepAlive, 30, 600 );
+	fieldGmt=new NumberField("GMT offset", cf.gmtOffset, -12, 12); 
+        fieldLoc=new NumberField("Clock offset", cf.locOffset, -12, 12 );
         
 	files=new StringLoader().stringLoader("/sounds/res.txt",3);
         sndFile=new ChoiceGroup("Sound", ConstMIDP.CHOICE_POPUP);
@@ -183,13 +179,6 @@ public class ConfigForm implements
         f.append(fieldGmt);
         f.append(fieldLoc);
 
-//#if !(MIDP1)
-	fieldGmt.addCommand(cmdSign);
-        fieldGmt.setItemCommandListener(this);
-	fieldLoc.addCommand(cmdSign);
-        fieldLoc.setItemCommandListener(this);
-//#endif
-        
         f.addCommand(cmdOk);
         f.addCommand(cmdCancel);
         
@@ -227,11 +216,9 @@ public class ConfigForm implements
 	    cf.blFlash=ap[apctr++];
 	    cf.popupFromMinimized=ap[apctr++];
             
-	    try {
-		cf.gmtOffset=Integer.parseInt(fieldGmt.getString());
-		cf.locOffset=Integer.parseInt(fieldLoc.getString());
-		cf.keepAlive=Integer.parseInt(keepAlive.getString());
-	    } catch (Exception e) { return; }
+	    cf.gmtOffset=fieldGmt.getValue();
+	    cf.locOffset=fieldLoc.getValue();
+	    cf.keepAlive=keepAlive.getValue();
 	    
 	    cf.sounsMsgIndex=sndFile.getSelectedIndex();
 	    
@@ -256,15 +243,7 @@ public class ConfigForm implements
     public void commandAction(Command command, Item item) {
 	if (command==cmdPlaySound) {
 	    testSound();
-	    return;
 	}
-	TextField field=(TextField) item;
-	StringBuffer body=new StringBuffer( field.getString() );
-	if ( body.charAt(0)=='-' ) 
-	    body.deleteCharAt(0);
-	else
-	    body.insert(0,'-');
-	field.setString(body.toString());
     }
 //#endif
     

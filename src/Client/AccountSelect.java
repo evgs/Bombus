@@ -14,6 +14,7 @@ import ui.*;
 import java.io.*;
 import java.util.*;
 import javax.microedition.lcdui.*;
+import ui.controls.NumberField;
 
 
 /**
@@ -140,7 +141,7 @@ public class AccountSelect
         TextField passbox;
         TextField servbox;
         TextField ipbox;
-        TextField portbox;
+        NumberField portbox;
         TextField resourcebox;
         TextField nickbox;
         
@@ -171,7 +172,7 @@ public class AccountSelect
                     
             servbox=new TextField("Server",account.getServer(),32,TextField.URL);    f.append(servbox);
             ipbox=new TextField("Server Addr/IP",account.getHostAddr(),32,TextField.URL);   f.append(ipbox);
-            portbox=new TextField("Port",String.valueOf(account.getPort()),32,TextField.NUMERIC);   f.append(portbox);
+            portbox=new NumberField("Port",account.getPort(),0,65535);   f.append(portbox);
             register=new ChoiceGroup(null, Choice.MULTIPLE);
             register.append("use SSL",null);
             register.append("plain-text password",null);
@@ -233,11 +234,12 @@ public class AccountSelect
                 account.setPlainAuth(b[1]);
                 //account.updateJidCache();
                 
-                try {
+                account.setPort(portbox.getValue());
+                /*try {
                     account.setPort(Integer.parseInt(portbox.getString()));
                 } catch (Exception e) {
                     account.setPort(5222);
-                }
+                }*/
                 
                 rmsUpdate();
                 commandState();
