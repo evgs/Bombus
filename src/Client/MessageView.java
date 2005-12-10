@@ -7,8 +7,8 @@
  * All rights reserved.
  */
 
-package Client;
-import Messages.MessageParser;
+package Messages;
+import Client.*;
 import images.RosterIcons;
 import images.SmilesIcons;
 import ui.*;
@@ -36,6 +36,8 @@ public class MessageView
 
     Command cmdSubscr=new Command("Authorize", Command.SCREEN,2);
     Command cmdPhoto=new Command("Photo", Command.SCREEN,3);
+
+    private MessageList msglist;
 
     public int getTitleBGndRGB() {return 0x338888;} 
     public int getTitleRGB() {return titlecolor;} 
@@ -72,14 +74,13 @@ public class MessageView
     int msgIndex;
     Msg msg;
     int nMsgs;
-    Contact contact;
+   
     StaticData sd;
     
     public void run() {
-        msg=(Msg)contact.msgs.elementAt(msgIndex);
+        msg=msglist.getMessage(msgIndex);
 
-        if (msg.unread) contact.resetNewMsgCnt();
-        msg.unread=false;
+	msglist.markRead(msgIndex);
 
         titlecolor=msg.getColor();
         ComplexString title=new ComplexString(RosterIcons.getInstance());
@@ -100,17 +101,14 @@ public class MessageView
                 (smiles)?SmilesIcons.getInstance():null, 
                 getWidth()-6,
                 false, this);
-        if (msgIndex==contact.lastUnread)
-            if (contact.needsCount())
-            sd.roster.countNewMsgs();
     }
 
     protected void beginPaint(){
         int micon=0;
-        if (contact==null) return;
+        if (msglist==null) return;
         if (title==null) return;
         
-        nMsgs=contact.msgs.size();
+        nMsgs=msglist.getItemCount();
         if (nMsgs>1) {
             if (msgIndex==0) micon=1;
             if (msgIndex==nMsgs-1) micon=2;
@@ -118,7 +116,7 @@ public class MessageView
         }
     }
     /** Creates a new instance of MessageView */
-    public MessageView(Display display, int msgIndex, Contact contact) {
+    public MessageView(Display display, int msgIndex, MessageList msglist) {
         super(display);
 	
 	enableListWrapping(false);
@@ -126,7 +124,7 @@ public class MessageView
         sd=StaticData.getInstance();
         smiles=Config.getInstance().smiles;
         this.msgIndex=msgIndex;
-        this.contact=contact;
+        this.msglist=msglist;
 
         addCommand(cmdBack);
         addCommand(cmdTSM);
@@ -137,7 +135,7 @@ public class MessageView
     }
     public void eventOk(){
         destroyView();
-        if (contact.msgs.size()>1)
+        if (msglist.getItemCount()>1)
         ((VirtualList)parentView).moveCursorTo(msgIndex, true);
     }
     
@@ -163,8 +161,7 @@ public class MessageView
     }
 
     protected void keyGreen(){
-        (new MessageEdit(display,contact,contact.msgSuspended)).setParentView(parentView);
-        contact.msgSuspended=null;
+	msglist.keyGreen();
     }
     
     private void toggleSmiles(){

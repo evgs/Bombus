@@ -8,6 +8,7 @@
  */
 
 package Client;
+import Messages.MessageList;
 import Messages.MessageParser;
 import images.RosterIcons;
 import images.SmilesIcons;
@@ -19,20 +20,15 @@ import javax.microedition.lcdui.*;
  *
  * @author Eugene Stahov
  */
-public class ContactMessageList extends ComplexStringList
+public class ContactMessageList extends MessageList
 implements CommandListener{
     
     Contact contact;
-    
-    Command cmdBack=new Command("Back",Command.BACK,99);
     Command cmdMessage=new Command("New Message",Command.SCREEN,2);
     Command cmdResume=new Command("Resume Message",Command.SCREEN,1);
     Command cmdQuote=new Command("Quote",Command.SCREEN,3);
     Command cmdPurge=new Command("Clear List", Command.SCREEN, 10);
     Command cmdContact=new Command("Contact >",Command.SCREEN,11);
-    
-    ImageList il;
-    boolean smiles;
     
     StaticData sd;
     
@@ -50,7 +46,7 @@ implements CommandListener{
         super(display);
         this.contact=contact;
         sd=StaticData.getInstance();
-        il=SmilesIcons.getInstance();
+        
         smiles=Config.getInstance().smiles;
         //sd.config.updateTime();
     
@@ -89,58 +85,29 @@ implements CommandListener{
         title.setElementAt(contact.incomingComposing, 3);
     }
     
+    public void markRead(int msgIndex) {
+	if (msgIndex>=getItemCount()) return;
+	Msg msg=getMessage(msgIndex);
+        if (msg.unread) contact.resetNewMsgCnt();
+        msg.unread=false;
+        if (msgIndex<contact.lastUnread) return;
+        if (contact.needsCount())
+            sd.roster.countNewMsgs();
+    }
+    
+    
     public int getItemCount(){ return contact.msgs.size(); }
     //public Element getItemRef(int Index){ return (Element) contact.msgs.elementAt(Index); }
 
-    protected ComplexString cacheUpdate(int index) {
-        ComplexString m;
-        Msg msg=(Msg)contact.msgs.elementAt(index);
-        
-        if (msg.unread) contact.resetNewMsgCnt();
-        msg.unread=false;
-
-        m= (ComplexString)MessageParser.getInstance().
-                parseMsg( msg, (smiles)?il:null, getWidth()-6, true, null);
-        m.setColor(msg.getColor());
-        
-        /*if (msg.messageType==Msg.MESSAGE_TYPE_AUTH) {
-            m.addImage(ImageList.ICON_AUTHRQ_INDEX);
-        }*/
-        //m.insertElementAt(new Integer(msg.getColor1()|0x1000000), 0); //color
-        int sz=lines.size(); if (index>=sz) lines.setSize(index+1);
-        lines.setElementAt(m, index);
-        return m;
-    }
-
-    // overriden, т.к. элементы списка - строки.
-    public Object getFocusedObject(){
-        try {
-            return contact.msgs.elementAt(cursor);
-        } catch (Exception e) {}
-        return null;
-    }
-    public void eventOk(){
-        Msg msg=(Msg)getFocusedObject();
-        if (msg!=null) {
-            //if (contact.msgs.size()==cursor+1) refreshMsgCnt();
-            new MessageView(display, cursor, contact);
-        }
+    public Msg getMessage(int index) { 
+	Msg msg=(Msg) contact.msgs.elementAt(index); 
+	if (msg.unread) contact.resetNewMsgCnt();
+	msg.unread=false;
+	return msg;
     }
     
-    public void focusedItem(int index){
+    public void focusedItem(int index){ markRead(index); }
         
-        if (index<contact.lastUnread) return;
-
-        refreshMsgCnt();
-    }
-    
-    private void refreshMsgCnt(){
-        if (contact.needsCount()){
-            //System.out.println("refreshMsgCnt()");
-            sd.roster.countNewMsgs();
-        }
-    }
-    
     public void commandAction(Command c, Displayable d){
         if (c==cmdBack) {
             //contact.lastReaded=contact.msgs.size();
@@ -166,8 +133,8 @@ implements CommandListener{
             sd.roster.actionsMenu(contact);
         }
     }
-    protected void keyGreen(){
-        new MessageEdit(display,contact,contact.msgSuspended);
+    public void keyGreen(){
+        (new MessageEdit(display,contact,contact.msgSuspended)).setParentView(this);
         contact.msgSuspended=null;
     }
 }

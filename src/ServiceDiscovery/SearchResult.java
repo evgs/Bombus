@@ -123,6 +123,6 @@ public class SearchResult
         f.setCommandListener(this);
         f.addCommand(cmdBack);
         f.addCommand(cmdAdd);*/
-        new MessageView(display, 0, (Contact) getFocusedObject());
+        new ContactMessageList((Contact) getFocusedObject(), display);
     }
 }
