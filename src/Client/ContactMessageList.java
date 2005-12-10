@@ -19,7 +19,7 @@ import javax.microedition.lcdui.*;
  *
  * @author Eugene Stahov
  */
-public class MessageList extends ComplexStringList
+public class ContactMessageList extends ComplexStringList
 implements CommandListener{
     
     Contact contact;
@@ -46,7 +46,7 @@ implements CommandListener{
      */
 
     /** Creates a new instance of MessageList */
-    public MessageList(Contact contact, Display display) {
+    public ContactMessageList(Contact contact, Display display) {
         super(display);
         this.contact=contact;
         sd=StaticData.getInstance();

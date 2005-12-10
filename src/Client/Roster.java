@@ -86,7 +86,7 @@ public class Roster
     private Command cmdGroupChat=new Command("Conference",Command.SCREEN,10);
     //private Command cmdShowOfflines=new Command("Show Offlines",Command.SCREEN,9);
     //private Command cmdHideOfflines=new Command("Hide Offlines",Command.SCREEN,9);
-    //private Command cmdReconnect=new Command("Reconnect",Command.SCREEN,10);
+    private Command cmdArchive=new Command("Archive",Command.SCREEN,10);
     private Command cmdPrivacy=new Command("Privacy Lists",Command.SCREEN,11);
     private Command cmdAccount=new Command("Account >",Command.SCREEN,12);
     //private Command cmdSetFullScreen=new Command("Fullscreen",Command.SCREEN,20);
@@ -136,7 +136,7 @@ public class Roster
         addCommand(cmdServiceDiscovery);
         addCommand(cmdGroupChat);
         addCommand(cmdPrivacy);
-        //addCommand(cmdReconnect);
+        addCommand(cmdArchive);
         addCommand(cmdInfo);
         addCommand(cmdAccount);
 
@@ -1044,7 +1044,7 @@ public class Roster
     private Displayable createMsgList(){
         Object e=getFocusedObject();
         if (e instanceof Contact) {
-            return new MessageList((Contact)e,display);
+            return new ContactMessageList((Contact)e,display);
         }
         return null;
     }

@@ -8,9 +8,12 @@
  */
 
 package Client;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.*;
 import ui.Time;
-import Client.MessageList;
+import Client.ContactMessageList;
 import javax.microedition.lcdui.Image;
 
 /**
@@ -67,9 +70,7 @@ public class Msg //implements MessageList.Element
     
     public boolean isPresence() { return messageType==MESSAGE_TYPE_PRESENCE; }
     
-
-    /** 0=in, 1=out, 2=presence */
-    public int messageType=0;
+    public int messageType;
     
     /** Отправитель сообщения */
     public String from;
@@ -84,4 +85,15 @@ public class Msg //implements MessageList.Element
     public long dateGmt;
     
     public boolean unread = false;
+    
+    public void serialize(DataOutputStream os) throws IOException {
+	os.writeUTF(from);
+	os.writeUTF(body);
+	os.writeLong(dateGmt);
+    }
+    public Msg (DataInputStream is) throws IOException {
+	from=is.readUTF();
+	body=is.readUTF();
+	dateGmt=is.readLong();
+    }
 }
