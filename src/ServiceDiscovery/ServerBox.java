@@ -23,7 +23,7 @@ public class ServerBox implements CommandListener {
     private ServiceDiscovery sd;
     
     private Command cmdCancel=new Command("Cancel",Command.BACK,99);
-    private Command cmdSend=new Command("Discover",Command.OK,1);
+    private Command cmdSend=new Command("Discover",Command.SCREEN,1);
     
     /** Creates a new instance of ServerBox */
     public ServerBox(Display display, String service, ServiceDiscovery sd) {

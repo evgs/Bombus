@@ -25,7 +25,7 @@ public class vCardForm
     private Displayable parentView;
     
     protected Command cmdCancel=new Command("Cancel", Command.BACK, 99);
-    protected Command cmdPublish=new Command("Publish", Command.OK, 1);
+    protected Command cmdPublish=new Command("Publish", Command.SCREEN, 1);
     protected Command cmdRefresh=new Command("Refresh", Command.SCREEN, 2);
     
     private Form f;
