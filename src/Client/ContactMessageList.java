@@ -10,6 +10,7 @@
 package Client;
 import Messages.MessageList;
 import Messages.MessageParser;
+import archive.MessageArchive;
 import images.RosterIcons;
 import images.SmilesIcons;
 import vcard.VCard;
@@ -27,6 +28,7 @@ implements CommandListener{
     Command cmdMessage=new Command("New Message",Command.SCREEN,2);
     Command cmdResume=new Command("Resume Message",Command.SCREEN,1);
     Command cmdQuote=new Command("Quote",Command.SCREEN,3);
+    Command cmdArch=new Command("to Archive",Command.SCREEN,4);
     Command cmdPurge=new Command("Clear List", Command.SCREEN, 10);
     Command cmdContact=new Command("Contact >",Command.SCREEN,11);
     
@@ -47,13 +49,6 @@ implements CommandListener{
         this.contact=contact;
         sd=StaticData.getInstance();
         
-        smiles=Config.getInstance().smiles;
-        //sd.config.updateTime();
-    
-	enableListWrapping(false);
-	
-        AttachList(new Vector());
-
         title=new ComplexString(RosterIcons.getInstance());
         
         title.addElement(contact.toString());
@@ -65,11 +60,12 @@ implements CommandListener{
         cursor=0;//activate
         
         addCommand(cmdMessage);
-        addCommand(cmdBack);
         addCommand(cmdPurge);
         addCommand(cmdContact);
-        if (getItemCount()>0)
+        if (getItemCount()>0) {
             addCommand(cmdQuote);
+            addCommand(cmdArch);
+	}
         setCommandListener(this);
         moveCursorTo(contact.firstUnread(), true);
     }
@@ -122,6 +118,9 @@ implements CommandListener{
         if (c==cmdResume) { keyGreen(); }
         if (c==cmdQuote) {
             new MessageEdit(display,contact,((Msg)getFocusedObject()).toString());
+        }
+        if (c==cmdArch) {
+	    MessageArchive.store((Msg)getFocusedObject());
         }
         if (c==cmdPurge) {
             contact.purge();

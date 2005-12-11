@@ -14,6 +14,7 @@ package Client;
 import Conference.ConferenceGroup;
 import Conference.QueryConfigForm;
 import Conference.affiliation.Affiliations;
+import archive.ArchiveList;
 import images.RosterIcons;
 import midlet.Bombus;
 import vcard.VCard;
@@ -1130,7 +1131,7 @@ public class Roster
         if (c==cmdAlert) { new AlertProfile(display); }
         if (c==cmdOptions){ new ConfigForm(display); }
         if (c==cmdActions) { actionsMenu(getFocusedObject()); }
-        //if (c==cmdDiscard) { cleanupSearch(); }
+        if (c==cmdArchive) { new ArchiveList(display); }
         if (c==cmdPrivacy) { new PrivacySelect(display); }
         if (c==cmdInfo) { new Info.InfoWindow(display); }
         if (c==cmdAdd) {
