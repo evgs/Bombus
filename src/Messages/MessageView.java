@@ -46,7 +46,7 @@ public class MessageView
     
     public void notifyRepaint(Vector v, Msg parsedMsg){
         if (parsedMsg!=msg) return;
-        AttachList(v);
+        attachList(v);
         if ((--repaintCounter)>=0) return;
         repaintCounter=5;
         redraw(); 

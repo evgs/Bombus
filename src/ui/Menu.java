@@ -38,6 +38,10 @@ public class Menu extends VirtualList implements CommandListener
         menuitems.addElement(mi);
     }
     
+    public void addItem(String label, int index){
+        addItem(new MenuItem(label, index));
+    }
+    
     public void commandAction(Command c, Displayable d) {
         if (c==cmdBack) destroyView();
     }

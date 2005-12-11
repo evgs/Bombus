@@ -38,7 +38,7 @@ public abstract class MessageList
     
 	enableListWrapping(false);
 	
-        AttachList(new Vector());
+        attachList(new Vector());
 
         cursor=0;//activate
         

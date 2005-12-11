@@ -22,7 +22,7 @@ public class MIDPTextBox implements CommandListener {
     private Displayable parentView;
     
     protected Command cmdCancel=new Command("Cancel", Command.BACK, 99);
-    protected Command cmdOK=new Command("OK", Command.SCREEN, 1);
+    protected Command cmdOK=new Command("OK", Command.OK /*Command.SCREEN*/, 1);
     
     private TextBox t;
     

@@ -37,7 +37,7 @@ public class DiscoForm implements CommandListener{
     
     private boolean xData;
     
-    private Command cmdOk=new Command("Send", Command.SCREEN, 1);
+    private Command cmdOk=new Command("Send", Command.OK /*Command.SCREEN*/, 1);
     private Command cmdCancel=new Command("Cancel", Command.BACK, 99);
     
     private String id;

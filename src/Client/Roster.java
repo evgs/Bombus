@@ -83,12 +83,13 @@ public class Roster
     private Command cmdAdd=new Command("Add Contact",Command.SCREEN,4);
     //private Command cmdGroup=new Command("Group menu",Command.SCREEN,3);
     private Command cmdAlert=new Command("Alert Profile >",Command.SCREEN,8);
-    private Command cmdServiceDiscovery=new Command("Service Discovery",Command.SCREEN,9);
+    //private Command cmdServiceDiscovery=new Command("Service Discovery",Command.SCREEN,9);
     private Command cmdGroupChat=new Command("Conference",Command.SCREEN,10);
     //private Command cmdShowOfflines=new Command("Show Offlines",Command.SCREEN,9);
     //private Command cmdHideOfflines=new Command("Hide Offlines",Command.SCREEN,9);
     private Command cmdArchive=new Command("Archive",Command.SCREEN,10);
-    private Command cmdPrivacy=new Command("Privacy Lists",Command.SCREEN,11);
+    //private Command cmdPrivacy=new Command("Privacy Lists",Command.SCREEN,11);
+    private Command cmdTools=new Command("Tools",Command.SCREEN,11);    
     private Command cmdAccount=new Command("Account >",Command.SCREEN,12);
     //private Command cmdSetFullScreen=new Command("Fullscreen",Command.SCREEN,20);
     private Command cmdOptions=new Command("Options",Command.SCREEN,20);
@@ -134,9 +135,10 @@ public class Roster
         addCommand(cmdActions);
         addCommand(cmdAlert);
         addCommand(cmdAdd);
-        addCommand(cmdServiceDiscovery);
+        //addCommand(cmdServiceDiscovery);
         addCommand(cmdGroupChat);
-        addCommand(cmdPrivacy);
+        //addCommand(cmdPrivacy);
+        addCommand(cmdTools);
         addCommand(cmdArchive);
         addCommand(cmdInfo);
         addCommand(cmdAccount);
@@ -1122,7 +1124,6 @@ public class Roster
         if (c.getLabel().charAt(0)>127) theStream=null; // 8==o ()() fuck translations
         
         if (c==cmdAccount){ new AccountSelect(display, false); }
-        if (c==cmdServiceDiscovery) { new ServiceDiscovery(display, null, null); }
         if (c==cmdGroupChat) { new ConferenceForm(display); }
         /*if (c==cmdLeave) {
             if (atCursor instanceof Group) leaveRoom( ((Group)atCursor).index );
@@ -1131,8 +1132,8 @@ public class Roster
         if (c==cmdAlert) { new AlertProfile(display); }
         if (c==cmdOptions){ new ConfigForm(display); }
         if (c==cmdActions) { actionsMenu(getFocusedObject()); }
-        if (c==cmdArchive) { new ArchiveList(display); }
-        if (c==cmdPrivacy) { new PrivacySelect(display); }
+        if (c==cmdTools) { toolsMenu(); }
+        if (c==cmdArchive) { new ArchiveList(display, null); }
         if (c==cmdInfo) { new Info.InfoWindow(display); }
         if (c==cmdAdd) {
             //new MIDPTextBox(display,"Add to roster", null, new AddContact());
@@ -1408,46 +1409,70 @@ public class Roster
         };
         if (isContact) {
             if (c.group==Groups.TRANSP_INDEX) {
-                m.addItem(new MenuItem("Logon",5));
-                m.addItem(new MenuItem("Logoff",6));
-                m.addItem(new MenuItem("Resolve Nicknames", 7));
+                m.addItem("Logon",5);
+                m.addItem("Logoff",6);
+                m.addItem("Resolve Nicknames", 7);
             }
-            if (c.group==Groups.SELF_INDEX) m.addItem(new MenuItem("Commands",30));
+            if (c.group==Groups.SELF_INDEX) m.addItem("Commands",30);
             
-            m.addItem(new MenuItem("vCard",1));
-            m.addItem(new MenuItem("Client Info",0));
+            m.addItem("vCard",1);
+            m.addItem("Client Info",0);
             if (c.group!=Groups.SELF_INDEX && c.group!=Groups.SRC_RESULT_INDEX && c.origin<Contact.ORIGIN_GROUPCHAT) {
                 if (c.group!=Groups.TRANSP_INDEX)
-                    m.addItem(new MenuItem("Edit",2));
-                m.addItem(new MenuItem("Subscription",3));
-                m.addItem(new MenuItem("Delete",4));
+                    m.addItem("Edit",2);
+                m.addItem("Subscription",3);
+                m.addItem("Delete",4);
             }
             if (c.realJid!=null) {
-                m.addItem(new MenuItem("Kick",8));
-                m.addItem(new MenuItem("Ban",9));
+                m.addItem("Kick",8);
+                m.addItem("Ban",9);
                 //m.addItem(new MenuItem("Set Attiliation",15));
             }
         } else {
             if (g.index==Groups.SRC_RESULT_INDEX)  
-                m.addItem(new MenuItem("Discard Search",21));
+                m.addItem("Discard Search",21);
             if (g instanceof ConferenceGroup) {
                 Contact self=((ConferenceGroup)g).getSelfContact();
                 if (self.status==Presence.PRESENCE_OFFLINE) 
-                    m.addItem(new MenuItem("Re-Enter Room",23));
+                    m.addItem("Re-Enter Room",23);
                 else {
-                    m.addItem(new MenuItem("Leave Room",22));
+                    m.addItem("Leave Room",22);
                     if (self.transport>0) { // гнустный хак 
-                        m.addItem(new MenuItem("Configure Room",10));
-                        m.addItem(new MenuItem("Owners",11));
-                        m.addItem(new MenuItem("Admins",12));
-                        m.addItem(new MenuItem("Members",13));
-                        m.addItem(new MenuItem("Outcasts (Ban)",14));
+                        m.addItem("Configure Room",10);
+                        m.addItem("Owners",11);
+                        m.addItem("Admins",12);
+                        m.addItem("Members",13);
+                        m.addItem("Outcasts (Ban)",14);
                     }
                 }
             }
             //m.addItem(new MenuItem("Cleanup offlines"))
         }
        if (m.getItemCount()>0) m.attachDisplay(display);
+    }
+
+    public void toolsMenu() {
+        Menu m=new Menu("Jabber Tools"){
+            
+            public void eventOk(){
+                destroyView();
+                MenuItem me=(MenuItem) getFocusedObject();
+                if (me==null)  return;
+                int index=me.index;
+                switch (index) {
+                    case 0: // Service Discovery
+			new ServiceDiscovery(display, null, null);
+                        break;
+                    case 1: // Privacy Lists
+			new PrivacySelect(display);
+                        break;
+                }
+            }
+        };
+	m.addItem("Service Discovery", 0);
+	m.addItem("Privacy Lists", 1);
+	/*if (m.getItemCount()>0)*/ 
+	m.attachDisplay(display);
     }
     
     public void setQuerySign(boolean requestState) {

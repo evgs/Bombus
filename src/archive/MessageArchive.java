@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.Vector;
 import javax.microedition.rms.RecordEnumeration;
 import javax.microedition.rms.RecordStore;
+import javax.microedition.rms.RecordStoreNotOpenException;
 
 /**
  *
@@ -44,10 +45,15 @@ public class MessageArchive {
     public int size(){
 	return indexes.size();
     }
+    
+    private int getRecordId(int index) {
+	return ((Integer)indexes.elementAt(index)).intValue();
+    }
     public Msg msg(int index){
 	try {
-	    index=((Integer)indexes.elementAt(index)).intValue();
-	    ByteArrayInputStream bais=new ByteArrayInputStream(rs.getRecord(index));
+	    ByteArrayInputStream bais=new ByteArrayInputStream(
+		rs.getRecord(getRecordId(index))
+	    );
 	    DataInputStream dis=new DataInputStream(bais);
 	    Msg msg=new Msg(dis);
 	    dis.close();
@@ -55,7 +61,20 @@ public class MessageArchive {
 	} catch (Exception e) {}
 	return null;
     }
+    
+    public void delete(int index) {
+	try {
+	    rs.deleteRecord(getRecordId(index));
+	    indexes.removeElementAt(index);
+	} catch (Exception e) {}
+    }
 
+    public int freeSpace(){
+	try {
+	    return rs.getSizeAvailable()/1024;
+	} catch (Exception e) { }
+	return 0;
+    }
     public static void store(Msg msg) {
 	try {
 	    ByteArrayOutputStream bout = new ByteArrayOutputStream();

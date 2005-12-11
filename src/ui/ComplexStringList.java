@@ -29,7 +29,7 @@ public class ComplexStringList extends VirtualList
         //cld=new ComplexStringDraw(il);
     }
     
-    public void AttachList(Vector list) {
+    public void attachList(Vector list) {
         lines=list;
     }
     

@@ -124,7 +124,7 @@ implements CommandListener{
         }
         if (c==cmdPurge) {
             contact.purge();
-            AttachList(new Vector());
+            attachList(new Vector());
             System.gc();
             redraw();
         }

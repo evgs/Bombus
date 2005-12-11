@@ -9,6 +9,7 @@
 
 package Client;
 import Conference.AppendNick;
+import archive.ArchiveList;
 import javax.microedition.lcdui.*;
 import ui.VirtualList;
 
@@ -29,11 +30,12 @@ public class MessageEdit
     private Contact to;
     private Command cmdSuspend=new Command("Suspend",Command.BACK,90);
     private Command cmdCancel=new Command("Cancel",Command.SCREEN,99);
-    private Command cmdSend=new Command("Send",Command.SCREEN,1);
+    private Command cmdSend=new Command("Send",Command.OK /*Command.SCREEN*/,1);
     private Command cmdSmile=new Command("Add Smile",Command.SCREEN,2);
     private Command cmdInsNick=new Command("Nicknames",Command.SCREEN,3);
     private Command cmdInsMe=new Command("/me",Command.SCREEN,4);
     private Command cmdSubj=new Command("Set Subject", Command.SCREEN, 5);
+    private Command cmdPaste=new Command("Archive", Command.SCREEN, 10);
     
     private boolean composing=true;
 
@@ -55,6 +57,7 @@ public class MessageEdit
         t.addCommand(cmdSmile);
         if (to.origin>=Contact.ORIGIN_GROUPCHAT)
             t.addCommand(cmdInsNick);
+	t.addCommand(cmdPaste);
         t.addCommand(cmdSuspend);
         t.addCommand(cmdCancel);
         t.setCommandListener(this);
@@ -106,6 +109,7 @@ public class MessageEdit
             subj=body;
             body="/me has set the topic to: "+subj;
         }
+	if (c==cmdPaste) { new ArchiveList(display, t); return; }
         // message/composing sending
         destroyView();
         new Thread(this).start();
