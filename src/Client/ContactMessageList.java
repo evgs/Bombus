@@ -129,7 +129,7 @@ implements CommandListener{
             redraw();
         }
         if (c==cmdContact) {
-            sd.roster.actionsMenu(contact);
+            new RosterItemActions(display, contact);
         }
     }
     public void keyGreen(){

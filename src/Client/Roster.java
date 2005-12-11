@@ -615,6 +615,19 @@ public class Roster
     }
     
     private Vector vCardQueue;
+    public void resolveNicknames(int transportIndex){
+	vCardQueue=new Vector();
+	for (Enumeration e=hContacts.elements(); e.hasMoreElements();){
+	    Contact k=(Contact) e.nextElement();
+	    if (k.jid.isTransport()) continue;
+	    if (k.transport==transportIndex && k.nick==null && k.group>=Groups.COMMON_INDEX) {
+		vCardQueue.addElement(VCard.getVCardReq(k.getJid(), "nickvc"+k.bareJid));
+	    }
+	}
+	setQuerySign(true);
+	sendVCardReq();
+	
+    }
     private void sendVCardReq(){
         querysign=false; 
         if (vCardQueue!=null) if (!vCardQueue.isEmpty()) {
@@ -1070,23 +1083,6 @@ public class Roster
             // а если курсор на группе, то искать с самого начала.
             else c=(Contact)hContacts.firstElement();
             
-            /*Enumeration i=hContacts.elements();
-            Contact p=null;
-            while (i.hasMoreElements()){
-                p=(Contact)i.nextElement();
-                if (p==c) break;
-            }
-            if (c==null) c=p;   // последний элемент хэша
-            
-            // ищем сообщение
-            //boolean search=true;
-            while (true) {
-                if (!i.hasMoreElements()) i=hContacts.elements();
-                p=(Contact)i.nextElement();
-                if (p==c) break; // полный круг пройден
-                if (p.getNewMsgsCount()>0) { setFocusTo(p); break; }
-            }
-             */
             Enumeration i=hContacts.elements();
             
             int pass=0; // 0=ищем курсор, 1=ищем
@@ -1131,8 +1127,8 @@ public class Roster
         if (c==cmdStatus) { new StatusSelect(display); }
         if (c==cmdAlert) { new AlertProfile(display); }
         if (c==cmdOptions){ new ConfigForm(display); }
-        if (c==cmdActions) { actionsMenu(getFocusedObject()); }
-        if (c==cmdTools) { toolsMenu(); }
+        if (c==cmdActions) { new RosterItemActions(display, getFocusedObject()); }
+        if (c==cmdTools) { new RosterToolsMenu(display); }
         if (c==cmdArchive) { new ArchiveList(display, null); }
         if (c==cmdInfo) { new Info.InfoWindow(display); }
         if (c==cmdAdd) {
@@ -1148,13 +1144,13 @@ public class Roster
     }
     
 
-    private void reEnterRoom(Group group) {
+    public void reEnterRoom(Group group) {
 	ConferenceGroup confGroup=(ConferenceGroup)group;
         sendPresence(confGroup.getSelfContact().getJid(), null, null);
 
 	confGroup.getConference().status=Presence.PRESENCE_ONLINE;
     }
-    private void leaveRoom(int index){
+    public void leaveRoom(int index){
 	Group group=groups.getGroup(index);
 	ConferenceGroup confGroup=(ConferenceGroup)group;
 	Contact myself=confGroup.getSelfContact();
@@ -1169,20 +1165,6 @@ public class Roster
     
     protected void showNotify() { super.showNotify(); countNewMsgs(); }
     
-    /*// temporary here
-    public final String getProperty(final String key, final String defvalue) {
-        try {
-            String s=sd.midlet.getAppProperty(key);//StaticData.getInstance().midlet.getAppProperty(key);
-            return (s==null)?defvalue:s;
-        } catch (Exception e) {
-            return defvalue;
-        }
-    }*/
-    
-    //void resetStrCache(){
-    //System.out.println("reset roster cache");
-    //stringCache=new Vector(vContacts.capacity());
-    //}
     
     protected void keyRepeated(int keyCode) {
         super.keyRepeated(keyCode);
@@ -1232,6 +1214,21 @@ public class Roster
 	    } catch (Exception e) { }
 	}
     }
+
+    public void deleteContact(Contact c) {
+	for (Enumeration e=hContacts.elements();e.hasMoreElements();) {
+	    Contact c2=(Contact)e. nextElement();
+	    if (c.jid.equals(c2. jid,false)) {
+		c2.status=c2.offline_type=Presence.PRESENCE_TRASH;
+	    }
+	}
+	
+	if (c.group==Groups.NIL_INDEX) {
+	    hContacts.removeElement(c);
+	    reEnumRoster();
+	} else
+	    theStream.send(new IqQueryRoster(c.getBareJid(),null,null,"remove"));
+    }
     /*public void focusedItem(int index) {
         //TODO: refactor this code
         // код должен вызываться при отрисовке (?)
@@ -1255,225 +1252,7 @@ public class Roster
         
     }
      */
-    
-    public void actionsMenu(final Object item) {
-        if (item==null) return;
-        final boolean isContact=( item instanceof Contact );
-        final Contact c=(isContact)? (Contact) item: null;
-        final Group g=(isContact)? null: (Group) item;
-        
-        Menu m=new Menu(item.toString()){
-            
-            public void eventOk(){
-                MenuItem me=(MenuItem) getFocusedObject();
-                if (me==null) {
-                    destroyView(); return;
-                }
-                int index=me.index;
-                String to=null;
-                if (isContact) to=(index<3)? c.getJid() : c.getBareJid();
-                destroyView();
-                switch (index) {
-                    case 0: // info
-                        setQuerySign(true); 
-                        theStream.send(new IqVersionReply(to));
-                        break;
-                    case 1: // vCard
-                        if (c.vcard!=null) {
-                            new vCardForm(display, c.vcard, c.group==Groups.SELF_INDEX);
-                            return;
-                        }
-                        VCard.request(c.getJid());
-                        break;
-                        
-                    case 2:
-                        (new ContactEdit(display, c )).parentView=sd.roster;
-                        return; //break;
-                        
-                    case 3: //subscription
-                        new SubscriptionEdit(display, c);
-                        return; //break;
-                    case 4:
-                        new YesNoAlert(display, sd.roster, "Delete contact?", c.getNickJid()){
-                            public void yes() {
-                                for (Enumeration e=hContacts.elements();e.hasMoreElements();) {
-                                    Contact c2=(Contact)e. nextElement();
-                                    if (c.jid.equals(c2. jid,false)) {
-                                        c2.status=c2.offline_type=Presence.PRESENCE_TRASH;
-                                    }
-                                }
-                                
-                                if (c.group==Groups.NIL_INDEX) {
-                                    hContacts.removeElement(c);
-                                    reEnumRoster();
-                                } else
-                                    theStream.send(new IqQueryRoster(c.getBareJid(),null,null,"remove"));
-                            };
-                        };
-                        return;
-                        //new DeleteContact(display,c);
-                        //break;
-                    case 6: // logoff
-                    {
-                        //querysign=true; displayStatus();
-                        Presence presence = new Presence(
-                                Presence.PRESENCE_OFFLINE, -1, "");
-                        presence.setTo(c.getJid());
-                        theStream.send( presence );
-                        break;
-                    }
-                    case 5: // logon
-                    {
-                        //querysign=true; displayStatus();
-                        Presence presence = new Presence(
-                                myStatus, 0, "");
-                        presence.setTo(c.getJid());
-                        theStream.send( presence );
-                        break;
-                    }
-                    case 7: // Nick resolver
-                    {
-                        vCardQueue=new Vector();
-                        for (Enumeration e=hContacts.elements(); e.hasMoreElements();){
-                            Contact k=(Contact) e.nextElement();
-                            if (k.jid.isTransport()) continue;
-                            if (k.transport==c.transport && k.nick==null && k.group>=Groups.COMMON_INDEX) {
-                                vCardQueue.addElement(VCard.getVCardReq(k.getJid(), "nickvc"+k.bareJid));
-                            }
-                        }
-                        setQuerySign(true); 
-                        sendVCardReq();
-                        break;
-                    }
-                    case 8: // kick
-                    {
-                        Hashtable attrs=new Hashtable();
-                        attrs.put("role", "none");
-                        attrs.put("nick", c.jid.getResource().substring(1));
-                        setMucMod(c, attrs);
-                        break;
-                    }
-                    case 9: // ban
-                    {
-                        Hashtable attrs=new Hashtable();
-                        attrs.put("affiliation", "outcast");
-                        attrs.put("jid", c.realJid);
-                        setMucMod(c, attrs);
-                        break;
-                    }
-                    case 10: // room config
-                    {
-                        String roomJid=((ConferenceGroup)g).getConference().getJid();
-                        new QueryConfigForm(display, roomJid);
-                        break;
-                    }
-                    case 11: // owners
-                    case 12: // admins
-                    case 13: // members
-                    case 14: // outcasts
-                    {
-                        String roomJid=((ConferenceGroup)g).getConference().getJid();
-                        new Affiliations(display, roomJid, index-10);
-                        return;
-                    }
-                    /*case 15: // affiliation
-                    {
-                        String roomJid=conferenceRoomContact(g.index).getJid();
-                        new AffiliationModify(display, roomJid, c.realJid, affiliation)(display, roomJid, index-10);
-                    }
-                     */
-                    case 21:
-                    {
-                        cleanupSearch();
-                        break;
-                    }
-                    case 22:
-                    {
-                        leaveRoom( g.index );
-                        break;
-                    }
-                    case 23:
-                    {
-                        reEnterRoom( g );
-                        break;
-                    }
-                    case 30:
-                    {
-                        new ServiceDiscovery(display, c.getJid(), "http://jabber.org/protocol/commands");
-                        return;
-                    }
-                }
-                destroyView();
-            }
-
-        };
-        if (isContact) {
-            if (c.group==Groups.TRANSP_INDEX) {
-                m.addItem("Logon",5);
-                m.addItem("Logoff",6);
-                m.addItem("Resolve Nicknames", 7);
-            }
-            if (c.group==Groups.SELF_INDEX) m.addItem("Commands",30);
-            
-            m.addItem("vCard",1);
-            m.addItem("Client Info",0);
-            if (c.group!=Groups.SELF_INDEX && c.group!=Groups.SRC_RESULT_INDEX && c.origin<Contact.ORIGIN_GROUPCHAT) {
-                if (c.group!=Groups.TRANSP_INDEX)
-                    m.addItem("Edit",2);
-                m.addItem("Subscription",3);
-                m.addItem("Delete",4);
-            }
-            if (c.realJid!=null) {
-                m.addItem("Kick",8);
-                m.addItem("Ban",9);
-                //m.addItem(new MenuItem("Set Attiliation",15));
-            }
-        } else {
-            if (g.index==Groups.SRC_RESULT_INDEX)  
-                m.addItem("Discard Search",21);
-            if (g instanceof ConferenceGroup) {
-                Contact self=((ConferenceGroup)g).getSelfContact();
-                if (self.status==Presence.PRESENCE_OFFLINE) 
-                    m.addItem("Re-Enter Room",23);
-                else {
-                    m.addItem("Leave Room",22);
-                    if (self.transport>0) { // гнустный хак 
-                        m.addItem("Configure Room",10);
-                        m.addItem("Owners",11);
-                        m.addItem("Admins",12);
-                        m.addItem("Members",13);
-                        m.addItem("Outcasts (Ban)",14);
-                    }
-                }
-            }
-            //m.addItem(new MenuItem("Cleanup offlines"))
-        }
-       if (m.getItemCount()>0) m.attachDisplay(display);
-    }
-
-    public void toolsMenu() {
-        Menu m=new Menu("Jabber Tools"){
-            
-            public void eventOk(){
-                destroyView();
-                MenuItem me=(MenuItem) getFocusedObject();
-                if (me==null)  return;
-                int index=me.index;
-                switch (index) {
-                    case 0: // Service Discovery
-			new ServiceDiscovery(display, null, null);
-                        break;
-                    case 1: // Privacy Lists
-			new PrivacySelect(display);
-                        break;
-                }
-            }
-        };
-	m.addItem("Service Discovery", 0);
-	m.addItem("Privacy Lists", 1);
-	/*if (m.getItemCount()>0)*/ 
-	m.attachDisplay(display);
-    }
+   
     
     public void setQuerySign(boolean requestState) {
         querysign=requestState;
