@@ -109,7 +109,7 @@ public class Roster
     public Roster(Display display /*, boolean selAccount*/) {
         super();
 
-	setProgress(20);
+	setProgress(24);
         //setTitleImages(StaticData.getInstance().rosterIcons);
         setTitleImages(RosterIcons.getInstance());
         
