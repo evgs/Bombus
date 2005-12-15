@@ -47,10 +47,12 @@ public class RosterItemActions extends Menu{
 		addItem("Logoff",6);
 		addItem("Resolve Nicknames", 7);
 	    }
-	    if (contact.group==Groups.SELF_INDEX) addItem("Commands",30);
+	    //if (contact.group==Groups.SELF_INDEX) addItem("Commands",30);
 	    
 	    addItem("vCard",1);
 	    addItem("Client Info",0);
+	    addItem("Commands",30);
+	    
 	    if (contact.group!=Groups.SELF_INDEX && contact.group!=Groups.SRC_RESULT_INDEX && contact.origin<Contact.ORIGIN_GROUPCHAT) {
 		if (contact.group!=Groups.TRANSP_INDEX)
 		    addItem("Edit",2);
