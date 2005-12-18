@@ -75,7 +75,7 @@ public class Msg //implements MessageList.Element
     /** Отправитель сообщения */
     public String from;
     
-    /** Тело сообщения */
+    /** Тема сообщения */
     public String subject;
 
     /** Тело сообщения */
@@ -90,10 +90,12 @@ public class Msg //implements MessageList.Element
 	os.writeUTF(from);
 	os.writeUTF(body);
 	os.writeLong(dateGmt);
+	if (subject!=null) os.writeUTF(subject);
     }
     public Msg (DataInputStream is) throws IOException {
 	from=is.readUTF();
 	body=is.readUTF();
 	dateGmt=is.readLong();
+	try { subject=is.readUTF(); } catch (Exception e) { subject=null; }
     }
 }

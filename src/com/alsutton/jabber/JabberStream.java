@@ -117,7 +117,7 @@ public class JabberStream implements XMLEventListener, Runnable {
         dispatcher.setJabberListener( null );
         try {
             send( "</stream:stream>" );
-            try {  Thread.sleep(1500); } catch (Exception e) {};
+            try {  Thread.sleep(500); } catch (Exception e) {};
             //connection.close();
         } catch( IOException e ) {
             // Ignore an IO Exceptions because they mean that the stream is

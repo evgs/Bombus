@@ -47,6 +47,7 @@ public class ArchiveList
 	    addCommand(cmdPaste);
 	    addCommand(cmdJid);
 	}
+	focusedItem(0);
 	
 	setCommandListener(this);
 	

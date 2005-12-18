@@ -28,8 +28,9 @@ public class AccountSelect
     Vector accountList;
     int activeAccount;
     
-    Command cmdSelect=new Command("Select",Command.OK,1);
-    Command cmdAdd=new Command("New Account",Command.SCREEN,2);
+    Command cmdLogin=new Command("Login",Command.OK,1);
+    Command cmdSelect=new Command("Select (no login)",Command.SCREEN,2);
+    Command cmdAdd=new Command("New Account",Command.SCREEN,3);
     Command cmdEdit=new Command("Edit",Command.ITEM,3);
     Command cmdDel=new Command("Delete",Command.ITEM,4);
     Command cmdCancel=new Command("Back",Command.BACK,99);
@@ -73,15 +74,17 @@ public class AccountSelect
         setCommandListener(this);
     }
     
-    private void commandState(){
+    void commandState(){
         if (accountList.isEmpty()) {
             removeCommand(cmdEdit);
             removeCommand(cmdDel);
             removeCommand(cmdSelect);
+            removeCommand(cmdLogin);
             removeCommand(cmdCancel);
         } else {
             addCommand(cmdEdit);
             addCommand(cmdDel);
+            addCommand(cmdLogin);
             addCommand(cmdSelect);
             if (activeAccount>=0)
                 addCommand(cmdCancel);  // нельзя выйти без активного аккаунта
@@ -101,12 +104,11 @@ public class AccountSelect
             //Account.launchAccount();
             //StaticData.getInstance().account_index=0;
         }
-        if (c==cmdSelect) eventOk();
-        if (c==cmdEdit) new AccountForm(display,(Account)getFocusedObject(),false);
+        if (c==cmdLogin) switchAccount(true);
+        if (c==cmdSelect) switchAccount(false);
+        if (c==cmdEdit) new AccountForm(this, display,(Account)getFocusedObject());
         if (c==cmdAdd) {
-            Account a=new Account();
-            accountList.addElement(a);
-            new AccountForm(display,a,true);
+            new AccountForm(this, display, null);
         }
         if (c==cmdDel) {
             accountList.removeElement(getFocusedObject());
@@ -118,141 +120,22 @@ public class AccountSelect
         
     }
     
-    public void eventOk(){
+    private void switchAccount(boolean login){
         destroyView();
 	Config cf=Config.getInstance();
         cf.accountIndex=cursor;
         cf.saveToStorage();
-        Account.loadAccount(true);
+        Account.loadAccount(login);
     }
     
-    private void rmsUpdate(){
+    public void eventOk(){ switchAccount(true); }
+    
+    void rmsUpdate(){
         DataOutputStream outputStream=NvStorage.CreateDataOutputStream();
         for (int i=0;i<accountList.size();i++) 
             ((Account)accountList.elementAt(i)).saveToDataOutputStream(outputStream);
         NvStorage.writeFileRecord(outputStream, Account.storage, 0, true);
     }
-    
-    
-    class AccountForm implements CommandListener, ItemStateListener{
-        private Display display;
-        private Displayable parentView;
-        Form f;
-        TextField userbox;
-        TextField passbox;
-        TextField servbox;
-        TextField ipbox;
-        NumberField portbox;
-        TextField resourcebox;
-        TextField nickbox;
-        
-        ChoiceGroup register;
-        
-        
-        Command cmdOk=new Command("OK",Command.OK,1);
-        Command cmdCancel=new Command("Back",Command.BACK,99);
-        
-        Account account;
-        boolean newaccount;
-        
-        public AccountForm(Display display, Account account, boolean newAccount) {
-            this.display=display;
-            parentView=display.getCurrent();
-            
-            this.account=account;
-            newaccount=newAccount;
-            
-            String title=(newaccount)?
-                "New Account":
-                (account.toString());
-            
-            f=new Form(title);
-            userbox=new TextField("Username",account.getUserName(),32,TextField.URL);  f.append(userbox);
-            passbox=new TextField("Password",account.getPassword(),32,
-                    TextField.URL|TextField.PASSWORD);  f.append(passbox); passStars();
-                    
-            servbox=new TextField("Server",account.getServer(),32,TextField.URL);    f.append(servbox);
-            ipbox=new TextField("Server Addr/IP",account.getHostAddr(),32,TextField.URL);   f.append(ipbox);
-            portbox=new NumberField("Port",account.getPort(),0,65535);   f.append(portbox);
-            register=new ChoiceGroup(null, Choice.MULTIPLE);
-            register.append("use SSL",null);
-            register.append("plain-text password",null);
-            register.append("Register Account",null);
-            //TODO: if (newaccount) 
-            boolean b[]={account.getUseSSL(), account.getPlainAuth(), false};
-            register.setSelectedFlags(b);
-            f.append(register);
-                
-            resourcebox=new TextField("Resource",account.getResource(),32,TextField.ANY);  f.append(resourcebox);
-            nickbox=new TextField("Account name",account.getNickName(),32,TextField.ANY);  f.append(nickbox);
-                        
-            f.addCommand(cmdOk);
-            f.addCommand(cmdCancel);
-            
-            f.setCommandListener(this);
-            f.setItemStateListener(this);
-            
-            display.setCurrent(f);
-        }
 
-        private void passStars(){
-            if (passbox.size()==0) passbox.setConstraints(TextField.URL | ConstMIDP.TEXTFIELD_SENSITIVE );
-        }
-        
-        public void itemStateChanged(Item item) {
-            
-            if (item==userbox) {
-                // test for userbox has user@server
-                String user=userbox.getString();
-                int at=user.indexOf('@');
-                if (at==-1) return;
-                //userbox.setString(user.substring(0,at));
-                servbox.setString(user.substring(at+1));
-            }
-            if (item==passbox) passStars();
-            //if (item==register) {}
-        }
-        public void commandAction(Command c, Displayable d){
-            if (c==cmdCancel) {
-                if (newaccount) accountList.removeElement(accountList.lastElement());
-                destroyView(); 
-                return; 
-            }
-            if (c==cmdOk)   {
-                boolean b[]=new boolean[3];
-                register.getSelectedFlags(b);
-
-                String user=userbox.getString();
-                int at=user.indexOf('@');
-                if (at!=-1) user=user.substring(0, at);
-                account.setUserName(user.trim());
-                account.setPassword(passbox.getString());
-                account.setServer(servbox.getString().trim());
-                account.setHostAddr(ipbox.getString());
-                account.setResource(resourcebox.getString());
-                account.setNickName(nickbox.getString());
-                account.setUseSSL(b[0]);
-                account.setPlainAuth(b[1]);
-                //account.updateJidCache();
-                
-                account.setPort(portbox.getValue());
-                /*try {
-                    account.setPort(Integer.parseInt(portbox.getString()));
-                } catch (Exception e) {
-                    account.setPort(5222);
-                }*/
-                
-                rmsUpdate();
-                commandState();
-                if (b[2]) new AccountRegister(account,display, parentView); 
-                else destroyView();
-                    
-            }
-        }
-        
-        public void destroyView(){
-            if (display!=null)   display.setCurrent(parentView);
-        }
-    }
 }
 

@@ -207,22 +207,9 @@ public class Roster
         Iq.setXmlLang(cf.xmlLang);
         setQuerySign(true);
         setProgress(25);
-        try {
-            if (!reconnect) {
-                synchronized (hContacts) {
-                    hContacts=new Vector();
-                    groups=new Groups();
-                    vContacts=new Vector(); // just for displaying
-                    bookmarks=null;
-                }
-                myJid=new Jid(sd.account.getJid());
-                updateContact(sd.account.getNickName(), myJid.getJid(), Groups.SELF_GROUP, "self", false);
-                
-                System.gc();
-            };
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+	if (!reconnect) {
+	    resetRoster();
+	};
         setProgress(26);
         
         //logoff();
@@ -243,6 +230,19 @@ public class Roster
             //l.setTitleImgL(0);//offline
         }
         //l.setCallback(this);
+    }
+
+    public void resetRoster() {
+	synchronized (hContacts) {
+	    hContacts=new Vector();
+	    groups=new Groups();
+	    vContacts=new Vector(); // just for displaying
+	    bookmarks=null;
+	}
+	myJid=new Jid(sd.account.getJid());
+	updateContact(sd.account.getNickName(), myJid.getJid(), Groups.SELF_GROUP, "self", false);
+	
+	System.gc();
     }
     
     public void errorLog(String s){
