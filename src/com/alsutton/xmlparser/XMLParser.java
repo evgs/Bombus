@@ -30,6 +30,7 @@ package com.alsutton.xmlparser;
  * The main XML Parser class.
  */
 
+import io.Utf8IOStream;
 import java.io.*;
 
 import java.util.*;
@@ -37,11 +38,7 @@ import java.util.*;
 public class XMLParser
 {
   /** The reader from which the stream is being read  */
-//#if USE_UTF8_READER
-//--  private InputStream inputReader;
-//#else
-  private Reader inputReader;
-//#endif
+    Utf8IOStream iostream;
 
   /** The handler for XML Events. */
 
@@ -80,7 +77,7 @@ public class XMLParser
     int inQuote = 0;    // 0 or " or '
     boolean inXMLchar=false;
 
-    int nextChar = getNextCharacter();
+    int nextChar = iostream.getNextCharacter();
     if( nextChar == -1 )
       throw new EndOfXMLException();
     while( nextChar != -1)
@@ -126,7 +123,7 @@ public class XMLParser
                         streamData.append("...");
                 } else xmlChar.append( (char) nextChar );
         }
-        nextChar = getNextCharacter();
+        nextChar = iostream.getNextCharacter();
     }
     
     if( nextChar != '<' && nextChar != '>')
@@ -136,87 +133,6 @@ public class XMLParser
     return returnData;
   }
 
-//#if USE_UTF8_READER
-//--  byte cbuf[]=new byte[512];
-//--  int length;
-//--  int pbyte;
-//--  private int chRead() throws IOException{
-//--      if (length>pbyte) return cbuf[pbyte++];
-//--      /*if (length>pbyte) {
-//--	  //System.out.println((char)cbuf[pbyte]);
-//--	  return cbuf[pbyte++];
-//--      }*/
-//--      
-//--      //int avail=1;// тестим Nokia
-//--      int avail=inputReader.available();
-//--      if (avail<2) return inputReader.read();
-//--      /*if (avail<2) {
-//--          System.out.println(" single-byte");
-//--	  int ch=inputReader.read();
-//--          System.out.println((char)ch);
-//--	  return ch;
-//--      }*/
-//--      
-//--      //System.out.println(" prebuffering "+avail);
-//--      
-//--      length= inputReader.read(cbuf, 0, (avail<512)?avail:512 );
-//--      pbyte=1;
-//--      
-//--      //System.out.println((char)cbuf[0]);
-//--      return cbuf[0];
-//--  }
-//#endif
-  private int getNextCharacter()
-  throws IOException {
-//#if !(USE_UTF8_READER)
-      return inputReader.read();
-//#else
-//--      int utfChar = -1;
-//--      int j = chRead();
-//--      if( j == -1 ) return utfChar;
-//--      
-//--      j &= 0xff; boolean flag = false;
-//--      switch(j >> 4) {
-//--          case 8: // '\b'
-//--          case 9: // '\t'
-//--          case 10: // '\n'
-//--          case 11: // '\013'
-//--          default:
-//--              break;
-//--              
-//--          case 0: // '\0'
-//--          case 1: // '\001'
-//--          case 2: // '\002'
-//--          case 3: // '\003'
-//--          case 4: // '\004'
-//--          case 5: // '\005'
-//--          case 6: // '\006'
-//--          case 7: // '\007'
-//--              utfChar = j;
-//--              break;
-//--              
-//--          case 12: // '\f'
-//--          case 13: // '\r'
-//--              utfChar = j & 0x1f;  utfChar <<= 6;  int k = chRead();
-//--              if((k & 0xc0) != 0x80) throw new IOException("Bad UTF-8 Encoding encountered");
-//--              utfChar += k & 0x3f; break;
-//--              
-//--          case 14: // '\016'
-//--              utfChar = j & 0xf;  utfChar <<= 6;
-//--              int l = chRead();
-//--              if((l & 0xc0) != 128) throw new IOException("Bad UTF-8 Encoding encountered");
-//--              utfChar += l & 0x3f;  utfChar <<= 6; 
-//--              l = chRead();
-//--              if((l & 0xc0) != 128)
-//--                  throw new IOException("Bad UTF-8 Encoding encountered");
-//--              utfChar += l & 0x3f;
-//--              break;
-//--              
-//--      }
-//--      //System.out.print((char)j);          
-//--      return utfChar;
-//#endif
-  }
   
   /**
    * Method to handle the reading and dispatch of tag data.
@@ -336,7 +252,7 @@ public class XMLParser
       int ibuf=1;
       ByteArrayOutputStream baos=new ByteArrayOutputStream(2048);
       while (true) {
-          int nextChar = getNextCharacter();
+          int nextChar = iostream.getNextCharacter();
           if( nextChar == -1 )
               throw new EndOfXMLException();
           int base64=-1;
@@ -367,19 +283,10 @@ public class XMLParser
    * @param _inputReader The reader for the XML stream.
    */
 
-  public void  parse ( 
-//#if USE_UTF8_READER
-//--          InputStream _inputReader 
-//#else
-          Reader _inputReader 
-//#endif
-          )
+  public void  parse ( Utf8IOStream iostream )
     throws IOException, EndOfXMLException
   {
-//#if USE_UTF8_READER
-//--      length=pbyte=0;
-//#endif
-    inputReader = _inputReader;
+    this.iostream=iostream;
     boolean binval=false;
     
     //try {

@@ -28,8 +28,11 @@ public class ArchiveList
     implements CommandListener
 {
 
-    Command cmdDelete=new Command("Delete", Command.SCREEN, 2);
-    Command cmdPaste=new Command("Paste", Command.SCREEN, 1);
+    Command cmdDelete=new Command("Delete", Command.SCREEN, 9);
+    Command cmdPaste=new Command("Paste Body", Command.SCREEN, 1);
+    Command cmdSubj=new Command("Paste Subject", Command.SCREEN, 3);
+    Command cmdJid=new Command("Paste Jid", Command.SCREEN, 2);
+    //Command cmdNick=new Command("Paste Nickname", Command.SCREEN, 3);
     
     MessageArchive archive=new MessageArchive();
     TextBox target;
@@ -40,7 +43,10 @@ public class ArchiveList
 	addCommand(cmdBack);
 	addCommand(cmdDelete);
 	
-	if (target!=null) addCommand(cmdPaste);
+	if (target!=null) {
+	    addCommand(cmdPaste);
+	    addCommand(cmdJid);
+	}
 	
 	setCommandListener(this);
 	
@@ -73,13 +79,40 @@ public class ArchiveList
 	    attachList(new Vector());
 	    redraw();
 	}
-	if (c==cmdPaste) { keyGreen(); }
+	if (c==cmdPaste) { pasteData(0); }
+	if (c==cmdSubj) { pasteData(1); }
+	if (c==cmdJid) { pasteData(2); }
     }
-    public void keyGreen() {
+    
+    private void pasteData(int field) {
 	if (target==null) return;
 	Msg m=getMessage(cursor);
 	if (m==null) return;
-	target.insert(m.body, target.size());
+	String data;
+	switch (field) {
+	case 1: 
+	    data=m.subject;
+	    break;
+	case 2: 
+	    data=m.from;
+	    break;
+	default:
+	    data=m.body;
+	}
+	target.insert(data, target.size());
 	destroyView();
+    }
+    
+    public void keyGreen() { pasteData(0); }
+    
+    public void focusedItem(int index) {
+	if (target==null) return;
+	try {
+	    if (getMessage(index).subject!=null) {
+		addCommand(cmdSubj);
+		return;
+	    }
+	} catch (Exception e) { }
+	removeCommand(cmdSubj);
     }
 }

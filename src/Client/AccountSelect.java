@@ -117,6 +117,7 @@ public class AccountSelect
         }
         
     }
+    
     public void eventOk(){
         destroyView();
 	Config cf=Config.getInstance();
@@ -124,7 +125,7 @@ public class AccountSelect
         cf.saveToStorage();
         Account.loadAccount(true);
     }
-
+    
     private void rmsUpdate(){
         DataOutputStream outputStream=NvStorage.CreateDataOutputStream();
         for (int i=0;i<accountList.size();i++) 
@@ -252,8 +253,6 @@ public class AccountSelect
         public void destroyView(){
             if (display!=null)   display.setCurrent(parentView);
         }
-        
     }
-
 }
 

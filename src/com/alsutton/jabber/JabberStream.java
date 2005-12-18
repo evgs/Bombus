@@ -27,6 +27,7 @@
 package com.alsutton.jabber;
 import Client.Config;
 import Client.NvStorage;
+import io.Utf8IOStream;
 import java.io.*;
 import java.util.*;
 import javax.microedition.io.*;
@@ -41,23 +42,7 @@ import com.alsutton.xmlparser.*;
 
 public class JabberStream implements XMLEventListener, Runnable {
     
-//#if !(MIDP1)
-    private SocketConnection connection = null;
-//#else
-//--    private StreamConnection connection = null;
-//#endif
-    
-//#if USE_UTF8_READER
-//--    private OutputStream outStream;
-//#else
-    private OutputStreamWriter outStream;
-//#endif
-    
-    /**
-     * The input stream from the server.
-     */
-    
-    private InputStream inpStream;
+    private Utf8IOStream iostream;
     
     /**
      * The dispatcher thread.
@@ -78,31 +63,22 @@ public class JabberStream implements XMLEventListener, Runnable {
     
     public JabberStream( String server, String hostAddr, JabberListener theListener )
             throws IOException {
-        connection =
 //#if !(MIDP1)
-                (SocketConnection) Connector.open(hostAddr);
-//#else
-//--                (StreamConnection) Connector.open(hostAddr);
-//#endif
-        
-//#if !(MIDP1)
+        SocketConnection connection = (SocketConnection) Connector.open(hostAddr);
         try {
             connection.setSocketOption(SocketConnection.KEEPALIVE,1);
         } catch (Exception e) { e.printStackTrace(); }
+//#else
+//--            StreamConnection connection = (StreamConnection) Connector.open(hostAddr);
 //#endif
+        
         dispatcher = new JabberDataBlockDispatcher();
         if( theListener != null ) {
             setJabberListener( theListener );
         }
         
-        inpStream = connection.openInputStream();
+	iostream=new Utf8IOStream(connection);
         new Thread( this ). start();
-//#if !(USE_UTF8_READER)
-        OutputStream outStr= connection.openOutputStream();
-        outStream = new OutputStreamWriter(outStr,"UTF-8");
-//#else
-//--        outStream = connection.openOutputStream();
-//#endif
         
         //sendQueue=new Vector();
         
@@ -123,13 +99,7 @@ public class JabberStream implements XMLEventListener, Runnable {
     public void run() {
         try {
             XMLParser parser = new XMLParser( this );
-//#if !(USE_UTF8_READER)
-            InputStreamReader inSource = new InputStreamReader( inpStream, "UTF-8" );
-            parser.parse( inSource );
-//#else
-//--//            InputStreamReader inSource = new InputStreamReader( inpStream );
-//--            parser.parse( inpStream );
-//#endif
+            parser.parse( iostream );
             //dispatcher.broadcastTerminatedConnection( null );
         } catch( Exception e ) {
             dispatcher.broadcastTerminatedConnection(e);
@@ -147,15 +117,13 @@ public class JabberStream implements XMLEventListener, Runnable {
         dispatcher.setJabberListener( null );
         try {
             send( "</stream:stream>" );
-            outStream.flush();
-            try {  Thread.sleep(500); } catch (Exception e) {};
-            inpStream.close();
-            outStream.close();
+            try {  Thread.sleep(1500); } catch (Exception e) {};
             //connection.close();
         } catch( IOException e ) {
             // Ignore an IO Exceptions because they mean that the stream is
             // unavailable, which is irrelevant.
         } finally {
+	    iostream.close();
             dispatcher.halt();
         }
     }
@@ -189,24 +157,8 @@ public class JabberStream implements XMLEventListener, Runnable {
     }
     
     public void send( String data ) throws IOException {
-        
-        synchronized (outStream) {
-//#if USE_UTF8_READER
-//--	    //byte a[]=toUTF(data);
-//--	    //for (int i=0;i<a.length; i++){
-//--	    //	System.out.print(" "+((char)a[i])+"="+a[i]);
-//--	    //}
-//--	    //System.out.println();
-//--            outStream.write(toUTF(data));
-//#else
-            outStream.write(data);
-//#endif
-	    
-//#if OUTSTREAM_FLUSH
-            outStream.flush();
-//#endif
-            //System.out.println(data);
-        }
+	iostream.send(data);
+        //System.out.println(data);
     }
     
     /**
@@ -317,38 +269,6 @@ public class JabberStream implements XMLEventListener, Runnable {
         currentBlock = parent;
     }
     
-//#if USE_UTF8_READER
-//--    // temporary
-//--    private byte[] toUTF(String s) {
-//--        int i = 0;
-//--        StringBuffer stringbuffer=new StringBuffer();
-//--
-//--        for(int j = s.length(); i < j; i++) {
-//--            int c = (int)s.charAt(i);
-//--            if ((c >= 1) && (c <= 0x7f)) {
-//--                stringbuffer.append( (char) c);
-//--
-//--            }
-//--            if (((c >= 0x80) && (c <= 0x7ff)) || (c==0)) {
-//--                stringbuffer.append((char)(0xc0 | (0x1f & (c >> 6))));
-//--                stringbuffer.append((char)(0x80 | (0x3f & c)));
-//--            }
-//--            if ((c >= 0x800) && (c <= 0xffff)) {
-//--                stringbuffer.append(((char)(0xe0 | (0x0f & (c >> 12)))));
-//--                stringbuffer.append((char)(0x80 | (0x3f & (c >>  6))));
-//--                stringbuffer.append(((char)(0x80 | (0x3f & c))));
-//--            }
-//--        }
-//--
-//--	int len=stringbuffer.length();
-//--	byte bytes[]=new byte[len];
-//--	for (i=0; i<len; i++) { 
-//--	    bytes[i]=(byte)stringbuffer.charAt(i);
-//--	}
-//--	return bytes;
-//--    }
-//#endif
-    
     private class TimerTaskKeepAlive extends TimerTask{
         private Timer t;
         public TimerTaskKeepAlive(int periodSeconds){
@@ -371,6 +291,7 @@ public class JabberStream implements XMLEventListener, Runnable {
             }
         }
     }
+    
     private TimerTaskKeepAlive keepAlive;
     
     private class SendJabberDataBlock implements Runnable {
