@@ -247,7 +247,7 @@ public class Roster
     
     public void errorLog(String s){
             Msg m=new Msg(Msg.MESSAGE_TYPE_OUT, myJid.getJidFull(), "Error", s);
-            messageStore(m, -1);
+            messageStore(m);
     }
     
     public void beginPaint() {
@@ -726,7 +726,7 @@ public class Roster
                             String body=IqVersionReply.dispatchVersion(vc);
                             
                             Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, "Client info", body);
-                            messageStore(m, -1);
+                            messageStore(m);
                             redraw();
                             
                         }
@@ -816,7 +816,7 @@ public class Roster
                         if (m.dateGmt<=c.conferenceJoinTime) m.messageType=Msg.MESSAGE_TYPE_HISTORY;
                     } 
                 }
-                messageStore(m, -1);
+                messageStore(m);
                 //Contact c=getContact(from);
                 //c.msgs.addElement(m);
                 //countNewMsgs();
@@ -838,7 +838,7 @@ public class Roster
                         from,
                         null,
                         pr.getPresenceTxt());
-                Contact c=messageStore(m, ti);
+                Contact c=messageStore(m);
                 c.priority=pr.getPriority();
                 JabberDataBlock xmuc=pr.findNamespace("http://jabber.org/protocol/muc");
                 if (xmuc!=null){
@@ -859,7 +859,7 @@ public class Roster
                     c.transport=(moderator)? 6:0; //FIXME: убрать хардкод
                     c.jidHash=c.jidHash & 0x3fffffff | ((moderator)? 0:0x40000000);
                     
-                    if (c.origin==Contact.ORIGIN_CLONE)
+                    if (c.status==Presence.PRESENCE_OFFLINE)
                     {
                         String realJid=item.getAttribute("jid");
                         if (realJid!=null) {
@@ -915,8 +915,10 @@ public class Roster
                         from,
                         null,
                         b.toString());
-                    messageStore(m, -1);
-                }
+                    messageStore(m);
+                } // if (muc)
+		c.status=ti;
+		sort();
                 reEnumRoster();
             }
         } catch( Exception e ) {
@@ -955,8 +957,8 @@ public class Roster
             }
     }
     
-    Contact messageStore(Msg message, int status){
-        Contact c=presenceContact(message.from,status);
+    Contact messageStore(Msg message){
+        Contact c=presenceContact(message.from,-1);
         if (c.group==Groups.NIL_INDEX) 
             if (!cf.notInList) return c;
 

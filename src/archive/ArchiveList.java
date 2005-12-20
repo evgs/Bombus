@@ -100,7 +100,13 @@ public class ArchiveList
 	default:
 	    data=m.body;
 	}
-	target.insert(data, target.size());
+	try {
+	    int paste=target.getMaxSize()-target.size();
+	    if (paste>data.length()) paste=data.length();
+	    target.insert(data.substring(0,paste), target.size());
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
 	destroyView();
     }
     

@@ -62,6 +62,8 @@ public class KeyBlock extends Canvas implements Runnable{
         
 //#if !(MIDP1)
         setFullScreenMode(Config.getInstance().fullscreen);
+//#else
+//--	com.siemens.mp.game.Light.setLightOff();
 //#endif
         //System.gc();   // heap cleanup
     }
@@ -72,9 +74,6 @@ public class KeyBlock extends Canvas implements Runnable{
         } catch (Exception e) {};
         
         display.setCurrent(this);
-//#if !(MIDP1)
-        if (motorola_backlight) display.flashBacklight(0);
-//#endif
     }
     
     public void paint(Graphics g){
@@ -104,6 +103,9 @@ public class KeyBlock extends Canvas implements Runnable{
         g.fillRect(-tw/2-5, -h, tw+10, h);
         g.setColor(COLOR_BLK_TEXT);
         g.drawString(time, 0, 0, Graphics.BOTTOM | Graphics.HCENTER);
+//#if !(MIDP1)
+        if (motorola_backlight) display.flashBacklight(0);
+//#endif
     }
     
     public void keyPressed(int keyCode) { 
@@ -127,6 +129,9 @@ public class KeyBlock extends Canvas implements Runnable{
         if (display!=null)   display.setCurrent(parentView);
         img=null;
         tc.stop();
+//#if MIDP1
+//--	com.siemens.mp.game.Light.setLightOn();
+//#endif
         System.gc();
     }
     
@@ -138,6 +143,9 @@ public class KeyBlock extends Canvas implements Runnable{
         }
         public void run() {
             repaint();
+//#if MIDP1
+//--	com.siemens.mp.game.Light.setLightOff();
+//#endif
         }
         public void stop(){
             cancel();
