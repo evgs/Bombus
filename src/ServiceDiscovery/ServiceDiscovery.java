@@ -223,7 +223,7 @@ public class ServiceDiscovery
         Object o= getFocusedObject();
         if (o!=null) 
         if (o instanceof Contact) {
-            browse( ((Contact) o).jid.getJidFull(), null );
+            browse( ((Contact) o).jid.getJid(), null );
         }
         if (o instanceof Node) {
             browse( service, ((Node) o).getNode() );

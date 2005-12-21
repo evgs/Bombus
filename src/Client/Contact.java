@@ -241,7 +241,7 @@ public class Contact extends IconTextElement{
     //public void onSelect(){}
 
     public final String getJid() {
-        return jid.getJidFull();
+        return jid.getJid();
     }
 
     public final String getBareJid() {

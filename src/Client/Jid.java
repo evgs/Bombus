@@ -81,12 +81,12 @@ public class Jid {
     }*/
     
     /** выделение имени без ресурса */
-    public String getJid(){
+    public String getBareJid(){
         return fullJid.substring(0,resourcePos);
     }
     
     /** выделение jid/resource */
-    public String getJidFull(){
+    public String getJid(){
         return fullJid;
     }
 }

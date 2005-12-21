@@ -77,7 +77,7 @@ public final class ContactEdit
             Contact ct=(Contact)e.nextElement();
             Jid transpJid=new Jid(ct.getJid()); //TODO: исправить этот хак (отрезание ресурса)
             if (transpJid.isTransport()) 
-                tTranspList.append(transpJid.getJid(),null);
+                tTranspList.append(transpJid.getBareJid(),null);
         }
         tTranspList.append("<Other>",null);
         

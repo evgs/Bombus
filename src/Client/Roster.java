@@ -240,13 +240,13 @@ public class Roster
 	    bookmarks=null;
 	}
 	myJid=new Jid(sd.account.getJid());
-	updateContact(sd.account.getNickName(), myJid.getJid(), Groups.SELF_GROUP, "self", false);
+	updateContact(sd.account.getNickName(), myJid.getBareJid(), Groups.SELF_GROUP, "self", false);
 	
 	System.gc();
     }
     
     public void errorLog(String s){
-            Msg m=new Msg(Msg.MESSAGE_TYPE_OUT, myJid.getJidFull(), "Error", s);
+            Msg m=new Msg(Msg.MESSAGE_TYPE_OUT, myJid.getJid(), "Error", s);
             messageStore(m);
     }
     
@@ -460,6 +460,7 @@ public class Roster
             // здесь будем игнорить позже
             //System.out.println("new");
             c=new Contact(null, jid, Status, "not-in-list");
+	    c.bareJid=J.getBareJid();
             c.origin=Contact.ORIGIN_PRESENCE;
             c.group=Groups.NIL_INDEX;
             addContact(c);
@@ -566,7 +567,7 @@ public class Roster
                 System.gc();
             }
         }
-        Contact c=presenceContact(myJid.getJidFull(), myStatus);
+        Contact c=presenceContact(myJid.getJid(), myStatus);
         
         reEnumRoster();
     }
@@ -917,7 +918,7 @@ public class Roster
                         b.toString());
                     messageStore(m);
                 } // if (muc)
-		c.status=ti;
+		if (ti>=0) c.status=ti;
 		sort();
                 reEnumRoster();
             }
@@ -1263,7 +1264,7 @@ public class Roster
     void setMucMod(Contact contact, Hashtable itemAttributes){
         JabberDataBlock iq=new Iq();
         iq.setTypeAttribute("set");
-        iq.setAttribute("to", contact.jid.getJid());
+        iq.setAttribute("to", contact.jid.getBareJid());
         JabberDataBlock query=iq.addChild("query", null);
         query.setNameSpace("http://jabber.org/protocol/muc#admin");
         JabberDataBlock item=new JabberDataBlock("item", null, itemAttributes);

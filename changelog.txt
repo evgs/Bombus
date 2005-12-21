@@ -1821,6 +1821,11 @@ syslog_msg: true
 
   fix: IllegalArgumentException при переполнении буфера ввода 
   вставкой из Archive
+
+22.12.2005
+(359)
+  fix: IndexOutOfBounds в ростере после приёма запроса авторизации
+  (глюк в 358)
 ---------------------------
   known issues:
 
