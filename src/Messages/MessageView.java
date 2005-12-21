@@ -35,7 +35,7 @@ public class MessageView
     Command cmdTSM=new Command("Smiles", Command.SCREEN,1);
 
     Command cmdSubscr=new Command("Authorize", Command.SCREEN,2);
-    Command cmdPhoto=new Command("Photo", Command.SCREEN,3);
+    Command cmdUrl=new Command("Goto URL", Command.SCREEN,3);
 
     private MessageList msglist;
 
@@ -43,6 +43,8 @@ public class MessageView
     public int getTitleRGB() {return titlecolor;} 
     
     int repaintCounter=5;
+    
+    private Vector urlList;
     
     public void notifyRepaint(Vector v, Msg parsedMsg){
         if (parsedMsg!=msg) return;
@@ -78,6 +80,9 @@ public class MessageView
     StaticData sd;
     
     public void run() {
+	removeCommand(cmdUrl);
+	urlList=null;
+	
         msg=msglist.getMessage(msgIndex);
 
 	msglist.markRead(msgIndex);
@@ -153,6 +158,7 @@ public class MessageView
         }
         if (c==cmdTSM) toggleSmiles();
         
+	if (c==cmdUrl) new MessageUrl(display, urlList);
         //if (c==cmdPhoto) new PhotoView(display, msg.photo);
     }
     
@@ -171,7 +177,9 @@ public class MessageView
     }
 
     public void notifyUrl(String url) {
-	System.out.println(url);
+	if (urlList==null) urlList=new Vector();
+	urlList.addElement(url);
+	addCommand(cmdUrl);
     }
 }
 
