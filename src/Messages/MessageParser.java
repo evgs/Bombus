@@ -21,6 +21,8 @@ import Client.Msg;
  */
 public final class MessageParser {
     
+    private final static int URL=-2;
+    private final static int NOSMILE=-1;
     private Vector smileTable;
     
     private Leaf root;
@@ -41,7 +43,7 @@ public final class MessageParser {
     public Vector getSmileTable() { return smileTable; }
     
     private class Leaf {
-        public int Smile=-1;   // нет смайлика в узле
+        public int Smile=NOSMILE;   // нет смайлика в узле
         public String smileChars;     // символы смайликов
         public Vector child;
 
@@ -61,6 +63,23 @@ public final class MessageParser {
         }
     }
     
+    private void addSmile(String smile, int index) {
+	Leaf p=root;   // этой ссылкой будем ходить по дереву
+	Leaf p1;
+	
+	int len=smile.length();
+	for (int i=0; i<len; i++) {
+	    char c=smile.charAt(i);
+	    p1=p.findChild(c);
+	    if (p1==null) {
+		p1=new Leaf();
+		p.addChild((char)c,p1);
+	    }
+	    p=p1;
+	}
+	p.Smile=index;
+    }
+    
     private MessageParser(String resource) {
         smileTable=new Vector();
         root=new Leaf();
@@ -73,9 +92,6 @@ public final class MessageParser {
             // int level=0; 
             boolean strhaschars=false;
             boolean endline=false;
-            
-            Leaf p=root,   // этой ссылкой будем ходить по дереву
-                    p1;
             
             InputStream in=this.getClass().getResourceAsStream(resource);
             //DataInputStream f=new DataInputStream(in);
@@ -95,25 +111,21 @@ public final class MessageParser {
                             if (strhaschars) endline=true; else break;
                         case 0x09:
                         //case 0x20:
-                            // конец строки смайлика - ставим его номер
-                            p.Smile=strnumber;
+                            // конец строки смайлика
                             
-                            if (firstSmile) smileTable.addElement(s.toString());
+			    String smile=s.toString();
+                            if (firstSmile) smileTable.addElement(smile);
+			    
+			    addSmile(smile,strnumber);
+			    
                             s.setLength(0);
                             //s=new StringBuffer(6);
                             firstSmile=false;
                             
-                            p=root;// в начало дерева
                             break;
                         default:
-                            if (firstSmile) s.append((char)c);
+                            s.append((char)c);
                             strhaschars=true;
-                            p1=p.findChild((char)c);
-                            if (p1==null) {
-                                p1=new Leaf();
-                                p.addChild((char)c,p1);
-                            }
-                            p=p1;
                     }
                     if (endline) {
                         endline=strhaschars=false;
@@ -126,6 +138,7 @@ public final class MessageParser {
         } catch (Exception e) {
             e.printStackTrace();
         }
+	addSmile("http://",URL);
     }
 
     public Vector parseMsg(
@@ -133,12 +146,14 @@ public final class MessageParser {
             ImageList il,       //!< если null, то смайлы игнорируются
             int width, 
             boolean singleLine, //!< парсить только одну строку из сообщения
-            NotifyAddLine notify
+            MessageParserNotify notify
             )
     {
         Vector v=new Vector();
+	StringBuffer url = null;
         
         //boolean noWrapSpace=false;
+	boolean inUrl=false;
         
         int state=0;
         if (msg.subject==null) state=1;
@@ -165,6 +180,22 @@ public final class MessageParser {
                 while (i<txt.length()) {
                     char c=txt.charAt(i);
 
+		    if (inUrl) {
+			switch (c) {
+			    case ' ':
+			    case 0x09:
+			    case 0x0d:
+			    case 0x0a:
+			    case 0xa0:
+				inUrl=false;
+				notify.notifyUrl(url.toString());
+				url=null;
+				if (s.length()>0) l.addElement(s.toString());
+				s.setLength(0);
+			}
+			break; // не смайл
+		    }
+		    
                     if (il==null) break;
 
                     p1=p.findChild(c);
@@ -177,7 +208,14 @@ public final class MessageParser {
                     }
                     i++; // продолжаем поиск смайла
                 }
-                if (smileIndex!=-1) {
+		if (smileIndex==URL) {
+                    if (s.length()>0) l.addElement(s.toString());
+                    s.setLength(0);
+		    inUrl=true;
+		    url=new StringBuffer();
+		    l.addUnderline();
+		}
+                if (smileIndex>=0) {
                     // есть смайлик
                     // добавим строку
                     if (s.length()>0) l.addElement(s.toString());
@@ -205,6 +243,9 @@ public final class MessageParser {
                     // символ в строку-накопитель
                     i=smileStart;
                     char c=txt.charAt(i);
+
+		    if (inUrl) url.append(c);
+		    
                     int cw=f.charWidth(c);
                     if (c!=0x20)
                     if (w+cw>width || c==0x0d || c==0x0a || c==0xa0) {
@@ -252,8 +293,9 @@ public final class MessageParser {
 
     }
 
-    public interface NotifyAddLine {
+    public interface MessageParserNotify {
         void notifyRepaint(Vector v, Msg parsedMsg);
         void notifyFinalized();
+	void notifyUrl(String url);
     }
 }

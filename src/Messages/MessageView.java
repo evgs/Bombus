@@ -23,7 +23,7 @@ public class MessageView
         extends ComplexStringList 
         implements 
             CommandListener, 
-            Messages.MessageParser.NotifyAddLine,
+            Messages.MessageParser.MessageParserNotify,
             Runnable
 {
 
@@ -168,6 +168,10 @@ public class MessageView
         smiles=!smiles;
         while (t.isAlive());
         (t=new Thread(this)).start();
+    }
+
+    public void notifyUrl(String url) {
+	System.out.println(url);
     }
 }
 

@@ -21,6 +21,7 @@ public class ComplexString extends Vector implements VirtualElement{
     public final static int IMAGE=0x00000000;
     public final static int COLOR=0x01000000;
     public final static int RALIGN=0x02000000;
+    public final static int UNDERLINE=0x03000000;
 
     private Font font=Font.getDefaultFont();
     private int height;
@@ -58,6 +59,7 @@ public class ComplexString extends Vector implements VirtualElement{
     public void drawItem(Graphics g, int offset, boolean selected){
         //g.setColor(0);
         boolean ralign=false;
+	boolean underline=false;
         
         int w=0;
         int dw;
@@ -75,6 +77,11 @@ public class ComplexString extends Vector implements VirtualElement{
                     dw=font.stringWidth((String)ob);
                     if (ralign) w-=dw; 
                     g.drawString((String)ob,w,fontYOfs,Graphics.LEFT|Graphics.TOP);
+		    if (underline) {
+			int y=getVHeight()-1;
+			g.drawLine(w, y, w+dw, y);
+			underline=false;
+		    }
                     if (!ralign) w+=dw;
 
                 } else if ((ob instanceof Integer)) {
@@ -93,6 +100,9 @@ public class ComplexString extends Vector implements VirtualElement{
                         case RALIGN:
                             ralign=true;
                             w=g.getClipWidth()-1;
+			    break;
+			case UNDERLINE:
+			    underline=true;
 			    break;
                     }
                 } // Integer
@@ -175,6 +185,7 @@ public class ComplexString extends Vector implements VirtualElement{
     public void addImage(int imageIndex){ addElement(new Integer(imageIndex)); }
     public void addColor(int colorRGB){ addElement(new Integer(COLOR | colorRGB)); }
     public void addRAlign(){ addElement(new Integer(RALIGN)); }
+    public void addUnderline(){ addElement(new Integer(UNDERLINE)); }
     
     public Font getFont() {
         return font;
