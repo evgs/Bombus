@@ -1831,6 +1831,7 @@ syslog_msg: true
   парсинг URL, подчёркивание найденых URL
   команда Goto URL в Message View - запуск встроенного браузера
 
+test
 ---------------------------
   known issues:
 
