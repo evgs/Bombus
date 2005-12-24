@@ -82,7 +82,9 @@ public class MessageView
     StaticData sd;
     
     public void run() {
+//#if !(MIDP1)       
 	removeCommand(cmdUrl);
+//#endif
 	urlList=null;
 	
         msg=msglist.getMessage(msgIndex);
