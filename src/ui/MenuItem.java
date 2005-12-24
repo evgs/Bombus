@@ -13,14 +13,20 @@ package ui;
  *
  * @author Eugene Stahov
  */
-public class MenuItem extends ComplexString
+public class MenuItem extends IconTextElement
 {
     
     /** Creates a new instance of MenuItem */
     public int index;
+    private String name;
+    
     public MenuItem(String name, int index) {
-        addElement(" ");
-        addElement(name);
+	super(null);
         this.index=index;
+	this.name=name;
     }
+
+    protected int getImageIndex() { return -1;  }
+    public int getColor() { return 0; }
+    public String toString(){ return name; }
 }

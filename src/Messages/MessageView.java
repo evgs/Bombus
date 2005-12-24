@@ -35,7 +35,9 @@ public class MessageView
     Command cmdTSM=new Command("Smiles", Command.SCREEN,1);
 
     Command cmdSubscr=new Command("Authorize", Command.SCREEN,2);
+//#if !(MIDP1) 
     Command cmdUrl=new Command("Goto URL", Command.SCREEN,3);
+//#endif
 
     private MessageList msglist;
 
@@ -157,8 +159,9 @@ public class MessageView
             destroyView();
         }
         if (c==cmdTSM) toggleSmiles();
-        
+//#if !(MIDP1)       
 	if (c==cmdUrl) new MessageUrl(display, urlList);
+//#endif
         //if (c==cmdPhoto) new PhotoView(display, msg.photo);
     }
     
@@ -177,9 +180,11 @@ public class MessageView
     }
 
     public void notifyUrl(String url) {
+//#if !(MIDP1)       
 	if (urlList==null) urlList=new Vector();
 	urlList.addElement(url);
 	addCommand(cmdUrl);
+//#endif
     }
 }
 

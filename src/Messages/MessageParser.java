@@ -187,10 +187,14 @@ public final class MessageParser {
 			    case 0x0d:
 			    case 0x0a:
 			    case 0xa0:
+			    case ')':
 				inUrl=false;
 				notify.notifyUrl(url.toString());
 				url=null;
-				if (s.length()>0) l.addElement(s.toString());
+				if (s.length()>0) {
+				    l.addUnderline();
+				    l.addElement(s.toString());
+				}
 				s.setLength(0);
 			}
 			break; // не смайл
@@ -213,12 +217,15 @@ public final class MessageParser {
                     s.setLength(0);
 		    inUrl=true;
 		    url=new StringBuffer();
-		    l.addUnderline();
+		    //l.addUnderline();
 		}
                 if (smileIndex>=0) {
                     // есть смайлик
                     // добавим строку
-                    if (s.length()>0) l.addElement(s.toString());
+                    if (s.length()>0) {
+			if (inUrl) l.addUnderline();
+			l.addElement(s.toString());
+		    }
                     // очистим
                     s.setLength(0);
                     // добавим смайлик
@@ -249,6 +256,7 @@ public final class MessageParser {
                     int cw=f.charWidth(c);
                     if (c!=0x20)
                     if (w+cw>width || c==0x0d || c==0x0a || c==0xa0) {
+			if (inUrl) l.addUnderline();
                         l.addElement(s.toString());    // последн€€ подстрока в l
                         s.setLength(0); w=0;
 
@@ -271,7 +279,13 @@ public final class MessageParser {
                 }
                 i++;
             }
-            if (s.length()>0) l.addElement(s.toString());
+            if (s.length()>0) {
+		if (inUrl) {
+		    l.addUnderline();
+		    notify.notifyUrl(url.toString());
+		}
+		l.addElement(s.toString());
+	    }
 
             if (singleLine) {
                 if (state==0){
