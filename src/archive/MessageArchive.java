@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.Vector;
 import javax.microedition.rms.RecordEnumeration;
 import javax.microedition.rms.RecordStore;
+import javax.microedition.rms.RecordStoreException;
 import javax.microedition.rms.RecordStoreNotOpenException;
 
 /**
@@ -75,6 +76,13 @@ public class MessageArchive {
 	} catch (Exception e) { }
 	return 0;
     }
+    
+    public void close(){
+	try {
+	    rs.closeRecordStore();
+	} catch (Exception e) { e.printStackTrace(); }
+	rs=null;
+    }
     public static void store(Msg msg) {
 	try {
 	    ByteArrayOutputStream bout = new ByteArrayOutputStream();
@@ -85,6 +93,7 @@ public class MessageArchive {
 	    
 	    RecordStore rs=RecordStore.openRecordStore("archive", true);
 	    rs.addRecord(b, 0, b.length);
+	    rs.closeRecordStore();
 	    //new MessageArchive()
 	} catch (Exception e) { e.printStackTrace(); }
     }

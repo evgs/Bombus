@@ -122,4 +122,9 @@ public class ArchiveList
 	} catch (Exception e) { }
 	removeCommand(cmdSubj);
     }
+    
+    public void destroyView(){
+	super.destroyView();
+	archive.close();
+    }
 }
