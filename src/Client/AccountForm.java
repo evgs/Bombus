@@ -53,7 +53,7 @@ class AccountForm implements CommandListener, ItemStateListener {
 	userbox = new TextField("Username", account.getUserName(), 32, TextField.URL);				f.append(userbox);
 	passbox = new TextField("Password", account.getPassword(), 32, TextField.URL | TextField.PASSWORD);	f.append(passbox);		passStars();
 	servbox = new TextField("Server", account.getServer(), 32, TextField.URL);				f.append(servbox);
-	ipbox = new TextField("Server Addr/IP", account.getHostAddr(), 32, TextField.URL);			f.append(ipbox);
+	ipbox = new TextField("Host name/IP (optional)", account.getHostAddr(), 32, TextField.URL);		f.append(ipbox);
 	portbox = new NumberField("Port", account.getPort(), 0, 65535);						f.append(portbox);
 	register = new ChoiceGroup(null, Choice.MULTIPLE);
 	register.append("use SSL",null);

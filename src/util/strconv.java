@@ -17,7 +17,7 @@ public class strconv {
     private strconv() {
     }
     
-    public static final String convAsciiToUnicode(final String s){
+    public static final String convCp1251ToUnicode(final String s){
         if (s==null) return null;
         StringBuffer b=new StringBuffer(s.length());
         for (int i=0;i<s.length();i++){
@@ -31,7 +31,7 @@ public class strconv {
         return b.toString();
     }
 
-    public static final String convUnicodeToAscii(final String s){
+    public static final String convUnicodeToCp1251(final String s){
         if (s==null) return null;
         StringBuffer b=new StringBuffer(s.length());
         for (int i=0;i<s.length();i++){

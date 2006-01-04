@@ -150,26 +150,26 @@ public class NvStorage {
         return true;
     }
     
-    public final static boolean appendFile(String URL, String append_data){
-        try{
-            /*System.out.println(
-                    getPath(strconv.convUnicodeToAscii(URL), PATH_MSG)+" "+
-                    strconv.convUnicodeToAscii(append_data));*/
 //#if USE_SIEMENS_FILES
+//--    public final static boolean appendFile(String URL, String append_data){
+//--        try{
+//--            /*System.out.println(
+//--                    getPath(strconv.convUnicodeToAscii(URL), PATH_MSG)+" "+
+//--                    strconv.convUnicodeToAscii(append_data));*/
 //--            File file1 = new File();
-//--            int fd = file1.open(getPath(strconv.convUnicodeToAscii(URL+".txt"), PATH_MSG));
-//--            byte abyte0[] = (strconv.convUnicodeToAscii(append_data)).getBytes();
+//--            int fd = file1.open(getPath(strconv.convUnicodeToCp1251(URL+".txt"), PATH_MSG));
+//--            byte abyte0[] = (strconv.convUnicodeToCp1251(append_data)).getBytes();
 //--            file1.seek(fd, file1.length(fd));
 //--            file1.write(fd, abyte0, 0, abyte0.length);
 //--            file1.close(fd);
+//--
+//--        } catch (Exception e) {
+//--            e.printStackTrace();
+//--            return false;   //облом
+//--        }
+//--        return true;
+//--    }
 //#endif
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;   //облом
-        }
-        return true;
-    }
     
 //#if USE_LOGGER
 //--    public final static void log(String logMsg){
