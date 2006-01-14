@@ -147,6 +147,12 @@ public class Contact extends IconTextElement{
     
     public boolean needsCount(){ return (newMsgCnt<0);  }
     
+    public boolean active(){
+	if (msgs.size()>1) return true;
+	if (msgs.size()==0) return false;
+	return (((Msg)msgs.elementAt(0)).messageType!=Msg.MESSAGE_TYPE_PRESENCE);
+    }
+    
     public void resetNewMsgCnt() { newMsgCnt=-1;}
     
     public void setComposing (boolean state) {

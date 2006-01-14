@@ -22,7 +22,9 @@ public class ScrollBar {
     private static final int COLOR_SCROLL_BGND    =0x888888;
     public static final int COLOR_BGND           =0xFFFFFF;
     private static final int WIDTH_SCROLL_1      =4;
-    private static final int WIDTH_SCROLL_2      =8;
+    private static final int WIDTH_SCROLL_2      =10;
+    
+    private int yTranslate;
     
     private int size;
     private int windowSize;
@@ -74,12 +76,14 @@ public class ScrollBar {
     public boolean pointerPressed(int x, int y, VirtualList v) {
 	if (size==0) return false;
 	if (x<scrollerX) return false; // not in area
+	y-=yTranslate;
 	if (y<scrollerPos) { v.keyLeft(); v.repaint(); return true; } // page up
 	if (y>scrollerPos+scrollerSize) { v.keyRight(); v.repaint(); return true; } // page down
 	point_y=y-scrollerPos;
 	return true;
     }
     public boolean pointerDragged(int x, int y, VirtualList v) {
+	y-=yTranslate;
 	if (point_y<0) return false;
 	int new_top=y-point_y;
 	int new_pos=(new_top*size)/drawHeight;
@@ -89,9 +93,12 @@ public class ScrollBar {
 	v.win_top=new_pos; v.repaint();
 	return true;
     }
-    public void pointerReleased(int x, int y, VirtualList v) { 	point_y=-1; }
+    public void pointerReleased(int x, int y, VirtualList v) { point_y=-1; }
     
     public void draw(Graphics g) {
+	
+	yTranslate=g.getTranslateY();
+	
 	drawHeight=g.getClipHeight();
 	int drawWidth=g.getClipWidth();
 	

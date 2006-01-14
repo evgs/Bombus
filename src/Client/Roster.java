@@ -340,7 +340,7 @@ public class Roster
     
     public Vector getHContacts() {return hContacts;}
     
-    public final void updateContact(final String Nick, final String Jid, final String grpName, String subscr, boolean ask) {
+    public final void updateContact(final String nick, final String Jid, final String grpName, String subscr, boolean ask) {
         // called only on roster read
         int status=Presence.PRESENCE_OFFLINE;
         if (subscr.equals("none")) status=Presence.PRESENCE_UNKNOWN;
@@ -351,7 +351,7 @@ public class Roster
         Jid J=new Jid(Jid);
         Contact c=getContact(J,false); // контакт по bare jid
         if (c==null) {
-            c=new Contact(Nick, Jid, Presence.PRESENCE_OFFLINE, null);
+            c=new Contact(nick, Jid, Presence.PRESENCE_OFFLINE, null);
             addContact(c);
         }
         for (Enumeration e=hContacts.elements();e.hasMoreElements();) {
@@ -363,7 +363,7 @@ public class Roster
                 if (group==null) {
                     group=groups.addGroup(grpName, null);
                 }
-                c.nick=Nick;
+                c.nick=nick;
                 c.group=group.index;
                 c.subscr=subscr;
                 c.offline_type=status;
@@ -423,10 +423,16 @@ public class Roster
 	    c.conferenceJoinTime=Time.localTime();
 	    ((ConferenceGroup)grp).setConference(c);
         } else {
-            c=presenceContact(from, -1);
-            c.nick=from.substring(rp+1);
 	    if (origin==Contact.ORIGIN_GC_MYSELF) {
-		((ConferenceGroup)grp).setSelfContact(c);
+		c=((ConferenceGroup)grp).getSelfContact();
+		if (c==null) {
+		    c=presenceContact(from, -1);
+		    c.nick=from.substring(rp+1);
+		    ((ConferenceGroup)grp).setSelfContact(c);
+		}
+	    } else {
+                c=presenceContact(from, -1);
+	        c.nick=from.substring(rp+1);
 	    }
         }
         c.group=grp.index;
@@ -554,7 +560,8 @@ public class Roster
         ExtendedStatus es= StatusList.getInstance().getStatus(myStatus);
         Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
         if (theStream!=null) {
-            theStream.send( presence );
+            if (!StaticData.getInstance().account.isMucOnly() )
+		theStream.send( presence );
             
             sendConferencePresence();
 
@@ -690,9 +697,18 @@ public class Roster
                         // иначе будем читать ростер
                         theStream.enableRosterNotify(true);
                         rpercent=60;
-                        JabberDataBlock qr=new IqQueryRoster();
-                        setProgress("Roster request ", 60);
-                        theStream.send( qr );
+			if (StaticData.getInstance().account.isMucOnly()) {
+			    setProgress("Connected",100);
+			    try {
+				reEnumRoster();
+			    } catch (Exception e) { e.printStackTrace(); }
+			    querysign=reconnect=false;
+			    SplashScreen.getInstance().close(); // display.setCurrent(this);
+			} else {
+			    JabberDataBlock qr=new IqQueryRoster();
+			    setProgress("Roster request ", 60);
+			    theStream.send( qr );
+			}
                     }
                     if (id.equals("getros")) {
                         // а вот и ростер подошёл :)
@@ -860,33 +876,18 @@ public class Roster
                     c.transport=(moderator)? 6:0; //FIXME: убрать хардкод
                     c.jidHash=c.jidHash & 0x3fffffff | ((moderator)? 0:0x40000000);
                     
-                    if (c.status==Presence.PRESENCE_OFFLINE)
-                    {
-                        String realJid=item.getAttribute("jid");
-                        if (realJid!=null) {
-                            b.append(" (");
-                            b.append(realJid);
-                            b.append(')');
-                            c.realJid=realJid;  //for moderating purposes
-                        }
-                        b.append(" has joined the channel as ");
-                        b.append(role);
-                        if (!affil.equals("none")) {
-                            b.append(" and ");
-                            b.append(affil);
-                        }
-                    } else if (pr.getTypeIndex()==Presence.PRESENCE_OFFLINE) {
+                    if (pr.getTypeIndex()==Presence.PRESENCE_OFFLINE) {
                         String reason=item.getChildBlockText("reason");
                         if (statusCode.equals("303")) {
                             b.append(" is now known as ");
                             b.append(chNick);
 			    // исправим jid
-			    /* пока не работает
 			    String newJid=from.substring(0,rp+1)+chNick;
 			    System.out.println(newJid);
 			    c.jid.setJid(newJid);
 			    c.bareJid=newJid;
-			     */
+			    from=newJid;
+			    c.nick=chNick;
 			    
                         } else if (statusCode.equals("307")){
                             b.append(" was kicked (");
@@ -900,9 +901,25 @@ public class Roster
                             if ((c.bareJid.equals(from))) leaveRoom(c.group);
                         } else
                         b.append(" has left the channel");
-                    } else {
-                        b.append(" is now ");
-                        b.append(pr.getPresenceTxt());
+		    } else {
+			if (c.status==Presence.PRESENCE_OFFLINE) {
+			    String realJid=item.getAttribute("jid");
+			    if (realJid!=null) {
+				b.append(" (");
+				b.append(realJid);
+				b.append(')');
+				c.realJid=realJid;  //for moderating purposes
+			    }
+			    b.append(" has joined the channel as ");
+			    b.append(role);
+			    if (!affil.equals("none")) {
+				b.append(" and ");
+				b.append(affil);
+			    }
+			} else {                        
+			    b.append(" is now ");
+			    b.append(pr.getPresenceTxt());
+			}
                     }
                     //System.out.println(b.toString());
 

@@ -37,6 +37,7 @@ public class Account extends IconTextElement{
     public boolean active;
     private boolean useSSL;
     private boolean plainAuth;
+    private boolean mucOnly;
     
     private String nick="";
     private String resource="Bombus";
@@ -92,9 +93,14 @@ public class Account extends IconTextElement{
 
             a.nick     = inputStream.readUTF();
             a.resource = inputStream.readUTF();
+	    
+	    // version используется для корректной работы midp1 - аккаунты
+	    // хранятся в файле без разделения на записи
             if (version>=2) a.useSSL=inputStream.readBoolean();
             if (version>=3) a.plainAuth=inputStream.readBoolean();
             
+	    if (version>=4) a.mucOnly=inputStream.readBoolean();
+	    
         } catch (IOException e) { e.printStackTrace(); }
             
         return (a.userName==null)?null:a;
@@ -142,7 +148,7 @@ public class Account extends IconTextElement{
         if (hostAddr==null) hostAddr="";
         
         try {
-            outputStream.writeByte(3);
+            outputStream.writeByte(4);
             outputStream.writeUTF(userName);
             outputStream.writeUTF(password);
             outputStream.writeUTF(server);
@@ -154,6 +160,9 @@ public class Account extends IconTextElement{
 
             outputStream.writeBoolean(useSSL);
             outputStream.writeBoolean(plainAuth);
+	    
+	    outputStream.writeBoolean(mucOnly);
+	    
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -195,6 +204,9 @@ public class Account extends IconTextElement{
     public String getNickName() { return (nick.length()==0)?null:nick;  }
     public void setNickName(String nick) { this.nick = nick;  }
 
+    boolean isMucOnly() { return mucOnly; }
+    public void setMucOnly(boolean mucOnly) {  this.mucOnly = mucOnly; }
+
     public JabberStream openJabberStream() throws java.io.IOException{
 	StringBuffer url=new StringBuffer();
 	    url.append((useSSL)?"ssl":"socket");
@@ -207,4 +219,6 @@ public class Account extends IconTextElement{
 	    url.append(port) ;
         return new JabberStream(  getServer(), url.toString(), null);    
     }
+
+
 }

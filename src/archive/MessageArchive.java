@@ -43,6 +43,21 @@ public class MessageArchive {
 	    
 	} catch (Exception e) { e.printStackTrace();}
     }
+
+    /*public void importMessageArchive() {
+	try {
+	    rs=RecordStore.openRecordStore("archive", true);
+	    int size=rs.getNumRecords();
+	    indexes=new Vector(size);
+	    RecordEnumeration re=rs.enumerateRecords(null, null, false);
+	    
+	    while (re.hasNextElement() ){
+		indexes.addElement(new Integer(re.nextRecordId() ));
+	    }
+	    
+	} catch (Exception e) { e.printStackTrace();}
+    }*/
+
     public int size(){
 	return indexes.size();
     }

@@ -31,6 +31,7 @@ implements CommandListener{
     Command cmdArch=new Command("to Archive",Command.SCREEN,4);
     Command cmdPurge=new Command("Clear List", Command.SCREEN, 10);
     Command cmdContact=new Command("Contact >",Command.SCREEN,11);
+    Command cmdActive=new Command("Active Contacts",Command.SCREEN,11);
     
     StaticData sd;
     
@@ -62,6 +63,7 @@ implements CommandListener{
         addCommand(cmdMessage);
         addCommand(cmdPurge);
         addCommand(cmdContact);
+	addCommand(cmdActive);
         if (getItemCount()>0) {
             addCommand(cmdQuote);
             addCommand(cmdArch);
@@ -131,6 +133,10 @@ implements CommandListener{
         if (c==cmdContact) {
             new RosterItemActions(display, contact);
         }
+	
+	if (c==cmdActive) {
+	    new ActiveContacts(display, contact);
+	}
     }
     public void keyGreen(){
         (new MessageEdit(display,contact,contact.msgSuspended)).setParentView(this);

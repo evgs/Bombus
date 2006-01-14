@@ -58,8 +58,10 @@ class AccountForm implements CommandListener, ItemStateListener {
 	register = new ChoiceGroup(null, Choice.MULTIPLE);
 	register.append("use SSL",null);
 	register.append("plain-text password",null);
+	register.append("conferences only",null);
 	register.append("Register Account",null);
-	boolean b[] = {account.getUseSSL(), account.getPlainAuth(), false};
+	boolean b[] = {account.getUseSSL(), account.getPlainAuth(), account.isMucOnly(), false};
+	
 	register.setSelectedFlags(b);
 	f.append(register);
 	resourcebox = new TextField("Resource", account.getResource(), 32, TextField.ANY);			f.append(resourcebox);
@@ -96,7 +98,7 @@ class AccountForm implements CommandListener, ItemStateListener {
 	    return;
 	}
 	if (c==cmdOk) {
-	    boolean b[] = new boolean[3];
+	    boolean b[] = new boolean[4];
 	    register.getSelectedFlags(b);
 	    String user = userbox.getString();
 	    int at = user.indexOf('@');
@@ -109,6 +111,7 @@ class AccountForm implements CommandListener, ItemStateListener {
 	    account.setNickName(nickbox.getString());
 	    account.setUseSSL(b[0]);
 	    account.setPlainAuth(b[1]);
+	    account.setMucOnly(b[2]);
 	    //account.updateJidCache();
 	    
 	    account.setPort(portbox.getValue());
@@ -117,7 +120,7 @@ class AccountForm implements CommandListener, ItemStateListener {
 	    accountSelect.rmsUpdate();
 	    accountSelect.commandState();
 	    
-	    if (b[2])
+	    if (b[3])
 		new AccountRegister(account, display, parentView); 
 	    else destroyView();
 	}
