@@ -20,15 +20,16 @@ import ui.*;
 public class Group extends IconTextElement {
     String name;
     int index; // group index
-    public int ncontacts;
-    public int onlines;
+    protected int nContacts;
+    protected int onlines;
     public int imageExpandedIndex=RosterIcons.ICON_EXPANDED_INDEX;
         
     public Vector contacts;
     
-    //Vector tcontacts;
+    // используется при пересчёте группы
+    private Vector tcontacts;
     public int tonlines;
-    public int tncontacts;
+    private int tncontacts;
     
     boolean collapsed;
     
@@ -47,7 +48,7 @@ public class Group extends IconTextElement {
     
     public String getName() { return name; }
     protected String title(String titleStart) {
-	return titleStart+" ("+onlines+'/'+ncontacts+')';
+	return titleStart+" ("+getOnlines()+'/'+getNContacts()+')';
     }
     public String toString(){ return title(name);  }
 
@@ -60,5 +61,48 @@ public class Group extends IconTextElement {
         if (index==Groups.SRC_RESULT_INDEX) 
             imageExpandedIndex=RosterIcons.ICON_SEARCH_INDEX;
     }
-    
+
+    public void startCount(){
+	//int size=(contacts==null)?10:contacts.size();
+	tonlines=tncontacts=0;
+	//tcontacts=new Vector(size);
+	contacts=new Vector();
+    }
+
+    public void addContact(Contact c) {
+	tncontacts++;
+	boolean online=c.status<5;
+	if (online) {
+	    tonlines++;
+	}
+	int gindex=c.group;
+	// hide offlines whithout new messages
+	if (
+	online
+	|| Config.getInstance().showOfflineContacts
+	|| c.getNewMsgsCount()>0
+	|| gindex==Groups.NIL_INDEX
+	|| gindex==Groups.TRANSP_INDEX
+	//  *ВРЕМЕННО* на контакт комнаты в группе конференции
+	//  не распространяется Show offlines
+	|| c.origin==Contact.ORIGIN_GROUPCHAT
+	)
+	    contacts.addElement(c);
+	//grp.addContact(c);
+    }
+    void finishCount() {
+	//contacts=tcontacts;
+        onlines=tonlines;
+        nContacts=tncontacts;
+        tcontacts=null;
+    }
+
+    public int getNContacts() {
+        return nContacts;
+    }
+
+    public int getOnlines() {
+        return onlines;
+    }
+
 }

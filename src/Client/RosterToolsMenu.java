@@ -14,6 +14,8 @@ import ServiceDiscovery.ServiceDiscovery;
 import javax.microedition.lcdui.Display;
 import ui.Menu;
 import ui.MenuItem;
+import vcard.VCard;
+import vcard.vCardForm;
 
 /**
  *
@@ -28,6 +30,7 @@ public class RosterToolsMenu
 	super("Jabber Tools");
 	addItem("Service Discovery", 0);
 	addItem("Privacy Lists", 1);
+	addItem("My vCard", 2);
 	/*if (m.getItemCount()>0)*/
 	attachDisplay(display);
     }
@@ -43,6 +46,14 @@ public class RosterToolsMenu
 	    case 1: // Privacy Lists
 		new PrivacySelect(display);
 		break;
+	    case 2: {
+		Contact c=StaticData.getInstance().roster.selfContact();
+		if (c.vcard!=null) {
+		    new vCardForm(display, c.vcard, c.group==Groups.SELF_INDEX);
+		    return;
+		}
+		VCard.request(c.getJid());
+	    }
 	}
     }
 }

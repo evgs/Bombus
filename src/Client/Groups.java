@@ -43,13 +43,16 @@ public class Groups{
         addGroup(Groups.IGNORE_GROUP, null);
         addGroup(Groups.COMMON_GROUP, null);
     }
+
+    private int rosterContacts;
+    private int rosterOnline;
     
     public void resetCounters(){
         for (Enumeration e=groups.elements();e.hasMoreElements();){
             Group grp=(Group)e.nextElement();
-            grp.tncontacts=grp.tonlines=0;
-            grp.contacts=new Vector();
+	    grp.startCount();
         }
+	rosterContacts=rosterOnline=0;
     }
     
     public void addToVector(Vector d, int index){
@@ -60,9 +63,9 @@ public class Groups{
                 d.addElement(e.nextElement());
             }
         }
-        gr.onlines=gr.tonlines;
-        gr.ncontacts=gr.tncontacts;
-        gr.contacts=null;
+	gr.finishCount();
+	rosterContacts+=gr.getNContacts();
+	rosterOnline+=gr.getOnlines();
     }
 
     public Group getGroup(int Index) {
@@ -97,5 +100,8 @@ public class Groups{
         return s;
     }
     public int getCount() {return groups.size();}
+
+    public int getRosterContacts() { return rosterContacts; }
+    public int getRosterOnline() { return rosterOnline; }
     
 }

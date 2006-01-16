@@ -189,7 +189,7 @@ public final class MessageParser {
 			    case 0xa0:
 			    case ')':
 				inUrl=false;
-				notify.notifyUrl(url.toString());
+				if (notify!=null) notify.notifyUrl(url.toString());
 				url=null;
 				if (s.length()>0) {
 				    l.addUnderline();
@@ -282,7 +282,7 @@ public final class MessageParser {
             if (s.length()>0) {
 		if (inUrl) {
 		    l.addUnderline();
-		    notify.notifyUrl(url.toString());
+		    if (notify!=null) notify.notifyUrl(url.toString());
 		}
 		l.addElement(s.toString());
 	    }

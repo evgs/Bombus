@@ -56,9 +56,9 @@ public class Roster
      * The stream representing the connection to ther server
      */
     public JabberStream theStream ;
-    
-    
+        
     int messageCount;
+    
     public Object messageIcon;
    
     boolean reconnect=false;
@@ -577,6 +577,10 @@ public class Roster
         Contact c=presenceContact(myJid.getJid(), myStatus);
         
         reEnumRoster();
+    }
+    
+    public Contact selfContact() {
+	return presenceContact(myJid.getJid(), -1);
     }
     
     public void sendConferencePresence() {
@@ -1327,9 +1331,8 @@ public class Roster
                     Object focused=(desiredFocus==null)?getFocusedObject():desiredFocus;
 		    desiredFocus=null;
                     
-                    int tonlines=0;
                     Vector tContacts=new Vector(vContacts.size());
-                    boolean offlines=cf.showOfflineContacts;//StaticData.getInstance().config.showOfflineContacts;
+                    //boolean offlines=cf.showOfflineContacts;//StaticData.getInstance().config.showOfflineContacts;
                     
                     Enumeration e;
                     int i;
@@ -1341,25 +1344,7 @@ public class Roster
                             boolean online=c.status<5;
                             // group counters
                             Group grp=groups.getGroup(c.group);
-                            grp.tncontacts++;
-                            if (online) {
-                                grp.tonlines++;
-                                tonlines++;
-                            }
-                            int gindex=c.group;
-                            // hide offlines whithout new messages
-                            if (
-                                    offlines
-                                    || online
-                                    || c.getNewMsgsCount()>0
-                                    || gindex==Groups.NIL_INDEX
-                                    || gindex==Groups.TRANSP_INDEX
-                                    //  *ВРЕМЕННО* на контакт комнаты в группе конференции
-                                    //  не распространяется Show offlines
-                                    || c.origin==Contact.ORIGIN_GROUPCHAT
-                                    )
-                                grp.contacts.addElement(c);
-                            //grp.addContact(c);
+			    grp.addContact(c);
                         }
                     }
                     // self-contact group
@@ -1376,13 +1361,12 @@ public class Roster
                     if (cf.showTransports) groups.addToVector(tContacts,Groups.TRANSP_INDEX);
                     
                     // search result
-                    if (groups.getGroup(Groups.SRC_RESULT_INDEX).tncontacts>0)
-                        groups.addToVector(tContacts, Groups.SRC_RESULT_INDEX);
+                    //if (groups.getGroup(Groups.SRC_RESULT_INDEX).tncontacts>0)
+                    groups.addToVector(tContacts, Groups.SRC_RESULT_INDEX);
                     
                     vContacts=tContacts;
                     
-                    int tnContacts=hContacts.size();
-                    setRosterTitle("("+tonlines+"/"+tnContacts+")");
+                    setRosterTitle("("+groups.getRosterOnline()+"/"+groups.getRosterContacts()+")");
                     
                     //resetStrCache();
                     if (cursor<0) cursor=0;
