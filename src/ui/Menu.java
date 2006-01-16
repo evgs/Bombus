@@ -20,12 +20,14 @@ public class Menu extends VirtualList implements CommandListener
     Vector menuitems;
     /** Creates a new instance of Menu */
     Command cmdBack=new Command("Back",Command.BACK,99);
+    Command cmdOk=new Command("Ok",Command.OK,1);
     
     public Menu(String title) {
         super();
         createTitleItem(1, title, null);
         menuitems=new Vector();
         addCommand(cmdBack);
+        addCommand(cmdOk);
         setCommandListener(this);
     }
     
@@ -44,5 +46,6 @@ public class Menu extends VirtualList implements CommandListener
     
     public void commandAction(Command c, Displayable d) {
         if (c==cmdBack) destroyView();
+	if (c==cmdOk) eventOk();
     }
 }
