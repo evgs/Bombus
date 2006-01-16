@@ -122,8 +122,8 @@ public class Contact extends IconTextElement{
     public int getImageIndex() {
         if (getNewMsgsCount()>0) 
             switch (unreadType) {
-                case Msg.MESSAGE_TYPE_AUTH: return ImageList.ICON_AUTHRQ_INDEX;
-                default: return ImageList.ICON_MESSAGE_INDEX;
+                case Msg.MESSAGE_TYPE_AUTH: return RosterIcons.ICON_AUTHRQ_INDEX;
+                default: return RosterIcons.ICON_MESSAGE_INDEX;
             }
         int st=(status==Presence.PRESENCE_OFFLINE)?offline_type:status;
         if (st<8) st+=transport<<4; 
@@ -156,7 +156,7 @@ public class Contact extends IconTextElement{
     public void resetNewMsgCnt() { newMsgCnt=-1;}
     
     public void setComposing (boolean state) {
-        incomingComposing=(state)? new Integer(ImageList.ICON_COMPOSING_INDEX):null;
+        incomingComposing=(state)? new Integer(RosterIcons.ICON_COMPOSING_INDEX):null;
         //System.out.println("Composing:"+state);
     }
     

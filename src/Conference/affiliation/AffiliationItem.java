@@ -39,12 +39,12 @@ public class AffiliationItem extends IconTextElement{
     
     public int getImageIndex(){ 
         switch (affiliation) {
-            case AFFILIATION_OWNER: return ImageList.ICON_REGISTER_INDEX;
-            case AFFILIATION_ADMIN: return ImageList.ICON_MODERATOR_INDEX;
+            case AFFILIATION_OWNER: return RosterIcons.ICON_REGISTER_INDEX;
+            case AFFILIATION_ADMIN: return RosterIcons.ICON_MODERATOR_INDEX;
             case AFFILIATION_MEMBER: return 0;
-            case AFFILIATION_OUTCAST: return ImageList.ICON_ERROR_INDEX;
+            case AFFILIATION_OUTCAST: return RosterIcons.ICON_ERROR_INDEX;
         }
-        return ImageList.ICON_INVISIBLE_INDEX; 
+        return RosterIcons.ICON_INVISIBLE_INDEX; 
     }
 
     public String jid;

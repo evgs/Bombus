@@ -263,16 +263,16 @@ public class Roster
     };
     
     private void updateTitle(){
-        int s=querysign?ImageList.ICON_PROGRESS_INDEX:myStatus;
+        int s=querysign?RosterIcons.ICON_PROGRESS_INDEX:myStatus;
         int profile=cf.profile;//StaticData.getInstance().config.profile;
-        Object en=(profile>1)? new Integer(profile+ImageList.ICON_PROFILE_INDEX):null;
+        Object en=(profile>1)? new Integer(profile+RosterIcons.ICON_PROFILE_INDEX):null;
         title.setElementAt(new Integer(s), 2);
         title.setElementAt(en, 5);
         if (messageCount==0) {
             messageIcon=null;
             title.setElementAt(null,1);
         } else {
-            messageIcon=new Integer(ImageList.ICON_MESSAGE_INDEX);
+            messageIcon=new Integer(RosterIcons.ICON_MESSAGE_INDEX);
             title.setElementAt(" "+messageCount+" ",1);
         }
         title.setElementAt(messageIcon, 0);

@@ -11,6 +11,7 @@ package Conference;
 
 import Client.Contact;
 import Client.Group;
+import images.RosterIcons;
 import java.util.*;
 import ui.ImageList;
 
@@ -24,7 +25,7 @@ public class ConferenceGroup extends Group{
     public ConferenceGroup(String name, String label) {
 	super(name);
 	this.label=label;
-	imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
+	imageExpandedIndex=RosterIcons.ICON_GCJOIN_INDEX;
     }
 
     String label;

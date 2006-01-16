@@ -65,7 +65,7 @@ public class AlertProfile extends VirtualList implements CommandListener {
         }
         //public void onSelect(){}
         public int getColor(){ return 0; }
-        public int getImageIndex(){return index+ImageList.ICON_PROFILE_INDEX;}
+        public int getImageIndex(){return index+RosterIcons.ICON_PROFILE_INDEX;}
         public String toString(){ 
             StringBuffer s=new StringBuffer(alertNames[index]);
             if (index==defp) s.append(" (default)");

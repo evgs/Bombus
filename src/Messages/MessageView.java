@@ -121,7 +121,7 @@ public class MessageView
         if (nMsgs>1) {
             if (msgIndex==0) micon=1;
             if (msgIndex==nMsgs-1) micon=2;
-            title.setElementAt(new Integer(ImageList.ICON_MESSAGE_BUTTONS+micon),2);
+            title.setElementAt(new Integer(RosterIcons.ICON_MESSAGE_BUTTONS+micon),2);
         }
     }
     /** Creates a new instance of MessageView */

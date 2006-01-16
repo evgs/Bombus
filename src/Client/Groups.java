@@ -9,6 +9,7 @@
 
 package Client;
 
+import images.RosterIcons;
 import java.util.*;
 import ui.ImageList;
 
@@ -89,7 +90,7 @@ public class Groups{
         Vector s=new Vector();
         for (int i=Groups.COMMON_INDEX; i<groups.size(); i++) {
 	    Group grp=(Group) groups.elementAt(i);
-	    if (grp.imageExpandedIndex!=ImageList.ICON_GCJOIN_INDEX)
+	    if (grp.imageExpandedIndex!=RosterIcons.ICON_GCJOIN_INDEX)
             s.addElement(grp.name);
         }
         s.addElement(Groups.IGNORE_GROUP);

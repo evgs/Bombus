@@ -24,7 +24,7 @@ public class Node extends IconTextElement{
     private String node;
     private String name;
     
-    public int getImageIndex() { return ImageList.ICON_COLLAPSED_INDEX; }
+    public int getImageIndex() { return RosterIcons.ICON_COLLAPSED_INDEX; }
     public int getColor() { return 0; }
     /** Creates a new instance of Item */
     public Node(String name, String node) {

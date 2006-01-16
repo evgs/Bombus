@@ -36,8 +36,8 @@ public class PrivacyList extends IconTextElement{
     }
     
     public int getImageIndex() {return (isActive)?
-        ImageList.ICON_PRIVACY_ACTIVE:
-        ImageList.ICON_PRIVACY_PASSIVE; }
+        RosterIcons.ICON_PRIVACY_ACTIVE:
+        RosterIcons.ICON_PRIVACY_PASSIVE; }
     public int getColor() {return 0; }
     
     public String toString() {

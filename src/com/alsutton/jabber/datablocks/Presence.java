@@ -26,9 +26,9 @@
 
 package com.alsutton.jabber.datablocks;
 import com.alsutton.jabber.*;
+import images.RosterIcons;
 
 import java.util.*;
-import ui.ImageList;
 
 /**
  * Class representing the presence message block.
@@ -181,9 +181,9 @@ public class Presence extends JabberDataBlock
   public final static int PRESENCE_OFFLINE=5;
   public final static int PRESENCE_ASK=6;
   public final static int PRESENCE_UNKNOWN=7;
-  public final static int PRESENCE_INVISIBLE=ImageList.ICON_INVISIBLE_INDEX;
-  public final static int PRESENCE_ERROR=ImageList.ICON_ERROR_INDEX;
-  public final static int PRESENCE_TRASH=ImageList.ICON_ERROR_INDEX+1;
+  public final static int PRESENCE_INVISIBLE=RosterIcons.ICON_INVISIBLE_INDEX;
+  public final static int PRESENCE_ERROR=RosterIcons.ICON_ERROR_INDEX;
+  public final static int PRESENCE_TRASH=RosterIcons.ICON_ERROR_INDEX+1;
   public final static int PRESENCE_AUTH=-1;
   
   public final static String PRS_OFFLINE="unavailable";

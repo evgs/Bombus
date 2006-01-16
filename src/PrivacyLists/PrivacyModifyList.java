@@ -59,7 +59,7 @@ public class PrivacyModifyList
     }
     
     private void processIcon(boolean processing){
-        getTitleItem().setElementAt((processing)?(Object)new Integer(ImageList.ICON_PROGRESS_INDEX):(Object)null, 0);
+        getTitleItem().setElementAt((processing)?(Object)new Integer(RosterIcons.ICON_PROGRESS_INDEX):(Object)null, 0);
         redraw();
     }
 

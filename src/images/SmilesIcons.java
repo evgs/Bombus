@@ -19,7 +19,8 @@ public class SmilesIcons extends ImageList{
     
     /** Creates a new instance of SmilesIcons */
     private SmilesIcons() {
-	super("/images/smiles.png",15,15);
+	super("/images/smiles.png");
+	height=width=15;
     }
     private static ImageList instance;
     public static ImageList getInstance() {

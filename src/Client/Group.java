@@ -22,7 +22,7 @@ public class Group extends IconTextElement {
     int index; // group index
     public int ncontacts;
     public int onlines;
-    public int imageExpandedIndex=ImageList.ICON_EXPANDED_INDEX;
+    public int imageExpandedIndex=RosterIcons.ICON_EXPANDED_INDEX;
         
     public Vector contacts;
     
@@ -41,7 +41,7 @@ public class Group extends IconTextElement {
     public int getColor(){ return 0x000080; }
     public int getImageIndex() {
         return collapsed?
-            ImageList.ICON_COLLAPSED_INDEX
+            RosterIcons.ICON_COLLAPSED_INDEX
             :imageExpandedIndex;
     }
     
@@ -58,7 +58,7 @@ public class Group extends IconTextElement {
     public void setIndex(int index) {
 	this.index = index;
         if (index==Groups.SRC_RESULT_INDEX) 
-            imageExpandedIndex=ImageList.ICON_SEARCH_INDEX;
+            imageExpandedIndex=RosterIcons.ICON_SEARCH_INDEX;
     }
     
 }

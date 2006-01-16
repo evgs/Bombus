@@ -97,7 +97,7 @@ public class ServiceDiscovery
     
     
     private void titleUpdate(){
-        int icon=(blockWait)?ImageList.ICON_PROGRESS_INDEX:0;
+        int icon=(blockWait)?RosterIcons.ICON_PROGRESS_INDEX:0;
         getTitleItem().setElementAt(new Integer(icon), 0);
         getTitleItem().setElementAt(service, 1);
         getTitleItem().setElementAt(sd.roster.messageIcon, 3);
@@ -284,7 +284,7 @@ public class ServiceDiscovery
             this.index=index; this.name=name;
         }
         public int getColor(){ return 0x000080; }
-        public int getImageIndex() { return ImageList.ICON_GCJOIN_INDEX + index; }
+        public int getImageIndex() { return RosterIcons.ICON_GCJOIN_INDEX + index; }
         public String toString(){ return name; }
         public void onSelect(){
             switch (index) {
