@@ -17,10 +17,11 @@ import ui.ImageList;
  */
 public class SmilesIcons extends ImageList{
     
+    private final static int SMILES_IN_ROW=16;
     /** Creates a new instance of SmilesIcons */
     private SmilesIcons() {
 	super("/images/smiles.png");
-	height=width=15;
+	height=width=resImage.getWidth()/SMILES_IN_ROW;
     }
     private static ImageList instance;
     public static ImageList getInstance() {
