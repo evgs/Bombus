@@ -91,7 +91,8 @@ public class XMLParser
         
         switch (nextChar) {
             case '\'': // '
-            case '\"': // "       
+            case '\"': // "
+		if (tagBracket=='<') break;
                 inQuote=( inQuote==0 )? nextChar: 0;
                 break;
             case '&':

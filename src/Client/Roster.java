@@ -787,7 +787,8 @@ public class Roster
                 String name=null;
                 boolean groupchat=false;
                 try { // type=null
-                    if (message.getTypeAttribute().equals("groupchat")) {
+		    String type=message.getTypeAttribute();
+                    if (type.equals("groupchat")) {
                         groupchat=true;
                         start_me=0; // добавить ник в начало
                         int rp=from.indexOf('/');
@@ -796,6 +797,9 @@ public class Roster
                         
                         if (rp>0) from=from.substring(0, rp);
                     }
+		    if (type.equals("error")) {
+			body="ERROR: "+message.getChildBlock("error")+"\n"+body;
+		    }
                 } catch (Exception e) {}
                 Contact c=presenceContact(from, -1);
                 if (name==null) name=c.getName();

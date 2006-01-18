@@ -28,7 +28,9 @@ public class Msg //implements MessageList.Element
     public final static int MESSAGE_TYPE_HISTORY=3;
     // with signaling
     public final static int MESSAGE_TYPE_IN=10;
-    public final static int MESSAGE_TYPE_AUTH=11;
+    public final static int MESSAGE_TYPE_HEADLINE=11;
+    public final static int MESSAGE_TYPE_ERROR=11;
+    public final static int MESSAGE_TYPE_AUTH=15;
     
     /** Creates a new instance of msg */
     public Msg(int messageType, String from, String subj, String body) {
@@ -37,8 +39,7 @@ public class Msg //implements MessageList.Element
         this.body=body;
         this.subject=subj;
         this.dateGmt=Time.localTime();
-        if (messageType==MESSAGE_TYPE_IN) unread=true;
-        if (messageType==MESSAGE_TYPE_AUTH) unread=true;
+        if (messageType>=MESSAGE_TYPE_IN) unread=true;
     }
     
     public void onSelect(){}
