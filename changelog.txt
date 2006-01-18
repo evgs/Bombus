@@ -1913,6 +1913,9 @@ syslog_msg: true
   в сообщениях с type="error" выводится не только <body/>, но и <error/>
 (376)
   fix: xml-парсер спотыкался на конструкциях вида <tag>'</tag> и <tag>"</tag>
+(377)
+  кнопка OK продублирована в меню в service discovery (Browse)
+  в заголовке Service Discovery добавилось число элементов в текущем узле
 
 ---------------------------
   known issues:

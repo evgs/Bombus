@@ -40,7 +40,8 @@ public class ServiceDiscovery
     private final static String strCmds="Execute";
     private final int AD_HOC_INDEX=17;
     
-    private Command cmdRfsh=new Command("Refresh", Command.SCREEN, 1);
+    private Command cmdOk=new Command("Browse", Command.SCREEN, 1);
+    private Command cmdRfsh=new Command("Refresh", Command.SCREEN, 2);
     private Command cmdSrv=new Command("Server", Command.SCREEN, 10);
     private Command cmdAdd=new Command("Add to roster", Command.SCREEN, 11);
     private Command cmdBack=new Command("Back", Command.BACK, 98);
@@ -66,7 +67,7 @@ public class ServiceDiscovery
 
         setTitleImages(RosterIcons.getInstance());
 
-        createTitleItem(2, null, null).addRAlign();
+        createTitleItem(3, null, null).addRAlign();
         getTitleItem().addElement(null);
         
         stream=sd.roster.theStream;
@@ -99,8 +100,19 @@ public class ServiceDiscovery
     private void titleUpdate(){
         int icon=(blockWait)?RosterIcons.ICON_PROGRESS_INDEX:0;
         getTitleItem().setElementAt(new Integer(icon), 0);
-        getTitleItem().setElementAt(service, 1);
-        getTitleItem().setElementAt(sd.roster.messageIcon, 3);
+        getTitleItem().setElementAt(service, 2);
+        getTitleItem().setElementAt(sd.roster.messageIcon, 4);
+	
+	int size=0;
+	try { size=items.size(); } catch (Exception e) {}
+	String count=null;
+	if (size>0) {
+	    addCommand(cmdOk); 
+	    count=" ("+size+") ";
+	} else {
+	    removeCommand(cmdOk);
+	}
+        getTitleItem().setElementAt(count,1);	    
     }
     
     private void requestQuery(String namespace, String id){
@@ -246,6 +258,7 @@ public class ServiceDiscovery
     }
     
     public void commandAction(Command c, Displayable d){
+	if (c==cmdOk) eventOk();
         if (c==cmdBack){ 
             if (stackItems.isEmpty()) { 
                 exitDiscovery();
