@@ -71,4 +71,9 @@ public class ActiveContacts
 	if (c==cmdCancel) destroyView();
 	if (c==cmdSelect) eventOk();
     }
+    
+    public void keyPressed(int keyCode) {
+	if (keyCode==KEY_NUM3) destroyView();
+	else super.keyPressed(keyCode);
+    }
 }

@@ -142,4 +142,9 @@ implements CommandListener{
         (new MessageEdit(display,contact,contact.msgSuspended)).setParentView(this);
         contact.msgSuspended=null;
     }
+    
+    public void keyRepeated(int keyCode) {
+	if (keyCode==KEY_NUM3) new ActiveContacts(display, contact);
+	else super.keyPressed(keyCode);
+    }
 }
