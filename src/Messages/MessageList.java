@@ -17,15 +17,18 @@ import java.util.Vector;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.Display;
 import ui.ComplexString;
-import ui.ComplexStringList;
+import ui.VirtualElement;
+import ui.VirtualList;
 
 /**
  *
  * @author EvgS
  */
 public abstract class MessageList 
-    extends ComplexStringList
+    extends VirtualList
 {
+    
+    protected Vector messages;
     
     protected Command cmdBack = new Command("Back", Command.BACK, 99);
     
@@ -33,19 +36,28 @@ public abstract class MessageList
     public MessageList(Display display) {
         super(display);
         
+	messages=new Vector();
         smiles=Config.getInstance().smiles;
         //sd.config.updateTime();
     
 	enableListWrapping(false);
 	
-        attachList(new Vector());
-
         cursor=0;//activate
         
         addCommand(cmdBack);
     }
 
     public abstract int getItemCount(); // из protected сделали public
+
+    protected VirtualElement getItemRef(int index) {
+	if (messages.size()<getItemCount()) messages.setSize(getItemCount());
+	MessageItem mi=(MessageItem) messages.elementAt(index);
+	if (mi==null) {
+	    mi=new MessageItem(getMessage(index), this);
+	    messages.setElementAt(mi, index);
+	}
+	return mi;
+    }
     
     public abstract Msg getMessage(int index);
 	//public Element getItemRef(int Index){ return (Element) contact.msgs.elementAt(Index); }
@@ -60,22 +72,6 @@ public abstract class MessageList
     
     public void markRead(int msgIndex) {}
     
-    protected ComplexString cacheUpdate(int index) {
-	ComplexString m;
-	Msg msg = getMessage(index);
-
-	m= (ComplexString)MessageParser.getInstance().
-	parseMsg( msg, (smiles)? SmilesIcons.getInstance():null, getWidth()-6, true, null);
-	m.setColor(msg.getColor());
-	
-	    /*if (msg.messageType==Msg.MESSAGE_TYPE_AUTH) {
-		m.addImage(ImageList.ICON_AUTHRQ_INDEX);
-	    }*/
-	//m.insertElementAt(new Integer(msg.getColor1()|0x1000000), 0); //color
-	int sz=lines.size(); if (index>=sz) lines.setSize(index+1);
-	lines.setElementAt(m, index);
-	return m;
-    }
 
     protected boolean smiles;
     

@@ -299,7 +299,7 @@ public final class MessageParser {
 
             if (notify!=null) {
                 notify.notifyRepaint(v, msg);
-                notify.notifyFinalized();
+                //notify.notifyFinalized();
             }
             state++;
         }
@@ -309,7 +309,6 @@ public final class MessageParser {
 
     public interface MessageParserNotify {
         void notifyRepaint(Vector v, Msg parsedMsg);
-        void notifyFinalized();
 	void notifyUrl(String url);
     }
 }

@@ -56,8 +56,6 @@ public class MessageView
         redraw(); 
     }
     
-    public void notifyFinalized(){ redraw(); }
-    
     public void keyLeft(){
         if (win_top==0) changeMsg(-1); else super.keyLeft();
     }

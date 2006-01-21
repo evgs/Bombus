@@ -77,7 +77,7 @@ public class ArchiveList
 	}
 	if (c==cmdDelete) {
 	    archive.delete(cursor);
-	    attachList(new Vector());
+	    messages=new Vector();
 	    redraw();
 	}
 	if (c==cmdPaste) { pasteData(0); }
