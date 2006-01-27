@@ -93,6 +93,7 @@ public abstract class VirtualList
     public static final int SIEMENS_GREEN=-11;
     public static final int NOKIA_GREEN=-10;
     public static final int MOTOROLA_GREEN=-10;
+    public static final int SE_GREEN=0;
     
     public static int greenKeyCode=SIEMENS_GREEN;
     public static boolean fullscreen=false;

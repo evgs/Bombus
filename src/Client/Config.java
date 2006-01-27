@@ -121,6 +121,7 @@ public class Config {
 	
 	if (platform.startsWith("SonyE")) {
 	    allowMinimize=true;
+            greenKeyCode=VirtualList.SE_GREEN;
 	}
 	if (platform.startsWith("Nokia")) {
 	    blFlash=false;
