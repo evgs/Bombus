@@ -10,6 +10,7 @@
 package Messages;
 
 import Client.Msg;
+import images.RosterIcons;
 import images.SmilesIcons;
 import java.util.Enumeration;
 import java.util.Vector;
@@ -31,6 +32,7 @@ public class MessageItem implements
     private Vector msgLines;
     private int msgHeight;
     private VirtualList view;
+    private boolean collapsed=true;
     
     /** Creates a new instance of MessageItem */
     public MessageItem(Msg msg, VirtualList view) {
@@ -53,21 +55,28 @@ public class MessageItem implements
 	    for (Enumeration e=msgLines.elements(); e.hasMoreElements(); ) {
 		ComplexString line=(ComplexString) e.nextElement();
 		int h=line.getVHeight();
-		if (y>=0 && y<g.getClipHeight()) 
-		    line.drawItem(g, 0, selected);
+		if (y>=0 && y<g.getClipHeight()) {
+                    if (collapsed) if (msgLines.size()>1) {
+                        RosterIcons.getInstance().drawImage(g, RosterIcons.ICON_MSGCOLLAPSED_INDEX, 0,0);
+                        g.translate(8,0); //FIXME: хардкод
+                    }
+                    line.drawItem(g, 0, selected);
+                }
 		g.translate(0, h);
+                if (collapsed) break;
 	    }
 	}
 
 	public void onSelect() {
 	}
 
-	public void notifyRepaint(Vector v, Msg parsedMsg) {
+	public void notifyRepaint(Vector v, Msg parsedMsg, boolean finalized) {
 	    msgLines=v;
 	    int height=0;
 	    for (Enumeration e=msgLines.elements(); e.hasMoreElements(); ) {
 		ComplexString line=(ComplexString) e.nextElement();
 		height+=line.getVHeight();
+                if (collapsed) break;
 	    }
 	    msgHeight=height;
 	    view.redraw();

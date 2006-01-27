@@ -48,10 +48,10 @@ public class MessageView
     
     private Vector urlList;
     
-    public void notifyRepaint(Vector v, Msg parsedMsg){
+    public void notifyRepaint(Vector v, Msg parsedMsg, boolean finalized){
         if (parsedMsg!=msg) return;
         attachList(v);
-        if ((--repaintCounter)>=0) return;
+        if (!finalized) if ((--repaintCounter)>=0) return;
         repaintCounter=5;
         redraw(); 
     }

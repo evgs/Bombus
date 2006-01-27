@@ -526,6 +526,7 @@ public abstract class VirtualList
      */
     private void key(int keyCode) {
         switch (keyCode) {
+            case 0: break;
             case KEY_NUM1:  { moveCursorHome();    break; }
             case KEY_NUM7:  { moveCursorEnd();     break; }
             default:

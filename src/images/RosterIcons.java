@@ -31,46 +31,49 @@ public class RosterIcons extends ImageList{
 	return instance;
     }
 
-    public static final int ICON_INVISIBLE_INDEX = 81;
+    public static final int ICON_INVISIBLE_INDEX = 0x51;
 
-    public static final int ICON_ERROR_INDEX = 82;
+    public static final int ICON_ERROR_INDEX = 0x52;
 
-    public static final int ICON_TRASHCAN_INDEX = 83;
+    public static final int ICON_TRASHCAN_INDEX = 0x53;
 
-    public static final int ICON_PROGRESS_INDEX = 84;
+    public static final int ICON_PROGRESS_INDEX = 0x54;
 
-    public static final int ICON_MODERATOR_INDEX = 96;
+    public static final int ICON_MODERATOR_INDEX = 0x60;
 
-    public static final int ICON_PRIVACY_ACTIVE = 102;
+    public static final int ICON_PRIVACY_ACTIVE = 0x66;
 
-    public static final int ICON_PRIVACY_PASSIVE = 103;
+    public static final int ICON_PRIVACY_PASSIVE = 0x67;
 
-    public static final int ICON_GROUPCHAT_INDEX = 112;
+    public static final int ICON_GROUPCHAT_INDEX = 0x70;
 
-    public static final int ICON_GCJOIN_INDEX = 113;
+    public static final int ICON_GCJOIN_INDEX = 0x71;
 
-    public static final int ICON_SEARCH_INDEX = 114;
+    public static final int ICON_SEARCH_INDEX = 0x72;
 
-    public static final int ICON_REGISTER_INDEX = 115;
+    public static final int ICON_REGISTER_INDEX = 0x73;
 
-    public static final int ICON_MESSAGE_INDEX = 128;
+    public static final int ICON_MSGCOLLAPSED_INDEX = 0x74;
 
-    public static final int ICON_AUTHRQ_INDEX = 129;
+    public static final int ICON_MESSAGE_INDEX = 0x80;
 
-    public static final int ICON_COMPOSING_INDEX = 130;
+    public static final int ICON_AUTHRQ_INDEX = 0x81;
 
-    public static final int ICON_EXPANDED_INDEX = 131;
+    public static final int ICON_COMPOSING_INDEX = 0x82;
 
-    public static final int ICON_COLLAPSED_INDEX = 132;
+    public static final int ICON_EXPANDED_INDEX = 0x83;
 
-    public static final int ICON_MESSAGE_BUTTONS = 133;
+    public static final int ICON_COLLAPSED_INDEX = 0x84;
 
-    public static final int ICON_PROFILE_INDEX = 144;
+    public static final int ICON_MESSAGE_BUTTONS = 0x85;
 
-    public static final int ICON_PRIVACY_ALLOW = 149;
+    public static final int ICON_PROFILE_INDEX = 0x90;
 
-    public static final int ICON_PRIVACY_BLOCK = 150;
+    public static final int ICON_PRIVACY_ALLOW = 0x95;
 
-    public static final int ICON_KEYBLOCK_INDEX = 151;
+    public static final int ICON_PRIVACY_BLOCK = 0x96;
+
+    public static final int ICON_KEYBLOCK_INDEX = 0x97;
+
     
 }
