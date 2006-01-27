@@ -18,9 +18,10 @@ import ui.VirtualList;
  */
 public class ScrollBar {
     
-    private static final int COLOR_SCROLL_PTR     =0x0033ff;
-    private static final int COLOR_SCROLL_BGND    =0x888888;
-    public static final int COLOR_BGND           =0xFFFFFF;
+    private static final int COLOR_SCROLL_BRD     =0x000000;
+    private static final int COLOR_SCROLL_BAR     =0xBBBBBB;
+    private static final int COLOR_SCROLL_BGND    =0xDDDDDD;
+    public static final int COLOR_BGND           =0xffffff;
     private static final int WIDTH_SCROLL_1      =4;
     private static final int WIDTH_SCROLL_2      =10;
     
@@ -117,7 +118,10 @@ public class ScrollBar {
 	scrollerSize=(drawHeight*windowSize)/size+minimumHeight;
 	
 	scrollerPos=(drawHeight*position)/size;
-        g.setColor(COLOR_SCROLL_PTR);
+        g.setColor(COLOR_SCROLL_BAR);
+        g.fillRect(1, scrollerPos, scrollWidth-2, scrollerSize);
+        
+        g.setColor(COLOR_SCROLL_BRD);
         g.drawRect(0, scrollerPos, scrollWidth-1, scrollerSize);
 	
 	//scrollerPos+=g.getTranslateY();

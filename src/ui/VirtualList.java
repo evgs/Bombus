@@ -76,9 +76,10 @@ public abstract class VirtualList
     public void userKeyPressed(int keyCode){}
     //////////////////////////////////
     //public static final int VL_CURSOR_SHADE   =0x000000;
-    public static final int VL_CURSOR_BODY    =0x00FF00;
+    //public static final int VL_CURSOR_BODY    =0x00FF00;
+    public static final int VL_CURSOR_BODY    =0xC8D7E6;
 //#if !(MIDP1)
-    public static final int VL_CURSOR_OUTLINE =0x008800;
+    public static final int VL_CURSOR_OUTLINE =0x000066;
 //#else
 //--    public static final int VL_CURSOR_OUTLINE =VL_CURSOR_BODY;
 //#endif
