@@ -65,9 +65,8 @@ public class ServiceDiscovery
     public ServiceDiscovery(Display display, String service, String node) {
         super(display);
 
-        setTitleImages(RosterIcons.getInstance());
-
-        createTitleItem(3, null, null).addRAlign();
+        setTitleItem(new Title(3, null, null));
+        getTitleItem().addRAlign();
         getTitleItem().addElement(null);
         
         stream=sd.roster.theStream;
@@ -94,7 +93,7 @@ public class ServiceDiscovery
     public int getItemCount(){ return items.size();}
     public VirtualElement getItemRef(int index) { return (VirtualElement) items.elementAt(index);}
     
-    protected void beginPaint(){ getTitleItem().setElementAt(sd.roster.messageIcon,3); }
+    protected void beginPaint(){ getTitleItem().setElementAt(sd.roster.messageIcon,4); }
     
     
     private void titleUpdate(){

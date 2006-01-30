@@ -37,9 +37,7 @@ public class SearchResult
         
         String service=result.getAttribute("from");
         
-        setTitleImages(RosterIcons.getInstance());
-        
-        createTitleItem(2, null, service);
+        setTitleItem(new Title(2, null, service));
         
         addCommand(cmdBack);
         setCommandListener(this);

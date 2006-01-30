@@ -10,6 +10,7 @@
 package ui;
 import java.util.*;
 import javax.microedition.lcdui.*;
+import ui.VirtualElement;
 
 /**
  *
@@ -105,7 +106,14 @@ public class ComplexString extends Vector implements VirtualElement{
 			    underline=true;
 			    break;
                     }
-                } // Integer
+                } /* Integer*/ else if (ob instanceof VirtualElement) { 
+                    int clipw=g.getClipWidth(); 
+                    int cliph=g.getClipHeight();
+                    ((VirtualElement)ob).drawItem(g,0,false);
+                    g.setClip(g.getTranslateX(), g.getTranslateY(), clipw, cliph);
+                    //TODO: рисование не с нулевой позиции и вычисление ширины
+                }
+
             } // if ob!=null
         } // for
         
@@ -167,11 +175,13 @@ public class ComplexString extends Vector implements VirtualElement{
         for (int i=0;i<elementCount;i++){
             int h=0;
             Object o=elementData[i];
+            if (o==null) continue;
             if (o instanceof String) { h=font.getHeight(); } else
             if (o instanceof Integer) {
                 int a=((Integer)o).intValue();
                 if ((a&0xff000000) == 0) { h=imageList.getWidth(); }
-            }
+            } else
+            if (o instanceof VirtualElement) { h=((VirtualElement)o).getVHeight(); }
             if (h>height) height=h;
         }
         return height;

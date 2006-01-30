@@ -50,9 +50,9 @@ implements CommandListener{
         this.contact=contact;
         sd=StaticData.getInstance();
         
-        title=new ComplexString(RosterIcons.getInstance());
+        Title title=new Title(contact);
+        setTitleItem(title);
         
-        title.addElement(contact.toString());
         title.addRAlign();
         title.addElement(null);
         title.addElement(null);
@@ -78,9 +78,9 @@ implements CommandListener{
         else addCommand(cmdResume);
     }
     
-    protected void beginPaint(){ 
-        title.setElementAt(sd.roster.messageIcon,2);
-        title.setElementAt(contact.incomingComposing, 3);
+    protected void beginPaint(){
+        getTitleItem().setElementAt(sd.roster.messageIcon,2);
+        getTitleItem().setElementAt(contact.incomingComposing, 3);
     }
     
     public void markRead(int msgIndex) {
@@ -119,10 +119,10 @@ implements CommandListener{
         }
         if (c==cmdResume) { keyGreen(); }
         if (c==cmdQuote) {
-            new MessageEdit(display,contact,((Msg)getFocusedObject()).toString());
+            new MessageEdit(display,contact,getMessage(cursor).toString());
         }
         if (c==cmdArch) {
-	    MessageArchive.store((Msg)getFocusedObject());
+	    MessageArchive.store(getMessage(cursor));
         }
         if (c==cmdPurge) {
             contact.purge();

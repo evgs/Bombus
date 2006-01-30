@@ -32,7 +32,7 @@ public class AppendNick
         super(display);
         //this.display=display;
         
-        createTitleItem(1, "Select nickname",null);
+        setTitleItem(new Title("Select nickname"));
         
         nicknames=new Vector();
         for (Enumeration e=StaticData.getInstance().roster.getHContacts().elements(); e.hasMoreElements(); ) {
@@ -63,7 +63,7 @@ public class AppendNick
         TextBox t=(TextBox)parentView;
 
         try {
-            String nick=((Contact)atCursor).getJid();
+            String nick=((Contact)getFocusedObject()).getJid();
             int rp=nick.indexOf('/');
             StringBuffer b=new StringBuffer(nick.substring(rp+1));
             

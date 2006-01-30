@@ -36,14 +36,6 @@ abstract public class IconTextElement implements VirtualElement
     abstract protected int getImageIndex();
     //abstract public void onSelect();
 
-    //private Element _callback;
-    
-    /*public void attachElements(Element e){
-        _callback=e;
-        redraw();
-    }
-     */
-    
     public int getBGndRGB(){ return 0xffffff;}
     public int getFontIndex() { return 0;}
     private Font getFont() { 

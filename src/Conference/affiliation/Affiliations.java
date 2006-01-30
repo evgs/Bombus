@@ -63,8 +63,8 @@ public class Affiliations
 	}
 	
         this.id=AffiliationItem.getAffiliationName(affiliationIndex);
-        setTitleImages(RosterIcons.getInstance());
-        createTitleItem(2, null, id);
+        
+        setTitleItem(new Title(2, null, id));
         items=new Vector();
         
         addCommand(cmdCancel);
@@ -91,7 +91,7 @@ public class Affiliations
     
     public void eventOk(){
         try {
-            AffiliationItem item=(AffiliationItem)atCursor;
+            AffiliationItem item=(AffiliationItem)getFocusedObject();
             new AffiliationModify(display, room, item.jid, 
                     AffiliationItem.getAffiliationName(item.affiliation));
         } catch (Exception e) { }

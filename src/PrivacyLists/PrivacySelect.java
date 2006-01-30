@@ -13,6 +13,7 @@ package PrivacyLists;
 import Client.Groups;
 import Client.Roster;
 import Client.StaticData;
+import Client.Title;
 import images.RosterIcons;
 import javax.microedition.lcdui.*;
 import ui.*;
@@ -44,8 +45,8 @@ public class PrivacySelect
     /** Creates a new instance of PrivacySelect */
     public PrivacySelect(Display display) {
         super(display);
-        setTitleImages(RosterIcons.getInstance());
-        createTitleItem(2, null, "Privacy Lists");
+        
+        setTitleItem(new Title(2, null, "Privacy Lists"));
         addCommand(cmdActivate);
         addCommand(cmdDefault);
         addCommand(cmdCancel);
@@ -93,8 +94,8 @@ public class PrivacySelect
             getLists();
         }
         if (c==cmdDelete) {
-            if (atCursor!=null) {
-                PrivacyList pl=(PrivacyList) atCursor;
+            PrivacyList pl=(PrivacyList) getFocusedObject();
+            if (pl!=null) {
                 if (pl.name!=null) pl.deleteList();
                 getLists();
             }
@@ -146,8 +147,8 @@ public class PrivacySelect
     }
 
     public void eventOk(){
-        if (atCursor!=null) {
-            PrivacyList pl=(PrivacyList) atCursor;
+        PrivacyList pl=(PrivacyList) getFocusedObject();
+        if (pl!=null) {
             if (pl.name!=null) new PrivacyModifyList(display, pl);
         }
     }

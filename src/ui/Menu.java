@@ -8,6 +8,7 @@
  */
 
 package ui;
+import Client.Title;
 import java.util.*;
 import javax.microedition.lcdui.*;
 
@@ -24,7 +25,7 @@ public class Menu extends VirtualList implements CommandListener
     
     public Menu(String title) {
         super();
-        createTitleItem(1, title, null);
+        setTitleItem(new Title(title));
         menuitems=new Vector();
         addCommand(cmdBack);
         addCommand(cmdOk);

@@ -39,10 +39,9 @@ public class AccountSelect
     /** Creates a new instance of AccountPicker */
     public AccountSelect(Display display, boolean enableQuit) {
         super();
-        setTitleImages(RosterIcons.getInstance());
         //this.display=display;
 
-        createTitleItem(1, "Accounts",null);
+        setTitleItem(new Title("Accounts"));
         
         accountList=new Vector();
         Account a;

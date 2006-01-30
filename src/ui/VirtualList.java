@@ -61,12 +61,16 @@ public abstract class VirtualList
     
     /**
      * событие "Нажатие кнопки ОК"
-     * в классе VirtualList вызывается функция onSelect выбранного элемента, необходимо
-     * переопределить (override) функцию для реализации необходимых действий
+     * базовая реализация VirtualList вызывает функцию onSelect для выбранного элемента; 
+     * необходимо переопределить (override) функцию для реализации желаемых действий
      */
     public void eventOk(){
-        if (atCursor!=null) ((VirtualElement)atCursor).onSelect();
+        try {
+            ((VirtualElement)getFocusedObject()).onSelect();
+            //fitCursor();
+        } catch (Exception e) { e.printStackTrace();} 
     }
+    
     /**
      * Обработчик дополнительных кнопок. Вызывается в случае, если код кнопки 
      * не был обработан функцией key(keyCode)
@@ -74,6 +78,7 @@ public abstract class VirtualList
      * @param keyCode код клавиши
      */
     public void userKeyPressed(int keyCode){}
+    
     //////////////////////////////////
     //public static final int VL_CURSOR_SHADE   =0x000000;
     //public static final int VL_CURSOR_BODY    =0x00FF00;
@@ -99,32 +104,73 @@ public abstract class VirtualList
     public static boolean fullscreen=false;
     public static boolean memMonitor;
     
+    /** метрика экрана */
     int width;
     int height;
     
-    Image offscreen;
+    /** экранный буфер для скрытой отрисовки. используется, если платформа 
+     * не поддерживает двойную буферизацию экрана
+     */
+    private Image offscreen;
+    
+    /** признак положения курсора в конце списка */
+    protected boolean atEnd; //FIXME: перенести поведение в функции keyRight();
     
     protected int cursor;
-    protected boolean atEnd;
-    protected boolean blockChangeFocus;
     
-    protected VirtualElement atCursor;
+    /** 
+     * окно приклеено к позиции курсора 
+     * ПРИКЛЕИВАЕТСЯ:
+     *   при нажатии кнопок перемещения курсора
+     *   при выборе стилусом элемента списка
+     * ОТКЛЕИВАЕТСЯ:
+     *   при использовании скролбара
+     */
+    protected boolean stickyWindow=true;
     
-    //protected 
-    public int win_top;    // первый элемент
+    private int itemLayoutY[];
+    private int listHeight;
+    
+    protected void updateLayout(){
+        int size=getItemCount();
+        if (size==0) return;
+        int layout[]=new int[size+1];
+        int y=0;
+        for (int index=0; index<size; index++){
+            y+=getItemRef(index).getVHeight();
+            layout[index+1]=y;
+        };
+        listHeight=y;
+        itemLayoutY=layout;
+    }
+    protected int getElementIndexAt(int yPos){
+        // деление пополам
+        int end=getItemCount()-1;
+        if (end<0) return -1;
+        int begin=0;
+        while (end-begin>1) {
+            int index=(end+begin)/2;
+            if (yPos<itemLayoutY[index]) end=index; else begin=index;
+        }
+        return begin;
+    }
+    
+    public int win_top;    // верхняя граница окна относительно списка
+    private int winHeight;  // отображаемый размер списка
     //int full_items; // полностью изображено в окне
-    protected int offset;     // смещение курсора
+    protected int offset;     // счётчик автоскроллинга
     
-    protected ComplexString title;
-    protected ImageList titleil;
+    protected VirtualElement title;
     
     private boolean wrapping = true;
 
+    /** видимые границы элементов списка - зоны срабатывания touchscreen */
     private int itemBorder[];
-    // doubleclick
+    /** обработка doubleclick */
     private int lastClickY;
     private int lastClickItem;
     private long lastClickTime;
+    
     /**
      * Разрешает заворачивание списка в кольцо (перенос курсора через конец списка)
      * по умолчанию установлен true
@@ -133,33 +179,11 @@ public abstract class VirtualList
     public void enableListWrapping(boolean wrap) { this.wrapping=wrap; }
     
     /**
-     * Создаёт заголовок списка на базе объекта ComplexString
-     * @param size число полей создаваемого ComplexString
-     * @param first первое поле ComplexString
-     * @param second второе поле ComplexString
-     * @return созданный объект ComplexString, присоединённый в качестве заголовка
-     */
-    public ComplexString createTitleItem(int size, Object first, Object second) {
-        ComplexString title=new ComplexString(titleil);
-        title.setSize(size);
-        if (first!=null) title.setElementAt(first,0);
-        if (second!=null) title.setElementAt(second,1);
-        setTitleItem(title);
-        return title;
-    }
-    
-    /**
      * ссылка на заголовок списка
      * @return объект типа ComplexString
      */
-    public ComplexString getTitleItem() {return title;}
+    public ComplexString getTitleItem() {return (ComplexString)title;}
     public void setTitleItem(ComplexString title) { this.title=title; }
-    
-    /**
-     * присоединение ресурса-списка изображений к заголовку
-     * @param il ресурс-список изображений
-     */
-    public void setTitleImages(ImageList il) { this.titleil=il; }
     
     /**
      * возвращает ссылку на объект в фокусе. 
@@ -167,7 +191,12 @@ public abstract class VirtualList
      * однако, возможно переопределить функцию при наследовании
      * @return ссылка на объект в фокусе.
      */
-    public Object getFocusedObject() { return atCursor; }    
+    public Object getFocusedObject() { 
+        try {
+            return getItemRef(cursor);
+        } catch (Exception e) { }
+        return null;
+    }    
 
     protected Display display;
     protected Displayable parentView;
@@ -193,7 +222,7 @@ public abstract class VirtualList
     /** Creates a new instance of VirtualList */
     public VirtualList(Display display) {
         this();
-        
+
         attachDisplay(display);
     }
     
@@ -274,74 +303,69 @@ public abstract class VirtualList
         int list_top=0; // верхняя граница списка
         if (title!=null) {
             list_top=title.getVHeight();
-            g.setClip(0,0, width, list_top);
-            g.setColor(getTitleBGndRGB());
-            g.fillRect(0,0, width, list_top);
-            g.setColor(getTitleRGB());
-            title.drawItem(g,0,false);
         }
+        winHeight=height-list_top;
 
-	if (memMonitor) {
-	    int ram=(int)((Runtime.getRuntime().freeMemory()*32)/Runtime.getRuntime().totalMemory());
-	    g.setColor(0xffffff);  g.fillRect(width-34,0,34,3);
-	    g.setColor(0x00007f);  g.fillRect(width-33,1,ram,2);
-	}
+        updateLayout(); //fixme: только при изменении списка
 
-        int yp=list_top;
-	itemBorder[0]=list_top;
+        itemBorder[0]=list_top;
         
         int count=getItemCount(); // размер списка
         
-        boolean scroll=(visibleItemsCnt(0,1)<count) ;
+        boolean scroll=(listHeight>winHeight);
 
         if (count==0) {
             cursor=(cursor==-1)?-1:0; 
             win_top=0;
         }
 
+        if (count>0 && stickyWindow) fitCursor();
+        
         int itemMaxWidth=(scroll) ?(width-scrollbar.getScrollWidth()) : (width);
         // элементы окна
         // отрисовка
-        int i=win_top;
-        int fullyDrawedItems=0;
-        
-        VirtualElement atCursor=null;
-        
+        int itemIndex=getElementIndexAt(win_top);
+        int displayedIndex=0;
+        int displayedBottom=list_top;
+   
         atEnd=false;
+        int itemYpos;
         try {
             // try вместо проверки на конец списка
-            while (yp<height) {
+            while ((itemYpos=itemLayoutY[itemIndex]-win_top)<winHeight) {
                 
                 //if (atEnd=(i>=count)) break;    // нечего более рисовать
-                VirtualElement el=getItemRef(i);
+                VirtualElement el=getItemRef(itemIndex);
                 
-                boolean sel=(i==cursor);
+                boolean sel=(itemIndex==cursor);
                 
                 int lh=el.getVHeight();
                 
-                setAbsOrg(g, 0, yp);
+                // окно списка
+                setAbsOrg(g, 0, list_top);
+                g.setClip(0,0, itemMaxWidth, winHeight);    
                 
-                g.setClip(0,0, itemMaxWidth, lh);
+                g.translate(0,itemYpos);
+                g.clipRect(0, 0, itemMaxWidth, lh);
+                
                 g.setColor(el.getColorBGnd());
-                g.fillRect(0,0, itemMaxWidth, lh);
-                if (sel) {
-                    drawCursor(g, itemMaxWidth, lh);
-                    atCursor=el;
-                }
+                if (sel) 
+                    drawCursor(g, itemMaxWidth, lh); 
+                else
+                    g.fillRect(0,0, itemMaxWidth, lh);
+
                 g.setColor(el.getColor());
                 el.drawItem(g, (sel)?offset:0, sel);
                 
-                i++;
-		itemBorder[i-win_top]=yp+lh;
-                if ((yp+=lh)<=height) fullyDrawedItems++;   // число цельных элементов в окне
+                itemIndex++;
+		displayedBottom=itemBorder[++displayedIndex]=list_top+itemYpos+lh;
             }
         } catch (Exception e) { atEnd=true; }
 
-        this.atCursor=atCursor;
         // очистка остатка окна
-        int clrH=height-yp+1;
+        int clrH=height-displayedBottom;
         if (clrH>0) {
-            setAbsOrg(g, 0,yp);
+            setAbsOrg(g, 0,displayedBottom);
             g.setClip(0, 0, itemMaxWidth, clrH);
             g.setColor(VL_BGND);
             //g.setColor(VL_CURSOR_OUTLINE);
@@ -353,19 +377,35 @@ public abstract class VirtualList
         if (scroll) {
 	    
             setAbsOrg(g, 0, list_top);
-            g.setClip(0, 0, width, height-list_top);
+            g.setClip(0, 0, width, winHeight);
 
 	    scrollbar.setPostion(win_top);
-	    scrollbar.setSize(count);
-	    scrollbar.setWindowSize(fullyDrawedItems);
+	    scrollbar.setSize(listHeight);
+	    scrollbar.setWindowSize(winHeight);
 	    
 	    scrollbar.draw(g);
         } else scrollbar.setSize(0);
 
         setAbsOrg(g, 0, 0);
+        if (title!=null) {
+            g.setClip(0,0, width, list_top);
+            g.setColor(getTitleBGndRGB());
+            g.fillRect(0,0, width, list_top);
+            g.setColor(getTitleRGB());
+            title.drawItem(g,0,false);
+        }
+        drawHeapMonitor(g);
 
 	if (offscreen!=null) graphics.drawImage(offscreen, 0,0, Graphics.TOP | Graphics.LEFT );
 	//full_items=fe;
+    }
+
+    private void drawHeapMonitor(final Graphics g) {
+        if (memMonitor) {
+            int ram=(int)((Runtime.getRuntime().freeMemory()*32)/Runtime.getRuntime().totalMemory());
+            g.setColor(0xffffff);  g.fillRect(width-34,0,34,3);
+            g.setColor(0x00007f);  g.fillRect(width-33,1,ram,2);
+        }
     }
     
     
@@ -379,66 +419,13 @@ public abstract class VirtualList
         g.translate(x-g.getTranslateX(), y-g.getTranslateY());
     }
     
-    int visibleItemsCnt(int from, int direction){
-        int count=getItemCount();
-        if (count==0) return 0;
-        if (from>=count) return 0;
-        int wsize=height;
-        int itemcnt=0;
-        if (title!=null) wsize-=title.getVHeight();
-        try { //TODO: убрать затычку, синхронизировать
-            while (wsize>0) {
-                //wsize-=getItemHeight(from);
-                wsize-=getItemRef(from).getVHeight();    
-                if (wsize>=0) itemcnt++;
-                from+=direction;
-                if (from<0) break; // вылет вверх
-                if (from>=count) break;
-            }
-        } catch (Exception e) {e.printStackTrace();}
-        return itemcnt;
-    }
-    
-    
-    /**
-     * перемещение курсора на смещение.
-     * @param offset положительное или отрицательное смещение курсора
-     */
-    synchronized private void moveCursor(int offset, boolean enableRotation){
-        int count=getItemCount();
- 
-        if (cursor>=0) {
-            cursor+=offset;
-
-            // проверка границ списка
-            if (cursor<0) cursor=0;
-            if (cursor>=count) cursor=(count==0)?0:count-1;
-            // выход из окна ? сместим окно
-            if (cursor<win_top) win_top+=offset; else {
-                if (cursor>=win_top+visibleItemsCnt(win_top,1))  win_top+=offset;
-                // теперь сместим курсор, если он вне экрана
-                int vt=win_top+visibleItemsCnt(win_top,1);
-                if (vt>0 && cursor>=vt) cursor=vt-1;
-            }
-            focusedItem(cursor);
-            
-        } else win_top+=offset; // без курсора
-        
-        // проверка установки окна
-        if (win_top<0) win_top=0;
-        int up_bound=count-visibleItemsCnt(count-1,-1);
-        if (win_top>up_bound) win_top=up_bound; 
-
-        if (enableRotation) if (getItemCount()>0) setRotator();
-        
-    }
-
+   
     /**
      * перемещение курсора в начало списка
      */
     public void moveCursorHome(){
-        blockChangeFocus=true;
-        win_top=0;
+        stickyWindow=true;
+        //win_top=0;
         if (cursor>0) {
             cursor=0;
             focusedItem(0);
@@ -450,13 +437,14 @@ public abstract class VirtualList
      * перемещение курсора в конец списка
      */
     public void moveCursorEnd(){
-        blockChangeFocus=true;
+        stickyWindow=true;
         int count=getItemCount();
-        win_top=count-visibleItemsCnt(count-1, -1);
+        //win_top=count-visibleItemsCnt(count-1, -1);
         if (cursor>=0) {
             cursor=(count==0)?0:count-1;
             focusedItem(cursor);
         }
+        //win_top=(listHeight>winHeight)? listHeight-winHeight:0;
         setRotator();
     }
 
@@ -467,14 +455,27 @@ public abstract class VirtualList
     public void moveCursorTo(int index, boolean force){
         int count=getItemCount();
         if (index>=count) index=count-1;    // если за последним элементом, то переместить на него
-        else if ((!force) && blockChangeFocus) return;
+        //else if ((!force) && stickyWindow) return;
         
-        //int ih=getItemHeight(0);
-        //int h=height;
-        //if (title!=null) { h-=title.getHeight(); }
-        //if (ih==0) ih=10;
-        //full_items=h/ih;
-        moveCursor(index-cursor, force); 
+        cursor=index;
+        stickyWindow=true;
+        
+        repaint();
+        //moveCursor(index-cursor, force); 
+    }
+    
+    protected void fitCursor(){
+        //проверка по верхней границе
+        try {
+            int top=itemLayoutY[cursor];
+            if (top<win_top) win_top=top;
+            if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) {
+                // объект помещается на экране - проверим и нижнюю границу
+                int bottom=itemLayoutY[cursor+1]-winHeight;
+                if (bottom>win_top) win_top=bottom;
+            }
+            if (top>=win_top+winHeight) win_top=top;
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
     /*public void moveCursorTo(Object focused){
@@ -495,7 +496,10 @@ public abstract class VirtualList
     protected void keyPressed(int keyCode) { kHold=0; key(keyCode);  }
     
     protected void pointerPressed(int x, int y) { 
-	if (scrollbar.pointerPressed(x, y, this)) return; 
+	if (scrollbar.pointerPressed(x, y, this)) {
+            stickyWindow=false;
+            return;
+        } 
 	int i=0;
 	while (i<32) {
 	    if (y<itemBorder[i]) break;
@@ -503,7 +507,7 @@ public abstract class VirtualList
 	}
 	if (i==0 || i==32) return;
 	//System.out.println(i);
-	if (cursor>=0) moveCursorTo(win_top+i-1, true);
+	if (cursor>=0) moveCursorTo(getElementIndexAt(win_top)+i-1, true);
 	
 	long clickTime=System.currentTimeMillis();
 	if (cursor==lastClickItem)
@@ -515,9 +519,18 @@ public abstract class VirtualList
 	lastClickTime=clickTime;
 	lastClickY=y;
 	lastClickItem=cursor;
+        
+        // сделаем элемент максимально видимым
+        int il=itemLayoutY[cursor+1]-winHeight;
+        if (il>win_top) win_top=il;
+        il=itemLayoutY[cursor];
+        if (il<win_top) win_top=il;
+        
 	repaint();
     }
-    protected void pointerDragged(int x, int y) { scrollbar.pointerDragged(x, y, this); }
+    protected void pointerDragged(int x, int y) { 
+        if (scrollbar.pointerDragged(x, y, this)) stickyWindow=false; 
+    }
     protected void pointerReleased(int x, int y) { scrollbar.pointerReleased(x, y, this); }
     
     /**
@@ -552,9 +565,30 @@ public abstract class VirtualList
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
     public void keyUp() {
-	if (wrapping) if (cursor==0) { moveCursorEnd(); return; }
-        blockChangeFocus=true; 
-        moveCursor(-1, true);  
+	 
+        if (cursor==0) {
+            if (wrapping) { moveCursorEnd(); }
+            return;
+        }
+        /*
+        if (itemLayoutY[cursor]<win_top) {
+            //верхняя граница элемента ещё не на экране
+            win_top-=winHeight;
+            if (win_top<0) win_top=0;
+        } else {
+            cursor--;
+            if (getItemRef(cursor).getVHeight()>winHeight) {
+                // если элемент не может поместиться на экране, вырвниваем по bottom
+                win_top=itemLayoutY[cursor+1]-winHeight;
+            } else if (win_top>itemLayoutY[cursor]) {
+                win_top=itemLayoutY[cursor];
+            }
+        }
+         */
+        if (itemPageUp()) return;
+        stickyWindow=true;
+        cursor--;
+        setRotator();
     }
     
     /**
@@ -564,21 +598,77 @@ public abstract class VirtualList
      */
     
     public void keyDwn() { 
-	if (wrapping) if (cursor==getItemCount()-1) { moveCursorHome(); return; }
-        blockChangeFocus=true; 
-        moveCursor(+1, true); 
+	if (cursor==getItemCount()-1) 
+        { 
+            if (wrapping) moveCursorHome(); 
+            return; 
+        }
+        /*if (itemLayoutY[cursor+1]>win_top+winHeight) {
+            // нижняя граница текущего элемента ещё не на экране
+            win_top+=winHeight; // пока - pagedown
+        } else {
+            cursor++;
+            if (getItemRef(cursor).getVHeight()>winHeight) {
+                // если элемент не может поместиться на экране, вырвниваем по top
+                win_top=itemLayoutY[cursor];
+            } else if (win_top+winHeight<itemLayoutY[cursor+1]) {
+                win_top=itemLayoutY[cursor+1]-winHeight;
+            }
+        }*/
+        if (itemPageDown()) return;
+        stickyWindow=true; 
+        cursor++;
+        setRotator();
     }
     
+    private boolean itemPageDown() {
+        stickyWindow=false;
+        // объект помещается полностью на экране?
+        if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) return false;
+        
+        // объект на экране есть? (не смещён ли экран стилусом)
+        if (itemLayoutY[cursor]>=win_top+winHeight) return false;
+        
+        int remainder=itemLayoutY[cursor+1]-win_top;
+        // хвост сообщения уже на экране?
+        if (remainder<=winHeight) return false;
+        // хвост сообщения на следующем экране?
+        if (remainder<=2*winHeight) {
+            win_top=remainder-winHeight+win_top+8;
+            return true;
+        }
+        win_top+=winHeight;
+        return true;
+    }
+    
+    private boolean itemPageUp() {
+        stickyWindow=false;
+        // объект помещается полностью на экране?
+        if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) return false;
+        
+        // объект на экране есть? (не смещён ли экран стилусом)
+        if (itemLayoutY[cursor+1]>=win_top+winHeight) return false;
+        
+        int remainder=win_top-itemLayoutY[cursor];
+        // хвост сообщения уже на экране?
+        if (remainder<0) return false;
+        // хвост сообщения на следующем экране?
+        if (remainder<=winHeight) {
+            win_top=itemLayoutY[cursor];
+            return true;
+        }
+        win_top-=winHeight;
+        return true;
+    }
     /**
      * событие "Нажатие кнопки LEFT"
      * в классе VirtualList функция перемещает курсор на одну страницу вверх.
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
     public void keyLeft() {
-	//if (cursor==0) { moveCursorEnd(); return; }
-        blockChangeFocus=true; 
-        int mov_org=(cursor!=-1)? cursor : win_top;
-        moveCursor(-visibleItemsCnt(mov_org,-1), true); 
+        stickyWindow=true; 
+        cursor=getElementIndexAt(itemLayoutY[cursor]-winHeight);
+        setRotator();
     }
 
     /**
@@ -587,9 +677,10 @@ public abstract class VirtualList
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
     public void keyRight() { 
-	//if (cursor==getItemCount()-1) { moveCursorHome(); return; }
-        blockChangeFocus=true; 
-        moveCursor(visibleItemsCnt(win_top,1), true); 
+        stickyWindow=true; 
+        int newPos=itemLayoutY[cursor]+winHeight;
+        cursor=(newPos>=listHeight)?getItemCount()-1:getElementIndexAt(newPos);
+        setRotator();
     }
     
     /**
@@ -624,7 +715,7 @@ public abstract class VirtualList
         }
         public void run() {
             // прокрутка только раз
-            blockChangeFocus=false;
+            //stickyWindow=false;
             if (hold==0) {
                 if (offset>=Max) hold=6;  
                 else offset+=20;

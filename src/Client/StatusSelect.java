@@ -30,8 +30,7 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
     
     public StatusSelect(Display d) {
         super();
-        setTitleImages(RosterIcons.getInstance());
-        createTitleItem(1, "Status",null);
+        setTitleItem(new Title("Status"));
         
         addCommand(cmdOk);
         addCommand(cmdEdit);

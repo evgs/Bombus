@@ -10,6 +10,7 @@
 package archive;
 
 import Client.Msg;
+import Client.Title;
 import Messages.MessageList;
 import java.util.Vector;
 import javax.microedition.lcdui.Command;
@@ -51,15 +52,15 @@ public class ArchiveList
 	
 	setCommandListener(this);
 	
-	title=new ComplexString(null);
-	title.addElement("Archive");
+	Title title=new Title("Archive");
 	title.addRAlign();
 	title.addElement(null);
 	title.addElement("free ");
+        setTitleItem(title);
     }
 
     protected void beginPaint() {
-	title.setElementAt(String.valueOf(archive.freeSpace()),2);
+	getTitleItem().setElementAt(String.valueOf(archive.freeSpace()),2);
     }
     
     public int getItemCount() {
@@ -98,7 +99,7 @@ public class ArchiveList
 	    data=m.from;
 	    break;
 	default:
-	    data=m.body;
+	    data=m.getBody();
 	}
 	try {
 	    int paste=target.getMaxSize()-target.size();

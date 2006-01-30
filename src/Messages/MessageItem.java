@@ -30,18 +30,15 @@ public class MessageItem implements
     
     private Msg msg;
     private Vector msgLines;
-    private int msgHeight;
     private VirtualList view;
-    private boolean collapsed=true;
     
     /** Creates a new instance of MessageItem */
     public MessageItem(Msg msg, VirtualList view) {
 	this.msg=msg;
 	this.view=view;
-	MessageParser.getInstance().parseMsg(msg, SmilesIcons.getInstance(), view.getWidth(), false, this);
     }
 
-	public int getVHeight() { return msgHeight; }
+	public int getVHeight() { return msg.itemHeight; }
 
 	public int getVWidth() { return 0; }
 
@@ -50,37 +47,46 @@ public class MessageItem implements
 	public int getColor() { return msg.getColor(); }
 
 	public void drawItem(Graphics g, int ofs, boolean selected) {
-	    if (msgLines==null) return;
+	    if (msgLines==null) {
+                msgLines=MessageParser.getInstance().parseMsg(msg, SmilesIcons.getInstance(), view.getWidth(), false, this);
+                return;
+            }
 	    int y=0;
 	    for (Enumeration e=msgLines.elements(); e.hasMoreElements(); ) {
 		ComplexString line=(ComplexString) e.nextElement();
 		int h=line.getVHeight();
 		if (y>=0 && y<g.getClipHeight()) {
-                    if (collapsed) if (msgLines.size()>1) {
+                    if (msg.itemCollapsed) if (msgLines.size()>1) {
                         RosterIcons.getInstance().drawImage(g, RosterIcons.ICON_MSGCOLLAPSED_INDEX, 0,0);
                         g.translate(8,0); //FIXME: хардкод
                     }
                     line.drawItem(g, 0, selected);
                 }
 		g.translate(0, h);
-                if (collapsed) break;
+                if (msg.itemCollapsed) break;
 	    }
 	}
 
 	public void onSelect() {
+            msg.itemCollapsed=!msg.itemCollapsed;
+            updateHeight();
 	}
 
-	public void notifyRepaint(Vector v, Msg parsedMsg, boolean finalized) {
-	    msgLines=v;
-	    int height=0;
-	    for (Enumeration e=msgLines.elements(); e.hasMoreElements(); ) {
-		ComplexString line=(ComplexString) e.nextElement();
-		height+=line.getVHeight();
-                if (collapsed) break;
-	    }
-	    msgHeight=height;
-	    view.redraw();
-	}
+        public void notifyRepaint(Vector v, Msg parsedMsg, boolean finalized) {
+            msgLines=v;
+            updateHeight();
+            view.redraw();
+        }
+
+        private void updateHeight() {
+            int height=0;
+            for (Enumeration e=msgLines.elements(); e.hasMoreElements(); ) {
+                ComplexString line=(ComplexString) e.nextElement();
+                height+=line.getVHeight();
+                if (msg.itemCollapsed) break;
+            }
+            msg.itemHeight=height;
+        }
 
 	public void notifyUrl(String url) { }
 }

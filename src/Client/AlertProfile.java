@@ -39,11 +39,10 @@ public class AlertProfile extends VirtualList implements CommandListener {
     /** Creates a new instance of SelectStatus */
     public AlertProfile(Display d) {
         super();
-        setTitleImages(RosterIcons.getInstance());
         
         cf=Config.getInstance();
         
-        createTitleItem(1, "Alert Profile",null);
+        setTitleItem(new Title("Alert Profile"));
         
         addCommand(cmdOk);
         addCommand(cmdDef);

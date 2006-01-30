@@ -111,18 +111,17 @@ public class Roster
 
 	setProgress(24);
         //setTitleImages(StaticData.getInstance().rosterIcons);
-        setTitleImages(RosterIcons.getInstance());
-        
+                
         this.display=display;
         
         cf=Config.getInstance();
         
         //msgNotify=new EventNotify(display, Profile.getProfile(0) );
-        
-        createTitleItem(4, null, null).addRAlign();
-        getTitleItem().addElement(null);
-        getTitleItem().addElement(null);
-        
+        Title title=new Title(4, null, null);
+        setTitleItem(title);
+        title.addRAlign();
+        title.addElement(null);
+        title.addElement(null);
         //displayStatus();
         
         //l.setTitleImgL(6); //connect
@@ -266,6 +265,7 @@ public class Roster
         int s=querysign?RosterIcons.ICON_PROGRESS_INDEX:myStatus;
         int profile=cf.profile;//StaticData.getInstance().config.profile;
         Object en=(profile>1)? new Integer(profile+RosterIcons.ICON_PROFILE_INDEX):null;
+        Title title=(Title) getTitleItem();
         title.setElementAt(new Integer(s), 2);
         title.setElementAt(en, 5);
         if (messageCount==0) {
@@ -308,8 +308,8 @@ public class Roster
     }
     
     public void cleanupGroup(){
-        if (atCursor==null) return;
-        Group g=(Group)atCursor;
+        Group g=(Group)getFocusedObject();
+        if (g==null) return;
         if (!g.collapsed) return;
         
         int gi=g.index;

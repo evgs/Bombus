@@ -106,7 +106,7 @@ public class KeyBlock extends Canvas implements Runnable{
         g.drawString(time, 0, 0, Graphics.BOTTOM | Graphics.HCENTER);
 //#if !(MIDP1)
 	//display.flashBacklight(0); // тест на самсунгах
-        if (motorola_backlight) display.flashBacklight(0);
+        if (motorola_backlight) display.flashBacklight(1);
 //#endif
     }
     

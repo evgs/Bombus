@@ -63,12 +63,12 @@ public abstract class MessageList
 	//public Element getItemRef(int Index){ return (Element) contact.msgs.elementAt(Index); }
 
     // overriden, т.к. элементы списка - строки.
-    public Object getFocusedObject(){
+    /*public Object getFocusedObject(){
         try {
             return getMessage(cursor);
         } catch (Exception e) {}
         return null;
-    }
+    }*/
     
     public void markRead(int msgIndex) {}
     
@@ -76,13 +76,5 @@ public abstract class MessageList
     protected boolean smiles;
     
     public void keyGreen() { eventOk(); }
-
-    public void eventOk(){
-	Msg msg=(Msg)getFocusedObject();
-	if (msg!=null) {
-	    //if (contact.msgs.size()==cursor+1) refreshMsgCnt();
-	    new MessageView(display, cursor, this);
-	}
-    }
-    
+   
 }

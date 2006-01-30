@@ -41,8 +41,7 @@ public class Bookmarks
     /** Creates a new instance of Bookmarks */
     public Bookmarks(Display display, BookmarkItem toAdd) {
         super (display);
-        setTitleImages(RosterIcons.getInstance());
-        createTitleItem(2, null, "Bookmarks");
+        setTitleItem(new Title(2, null, "Bookmarks"));
         
         this.toAdd=toAdd;
         
@@ -123,7 +122,7 @@ public class Bookmarks
     }
     
     public void eventOk(){
-        BookmarkItem join=(BookmarkItem)atCursor;
+        BookmarkItem join=(BookmarkItem)getFocusedObject();
         if (join==null) return;
         if (join.isUrl) return;
         ConferenceForm.join(join.toString(), join.password);
@@ -139,7 +138,7 @@ public class Bookmarks
     }
     
     private void deleteBookmark(){
-        BookmarkItem del=(BookmarkItem)atCursor;
+        BookmarkItem del=(BookmarkItem)getFocusedObject();
         if (del==null) return;
         if (del.isUrl) return;
         bookmarks.removeElement(del);

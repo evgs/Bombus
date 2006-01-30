@@ -182,39 +182,39 @@ public class Contact extends IconTextElement{
                 if ( ((Msg)msgs.firstElement()).isPresence())
                     if (origin!=ORIGIN_GROUPCHAT) first_replace=true;
 //#if USE_SIEMENS_FILES
-//--        Config cf=Config.getInstance();
-//--
-//--        if (cf.msgLog && group!=Groups.TRANSP_INDEX && group!=Groups.SRC_RESULT_INDEX)
-//--        {
-//--            String histRecord=(nick==null)?getBareJid():nick;
-//--            String fromName=StaticData.getInstance().account.getUserName();
-//--            if (m.messageType!=Msg.MESSAGE_TYPE_OUT) fromName=toString();
-//--            boolean allowLog=false;
-//--            switch (m.messageType) {
-//--                case Msg.MESSAGE_TYPE_PRESENCE:
-//--                    if (origin>=ORIGIN_GROUPCHAT && cf.msgLogConfPresence) allowLog=true;
-//--                    if (origin<ORIGIN_GROUPCHAT && cf.msgLogPresence) allowLog=true;
-//--                    break;
-//--                default:
-//--                    if (origin>=ORIGIN_GROUPCHAT && cf.msgLogConf) allowLog=true;
-//--                    if (origin<ORIGIN_GROUPCHAT) allowLog=true;
-//--            }
-//--            if (allowLog)
-//--                //if (!first_replace || !m.)
-//--            {
-//--                StringBuffer body=new StringBuffer(m.getDayTime());
-//--                body.append(" <");
-//--                body.append(fromName);
-//--                body.append("> ");
-//--                if (m.subject!=null) {
-//--                    body.append(m.subject);
-//--                    body.append("\r\n");
-//--                }
-//--                body.append(m.body);
-//--                body.append("\r\n");
-//--                NvStorage.appendFile("Log_"+histRecord, body.toString());
-//--            }
-//--        }
+//#         Config cf=Config.getInstance();
+//# 
+//#         if (cf.msgLog && group!=Groups.TRANSP_INDEX && group!=Groups.SRC_RESULT_INDEX)
+//#         {
+//#             String histRecord=(nick==null)?getBareJid():nick;
+//#             String fromName=StaticData.getInstance().account.getUserName();
+//#             if (m.messageType!=Msg.MESSAGE_TYPE_OUT) fromName=toString();
+//#             boolean allowLog=false;
+//#             switch (m.messageType) {
+//#                 case Msg.MESSAGE_TYPE_PRESENCE:
+//#                     if (origin>=ORIGIN_GROUPCHAT && cf.msgLogConfPresence) allowLog=true;
+//#                     if (origin<ORIGIN_GROUPCHAT && cf.msgLogPresence) allowLog=true;
+//#                     break;
+//#                 default:
+//#                     if (origin>=ORIGIN_GROUPCHAT && cf.msgLogConf) allowLog=true;
+//#                     if (origin<ORIGIN_GROUPCHAT) allowLog=true;
+//#             }
+//#             if (allowLog)
+//#                 //if (!first_replace || !m.)
+//#             {
+//#                 StringBuffer body=new StringBuffer(m.getDayTime());
+//#                 body.append(" <");
+//#                 body.append(fromName);
+//#                 body.append("> ");
+//#                 if (m.subject!=null) {
+//#                     body.append(m.subject);
+//#                     body.append("\r\n");
+//#                 }
+//#                 body.append(m.getBody());
+//#                 body.append("\r\n");
+//#                 NvStorage.appendFile("Log_"+histRecord, body.toString());
+//#             }
+//#         }
 //#endif
         // если единственное сообщение - presence, то заменим его
         if (first_replace) {
