@@ -19,7 +19,7 @@ import Client.Msg;
  *
  * @author Eugene Stahov
  */
-public final class MessageParser {
+public final class MessageParser implements Runnable{
     
     private final static int URL=-2;
     private final static int NOSMILE=-1;
@@ -29,6 +29,18 @@ public final class MessageParser {
 
     // Singleton
     private static MessageParser instance=null;
+    
+    private int width; // window width
+    private ImageList il;
+    
+    private class ParseTask {
+        Msg msg; // source data
+        MessageParserNotify callback; // callback interfaces
+        Vector result;  // resulting data
+    }
+    private Vector tasks=new Vector();
+    
+    private Thread thread;
     
     public static MessageParser getInstance() {
         if (instance==null) instance=new MessageParser("/images/smiles.txt");
@@ -145,166 +157,168 @@ public final class MessageParser {
             Msg msg, 
             ImageList il,       //!< если null, то смайлы игнорируютс€
             int width, 
-            boolean singleLine, //!< парсить только одну строку из сообщени€
             MessageParserNotify notify
             )
     {
-        Vector v=new Vector();
-	StringBuffer url = null;
+        ParseTask task=new ParseTask();
+        task.msg=msg;
+        task.callback=notify;
+        task.result=new Vector();
+        this.il=il;
+        this.width=width;
         
-        //boolean noWrapSpace=false;
-	boolean inUrl=false;
-        
-        int state=0;
-        if (msg.subject==null) state=1;
-        while (state<2) {
-            int w=0;
-            StringBuffer s=new StringBuffer();
-            ComplexString l=new ComplexString(il);
-            Font f=l.getFont();
-        
-        
-            if (singleLine) width-=f.charWidth('>');
-            
-            String txt=(state==0)? msg.subject: msg.toString();
-            int color=(state==0)? 0xa00000:0x000000;
-            l.setColor(color);
-            
-            int i=0;
-            if (txt!=null)
-            while (i<txt.length()) {
-                Leaf p1,p=root;
-                int smileIndex=-1;
-                int smileStart=i;
-                int smileEnd=i;
-                while (i<txt.length()) {
-                    char c=txt.charAt(i);
-
-		    if (inUrl) {
-			switch (c) {
-			    case ' ':
-			    case 0x09:
-			    case 0x0d:
-			    case 0x0a:
-			    case 0xa0:
-			    case ')':
-				inUrl=false;
-				if (notify!=null) notify.notifyUrl(url.toString());
-				url=null;
-				if (s.length()>0) {
-				    l.addUnderline();
-				    l.addElement(s.toString());
-				}
-				s.setLength(0);
-			}
-			break; // не смайл
-		    }
-		    
-                    if (il==null) break;
-
-                    p1=p.findChild(c);
-                    if (p1==null) break;    //этот символ c не попал в смайл
-                    p=p1;
-                    if (p.Smile!=-1) {
-                        // нашли смайл
-                        smileIndex=p.Smile;
-                        smileEnd=i;
-                    }
-                    i++; // продолжаем поиск смайла
-                }
-		if (smileIndex==URL) {
-                    if (s.length()>0) l.addElement(s.toString());
-                    s.setLength(0);
-		    inUrl=true;
-		    url=new StringBuffer();
-		    //l.addUnderline();
-		}
-                if (smileIndex>=0) {
-                    // есть смайлик
-                    // добавим строку
-                    if (s.length()>0) {
-			if (inUrl) l.addUnderline();
-			l.addElement(s.toString());
-		    }
-                    // очистим
-                    s.setLength(0);
-                    // добавим смайлик
-                    int iw=il.getWidth();
-                    if (w+iw>width) {
-                        if (singleLine) {
-                            // возврат одной строки
-                            l.addRAlign();
-                            l.addElement(">");
-                            return l;
-                        }
-                        v.addElement(l);    // добавим l в v
-                        if (notify!=null) notify.notifyRepaint(v, msg, false);
-                        l=new ComplexString(il);     // нова€ строка
-                        l.setColor(color);
-                        w=0;
-                    }
-                    l.addImage(smileIndex); w+=iw;
-                    // передвинем указатель
-                    i=smileEnd;
-                } else {
-                    // символ в строку-накопитель
-                    i=smileStart;
-                    char c=txt.charAt(i);
-
-		    if (inUrl) url.append(c);
-		    
-                    int cw=f.charWidth(c);
-                    if (c!=0x20)
-                    if (w+cw>width || c==0x0d || c==0x0a || c==0xa0) {
-			if (inUrl) l.addUnderline();
-                        l.addElement(s.toString());    // последн€€ подстрока в l
-                        s.setLength(0); w=0;
-
-                        if (c==0xa0) l.setColor(0x904090);
-
-                        if (singleLine) {
-                            // возврат одной строки
-                            l.addRAlign();
-                            l.addElement(">");
-                            return l;
-                        }
-
-                        v.addElement(l);    // добавим l в v
-                        if (notify!=null) notify.notifyRepaint(v, msg, false);
-                        l=new ComplexString(il);     // нова€ строка
-                        l.setColor(color);
-                    }
-                    if (c>0x1f) {  s.append(c); w+=cw; } 
-                    else if (c==0x09) {  s.append((char)0x20); w+=cw; }
-                }
-                i++;
+        synchronized (tasks) {
+            tasks.addElement(task);
+            if (thread==null) {
+                thread=new Thread(this);
+                thread.setPriority(Thread.MAX_PRIORITY);
+                thread.start();
             }
-            if (s.length()>0) {
-		if (inUrl) {
-		    l.addUnderline();
-		    if (notify!=null) notify.notifyUrl(url.toString());
-		}
-		l.addElement(s.toString());
-	    }
-
-            if (singleLine) {
-                if (state==0){
-                    l.addRAlign();
-                    l.addElement(">");
-                }
-                return l;   // возврат одной строки
-            }
-
-            if (!l.isEmpty()) v.addElement(l);  // последн€€ строка
-
-            if (notify!=null) {
-                notify.notifyRepaint(v, msg, true);
-                //notify.notifyFinalized();
-            }
-            state++;
         }
-        return v;
-
+        return task.result;
+    }
+    
+    public void run() {
+        while(true) {
+            
+            ParseTask task=null;
+            synchronized (tasks) {
+                if (tasks.size()==0) {
+                    thread=null;
+                    return;
+                }
+                task=(ParseTask) tasks.lastElement();
+                tasks.removeElement(task);
+            }
+            
+            Vector v=task.result;
+            
+            StringBuffer url = null;
+            
+            //boolean noWrapSpace=false;
+            boolean inUrl=false;
+            
+            int state=0;
+            if (task.msg.subject==null) state=1;
+            while (state<2) {
+                int w=0;
+                StringBuffer s=new StringBuffer();
+                ComplexString l=new ComplexString(il);
+                Font f=l.getFont();
+                
+                String txt=(state==0)? task.msg.subject: task.msg.toString();
+                int color=(state==0)? 0xa00000:0x000000;
+                l.setColor(color);
+                
+                int i=0;
+                if (txt!=null)
+                    while (i<txt.length()) {
+                    Leaf p1,p=root;
+                    int smileIndex=-1;
+                    int smileStart=i;
+                    int smileEnd=i;
+                    while (i<txt.length()) {
+                        char c=txt.charAt(i);
+                        
+                        if (inUrl) {
+                            switch (c) {
+                                case ' ':
+                                case 0x09:
+                                case 0x0d:
+                                case 0x0a:
+                                case 0xa0:
+                                case ')':
+                                    inUrl=false;
+                                    task.callback.notifyUrl(url.toString());
+                                    url=null;
+                                    if (s.length()>0) {
+                                        l.addUnderline();
+                                        l.addElement(s.toString());
+                                    }
+                                    s.setLength(0);
+                            }
+                            break; // не смайл
+                        }
+                        
+                        if (il==null) break;
+                        
+                        p1=p.findChild(c);
+                        if (p1==null) break;    //этот символ c не попал в смайл
+                        p=p1;
+                        if (p.Smile!=-1) {
+                            // нашли смайл
+                            smileIndex=p.Smile;
+                            smileEnd=i;
+                        }
+                        i++; // продолжаем поиск смайла
+                    }
+                    if (smileIndex==URL) {
+                        if (s.length()>0) l.addElement(s.toString());
+                        s.setLength(0);
+                        inUrl=true;
+                        url=new StringBuffer();
+                        //l.addUnderline();
+                    }
+                    if (smileIndex>=0) {
+                        // есть смайлик
+                        // добавим строку
+                        if (s.length()>0) {
+                            if (inUrl) l.addUnderline();
+                            l.addElement(s.toString());
+                        }
+                        // очистим
+                        s.setLength(0);
+                        // добавим смайлик
+                        int iw=il.getWidth();
+                        if (w+iw>width) {
+                            v.addElement(l);    // добавим l в v
+                            task.callback.notifyRepaint(v, task.msg, false);
+                            l=new ComplexString(il);     // нова€ строка
+                            l.setColor(color);
+                            w=0;
+                        }
+                        l.addImage(smileIndex); w+=iw;
+                        // передвинем указатель
+                        i=smileEnd;
+                    } else {
+                        // символ в строку-накопитель
+                        i=smileStart;
+                        char c=txt.charAt(i);
+                        
+                        if (inUrl) url.append(c);
+                        
+                        int cw=f.charWidth(c);
+                        if (c!=0x20)
+                            if (w+cw>width || c==0x0d || c==0x0a || c==0xa0) {
+                            if (inUrl) l.addUnderline();
+                            l.addElement(s.toString());    // последн€€ подстрока в l
+                            s.setLength(0); w=0;
+                            
+                            if (c==0xa0) l.setColor(0x904090);
+                            
+                            v.addElement(l);    // добавим l в v
+                            task.callback.notifyRepaint(v, task.msg, false);
+                            l=new ComplexString(il);     // нова€ строка
+                            l.setColor(color);
+                            }
+                        if (c>0x1f) {  s.append(c); w+=cw; } else if (c==0x09) {  s.append((char)0x20); w+=cw; }
+                    }
+                    i++;
+                    }
+                if (s.length()>0) {
+                    if (inUrl) {
+                        l.addUnderline();
+                        task.callback.notifyUrl(url.toString());
+                    }
+                    l.addElement(s.toString());
+                }
+                
+                if (!l.isEmpty()) v.addElement(l);  // последн€€ строка
+                
+                task.callback.notifyRepaint(v, task.msg, true);
+                state++;
+            }
+        }
     }
 
     public interface MessageParserNotify {

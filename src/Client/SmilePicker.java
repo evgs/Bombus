@@ -107,6 +107,8 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
     //}
     public void drawCursor (Graphics g, int width, int height){
         int x=xCursor*imgWidth;
+        g.setColor(VL_BGND);
+        g.fillRect(0,0,width, height);
         g.translate(x,0);
         super.drawCursor(g, imgWidth, lineHeight);
         g.translate(-x,0);

@@ -568,6 +568,7 @@ public abstract class VirtualList
 	 
         if (cursor==0) {
             if (wrapping) { moveCursorEnd(); }
+            itemPageUp();
             return;
         }
         /*
@@ -600,7 +601,8 @@ public abstract class VirtualList
     public void keyDwn() { 
 	if (cursor==getItemCount()-1) 
         { 
-            if (wrapping) moveCursorHome(); 
+            if (wrapping) moveCursorHome();
+            itemPageDown();
             return; 
         }
         /*if (itemLayoutY[cursor+1]>win_top+winHeight) {
@@ -768,6 +770,10 @@ public abstract class VirtualList
      */
     public void destroyView(){
         if (display!=null)   display.setCurrent(parentView);
+    }
+
+    public int getListWidth() {
+        return width-scrollbar.getScrollWidth();
     }
 
 }

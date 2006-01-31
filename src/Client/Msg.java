@@ -40,7 +40,6 @@ public class Msg //implements MessageList.Element
         this.subject=subj;
         this.dateGmt=Time.localTime();
         if (messageType>=MESSAGE_TYPE_IN) unread=true;
-        itemHeight=14;
         if (messageType==MESSAGE_TYPE_PRESENCE)
             itemCollapsed=true;
     }
@@ -91,7 +90,7 @@ public class Msg //implements MessageList.Element
     public boolean unread = false;
     
     public boolean itemCollapsed;
-    public int itemHeight;
+    public int  itemHeight=14;
     
     public void serialize(DataOutputStream os) throws IOException {
 	os.writeUTF(from);

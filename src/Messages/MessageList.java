@@ -10,7 +10,7 @@
 package Messages;
 
 import Client.Config;
-import Messages.MessageView;
+//import Messages.MessageView;
 import Client.Msg;
 import images.SmilesIcons;
 import java.util.Vector;

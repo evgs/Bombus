@@ -23,7 +23,6 @@ public class MessageView
         extends ComplexStringList 
         implements 
             CommandListener, 
-            Messages.MessageParser.MessageParserNotify,
             Runnable
 {
 
@@ -47,14 +46,6 @@ public class MessageView
     int repaintCounter=5;
     
     private Vector urlList;
-    
-    public void notifyRepaint(Vector v, Msg parsedMsg, boolean finalized){
-        if (parsedMsg!=msg) return;
-        attachList(v);
-        if (!finalized) if ((--repaintCounter)>=0) return;
-        repaintCounter=5;
-        redraw(); 
-    }
     
     public void keyLeft(){
         if (win_top==0) changeMsg(-1); else super.keyLeft();
@@ -106,8 +97,7 @@ public class MessageView
         MessageParser.getInstance().parseMsg(
                 msg,
                 (smiles)?SmilesIcons.getInstance():null, 
-                getWidth()-6,
-                false, this);
+                getWidth()-6, this);
     }
 
     protected void beginPaint(){

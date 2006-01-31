@@ -48,7 +48,7 @@ public class MessageItem implements
 
 	public void drawItem(Graphics g, int ofs, boolean selected) {
 	    if (msgLines==null) {
-                msgLines=MessageParser.getInstance().parseMsg(msg, SmilesIcons.getInstance(), view.getWidth(), false, this);
+                msgLines=MessageParser.getInstance().parseMsg(msg, SmilesIcons.getInstance(), view.getListWidth(), this);
                 return;
             }
 	    int y=0;
@@ -72,9 +72,12 @@ public class MessageItem implements
             updateHeight();
 	}
 
+        byte repaintCounter;
         public void notifyRepaint(Vector v, Msg parsedMsg, boolean finalized) {
             msgLines=v;
             updateHeight();
+            if (!finalized) if ((--repaintCounter)>=0) return;
+            repaintCounter=5;
             view.redraw();
         }
 
