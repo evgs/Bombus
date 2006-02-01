@@ -665,8 +665,15 @@ public abstract class VirtualList
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
     public void keyLeft() {
-        stickyWindow=true; 
-        cursor=getElementIndexAt(itemLayoutY[cursor]-winHeight);
+        stickyWindow=false; 
+        win_top-=winHeight;
+        if (win_top<0) {
+            win_top=0;
+            cursor=0;
+        } 
+        if (!cursorInWindow()) {
+            cursor=getElementIndexAt(itemLayoutY[cursor]-winHeight);
+        }
         setRotator();
     }
 
@@ -676,10 +683,23 @@ public abstract class VirtualList
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
     public void keyRight() { 
-        stickyWindow=true; 
-        int newPos=itemLayoutY[cursor]+winHeight;
-        cursor=(newPos>=listHeight)?getItemCount()-1:getElementIndexAt(newPos);
+        stickyWindow=false; 
+        win_top+=winHeight;
+        int endTop=listHeight-winHeight;
+        if (endTop<win_top) {
+            win_top=endTop;
+            cursor=getItemCount()-1;
+        } else
+        if (!cursorInWindow()) cursor=getElementIndexAt(itemLayoutY[cursor]+winHeight);
         setRotator();
+    }
+    
+    public boolean cursorInWindow(){
+        int y1=itemLayoutY[cursor]-win_top;
+        int y2=itemLayoutY[cursor+1]-win_top;
+        if (y1<0 && y2>0 && y2<winHeight) return true;
+        if (y1>=0 && y1<winHeight) return true;
+        return false;
     }
     
     /**
