@@ -427,7 +427,7 @@ public abstract class VirtualList
         //win_top=0;
         if (cursor>0) {
             cursor=0;
-            focusedItem(0);
+            //focusedItem(0);
         }
         setRotator();
     }
@@ -441,7 +441,7 @@ public abstract class VirtualList
         //win_top=count-visibleItemsCnt(count-1, -1);
         if (cursor>=0) {
             cursor=(count==0)?0:count-1;
-            focusedItem(cursor);
+            //focusedItem(cursor);
         }
         //win_top=(listHeight>winHeight)? listHeight-winHeight:0;
         setRotator();
@@ -566,8 +566,7 @@ public abstract class VirtualList
     public void keyUp() {
 	 
         if (cursor==0) {
-            if (wrapping) { moveCursorEnd(); }
-            itemPageUp();
+            if (wrapping)  moveCursorEnd(); else itemPageUp();
             return;
         }
         /*
@@ -600,8 +599,7 @@ public abstract class VirtualList
     public void keyDwn() { 
 	if (cursor==getItemCount()-1) 
         { 
-            if (wrapping) moveCursorHome();
-            itemPageDown();
+            if (wrapping) moveCursorHome(); else itemPageDown();
             return; 
         }
         /*if (itemLayoutY[cursor+1]>win_top+winHeight) {
@@ -693,6 +691,7 @@ public abstract class VirtualList
     
     /** перезапуск ротации скроллера длинных строк */
     private void setRotator(){
+        focusedItem(cursor);
         rotator.destroyTask();
         if (getItemCount()<1) return;
         if (cursor>=0) {

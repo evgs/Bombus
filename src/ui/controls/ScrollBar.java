@@ -84,8 +84,21 @@ public class ScrollBar {
 	if (size==0) return false;
 	if (x<scrollerX) return false; // not in area
 	y-=yTranslate;
-	if (y<scrollerPos) { v.keyLeft(); v.repaint(); return true; } // page up
-	if (y>scrollerPos+scrollerSize) { v.keyRight(); v.repaint(); return true; } // page down
+	if (y<scrollerPos) { 
+            // page up
+            int pos=position-windowSize;
+            if (pos<0) pos=0;
+            v.win_top=pos;
+            v.repaint(); 
+            return true; 
+        } 
+	if (y>scrollerPos+scrollerSize) { 
+            int pos=position+windowSize;
+            int listEnd=size-windowSize;
+            v.win_top=(pos<listEnd)?pos:listEnd;
+            v.repaint(); 
+            return true; 
+        } // page down
 	point_y=y-scrollerPos;
 	return true;
     }

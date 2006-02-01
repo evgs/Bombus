@@ -54,6 +54,7 @@ public abstract class MessageList
 	MessageItem mi=(MessageItem) messages.elementAt(index);
 	if (mi==null) {
 	    mi=new MessageItem(getMessage(index), this);
+            mi.setEven( (index & 1) == 0);
 	    messages.setElementAt(mi, index);
 	}
 	return mi;

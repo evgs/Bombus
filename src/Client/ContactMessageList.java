@@ -85,11 +85,11 @@ implements CommandListener{
     
     public void markRead(int msgIndex) {
 	if (msgIndex>=getItemCount()) return;
-	Msg msg=getMessage(msgIndex);
-        if (msg.unread) contact.resetNewMsgCnt();
-        msg.unread=false;
+	//Msg msg=getMessage(msgIndex);
+        //if (msg.unread) contact.resetNewMsgCnt();
+        //msg.unread=false;
         if (msgIndex<contact.lastUnread) return;
-        if (contact.needsCount())
+        //if (contact.needsCount())
             sd.roster.countNewMsgs();
     }
     
@@ -119,7 +119,7 @@ implements CommandListener{
         }
         if (c==cmdResume) { keyGreen(); }
         if (c==cmdQuote) {
-            new MessageEdit(display,contact,getMessage(cursor).toString());
+            if (contact!=null) new MessageEdit(display,contact,getMessage(cursor).toString());
         }
         if (c==cmdArch) {
 	    MessageArchive.store(getMessage(cursor));

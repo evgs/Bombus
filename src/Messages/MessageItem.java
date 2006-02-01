@@ -31,6 +31,7 @@ public class MessageItem implements
     private Msg msg;
     private Vector msgLines;
     private VirtualList view;
+    private boolean even;
     
     /** Creates a new instance of MessageItem */
     public MessageItem(Msg msg, VirtualList view) {
@@ -42,7 +43,7 @@ public class MessageItem implements
 
 	public int getVWidth() { return 0; }
 
-	public int getColorBGnd() { return 0xffffff; }
+	public int getColorBGnd() { return (even)?0xffeeff:0xffffff; }
 
 	public int getColor() { return msg.getColor(); }
 
@@ -92,4 +93,8 @@ public class MessageItem implements
         }
 
 	public void notifyUrl(String url) { }
+
+    public void setEven(boolean even) {
+        this.even = even;
+    }
 }
