@@ -18,9 +18,15 @@ import ui.VirtualList;
  */
 public class ScrollBar {
     
+//#if !(MIDP1)
     private static final int COLOR_SCROLL_BRD     =0x000000;
     private static final int COLOR_SCROLL_BAR     =0xBBBBBB;
     private static final int COLOR_SCROLL_BGND    =0xDDDDDD;
+//#else
+//#     private static final int COLOR_SCROLL_BRD     =0x0033ff;
+//#     private static final int COLOR_SCROLL_BAR     =0xBBBBBB;
+//#     private static final int COLOR_SCROLL_BGND    =0xffffff;
+//#endif
     public static final int COLOR_BGND           =0xffffff;
     private static final int WIDTH_SCROLL_1      =4;
     private static final int WIDTH_SCROLL_2      =10;

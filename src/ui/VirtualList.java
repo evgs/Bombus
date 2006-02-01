@@ -82,16 +82,15 @@ public abstract class VirtualList
     //////////////////////////////////
     //public static final int VL_CURSOR_SHADE   =0x000000;
     //public static final int VL_CURSOR_BODY    =0x00FF00;
-    public static final int VL_CURSOR_BODY    =0xC8D7E6;
 //#if !(MIDP1)
+    public static final int VL_CURSOR_BODY    =0xC8D7E6;
     public static final int VL_CURSOR_OUTLINE =0x000066;
 //#else
-//--    public static final int VL_CURSOR_OUTLINE =VL_CURSOR_BODY;
+//#     public static final int VL_CURSOR_BODY    =0x00ff00;
+//#     public static final int VL_CURSOR_OUTLINE =VL_CURSOR_BODY;
 //#endif
-    public static final int VL_SCROLL_PTR     =0x0033ff;
-    public static final int VL_SCROLL_BGND    =0x888888;
+
     public static final int VL_BGND           =0xFFFFFF;
-    public static final int VL_SZ_SCROLL      =5;
     public static final int VL_TITLE_BGND     =0x0033ff;
     public static final int VL_TITLE          =0x33ffff;
     
@@ -698,7 +697,7 @@ public abstract class VirtualList
         if (getItemCount()<1) return;
         if (cursor>=0) {
             int itemWidth=getItemRef(cursor).getVWidth();
-            if (itemWidth>=width-VL_SZ_SCROLL) itemWidth-=width/2; else itemWidth=0;
+            if (itemWidth>=width-scrollbar.getScrollWidth() ) itemWidth-=width/2; else itemWidth=0;
             rotator=new TimerTaskRotate( itemWidth );
         }
     }
