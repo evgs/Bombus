@@ -95,9 +95,8 @@ public class MessageView
         //win_top=0;
 
         MessageParser.getInstance().parseMsg(
-                msg,
-                (smiles)?SmilesIcons.getInstance():null, 
-                getWidth()-6, this);
+null,                                 (smiles)?SmilesIcons.getInstance():null, 
+                getWidth()-6);
     }
 
     protected void beginPaint(){

@@ -63,7 +63,7 @@ public class KeyBlock extends Canvas implements Runnable{
         
 //#if !(MIDP1)
         setFullScreenMode(Config.getInstance().fullscreen);
-//#else
+//#elif USE_SIEMENS_API
 //--	com.siemens.mp.game.Light.setLightOff();
 //#endif
         //System.gc();   // heap cleanup
@@ -131,7 +131,7 @@ public class KeyBlock extends Canvas implements Runnable{
         if (display!=null)   display.setCurrent(parentView);
         img=null;
         tc.stop();
-//#if MIDP1
+//#if USE_SIEMENS_API
 //--	com.siemens.mp.game.Light.setLightOn();
 //#endif
         System.gc();
@@ -145,7 +145,7 @@ public class KeyBlock extends Canvas implements Runnable{
         }
         public void run() {
             repaint();
-//#if MIDP1
+//#if USE_SIEMENS_API
 //--	com.siemens.mp.game.Light.setLightOff();
 //#endif
         }

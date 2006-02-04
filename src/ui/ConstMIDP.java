@@ -23,12 +23,19 @@ public class ConstMIDP {
     public final static int TEXTFIELD_DECIMAL=	TextField.DECIMAL;
     public final static int CHOICE_POPUP=	ChoiceGroup.POPUP;
     public final static int TEXTFIELD_SENSITIVE=TextField.SENSITIVE;
-    public final static String MIDP=		"MIDP2";
 //#else
 //--    public final static int TEXTFIELD_DECIMAL=	TextField.ANY;
 //--    public final static int CHOICE_POPUP=	ChoiceGroup.EXCLUSIVE;
 //--    public final static int TEXTFIELD_SENSITIVE=0;
-//--    public final static String MIDP=		"MIDP1(Siemens)";
 //#endif
 
+//#if (!MIDP1)
+    public final static String MIDP=		"MIDP2";
+//#elif (USE_SIEMENS_API) 
+//#     public final static String MIDP=		"MIDP1(Siemens)";
+//#elif (RIM)
+//#     public final static String MIDP=		"MIDP1(RIM)";
+//#else
+//#     public final static String MIDP=		"MIDP1";
+//#endif
 }

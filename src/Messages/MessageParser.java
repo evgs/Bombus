@@ -33,11 +33,6 @@ public final class MessageParser implements Runnable{
     private int width; // window width
     private ImageList il;
     
-    private class ParseTask {
-        Msg msg; // source data
-        MessageParserNotify callback; // callback interfaces
-        Vector result;  // resulting data
-    }
     private Vector tasks=new Vector();
     
     private Thread thread;
@@ -153,45 +148,38 @@ public final class MessageParser implements Runnable{
 	addSmile("http://",URL);
     }
 
-    public Vector parseMsg(
-            Msg msg, 
-            ImageList il,       //!< если null, то смайлы игнорируются
-            int width, 
-            MessageParserNotify notify
-            )
+    public void parseMsg(MessageItem messageItem,             ImageList il,       //!< если null, то смайлы игнорируются
+            int width)
     {
-        ParseTask task=new ParseTask();
-        task.msg=msg;
-        task.callback=notify;
-        task.result=new Vector();
+        messageItem.msgLines=new Vector();
         this.il=il;
         this.width=width;
         
         synchronized (tasks) {
-            tasks.addElement(task);
+            tasks.addElement(messageItem);
             if (thread==null) {
                 thread=new Thread(this);
                 thread.setPriority(Thread.MAX_PRIORITY);
                 thread.start();
             }
         }
-        return task.result;
+        return;
     }
     
     public void run() {
         while(true) {
             
-            ParseTask task=null;
+            MessageItem task=null;
             synchronized (tasks) {
                 if (tasks.size()==0) {
                     thread=null;
                     return;
                 }
-                task=(ParseTask) tasks.lastElement();
+                task=(MessageItem) tasks.lastElement();
                 tasks.removeElement(task);
             }
             
-            Vector v=task.result;
+            Vector v=task.msgLines;
             
             StringBuffer url = null;
             
@@ -229,7 +217,7 @@ public final class MessageParser implements Runnable{
                                 case 0xa0:
                                 case ')':
                                     inUrl=false;
-                                    task.callback.notifyUrl(url.toString());
+                                    task.notifyUrl(url.toString());
                                     url=null;
                                     if (s.length()>0) {
                                         l.addUnderline();
@@ -272,7 +260,7 @@ public final class MessageParser implements Runnable{
                         int iw=il.getWidth();
                         if (w+iw>width) {
                             v.addElement(l);    // добавим l в v
-                            task.callback.notifyRepaint(v, task.msg, false);
+                            task.notifyRepaint(v, task.msg, false);
                             l=new ComplexString(il);     // новая строка
                             l.setColor(color);
                             w=0;
@@ -297,7 +285,7 @@ public final class MessageParser implements Runnable{
                             if (c==0xa0) l.setColor(0x904090);
                             
                             v.addElement(l);    // добавим l в v
-                            task.callback.notifyRepaint(v, task.msg, false);
+                            task.notifyRepaint(v, task.msg, false);
                             l=new ComplexString(il);     // новая строка
                             l.setColor(color);
                             }
@@ -308,14 +296,14 @@ public final class MessageParser implements Runnable{
                 if (s.length()>0) {
                     if (inUrl) {
                         l.addUnderline();
-                        task.callback.notifyUrl(url.toString());
+                        task.notifyUrl(url.toString());
                     }
                     l.addElement(s.toString());
                 }
                 
                 if (!l.isEmpty()) v.addElement(l);  // последняя строка
                 
-                task.callback.notifyRepaint(v, task.msg, true);
+                task.notifyRepaint(v, task.msg, true);
                 state++;
             }
         }

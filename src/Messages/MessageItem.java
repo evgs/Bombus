@@ -28,8 +28,8 @@ public class MessageItem implements
 	MessageParser.MessageParserNotify
 {
     
-    private Msg msg;
-    private Vector msgLines;
+    Msg msg;
+    Vector msgLines;
     private VirtualList view;
     private boolean even;
     
@@ -49,7 +49,7 @@ public class MessageItem implements
 
 	public void drawItem(Graphics g, int ofs, boolean selected) {
 	    if (msgLines==null) {
-                msgLines=MessageParser.getInstance().parseMsg(msg, SmilesIcons.getInstance(), view.getListWidth(), this);
+                MessageParser.getInstance().parseMsg(this, SmilesIcons.getInstance(), view.getListWidth());
                 return;
             }
 	    int y=0;

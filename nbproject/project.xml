@@ -5,6 +5,7 @@
         <configurations xmlns="http://www.netbeans.org/ns/project-configurations/1">
             <configuration>M55</configuration>
             <configuration>M55_Release</configuration>
+            <configuration>RIM</configuration>
             <configuration>Release</configuration>
         </configurations>
         <data xmlns="http://www.netbeans.org/ns/j2me-project">
