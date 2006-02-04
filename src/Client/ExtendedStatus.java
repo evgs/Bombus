@@ -13,6 +13,7 @@ import images.RosterIcons;
 import java.util.Enumeration;
 import java.io.*;
 import java.util.Vector;
+import ui.Colors;
 import ui.IconTextElement;
 import ui.ImageList;
 import com.alsutton.jabber.datablocks.Presence;
@@ -49,7 +50,7 @@ public class ExtendedStatus extends IconTextElement{
         //return name+" ("+priority+") \""+status+"\""; 
         return s.toString();
     }
-    public int getColor(){ return 0;}
+    public int getColor(){ return Colors.LIST_INK;}
     public int getImageIndex(){ return index;}
 
     public String getName() { return name; }

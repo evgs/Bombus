@@ -13,6 +13,7 @@ package Conference.affiliation;
 import Client.StaticData;
 import com.alsutton.jabber.JabberDataBlock;
 import images.RosterIcons;
+import ui.Colors;
 import ui.IconTextElement;
 import ui.ImageList;
 
@@ -64,7 +65,7 @@ public class AffiliationItem extends IconTextElement{
     }
     
     
-    public int getColor() { return 0; }
+    public int getColor() { return Colors.LIST_INK; }
     
     public String toString() { return jid; }
 }

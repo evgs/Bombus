@@ -27,12 +27,6 @@ abstract public class IconTextElement implements VirtualElement
     
     ImageList il;
     
-    private final static Font Fonts[]={
-        Font.getDefaultFont(),
-        Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD, Font.SIZE_MEDIUM)
-    };
-    //Font f; // шрифт для рисования
-    
     abstract protected int getImageIndex();
     //abstract public void onSelect();
 
@@ -40,7 +34,9 @@ abstract public class IconTextElement implements VirtualElement
     public int getFontIndex() { return 0;}
     private Font getFont() { 
         //return Font.getFont(Font.FACE_PROPORTIONAL, getFontIndex(), Font.SIZE_MEDIUM);
-        return Fonts[getFontIndex()];
+        return (getFontIndex()==0)?
+            FontCache.getNormalFont():
+            FontCache.getBoldFont();
     }
     public void drawItem(Graphics g,int ofs,boolean sel){
         
@@ -49,7 +45,6 @@ abstract public class IconTextElement implements VirtualElement
         str=toString();
        
        g.setFont(getFont());
-       //g.setColor(getColor());
        if (il!=null) il.drawImage(g, getImageIndex(), 2, imageYOfs);
        //g.drawImage(img,2, imageYOfs, Graphics.TOP|Graphics.LEFT);
        g.clipRect(4+imgWidth, 0, 255, itemHeight);
@@ -64,7 +59,7 @@ abstract public class IconTextElement implements VirtualElement
     }
     //public int getItemCount()
     public int getVHeight(){ return itemHeight;}
-    public int getColorBGnd(){ return 0xffffff;}
+    public int getColorBGnd(){ return Colors.LIST_BGND;}
     public void onSelect(){};
     
     /*public void eventOk(){
@@ -76,7 +71,7 @@ abstract public class IconTextElement implements VirtualElement
         super();
         this.il=il;
         //f=Font.getDefaultFont();
-        int hf=Fonts[0].getHeight();
+        int hf=FontCache.getNormalFont().getHeight();
         int hi=0;
 	if (il!=null){
 	    hi=il.getHeight();

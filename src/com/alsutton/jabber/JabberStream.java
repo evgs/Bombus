@@ -63,14 +63,14 @@ public class JabberStream implements XMLEventListener, Runnable {
     
     public JabberStream( String server, String hostAddr, JabberListener theListener )
             throws IOException {
-//#if !(MIDP1)
-        SocketConnection connection = (SocketConnection) Connector.open(hostAddr);
-        try {
-            connection.setSocketOption(SocketConnection.KEEPALIVE,1);
-        } catch (Exception e) { e.printStackTrace(); }
-//#else
-//--            StreamConnection connection = (StreamConnection) Connector.open(hostAddr);
-//#endif
+            StreamConnection connection = (StreamConnection) Connector.open(hostAddr);
+// if !(MIDP1)
+// #        SocketConnection connection = (SocketConnection) Connector.open(hostAddr);
+// #        try {
+// #            connection.setSocketOption(SocketConnection.KEEPALIVE,1);
+// #        } catch (Exception e) { e.printStackTrace(); }
+// else
+// #endif
         
         dispatcher = new JabberDataBlockDispatcher();
         if( theListener != null ) {

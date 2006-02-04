@@ -20,11 +20,6 @@ import javax.microedition.lcdui.*;
  */
 public class SplashScreen extends Canvas implements CommandListener{
     
-    public final static int COLOR_PGS_REMAINED=0xffffff;
-    public final static int COLOR_PGS_COMPLETE=0x0000ff;
-    public final static int COLOR_PGS_BORDER=  0x808080;
-    public final static int COLOR_PGS_BGND=    0x000000;
-    
     private String capt;
     private int pos=-1;
     
@@ -54,38 +49,38 @@ public class SplashScreen extends Canvas implements CommandListener{
         if (pos==-1) return;
         width=getWidth();
         height=getHeight();
-        Font f=Font.getDefaultFont();
+        Font f=FontCache.getNormalFont();
         
         int xp=pos*width/100;
         int xt=width/2;
         int h=f.getHeight()+1;
 //#if ALCATEL_FONT
-//--        int y=height-h-4;
+//#         int y=height-h-4;
 //#else
         int y=height-h;
 //#endif
         
-        g.setColor(COLOR_PGS_BGND);
+        g.setColor(Colors.PGS_BGND);
         g.fillRect(0,0, width, height);
         
         if (img!=null) g.drawImage(img, width/2, 0, Graphics.TOP|Graphics.HCENTER);
         
-        g.setColor(COLOR_PGS_BORDER);
+        g.setColor(Colors.PGS_BORDER);
         g.drawRect(0, y, width-1, h-1);
         
-        g.setColor(COLOR_PGS_REMAINED);
+        g.setColor(Colors.PGS_REMAINED);
         //g.setStrokeStyle(Graphics.DOTTED); <- не работает
         g.fillRect(1, y+1, width-2,h-2);
         //g.setStrokeStyle(Graphics.SOLID);
         
         g.setFont(f);
-        g.setColor(COLOR_PGS_COMPLETE);
+        g.setColor(Colors.PGS_COMPLETE);
         g.drawString(capt,xt,y+2, Graphics.TOP|Graphics.HCENTER);
         
         g.setClip(1, y+1, xp, h-2);
         g.fillRect(1, y+1, width-2,h-2);
         
-        g.setColor(COLOR_PGS_REMAINED);
+        g.setColor(Colors.PGS_REMAINED);
         g.drawString(capt,xt,y+2, Graphics.TOP|Graphics.HCENTER);
     }
     

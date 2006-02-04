@@ -35,15 +35,6 @@ implements CommandListener{
     
     StaticData sd;
     
-    /*public interface Element {
-        int getColor1();
-        String getMsgHeader();
-        int getColor2();
-        String toString();
-        void onSelect();
-    }
-     */
-
     /** Creates a new instance of MessageList */
     public ContactMessageList(Contact contact, Display display) {
         super(display);
@@ -74,6 +65,7 @@ implements CommandListener{
     
     public void showNotify(){
         super.showNotify();
+        if (cmdResume==null) return;
         if (contact.msgSuspended==null) removeCommand(cmdResume);
         else addCommand(cmdResume);
     }

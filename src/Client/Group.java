@@ -39,7 +39,7 @@ public class Group extends IconTextElement {
         /*this.label=label;*/
         
     }
-    public int getColor(){ return 0x000080; }
+    public int getColor(){ return Colors.GROUP_INK; }
     public int getImageIndex() {
         return collapsed?
             RosterIcons.ICON_COLLAPSED_INDEX

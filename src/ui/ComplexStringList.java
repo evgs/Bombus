@@ -49,15 +49,11 @@ public class ComplexStringList extends VirtualList
     }
     protected ComplexString cacheUpdate(int index) {return null;}
     
-    //public Font getFont() { return cld.getFont(); }
-    //public int getTextColor(){return 0;}
-    
     protected int getItemWidth(int index){ 
         return getLine(index).getVWidth();
     }        
 
     protected void drawItem(int index, Graphics g, int ofs, boolean selected){
-        //g.setColor(getTextColor());
         getLine(index).drawItem(g, ofs, false);
     }
 

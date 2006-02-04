@@ -15,6 +15,7 @@ import images.SmilesIcons;
 import java.util.Enumeration;
 import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
+import ui.Colors;
 import ui.ComplexString;
 import ui.VirtualElement;
 import ui.VirtualList;
@@ -43,7 +44,11 @@ public class MessageItem implements
 
 	public int getVWidth() { return 0; }
 
-	public int getColorBGnd() { return (even)?0xffeeff:0xffffff; }
+	public int getColorBGnd() { 
+            return (even)?
+                Colors.LIST_BGND_EVEN:
+                Colors.LIST_BGND; 
+        }
 
 	public int getColor() { return msg.getColor(); }
 

@@ -48,7 +48,8 @@ public class PrivacyItem extends IconTextElement{
         return action+ RosterIcons.ICON_PRIVACY_ALLOW;
     }
     
-    public int getColor() { return 0; }
+    public int getColor() { return Colors.LIST_INK; }
+    
     public String toString() { return (type==ITEM_ANY)?"ANY":value; }
     
     /** Creates a new instance of PrivacyItem */

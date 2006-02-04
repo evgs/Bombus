@@ -20,10 +20,6 @@ import java.util.*;
  */
 public class KeyBlock extends Canvas implements Runnable{
     
-    public final static int COLOR_BLK_BORDER=  0x808080;
-    public final static int COLOR_BLK_TEXT=    0xffffff;
-    public final static int COLOR_BLK_BGND=    0x000000;
-    
     private int width;
     private int height;
     
@@ -80,29 +76,29 @@ public class KeyBlock extends Canvas implements Runnable{
     public void paint(Graphics g){
         width=getWidth();
         height=getHeight();
-        Font f=Font.getDefaultFont();
+        Font f=FontCache.getBoldFont();
         
-        g.setColor(COLOR_BLK_BGND);
+        g.setColor(Colors.BLK_BGND);
         g.fillRect(0,0, width, height);
         
         if (img!=null) g.drawImage(img, width/2, 0, Graphics.TOP|Graphics.HCENTER);
         
         int h=f.getHeight()+1;
 //#if ALCATEL_FONT
-//--        int y=height-h-4;
+//#         int y=height-h-4;
 //#else
         int y=height-h;
 //#endif
-        g.setColor(COLOR_BLK_TEXT);
+        g.setColor(Colors.BLK_INK);
         g.translate(0, y);
         status.drawItem(g, 0, false);
         
         String time=Time.timeString(Time.localTime());
         int tw=f.stringWidth(time);
         g.translate(width/2, -h);
-        g.setColor(COLOR_BLK_BGND);
+        g.setColor(Colors.BLK_BGND);
         g.fillRect(-tw/2-5, -h, tw+10, h);
-        g.setColor(COLOR_BLK_TEXT);
+        g.setColor(Colors.BLK_INK);
         g.drawString(time, 0, 0, Graphics.BOTTOM | Graphics.HCENTER);
 //#if !(MIDP1)
 	//display.flashBacklight(0); // тест на самсунгах

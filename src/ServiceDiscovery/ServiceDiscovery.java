@@ -295,7 +295,7 @@ public class ServiceDiscovery
             super(RosterIcons.getInstance());
             this.index=index; this.name=name;
         }
-        public int getColor(){ return 0x000080; }
+        public int getColor(){ return Colors.DISCO_CMD; }
         public int getImageIndex() { return RosterIcons.ICON_GCJOIN_INDEX + index; }
         public String toString(){ return name; }
         public void onSelect(){

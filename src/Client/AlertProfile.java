@@ -63,7 +63,7 @@ public class AlertProfile extends VirtualList implements CommandListener {
             super(RosterIcons.getInstance());
         }
         //public void onSelect(){}
-        public int getColor(){ return 0; }
+        public int getColor(){ return Colors.LIST_INK; }
         public int getImageIndex(){return index+RosterIcons.ICON_PROFILE_INDEX;}
         public String toString(){ 
             StringBuffer s=new StringBuffer(alertNames[index]);

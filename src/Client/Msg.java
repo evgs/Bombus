@@ -12,6 +12,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.*;
+import ui.Colors;
 import ui.Time;
 import Client.ContactMessageList;
 import javax.microedition.lcdui.Image;
@@ -58,15 +59,14 @@ public class Msg //implements MessageList.Element
     
     public int getColor() {
         switch (messageType) {
-            case MESSAGE_TYPE_IN: return 0x0000B0;
-            case MESSAGE_TYPE_OUT: return 0xB00000;
-            case MESSAGE_TYPE_PRESENCE: return 0x006000;
-            case MESSAGE_TYPE_AUTH: return 0x400040;
-            case MESSAGE_TYPE_HISTORY: return 0x535353;
+            case MESSAGE_TYPE_IN: return Colors.MESSAGE_IN;
+            case MESSAGE_TYPE_OUT: return Colors.MESSAGE_OUT;
+            case MESSAGE_TYPE_PRESENCE: return Colors.MESSAGE_PRESENCE;
+            case MESSAGE_TYPE_AUTH: return Colors.MESSAGE_AUTH;
+            case MESSAGE_TYPE_HISTORY: return Colors.MESSAGE_HISTORY;
         }
         return 0;
     }
-    //public int getColor2(){ return 0; }
     public String toString(){
         return (messageType==MESSAGE_TYPE_PRESENCE)?getTime()+body:body; 
     }

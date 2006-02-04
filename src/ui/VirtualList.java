@@ -51,13 +51,13 @@ public abstract class VirtualList
      * цвет фона заголовка
      * @return RGB-цвет фона заголовка
      */
-    protected int getTitleBGndRGB() {return VL_TITLE_BGND;} 
+    protected int getTitleBGndRGB() {return Colors.HEADER_BGND;} 
 
     /**
      * цвет текста заголовка
      * @return RGB-цвет текста заголовка
      */
-    protected int getTitleRGB() {return VL_TITLE;} 
+    protected int getTitleRGB() {return Colors.HEADER_INK;} 
     
     /**
      * событие "Нажатие кнопки ОК"
@@ -80,20 +80,7 @@ public abstract class VirtualList
     public void userKeyPressed(int keyCode){}
     
     //////////////////////////////////
-    //public static final int VL_CURSOR_SHADE   =0x000000;
-    //public static final int VL_CURSOR_BODY    =0x00FF00;
-//#if !(MIDP1)
-    public static final int VL_CURSOR_BODY    =0xC8D7E6;
-    public static final int VL_CURSOR_OUTLINE =0x000066;
-//#else
-//#     public static final int VL_CURSOR_BODY    =0x00ff00;
-//#     public static final int VL_CURSOR_OUTLINE =VL_CURSOR_BODY;
-//#endif
 
-    public static final int VL_BGND           =0xFFFFFF;
-    public static final int VL_TITLE_BGND     =0x0033ff;
-    public static final int VL_TITLE          =0x33ffff;
-    
     public static final int SIEMENS_GREEN=-11;
     public static final int NOKIA_GREEN=-10;
     public static final int MOTOROLA_GREEN=-10;
@@ -366,7 +353,7 @@ public abstract class VirtualList
         if (clrH>0) {
             setAbsOrg(g, 0,displayedBottom);
             g.setClip(0, 0, itemMaxWidth, clrH);
-            g.setColor(VL_BGND);
+            g.setColor(Colors.LIST_BGND);
             //g.setColor(VL_CURSOR_OUTLINE);
             g.fillRect(0, 0, itemMaxWidth, clrH);
         }
@@ -541,6 +528,7 @@ public abstract class VirtualList
             case 0: break;
             case KEY_NUM1:  { moveCursorHome();    break; }
             case KEY_NUM7:  { moveCursorEnd();     break; }
+            case '5':{ eventOk(); break; }
             default:
                 switch (getGameAction(keyCode)){
                     case UP:    { keyUp(); break; }
@@ -768,8 +756,8 @@ public abstract class VirtualList
      */
     protected void drawCursor (Graphics g, int width, int height){
         //g.setColor(VL_CURSOR_SHADE);   g.drawRoundRect(x+2, y+2, width-1, height-1, 3,3);
-        g.setColor(VL_CURSOR_BODY);    g.fillRect(1, 1, width-1, height-1);
-        g.setColor(VL_CURSOR_OUTLINE); g.drawRect(0, 0, width-1, height-1);
+        g.setColor(Colors.CURSOR_BGND);    g.fillRect(1, 1, width-1, height-1);
+        g.setColor(Colors.CURSOR_OUTLINE); g.drawRect(0, 0, width-1, height-1);
         /*
         g.drawLine(1,0,width-2,0);
         g.drawLine(0,1,0,height-2);

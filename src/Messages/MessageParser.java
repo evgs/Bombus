@@ -195,7 +195,10 @@ public final class MessageParser implements Runnable{
                 Font f=l.getFont();
                 
                 String txt=(state==0)? task.msg.subject: task.msg.toString();
-                int color=(state==0)? 0xa00000:0x000000;
+                
+                int color=(state==0)? 
+                    Colors.MSG_SUBJ:
+                    Colors.LIST_INK;
                 l.setColor(color);
                 
                 int i=0;
@@ -282,7 +285,7 @@ public final class MessageParser implements Runnable{
                             l.addElement(s.toString());    // последн€€ подстрока в l
                             s.setLength(0); w=0;
                             
-                            if (c==0xa0) l.setColor(0x904090);
+                            if (c==0xa0) l.setColor(Colors.MSG_HIGHLIGHT);
                             
                             v.addElement(l);    // добавим l в v
                             task.notifyRepaint(v, task.msg, false);

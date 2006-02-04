@@ -10,6 +10,7 @@
 package ui.controls;
 
 import javax.microedition.lcdui.Graphics;
+import ui.Colors;
 import ui.VirtualList;
 
 /**
@@ -18,16 +19,6 @@ import ui.VirtualList;
  */
 public class ScrollBar {
     
-//#if !(MIDP1)
-    private static final int COLOR_SCROLL_BRD     =0x000000;
-    private static final int COLOR_SCROLL_BAR     =0xBBBBBB;
-    private static final int COLOR_SCROLL_BGND    =0xDDDDDD;
-//#else
-//#     private static final int COLOR_SCROLL_BRD     =0x0033ff;
-//#     private static final int COLOR_SCROLL_BAR     =0xBBBBBB;
-//#     private static final int COLOR_SCROLL_BGND    =0xffffff;
-//#endif
-    public static final int COLOR_BGND           =0xffffff;
     private static final int WIDTH_SCROLL_1      =4;
     private static final int WIDTH_SCROLL_2      =10;
     
@@ -126,10 +117,10 @@ public class ScrollBar {
 
 	g.translate(scrollerX, 0);
 
-        g.setColor(COLOR_SCROLL_BGND);
+        g.setColor(Colors.SCROLL_BGND);
 	g.fillRect(1, 1, scrollWidth-2, drawHeight-2);
 	
-        g.setColor(COLOR_BGND);
+        g.setColor(Colors.LIST_BGND);
         g.drawRect(0,0,scrollWidth-1,drawHeight-1);
             
 	drawHeight-=minimumHeight;
@@ -137,10 +128,10 @@ public class ScrollBar {
 	scrollerSize=(drawHeight*windowSize)/size+minimumHeight;
 	
 	scrollerPos=(drawHeight*position)/size;
-        g.setColor(COLOR_SCROLL_BAR);
+        g.setColor(Colors.SCROLL_BAR);
         g.fillRect(1, scrollerPos, scrollWidth-2, scrollerSize);
         
-        g.setColor(COLOR_SCROLL_BRD);
+        g.setColor(Colors.SCROLL_BRD);
         g.drawRect(0, scrollerPos, scrollWidth-1, scrollerSize);
 	
 	//scrollerPos+=g.getTranslateY();

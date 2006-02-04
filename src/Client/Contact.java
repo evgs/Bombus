@@ -9,6 +9,7 @@
 
 package Client;
 import images.RosterIcons;
+import ui.Colors;
 import vcard.VCard;
 import java.util.*;
 import ui.IconTextElement;
@@ -22,16 +23,16 @@ import com.alsutton.jabber.datablocks.Presence;
 public class Contact extends IconTextElement{
     
     private static int COLORS[]={
-        0x000000,   // online
-        0x39358b,   // chat
-        0x008080,   // away
+        Colors.CONTACT_DEFAULT,   // online
+        Colors.CONTACT_CHAT,   // chat
+        Colors.CONTACT_AWAY,   // away
         //0x808080,   // xa        //0x39358b,   // xa
-        0x535353,   // xa
+        Colors.CONTACT_XA,   // xa
 
-        0x800000,   // dnd
-        0x00,
-        0x00,
-        0x00
+        Colors.CONTACT_DND,   // dnd
+        Colors.CONTACT_DEFAULT,
+        Colors.CONTACT_DEFAULT,
+        Colors.CONTACT_DEFAULT
     };
     
     public final static byte ORIGIN_ROSTER=0;
@@ -231,7 +232,6 @@ public class Contact extends IconTextElement{
     
   
     public int getColor() { return (status>7)?0:COLORS[status]; }
-    // public int getColorBGnd() { return 0xffffff; }
 
     public int getFontIndex(){
         return (status<5)?1:0;

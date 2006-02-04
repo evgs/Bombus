@@ -28,7 +28,7 @@ public class BookmarkItem extends IconTextElement{
     
     public int getImageIndex(){ return (isUrl)? RosterIcons.ICON_PRIVACY_ACTIVE: RosterIcons.ICON_GCJOIN_INDEX; }
     public String toString(){ return jid+'/'+nick; }
-    public int getColor(){ return 0;}
+    public int getColor(){ return Colors.LIST_INK;}
     
     /** Creates a new instance of BookmarkItem */
     public BookmarkItem() {

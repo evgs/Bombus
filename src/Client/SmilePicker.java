@@ -28,7 +28,7 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
     private final static int CURSOR_HOFFSET=2;
 
 //#if MIDP1
-//--    private final static int CURSOR_VOFFSET=1;
+//#     private final static int CURSOR_VOFFSET=1;
 //#else
     private final static int CURSOR_VOFFSET=2;
 //#endif
@@ -87,8 +87,8 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
     //private class SmileItem implements VirtualElement {
     public int getVWidth(){ return 0; }
     public int getVHeight() { return lineHeight; }
-    public int getColor(){ return 0x000000; }
-    public int getColorBGnd(){ return 0xFFFFFF; }
+    public int getColor(){ return Colors.LIST_INK; }
+    public int getColorBGnd(){ return Colors.LIST_BGND; }
     public void onSelect(){
         try {
             me.addText( (String) smileTable.elementAt(cursor*xCnt+xCursor) );
@@ -107,7 +107,7 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
     //}
     public void drawCursor (Graphics g, int width, int height){
         int x=xCursor*imgWidth;
-        g.setColor(VL_BGND);
+        g.setColor(Colors.LIST_BGND);
         g.fillRect(0,0,width, height);
         g.translate(x,0);
         super.drawCursor(g, imgWidth, lineHeight);

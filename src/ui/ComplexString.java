@@ -24,12 +24,12 @@ public class ComplexString extends Vector implements VirtualElement{
     public final static int RALIGN=0x02000000;
     public final static int UNDERLINE=0x03000000;
 
-    private Font font=Font.getDefaultFont();
+    private Font font=FontCache.getNormalFont();
     private int height;
     private int width;
     private ImageList imageList;
-    private int colorBGnd=0xffffff;
-    private int color=0x0;
+    private int colorBGnd=Colors.LIST_BGND;
+    private int color=Colors.LIST_INK;
     
     /** Creates a new instance of ComplexString */
     public ComplexString() {
