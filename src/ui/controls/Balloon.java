@@ -32,10 +32,10 @@ public class Balloon {
         height--;
         g.translate(0, y);
         
-        g.setColor(Colors.BALOON_BGND);
+        g.setColor(Colors.BALLOON_BGND);
         g.fillRoundRect(0, 0, width, height, 6, 6);
         
-        g.setColor(Colors.BALOON_INK);
+        g.setColor(Colors.BALLOON_INK);
         g.drawRoundRect(0, 0, width, height, 6, 6);
        
         g.drawString(text, 5, 1, Graphics.TOP | Graphics.LEFT);
