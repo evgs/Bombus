@@ -202,7 +202,7 @@ public class Account extends IconTextElement{
     public String getResource() { return resource;  }
     public void setResource(String resource) { this.resource = resource;  }
 
-    public String getNickName() { return (nick.length()==0)?null:nick;  }
+    public String getNickName() { return (nick.length()==0)?getUserName():nick;  }
     public void setNickName(String nick) { this.nick = nick;  }
 
     boolean isMucOnly() { return mucOnly; }

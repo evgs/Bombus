@@ -1983,6 +1983,10 @@ syslog_msg: true
 (405)
   начало ветви дл€ RIM Blackberry
   рефакторинг MessageParser
+
+(406)
+  Nickname по в форме Conference устанавливаетс€ в значение username, 
+  если не указано им€ аккаунта.
 ---------------------------
   known issues:
 
