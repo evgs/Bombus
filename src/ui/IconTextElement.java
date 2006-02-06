@@ -81,4 +81,8 @@ abstract public class IconTextElement implements VirtualElement
         imageYOfs=(itemHeight-hi)/2;
         fontYOfs=1+(itemHeight-hf)/2;
     }
+    
+    public String getTipString() {
+        return null;
+    }
 }

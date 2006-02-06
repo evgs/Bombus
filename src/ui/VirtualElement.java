@@ -55,6 +55,11 @@ public interface VirtualElement {
      * @param selected признак выбранного курсором элемента
      */
     public void drawItem(Graphics g, int ofs, boolean selected);
+
+    /**
+     * информация для всплывающего окна
+     */
+    public String getTipString();
     /**
      * Callback-вызов, осуществляемый при выполнении OK для выделенного курсором элемента
      */

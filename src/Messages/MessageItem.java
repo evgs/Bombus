@@ -102,4 +102,8 @@ public class MessageItem implements
     public void setEven(boolean even) {
         this.even = even;
     }
+
+    public String getTipString() {
+        return "time";
+    }
 }

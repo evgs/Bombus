@@ -11,6 +11,7 @@ package ui;
 import javax.microedition.lcdui.*;
 import java.util.*;
 import Client.*;
+import ui.controls.Baloon;
 import ui.controls.ScrollBar;
 
 /**
@@ -332,15 +333,17 @@ public abstract class VirtualList
                 g.setClip(0,0, itemMaxWidth, winHeight);    
                 
                 g.translate(0,itemYpos);
-                g.clipRect(0, 0, itemMaxWidth, lh);
                 
                 g.setColor(el.getColorBGnd());
-                if (sel) 
+                if (sel) {
                     drawCursor(g, itemMaxWidth, lh); 
-                else
+                    Baloon.draw(g, "Test");
+                } else
                     g.fillRect(0,0, itemMaxWidth, lh);
 
                 g.setColor(el.getColor());
+                
+                g.clipRect(0, 0, itemMaxWidth, lh);
                 el.drawItem(g, (sel)?offset:0, sel);
                 
                 itemIndex++;
@@ -380,6 +383,7 @@ public abstract class VirtualList
             g.setColor(getTitleRGB());
             title.drawItem(g,0,false);
         }
+
         drawHeapMonitor(g);
 
 	if (offscreen!=null) graphics.drawImage(offscreen, 0,0, Graphics.TOP | Graphics.LEFT );
@@ -555,6 +559,7 @@ public abstract class VirtualList
 	 
         if (cursor==0) {
             if (wrapping)  moveCursorEnd(); else itemPageUp();
+            setRotator();
             return;
         }
         /*
@@ -588,6 +593,7 @@ public abstract class VirtualList
 	if (cursor==getItemCount()-1) 
         { 
             if (wrapping) moveCursorHome(); else itemPageDown();
+            setRotator();
             return; 
         }
         /*if (itemLayoutY[cursor+1]>win_top+winHeight) {

@@ -205,4 +205,6 @@ public class ComplexString extends Vector implements VirtualElement{
         this.font = font;
     }
 
+    public String getTipString() { return null; }
+
 }

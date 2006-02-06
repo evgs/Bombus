@@ -154,5 +154,9 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
         super.moveCursorHome();
         xCursor=0;
     }
+
+    public String getTipString() {
+        return "smile";
+    }
     
 }
