@@ -292,4 +292,10 @@ public class Contact extends IconTextElement{
             
         } catch (Exception e) { }
     }
+
+    public String getTipString() {
+        int nm=getNewMsgsCount();
+        return (nm==0)? null:String.valueOf(nm);
+    }
+
 }

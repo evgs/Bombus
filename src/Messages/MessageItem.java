@@ -104,6 +104,6 @@ public class MessageItem implements
     }
 
     public String getTipString() {
-        return "time";
+        return msg.getTime();
     }
 }

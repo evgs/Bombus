@@ -147,6 +147,8 @@ public abstract class VirtualList
     //int full_items; // полностью изображено в окне
     protected int offset;     // счётчик автоскроллинга
     
+    protected boolean showBaloon;
+    
     protected VirtualElement title;
     
     private boolean wrapping = true;
@@ -315,13 +317,13 @@ public abstract class VirtualList
         int displayedIndex=0;
         int displayedBottom=list_top;
    
+        int baloon=-1;
         atEnd=false;
         int itemYpos;
         try {
             // try вместо проверки на конец списка
             while ((itemYpos=itemLayoutY[itemIndex]-win_top)<winHeight) {
                 
-                //if (atEnd=(i>=count)) break;    // нечего более рисовать
                 VirtualElement el=getItemRef(itemIndex);
                 
                 boolean sel=(itemIndex==cursor);
@@ -337,7 +339,7 @@ public abstract class VirtualList
                 g.setColor(el.getColorBGnd());
                 if (sel) {
                     drawCursor(g, itemMaxWidth, lh); 
-                    Baloon.draw(g, "Test");
+                    baloon=g.getTranslateY();
                 } else
                     g.fillRect(0,0, itemMaxWidth, lh);
 
@@ -385,6 +387,14 @@ public abstract class VirtualList
         }
 
         drawHeapMonitor(g);
+        if (showBaloon) {
+            String text=null;
+            try {
+                text=((VirtualElement)getFocusedObject()).getTipString();
+            } catch (Exception e) { e.printStackTrace(); }
+            setAbsOrg(g,0,baloon);
+            if (text!=null)Baloon.draw(g, text);
+        }
 
 	if (offscreen!=null) graphics.drawImage(offscreen, 0,0, Graphics.TOP | Graphics.LEFT );
 	//full_items=fe;
@@ -719,9 +729,11 @@ public abstract class VirtualList
     private class TimerTaskRotate extends TimerTask{
         private Timer t;
         private int Max;
-        private int hold;
+        private int baloon;
+        
         public TimerTaskRotate(int max){
             offset=0;
+            baloon=6;
             //if (max<1) return;
             Max=max;
             t=new Timer();
@@ -730,15 +742,14 @@ public abstract class VirtualList
         public void run() {
             // прокрутка только раз
             //stickyWindow=false;
-            if (hold==0) {
-                if (offset>=Max) hold=6;  
-                else offset+=20;
-            }
-            else { 
-            	offset=0;
-            	cancel();
-            }
             
+            if (Max==-1 && baloon==-1) cancel();
+            if (offset>=Max) {
+                Max=-1;
+                offset=0;
+            } else offset+=20;
+            
+            if (showBaloon=baloon>=0) baloon--;
             redraw();
             //System.out.println("Offset "+offset);
         }
