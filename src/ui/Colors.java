@@ -14,8 +14,8 @@ package ui;
  * @author Evg_S
  */
 public class Colors {
-    public final static int BALOON_INK          =0x000000;
-    public final static int BALOON_BGND         =0xffffe0;
+    public final static int BALLOON_INK          =0x000000;
+    public final static int BALLOON_BGND         =0xffffe0;
     
 //#if (!INVCOLORS)
     public static final int LIST_BGND           =0xFFFFFF;

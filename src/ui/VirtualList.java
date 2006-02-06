@@ -11,7 +11,7 @@ package ui;
 import javax.microedition.lcdui.*;
 import java.util.*;
 import Client.*;
-import ui.controls.Baloon;
+import ui.controls.Balloon;
 import ui.controls.ScrollBar;
 
 /**
@@ -147,7 +147,7 @@ public abstract class VirtualList
     //int full_items; // полностью изображено в окне
     protected int offset;     // счётчик автоскроллинга
     
-    protected boolean showBaloon;
+    protected boolean showBalloon;
     
     protected VirtualElement title;
     
@@ -387,13 +387,14 @@ public abstract class VirtualList
         }
 
         drawHeapMonitor(g);
-        if (showBaloon) {
+        g.setClip(0,0, width, height);
+        if (showBalloon) {
             String text=null;
             try {
                 text=((VirtualElement)getFocusedObject()).getTipString();
             } catch (Exception e) { e.printStackTrace(); }
             setAbsOrg(g,0,baloon);
-            if (text!=null)Baloon.draw(g, text);
+            if (text!=null)Balloon.draw(g, text);
         }
 
 	if (offscreen!=null) graphics.drawImage(offscreen, 0,0, Graphics.TOP | Graphics.LEFT );
@@ -507,7 +508,10 @@ public abstract class VirtualList
 	}
 	if (i==0 || i==32) return;
 	//System.out.println(i);
-	if (cursor>=0) moveCursorTo(getElementIndexAt(win_top)+i-1, true);
+	if (cursor>=0) {
+            moveCursorTo(getElementIndexAt(win_top)+i-1, true);
+            setRotator();
+        }
 	
 	long clickTime=System.currentTimeMillis();
 	if (cursor==lastClickItem)
@@ -729,11 +733,11 @@ public abstract class VirtualList
     private class TimerTaskRotate extends TimerTask{
         private Timer t;
         private int Max;
-        private int baloon;
+        private int balloon;
         
         public TimerTaskRotate(int max){
             offset=0;
-            baloon=6;
+            balloon=6;
             //if (max<1) return;
             Max=max;
             t=new Timer();
@@ -743,13 +747,13 @@ public abstract class VirtualList
             // прокрутка только раз
             //stickyWindow=false;
             
-            if (Max==-1 && baloon==-1) cancel();
+            if (Max==-1 && balloon==-1) cancel();
             if (offset>=Max) {
                 Max=-1;
                 offset=0;
             } else offset+=20;
             
-            if (showBaloon=baloon>=0) baloon--;
+            if (showBalloon=balloon>=0) balloon--;
             redraw();
             //System.out.println("Offset "+offset);
         }
