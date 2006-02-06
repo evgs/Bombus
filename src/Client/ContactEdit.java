@@ -29,7 +29,7 @@ public final class ContactEdit
     ChoiceGroup tTranspList;
     int ngroups;
     
-    //Command cmdIcq=new Command("@icq.jabber.ru",Command.ITEM,1);
+    ///Command cmdIcq=new Command("@icq.jabber.ru",Command.ITEM,1);
     Command cmdOk=new Command("Add", Command.OK, 1);
     Command cmdCancel=new Command("Cancel",Command.BACK,99);
     
@@ -51,7 +51,7 @@ public final class ContactEdit
         f=new Form("Add contact");
         
         tJid=new TextField("User JID",null, 64, TextField.EMAILADDR); 
-        //tJid.addCommand(cmdIcq);
+        ///tJid.addCommand(cmdIcq);
         
         tNick=new TextField("Name",null, 32, TextField.ANY); 
         tGroup=new TextField("Group",null, 32, TextField.ANY);
