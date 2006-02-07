@@ -32,13 +32,14 @@ public class Balloon {
         height--;
         g.translate(0, y);
         
-        g.setColor(Colors.BALLOON_BGND);
-        g.fillRoundRect(0, 0, width, height, 6, 6);
-        
         g.setColor(Colors.BALLOON_INK);
-        g.drawRoundRect(0, 0, width, height, 6, 6);
+        g.fillRoundRect(0, 0, width, height, 6, 6);
+
+        g.setColor(Colors.BALLOON_BGND);
+        g.fillRoundRect(1, 1, width-2, height-2, 6, 6);
        
+        g.setColor(Colors.BALLOON_INK);
         g.drawString(text, 5, 1, Graphics.TOP | Graphics.LEFT);
-        System.out.println(text);
+    }
     }
 }
