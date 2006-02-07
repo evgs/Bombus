@@ -41,5 +41,4 @@ public class Balloon {
         g.setColor(Colors.BALLOON_INK);
         g.drawString(text, 5, 1, Graphics.TOP | Graphics.LEFT);
     }
-    }
 }
