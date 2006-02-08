@@ -79,7 +79,11 @@ abstract public class IconTextElement implements VirtualElement
 	}
         itemHeight=(hi>hf)?hi:hf;
         imageYOfs=(itemHeight-hi)/2;
-        fontYOfs=1+(itemHeight-hf)/2;
+//#if ALCATEL_FONT
+//#         fontYOfs=1+(itemHeight-hf)/2;
+//#else
+        fontYOfs=(itemHeight-hf)/2;
+//#endif
     }
     
     public String getTipString() {

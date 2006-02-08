@@ -28,17 +28,16 @@ public class Balloon {
         
         int y=height-g.getTranslateY();
         if (y<0) y=0;
-        y-=height;
-        height--;
+        y-=height-1;
         g.translate(0, y);
         
         g.setColor(Colors.BALLOON_INK);
-        g.fillRoundRect(0, 0, width, height, 6, 6);
+        g.fillRect(2, 0, width, height);
 
         g.setColor(Colors.BALLOON_BGND);
-        g.fillRoundRect(1, 1, width-2, height-2, 6, 6);
+        g.fillRect(3, 1, width-2, height-2);
        
         g.setColor(Colors.BALLOON_INK);
-        g.drawString(text, 5, 1, Graphics.TOP | Graphics.LEFT);
+        g.drawString(text, 5, 2, Graphics.TOP | Graphics.LEFT);
     }
 }
