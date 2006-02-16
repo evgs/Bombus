@@ -49,7 +49,7 @@ public class SplashScreen extends Canvas implements CommandListener{
         if (pos==-1) return;
         width=getWidth();
         height=getHeight();
-        Font f=FontCache.getNormalFont();
+        Font f=FontCache.getRosterNormalFont();
         
         int xp=pos*width/100;
         int xt=width/2;

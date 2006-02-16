@@ -11,6 +11,7 @@ package Client;
 
 import images.RosterIcons;
 import ui.ComplexString;
+import ui.FontCache;
 
 /**
  *
@@ -26,6 +27,7 @@ public class Title extends ComplexString{
      */
     public Title(int size, Object first, Object second) {
         this (size);
+        font=FontCache.getRosterNormalFont();
         if (first!=null) setElementAt(first,0);
         if (second!=null) setElementAt(second,1);
     }

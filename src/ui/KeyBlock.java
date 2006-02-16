@@ -76,7 +76,7 @@ public class KeyBlock extends Canvas implements Runnable{
     public void paint(Graphics g){
         width=getWidth();
         height=getHeight();
-        Font f=FontCache.getBoldFont();
+        Font f=FontCache.getRosterBoldFont();
         
         g.setColor(Colors.BLK_BGND);
         g.fillRect(0,0, width, height);

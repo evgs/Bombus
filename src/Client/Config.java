@@ -12,7 +12,9 @@ package Client;
 import Info.Version;
 import java.io.*;
 import java.util.*;
+import javax.microedition.lcdui.Font;
 import midlet.Bombus;
+import ui.FontCache;
 import util.StringLoader;
 import ui.Time;
 import ui.VirtualElement;
@@ -111,6 +113,12 @@ public class Config {
     
     /** Creates a new instance of Config */
     private Config() {
+        FontCache.balloonFontSize=getIntProperty("fontsz_balloon",Font.SIZE_SMALL);
+        FontCache.rosterFontSize=getIntProperty("fontsz_roster",Font.SIZE_MEDIUM);
+        FontCache.msgFontSize=getIntProperty("fontsz_msg",Font.SIZE_MEDIUM);
+        FontCache.resetCache();
+        
+        
 	int gmtloc=TimeZone.getDefault().getRawOffset()/3600000;
 	locOffset=getIntProperty( "time_loc_offset", 0);
 	gmtOffset=getIntProperty("time_gmt_offset", gmtloc);

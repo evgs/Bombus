@@ -24,7 +24,7 @@ public class ComplexString extends Vector implements VirtualElement{
     public final static int RALIGN=0x02000000;
     public final static int UNDERLINE=0x03000000;
 
-    private Font font=FontCache.getNormalFont();
+    protected Font font=FontCache.getMsgFont();
     private int height;
     private int width;
     private ImageList imageList;

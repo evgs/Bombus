@@ -35,8 +35,8 @@ abstract public class IconTextElement implements VirtualElement
     private Font getFont() { 
         //return Font.getFont(Font.FACE_PROPORTIONAL, getFontIndex(), Font.SIZE_MEDIUM);
         return (getFontIndex()==0)?
-            FontCache.getNormalFont():
-            FontCache.getBoldFont();
+            FontCache.getRosterNormalFont():
+            FontCache.getRosterBoldFont();
     }
     public void drawItem(Graphics g,int ofs,boolean sel){
         
@@ -71,7 +71,7 @@ abstract public class IconTextElement implements VirtualElement
         super();
         this.il=il;
         //f=Font.getDefaultFont();
-        int hf=FontCache.getNormalFont().getHeight();
+        int hf=FontCache.getRosterNormalFont().getHeight();
         int hi=0;
 	if (il!=null){
 	    hi=il.getHeight();

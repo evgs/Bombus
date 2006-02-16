@@ -21,12 +21,12 @@ import ui.FontCache;
 public class Balloon {
     
     public static int getHeight(){
-        Font f=FontCache.getNormalFont();
+        Font f=FontCache.getBalloonFont();
         return f.getHeight()+3;
     }
     
     public static void draw(Graphics g, String text) {
-        Font f=FontCache.getNormalFont();
+        Font f=FontCache.getBalloonFont();
         g.setFont(f);
         int height=getHeight();
         int width=f.stringWidth(text)+6;
