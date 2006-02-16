@@ -62,7 +62,9 @@ public class RosterItemActions extends Menu{
 	    if (contact.realJid!=null) {
 		addItem("Kick",8);
 		addItem("Ban",9);
-		//m.addItem(new MenuItem("Set Attiliation",15));
+                addItem("Grant Voice",31);
+                addItem("Revoke Voice",32);
+               //m.addItem(new MenuItem("Set Affiliation",15));
 	    }
 	} else {
 	    Group group=(Group)item;
@@ -212,6 +214,22 @@ public class RosterItemActions extends Menu{
 		new ServiceDiscovery(display, c.getJid(), "http://jabber.org/protocol/commands");
 		return;
 	    }
+            case 31:
+            {
+                Hashtable attrs=new Hashtable();
+                attrs.put("role", "participant");
+                attrs.put("nick", c.jid.getResource().substring(1));
+                roster.setMucMod(c, attrs);
+                break;
+            }
+            case 32:
+            {
+                Hashtable attrs=new Hashtable();
+                attrs.put("role", "visitor");
+                attrs.put("nick", c.jid.getResource().substring(1));
+                roster.setMucMod(c, attrs);
+                break;
+            }
 	}
 	destroyView();
     }

@@ -2011,6 +2011,8 @@ syslog_msg: true
   размеры medium=0; small=8; large=16;
 (422)
   fix: NullPointerException при перемещении по пустому MessageList
+(423)
+  патч от toon: Grant/Revoke voice в Muc
 ---------------------------
   known issues:
 
