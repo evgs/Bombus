@@ -53,7 +53,8 @@ public class MessageItem implements
 	public int getColor() { return msg.getColor(); }
 
 	public void drawItem(Graphics g, int ofs, boolean selected) {
-            if (selected) g.translate(1,0);
+            /*if (selected)*/ 
+            g.translate(1,0);
 	    if (msgLines==null) {
                 MessageParser.getInstance().parseMsg(this, SmilesIcons.getInstance(), view.getListWidth());
                 return;

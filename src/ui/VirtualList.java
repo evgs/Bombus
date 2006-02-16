@@ -115,7 +115,7 @@ public abstract class VirtualList
      */
     protected boolean stickyWindow=true;
     
-    private int itemLayoutY[];
+    private int itemLayoutY[]=new int[1];
     private int listHeight;
     
     protected void updateLayout(){
@@ -390,7 +390,7 @@ public abstract class VirtualList
             String text=null;
             try {
                 text=((VirtualElement)getFocusedObject()).getTipString();
-            } catch (Exception e) { e.printStackTrace(); }
+            } catch (Exception e) { }
             if (text!=null)
                 drawBalloon(g, baloon, text);
         }
@@ -632,43 +632,49 @@ public abstract class VirtualList
     }
     
     private boolean itemPageDown() {
-        stickyWindow=false;
-        // объект помещается полностью на экране?
-        if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) return false;
-        
-        // объект на экране есть? (не смещён ли экран стилусом)
-        if (itemLayoutY[cursor]>=win_top+winHeight) return false;
-        
-        int remainder=itemLayoutY[cursor+1]-win_top;
-        // хвост сообщения уже на экране?
-        if (remainder<=winHeight) return false;
-        // хвост сообщения на следующем экране?
-        if (remainder<=2*winHeight) {
-            win_top=remainder-winHeight+win_top+8;
+        try {
+            stickyWindow=false;
+            // объект помещается полностью на экране?
+            if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) return false;
+            
+            // объект на экране есть? (не смещён ли экран стилусом)
+            if (itemLayoutY[cursor]>=win_top+winHeight) return false;
+            
+            int remainder=itemLayoutY[cursor+1]-win_top;
+            // хвост сообщения уже на экране?
+            if (remainder<=winHeight) return false;
+            // хвост сообщения на следующем экране?
+            if (remainder<=2*winHeight) {
+                win_top=remainder-winHeight+win_top+8;
+                return true;
+            }
+            win_top+=winHeight;
             return true;
-        }
-        win_top+=winHeight;
-        return true;
+        } catch (Exception e) {}
+        return false;
     }
     
     private boolean itemPageUp() {
-        stickyWindow=false;
-        // объект помещается полностью на экране?
-        if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) return false;
-        
-        // объект на экране есть? (не смещён ли экран стилусом)
-        if (itemLayoutY[cursor+1]>=win_top+winHeight) return false;
-        
-        int remainder=win_top-itemLayoutY[cursor];
-        // хвост сообщения уже на экране?
-        if (remainder<0) return false;
-        // хвост сообщения на следующем экране?
-        if (remainder<=winHeight) {
-            win_top=itemLayoutY[cursor];
+        try {
+            stickyWindow=false;
+            // объект помещается полностью на экране?
+            if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) return false;
+            
+            // объект на экране есть? (не смещён ли экран стилусом)
+            if (itemLayoutY[cursor+1]>=win_top+winHeight) return false;
+            
+            int remainder=win_top-itemLayoutY[cursor];
+            // хвост сообщения уже на экране?
+            if (remainder<0) return false;
+            // хвост сообщения на следующем экране?
+            if (remainder<=winHeight) {
+                win_top=itemLayoutY[cursor];
+                return true;
+            }
+            win_top-=winHeight;
             return true;
-        }
-        win_top-=winHeight;
-        return true;
+        } catch (Exception e) {}
+        return false;
     }
     /**
      * событие "Нажатие кнопки LEFT"
@@ -676,16 +682,18 @@ public abstract class VirtualList
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
     public void keyLeft() {
-        stickyWindow=false; 
-        win_top-=winHeight;
-        if (win_top<0) {
-            win_top=0;
-            cursor=0;
-        } 
-        if (!cursorInWindow()) {
-            cursor=getElementIndexAt(itemLayoutY[cursor]-winHeight);
-        }
-        setRotator();
+        try {
+            stickyWindow=false;
+            win_top-=winHeight;
+            if (win_top<0) {
+                win_top=0;
+                cursor=0;
+            }
+            if (!cursorInWindow()) {
+                cursor=getElementIndexAt(itemLayoutY[cursor]-winHeight);
+            }
+            setRotator();
+        } catch (Exception e) {};
     }
 
     /**
@@ -694,22 +702,26 @@ public abstract class VirtualList
      * возможно переопределить (override) функцию для реализации необходимых действий
      */
     public void keyRight() { 
-        stickyWindow=false; 
-        win_top+=winHeight;
-        int endTop=listHeight-winHeight;
-        if (endTop<win_top) {
-            win_top=endTop;
-            cursor=getItemCount()-1;
-        } else
-        if (!cursorInWindow()) cursor=getElementIndexAt(itemLayoutY[cursor]+winHeight);
-        setRotator();
+        try {
+            stickyWindow=false;
+            win_top+=winHeight;
+            int endTop=listHeight-winHeight;
+            if (endTop<win_top) {
+                win_top=endTop;
+                cursor=getItemCount()-1;
+            } else
+                if (!cursorInWindow()) cursor=getElementIndexAt(itemLayoutY[cursor]+winHeight);
+            setRotator();
+        } catch (Exception e) {};
     }
     
     public boolean cursorInWindow(){
-        int y1=itemLayoutY[cursor]-win_top;
-        int y2=itemLayoutY[cursor+1]-win_top;
-        if (y1<0 && y2>0 && y2<winHeight) return true;
-        if (y1>=0 && y1<winHeight) return true;
+        try {
+            int y1=itemLayoutY[cursor]-win_top;
+            int y2=itemLayoutY[cursor+1]-win_top;
+            if (y1<0 && y2>0 && y2<winHeight) return true;
+            if (y1>=0 && y1<winHeight) return true;
+        } catch (Exception e) { }
         return false;
     }
     

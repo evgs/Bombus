@@ -2009,7 +2009,8 @@ syslog_msg: true
   fontsz_roster: 0
   fontsz_msg:0
   размеры medium=0; small=8; large=16;
-
+(422)
+  fix: NullPointerException при перемещении по пустому MessageList
 ---------------------------
   known issues:
 
