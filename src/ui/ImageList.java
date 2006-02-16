@@ -41,7 +41,7 @@ public class ImageList {
         
         int iy=y-height*(int)(index>>4);
         int ix=x-width*(index&0x0f);
-        g.setClip(x,y, width,height);
+        g.clipRect(x,y, width,height);
         g.drawImage(resImage,ix,iy,Graphics.TOP|Graphics.LEFT);
         g.setClip(xo,yo, wo, ho);
     };

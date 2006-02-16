@@ -13,6 +13,7 @@ import images.SmilesIcons;
 import ui.*;
 import javax.microedition.lcdui.*;
 import java.util.Vector;
+import ui.controls.Balloon;
 
 /**
  *
@@ -91,7 +92,7 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
     public int getColorBGnd(){ return Colors.LIST_BGND; }
     public void onSelect(){
         try {
-            me.addText( (String) smileTable.elementAt(cursor*xCnt+xCursor) );
+            me.addText( getTipString() );
         } catch (Exception e) { /*e.printStackTrace();*/  }
         destroyView();
     };
@@ -120,11 +121,14 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
             if (cursor==0) return;
             xCursor=xCnt-1;
             keyUp();
+            setRotator();
         }
     }
     public void keyRight(){ 
-        if ( xCursor < ( (cursor<lines-1)?(xCnt-1):(xLastCnt-1) ) ) 
-            xCursor++; 
+        if ( xCursor < ( (cursor<lines-1)?(xCnt-1):(xLastCnt-1) ) ) {
+            xCursor++;
+            setRotator();
+        }
         else {
             if (cursor==lines-1) return;
             xCursor=0;
@@ -156,7 +160,22 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
     }
 
     public String getTipString() {
-        return "smile";
+        return (String) smileTable.elementAt(cursor*xCnt+xCursor);
     }
-    
+
+    protected void drawBalloon(final Graphics g, int balloon, final String text) {
+        if (cursor==0) balloon+=lineHeight+Balloon.getHeight();
+        int x=xCursor*imgWidth;
+        g.translate(x, balloon);
+        Balloon.draw(g, text);
+    }
+
+    protected void pointerPressed(int x, int y) { 
+        super.pointerPressed(x,y);
+        if (x>=xCnt*imgWidth) return;
+        xCursor=x/imgWidth;
+        setRotator();
+        if (cursor!=lines-1) return;
+        if (xCursor >= xLastCnt) xCursor=xLastCnt-1;
+    }
 }

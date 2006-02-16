@@ -20,10 +20,15 @@ import ui.FontCache;
  */
 public class Balloon {
     
+    public static int getHeight(){
+        Font f=FontCache.getNormalFont();
+        return f.getHeight()+3;
+    }
+    
     public static void draw(Graphics g, String text) {
         Font f=FontCache.getNormalFont();
         g.setFont(f);
-        int height=f.getHeight()+3;
+        int height=getHeight();
         int width=f.stringWidth(text)+6;
         
         int y=height-g.getTranslateY();

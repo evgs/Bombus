@@ -292,7 +292,14 @@ public abstract class VirtualList
         int list_top=0; // верхняя граница списка
         if (title!=null) {
             list_top=title.getVHeight();
+            g.setClip(0,0, width, list_top);
+            g.setColor(getTitleBGndRGB());
+            g.fillRect(0,0, width, list_top);
+            g.setColor(getTitleRGB());
+            title.drawItem(g,0,false);
         }
+
+        drawHeapMonitor(g);
         winHeight=height-list_top;
 
         updateLayout(); //fixme: только при изменении списка
@@ -378,27 +385,23 @@ public abstract class VirtualList
         } else scrollbar.setSize(0);
 
         setAbsOrg(g, 0, 0);
-        if (title!=null) {
-            g.setClip(0,0, width, list_top);
-            g.setColor(getTitleBGndRGB());
-            g.fillRect(0,0, width, list_top);
-            g.setColor(getTitleRGB());
-            title.drawItem(g,0,false);
-        }
-
-        drawHeapMonitor(g);
         g.setClip(0,0, width, height);
         if (showBalloon) {
             String text=null;
             try {
                 text=((VirtualElement)getFocusedObject()).getTipString();
             } catch (Exception e) { e.printStackTrace(); }
-            setAbsOrg(g,0,baloon);
-            if (text!=null)Balloon.draw(g, text);
+            if (text!=null)
+                drawBalloon(g, baloon, text);
         }
 
 	if (offscreen!=null) graphics.drawImage(offscreen, 0,0, Graphics.TOP | Graphics.LEFT );
 	//full_items=fe;
+    }
+
+    protected void drawBalloon(final Graphics g, int balloon, final String text) {
+        setAbsOrg(g,0,balloon);
+        Balloon.draw(g, text);
     }
 
     private void drawHeapMonitor(final Graphics g) {
@@ -718,7 +721,7 @@ public abstract class VirtualList
     protected void keyGreen() { eventOk(); }
     
     /** перезапуск ротации скроллера длинных строк */
-    private void setRotator(){
+    protected  void setRotator(){
         focusedItem(cursor);
         rotator.destroyTask();
         if (getItemCount()<1) return;
