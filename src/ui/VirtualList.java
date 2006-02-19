@@ -635,7 +635,10 @@ public abstract class VirtualList
         try {
             stickyWindow=false;
             // объект помещается полностью на экране?
-            if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) return false;
+            if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) {
+                stickyWindow=true;
+                return false;
+            }
             
             // объект на экране есть? (не смещён ли экран стилусом)
             if (itemLayoutY[cursor]>=win_top+winHeight) return false;
@@ -658,7 +661,10 @@ public abstract class VirtualList
         try {
             stickyWindow=false;
             // объект помещается полностью на экране?
-            if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) return false;
+            if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) {
+                stickyWindow=true;
+                return false;
+            }
             
             // объект на экране есть? (не смещён ли экран стилусом)
             if (itemLayoutY[cursor+1]>=win_top+winHeight) return false;
