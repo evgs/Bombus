@@ -61,6 +61,9 @@ public class ConfigForm implements
     ChoiceGroup sndFile;
     //Gauge sndVol;
     
+    ChoiceGroup font1;
+    ChoiceGroup font2;
+    
     NumberField keepAlive;
     NumberField fieldLoc;
     NumberField fieldGmt;
@@ -151,12 +154,22 @@ public class ConfigForm implements
 	
 	sndFile.setSelectedIndex(cf.sounsMsgIndex, true);
 
-	f.append(roster);
+        String fnts[]={"Normal", "Small", "Large"};
+        font1=new ChoiceGroup("Roster font", ConstMIDP.CHOICE_POPUP, fnts, null);
+        font2=new ChoiceGroup("Message font", ConstMIDP.CHOICE_POPUP, fnts, null);
+        font1.setSelectedIndex(cf.font1/8, true);
+        font2.setSelectedIndex(cf.font2/8, true);
+
+        f.append(roster);
+        f.append(font1);
+
         f.append(message);
+        f.append(font2);
 	
 	f.append(sndFile);
 	
-	//sndVol=new Gauge("Sound volume", true, 10,  cf.soundVol/10);
+
+        //sndVol=new Gauge("Sound volume", true, 10,  cf.soundVol/10);
 	//f.append(sndVol);
 
 //#if !(MIDP1)
@@ -221,6 +234,10 @@ public class ConfigForm implements
 	    cf.keepAlive=keepAlive.getValue();
 	    
 	    cf.sounsMsgIndex=sndFile.getSelectedIndex();
+            
+            FontCache.rosterFontSize=cf.font1=font1.getSelectedIndex()*8;
+            FontCache.msgFontSize=cf.font2=font2.getSelectedIndex()*8;
+            FontCache.resetCache();
 	    
 	    //cf.soundVol=sndVol.getValue()*10;
 	    

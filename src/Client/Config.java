@@ -91,6 +91,10 @@ public class Config {
     
     public boolean popupFromMinimized=true;
     public boolean memMonitor;
+    
+    public int font1=0;
+    public int font2=0;
+    public int font3=0;
 
     // runtime values
     public boolean allowMinimize=false;
@@ -107,17 +111,18 @@ public class Config {
 	    // вызов вне конструктора позволяет избежать рекурсии
 	    instance.loadFromStorage();
 	    instance.loadSoundName();
+
+            //FontCache.balloonFontSize=Font.SIZE_SMALL;
+            FontCache.rosterFontSize=instance.font1;
+            FontCache.msgFontSize=instance.font2;
+            FontCache.resetCache();
 	}
 	return instance;
     }
     
     /** Creates a new instance of Config */
     private Config() {
-        FontCache.balloonFontSize=getIntProperty("fontsz_balloon",Font.SIZE_SMALL);
-        FontCache.rosterFontSize=getIntProperty("fontsz_roster",Font.SIZE_MEDIUM);
-        FontCache.msgFontSize=getIntProperty("fontsz_msg",Font.SIZE_MEDIUM);
-        FontCache.resetCache();
-        
+     
         
 	int gmtloc=TimeZone.getDefault().getRawOffset()/3600000;
 	locOffset=getIntProperty( "time_loc_offset", 0);
@@ -180,6 +185,9 @@ public class Config {
 	    
 	    blFlash=inputStream.readBoolean();
 	    memMonitor=inputStream.readBoolean();
+            
+            font1=inputStream.readInt();
+            font2=inputStream.readInt();
 	    
 	    inputStream.close();
 	} catch (Exception e) {
@@ -229,6 +237,9 @@ public class Config {
 	    
 	    outputStream.writeBoolean(blFlash);
 	    outputStream.writeBoolean(memMonitor);
+            
+            outputStream.writeInt(font1);
+            outputStream.writeInt(font2);
 	    
 	} catch (IOException e) { e.printStackTrace(); }
 	

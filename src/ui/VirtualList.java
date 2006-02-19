@@ -697,6 +697,7 @@ public abstract class VirtualList
             }
             if (!cursorInWindow()) {
                 cursor=getElementIndexAt(itemLayoutY[cursor]-winHeight);
+                if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) fitCursor();
             }
             setRotator();
         } catch (Exception e) {};
@@ -716,7 +717,10 @@ public abstract class VirtualList
                 win_top=endTop;
                 cursor=getItemCount()-1;
             } else
-                if (!cursorInWindow()) cursor=getElementIndexAt(itemLayoutY[cursor]+winHeight);
+                if (!cursorInWindow()) {
+                    cursor=getElementIndexAt(itemLayoutY[cursor]+winHeight);
+                    if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) fitCursor();
+                }
             setRotator();
         } catch (Exception e) {};
     }
