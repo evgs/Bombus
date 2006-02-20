@@ -893,7 +893,7 @@ public class Roster
 			    String newJid=from.substring(0,rp+1)+chNick;
 			    System.out.println(newJid);
 			    c.jid.setJid(newJid);
-			    c.bareJid=newJid;
+			    c.bareJid=newJid; // непонятно, зачем я так сделал...
 			    from=newJid;
 			    c.nick=chNick;
 			    
@@ -901,12 +901,14 @@ public class Roster
                             b.append(" was kicked (");
                             b.append(reason);
                             b.append(")");
-                            if ((c.bareJid.equals(from))) leaveRoom(c.group);
+                            if (c==((ConferenceGroup)groups.getGroup(c.group)).getSelfContact())
+                                leaveRoom(c.group);
                         } else if (statusCode.equals("301")){
                             b.append(" was banned (");
                             b.append(reason);
                             b.append(")");
-                            if ((c.bareJid.equals(from))) leaveRoom(c.group);
+                            if (c==((ConferenceGroup)groups.getGroup(c.group)).getSelfContact())
+                                leaveRoom(c.group);
                         } else
                         b.append(" has left the channel");
 		    } else {

@@ -2023,7 +2023,13 @@ syslog_msg: true
   d) на некоторых телефонах присутствуют не все фонты.
 
   fix: пропадание курсора с экрана при pageup/pagedown
-  
+
+21.02.2005
+(430)
+  fix: групповой вылет контактов из конференции при последовательности
+   [0:05:09] *** evgs_желтолицый (*****) has joined the channel as a participant
+   [0:05:32] *** evgs_желтолицый is now known as kickme
+   [0:05:47] *** kickme was kicked
 ---------------------------
   known issues:
 
