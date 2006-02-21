@@ -88,6 +88,7 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
     //private class SmileItem implements VirtualElement {
     public int getVWidth(){ return 0; }
     public int getVHeight() { return lineHeight; }
+    public int[] getLinesHeight() { return null; }
     public int getColor(){ return Colors.LIST_INK; }
     public int getColorBGnd(){ return Colors.LIST_BGND; }
     public void onSelect(){

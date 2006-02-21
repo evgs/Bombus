@@ -141,7 +141,7 @@ public class ConfigForm implements
 	
         application.setSelectedFlags(ap);
         
-	keepAlive=new NumberField("Keep-Alive period", cf.keepAlive, 30, 600 );
+	keepAlive=new NumberField("Keep-Alive period", cf.keepAlive, 20, 600 );
 	fieldGmt=new NumberField("GMT offset", cf.gmtOffset, -12, 12); 
         fieldLoc=new NumberField("Clock offset", cf.locOffset, -12, 12 );
         

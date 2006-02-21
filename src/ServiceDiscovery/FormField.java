@@ -74,6 +74,8 @@ public class FormField {
                 formItem=new StringItem("Instructions", body);
             else if ( name.equals("title") )
                 formItem=new StringItem(null, body);
+            else if ( name.equals("registered") )
+                formItem=new StringItem(null, name);
             else
                 formItem=new TextField(label, body, 64, 0);
         }
@@ -84,7 +86,6 @@ public class FormField {
     JabberDataBlock constructJabberDataBlock(){
         JabberDataBlock j=null;
         if (formItem instanceof TextField) {
-            if (name.equals("registered")) return null;
             String value=((TextField)formItem).getString();
             if (type==null) {
                 j=new JabberDataBlock(null, name, value);

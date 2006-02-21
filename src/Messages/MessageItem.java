@@ -75,6 +75,18 @@ public class MessageItem implements
 	    }
 	}
 
+        public int[] getLinesHeight() { 
+            try {
+                int nlines=msgLines.size();
+                int[] lh=new int[nlines];
+                for (int i=0; i<nlines; i++) {
+                    lh[i]=((ComplexString)msgLines.elementAt(i)).getVHeight();
+                }
+                return lh;
+            } catch (Exception e) { } 
+            return null;
+        }
+        
 	public void onSelect() {
             msg.itemCollapsed=!msg.itemCollapsed;
             updateHeight();
