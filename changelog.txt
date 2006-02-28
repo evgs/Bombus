@@ -2041,6 +2041,12 @@ syslog_msg: true
   теперь диапазон значений для keep-alive от 20 до 600 секунд
 
   построчный скроллинг длинного сообщения
+
+28.02.2005
+(432)
+  build.xml теперь не привязан к TortoiseSvn (C:/Program Files/TortoiseSVN/bin/SubWCRev.exe), 
+  используется svnversion
+  
 ---------------------------
   known issues:
 

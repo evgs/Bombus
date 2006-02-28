@@ -74,6 +74,16 @@
 
     <!-- prepare version patch -->
     <target name="post-init">
+	<exec executable="svnversion" output="resources/.svnrev" />
+	<loadfile srcFile="resources/.svnrev" property="bombus.svnrev"/>
+	<copy file="resources/version.properties" tofile="resources/.version" overwrite="true" />
+	<replace 
+	    file="resources/.version" 
+	    token="$WCREV$"
+	    value="${bombus.svnrev}"/>
+    </target>
+    <!-- old version patcher 
+    <target name="post-init-tsvn">
         <property name="versionPatcher" location="C:/Program Files/TortoiseSVN/bin/SubWCRev.exe" />
         <property name="file_in" location="resources\version.properties "/>
         <property name="file_out" location="resources\.version "/>
@@ -84,6 +94,7 @@
         </exec>
         
     </target>
+    -->
 
     <!-- version patch in Sources -->
     <target name="post-preprocess">
