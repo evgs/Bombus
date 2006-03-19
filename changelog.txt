@@ -2014,7 +2014,7 @@ syslog_msg: true
 (423)
   патч от toon: Grant/Revoke voice в Muc
 
-20.02.2005
+20.02.2006
 (429)
   переключение шрифтов внесено в опции.
   a) фонт для баллонов фиксирован, и выбран минимальным
@@ -2024,14 +2024,14 @@ syslog_msg: true
 
   fix: пропадание курсора с экрана при pageup/pagedown
 
-21.02.2005
+21.02.2006
 (430)
   fix (CRITICAL): групповой вылет контактов из конференции при последовательности
    [0:05:09] *** evgs_желтолицый (*****) has joined the channel as a participant
    [0:05:32] *** evgs_желтолицый is now known as kickme
    [0:05:47] *** kickme was kicked
 
-22.02.2005
+22.02.2006
 (431)
   fix: FS#217: в формах регистрации по jep-0077, 
   в частности, в форме регистрации icq.jabber.ru
@@ -2042,7 +2042,7 @@ syslog_msg: true
 
   построчный скроллинг длинного сообщения
 
-28.02.2005
+28.02.2006
 (432)
   build.xml теперь не привязан к TortoiseSvn (C:/Program Files/TortoiseSVN/bin/SubWCRev.exe), 
   используется svnversion
