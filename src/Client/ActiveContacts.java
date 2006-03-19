@@ -1,12 +1,12 @@
 /*
  * ActiveContacts.java
  *
- * Created on 14 Январь 2006 г., 22:23
+ * Created on 20 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 21:20
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
-
+ 
 package Client;
 
 import java.util.Enumeration;
@@ -15,6 +15,7 @@ import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
+import locale.SR;
 import ui.VirtualElement;
 import ui.VirtualList;
 
@@ -29,8 +30,8 @@ public class ActiveContacts
     
     Vector activeContacts;
     
-    private Command cmdCancel=new Command("Cancel", Command.BACK, 99);
-    private Command cmdSelect=new Command("Select", Command.SCREEN, 1);
+    private Command cmdCancel=new Command(SR.MS_CANCEL, Command.BACK, 99);
+    private Command cmdSelect=new Command(SR.MS_SELECT, Command.SCREEN, 1);
     /** Creates a new instance of ActiveContacts */
     public ActiveContacts(Display display, Contact current) {
 	super();
@@ -41,10 +42,10 @@ public class ActiveContacts
 	    Contact c=(Contact)r.nextElement();
 	    if (c.active()) activeContacts.addElement(c);
 	}
-	// не создаём вид, если нет активных контактов
+	// пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	if (getItemCount()==0) return;
 	
-        setTitleItem(new Title(2, String.valueOf(getItemCount()), " active Contacts"));
+        setTitleItem(new Title(2, String.valueOf(getItemCount()), SR.MS_ACTIVE_CONTACTS));
 
 	addCommand(cmdSelect);
 	addCommand(cmdCancel);

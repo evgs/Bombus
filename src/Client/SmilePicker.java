@@ -1,15 +1,16 @@
 /*
  * SmilePicker.java
  *
- * Created on 6 Март 2005 г., 11:50
+ * Created on 6 пїЅпїЅпїЅпїЅ 2005 пїЅ., 11:50
  *
- * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
  */
 
 package Client;
 import Messages.MessageParser;
 import images.SmilesIcons;
+import locale.SR;
 import ui.*;
 import javax.microedition.lcdui.*;
 import java.util.Vector;
@@ -47,8 +48,8 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
     
     private MessageEdit me;
     
-    Command cmdBack=new Command("Back",Command.BACK,99);
-    Command cmdOK=new Command("Select",Command.OK,1);
+    Command cmdBack=new Command(SR.MS_CANCEL,Command.BACK,99);
+    Command cmdOK=new Command(SR.MS_SELECT,Command.OK,1);
     
     private Vector smileTable;
 

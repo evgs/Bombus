@@ -1,9 +1,9 @@
 /*
  * SelectStatus.java
  *
- * Created on 27 Февраль 2005 г., 16:43
+ * Created on 27 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 16:43
  *
- * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
  */
 
@@ -11,6 +11,7 @@ package Client;
 import images.RosterIcons;
 import java.util.*;
 import javax.microedition.lcdui.*;
+import locale.SR;
 import ui.*;
 import ui.controls.NumberField;
 
@@ -20,17 +21,15 @@ import ui.controls.NumberField;
  */
 public class StatusSelect extends VirtualList implements CommandListener, Runnable{
     
-    private Command cmdOk=new Command("Select",Command.OK,1);
-    private Command cmdEdit=new Command("Edit",Command.SCREEN,2);
-    //private Command cmdPriority=new Command("Set Priority",Command.SCREEN,2);
-    //private Command cmdAll=new Command("All Priorities",Command.SCREEN,3);
-    private Command cmdCancel=new Command("Back",Command.BACK,99);
+    private Command cmdOk=new Command(SR.MS_SELECT,Command.OK,1);
+    private Command cmdEdit=new Command(SR.MS_EDIT,Command.SCREEN,2);
+    private Command cmdCancel=new Command(SR.MS_CANCEL,Command.BACK,99);
     /** Creates a new instance of SelectStatus */
     private Vector statusList=StatusList.getInstance().statusList;
     
     public StatusSelect(Display d) {
         super();
-        setTitleItem(new Title("Status"));
+        setTitleItem(new Title(SR.MS_STATUS));
         
         addCommand(cmdOk);
         addCommand(cmdEdit);
@@ -93,8 +92,8 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
         
         private ExtendedStatus status;
         
-        private Command cmdOk=new Command("Ok",Command.OK,1);
-        private Command cmdCancel=new Command("Cancel",Command.BACK,99);
+        private Command cmdOk=new Command(SR.MS_OK,Command.OK,1);
+        private Command cmdCancel=new Command(SR.MS_CANCEL,Command.BACK,99);
         
         public StatusForm(Display display, ExtendedStatus status){
             this.display=display;
@@ -103,14 +102,14 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
             
             f=new Form(status.getName());
             
-            tfPriority=new NumberField("Priority", status.getPriority(), -128, 128);
+            tfPriority=new NumberField(SR.MS_PRIORITY, status.getPriority(), -128, 128);
             f.append(tfPriority);
 
             chPriorityAll=new ChoiceGroup(null, ChoiceGroup.MULTIPLE);
-            chPriorityAll.append("for all status types", null);
+            chPriorityAll.append(SR.MS_ALL_STATUSES, null);
             f.append(chPriorityAll);
             
-            tfMessage=new TextField("Message", status.getMessage(), 50, 0);
+            tfMessage=new TextField(SR.MS_MESSAGE, status.getMessage(), 50, 0);
             f.append(tfMessage);
             
             f.addCommand(cmdOk);

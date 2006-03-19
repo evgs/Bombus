@@ -1,9 +1,9 @@
 /*
- * MessageList.java
+ * ContactMessageList.java
  *
- * Created on 19 Февраль 2005 г., 23:54
+ * Created on 19 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 23:54
  *
- * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
  */
 
@@ -13,6 +13,7 @@ import Messages.MessageParser;
 import archive.MessageArchive;
 import images.RosterIcons;
 import images.SmilesIcons;
+import locale.SR;
 import vcard.VCard;
 import ui.*;
 import java.util.*;
@@ -25,13 +26,13 @@ public class ContactMessageList extends MessageList
 implements CommandListener{
     
     Contact contact;
-    Command cmdMessage=new Command("New Message",Command.SCREEN,2);
-    Command cmdResume=new Command("Resume Message",Command.SCREEN,1);
-    Command cmdQuote=new Command("Quote",Command.SCREEN,3);
-    Command cmdArch=new Command("to Archive",Command.SCREEN,4);
-    Command cmdPurge=new Command("Clear List", Command.SCREEN, 10);
-    Command cmdContact=new Command("Contact >",Command.SCREEN,11);
-    Command cmdActive=new Command("Active Contacts",Command.SCREEN,11);
+    Command cmdMessage=new Command(SR.MS_NEW_MESSAGE,Command.SCREEN,2);
+    Command cmdResume=new Command(SR.MS_RESUME,Command.SCREEN,1);
+    Command cmdQuote=new Command(SR.MS_QUOTE,Command.SCREEN,3);
+    Command cmdArch=new Command(SR.MS_ADD_ARCHIVE,Command.SCREEN,4);
+    Command cmdPurge=new Command(SR.MS_CLEAR_LIST, Command.SCREEN, 10);
+    Command cmdContact=new Command(SR.MS_CONTACT,Command.SCREEN,11);
+    Command cmdActive=new Command(SR.MS_ACTIVE_CONTACTS,Command.SCREEN,11);
     
     StaticData sd;
     

@@ -1,9 +1,9 @@
 /*
  * ConfigForm.java
  *
- * Created on 2 Май 2005 г., 18:19
+ * Created on 2 пїЅпїЅпїЅ 2005 пїЅ., 18:19
  *
- * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
  */
 
@@ -11,6 +11,7 @@ package Client;
 import java.util.Enumeration;
 import java.util.Vector;
 import javax.microedition.lcdui.*;
+import locale.SR;
 import ui.controls.NumberField;
 import util.StringLoader;
 import ui.*;
@@ -68,10 +69,10 @@ public class ConfigForm implements
     NumberField fieldLoc;
     NumberField fieldGmt;
     
-    Command cmdOk=new Command("OK",Command.OK,1);
+    Command cmdOk=new Command(SR.MS_OK,Command.OK,1);
     //Command cmdSign=new Command("- (Sign)",Command.ITEM,2);
-    Command cmdPlaySound=new Command("Test sound",Command.ITEM,10);
-    Command cmdCancel=new Command("Cancel",Command.BACK,99);
+    Command cmdPlaySound=new Command(SR.MS_TEST_SOUND, Command.ITEM,10);
+    Command cmdCancel=new Command(SR.MS_CANCEL, Command.BACK,99);
     
     Config cf;
     boolean ra[];
@@ -87,13 +88,13 @@ public class ConfigForm implements
         
         cf=Config.getInstance();
         
-        f=new Form("Options");
-        roster=new ChoiceGroup("Roster elements", Choice.MULTIPLE);
-        roster.append("offline contacts",null);
-        roster.append("self-contact",null);
-        roster.append("transports",null);
-        roster.append("Ignore-List",null);
-        roster.append("Not-in-list",null);
+        f=new Form(SR.MS_OPTIONS);
+        roster=new ChoiceGroup(SR.MS_ROSTER_ELEMENTS, Choice.MULTIPLE);
+        roster.append(SR.MS_OFFLINE_CONTACTS, null);
+        roster.append(SR.MS_SELF_CONTACT, null);
+        roster.append(SR.MS_TRANSPORTS, null);
+        roster.append(SR.MS_IGNORE_LIST, null);
+        roster.append(SR.MS_NOT_IN_LIST, null);
         //roster.append("Clock -",null);
         
         ra=new boolean[5];
@@ -105,19 +106,19 @@ public class ConfigForm implements
         //ra[5]=false;
         roster.setSelectedFlags(ra);
 
-        message=new ChoiceGroup("Messages", Choice.MULTIPLE);
-        message.append("smiles",null);
-        message.append("history -",null);
-        message.append("composing events",null);
+        message=new ChoiceGroup(SR.MS_MESSAGES, Choice.MULTIPLE);
+        message.append(SR.MS_SMILES, null);
+        message.append(SR.MS_HISTORY, null);
+        message.append(SR.MS_COMPOSING_EVENTS, null);
         mv=new boolean[3];
         mv[0]=cf.smiles;
         mv[1]=cf.msgLog;
         mv[2]=cf.eventComposing;
         message.setSelectedFlags(mv);
 
-	startup=new ChoiceGroup("Startup actions", Choice.MULTIPLE);
-        startup.append("autologin",null);
-        startup.append("join conferences",null);
+	startup=new ChoiceGroup(SR.MS_STARTUP_ACTIONS, Choice.MULTIPLE);
+        startup.append(SR.MS_AUTOLOGIN, null);
+        startup.append(SR.MS_JOIN_CONFERENCE,null);
         su=new boolean[2];
         su[0]=cf.autoLogin;
         su[1]=cf.autoJoinConferences;
@@ -125,28 +126,28 @@ public class ConfigForm implements
         
         ap=new boolean[4];
 	int apctr=0;
-        application=new ChoiceGroup("Application", Choice.MULTIPLE);
+        application=new ChoiceGroup(SR.MS_APPLICATION, Choice.MULTIPLE);
 //#if !(MIDP1)
         ap[apctr++]=cf.fullscreen;
-        application.append("fullscreen",null);
+        application.append(SR.MS_FULLSCREEN,null);
 //#endif
-        application.append("heap monitor",null);
+        application.append(SR.MS_HEAP_MONITOR,null);
 	if (!cf.ghostMotor)
-            application.append("flash backlight",null);
+            application.append(SR.MS_FLASHBACKLIGHT,null);
 	if (cf.allowMinimize)
-	    application.append("popup from background",null);
+	    application.append(SR.MS_ENABLE_POPUP,null);
 	ap[apctr++]=cf.memMonitor;
 	ap[apctr++]=cf.blFlash;
 	ap[apctr++]=cf.popupFromMinimized;
 	
         application.setSelectedFlags(ap);
         
-	keepAlive=new NumberField("Keep-Alive period", cf.keepAlive, 20, 600 );
-	fieldGmt=new NumberField("GMT offset", cf.gmtOffset, -12, 12); 
-        fieldLoc=new NumberField("Clock offset", cf.locOffset, -12, 12 );
+	keepAlive=new NumberField(SR.MS_KEEPALIVE_PERIOD, cf.keepAlive, 20, 600 );
+	fieldGmt=new NumberField(SR.MS_GMT_OFFSET, cf.gmtOffset, -12, 12); 
+        fieldLoc=new NumberField(SR.MS_CLOCK_OFFSET, cf.locOffset, -12, 12 );
         
 	files=new StringLoader().stringLoader("/sounds/res.txt",3);
-        sndFile=new ChoiceGroup("Sound", ConstMIDP.CHOICE_POPUP);
+        sndFile=new ChoiceGroup(SR.MS_SOUND, ConstMIDP.CHOICE_POPUP);
 	
 	for (Enumeration f=files[2].elements(); f.hasMoreElements(); ) {
 	    sndFile.append( (String)f.nextElement(), null );
@@ -155,8 +156,8 @@ public class ConfigForm implements
 	sndFile.setSelectedIndex(cf.sounsMsgIndex, true);
 
         String fnts[]={"Normal", "Small", "Large"};
-        font1=new ChoiceGroup("Roster font", ConstMIDP.CHOICE_POPUP, fnts, null);
-        font2=new ChoiceGroup("Message font", ConstMIDP.CHOICE_POPUP, fnts, null);
+        font1=new ChoiceGroup(SR.MS_ROSTER_FONT, ConstMIDP.CHOICE_POPUP, fnts, null);
+        font2=new ChoiceGroup(SR.MS_MESSAGE_FONT, ConstMIDP.CHOICE_POPUP, fnts, null);
         font1.setSelectedIndex(cf.font1/8, true);
         font2.setSelectedIndex(cf.font2/8, true);
 
@@ -187,7 +188,7 @@ public class ConfigForm implements
 
 	f.append(keepAlive);
 	
-        f.append("Time settings (hours)\n");
+        f.append(SR.MS_TIME_SETTINGS);
         
         f.append(fieldGmt);
         f.append(fieldLoc);

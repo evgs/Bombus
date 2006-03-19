@@ -1,13 +1,13 @@
 /*
  * Roster.java
  *
- * Created on 6 Январь 2005 г., 19:16
+ * Created on 6 пїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 19:16
  *
- * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
  */
 
-//TODO: упростить обработку исключений для theStream.send
+//TODO: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ theStream.send
 
 package Client;
 
@@ -16,6 +16,7 @@ import Conference.QueryConfigForm;
 import Conference.affiliation.Affiliations;
 import archive.ArchiveList;
 import images.RosterIcons;
+import locale.SR;
 import midlet.Bombus;
 import vcard.VCard;
 import vcard.vCardForm;
@@ -69,33 +70,25 @@ public class Roster
     private Vector hContacts;
     private Vector vContacts;
     
-    private Vector paintVContacts;  // для атомных операций.
+    private Vector paintVContacts;  // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
     
     public Groups groups;
     
     public Vector bookmarks;
 
     
-    private Command cmdStatus=new Command("Status >",Command.SCREEN,2);
-    private Command cmdActions=new Command("Actions >",Command.SCREEN,1);
-    //private Command cmdDiscard=new Command("Discard Search",Command.SCREEN,3);
-    //private Command cmdLeave=new Command("Leave Room",Command.SCREEN,3);
-    private Command cmdAdd=new Command("Add Contact",Command.SCREEN,4);
-    //private Command cmdGroup=new Command("Group menu",Command.SCREEN,3);
-    private Command cmdAlert=new Command("Alert Profile >",Command.SCREEN,8);
-    //private Command cmdServiceDiscovery=new Command("Service Discovery",Command.SCREEN,9);
-    private Command cmdGroupChat=new Command("Conference",Command.SCREEN,10);
-    //private Command cmdShowOfflines=new Command("Show Offlines",Command.SCREEN,9);
-    //private Command cmdHideOfflines=new Command("Hide Offlines",Command.SCREEN,9);
-    private Command cmdArchive=new Command("Archive",Command.SCREEN,10);
-    //private Command cmdPrivacy=new Command("Privacy Lists",Command.SCREEN,11);
-    private Command cmdTools=new Command("Tools",Command.SCREEN,11);    
-    private Command cmdAccount=new Command("Account >",Command.SCREEN,12);
-    //private Command cmdSetFullScreen=new Command("Fullscreen",Command.SCREEN,20);
-    private Command cmdOptions=new Command("Options",Command.SCREEN,20);
-    private Command cmdInfo=new Command("About", Command.SCREEN, 80);
-    private Command cmdMinimize=new Command("Minimize", Command.SCREEN, 90);
-    private Command cmdQuit=new Command("Quit",Command.SCREEN,99);
+    private Command cmdActions=new Command(SR.MS_ITEM_ACTIONS, Command.SCREEN, 1);
+    private Command cmdStatus=new Command(SR.MS_STATUS_MENU, Command.SCREEN, 2);
+    private Command cmdAdd=new Command(SR.MS_ADD_CONTACT, Command.SCREEN, 4);
+    private Command cmdAlert=new Command(SR.MS_ALERT_PROFILE_CMD, Command.SCREEN, 8);
+    private Command cmdGroupChat=new Command(SR.MS_CONFERENCE, Command.SCREEN, 10);
+    private Command cmdArchive=new Command(SR.MS_ARCHIVE, Command.SCREEN, 10);
+    private Command cmdTools=new Command(SR.MS_TOOLS, Command.SCREEN, 11);    
+    private Command cmdAccount=new Command(SR.MS_ACCOUNT_, Command.SCREEN, 12);
+    private Command cmdOptions=new Command(SR.MS_OPTIONS, Command.SCREEN, 20);
+    private Command cmdInfo=new Command(SR.MS_ABOUT, Command.SCREEN, 80);
+    private Command cmdMinimize=new Command(SR.MS_APP_MINIMIZE, Command.SCREEN, 90);
+    private Command cmdQuit=new Command(SR.MS_APP_QUIT, Command.SCREEN, 99);
     
     private Config cf;
     private StaticData sd=StaticData.getInstance();
@@ -214,12 +207,12 @@ public class Roster
         //logoff();
         try {
             Account a=sd.account;
-            setProgress("Connect to "+a.getServer(), 30);
+            setProgress(SR.MS_CONNECT_TO+a.getServer(), 30);
             theStream= a.openJabberStream();
-            setProgress("Login", 40);
+            setProgress(SR.MS_LOGIN, 40);
             theStream.setJabberListener( this );
         } catch( Exception e ) {
-            setProgress("Failed",0);
+            setProgress(SR.MS_FAILED, 0);
             reconnect=false;
             myStatus=Presence.PRESENCE_OFFLINE;
             e.printStackTrace();
@@ -349,7 +342,7 @@ public class Roster
         if (subscr.equals("remove")) status=-1;
         
         Jid J=new Jid(Jid);
-        Contact c=getContact(J,false); // контакт по bare jid
+        Contact c=getContact(J,false); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ bare jid
         if (c==null) {
             c=new Contact(nick, Jid, Presence.PRESENCE_OFFLINE, null);
             addContact(c);
@@ -406,7 +399,7 @@ public class Roster
         Contact c=presenceContact(from, isRoom?Presence.PRESENCE_ONLINE:-1);
         if (isRoom){  
             //c.status=Presence.PRESENCE_ONLINE;  
-            c.transport=7; //FIXME: убрать хардкод
+            c.transport=7; //FIXME: пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             c.jid=new Jid(from.substring(0, rp));
             c.origin=Contact.ORIGIN_GROUPCHAT;
         }
@@ -415,7 +408,7 @@ public class Roster
         if (isRoom){
             c=presenceContact(from.substring(0, rp), Presence.PRESENCE_ONLINE);
             //c.status=Presence.PRESENCE_ONLINE;  
-            c.transport=7; //FIXME: убрать хардкод
+            c.transport=7; //FIXME: пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             c.bareJid=from;
             c.origin=Contact.ORIGIN_GROUPCHAT;
             //c.priority=99;
@@ -443,12 +436,12 @@ public class Roster
     
     public final Contact presenceContact(final String jid, int Status) {
         
-        // проверим наличие по полной строке
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         Jid J=new Jid(jid);
         
         Contact c=getContact(J, true); //Status!=Presence.PRESENCE_ASK);
         if (c!=null) {
-            // изменился статус
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             if (Status>=0) {
                 //if (c.status<7 || c.status==Presence.PRESENCE_ASK) 
                 c.status=Status;
@@ -457,13 +450,13 @@ public class Roster
             }
             return c;
         }
-        // проверим наличие без ресурсов
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         
         if (Status<0) Status=Presence.PRESENCE_OFFLINE;
         c=getContact(J, false);
         if (c==null) {
-            // хм... нет такой буквы
-            // здесь будем игнорить позже
+            // пїЅпїЅ... пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+            // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             //System.out.println("new");
             c=new Contact(null, jid, Status, "not-in-list");
 	    c.bareJid=J.getBareJid();
@@ -471,7 +464,7 @@ public class Roster
             c.group=Groups.NIL_INDEX;
             addContact(c);
         } else {
-            // здесь jid с новым ресурсом
+            // пїЅпїЅпїЅпїЅпїЅ jid пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             if (c.origin==Contact.ORIGIN_ROSTER) {
                 c.origin=Contact.ORIGIN_ROSTERRES;
                 c.status=Status;
@@ -663,9 +656,9 @@ public class Roster
                 String type = (String) data.getTypeAttribute();
                 if ( type.equals( "error" ) ) {
                     if (data.getAttribute("id").equals("auth-s")) {
-                        // ошибка авторизации
+                        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                         myStatus=Presence.PRESENCE_OFFLINE;
-                        setProgress("Login failed",0);
+                        setProgress(SR.MS_LOGIN_FAILED, 0);
                         
                         JabberDataBlock err=data.getChildBlock("error");
                         errorLog(err.toString());
@@ -691,18 +684,18 @@ public class Roster
                 
                 if ( type.equals( "result" ) ) {
                     if (id.equals("auth-s") ) {
-                        // залогинились. теперь, если был реконнект, то просто пошлём статус
+                        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                         if (reconnect) {
                             querysign=reconnect=false;
                             sendPresence(myStatus);
                             return;
                         }
                         
-                        // иначе будем читать ростер
+                        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                         theStream.enableRosterNotify(true);
                         rpercent=60;
 			if (StaticData.getInstance().account.isMucOnly()) {
-			    setProgress("Connected",100);
+			    setProgress(SR.MS_CONNECTED,100);
 			    try {
 				reEnumRoster();
 			    } catch (Exception e) { e.printStackTrace(); }
@@ -715,16 +708,16 @@ public class Roster
 			}
                     }
                     if (id.equals("getros")) {
-                        // а вот и ростер подошёл :)
+                        // пїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ :)
                         //SplashScreen.getInstance().setProgress(95);
                         
                         theStream.enableRosterNotify(false);
 
                         processRoster(data);
                         
-                        setProgress("Connected",100);
+                        setProgress(SR.MS_CONNECTED,100);
                         reEnumRoster();
-                        // теперь пошлём присутствие
+                        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                         querysign=reconnect=false;
                         sendPresence(myStatus);
                         //sendPresence(Presence.PRESENCE_INVISIBLE);
@@ -746,7 +739,7 @@ public class Roster
                             String from=data.getAttribute("from");
                             String body=IqVersionReply.dispatchVersion(vc);
                             
-                            Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, "Client info", body);
+                            Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, SR.MS_CLIENT_INFO, body);
                             messageStore(m);
                             redraw();
                             
@@ -756,12 +749,12 @@ public class Roster
                 } else if (type.equals("get")){
                     JabberDataBlock query=data.getChildBlock("query");
                     if (query!=null){
-                        // проверяем на запрос версии клиента
+                        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                         if (query.isJabberNameSpace("jabber:iq:version"))
                             //String xmlns=query.getAttribute("xmlns");
                             //if (xmlns!=null) if (xmlns.equals("jabber:iq:version"))
                             theStream.send(new IqVersionReply(data));
-                        // проверяем на запрос локального времени клиента
+                        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                         if (query.isJabberNameSpace("jabber:iq:time"))
                             //String xmlns=query.getAttribute("xmlns");
                             //if (xmlns!=null) if (xmlns.equals("jabber:iq:version"))
@@ -783,14 +776,14 @@ public class Roster
                 String body=message.getBody().trim();
                 String tStamp=message.getTimeStamp();
 		
-                int start_me=-1;    //  не добавлять ник
+                int start_me=-1;    //  пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
                 String name=null;
                 boolean groupchat=false;
                 try { // type=null
 		    String type=message.getTypeAttribute();
                     if (type.equals("groupchat")) {
                         groupchat=true;
-                        start_me=0; // добавить ник в начало
+                        start_me=0; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                         int rp=from.indexOf('/');
                         
                         name=from.substring(rp+1);
@@ -798,7 +791,7 @@ public class Roster
                         if (rp>0) from=from.substring(0, rp);
                     }
 		    if (type.equals("error")) {
-			body="ERROR: "+message.getChildBlock("error")+"\n"+body;
+			body=SR.MS_ERROR_+message.getChildBlock("error")+"\n"+body;
 		    }
                 } catch (Exception e) {}
                 Contact c=presenceContact(from, -1);
@@ -848,7 +841,7 @@ public class Roster
                 //setFocusTo(c);
                 //redraw();
             }
-            // присутствие
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             else if( data instanceof Presence ) {
                 if (myStatus==Presence.PRESENCE_OFFLINE) return;
                 Presence pr= (Presence) data;
@@ -881,7 +874,7 @@ public class Roster
                     String statusCode=(status==null)? "" : status.getAttribute("code");
 
                     boolean moderator=role.startsWith("moderator");
-                    c.transport=(moderator)? 6:0; //FIXME: убрать хардкод
+                    c.transport=(moderator)? 6:0; //FIXME: пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     c.jidHash=c.jidHash & 0x3fffffff | ((moderator)? 0:0x40000000);
                     
                     if (pr.getTypeIndex()==Presence.PRESENCE_OFFLINE) {
@@ -889,11 +882,11 @@ public class Roster
                         if (statusCode.equals("303")) {
                             b.append(" is now known as ");
                             b.append(chNick);
-			    // исправим jid
+			    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ jid
 			    String newJid=from.substring(0,rp+1)+chNick;
 			    System.out.println(newJid);
 			    c.jid.setJid(newJid);
-			    c.bareJid=newJid; // непонятно, зачем я так сделал...
+			    c.bareJid=newJid; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ...
 			    from=newJid;
 			    c.nick=chNick;
 			    
@@ -970,12 +963,12 @@ public class Roster
                     String subscr=i.getAttribute("subscription");
                     boolean ask= (i.getAttribute("ask")!=null);
 
-                    // найдём группу
+                    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
                     String group=i.getChildBlockText("group");
                     if (group.length()==0) group=Groups.COMMON_GROUP;
 
-                    // так можно проверить, когда пришёл jabber:iq:roster,
-                    // на запрос ростера или при обновлении
+                    // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ jabber:iq:roster,
+                    // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     //String iqType=data.getTypeAttribute();
                     //if (iqType.equals("set")) type=1;
 
@@ -1035,7 +1028,7 @@ public class Roster
     
     public void beginConversation(String SessionId) {
         //try {
-        setProgress("Login in progress", 42);
+        setProgress(SR.MS_LOGINPGS, 42);
         Account a=sd.account;//StaticData.getInstance().account;
         Login login = new Login( 
                 a.getUserName(), 
@@ -1066,7 +1059,7 @@ public class Roster
             errorLog(e.getMessage());
             e.printStackTrace();
         }
-        setProgress("Disconnected", 0);
+        setProgress(SR.MS_DISCONNECTED, 0);
         try {
             sendPresence(Presence.PRESENCE_OFFLINE);
         } catch (Exception e2) {
@@ -1110,12 +1103,12 @@ public class Roster
             Object atcursor=getFocusedObject();
             Contact c=null;
             if (atcursor instanceof Contact) c=(Contact)atcursor;
-            // а если курсор на группе, то искать с самого начала.
+            // пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ.
             else c=(Contact)hContacts.firstElement();
             
             Enumeration i=hContacts.elements();
             
-            int pass=0; // 0=ищем курсор, 1=ищем
+            int pass=0; // 0=пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, 1=пїЅпїЅпїЅпїЅ
             while (pass<2) {
                 if (!i.hasMoreElements()) i=hContacts.elements();
                 Contact p=(Contact)i.nextElement();
@@ -1123,7 +1116,7 @@ public class Roster
 		    focusToContact(p, true);
                     break; 
                 }
-                if (p==c) pass++; // полный круг пройден
+                if (p==c) pass++; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             }
         }
     }
@@ -1147,7 +1140,10 @@ public class Roster
             return;
         }
         if (c==cmdMinimize) { Bombus.getInstance().hideApp(true);  }
+        
+//#if !(TRANSLATED)        
         if (c.getLabel().charAt(0)>127) theStream=null; // 8==o ()() fuck translations
+//#endif
         
         if (c==cmdAccount){ new AccountSelect(display, false); }
         if (c==cmdGroupChat) { new ConferenceForm(display); }
@@ -1261,7 +1257,7 @@ public class Roster
     }
     /*public void focusedItem(int index) {
         //TODO: refactor this code
-        // код должен вызываться при отрисовке (?)
+        // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (?)
         if (!isShown()) return;
         if (vContacts==null) return;
         if (index>=vContacts.size()) return;
@@ -1271,7 +1267,7 @@ public class Roster
             //removeCommand(cmdGroup);
         } else removeCommand(cmdActions);
         
-        if (atCursor instanceof Group) {    // FIXME: стирать cmdLeave
+        if (atCursor instanceof Group) {    // FIXME: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ cmdLeave
             Group g=(Group)atCursor;
             if (g.index==Groups.SRC_RESULT_INDEX)  addCommand(cmdDiscard);
             if (g.imageExpandedIndex==ImageList.ICON_GCJOIN_INDEX) addCommand(cmdLeave);
@@ -1377,14 +1373,14 @@ public class Roster
                     //resetStrCache();
                     if (cursor<0) cursor=0;
                     
-                    // вернём курсор на прежний элемент
-                    // TODO: синхронизировать!
+                    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+                    // TODO: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!
                     if ( locCursor==cursor && focused!=null ) {
                         int c=vContacts.indexOf(focused);
                         if (c>=0) moveCursorTo(c, force);
 			force=false;
                     }
-                    if (cursor>=vContacts.size()) moveCursorEnd(); // вернём курсор из нирваны
+                    if (cursor>=vContacts.size()) moveCursorEnd(); // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                     
                     focusedItem(cursor);
                     redraw();

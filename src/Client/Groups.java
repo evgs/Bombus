@@ -1,9 +1,9 @@
 /*
  * Groups.java
  *
- * Created on 8 Май 2005 г., 0:36
+ * Created on 8 пїЅпїЅпїЅ 2005 пїЅ., 0:36
  *
- * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
  */
 
@@ -11,6 +11,7 @@ package Client;
 
 import images.RosterIcons;
 import java.util.*;
+import locale.SR;
 import ui.ImageList;
 
 /**
@@ -22,17 +23,17 @@ public class Groups{
     Vector groups;
     
     public final static int TRANSP_INDEX=0;
-    public final static String TRANSP_GROUP="Transports";
+    public final static String TRANSP_GROUP=SR.MS_TRANSPORTS;
     public final static int SELF_INDEX=1;
-    public final static String SELF_GROUP="Self-Contact";
+    public final static String SELF_GROUP=SR.MS_SELF_CONTACT;
     public final static int SRC_RESULT_INDEX=2;
-    public final static String SRC_RESULT_GROUP="Search results";
+    public final static String SRC_RESULT_GROUP=SR.MS_SEARCH_RESULTS;
     public final static int NIL_INDEX=3;
-    public final static String NIL_GROUP="Not-In-List";
+    public final static String NIL_GROUP=SR.MS_NOT_IN_LIST;
     public final static int IGNORE_INDEX=4;
-    public final static String IGNORE_GROUP="Ignore-List";
+    public final static String IGNORE_GROUP=SR.MS_IGNORE_LIST;
     public final static int COMMON_INDEX=5;
-    public final static String COMMON_GROUP="General";
+    public final static String COMMON_GROUP=SR.MS_GENERAL;
     
     public Groups(){
         groups=new Vector();

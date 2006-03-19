@@ -1,12 +1,12 @@
 /*
  * Bombus.java
  *
- * Created on 5 Январь 2005 г., 21:46
+ * Created on 5 пїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 21:46
  *
  * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
  *
- * щмель=bombus
+ * пїЅпїЅпїЅпїЅпїЅ=bombus
  * Al-Colibry :)
  */
 
@@ -18,6 +18,7 @@ package midlet;
 
 import javax.microedition.midlet.*;
 import javax.microedition.lcdui.*;
+import locale.SR;
 
 import ui.*;
 
@@ -46,7 +47,7 @@ public class Bombus extends MIDlet implements Runnable{
         display = Display.getDisplay(this);
         SplashScreen s= SplashScreen.getInstance();
         display.setCurrent(s);
-        s.setProgress("Loading",3);
+        s.setProgress(SR.MS_LOADING /*"Loading"*/,3);
         sd=StaticData.getInstance();
     }
     

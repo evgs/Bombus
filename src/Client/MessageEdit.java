@@ -1,9 +1,9 @@
 /*
  * MessageEdit.java
  *
- * Created on 20 Февраль 2005 г., 21:20
+ * Created on 20 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 21:20
  *
- * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
  */
 
@@ -11,6 +11,7 @@ package Client;
 import Conference.AppendNick;
 import archive.ArchiveList;
 import javax.microedition.lcdui.*;
+import locale.SR;
 import ui.VirtualList;
 
 /**
@@ -28,14 +29,14 @@ public class MessageEdit
     private String subj;
     
     private Contact to;
-    private Command cmdSuspend=new Command("Suspend",Command.BACK,90);
-    private Command cmdCancel=new Command("Cancel",Command.SCREEN,99);
-    private Command cmdSend=new Command("Send",Command.OK /*Command.SCREEN*/,1);
-    private Command cmdSmile=new Command("Add Smile",Command.SCREEN,2);
-    private Command cmdInsNick=new Command("Nicknames",Command.SCREEN,3);
-    private Command cmdInsMe=new Command("/me",Command.SCREEN,4);
-    private Command cmdSubj=new Command("Set Subject", Command.SCREEN, 5);
-    private Command cmdPaste=new Command("Archive", Command.SCREEN, 10);
+    private Command cmdSuspend=new Command(SR.MS_SUSPEND, Command.BACK,90);
+    private Command cmdCancel=new Command(SR.MS_CANCEL, Command.SCREEN,99);
+    private Command cmdSend=new Command(SR.MS_SEND, Command.OK /*Command.SCREEN*/,1);
+    private Command cmdSmile=new Command(SR.MS_ADD_SMILE, Command.SCREEN,2);
+    private Command cmdInsNick=new Command(SR.MS_NICKNAMES,Command.SCREEN,3);
+    private Command cmdInsMe=new Command(SR.MS_SLASHME, Command.SCREEN, 4); ; // /me
+    private Command cmdSubj=new Command(SR.MS_SET_SUBJECT, Command.SCREEN, 5);
+    private Command cmdPaste=new Command(SR.MS_ARCHIVE, Command.SCREEN, 10);
     
     private boolean composing=true;
 
@@ -75,8 +76,8 @@ public class MessageEdit
         //t.insert(s, t.getCaretPosition());
         if ( t.size()>0 )
         if ( !t.getString().endsWith(" ") ) append(" ");
-        append(s);  // теперь вставка происходит всегда в конец строки
-        append(" "); // хвостовой пробел
+        append(s);  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+        append(" "); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     }
     
     private void append(String s) { t.insert(s, t.size()); }
@@ -124,8 +125,8 @@ public class MessageEdit
         if (body!=null /*|| subj!=null*/ ) {
             String from=StaticData.getInstance().account.toString();
             Msg msg=new Msg(Msg.MESSAGE_TYPE_OUT,from,subj,body);
-            // не добавляем в групчат свои сообщения
-            // не шлём composing
+            // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            // пїЅпїЅ пїЅпїЅпїЅ composing
             if (to.origin!=Contact.ORIGIN_GROUPCHAT) {
                 to.addMessage(msg);
                 comp=1; // composing event in message

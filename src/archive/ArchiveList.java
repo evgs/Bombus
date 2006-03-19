@@ -1,7 +1,7 @@
 /*
  * ArchiveList.java
  *
- * Created on 11 Декабрь 2005 г., 5:24
+ * Created on 11 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 5:24
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -18,6 +18,7 @@ import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.TextBox;
+import locale.SR;
 import ui.ComplexString;
 
 /**
@@ -29,10 +30,10 @@ public class ArchiveList
     implements CommandListener
 {
 
-    Command cmdDelete=new Command("Delete", Command.SCREEN, 9);
-    Command cmdPaste=new Command("Paste Body", Command.SCREEN, 1);
-    Command cmdSubj=new Command("Paste Subject", Command.SCREEN, 3);
-    Command cmdJid=new Command("Paste Jid", Command.SCREEN, 2);
+    Command cmdDelete=new Command(SR.MS_DELETE /*"Delete"*/, Command.SCREEN, 9);
+    Command cmdPaste=new Command(SR.MS_PASTE_BODY /*"Paste Body"*/, Command.SCREEN, 1);
+    Command cmdSubj=new Command(SR.MS_PASTE_SUBJECT /*"Paste Subject"*/, Command.SCREEN, 3);
+    Command cmdJid=new Command(SR.MS_PASTE_JID /*"Paste Jid"*/, Command.SCREEN, 2);
     //Command cmdNick=new Command("Paste Nickname", Command.SCREEN, 3);
     
     MessageArchive archive=new MessageArchive();
@@ -52,10 +53,10 @@ public class ArchiveList
 	
 	setCommandListener(this);
 	
-	Title title=new Title("Archive");
+	Title title=new Title(SR.MS_ARCHIVE /*"Archive"*/);
 	title.addRAlign();
 	title.addElement(null);
-	title.addElement("free ");
+	title.addElement(SR.MS_FREE /*"free "*/);
         setTitleItem(title);
     }
 

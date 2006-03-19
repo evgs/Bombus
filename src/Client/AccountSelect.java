@@ -1,7 +1,7 @@
 /*
  * AccountPicker.java
  *
- * Created on 19 Март 2005 г., 23:26
+ * Created on 19 пїЅпїЅпїЅпїЅ 2005 пїЅ., 23:26
  *
  * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -9,6 +9,7 @@
 
 package Client;
 import images.RosterIcons;
+import locale.SR;
 import midlet.Bombus;
 import ui.*;
 import java.io.*;
@@ -28,20 +29,20 @@ public class AccountSelect
     Vector accountList;
     int activeAccount;
     
-    Command cmdLogin=new Command("Login",Command.OK,1);
-    Command cmdSelect=new Command("Select (no login)",Command.SCREEN,2);
-    Command cmdAdd=new Command("New Account",Command.SCREEN,3);
-    Command cmdEdit=new Command("Edit",Command.ITEM,3);
-    Command cmdDel=new Command("Delete",Command.ITEM,4);
-    Command cmdCancel=new Command("Back",Command.BACK,99);
-    Command cmdQuit=new Command("Quit",Command.SCREEN,10);
+    Command cmdLogin=new Command(SR.MS_LOGIN, Command.OK,1);
+    Command cmdSelect=new Command(SR.MS_NOLOGIN, Command.SCREEN,2);
+    Command cmdAdd=new Command(SR.MS_NEW_ACCOUNT, Command.SCREEN,3);
+    Command cmdEdit=new Command(SR.MS_EDIT,Command.ITEM,3);
+    Command cmdDel=new Command(SR.MS_DELETE,Command.ITEM,4);
+    Command cmdCancel=new Command(SR.MS_BACK,Command.BACK,99);
+    Command cmdQuit=new Command(SR.MS_APP_QUIT,Command.SCREEN,10);
     
     /** Creates a new instance of AccountPicker */
     public AccountSelect(Display display, boolean enableQuit) {
         super();
         //this.display=display;
 
-        setTitleItem(new Title("Accounts"));
+        setTitleItem(new Title(SR.MS_ACCOUNTS));
         
         accountList=new Vector();
         Account a;
@@ -86,7 +87,7 @@ public class AccountSelect
             addCommand(cmdLogin);
             addCommand(cmdSelect);
             if (activeAccount>=0)
-                addCommand(cmdCancel);  // нельзя выйти без активного аккаунта
+                addCommand(cmdCancel);  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         }
     }
 

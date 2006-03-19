@@ -1,15 +1,16 @@
 /*
- * Profile.java
+ * AlertProfile.java
  *
- * Created on 28 Март 2005 г., 0:05
+ * Created on 28 пїЅпїЅпїЅпїЅ 2005 пїЅ., 0:05
  *
- * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
  */
 
 package Client;
 
 import images.RosterIcons;
+import locale.SR;
 import ui.*;
 import javax.microedition.lcdui.*;
 
@@ -33,16 +34,16 @@ public class AlertProfile extends VirtualList implements CommandListener {
     
     /** Creates a new instance of Profile */
     
-    private Command cmdOk=new Command("Select",Command.OK,1);
-    private Command cmdDef=new Command("Set Default",Command.OK,2);
-    private Command cmdCancel=new Command("Back",Command.BACK,99);
+    private Command cmdOk=new Command(SR.MS_SELECT,Command.OK,1);
+    private Command cmdDef=new Command(SR.MS_SETDEFAULT,Command.OK,2);
+    private Command cmdCancel=new Command(SR.MS_BACK,Command.BACK,99);
     /** Creates a new instance of SelectStatus */
     public AlertProfile(Display d) {
         super();
         
         cf=Config.getInstance();
         
-        setTitleItem(new Title("Alert Profile"));
+        setTitleItem(new Title(SR.MS_ALERT_PROFILE));
         
         addCommand(cmdOk);
         addCommand(cmdDef);

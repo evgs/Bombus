@@ -1,10 +1,10 @@
 /*
  * RosterToolsMenu.java
  *
- * Created on 11 Декабрь 2005 г., 20:43
+ * Created on 11 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 20:43
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package Client;
@@ -12,6 +12,7 @@ package Client;
 import PrivacyLists.PrivacySelect;
 import ServiceDiscovery.ServiceDiscovery;
 import javax.microedition.lcdui.Display;
+import locale.SR;
 import ui.Menu;
 import ui.MenuItem;
 import vcard.VCard;
@@ -27,10 +28,10 @@ public class RosterToolsMenu
     
     /** Creates a new instance of RosterToolsMenu */
     public RosterToolsMenu(Display display) {
-	super("Jabber Tools");
-	addItem("Service Discovery", 0);
-	addItem("Privacy Lists", 1);
-	addItem("My vCard", 2);
+	super(SR.MS_JABBER_TOOLS);
+	addItem(SR.MS_DISCO, 0);
+	addItem(SR.MS_PRIVACY_LISTS, 1);
+	addItem(SR.MS_MY_VCARD, 2);
 	/*if (m.getItemCount()>0)*/
 	attachDisplay(display);
     }

@@ -1,10 +1,11 @@
 /*
  * RosterItemActions.java
  *
- * Created on 11 Декабрь 2005 г., 19:05
+ * Created on 11 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 19:05
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
+ *
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package Client;
@@ -17,6 +18,7 @@ import com.alsutton.jabber.datablocks.IqVersionReply;
 import com.alsutton.jabber.datablocks.Presence;
 import java.util.Hashtable;
 import javax.microedition.lcdui.Display;
+import locale.SR;
 import ui.IconTextElement;
 import ui.Menu;
 import ui.MenuItem;
@@ -43,45 +45,45 @@ public class RosterItemActions extends Menu{
 	if (isContact) {
 	    Contact contact=(Contact)item;
 	    if (contact.group==Groups.TRANSP_INDEX) {
-		addItem("Logon",5);
-		addItem("Logoff",6);
-		addItem("Resolve Nicknames", 7);
+		addItem(SR.MS_LOGON,5);
+		addItem(SR.MS_LOGOFF,6);
+		addItem(SR.MS_RESOLVE_NICKNAMES, 7);
 	    }
 	    //if (contact.group==Groups.SELF_INDEX) addItem("Commands",30);
 	    
-	    addItem("vCard",1);
-	    addItem("Client Info",0);
-	    addItem("Commands",30);
+	    addItem(SR.MS_VCARD,1);
+	    addItem(SR.MS_CLIENT_INFO,0);
+	    addItem(SR.MS_COMMANDS,30);
 	    
 	    if (contact.group!=Groups.SELF_INDEX && contact.group!=Groups.SRC_RESULT_INDEX && contact.origin<Contact.ORIGIN_GROUPCHAT) {
 		if (contact.group!=Groups.TRANSP_INDEX)
-		    addItem("Edit",2);
-		addItem("Subscription",3);
-		addItem("Delete",4);
+		    addItem(SR.MS_EDIT,2);
+		addItem(SR.MS_SUBSCRIPTION,3);
+		addItem(SR.MS_DELETE,4);
 	    }
 	    if (contact.realJid!=null) {
-		addItem("Kick",8);
-		addItem("Ban",9);
-                addItem("Grant Voice",31);
-                addItem("Revoke Voice",32);
+		addItem(SR.MS_KICK,8);
+		addItem(SR.MS_BAN,9);
+                addItem(SR.MS_GRANT_VOICE,31);
+                addItem(SR.MS_REVOKE_VOICE,32);
                //m.addItem(new MenuItem("Set Affiliation",15));
 	    }
 	} else {
 	    Group group=(Group)item;
 	    if (group.index==Groups.SRC_RESULT_INDEX)
-		addItem("Discard Search",21);
+		addItem(SR.MS_DISCARD,21);
 	    if (group instanceof ConferenceGroup) {
 		Contact self=((ConferenceGroup)group).getSelfContact();
 		if (self.status==Presence.PRESENCE_OFFLINE)
-		    addItem("Re-Enter Room",23);
+		    addItem(SR.MS_REENTER,23);
 		else {
-		    addItem("Leave Room",22);
-		    if (self.transport>0) { // гнустный хак
-			addItem("Configure Room",10);
-			addItem("Owners",11);
-			addItem("Admins",12);
-			addItem("Members",13);
-			addItem("Outcasts (Ban)",14);
+		    addItem(SR.MS_LEAVE_ROOM,22);
+		    if (self.transport>0) { // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
+			addItem(SR.MS_CONFIG_ROOM,10);
+			addItem(SR.MS_OWNERS,11);
+			addItem(SR.MS_ADMINS,12);
+			addItem(SR.MS_MEMBERS,13);
+			addItem(SR.MS_BANNED,14);
 		    }
 		}
 	    }
@@ -127,7 +129,7 @@ public class RosterItemActions extends Menu{
 		new SubscriptionEdit(display, c);
 		return; //break;
 	    case 4:
-		new YesNoAlert(display, roster, "Delete contact?", c.getNickJid()){
+		new YesNoAlert(display, roster, SR.MS_DELETE_ASK, c.getNickJid()){
 		    public void yes() {
 			roster.deleteContact((Contact)item);
 		    };

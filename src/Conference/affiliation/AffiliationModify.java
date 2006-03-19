@@ -1,7 +1,7 @@
 /*
  * AffiliationModify.java
  *
- * Created on 30 Октябрь 2005 г., 15:32
+ * Created on 30 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 15:32
  *
  *
  * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
@@ -15,6 +15,7 @@ import com.alsutton.jabber.JabberDataBlock;
 import com.alsutton.jabber.JabberStream;
 import com.alsutton.jabber.datablocks.Iq;
 import javax.microedition.lcdui.*;
+import locale.SR;
 import ui.YesNoAlert;
 
 /**
@@ -42,7 +43,7 @@ public class AffiliationModify implements CommandListener{
         parentView=display.getCurrent();
         
         this.room=room;
-        this.jid=new TextField("Jid", jid, 80, TextField.URL);
+        this.jid=new TextField(SR.MS_JID /*"Jid"*/ , jid, 80, TextField.URL);
         f.append(this.jid);
         
         this.affiliation=new ChoiceGroup("Set affiliation to", ui.ConstMIDP.CHOICE_POPUP);

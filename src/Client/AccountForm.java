@@ -1,3 +1,12 @@
+/*
+ * AccountForm.java
+ *
+ * Created on 20 ������� 2005 �., 21:20
+ *
+ * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
+ */
+
 package Client;
 
 import javax.microedition.lcdui.Choice;
@@ -10,6 +19,7 @@ import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.Item;
 import javax.microedition.lcdui.ItemStateListener;
 import javax.microedition.lcdui.TextField;
+import locale.SR;
 import ui.ConstMIDP;
 import ui.controls.NumberField;
 
@@ -30,8 +40,8 @@ class AccountForm implements CommandListener, ItemStateListener {
     private TextField nickbox;
     private ChoiceGroup register;
     
-    Command cmdOk = new Command("OK", Command.OK, 1);
-    Command cmdCancel = new Command("Back", Command.BACK, 99);
+    Command cmdOk = new Command(SR.MS_OK /*"OK"*/, Command.OK, 1);
+    Command cmdCancel = new Command(SR.MS_BACK /*"Back"*/, Command.BACK, 99);
     
     Account account;
     
@@ -47,25 +57,25 @@ class AccountForm implements CommandListener, ItemStateListener {
 	this.account=account;
 	
 	String title = (newaccount)?
-	    "New Account":
+	    SR.MS_NEW_ACCOUNT /*"New Account"*/:
 	    (account.toString());
 	f = new Form(title);
-	userbox = new TextField("Username", account.getUserName(), 32, TextField.URL);				f.append(userbox);
-	passbox = new TextField("Password", account.getPassword(), 32, TextField.URL | TextField.PASSWORD);	f.append(passbox);		passStars();
-	servbox = new TextField("Server", account.getServer(), 32, TextField.URL);				f.append(servbox);
-	ipbox = new TextField("Host name/IP (optional)", account.getHostAddr(), 32, TextField.URL);		f.append(ipbox);
-	portbox = new NumberField("Port", account.getPort(), 0, 65535);						f.append(portbox);
+	userbox = new TextField(SR.MS_USERNAME, account.getUserName(), 32, TextField.URL); f.append(userbox);
+	passbox = new TextField(SR.MS_PASSWORD, account.getPassword(), 32, TextField.URL | TextField.PASSWORD);	f.append(passbox);		passStars();
+	servbox = new TextField(SR.MS_SERVER,   account.getServer(),   32, TextField.URL); f.append(servbox);
+	ipbox = new TextField(SR.MS_HOST_IP, account.getHostAddr(), 32, TextField.URL);	f.append(ipbox);
+	portbox = new NumberField(SR.MS_PORT, account.getPort(), 0, 65535); f.append(portbox);
 	register = new ChoiceGroup(null, Choice.MULTIPLE);
-	register.append("use SSL",null);
-	register.append("plain-text password",null);
-	register.append("conferences only",null);
-	register.append("Register Account",null);
+	register.append(SR.MS_SSL,null);
+	register.append(SR.MS_PLAIN_PWD,null);
+	register.append(SR.MS_CONFERENCES_ONLY,null);
+	register.append(SR.MS_REGISTER_ACCOUNT,null);
 	boolean b[] = {account.getUseSSL(), account.getPlainAuth(), account.isMucOnly(), false};
 	
 	register.setSelectedFlags(b);
 	f.append(register);
-	resourcebox = new TextField("Resource", account.getResource(), 32, TextField.ANY);			f.append(resourcebox);
-	nickbox = new TextField("Account name", account.getNickName(), 32, TextField.ANY);			f.append(nickbox);
+	resourcebox = new TextField(SR.MS_RESOURCE, account.getResource(), 32, TextField.ANY); f.append(resourcebox);
+	nickbox = new TextField(SR.MS_ACCOUNT_NAME, account.getNickName(), 32, TextField.ANY); f.append(nickbox);
 	
 	f.addCommand(cmdOk);
 	f.addCommand(cmdCancel);

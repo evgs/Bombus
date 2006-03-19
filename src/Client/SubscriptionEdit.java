@@ -1,14 +1,15 @@
 /*
  * SubscriptionEdit.java
  *
- * Created on 10 Май 2005 г., 19:09
+ * Created on 10 пїЅпїЅпїЅ 2005 пїЅ., 19:09
  *
- * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
  */
 
 package Client;
 import javax.microedition.lcdui.*;
+import locale.SR;
 
 /**
  *
@@ -20,14 +21,14 @@ public class SubscriptionEdit extends Form implements CommandListener{
       
     Command cmdSubscrTo=new Command("Send \"to\"", Command.SCREEN, 1);
     Command cmdSubscrFrom=new Command("Request \"from\"", Command.SCREEN, 2);
-    Command cmdSubscrDel=new Command("Remove subscription", Command.SCREEN, 3);
-    Command cmdBack=new Command("Cancel", Command.BACK, 99);
+    Command cmdSubscrDel=new Command(SR.MS_SUBSCR_REMOVE, Command.SCREEN, 3);
+    Command cmdBack=new Command(SR.MS_CANCEL, Command.BACK, 99);
     
     Roster r=StaticData.getInstance().roster;
     String to;
     /** Creates a new instance of YesNoAlert */
     public SubscriptionEdit(Display display, Contact c) {
-        super("Subscription");
+        super(SR.MS_SUBSCRIPTION);
         to=c.getBareJid();
         StringBuffer s=new StringBuffer(c.getNickJid());
         s.append('\n');
