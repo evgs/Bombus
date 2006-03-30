@@ -575,7 +575,7 @@ public abstract class VirtualList
     public void keyUp() {
 	 
         if (cursor==0) {
-            if (wrapping)  moveCursorEnd(); else itemScrollUp();
+            if (wrapping)  moveCursorEnd(); else itemPageUp();
             setRotator();
             return;
         }
@@ -594,9 +594,9 @@ public abstract class VirtualList
             }
         }
          */
-        if (itemScrollUp()) return;
+        if (itemPageUp()) return;
         stickyWindow=true;
-        //cursor--;
+        cursor--;
         setRotator();
     }
     
@@ -609,7 +609,7 @@ public abstract class VirtualList
     public void keyDwn() { 
 	if (cursor==getItemCount()-1) 
         { 
-            if (wrapping) moveCursorHome(); else itemScrollDown();
+            if (wrapping) moveCursorHome(); else itemPageDown();
             setRotator();
             return; 
         }
@@ -625,18 +625,17 @@ public abstract class VirtualList
                 win_top=itemLayoutY[cursor+1]-winHeight;
             }
         }*/
-        if (itemScrollDown()) return;
+        if (itemPageDown()) return;
         stickyWindow=true; 
         cursor++;
         setRotator();
     }
     
-    private boolean itemScrollDown() {
+    private boolean itemPageDown() {
         try {
             stickyWindow=false;
             // объект помещается полностью на экране?
-            VirtualElement atCursor=(VirtualElement)getFocusedObject();
-            if (atCursor.getVHeight()<=winHeight) {
+            if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) {
                 stickyWindow=true;
                 return false;
             }
@@ -646,42 +645,23 @@ public abstract class VirtualList
             
             int remainder=itemLayoutY[cursor+1]-win_top;
             // хвост сообщения уже на экране?
-            /*if (remainder<=winHeight) return false;*/
+            if (remainder<=winHeight) return false;
             // хвост сообщения на следующем экране?
-            /*if (remainder<=2*winHeight) {
+            if (remainder<=2*winHeight) {
                 win_top=remainder-winHeight+win_top+8;
                 return true;
-            }*/
-            // ищем последнюю отрисованную строку
-            
-            int objtop=itemLayoutY[cursor]-win_top;
-            int[] lh=atCursor.getLinesHeight();
-            for (int i=0; i<lh.length; i++) {
-                objtop+=lh[i];
-                if (objtop>winHeight) {
-                    //win_top+=objtop-lh[i];
-                    win_top+=lh[i];
-                    return true;
-                }
             }
-            return false;
-            
+            win_top+=winHeight;
+            return true;
         } catch (Exception e) {}
         return false;
     }
     
-    private boolean itemScrollUp() {
+    private boolean itemPageUp() {
         try {
             stickyWindow=false;
-            int remainder=win_top-itemLayoutY[cursor];
-            // голова сообщения уже на экране?
-            if (remainder<0) {
-                if (cursor==0) return false;
-                cursor--;
-            }
             // объект помещается полностью на экране?
-            VirtualElement atCursor=(VirtualElement)getFocusedObject();
-            if (atCursor.getVHeight()<=winHeight) {
+            if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) {
                 stickyWindow=true;
                 return false;
             }
@@ -689,18 +669,16 @@ public abstract class VirtualList
             // объект на экране есть? (не смещён ли экран стилусом)
             if (itemLayoutY[cursor+1]>=win_top+winHeight) return false;
             
-            int objbot=win_top+winHeight-itemLayoutY[cursor+1];
-            
-            int[] lh=atCursor.getLinesHeight();
-            for (int i=lh.length-1; i>=0; i--) {
-                objbot+=lh[i];
-                if (objbot>winHeight) {
-                    //win_top+=objtop-lh[i];
-                    win_top-=lh[i];
-                    return true;
-                }
+            int remainder=win_top-itemLayoutY[cursor];
+            // хвост сообщения уже на экране?
+            if (remainder<0) return false;
+            // хвост сообщения на следующем экране?
+            if (remainder<=winHeight) {
+                win_top=itemLayoutY[cursor];
+                return true;
             }
-            return false;
+            win_top-=winHeight;
+            return true;
         } catch (Exception e) {}
         return false;
     }

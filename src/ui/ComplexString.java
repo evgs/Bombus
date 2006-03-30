@@ -191,8 +191,6 @@ public class ComplexString extends Vector implements VirtualElement{
         return height;
     }
 
-    public int[] getLinesHeight() { return null; }
-
     public void addElement(Object obj) {
         height=width=0; // discarding cached values
         super.addElement(obj);
