@@ -2046,7 +2046,21 @@ syslog_msg: true
 (432)
   build.xml теперь не привязан к TortoiseSvn (C:/Program Files/TortoiseSVN/bin/SubWCRev.exe), 
   используется svnversion
-  
+
+03.04.2006
+(441)
+  пробная реализация proxy HTTP CONNECT
+
+  для proxy отправляется заголовок вида:
+  CONNECT hostname:port HTTP/1.0<cr><lf>
+  HOST hostname:port<cr><lf>
+  Pragma: no-cache<cr><lf>
+  <cr><lf>
+
+  и ожидается ответ от proxy:
+  HTTP/1.0 200 Connection Established<cr><lf>
+  ...<cr><lf>
+  <cr><lf>
 ---------------------------
   known issues:
 
