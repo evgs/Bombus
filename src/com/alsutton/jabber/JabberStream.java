@@ -71,7 +71,9 @@ public class JabberStream implements XMLEventListener, Runnable {
             StreamConnection connection = (StreamConnection) Connector.open(proxy);
             iostream=new Utf8IOStream(connection);
             
-            send("CONNECT " + hostAddr + " HTTP/1.0 \r\nHOST " + hostAddr + "\r\n\r\n");
+            send( "CONNECT " + hostAddr + " HTTP/1.0 \r\n"
+                + "HOST " + hostAddr + "\r\n" 
+                + "Pragma: no-cache\r\n" + "\r\n");
             
             String inpLine=iostream.readLine();
             if (inpLine.indexOf("200",0)<=0) throw new IOException(inpLine);
