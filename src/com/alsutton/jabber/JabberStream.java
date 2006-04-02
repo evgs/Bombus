@@ -33,6 +33,7 @@ import java.util.*;
 import javax.microedition.io.*;
 import com.alsutton.jabber.datablocks.*;
 import com.alsutton.xmlparser.*;
+import util.StringLoader;
 
 
 
@@ -61,23 +62,31 @@ public class JabberStream implements XMLEventListener, Runnable {
      *
      */
     
-    public JabberStream( String server, String hostAddr, JabberListener theListener )
-            throws IOException {
+    public JabberStream( String server, String hostAddr, String proxy, JabberListener theListener )
+    throws IOException {
+        if (proxy==null) {
             StreamConnection connection = (StreamConnection) Connector.open(hostAddr);
-// if !(MIDP1)
-// #        SocketConnection connection = (SocketConnection) Connector.open(hostAddr);
-// #        try {
-// #            connection.setSocketOption(SocketConnection.KEEPALIVE,1);
-// #        } catch (Exception e) { e.printStackTrace(); }
-// else
-// #endif
+            iostream=new Utf8IOStream(connection);
+        } else {
+            StreamConnection connection = (StreamConnection) Connector.open(proxy);
+            iostream=new Utf8IOStream(connection);
+            
+            send("CONNECT " + hostAddr + " HTTP/1.0 \r\nHOST " + hostAddr + "\r\n\r\n");
+            
+            String inpLine=iostream.readLine();
+            if (inpLine.indexOf("200",0)<=0) throw new IOException(inpLine);
+            while (inpLine.length()>0) {
+                inpLine=iostream.readLine();
+            }
+        }
+
         
         dispatcher = new JabberDataBlockDispatcher();
         if( theListener != null ) {
             setJabberListener( theListener );
         }
         
-	iostream=new Utf8IOStream(connection);
+     
         new Thread( this ). start();
         
         //sendQueue=new Vector();

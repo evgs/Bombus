@@ -1,7 +1,7 @@
 /*
  * Account.java
  *
- * Created on 19 Март 2005 г., 21:52
+ * Created on 19 пїЅпїЅпїЅпїЅ 2005 пїЅ., 21:52
  *
  * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -42,6 +42,10 @@ public class Account extends IconTextElement{
     
     private String nick="";
     private String resource="Bombus";
+    
+    private boolean enableProxy;
+    private String proxyHostAddr;
+    private int proxyPort;
     
     //private String jid;
         
@@ -95,12 +99,18 @@ public class Account extends IconTextElement{
             a.nick     = inputStream.readUTF();
             a.resource = inputStream.readUTF();
 	    
-	    // version используется для корректной работы midp1 - аккаунты
-	    // хранятся в файле без разделения на записи
+	    // version пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ midp1 - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             if (version>=2) a.useSSL=inputStream.readBoolean();
             if (version>=3) a.plainAuth=inputStream.readBoolean();
             
 	    if (version>=4) a.mucOnly=inputStream.readBoolean();
+            
+            if (version>=5) {
+                a.setEnableProxy(inputStream.readBoolean());
+                a.setProxyHostAddr(inputStream.readUTF());
+                a.setProxyPort(inputStream.readInt());
+            }
 	    
         } catch (IOException e) { e.printStackTrace(); }
             
@@ -149,7 +159,7 @@ public class Account extends IconTextElement{
         if (hostAddr==null) hostAddr="";
         
         try {
-            outputStream.writeByte(4);
+            outputStream.writeByte(5);
             outputStream.writeUTF(userName);
             outputStream.writeUTF(password);
             outputStream.writeUTF(server);
@@ -163,6 +173,10 @@ public class Account extends IconTextElement{
             outputStream.writeBoolean(plainAuth);
 	    
 	    outputStream.writeBoolean(mucOnly);
+            
+            outputStream.writeBoolean(isEnableProxy());
+            outputStream.writeUTF(getProxyHostAddr());
+            outputStream.writeInt(getProxyPort());
 	    
         } catch (IOException e) {
             e.printStackTrace();
@@ -209,17 +223,43 @@ public class Account extends IconTextElement{
     public void setMucOnly(boolean mucOnly) {  this.mucOnly = mucOnly; }
 
     public JabberStream openJabberStream() throws java.io.IOException{
+        String proxy=null;
 	StringBuffer url=new StringBuffer();
-	    url.append((useSSL)?"ssl":"socket");
-	    url.append("://");
-	    if (hostAddr!=null) if (hostAddr.length()>0)
-		url.append(hostAddr);
-	    else
-		url.append(server);
-	    url.append(':');
-	    url.append(port) ;
-        return new JabberStream(  getServer(), url.toString(), null);    
+        if (hostAddr!=null) if (hostAddr.length()>0)
+            url.append(hostAddr);
+        else
+            url.append(server);
+        url.append(':');
+        url.append(port);
+        if (!isEnableProxy()) {
+	    url.insert(0, (useSSL)?"ssl://":"socket://");
+        } else {
+            proxy="socket://" + getProxyHostAddr() + ':' + getProxyPort();
+        }
+        return new JabberStream(  getServer(), url.toString(), proxy, null);    
     }
 
+    public boolean isEnableProxy() {
+        return enableProxy;
+    }
 
+    public void setEnableProxy(boolean enableProxy) {
+        this.enableProxy = enableProxy;
+    }
+
+    public String getProxyHostAddr() {
+        return proxyHostAddr;
+    }
+
+    public void setProxyHostAddr(String proxyHostAddr) {
+        this.proxyHostAddr = proxyHostAddr;
+    }
+
+    public int getProxyPort() {
+        return proxyPort;
+    }
+
+    public void setProxyPort(int proxyPort) {
+        this.proxyPort = proxyPort;
+    }
 }

@@ -801,6 +801,10 @@ public final static String MS_PORT = "Port";
 
 // #: /home/avl/Projects/bombus/src/Client/ContactMessageList.java:28
 public final static String MS_RESUME = "Resume Message";
+
+public final static String MS_PROXY_ENABLE = "proxy CONNECT";
+
+public final static String MS_PROXY_HOST = "Proxy name/IP";
 //--msgstr "Продолж. сообщ."
     
     /** Creates a new instance of SR */

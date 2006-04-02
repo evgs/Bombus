@@ -38,6 +38,8 @@ class AccountForm implements CommandListener, ItemStateListener {
     private NumberField portbox;
     private TextField resourcebox;
     private TextField nickbox;
+    private TextField proxyHost;
+    private NumberField proxyPort;
     private ChoiceGroup register;
     
     Command cmdOk = new Command(SR.MS_OK /*"OK"*/, Command.OK, 1);
@@ -69,11 +71,16 @@ class AccountForm implements CommandListener, ItemStateListener {
 	register.append(SR.MS_SSL,null);
 	register.append(SR.MS_PLAIN_PWD,null);
 	register.append(SR.MS_CONFERENCES_ONLY,null);
+	register.append(SR.MS_PROXY_ENABLE,null);
 	register.append(SR.MS_REGISTER_ACCOUNT,null);
-	boolean b[] = {account.getUseSSL(), account.getPlainAuth(), account.isMucOnly(), false};
+	boolean b[] = {account.getUseSSL(), account.getPlainAuth(), account.isMucOnly(), account.isEnableProxy(), false};
 	
 	register.setSelectedFlags(b);
 	f.append(register);
+        
+	proxyHost = new TextField(SR.MS_PROXY_HOST,   account.getProxyHostAddr(),   32, TextField.URL); f.append(proxyHost);
+	proxyPort = new NumberField(SR.MS_HOST_IP, account.getProxyPort(), 0, 65535);	f.append(proxyPort);
+        
 	resourcebox = new TextField(SR.MS_RESOURCE, account.getResource(), 32, TextField.ANY); f.append(resourcebox);
 	nickbox = new TextField(SR.MS_ACCOUNT_NAME, account.getNickName(), 32, TextField.ANY); f.append(nickbox);
 	
@@ -108,7 +115,7 @@ class AccountForm implements CommandListener, ItemStateListener {
 	    return;
 	}
 	if (c==cmdOk) {
-	    boolean b[] = new boolean[4];
+	    boolean b[] = new boolean[5];
 	    register.getSelectedFlags(b);
 	    String user = userbox.getString();
 	    int at = user.indexOf('@');
@@ -122,15 +129,19 @@ class AccountForm implements CommandListener, ItemStateListener {
 	    account.setUseSSL(b[0]);
 	    account.setPlainAuth(b[1]);
 	    account.setMucOnly(b[2]);
+	    account.setEnableProxy(b[3]);
 	    //account.updateJidCache();
 	    
 	    account.setPort(portbox.getValue());
+
+	    account.setProxyHostAddr(proxyHost.getString());
+            account.setProxyPort(proxyPort.getValue());
 	    
 	    if (newaccount) accountSelect.accountList.addElement(account);
 	    accountSelect.rmsUpdate();
 	    accountSelect.commandState();
 	    
-	    if (b[3])
+	    if (b[4])
 		new AccountRegister(account, display, parentView); 
 	    else destroyView();
 	}

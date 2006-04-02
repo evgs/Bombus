@@ -1,7 +1,7 @@
 /*
  * Utf8IOStream.java
  *
- * Created on 18 Декабрь 2005 г., 0:52
+ * Created on 18 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 0:52
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -76,7 +76,7 @@ public class Utf8IOStream implements Runnable{
 //--	int srcLen = str.length();
 //--	for(int i=0; i < srcLen; i++) {
 //--	    int c = (int)str.charAt(i);
-//--	    //TODO: ескэйпить коды <0x20
+//--	    //TODO: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ <0x20
 //--	    if ((c >= 1) && (c <= 0x7f)) {
 //--		outbuf.append( (char) c);
 //--		
@@ -110,7 +110,7 @@ public class Utf8IOStream implements Runnable{
 //--	  return cbuf[pbyte++];
 //--      }*/
 //--	
-//--	//int avail=1;// тестим Nokia
+//--	//int avail=1;// пїЅпїЅпїЅпїЅпїЅпїЅ Nokia
 //--	int avail=inpStream.available();
 //--	if (avail<2) return inpStream.read() &0xff;
 //--      /*if (avail<2) {
@@ -177,5 +177,37 @@ public class Utf8IOStream implements Runnable{
     public void run() {
 	// Alcatel temporary bugfix - this method hangs
 	try { connection.close();   }  catch (Exception e) {};
+    }
+    
+    public String readLine() throws IOException {
+	StringBuffer buf=new StringBuffer();
+	/*if (afterEol>0) {
+	    buf.append(afterEol);
+	    afterEol=0;
+	}*/
+	
+	boolean eol=false;
+	while (true) {
+	    int c = getNextCharacter();
+	    if (c<0) { 
+		eol=true;
+		if (buf.length()==0) return null;
+		break;
+	    }
+	    if (c==0x0d || c==0x0a) {
+		eol=true;
+		//inputstream.mark(2);
+		if (c==0x0a) break;
+	    }
+	    else {
+		if (eol) {
+		    //afterEol=c;
+		    //inputstream.reset();
+		    break;
+		}
+		buf.append((char) c);
+	    }
+	}
+	return buf.toString();
     }
 }
