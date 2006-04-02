@@ -805,6 +805,8 @@ public final static String MS_RESUME = "Resume Message";
 public final static String MS_PROXY_ENABLE = "proxy CONNECT";
 
 public final static String MS_PROXY_HOST = "Proxy name/IP";
+
+public final static String PROXY_PORT = "Proxy port";
 //--msgstr "Продолж. сообщ."
     
     /** Creates a new instance of SR */
