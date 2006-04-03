@@ -1,7 +1,7 @@
 /*
  * AffiliationList.java
  *
- * Created on 30 Октябрь 2005 г., 12:34
+ * Created on 30 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 12:34
  *
  *
  * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
@@ -19,6 +19,7 @@ import images.RosterIcons;
 import java.util.Enumeration;
 import java.util.Vector;
 import javax.microedition.lcdui.*;
+import locale.SR;
 import ui.ImageList;
 import ui.VirtualElement;
 import ui.VirtualList;
@@ -40,9 +41,9 @@ public class Affiliations
 
     private JabberStream stream=StaticData.getInstance().roster.theStream;
     
-    private Command cmdCancel=new Command ("Back", Command.BACK, 99);
-    private Command cmdModify=new Command ("Modify", Command.SCREEN, 1);
-    private Command cmdNew=new Command ("New Jid", Command.SCREEN, 2);
+    private Command cmdCancel=new Command (SR.MS_BACK, Command.BACK, 99);
+    private Command cmdModify=new Command (SR.MS_MODIFY, Command.SCREEN, 1);
+    private Command cmdNew=new Command (SR.MS_NEW_JID, Command.SCREEN, 2);
  
     
     protected VirtualElement getItemRef(int index) { return (VirtualElement) items.elementAt(index); }

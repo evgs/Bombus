@@ -1,7 +1,7 @@
 /*
  * PrivacyForm.java
  *
- * Created on 11 Сентябрь 2005 г., 2:32
+ * Created on 11 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 2:32
  *
  *
  * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
@@ -12,6 +12,7 @@ package PrivacyLists;
 import Client.*;
 import javax.microedition.lcdui.*;
 import java.util.*;
+import locale.SR;
 import ui.ConstMIDP;
 
 /**
@@ -29,16 +30,16 @@ public class PrivacyForm
     
     private PrivacyList targetList;
     
-    Form form=new Form("Privacy rule");
-    ChoiceGroup choiceAction=new ChoiceGroup("Action", ConstMIDP.CHOICE_POPUP, PrivacyItem.actions, null);
-    ChoiceGroup choiseType=new ChoiceGroup("Type", ConstMIDP.CHOICE_POPUP, PrivacyItem.types, null);
-    ChoiceGroup choiseStanzas=new ChoiceGroup("Stanzas", ChoiceGroup.MULTIPLE, PrivacyItem.stanzas, null);
+    Form form=new Form(SR.MS_PRIVACY_RULE);
+    ChoiceGroup choiceAction=new ChoiceGroup(SR.MS_PRIVACY_ACTION, ConstMIDP.CHOICE_POPUP, PrivacyItem.actions, null);
+    ChoiceGroup choiseType=new ChoiceGroup(SR.MS_PRIVACY_TYPE, ConstMIDP.CHOICE_POPUP, PrivacyItem.types, null);
+    ChoiceGroup choiseStanzas=new ChoiceGroup(SR.MS_STANZAS, ChoiceGroup.MULTIPLE, PrivacyItem.stanzas, null);
     TextField textValue;
     //TextField textOrder;
-    ChoiceGroup choiceSubscr=new ChoiceGroup("Subscription", ConstMIDP.CHOICE_POPUP, PrivacyItem.subscrs, null);
+    ChoiceGroup choiceSubscr=new ChoiceGroup(SR.MS_SUBSCRIPTION, ConstMIDP.CHOICE_POPUP, PrivacyItem.subscrs, null);
     
-    Command cmdCancel=new Command("Cancel", Command.BACK, 99);
-    Command cmdOk=new Command("OK", Command.OK, 1);
+    Command cmdCancel=new Command(SR.MS_CANCEL, Command.BACK, 99);
+    Command cmdOk=new Command(SR.MS_OK, Command.OK, 1);
     /** Creates a new instance of PrivacyForm */
     public PrivacyForm(Display display, PrivacyItem item, PrivacyList plist) {
         this.display=display;
@@ -105,7 +106,7 @@ public class PrivacyForm
                 form.set(2, textValue);
             }
              */
-        } catch (Exception e) {/* При смене на самого себя */ }
+        } catch (Exception e) {/* пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */ }
     }
     
     public void commandAction(Command c, Displayable d) {

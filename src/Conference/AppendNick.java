@@ -1,7 +1,7 @@
 /*
  * AppendNick.java
  *
- * Created on 14 Сентябрь 2005 г., 23:32
+ * Created on 14 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 23:32
  *
  * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -9,6 +9,7 @@
 
 package Conference;
 
+import locale.SR;
 import ui.*;
 import Client.*;
 import java.util.*;
@@ -24,15 +25,15 @@ public class AppendNick
 
     Vector nicknames;
     
-    Command cmdSelect=new Command("Append",Command.OK,1);
-    Command cmdCancel=new Command("Cancel",Command.BACK,99);
+    Command cmdSelect=new Command(SR.MS_APPEND, Command.OK, 1);
+    Command cmdCancel=new Command(SR.MS_CANCEL, Command.BACK, 99);
     
     /** Creates a new instance of AccountPicker */
     public AppendNick(Display display, Contact to) {
         super(display);
         //this.display=display;
         
-        setTitleItem(new Title("Select nickname"));
+        setTitleItem(new Title(SR.MS_SELECT_NICKNAME));
         
         nicknames=new Vector();
         for (Enumeration e=StaticData.getInstance().roster.getHContacts().elements(); e.hasMoreElements(); ) {

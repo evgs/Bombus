@@ -1,7 +1,7 @@
 /*
  * PrivacySelect.java
  *
- * Created on 26 Август 2005 г., 23:04
+ * Created on 26 пїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 23:04
  *
  *
  * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
@@ -16,6 +16,7 @@ import Client.StaticData;
 import Client.Title;
 import images.RosterIcons;
 import javax.microedition.lcdui.*;
+import locale.SR;
 import ui.*;
 import java.util.*;
 import com.alsutton.jabber.*;
@@ -32,11 +33,11 @@ public class PrivacySelect
 {
     private Vector list=new Vector();
     
-    private Command cmdCancel=new Command ("Back", Command.BACK, 99);
-    private Command cmdActivate=new Command ("Activate", Command.SCREEN, 10);
-    private Command cmdDefault=new Command ("Set default", Command.SCREEN, 11);
-    private Command cmdNewList=new Command ("New list", Command.SCREEN, 12);
-    private Command cmdDelete=new Command ("Delete list", Command.SCREEN, 13);
+    private Command cmdCancel=new Command (SR.MS_BACK, Command.BACK, 99);
+    private Command cmdActivate=new Command (SR.MS_ACTIVATE, Command.SCREEN, 10);
+    private Command cmdDefault=new Command (SR.MS_SETDEFAULT, Command.SCREEN, 11);
+    private Command cmdNewList=new Command (SR.MS_SET_AFFILIATION, Command.SCREEN, 12);
+    private Command cmdDelete=new Command (SR.MS_DELETE_LIST, Command.SCREEN, 13);
     //private Command cmdEdit=new Command ("Edit list", Command.SCREEN, 14);
     private Command cmdIL=new Command ("Make Ignore-List", Command.SCREEN, 16);
     
@@ -46,7 +47,7 @@ public class PrivacySelect
     public PrivacySelect(Display display) {
         super(display);
         
-        setTitleItem(new Title(2, null, "Privacy Lists"));
+        setTitleItem(new Title(2, null, SR.MS_PRIVACY_LISTS));
         addCommand(cmdActivate);
         addCommand(cmdDefault);
         addCommand(cmdCancel);

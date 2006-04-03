@@ -1,7 +1,7 @@
 /*
  * InfoWindow.java
  *
- * Created on 6 Сентябрь 2005 г., 22:21
+ * Created on 6 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 22:21
  *
  * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -9,6 +9,7 @@
 
 package Info;
 import javax.microedition.lcdui.*;
+import locale.SR;
 
 /**
  *
@@ -26,8 +27,8 @@ public class InfoWindow implements CommandListener{
         this.display=display;
         parentView=display.getCurrent();
         
-        form=new Form("About");
-        form.addCommand(new Command("Close", Command.BACK, 99));
+        form=new Form(SR.MS_ABOUT);
+        form.addCommand(new Command(SR.MS_CLOSE, Command.BACK, 99));
         try {
             form.append(Image.createImage("/_icon.png"));
         } catch (Exception e) { }

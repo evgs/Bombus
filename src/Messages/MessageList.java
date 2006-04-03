@@ -1,7 +1,7 @@
 /*
  * MessageList.java
  *
- * Created on 11 Декабрь 2005 г., 3:02
+ * Created on 11 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 3:02
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.
@@ -16,6 +16,7 @@ import images.SmilesIcons;
 import java.util.Vector;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.Display;
+import locale.SR;
 import ui.ComplexString;
 import ui.VirtualElement;
 import ui.VirtualList;
@@ -30,7 +31,7 @@ public abstract class MessageList
     
     protected Vector messages;
     
-    protected Command cmdBack = new Command("Back", Command.BACK, 99);
+    protected Command cmdBack = new Command(SR.MS_BACK, Command.BACK, 99);
     
     /** Creates a new instance of MessageList */
     public MessageList(Display display) {
@@ -47,7 +48,7 @@ public abstract class MessageList
         addCommand(cmdBack);
     }
 
-    public abstract int getItemCount(); // из protected сделали public
+    public abstract int getItemCount(); // пїЅпїЅ protected пїЅпїЅпїЅпїЅпїЅпїЅпїЅ public
 
     protected VirtualElement getItemRef(int index) {
 	if (messages.size()<getItemCount()) messages.setSize(getItemCount());
@@ -63,7 +64,7 @@ public abstract class MessageList
     public abstract Msg getMessage(int index);
 	//public Element getItemRef(int Index){ return (Element) contact.msgs.elementAt(Index); }
 
-    // overriden, т.к. элементы списка - строки.
+    // overriden, пїЅ.пїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅ.
     /*public Object getFocusedObject(){
         try {
             return getMessage(cursor);

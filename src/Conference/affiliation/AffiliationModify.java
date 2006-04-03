@@ -34,8 +34,8 @@ public class AffiliationModify implements CommandListener{
     String room;
     int recentAffiliation;
     
-    Command cmdCancel=new Command("Cancel", Command.BACK, 99);
-    Command cmdOk=new Command("Set", Command.OK, 1);
+    Command cmdCancel=new Command(SR.MS_CANCEL, Command.BACK, 99);
+    Command cmdOk=new Command(SR.MS_SET, Command.OK, 1);
     
     /** Creates a new instance of AffiliationModify */
     public AffiliationModify(Display display, String room, String jid, String affiliation) {
@@ -46,7 +46,7 @@ public class AffiliationModify implements CommandListener{
         this.jid=new TextField(SR.MS_JID /*"Jid"*/ , jid, 80, TextField.URL);
         f.append(this.jid);
         
-        this.affiliation=new ChoiceGroup("Set affiliation to", ui.ConstMIDP.CHOICE_POPUP);
+        this.affiliation=new ChoiceGroup(SR.MS_SET_AFFILIATION /*"Set affiliation to"*/, ui.ConstMIDP.CHOICE_POPUP);
         for (int index=0; index<=AffiliationItem.AFFILIATION_OUTCAST; index++) {
             String name=AffiliationItem.getAffiliationName(index);
             this.affiliation.append(name, null);
@@ -91,11 +91,11 @@ public class AffiliationModify implements CommandListener{
         if (c==cmdOk) {
             if (jid.size()==0) return;
             if (recentAffiliation==AffiliationItem.AFFILIATION_OWNER) {
-                StringBuffer warn=new StringBuffer("Are You sure want to discard ");
+                StringBuffer warn=new StringBuffer(SR.MS_ARE_YOU_SURE_WANT_TO_DISCARD /*"Are You sure want to discard "*/);
                 warn.append(jid.getString());
-                warn.append(" from OWNER to ");
+                warn.append(SR.MS_FROM_OWNER_TO/*" from OWNER to "*/);
                 warn.append(AffiliationItem.getAffiliationName(affiliation.getSelectedIndex()));
-                new YesNoAlert(display, parentView, "Modify affiliation", warn.toString()) {
+                new YesNoAlert(display, parentView, SR.MS_MODIFY_AFFILIATION/*"Modify affiliation"*/, warn.toString()) {
                     public void yes() {
                         modify();
                     }

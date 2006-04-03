@@ -1,7 +1,7 @@
 /*
  * Bookmarks.java
  *
- * Created on 18 Сентябрь 2005 г., 0:03
+ * Created on 18 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 0:03
  *
  * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -11,6 +11,7 @@ package Conference;
 import Client.*;
 import images.RosterIcons;
 import javax.microedition.lcdui.*;
+import locale.SR;
 import ui.*;
 import java.util.*;
 import com.alsutton.jabber.*;
@@ -30,10 +31,10 @@ public class Bookmarks
     
     private BookmarkItem toAdd;
     
-    private Command cmdCancel=new Command ("Back", Command.BACK, 99);
-    private Command cmdJoin=new Command ("Join", Command.SCREEN, 10);
-    private Command cmdRfsh=new Command ("Refresh", Command.SCREEN, 11);
-    private Command cmdDel=new Command ("Delete", Command.SCREEN, 12);
+    private Command cmdCancel=new Command (SR.MS_CANCEL, Command.BACK, 99);
+    private Command cmdJoin=new Command (SR.MS_JOIN, Command.SCREEN, 10);
+    private Command cmdRfsh=new Command (SR.MS_REFRESH, Command.SCREEN, 11);
+    private Command cmdDel=new Command (SR.MS_DELETE, Command.SCREEN, 12);
     
     Roster roster=StaticData.getInstance().roster;
 
@@ -41,7 +42,7 @@ public class Bookmarks
     /** Creates a new instance of Bookmarks */
     public Bookmarks(Display display, BookmarkItem toAdd) {
         super (display);
-        setTitleItem(new Title(2, null, "Bookmarks"));
+        setTitleItem(new Title(2, null, SR.MS_BOOKMARKS));
         
         this.toAdd=toAdd;
         
@@ -71,7 +72,7 @@ public class Bookmarks
         bookmarksRq(false, rq, "getbookmarks");
     }
     
-    // пока здесь, но вообще-то это storageRq
+    // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅ storageRq
     public void bookmarksRq(boolean set, JabberDataBlock child, String id) {
         JabberDataBlock request=new Iq();
         request.setTypeAttribute((set)?"set":"get");

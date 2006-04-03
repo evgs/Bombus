@@ -1,7 +1,7 @@
 /*
  * PrivacyModifyList.java
  *
- * Created on 11 Сентябрь 2005 г., 15:51
+ * Created on 11 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 15:51
  *
  *
  * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
@@ -15,6 +15,7 @@ import Client.StaticData;
 import Client.Title;
 import images.RosterIcons;
 import javax.microedition.lcdui.*;
+import locale.SR;
 import ui.*;
 import java.util.*;
 import com.alsutton.jabber.*;
@@ -30,20 +31,20 @@ public class PrivacyModifyList
 {
     private PrivacyList plist;
     
-    private Command cmdCancel=new Command ("Back", Command.BACK, 99);
-    private Command cmdAdd=new Command ("Add rule", Command.SCREEN, 10);
-    private Command cmdDel=new Command ("Delete rule", Command.SCREEN, 11);
-    private Command cmdEdit=new Command ("Edit rule", Command.SCREEN, 12);
-    private Command cmdUp=new Command ("Move Up", Command.SCREEN, 13);
-    private Command cmdDwn=new Command ("Move Down", Command.SCREEN, 14);
-    private Command cmdSave=new Command ("Save list", Command.SCREEN, 16);
+    private Command cmdCancel=new Command (SR.MS_CANCEL, Command.BACK, 99);
+    private Command cmdAdd=new Command (SR.MS_ADD_RULE, Command.SCREEN, 10);
+    private Command cmdDel=new Command (SR.MS_DELETE_RULE, Command.SCREEN, 11);
+    private Command cmdEdit=new Command (SR.MS_EDIT_RULE, Command.SCREEN, 12);
+    private Command cmdUp=new Command (SR.MS_MOVE_UP, Command.SCREEN, 13);
+    private Command cmdDwn=new Command (SR.MS_MOVE_DOWN, Command.SCREEN, 14);
+    private Command cmdSave=new Command (SR.MS_SAVE_LIST, Command.SCREEN, 16);
     
     JabberStream stream=StaticData.getInstance().roster.theStream;
     
     /** Creates a new instance of PrivacySelect */
     public PrivacyModifyList(Display display, PrivacyList privacyList) {
         super(display);
-        setTitleItem(new Title(2, null, "Privacy Lists" ));
+        setTitleItem(new Title(2, null, SR.MS_PRIVACY_LISTS));
         addCommand(cmdCancel);
         addCommand(cmdEdit);
         addCommand(cmdAdd);

@@ -47,7 +47,7 @@ public class Bombus extends MIDlet implements Runnable{
         display = Display.getDisplay(this);
         SplashScreen s= SplashScreen.getInstance();
         display.setCurrent(s);
-        s.setProgress(SR.MS_LOADING /*"Loading"*/,3);
+        s.setProgress(/*SR.MS_LOADING*/ "Loading",3); // this message will not be localized
         sd=StaticData.getInstance();
     }
     

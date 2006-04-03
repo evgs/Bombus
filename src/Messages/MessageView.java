@@ -1,7 +1,7 @@
 /*
  * MessageView.java
  *
- * Created on 20 Февраль 2005 г., 17:42
+ * Created on 20 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 17:42
  *
  * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -11,6 +11,7 @@ package Messages;
 import Client.*;
 import images.RosterIcons;
 import images.SmilesIcons;
+import locale.SR;
 import ui.*;
 import javax.microedition.lcdui.*;
 import java.util.*;
@@ -26,16 +27,16 @@ public class MessageView
             Runnable
 {
 
-    int titlecolor; // зависит от типа сообщения
+    int titlecolor; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     boolean smiles;
     Thread t=null;
     
-    Command cmdBack=new Command("Back",Command.BACK,99);
-    Command cmdTSM=new Command("Smiles", Command.SCREEN,1);
+    Command cmdBack=new Command(SR.MS_BACK,Command.BACK,99);
+    Command cmdTSM=new Command(SR.MS_SMILES_TOGGLE, Command.SCREEN,1);
 
-    Command cmdSubscr=new Command("Authorize", Command.SCREEN,2);
+    Command cmdSubscr=new Command(SR.MS_SUBSCRIBE /*"Authorize"*/, Command.SCREEN,2);
 //#if !(MIDP1) 
-    Command cmdUrl=new Command("Goto URL", Command.SCREEN,3);
+    Command cmdUrl=new Command(SR.MS_GOTO_URL, Command.SCREEN,3);
 //#endif
 
     private MessageList msglist;

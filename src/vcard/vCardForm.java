@@ -1,7 +1,7 @@
 /*
  * vCardForm.java
  *
- * Created on 3 Октябрь 2005 г., 0:37
+ * Created on 3 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 0:37
  *
  * To change this template, choose Tools | Options and locate the template under
  * the Source Creation and Management node. Right-click the template and choose
@@ -12,6 +12,7 @@ package vcard;
 import Client.StaticData;
 import java.util.*;
 import javax.microedition.lcdui.*;
+import locale.SR;
 
 /**
  *
@@ -24,9 +25,9 @@ public class vCardForm
     private Display display;
     private Displayable parentView;
     
-    protected Command cmdCancel=new Command("Cancel", Command.BACK, 99);
-    protected Command cmdPublish=new Command("Publish", Command.OK /*Command.SCREEN*/, 1);
-    protected Command cmdRefresh=new Command("Refresh", Command.SCREEN, 2);
+    protected Command cmdCancel=new Command(SR.MS_CANCEL, Command.BACK, 99);
+    protected Command cmdPublish=new Command(SR.MS_PUBLISH, Command.OK /*Command.SCREEN*/, 1);
+    protected Command cmdRefresh=new Command(SR.MS_REFRESH, Command.SCREEN, 2);
     
     private Form f;
     private Vector items=new Vector();
@@ -39,7 +40,7 @@ public class vCardForm
         
         this.vcard=vcard;
         
-        f=new Form("vCard");
+        f=new Form(SR.MS_VCARD);
         f.append(vcard.getJid());
         
         for (int index=0; index<vcard.getCount(); index++) {
