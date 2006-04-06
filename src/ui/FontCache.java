@@ -21,10 +21,12 @@ public class FontCache {
     private static Font bold;
     private static Font msgFont;
     private static Font balloonFont;
+    private static Font clockFont;
     
     public static int rosterFontSize=Font.SIZE_MEDIUM;
     public static int msgFontSize=Font.SIZE_MEDIUM;
     public static int balloonFontSize=Font.SIZE_SMALL;
+    public static int clockFontSize=Font.SIZE_LARGE;
 
     public static Font getRosterNormalFont() {
         if (normal==null) {
@@ -58,4 +60,11 @@ public class FontCache {
         normal=bold=msgFont=balloonFont=null;
     }
     
+
+    public static Font getClockFont() {
+        if (clockFont==null) {
+            clockFont=Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD, clockFontSize);
+        }
+        return clockFont;
+    }
 }
