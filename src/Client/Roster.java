@@ -978,6 +978,7 @@ public class Roster
             }
     }
     
+    
     Contact messageStore(Msg message){
         Contact c=presenceContact(message.from,-1);
         if (c.group==Groups.NIL_INDEX) 
@@ -1000,7 +1001,9 @@ public class Roster
 	if (cf.popupFromMinimized)
 	    Bombus.getInstance().hideApp(false);
 	
-        focusToContact(c, false);
+//#if !(DISABLE_AUTOFOCUS)
+//#         focusToContact(c, false);
+//#endif
 
         if (message.messageType!=Msg.MESSAGE_TYPE_HISTORY) 
             AlertProfile.playNotify(display, 0);

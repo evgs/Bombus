@@ -1,7 +1,7 @@
 /*
  * KeyBlock.java
  *
- * Created on 15 Май 2005 г., 3:08
+ * Created on 15 пїЅпїЅпїЅ 2005 пїЅ., 3:08
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -95,13 +95,16 @@ public class KeyBlock extends Canvas implements Runnable{
         
         String time=Time.timeString(Time.localTime());
         int tw=f.stringWidth(time);
+        
         g.translate(width/2, -h);
         g.setColor(Colors.BLK_BGND);
         g.fillRect(-tw/2-5, -h, tw+10, h);
+
         g.setColor(Colors.BLK_INK);
+        g.setFont(f);
         g.drawString(time, 0, 0, Graphics.BOTTOM | Graphics.HCENTER);
 //#if !(MIDP1)
-	//display.flashBacklight(0); // тест на самсунгах
+	//display.flashBacklight(0); // пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (motorola_backlight) display.flashBacklight(1);
 //#endif
     }
