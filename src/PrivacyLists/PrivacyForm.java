@@ -86,7 +86,7 @@ public class PrivacyForm
                     if (targetList!=null) textValue.setString( ( (rfocus instanceof Group)?
                         (Group)rfocus : 
                         StaticData.getInstance().roster.
-                            groups.getGroup(((Contact)rfocus).group)
+                            groups.getGroup(((Contact)rfocus).getGroupIndex())
                         ).getName());
 
                     form.set(2, textValue);

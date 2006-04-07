@@ -73,6 +73,10 @@ public class Groups{
         return (Group)groups.elementAt(Index);
     }
     
+    public Enumeration elements(){
+        return groups.elements();
+    }
+    
     public Group getGroup(String Name) {
         for (Enumeration e=groups.elements();e.hasMoreElements();){
             Group grp=(Group)e.nextElement();

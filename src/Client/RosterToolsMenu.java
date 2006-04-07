@@ -50,7 +50,7 @@ public class RosterToolsMenu
 	    case 2: {
 		Contact c=StaticData.getInstance().roster.selfContact();
 		if (c.vcard!=null) {
-		    new vCardForm(display, c.vcard, c.group==Groups.SELF_INDEX);
+		    new vCardForm(display, c.vcard, c.getGroupIndex()==Groups.SELF_INDEX);
 		    return;
 		}
 		VCard.request(c.getJid());

@@ -1,7 +1,7 @@
 /*
  * Contact.java
  *
- * Created on 6 Январь 2005 г., 19:16
+ * Created on 6 пїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 19:16
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -17,7 +17,7 @@ import ui.ImageList;
 import com.alsutton.jabber.datablocks.Presence;
 
 /**
- * Контакт
+ * пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
  * @author Eugene Stahov
  */
 public class Contact extends IconTextElement{
@@ -56,7 +56,7 @@ public class Contact extends IconTextElement{
     public String realJid;      // for muc usage
     public int status;
     public int priority;
-    public int group;
+    private Group group;
     public int transport;
     
     public boolean accept_composing;
@@ -131,7 +131,7 @@ public class Contact extends IconTextElement{
         return st;
     }
     public int getNewMsgsCount() {
-        if (group==Groups.IGNORE_INDEX) return 0;
+        if (group.index==Groups.IGNORE_INDEX) return 0;
         //return msgs.size()-lastReaded;
         if (newMsgCnt>-1) return newMsgCnt;
         int nm=0;
@@ -217,7 +217,7 @@ public class Contact extends IconTextElement{
 //#             }
 //#         }
 //#endif
-        // если единственное сообщение - presence, то заменим его
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - presence, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
         if (first_replace) {
             msgs.setElementAt(m,0);
             return;
@@ -297,5 +297,14 @@ public class Contact extends IconTextElement{
         int nm=getNewMsgsCount();
         return (nm==0)? null:String.valueOf(nm);
     }
+
+    public Group getGroup() { return group; }
+    public int getGroupIndex() {  return group.index;  }
+    public boolean inGroup(Group ingroup) {  return group==ingroup;  }
+
+    /*public void setGroupIndex(int groupIndex) {
+        this.group = groupIndex;
+    }*/
+    public void setGroup(Group group) { this.group = group; }
 
 }

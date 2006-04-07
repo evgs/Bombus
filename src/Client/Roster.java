@@ -292,7 +292,7 @@ public class Roster
         int index=0;
         synchronized (hContacts) {
             while (index<hContacts.size()) {
-                if ( ((Contact) hContacts.elementAt(index)).group==Groups.SRC_RESULT_INDEX )
+                if ( ((Contact) hContacts.elementAt(index)).getGroupIndex()==Groups.SRC_RESULT_INDEX )
                     hContacts.removeElementAt(index);
                 else index++;
             }
@@ -311,7 +311,7 @@ public class Roster
         synchronized (hContacts) {
             while (index<hContacts.size()) {
                 Contact contact=(Contact)hContacts.elementAt(index);
-                if (contact.group==gi) {
+                if (contact.inGroup(g)) {
                     if ( contact.origin>Contact.ORIGIN_ROSTERRES
                          && contact.status==Presence.PRESENCE_OFFLINE
                          && contact.getNewMsgsCount()==0 )
@@ -357,7 +357,7 @@ public class Roster
                     group=groups.addGroup(grpName, null);
                 }
                 c.nick=nick;
-                c.group=group.index;
+                c.setGroup(group);
                 c.subscr=subscr;
                 c.offline_type=status;
                 c.ask_subscribe=ask;
@@ -428,7 +428,7 @@ public class Roster
 	        c.nick=from.substring(rp+1);
 	    }
         }
-        c.group=grp.index;
+        c.setGroup(grp);
         c.offline_type=Presence.PRESENCE_OFFLINE;
         if (c.origin<origin) c.origin=origin;
         sort();
@@ -461,7 +461,7 @@ public class Roster
             c=new Contact(null, jid, Status, "not-in-list");
 	    c.bareJid=J.getBareJid();
             c.origin=Contact.ORIGIN_PRESENCE;
-            c.group=Groups.NIL_INDEX;
+            c.setGroup(groups.getGroup(Groups.NIL_INDEX));
             addContact(c);
         } else {
             // ����� jid � ����� ��������
@@ -625,7 +625,7 @@ public class Roster
 	for (Enumeration e=hContacts.elements(); e.hasMoreElements();){
 	    Contact k=(Contact) e.nextElement();
 	    if (k.jid.isTransport()) continue;
-	    if (k.transport==transportIndex && k.nick==null && k.group>=Groups.COMMON_INDEX) {
+	    if (k.transport==transportIndex && k.nick==null && k.getGroupIndex()>=Groups.COMMON_INDEX) {
 		vCardQueue.addElement(VCard.getVCardReq(k.getJid(), "nickvc"+k.bareJid));
 	    }
 	}
@@ -675,8 +675,8 @@ public class Roster
                     String from=vc.getJid();
                     String nick=vc.getNickName();
                     Contact c=getContact(from, false);
-                    String group=(c.group==Groups.COMMON_INDEX)?
-                        null: groups.getGroup(c.group).name;
+                    String group=(c.getGroupIndex()==Groups.COMMON_INDEX)?
+                        null: c.getGroup().name;
                     if (nick!=null)  storeContact(from,nick,group, false);
                     //updateContact( nick, c.rosterJid, group, c.subscr, c.ask_subscribe);
                     sendVCardReq();
@@ -730,7 +730,7 @@ public class Roster
                         VCard vcard=new VCard(data);
                         Contact c=presenceContact(vcard.getJid(),-1);
                         c.vcard=vcard;
-                        new vCardForm(display, vcard, c.group==Groups.SELF_INDEX);
+                        new vCardForm(display, vcard, c.getGroupIndex()==Groups.SELF_INDEX);
                     }
                     if (id.equals("getver")) {
                         JabberDataBlock vc=data.getChildBlock("query");
@@ -894,14 +894,15 @@ public class Roster
                             b.append(" was kicked (");
                             b.append(reason);
                             b.append(")");
-                            if (c==((ConferenceGroup)groups.getGroup(c.group)).getSelfContact())
-                                leaveRoom(c.group);
+                            if (c==((ConferenceGroup)c.getGroup()).getSelfContact())
+                                leaveRoom(0,c.getGroup());
                         } else if (statusCode.equals("301")){
                             b.append(" was banned (");
                             b.append(reason);
                             b.append(")");
-                            if (c==((ConferenceGroup)groups.getGroup(c.group)).getSelfContact())
-                                leaveRoom(c.group);
+                            //if (c==((ConferenceGroup)groups.getGroup(c.getGroupIndex())).getSelfContact())
+                            if (c==((ConferenceGroup)c.getGroup()).getSelfContact())
+                                leaveRoom(0, c.getGroup());
                         } else
                         b.append(" has left the channel");
 		    } else {
@@ -981,7 +982,7 @@ public class Roster
     
     Contact messageStore(Msg message){
         Contact c=presenceContact(message.from,-1);
-        if (c.group==Groups.NIL_INDEX) 
+        if (c.getGroupIndex()==Groups.NIL_INDEX) 
             if (!cf.notInList) return c;
 
         if (c==null) return c;  // not to store/signal not-in-list message
@@ -996,7 +997,7 @@ public class Roster
         
         if (countNewMsgs()) reEnumRoster();
         
-        if (c.group==Groups.IGNORE_INDEX) return c;    // no signalling/focus on ignore
+        if (c.getGroupIndex()==Groups.IGNORE_INDEX) return c;    // no signalling/focus on ignore
         
 	if (cf.popupFromMinimized)
 	    Bombus.getInstance().hideApp(false);
@@ -1012,7 +1013,7 @@ public class Roster
 
     private void focusToContact(final Contact c, boolean force) {
 	
-	Group g=groups.getGroup(c.group);
+	Group g=c.getGroup();
 	if (g.collapsed) {
 	    g.collapsed=false;
 	    reEnumerator.queueEnum(c, force);
@@ -1166,7 +1167,7 @@ public class Roster
             Contact cn=null;
             if (o instanceof Contact) {
                 cn=(Contact)o;
-                if (cn.group!=Groups.NIL_INDEX && cn.group!=Groups.SRC_RESULT_INDEX) cn=null;
+                if (cn.getGroupIndex()!=Groups.NIL_INDEX && cn.getGroupIndex()!=Groups.SRC_RESULT_INDEX) cn=null;
             }
             new ContactEdit(display, cn);
         }
@@ -1179,15 +1180,15 @@ public class Roster
 
 	confGroup.getConference().status=Presence.PRESENCE_ONLINE;
     }
-    public void leaveRoom(int index){
-	Group group=groups.getGroup(index);
+    public void leaveRoom(int index, Group group){
+	//Group group=groups.getGroup(index);
 	ConferenceGroup confGroup=(ConferenceGroup)group;
 	Contact myself=confGroup.getSelfContact();
         sendPresence(myself.getJid(), "unavailable", null);
 	
         for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
             Contact contact=(Contact)e.nextElement();
-            if (contact.group==index) contact.status=Presence.PRESENCE_OFFLINE; 
+            if (contact.inGroup(group)) contact.status=Presence.PRESENCE_OFFLINE; 
         }
 
     }
@@ -1252,7 +1253,7 @@ public class Roster
 	    }
 	}
 	
-	if (c.group==Groups.NIL_INDEX) {
+	if (c.getGroupIndex()==Groups.NIL_INDEX) {
 	    hContacts.removeElement(c);
 	    reEnumRoster();
 	} else
@@ -1348,7 +1349,7 @@ public class Roster
                             Contact c=(Contact)e.nextElement();
                             boolean online=c.status<5;
                             // group counters
-                            Group grp=groups.getGroup(c.group);
+                            Group grp=c.getGroup();
 			    grp.addContact(c);
                         }
                     }

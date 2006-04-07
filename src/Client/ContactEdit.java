@@ -85,11 +85,11 @@ public final class ContactEdit
             // edit contact
             tJid.setString(jid);
             tNick.setString(c.nick);
-            sel=c.group-Groups.COMMON_INDEX;
+            sel=c.getGroupIndex()-Groups.COMMON_INDEX;
             if (sel==-1) sel=groups.size()-1;
             if (sel<0) sel=0;
             tGroup.setString(group(sel));
-            if (c.group!=Groups.NIL_INDEX  && c.group!=Groups.SRC_RESULT_INDEX) {
+            if (c.getGroupIndex()!=Groups.NIL_INDEX  && c.getGroupIndex()!=Groups.SRC_RESULT_INDEX) {
                 // edit contact
                 f.setTitle(jid);
                 cmdOk=new Command(SR.MS_UPDATE, Command.OK, 1);

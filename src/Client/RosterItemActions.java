@@ -44,7 +44,7 @@ public class RosterItemActions extends Menu{
 
 	if (isContact) {
 	    Contact contact=(Contact)item;
-	    if (contact.group==Groups.TRANSP_INDEX) {
+	    if (contact.getGroupIndex()==Groups.TRANSP_INDEX) {
 		addItem(SR.MS_LOGON,5);
 		addItem(SR.MS_LOGOFF,6);
 		addItem(SR.MS_RESOLVE_NICKNAMES, 7);
@@ -55,8 +55,8 @@ public class RosterItemActions extends Menu{
 	    addItem(SR.MS_CLIENT_INFO,0);
 	    addItem(SR.MS_COMMANDS,30);
 	    
-	    if (contact.group!=Groups.SELF_INDEX && contact.group!=Groups.SRC_RESULT_INDEX && contact.origin<Contact.ORIGIN_GROUPCHAT) {
-		if (contact.group!=Groups.TRANSP_INDEX)
+	    if (contact.getGroupIndex()!=Groups.SELF_INDEX && contact.getGroupIndex()!=Groups.SRC_RESULT_INDEX && contact.origin<Contact.ORIGIN_GROUPCHAT) {
+		if (contact.getGroupIndex()!=Groups.TRANSP_INDEX)
 		    addItem(SR.MS_EDIT,2);
 		addItem(SR.MS_SUBSCRIPTION,3);
 		addItem(SR.MS_DELETE,4);
@@ -115,7 +115,7 @@ public class RosterItemActions extends Menu{
 		break;
 	    case 1: // vCard
 		if (c.vcard!=null) {
-		    new vCardForm(display, c.vcard, c.group==Groups.SELF_INDEX);
+		    new vCardForm(display, c.vcard, c.getGroupIndex()==Groups.SELF_INDEX);
 		    return;
 		}
 		VCard.request(c.getJid());
@@ -203,7 +203,7 @@ public class RosterItemActions extends Menu{
 	    }
 	    case 22:
 	    {
-		roster.leaveRoom( g.index );
+		roster.leaveRoom( 0, g);
 		break;
 	    }
 	    case 23:

@@ -1,7 +1,7 @@
 /*
  * SearchResult.java
  *
- * Created on 10 Июль 2005 г., 21:40
+ * Created on 10 пїЅпїЅпїЅпїЅ 2005 пїЅ., 21:40
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -63,7 +63,7 @@ public class SearchResult
 
                 // Form vcard=new Form(null);
                 if (!xData) { jid=child.getAttribute("jid"); }
-                // поля item
+                // пїЅпїЅпїЅпїЅ item
                 for (Enumeration f=child.getChildBlocks().elements(); f.hasMoreElements(); ){
                     JabberDataBlock field=(JabberDataBlock) f.nextElement();
                     String name;
@@ -84,11 +84,11 @@ public class SearchResult
                         vcard.append(value);
                         vcard.append((char)'\n');
                     }
-		    // заточка под jit
+		    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ jit
 		    if (name.equals("status")) if (value.equals("offline")) status=Presence.PRESENCE_OFFLINE;
                 }
                 Contact serv=new Contact(null, jid, status, null);
-                serv.group=Groups.SRC_RESULT_INDEX;
+                serv.setGroup(sd.roster.groups.getGroup(Groups.SRC_RESULT_INDEX));
                 Msg m=new Msg(Msg.MESSAGE_TYPE_IN, jid, "Short info", vcard.toString());
                 m.unread=false;
                 serv.addMessage(m);

@@ -1,7 +1,7 @@
 /*
  * Group.java
  *
- * Created on 8 Май 2005 г., 0:36
+ * Created on 8 пїЅпїЅпїЅ 2005 пїЅ., 0:36
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -26,7 +26,7 @@ public class Group extends IconTextElement {
         
     public Vector contacts;
     
-    // используется при пересчёте группы
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     private Vector tcontacts;
     public int tonlines;
     private int tncontacts;
@@ -75,16 +75,18 @@ public class Group extends IconTextElement {
 	if (online) {
 	    tonlines++;
 	}
-	int gindex=c.group;
+	//int gindex=c.getGroupIndex();
 	// hide offlines whithout new messages
 	if (
 	online
 	|| Config.getInstance().showOfflineContacts
 	|| c.getNewMsgsCount()>0
-	|| gindex==Groups.NIL_INDEX
-	|| gindex==Groups.TRANSP_INDEX
-	//  *ВРЕМЕННО* на контакт комнаты в группе конференции
-	//  не распространяется Show offlines
+	//|| gindex==Groups.NIL_INDEX
+	//|| gindex==Groups.TRANSP_INDEX
+	|| index==Groups.NIL_INDEX
+	|| index==Groups.TRANSP_INDEX
+	//  *пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ* пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	//  пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Show offlines
 	|| c.origin==Contact.ORIGIN_GROUPCHAT
 	)
 	    contacts.addElement(c);
