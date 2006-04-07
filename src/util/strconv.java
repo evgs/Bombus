@@ -1,14 +1,17 @@
-package util;
 /*
  * strconv.java
  *
  * Created on 12 январь 2005 г., 1:25
+ *
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 /**
  *
  * @author Eugene Stahov
  */
+package util;
 import java.lang.*;
 
 public class strconv {

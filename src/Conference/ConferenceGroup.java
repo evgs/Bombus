@@ -3,8 +3,8 @@
  *
  * Created on 29 Ноябрь 2005 г., 23:11
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package Conference;

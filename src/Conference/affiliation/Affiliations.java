@@ -3,8 +3,7 @@
  *
  * Created on 30 ������� 2005 �., 12:34
  *
- *
- * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
  */
 
