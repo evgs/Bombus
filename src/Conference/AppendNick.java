@@ -38,7 +38,7 @@ public class AppendNick
         nicknames=new Vector();
         for (Enumeration e=StaticData.getInstance().roster.getHContacts().elements(); e.hasMoreElements(); ) {
             Contact c=(Contact)e.nextElement();
-            if (to.getGroupIndex()==c.getGroupIndex() && c.origin>Contact.ORIGIN_GROUPCHAT)
+            if (c.inGroup(to.getGroup()) && c.origin>Contact.ORIGIN_GROUPCHAT)
                 nicknames.addElement(c);
         }
 

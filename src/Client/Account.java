@@ -157,6 +157,7 @@ public class Account extends IconTextElement{
     public void saveToDataOutputStream(DataOutputStream outputStream){
         
         if (hostAddr==null) hostAddr="";
+        if (proxyHostAddr==null) proxyHostAddr="";
         
         try {
             outputStream.writeByte(5);
@@ -174,9 +175,9 @@ public class Account extends IconTextElement{
 	    
 	    outputStream.writeBoolean(mucOnly);
             
-            outputStream.writeBoolean(isEnableProxy());
-            outputStream.writeUTF(getProxyHostAddr());
-            outputStream.writeInt(getProxyPort());
+            outputStream.writeBoolean(enableProxy);
+            outputStream.writeUTF(proxyHostAddr);
+            outputStream.writeInt(proxyPort);
 	    
         } catch (IOException e) {
             e.printStackTrace();
