@@ -2077,6 +2077,9 @@ syslog_msg: true
   исходники: Ability DISABLE_AUTOFOCUS
 
   увеличен размер шрифта часов
+
+(450)
+  typo: Connect to_
   
 ---------------------------
   known issues:

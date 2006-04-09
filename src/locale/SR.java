@@ -95,7 +95,7 @@ public class SR {
     public final static String MS_CONNECTED = "Connected";
 //--msgstr "Соединение установлено"
     
-    public final static String MS_CONNECT_TO = "Connect to";
+    public final static String MS_CONNECT_TO = "Connect to ";
 //--msgstr "Соединение с"
 // #: /home/avl/Projects/bombus/src/Client/AlertProfile.java:44
     public final static String MS_ALERT_PROFILE = "Alert Profile";
