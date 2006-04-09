@@ -305,6 +305,11 @@ public class Roster
         if (g==null) return;
         if (!g.collapsed) return;
         
+        if (g instanceof ConferenceGroup) {
+            ConferenceGroup cg= (ConferenceGroup) g;
+            if (cg.getSelfContact().status==Presence.PRESENCE_OFFLINE)
+                cg.getConference().status=Presence.PRESENCE_OFFLINE;
+        }
         //int gi=g.index;
 
         int index=0;

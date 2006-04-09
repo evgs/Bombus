@@ -2080,7 +2080,14 @@ syslog_msg: true
 
 (450)
   typo: Connect to_
-  
+
+(452)
+  fix: пропадание Leave Room при последовательности: 
+    войти в конференцию под занятым ником (conflict)
+    свернуть конференцию,
+    войти в эту же конференцию
+
+  fix: NullPointerException в Service Discovery
 ---------------------------
   known issues:
 
