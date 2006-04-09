@@ -108,5 +108,9 @@ public class Groups{
 
     public int getRosterContacts() { return rosterContacts; }
     public int getRosterOnline() { return rosterOnline; }
+
+    void removeGroup(Group g) {
+        groups.removeElement(g);
+    }
     
 }

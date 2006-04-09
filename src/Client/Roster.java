@@ -305,9 +305,12 @@ public class Roster
         if (g==null) return;
         if (!g.collapsed) return;
         
-        int gi=g.index;
+        //int gi=g.index;
 
         int index=0;
+
+        int onlineContacts=0;
+        
         synchronized (hContacts) {
             while (index<hContacts.size()) {
                 Contact contact=(Contact)hContacts.elementAt(index);
@@ -316,9 +319,15 @@ public class Roster
                          && contact.status==Presence.PRESENCE_OFFLINE
                          && contact.getNewMsgsCount()==0 )
                         hContacts.removeElementAt(index);
-                    else index++; 
+                    else { 
+                        index++;
+                        onlineContacts++;
+                    } 
                 }
                 else index++; 
+            }
+            if (onlineContacts==0) {
+                if (g.index>Groups.COMMON_INDEX) groups.removeGroup(g);
             }
         }
     }
