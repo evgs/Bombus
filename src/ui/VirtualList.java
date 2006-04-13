@@ -284,6 +284,8 @@ public abstract class VirtualList
      * ���������
      */
     public void paint(Graphics graphics) {
+        width=getWidth();	// patch for SE
+        height=getHeight();
 	Graphics g=(offscreen==null)? graphics: offscreen.getGraphics();
         // ��������� ����
         
