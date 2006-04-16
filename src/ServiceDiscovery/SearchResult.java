@@ -1,7 +1,7 @@
 /*
  * SearchResult.java
  *
- * Created on 10 ���� 2005 �., 21:40
+ * Created on 10 Июль 2005 г., 21:40
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -63,7 +63,7 @@ public class SearchResult
 
                 // Form vcard=new Form(null);
                 if (!xData) { jid=child.getAttribute("jid"); }
-                // ���� item
+                // пїЅпїЅпїЅпїЅ item
                 for (Enumeration f=child.getChildBlocks().elements(); f.hasMoreElements(); ){
                     JabberDataBlock field=(JabberDataBlock) f.nextElement();
                     String name;
@@ -84,7 +84,7 @@ public class SearchResult
                         vcard.append(value);
                         vcard.append((char)'\n');
                     }
-		    // ������� ��� jit
+		    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ jit
 		    if (name.equals("status")) if (value.equals("offline")) status=Presence.PRESENCE_OFFLINE;
                 }
                 Contact serv=new Contact(null, jid, status, null);

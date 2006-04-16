@@ -1,7 +1,7 @@
 /*
  * Menu.java
  *
- * Created on 1 Ã‡È 2005 „., 20:48
+ * Created on 1 –ú–∞–π 2005 –≥., 20:48
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

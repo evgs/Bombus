@@ -1,7 +1,7 @@
 /*
  * Screens.java
  *
- * Created on 1 Νξÿαπό 2005 γ., 0:39
+ * Created on 1 ΠΠΎΡΠ±Ρ€Ρ 2005 Π³., 0:39
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

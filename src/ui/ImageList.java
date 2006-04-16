@@ -1,7 +1,7 @@
 /*
  * ImageListC.java
  *
- * Created on 31 ίνβΰπό 2005 γ., 0:06
+ * Created on 31 Π―Π½Π²Π°Ρ€Ρ 2005 Π³., 0:06
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

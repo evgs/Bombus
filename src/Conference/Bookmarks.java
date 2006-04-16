@@ -1,7 +1,7 @@
 /*
  * Bookmarks.java
  *
- * Created on 18 Сентябрь 2005 пїЅ., 0:03
+ * Created on 18 РЎРµРЅС‚СЏР±СЂСЊ 2005 РїС—Р…., 0:03
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -72,7 +72,7 @@ public class Bookmarks
         bookmarksRq(false, rq, "getbookmarks");
     }
     
-    // пока здесь, но вообще-то это storageRq
+    // РїРѕРєР° Р·РґРµСЃСЊ, РЅРѕ РІРѕРѕР±С‰Рµ-С‚Рѕ СЌС‚Рѕ storageRq
     public void bookmarksRq(boolean set, JabberDataBlock child, String id) {
         JabberDataBlock request=new Iq();
         request.setTypeAttribute((set)?"set":"get");

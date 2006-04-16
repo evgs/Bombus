@@ -1,7 +1,7 @@
 /*
  * ActiveContacts.java
  *
- * Created on 20 Январь 2005 г., 21:20
+ * Created on 20 РЇРЅРІР°СЂСЊ 2005 Рі., 21:20
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -42,7 +42,7 @@ public class ActiveContacts
 	    Contact c=(Contact)r.nextElement();
 	    if (c.active()) activeContacts.addElement(c);
 	}
-	// не создаём вид, если нет активных контактов
+	// РЅРµ СЃРѕР·РґР°С‘Рј РІРёРґ, РµСЃР»Рё РЅРµС‚ Р°РєС‚РёРІРЅС‹С… РєРѕРЅС‚Р°РєС‚РѕРІ
 	if (getItemCount()==0) return;
 	
         setTitleItem(new Title(2, String.valueOf(getItemCount()), SR.MS_ACTIVE_CONTACTS));

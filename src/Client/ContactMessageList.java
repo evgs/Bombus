@@ -1,7 +1,7 @@
 /*
  * ContactMessageList.java
  *
- * Created on 19 Февраль 2005 г., 23:54
+ * Created on 19 Р¤РµРІСЂР°Р»СЊ 2005 Рі., 23:54
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

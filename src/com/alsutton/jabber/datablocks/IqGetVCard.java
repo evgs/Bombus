@@ -1,7 +1,7 @@
 /*
  * IqGetVCard.java
  *
- * Created on 4 Ã‡È 2005 „., 22:48
+ * Created on 4 –ú–∞–π 2005 –≥., 22:48
  */
 
 package com.alsutton.jabber.datablocks;

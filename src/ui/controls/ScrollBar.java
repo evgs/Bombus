@@ -1,7 +1,7 @@
 /*
  * ScrollBar.java
  *
- * Created on 19 Ноябрь 2005 г., 21:26
+ * Created on 19 РќРѕСЏР±СЂСЊ 2005 Рі., 21:26
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -32,7 +32,7 @@ public class ScrollBar {
     
     private int drawHeight;
     
-    private int point_y;    // точка, за которую "держится" указатель
+    private int point_y;    // С‚РѕС‡РєР°, Р·Р° РєРѕС‚РѕСЂСѓСЋ "РґРµСЂР¶РёС‚СЃСЏ" СѓРєР°Р·Р°С‚РµР»СЊ
     
     private int scrollerSize;
     private int scrollerPos;

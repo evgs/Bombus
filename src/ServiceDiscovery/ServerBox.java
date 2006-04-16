@@ -1,7 +1,7 @@
 /*
  * ServerBox.java
  *
- * Created on 8 Èþëü 2005 ã., 1:09
+ * Created on 8 Ð˜ÑŽÐ»ÑŒ 2005 Ð³., 1:09
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

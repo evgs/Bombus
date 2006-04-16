@@ -1,7 +1,7 @@
 /*
  * StaticData.java
  *
- * Created on 20 Февраль 2005 г., 17:10
+ * Created on 20 Р¤РµРІСЂР°Р»СЊ 2005 Рі., 17:10
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

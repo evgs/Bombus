@@ -1,7 +1,7 @@
 /*
  * SubscriptionEdit.java
  *
- * Created on 10 Ã‡È 2005 „., 19:09
+ * Created on 10 –ú–∞–π 2005 –≥., 19:09
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

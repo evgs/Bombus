@@ -1,7 +1,7 @@
 /*
  * Contact.java
  *
- * Created on 6 ������ 2005 �., 19:16
+ * Created on 6 пїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 19:16
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -17,7 +17,7 @@ import ui.ImageList;
 import com.alsutton.jabber.datablocks.Presence;
 
 /**
- * �������
+ * пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
  * @author Eugene Stahov
  */
 public class Contact extends IconTextElement{
@@ -217,7 +217,7 @@ public class Contact extends IconTextElement{
 //#             }
 //#         }
 //#endif
-        // ���� ������������ ��������� - presence, �� ������� ���
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - presence, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
         if (first_replace) {
             msgs.setElementAt(m,0);
             return;

@@ -1,7 +1,7 @@
 /*
  * MIDPTextBox.java
  *
- * Created on 26 Март 2005 г., 20:56
+ * Created on 26 РњР°СЂС‚ 2005 Рі., 20:56
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

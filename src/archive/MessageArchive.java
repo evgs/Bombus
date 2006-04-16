@@ -1,7 +1,7 @@
 /*
  * MessageArchive.java
  *
- * Created on 11 Δεκΰαπό 2005 γ., 2:33
+ * Created on 11 Π”ΠµΠΊΠ°Π±Ρ€Ρ 2005 Π³., 2:33
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.

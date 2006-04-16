@@ -1,7 +1,7 @@
 /*
  * FormField.java
  *
- * Created on 5 Θώνό 2005 γ., 20:30
+ * Created on 5 ΠΡΠ½Ρ 2005 Π³., 20:30
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

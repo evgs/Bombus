@@ -18,96 +18,96 @@ public class SR {
     
 // #: /home/avl/Projects/bombus/src/midlet/Bombus.java:48
     public final static String MS_LOADING = "Loading";
-//--msgstr "Запуск"
+//--msgstr "Р—Р°РїСѓСЃРє"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterToolsMenu.java:31
     public final static String MS_PRIVACY_LISTS = "Privacy Lists";
-//--msgstr "Списки Приватности"
+//--msgstr "РЎРїРёСЃРєРё РџСЂРёРІР°С‚РЅРѕСЃС‚Рё"
     
 // #: /home/avl/Projects/bombus/src/Client/ContactEdit.java:57
     public final static String MS_EXISTING_GROUPS = "Existing groups";
-//--msgstr "Существующие группы"
+//--msgstr "РЎСѓС‰РµСЃС‚РІСѓСЋС‰РёРµ РіСЂСѓРїРїС‹"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:158
     public final static String MS_MESSAGE_FONT = "Message font";
-//--msgstr "Шрифт сообщения"
+//--msgstr "РЁСЂРёС„С‚ СЃРѕРѕР±С‰РµРЅРёСЏ"
     public final static String MS_ROSTER_FONT = "Roster font";
-//--msgstr "Шрифт ростера"
+//--msgstr "РЁСЂРёС„С‚ СЂРѕСЃС‚РµСЂР°"
     
 // #: /home/avl/Projects/bombus/src/archive/ArchiveList.java:32
     public final static String MS_PASTE_BODY = "Paste Body";
-//--msgstr "Вставить тело сообщ."
+//--msgstr "Р’СЃС‚Р°РІРёС‚СЊ С‚РµР»Рѕ СЃРѕРѕР±С‰."
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:79
     public final static String MS_CONFIG_ROOM = "Configure Room";
-//--msgstr "Конфигуратор Комнаты"
+//--msgstr "РљРѕРЅС„РёРіСѓСЂР°С‚РѕСЂ РљРѕРјРЅР°С‚С‹"
     
 // #: /home/avl/Projects/bombus/src/archive/ArchiveList.java:33
     public final static String MS_PASTE_SUBJECT = "Paste Subject";
-//--msgstr "Вставить тему сообщ."
+//--msgstr "Р’СЃС‚Р°РІРёС‚СЊ С‚РµРјСѓ СЃРѕРѕР±С‰."
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:85
 // #: /home/avl/Projects/bombus/src/Client/RosterToolsMenu.java:30
     public final static String MS_DISCO = "Service Discovery";
-//--msgstr "Обзор Сервисов"
+//--msgstr "РћР±Р·РѕСЂ РЎРµСЂРІРёСЃРѕРІ"
     
 // #: /home/avl/Projects/bombus/src/Client/ContactEdit.java:51
     public final static String MS_USER_JID = "User JID";
-//--msgstr "JID пользователя"
+//--msgstr "JID РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ"
     
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacySelect.java:37
     public final static String MS_NEW_LIST = "New list";
-//--msgstr "Новый список"
+//--msgstr "РќРѕРІС‹Р№ СЃРїРёСЃРѕРє"
     
 // #: /home/avl/Projects/bombus/src/Client/AccountSelect.java:31
     public final static String MS_NOLOGIN = "Select (no login)";
-//--msgstr "Выбрать (без логина)"
+//--msgstr "Р’С‹Р±СЂР°С‚СЊ (Р±РµР· Р»РѕРіРёРЅР°)"
     
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacyForm.java:31
     public final static String MS_PRIVACY_RULE = "Privacy rule";
-//--msgstr "Правило приватности"
+//--msgstr "РџСЂР°РІРёР»Рѕ РїСЂРёРІР°С‚РЅРѕСЃС‚Рё"
     
 // #: /home/avl/Projects/bombus/src/Client/AccountForm.java:58
     public final static String MS_SSL = "use SSL";
-//--msgstr "использовать SSL"
+//--msgstr "РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ SSL"
     
 // #: /home/avl/Projects/bombus/src/Conference/affiliation/Affiliations.java:43
     public final static String MS_MODIFY = "Modify";
-//--msgstr "Изменить"
+//--msgstr "РР·РјРµРЅРёС‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Client/ContactEdit.java:93
     public final static String MS_UPDATE = "Update";
-//--msgstr "Обновить"
+//--msgstr "РћР±РЅРѕРІРёС‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Client/AccountForm.java:67
     public final static String MS_ACCOUNT_NAME = "Account name";
-//--msgstr "Имя аккаунта"
+//--msgstr "РРјСЏ Р°РєРєР°СѓРЅС‚Р°"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:144
     public final static String MS_GMT_OFFSET = "GMT offset";
-//--msgstr "Часовой пояс (GMT+)"
+//--msgstr "Р§Р°СЃРѕРІРѕР№ РїРѕСЏСЃ (GMT+)"
     
     public final static String MS_TIME_SETTINGS = "Time settings (hours)\n";
-//--msgstr"Настройки времени\n"
+//--msgstr"РќР°СЃС‚СЂРѕР№РєРё РІСЂРµРјРµРЅРё\n"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:704
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:724
     public final static String MS_CONNECTED = "Connected";
-//--msgstr "Соединение установлено"
+//--msgstr "РЎРѕРµРґРёРЅРµРЅРёРµ СѓСЃС‚Р°РЅРѕРІР»РµРЅРѕ"
     
     public final static String MS_CONNECT_TO = "Connect to ";
-//--msgstr "Соединение с"
+//--msgstr "РЎРѕРµРґРёРЅРµРЅРёРµ СЃ"
 // #: /home/avl/Projects/bombus/src/Client/AlertProfile.java:44
     public final static String MS_ALERT_PROFILE = "Alert Profile";
-//--msgstr "Сигнализация"
+//--msgstr "РЎРёРіРЅР°Р»РёР·Р°С†РёСЏ"
     
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacyModifyList.java:36
     public final static String MS_MOVE_UP = "Move Up";
-//--msgstr "Передв. вверх"
+//--msgstr "РџРµСЂРµРґРІ. РІРІРµСЂС…"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:80
     public final static String MS_OWNERS = "Owners";
-//--msgstr "Владельцы"
+//--msgstr "Р’Р»Р°РґРµР»СЊС†С‹"
     
 // #: /home/avl/Projects/bombus/src/ui/Menu.java:23
 // #: /home/avl/Projects/bombus/src/Client/StatusSelect.java:95
@@ -116,273 +116,273 @@ public class SR {
 // #: /home/avl/Projects/bombus/src/Client/AccountForm.java:32
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacyForm.java:40
     public final static String MS_OK = "Ok";
-//--msgstr "ОК"
+//--msgstr "РћРљ"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:96
     public final static String MS_APP_MINIMIZE = "Minimize";
-//--msgstr "Свернуть"
+//--msgstr "РЎРІРµСЂРЅСѓС‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Conference/ConferenceForm.java:49
     public final static String MS_ROOM = "Room";
-//--msgstr "Комната"
+//--msgstr "РљРѕРјРЅР°С‚Р°"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:107
     public final static String MS_MESSAGES = "Messages";
-//--msgstr "Сообщения"
+//--msgstr "РЎРѕРѕР±С‰РµРЅРёСЏ"
     
 // #: /home/avl/Projects/bombus/src/ServiceDiscovery/ServiceDiscovery.java:43
 // #: /home/avl/Projects/bombus/src/Conference/Bookmarks.java:34
 // #: /home/avl/Projects/bombus/src/vcard/vCardForm.java:28
     public final static String MS_REFRESH = "Refresh";
-//--msgstr "Обновить"
+//--msgstr "РћР±РЅРѕРІРёС‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:47
     public final static String MS_RESOLVE_NICKNAMES = "Resolve Nicknames";
-//--msgstr "Преобразовать в ник"
+//--msgstr "РџСЂРµРѕР±СЂР°Р·РѕРІР°С‚СЊ РІ РЅРёРє"
     
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacyForm.java:32
     public final static String MS_PRIVACY_ACTION = "Action";
-//--msgstr "Действие"
+//--msgstr "Р”РµР№СЃС‚РІРёРµ"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:63
     public final static String MS_BAN = "Ban";
-//--msgstr "Бан"
+//--msgstr "Р‘Р°РЅ"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:81
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:77
     public final static String MS_LEAVE_ROOM = "Leave Room";
-//--msgstr "Покинуть Комнату"
+//--msgstr "РџРѕРєРёРЅСѓС‚СЊ РљРѕРјРЅР°С‚Сѓ"
     
 // #: /home/avl/Projects/bombus/src/Client/AccountForm.java:53
 // #: /home/avl/Projects/bombus/src/Conference/ConferenceForm.java:58
     public final static String MS_PASSWORD = "Password";
-//--msgstr "Пароль"
+//--msgstr "РџР°СЂРѕР»СЊ"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:79
     public final static String MS_ITEM_ACTIONS = "Actions >";
-//--msgstr "Действия >"
+//--msgstr "Р”РµР№СЃС‚РІРёСЏ >"
     
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacySelect.java:35
     public final static String MS_ACTIVATE = "Activate";
-//--msgstr "Активировать"
+//--msgstr "РђРєС‚РёРІРёСЂРѕРІР°С‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Conference/affiliation/AffiliationModify.java:28
     public final static String MS_AFFILIATION = "Affiliation";
-//--msgstr "Членство"
+//--msgstr "Р§Р»РµРЅСЃС‚РІРѕ"
     
 // #: /home/avl/Projects/bombus/src/Client/AccountSelect.java:43
     public final static String MS_ACCOUNTS = "Accounts";
-//--msgstr "Аккаунты"
+//--msgstr "РђРєРєР°СѓРЅС‚С‹"
     
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacySelect.java:38
     public final static String MS_DELETE_LIST = "Delete list";
-//--msgstr "Удалить список"
+//--msgstr "РЈРґР°Р»РёС‚СЊ СЃРїРёСЃРѕРє"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:92
     public final static String MS_ACCOUNT_= "Account >";
-//--msgstr "Аккаунт >"
+//--msgstr "РђРєРєР°СѓРЅС‚ >"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:87
     public final static String MS_SHOWOFFLINES = "Show Offlines";
-//--msgstr "Показать отключенных"
+//--msgstr "РџРѕРєР°Р·Р°С‚СЊ РѕС‚РєР»СЋС‡РµРЅРЅС‹С…"
     
 // #: /home/avl/Projects/bombus/src/Client/AlertProfile.java:35
 // #: /home/avl/Projects/bombus/src/Client/ActiveContacts.java:32
 // #: /home/avl/Projects/bombus/src/Client/StatusSelect.java:22
 // #: /home/avl/Projects/bombus/src/Client/SmilePicker.java:50
     public final static String MS_SELECT = "Select";
-//--msgstr "Выбрать"
+//--msgstr "Р’С‹Р±СЂР°С‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Client/MessageEdit.java:41
     public final static String MS_SUBJECT = "Subject";
-//--msgstr "Тема"
+//--msgstr "РўРµРјР°"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:83
     public final static String MS_GROUP_MENU = "Group menu";
-//--msgstr "Меню групп"
+//--msgstr "РњРµРЅСЋ РіСЂСѓРїРї"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:97
 // #: /home/avl/Projects/bombus/src/Client/AccountSelect.java:36
     public final static String MS_APP_QUIT = "Quit";
-//--msgstr "Выход"
+//--msgstr "Р’С‹С…РѕРґ"
     
 // #: /home/avl/Projects/bombus/src/ServiceDiscovery/ServiceDiscovery.java:45
     public final static String MS_ROSTERADD = "Add to roster";
-//--msgstr "Добавить в ростер"
+//--msgstr "Р”РѕР±Р°РІРёС‚СЊ РІ СЂРѕСЃС‚РµСЂ"
     
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacySelect.java:39
     public final static String MS_EDIT_LIST = "Edit list";
-//--msgstr "Редактировать список"
+//--msgstr "Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ СЃРїРёСЃРѕРє"
     
 // #: /home/avl/Projects/bombus/src/Client/AccountRegister.java:72
     public final static String MS_REGISTERING = "Registering";
-//--msgstr "Регистрация"
+//--msgstr "Р РµРіРёСЃС‚СЂР°С†РёСЏ"
     public final static String MS_DONE = "Done";
-//--msgstr "Выполнено"
+//--msgstr "Р’С‹РїРѕР»РЅРµРЅРѕ"
     public final static String MS_ERROR_ = "Error: ";
-//--msgstr "Ошибка: "
+//--msgstr "РћС€РёР±РєР°: "
     
 // #: /home/avl/Projects/bombus/src/ServiceDiscovery/ServiceDiscovery.java:42
     public final static String MS_BROWSE = "Browse";
-//--msgstr "Обзор"
+//--msgstr "РћР±Р·РѕСЂ"
     
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacyModifyList.java:38
     public final static String MS_SAVE_LIST = "Save list";
-//--msgstr "Сохранить список"
+//--msgstr "РЎРѕС…СЂР°РЅРёС‚СЊ СЃРїРёСЃРѕРє"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:143
     public final static String MS_KEEPALIVE_PERIOD = "Keep-Alive period";
-//--msgstr "Keep-Alive период"
+//--msgstr "Keep-Alive РїРµСЂРёРѕРґ"
     
 // #: /home/avl/Projects/bombus/src/Client/ContactEdit.java:105
     public final static String MS_NEWGROUP = "<New Group>";
-//--msgstr "<Новая Группа>"
+//--msgstr "<РќРѕРІР°СЏ Р“СЂСѓРїРїР°>"
     
 // #: /home/avl/Projects/bombus/src/ServiceDiscovery/DiscoForm.java:39
 // #: /home/avl/Projects/bombus/src/Client/MessageEdit.java:32
     public final static String MS_SEND = "Send";
-//--msgstr "Отправить"
+//--msgstr "РћС‚РїСЂР°РІРёС‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Client/StatusSelect.java:105
     public final static String MS_PRIORITY = "Priority";
-//--msgstr "Приоритет"
+//--msgstr "РџСЂРёРѕСЂРёС‚РµС‚"
     
 // #: /home/avl/Projects/bombus/src/ui/SplashScreen.java:96
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:221
     public final static String MS_FAILED = "Failed";
-//--msgstr "Ошибка"
+//--msgstr "РћС€РёР±РєР°"
     
 // #: /home/avl/Projects/bombus/src/Client/StatusSelect.java:24
     public final static String MS_SET_PRIORITY = "Set Priority";
-//--msgstr "Установить приоритет"
+//--msgstr "РЈСЃС‚Р°РЅРѕРІРёС‚СЊ РїСЂРёРѕСЂРёС‚РµС‚"
     
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacyModifyList.java:34
     public final static String MS_DELETE_RULE = "Delete rule";
-//--msgstr "Удалить правило"
+//--msgstr "РЈРґР°Р»РёС‚СЊ РїСЂР°РІРёР»Рѕ"
     
 // // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:94
     public final static String MS_IGNORE_LIST = "Ignore-List";
-////--msgstr "Игнор-лист"
+////--msgstr "РРіРЅРѕСЂ-Р»РёСЃС‚"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:712
     public final static String MS_ROSTER_REQUEST = "Roster request ";
-//--msgstr "Загрузка ростера "
+//--msgstr "Р—Р°РіСЂСѓР·РєР° СЂРѕСЃС‚РµСЂР° "
     
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacyForm.java:33
     public final static String MS_PRIVACY_TYPE = "Type";
-//--msgstr "Тип"
+//--msgstr "РўРёРї"
     
 // #: /home/avl/Projects/bombus/src/Client/ContactEdit.java:53
     public final static String MS_NAME = "Name";
-//--msgstr "Имя"
+//--msgstr "РРјСЏ"
     
 // #: /home/avl/Projects/bombus/src/Client/AccountForm.java:52
     public final static String MS_USERNAME = "Username";
-//--msgstr "Имя пользователя"
+//--msgstr "РРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:130
     public final static String MS_FULLSCREEN = "fullscreen";
-//--msgstr "полный экран"
+//--msgstr "РїРѕР»РЅС‹Р№ СЌРєСЂР°РЅ"
     
 // #: /home/avl/Projects/bombus/src/Client/StatusSelect.java:25
     public final static String MS_ALL_PRIORITIES = "All Priorities";
-//--msgstr "во всех статусах"
+//--msgstr "РІРѕ РІСЃРµС… СЃС‚Р°С‚СѓСЃР°С…"
     
 // #: /home/avl/Projects/bombus/src/Conference/ConferenceForm.java:26
     public final static String MS_ADD_BOOKMARK = "Add bookmark";
-//--msgstr "Добав. закладку"
+//--msgstr "Р”РѕР±Р°РІ. Р·Р°РєР»Р°РґРєСѓ"
     
 // #: /home/avl/Projects/bombus/src/Client/AccountForm.java:60
     public final static String MS_CONFERENCES_ONLY = "conferences only";
-//--msgstr "только конференции"
+//--msgstr "С‚РѕР»СЊРєРѕ РєРѕРЅС„РµСЂРµРЅС†РёРё"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:52
     public final static String MS_CLIENT_INFO = "Client Info";
-//--msgstr "Инфо о клиенте"
+//--msgstr "РРЅС„Рѕ Рѕ РєР»РёРµРЅС‚Рµ"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:80
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:71
     public final static String MS_DISCARD = "Discard Search";
-//--msgstr "Сбросить результаты"
+//--msgstr "РЎР±СЂРѕСЃРёС‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚С‹"
     
     public final static String MS_SEARCH_RESULTS = "Search Results";
-//--msgstr "Результаты поиска"
+//--msgstr "Р РµР·СѓР»СЊС‚Р°С‚С‹ РїРѕРёСЃРєР°"
     public final static String MS_GENERAL = "General";
 //--msgstr "General"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:82
     public final static String MS_MEMBERS = "Members";
-//--msgstr "Члены"
+//--msgstr "Р§Р»РµРЅС‹"
     
 // // #: /home/avl/Projects/bombus/src/Client/Roster.java:160
 // public final static String MS_OFFLINE = "offline";
-// //--msgstr "Отключеные"
+// //--msgstr "РћС‚РєР»СЋС‡РµРЅС‹Рµ"
     
 // #: /home/avl/Projects/bombus/src/Client/ContactEdit.java:49
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:82
     public final static String MS_ADD_CONTACT = "Add Contact";
-//--msgstr "Добав. контакт"
+//--msgstr "Р”РѕР±Р°РІ. РєРѕРЅС‚Р°РєС‚"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:58
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacyForm.java:37
     public final static String MS_SUBSCRIPTION = "Subscription";
-//--msgstr "Подписка"
+//--msgstr "РџРѕРґРїРёСЃРєР°"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:78
     public final static String MS_STATUS_MENU = "Status >";
-//--msgstr "Статус >"
+//--msgstr "РЎС‚Р°С‚СѓСЃ >"
     
 // #: /home/avl/Projects/bombus/src/Conference/ConferenceForm.java:24
 // #: /home/avl/Projects/bombus/src/Conference/Bookmarks.java:33
     public final static String MS_JOIN = "Join";
-//--msgstr "Присоединиться"
+//--msgstr "РџСЂРёСЃРѕРµРґРёРЅРёС‚СЊСЃСЏ"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:117
     public final static String MS_STARTUP_ACTIONS = "Startup actions";
-//--msgstr "Действия при запуске"
+//--msgstr "Р”РµР№СЃС‚РІРёСЏ РїСЂРё Р·Р°РїСѓСЃРєРµ"
     
 // #: /home/avl/Projects/bombus/src/ServiceDiscovery/ServiceDiscovery.java:44
 // #: /home/avl/Projects/bombus/src/Client/AccountForm.java:54
     public final static String MS_SERVER = "Server";
-//--msgstr "Сервер"
+//--msgstr "РЎРµСЂРІРµСЂ"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:81
     public final static String MS_ADMINS = "Admins";
-//--msgstr "Админы"
+//--msgstr "РђРґРјРёРЅС‹"
     
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacySelect.java:40
     public final static String MS_MK_ILIST = "Make Ignore-List";
-//--msgstr "Создать Игнор-лист"
+//--msgstr "РЎРѕР·РґР°С‚СЊ РРіРЅРѕСЂ-Р»РёСЃС‚"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:89
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:94
     public final static String MS_OPTIONS = "Options";
-//--msgstr "Настройки"
+//--msgstr "РќР°СЃС‚СЂРѕР№РєРё"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:59
 // #: /home/avl/Projects/bombus/src/Client/AccountSelect.java:34
 // #: /home/avl/Projects/bombus/src/Conference/Bookmarks.java:35
 // #: /home/avl/Projects/bombus/src/archive/ArchiveList.java:31
     public final static String MS_DELETE = "Delete";
-//--msgstr "Удалить"
+//--msgstr "РЈРґР°Р»РёС‚СЊ"
     public final static String MS_DELETE_ASK = "Delete contact?";
-//--msgstr "Удалить контакт?"
+//--msgstr "РЈРґР°Р»РёС‚СЊ РєРѕРЅС‚Р°РєС‚?"
     
 // #: /home/avl/Projects/bombus/src/Messages/MessageView.java:35
     public final static String MS_SUBSCRIBE = "Authorize";
-//--msgstr "Авторизовать"
+//--msgstr "РђРІС‚РѕСЂРёР·РѕРІР°С‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Client/MessageEdit.java:34
     public final static String MS_NICKNAMES = "Nicknames";
-//--msgstr "Ники"
+//--msgstr "РќРёРєРё"
     
 // #: /home/avl/Projects/bombus/src/midlet/Bombus.java:90
     public final static String MS_ENT_SETUP = "Entering setup";
-//--msgstr "Вход в настройки аккаунта"
+//--msgstr "Р’С…РѕРґ РІ РЅР°СЃС‚СЂРѕР№РєРё Р°РєРєР°СѓРЅС‚Р°"
     
 // #: /home/avl/Projects/bombus/src/Client/ContactMessageList.java:30
     public final static String MS_ADD_ARCHIVE = "to Archive";
-//--msgstr "в Архив"
+//--msgstr "РІ РђСЂС…РёРІ"
     
 // #: /home/avl/Projects/bombus/src/ServiceDiscovery/ServiceDiscovery.java:46
 // #: /home/avl/Projects/bombus/src/ServiceDiscovery/SearchResult.java:27
@@ -399,72 +399,72 @@ public class SR {
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacySelect.java:34
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacyModifyList.java:32
     public final static String MS_BACK = "Back";
-//--msgstr "Назад"
+//--msgstr "РќР°Р·Р°Рґ"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:132
     public final static String MS_HEAP_MONITOR = "heap monitor";
-//--msgstr "Монитор кучи"
+//--msgstr "РњРѕРЅРёС‚РѕСЂ РєСѓС‡Рё"
     
 // #: /home/avl/Projects/bombus/src/ui/SplashScreen.java:115
     public final static String MS_HIDE_SPLASH = "Hide Splash";
-//--msgstr "Спрятать Заставку"
+//--msgstr "РЎРїСЂСЏС‚Р°С‚СЊ Р—Р°СЃС‚Р°РІРєСѓ"
     
 // #: /home/avl/Projects/bombus/src/Client/StatusSelect.java:112
     public final static String MS_MESSAGE = "Message";
-//--msgstr "Сообщение"
+//--msgstr "РЎРѕРѕР±С‰РµРЅРёРµ"
     
 // #: /home/avl/Projects/bombus/src/Client/ContactEdit.java:79
     public final static String MS_OTHER = "<Other>";
-//--msgstr "<Другая>"
+//--msgstr "<Р”СЂСѓРіР°СЏ>"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:109
     public final static String MS_HISTORY = "history -";
-//--msgstr "история -"
+//--msgstr "РёСЃС‚РѕСЂРёСЏ -"
     
 // #: /home/avl/Projects/bombus/src/Conference/AppendNick.java:26
     public final static String MS_APPEND = "Append";
-//--msgstr "Добавить"
+//--msgstr "Р”РѕР±Р°РІРёС‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Client/ContactMessageList.java:33
     public final static String MS_ACTIVE_CONTACTS = "Active Contacts";
-//--msgstr "Актив. контакты"
+//--msgstr "РђРєС‚РёРІ. РєРѕРЅС‚Р°РєС‚С‹"
     
 // #: /home/avl/Projects/bombus/src/Conference/AppendNick.java:34
     public final static String MS_SELECT_NICKNAME = "Select nickname";
-//--msgstr "Выбрать ник"
+//--msgstr "Р’С‹Р±СЂР°С‚СЊ РЅРёРє"
     
 // #: /home/avl/Projects/bombus/src/Client/ContactEdit.java:54
     public final static String MS_GROUP = "Group";
-//--msgstr "Группа"
+//--msgstr "Р“СЂСѓРїРїР°"
     
 // #: /home/avl/Projects/bombus/src/Conference/ConferenceForm.java:42
     public final static String MS_JOIN_CONFERENCE = "Join conference";
-//--msgstr "Присоединиться к конференции"
+//--msgstr "РџСЂРёСЃРѕРµРґРёРЅРёС‚СЊСЃСЏ Рє РєРѕРЅС„РµСЂРµРЅС†РёРё"
     
 // #: /home/avl/Projects/bombus/src/ui/YesNoAlert.java:23
     public final static String MS_NO = "No";
-//--msgstr "Нет"
+//--msgstr "РќРµС‚"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:75
     public final static String MS_REENTER = "Re-Enter Room";
-//--msgstr "Перезайти в Комнату"
+//--msgstr "РџРµСЂРµР·Р°Р№С‚Рё РІ РљРѕРјРЅР°С‚Сѓ"
     
 // #: /home/avl/Projects/bombus/src/Client/ContactMessageList.java:27
     public final static String MS_NEW_MESSAGE = "New Message";
-//--msgstr "Новое сообщение"
+//--msgstr "РќРѕРІРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ"
     
 // #: /home/avl/Projects/bombus/src/ServiceDiscovery/SearchResult.java:28
 // #: /home/avl/Projects/bombus/src/Client/ContactEdit.java:31
     public final static String MS_ADD = "Add";
-//--msgstr "Добавить"
+//--msgstr "Р”РѕР±Р°РІРёС‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:45
     public final static String MS_LOGON = "Logon";
-//--msgstr "Подключить"
+//--msgstr "РџРѕРґРєР»СЋС‡РёС‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:1037
     public final static String MS_LOGINPGS = "Login in progress";
-//--msgstr "Соединение..."
+//--msgstr "РЎРѕРµРґРёРЅРµРЅРёРµ..."
     
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacyForm.java:34
     public final static String MS_STANZAS = "Stanzas";
@@ -472,23 +472,23 @@ public class SR {
     
 // #: /home/avl/Projects/bombus/src/Conference/ConferenceForm.java:52
     public final static String MS_AT_HOST = "at Host";
-//--msgstr "Сервер"
+//--msgstr "РЎРµСЂРІРµСЂ"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:119
     public final static String MS_AUTO_CONFERENCES = "join conferences";
-//--msgstr "автовход в конференцию"
+//--msgstr "Р°РІС‚РѕРІС…РѕРґ РІ РєРѕРЅС„РµСЂРµРЅС†РёСЋ"
     
 // #: /home/avl/Projects/bombus/src/Client/StatusSelect.java:32
     public final static String MS_STATUS = "Status";
-//--msgstr "Статус"
+//--msgstr "РЎС‚Р°С‚СѓСЃ"
     
 // #: /home/avl/Projects/bombus/src/Messages/MessageView.java:33
     public final static String MS_SMILES_TOGGLE = "Smiles";
-//--msgstr "Смайлики"
+//--msgstr "РЎРјР°Р№Р»РёРєРё"
     
 // #: /home/avl/Projects/bombus/src/Client/ContactMessageList.java:32
     public final static String MS_CONTACT = "Contact >";
-//--msgstr "Контакт >"
+//--msgstr "РљРѕРЅС‚Р°РєС‚ >"
     
 // #: /home/avl/Projects/bombus/src/Client/MessageEdit.java:35
     public final static String MS_SLASHME = "/me";
@@ -496,106 +496,106 @@ public class SR {
     
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacyForm.java:59
     public final static String MS_ORDER = "Order";
-//--msgstr "Порядок"
+//--msgstr "РџРѕСЂСЏРґРѕРє"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:91
     public final static String MS_OFFLINE_CONTACTS = "offline contacts";
-//--msgstr "показать отключенных"
+//--msgstr "РїРѕРєР°Р·Р°С‚СЊ РѕС‚РєР»СЋС‡РµРЅРЅС‹С…"
     
 // #: /home/avl/Projects/bombus/src/Client/ContactEdit.java:58
     public final static String MS_TRANSPORT = "Transport";
-//--msgstr "Транспорт"
+//--msgstr "РўСЂР°РЅСЃРїРѕСЂС‚"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:110
     public final static String MS_COMPOSING_EVENTS = "composing events";
-//--msgstr "composing события"
+//--msgstr "composing СЃРѕР±С‹С‚РёСЏ"
     
 // #: /home/avl/Projects/bombus/src/Client/MessageEdit.java:33
     public final static String MS_ADD_SMILE = "Add Smile";
-//--msgstr "Добавить смайлик"
+//--msgstr "Р”РѕР±Р°РІРёС‚СЊ СЃРјР°Р№Р»РёРє"
     
 // #: /home/avl/Projects/bombus/src/Conference/ConferenceForm.java:55
     public final static String MS_NICKNAME = "Nickname";
-//--msgstr "Ник"
+//--msgstr "РќРёРє"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:65
     public final static String MS_REVOKE_VOICE = "Revoke Voice";
-//--msgstr "Отнять право голоса"
+//--msgstr "РћС‚РЅСЏС‚СЊ РїСЂР°РІРѕ РіРѕР»РѕСЃР°"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:95
     public final static String MS_NOT_IN_LIST = "Not-in-list";
-//--msgstr "Не в списке"
+//--msgstr "РќРµ РІ СЃРїРёСЃРєРµ"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:49
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:53
     public final static String MS_COMMANDS = "Commands";
-//--msgstr "Команды"
+//--msgstr "РљРѕРјР°РЅРґС‹"
     
 // #: /home/avl/Projects/bombus/src/ui/controls/NumberField.java:39
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:71
     public final static String MS_CHSIGN = "- (Sign)";
-//--msgstr "- (знак)"
+//--msgstr "- (Р·РЅР°Рє)"
     
 // #: /home/avl/Projects/bombus/src/Client/AlertProfile.java:36
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacySelect.java:36
     public final static String MS_SETDEFAULT = "Set default";
-//--msgstr "Уст. по умолчанию"
+//--msgstr "РЈСЃС‚. РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:83
     public final static String MS_BANNED = "Outcasts (Ban)";
-//--msgstr "Изгои (Ban)"
+//--msgstr "РР·РіРѕРё (Ban)"
     
 // #: /home/avl/Projects/bombus/src/Conference/affiliation/AffiliationModify.java:47
     public final static String MS_SET_AFFILIATION = "Set affiliation to";
-//--msgstr "Изменить членство на"
+//--msgstr "РР·РјРµРЅРёС‚СЊ С‡Р»РµРЅСЃС‚РІРѕ РЅР°"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:88
     public final static String MS_HIDE_OFFLINES = "Hide Offlines";
-//--msgstr "Скрыть отключенных"
+//--msgstr "РЎРєСЂС‹С‚СЊ РѕС‚РєР»СЋС‡РµРЅРЅС‹С…"
     
 // #: /home/avl/Projects/bombus/src/Client/AccountForm.java:61
     public final static String MS_REGISTER_ACCOUNT = "Register Account";
-//--msgstr "Зарегистрировать аккаунт"
+//--msgstr "Р—Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°С‚СЊ Р°РєРєР°СѓРЅС‚"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:118
     public final static String MS_AUTOLOGIN = "autologin";
-//--msgstr "автосоединение"
+//--msgstr "Р°РІС‚РѕСЃРѕРµРґРёРЅРµРЅРёРµ"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:46
     public final static String MS_LOGOFF = "Logoff";
-//--msgstr "Отключить"
+//--msgstr "РћС‚РєР»СЋС‡РёС‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/vcard/vCardForm.java:27
     public final static String MS_PUBLISH = "Publish";
-//--msgstr "Опубликовать"
+//--msgstr "РћРїСѓР±Р»РёРєРѕРІР°С‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Client/SubscriptionEdit.java:22
     public final static String MS_SUBSCR_REMOVE = "Remove subscription";
-//--msgstr "Удалить подписку"
+//--msgstr "РЈРґР°Р»РёС‚СЊ РїРѕРґРїРёСЃРєСѓ"
     
 // #: /home/avl/Projects/bombus/src/Conference/affiliation/AffiliationModify.java:36
     public final static String MS_SET = "Set";
-//--msgstr "Установить"
+//--msgstr "РЈСЃС‚Р°РЅРѕРІРёС‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:127
     public final static String MS_APPLICATION = "Application";
-//--msgstr "Приложение"
+//--msgstr "РџСЂРёР»РѕР¶РµРЅРёРµ"
     
 // #: /home/avl/Projects/bombus/src/Conference/ConferenceForm.java:25
     public final static String MS_BOOKMARKS = "Bookmarks";
-//--msgstr "Закладки"
+//--msgstr "Р—Р°РєР»Р°РґРєРё"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:72
     public final static String MS_TEST_SOUND = "Test sound";
-//--msgstr "Тест звука"
+//--msgstr "РўРµСЃС‚ Р·РІСѓРєР°"
     
 // #: /home/avl/Projects/bombus/src/Client/AccountRegister.java:42
     public final static String MS_STARTUP = "Startup";
-//--msgstr "Запуск"
+//--msgstr "Р—Р°РїСѓСЃРє"
     
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacyModifyList.java:35
     public final static String MS_EDIT_RULE = "Edit rule";
-//--msgstr "Редакт. правило"
+//--msgstr "Р РµРґР°РєС‚. РїСЂР°РІРёР»Рѕ"
     
 // #: /home/avl/Projects/bombus/src/ServiceDiscovery/ServiceDiscovery.java:47
 // #: /home/avl/Projects/bombus/src/ServiceDiscovery/ServerBox.java:24
@@ -615,163 +615,163 @@ public class SR {
 // #: /home/avl/Projects/bombus/src/vcard/vCardForm.java:26
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacyForm.java:39
     public final static String MS_CANCEL = "Cancel";
-//--msgstr "Отмена"
+//--msgstr "РћС‚РјРµРЅР°"
     
 // #: /home/avl/Projects/bombus/src/Info/InfoWindow.java:29
     public final static String MS_CLOSE = "Close";
-//--msgstr "Закрыть"
+//--msgstr "Р—Р°РєСЂС‹С‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:89
 // #: /home/avl/Projects/bombus/src/Client/MessageEdit.java:37
 // #: /home/avl/Projects/bombus/src/archive/ArchiveList.java:54
     public final static String MS_ARCHIVE = "Archive";
-//--msgstr "Архив"
+//--msgstr "РђСЂС…РёРІ"
     public final static String MS_FREE = "free ";
-//--msgstr "свободно "
+//--msgstr "СЃРІРѕР±РѕРґРЅРѕ "
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:86
     public final static String MS_CONFERENCE = "Conference";
-//--msgstr "Конференция"
+//--msgstr "РљРѕРЅС„РµСЂРµРЅС†РёСЏ"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:148
     public final static String MS_SOUND = "Sound";
-//--msgstr "Звук"
+//--msgstr "Р—РІСѓРє"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:667
     public final static String MS_LOGIN_FAILED = "Login failed";
-//--msgstr "Ошибка авторизации"
+//--msgstr "РћС€РёР±РєР° Р°РІС‚РѕСЂРёР·Р°С†РёРё"
     
 // #: /home/avl/Projects/bombus/src/ServiceDiscovery/ServerBox.java:25
     public final static String MS_DISCOVER = "Browswe"; //"Discover"
-//--msgstr "Открыть"
+//--msgstr "РћС‚РєСЂС‹С‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Conference/affiliation/Affiliations.java:44
     public final static String MS_NEW_JID = "New Jid";
-//--msgstr "Новый Jid"
+//--msgstr "РќРѕРІС‹Р№ Jid"
     
 // #: /home/avl/Projects/bombus/src/Client/AccountForm.java:59
     public final static String MS_PLAIN_PWD = "plain-text password";
-//--msgstr "пароль откр. текстом"
+//--msgstr "РїР°СЂРѕР»СЊ РѕС‚РєСЂ. С‚РµРєСЃС‚РѕРј"
     
 // #: /home/avl/Projects/bombus/src/archive/ArchiveList.java:35
     public final static String MS_PASTE_NICKNAME = "Paste Nickname";
-//--msgstr "Вставить ник"
+//--msgstr "Р’СЃС‚Р°РІРёС‚СЊ РЅРёРє"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:62
     public final static String MS_KICK = "Kick";
-//--msgstr "Выгнать (kick)"
+//--msgstr "Р’С‹РіРЅР°С‚СЊ (kick)"
     
 // #: /home/avl/Projects/bombus/src/Client/ContactMessageList.java:31
     public final static String MS_CLEAR_LIST = "Clear List";
-//--msgstr "Очистить список"
+//--msgstr "РћС‡РёСЃС‚РёС‚СЊ СЃРїРёСЃРѕРє"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:64
     public final static String MS_GRANT_VOICE = "Grant Voice";
-//--msgstr "Дать право голоса"
+//--msgstr "Р”Р°С‚СЊ РїСЂР°РІРѕ РіРѕР»РѕСЃР°"
     
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacyModifyList.java:37
     public final static String MS_MOVE_DOWN = "Move Down";
-//--msgstr "Переместить вниз"
+//--msgstr "РџРµСЂРµРјРµСЃС‚РёС‚СЊ РІРЅРёР·"
     
 // #: /home/avl/Projects/bombus/src/Client/ContactMessageList.java:29
     public final static String MS_QUOTE = "Quote";
-//--msgstr "Цитата"
+//--msgstr "Р¦РёС‚Р°С‚Р°"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:90
     public final static String MS_ROSTER_ELEMENTS = "Roster elements";
-//--msgstr "Элементы ростера"
+//--msgstr "Р­Р»РµРјРµРЅС‚С‹ СЂРѕСЃС‚РµСЂР°"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:136
     public final static String MS_ENABLE_POPUP = "popup from background";
-//--msgstr "Всплывать"
+//--msgstr "Р’СЃРїР»С‹РІР°С‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:108
     public final static String MS_SMILES = "smiles";
-//--msgstr "смайлики"
+//--msgstr "СЃРјР°Р№Р»РёРєРё"
     
 // #: /home/avl/Projects/bombus/src/Info/InfoWindow.java:28
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:95
     public final static String MS_ABOUT = "About";
-//--msgstr "О программе"
+//--msgstr "Рћ РїСЂРѕРіСЂР°РјРјРµ"
     
 // #: /home/avl/Projects/bombus/src/Client/AccountForm.java:66
     public final static String MS_RESOURCE = "Resource";
-//--msgstr "Ресурс"
+//--msgstr "Р РµСЃСѓСЂСЃ"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:1068
     public final static String MS_DISCONNECTED = "Disconnected";
-//--msgstr "Соединение разорвано"
+//--msgstr "РЎРѕРµРґРёРЅРµРЅРёРµ СЂР°Р·РѕСЂРІР°РЅРѕ"
     
 // #: /home/avl/Projects/bombus/src/Client/StatusSelect.java:23
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:57
 // #: /home/avl/Projects/bombus/src/Client/AccountSelect.java:33
     public final static String MS_EDIT = "Edit";
-//--msgstr "Редактировать"
+//--msgstr "Р РµРґР°РєС‚РёСЂРѕРІР°С‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Client/AccountForm.java:55
     public final static String MS_HOST_IP = "Host name/IP (optional)";
-//--msgstr "Имя хоста/IP (необязательно)"
+//--msgstr "РРјСЏ С…РѕСЃС‚Р°/IP (РЅРµРѕР±СЏР·Р°С‚РµР»СЊРЅРѕ)"
     
 // #: /home/avl/Projects/bombus/src/PrivacyLists/PrivacyModifyList.java:33
     public final static String MS_ADD_RULE = "Add rule";
-//--msgstr "Добавить правило"
+//--msgstr "Р”РѕР±Р°РІРёС‚СЊ РїСЂР°РІРёР»Рѕ"
     
 // #: /home/avl/Projects/bombus/src/Client/StatusSelect.java:109
     public final static String MS_ALL_STATUSES = "for all status types";
-//--msgstr "для статсуов всех типов"
+//--msgstr "РґР»СЏ СЃС‚Р°С‚СЃСѓРѕРІ РІСЃРµС… С‚РёРїРѕРІ"
     
 // #: /home/avl/Projects/bombus/src/archive/ArchiveList.java:34
     public final static String MS_PASTE_JID = "Paste Jid";
-//--msgstr "Вставить Jid"
+//--msgstr "Р’СЃС‚Р°РІРёС‚СЊ Jid"
     
 // #: /home/avl/Projects/bombus/src/Messages/MessageView.java:37
     public final static String MS_GOTO_URL = "Goto URL";
-//--msgstr "Перейти к URL"
+//--msgstr "РџРµСЂРµР№С‚Рё Рє URL"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:96
     public final static String MS_CLOCK = "Clock -";
-//--msgstr "Часы -"
+//--msgstr "Р§Р°СЃС‹ -"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:218
 // #: /home/avl/Projects/bombus/src/Client/AccountSelect.java:30
     public final static String MS_LOGIN = "Login";
-//--msgstr "Соединиться"
+//--msgstr "РЎРѕРµРґРёРЅРёС‚СЊСЃСЏ"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:145
     public final static String MS_CLOCK_OFFSET = "Clock offset";
-//--msgstr "Смещение часов"
+//--msgstr "РЎРјРµС‰РµРЅРёРµ С‡Р°СЃРѕРІ"
     
 // #: /home/avl/Projects/bombus/src/ui/YesNoAlert.java:22
     public final static String MS_YES = "Yes";
-//--msgstr "Да"
+//--msgstr "Р”Р°"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:134
     public final static String MS_FLASHBACKLIGHT = "flash backlight";
-//--msgstr "Мигать подсветкой"
+//--msgstr "РњРёРіР°С‚СЊ РїРѕРґСЃРІРµС‚РєРѕР№"
     
 // #: /home/avl/Projects/bombus/src/Client/MessageEdit.java:30
     public final static String MS_SUSPEND = "Suspend";
-//--msgstr "Отложить"
+//--msgstr "РћС‚Р»РѕР¶РёС‚СЊ"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:84
     public final static String MS_ALERT_PROFILE_CMD = "Alert Profile >";
-//--msgstr "Сигнализация >"
+//--msgstr "РЎРёРіРЅР°Р»РёР·Р°С†РёСЏ >"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterToolsMenu.java:32
     public final static String MS_MY_VCARD = "My vCard";
-//--msgstr "Личная vCard"
+//--msgstr "Р›РёС‡РЅР°СЏ vCard"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:93
     public final static String MS_TRANSPORTS = "transports";
-//--msgstr "транспорты"
+//--msgstr "С‚СЂР°РЅСЃРїРѕСЂС‚С‹"
     
 // #: /home/avl/Projects/bombus/src/Client/AccountSelect.java:32
     public final static String MS_NEW_ACCOUNT = "New Account";
-//--msgstr "Новый аккаунт"
+//--msgstr "РќРѕРІС‹Р№ Р°РєРєР°СѓРЅС‚"
     
 // #: /home/avl/Projects/bombus/src/Client/ConfigForm.java:92
     public final static String MS_SELF_CONTACT = "self-contact";
-//--msgstr "свои контакты"
+//--msgstr "СЃРІРѕРё РєРѕРЅС‚Р°РєС‚С‹"
     
 // #: /home/avl/Projects/bombus/src/Client/RosterItemActions.java:51
 // #: /home/avl/Projects/bombus/src/vcard/vCardForm.java:41
@@ -780,18 +780,18 @@ public class SR {
     
 // #: /home/avl/Projects/bombus/src/Client/MessageEdit.java:36
     public final static String MS_SET_SUBJECT = "Set Subject";
-//--msgstr "Установить тему"
+//--msgstr "РЈСЃС‚Р°РЅРѕРІРёС‚СЊ С‚РµРјСѓ"
     
 // #: /home/avl/Projects/bombus/src/Client/Roster.java:91
     public final static String MS_TOOLS = "Tools";
-//--msgstr "Инструменты"
+//--msgstr "РРЅСЃС‚СЂСѓРјРµРЅС‚С‹"
     
     public final static String MS_JABBER_TOOLS = "Jabber Tools";
-//--msgstr "Инструменты сервера"
+//--msgstr "РРЅСЃС‚СЂСѓРјРµРЅС‚С‹ СЃРµСЂРІРµСЂР°"
     
 // #: /home/avl/Projects/bombus/src/Client/AccountForm.java:56
     public final static String MS_PORT = "Port";
-//--msgstr "Порт"
+//--msgstr "РџРѕСЂС‚"
     
 // #: /home/avl/Projects/bombus/src/Client/ContactMessageList.java:28
     public final static String MS_RESUME = "Resume Message";
@@ -807,7 +807,7 @@ public class SR {
     public final static String MS_FROM_OWNER_TO = " from OWNER to ";
     
     public final static String MS_MODIFY_AFFILIATION = "Modify affiliation";
-//--msgstr "Продолж. сообщ."
+//--msgstr "РџСЂРѕРґРѕР»Р¶. СЃРѕРѕР±С‰."
     
     /** Creates a new instance of SR */
     private SR() { }

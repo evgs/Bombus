@@ -1,7 +1,7 @@
 /*
  * IconTextList.java
  *
- * Created on 30 ίνβΰπό 2005 γ., 18:19
+ * Created on 30 Π―Π½Π²Π°Ρ€Ρ 2005 Π³., 18:19
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

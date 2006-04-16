@@ -1,7 +1,7 @@
 /*
  * SplashScreen.java
  *
- * Created on 9 Февраль 2005 г., 21:31
+ * Created on 9 Р¤РµРІСЂР°Р»СЊ 2005 Рі., 21:31
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -67,7 +67,7 @@ public class SplashScreen extends Canvas implements CommandListener{
         g.drawRect(0, y, width-1, h-1);
         
         g.setColor(Colors.PGS_REMAINED);
-        //g.setStrokeStyle(Graphics.DOTTED); <- не работает
+        //g.setStrokeStyle(Graphics.DOTTED); <- РЅРµ СЂР°Р±РѕС‚Р°РµС‚
         g.fillRect(1, y+1, width-2,h-2);
         //g.setStrokeStyle(Graphics.SOLID);
         
@@ -129,7 +129,7 @@ public class SplashScreen extends Canvas implements CommandListener{
         parentView=null;
         repaint();
         img=null;
-        instance=null; // освобождение памяти
+        instance=null; // РѕСЃРІРѕР±РѕР¶РґРµРЅРёРµ РїР°РјСЏС‚Рё
         System.gc();
     }
 }

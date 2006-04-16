@@ -1,7 +1,7 @@
 /*
  * Version.java
  *
- * Created on 23 ΐοπελό 2005 γ., 22:44
+ * Created on 23 ΠΠΏΡ€ΠµΠ»Ρ 2005 Π³., 22:44
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

@@ -1,7 +1,7 @@
 /*
  * vCard.java
  *
- * Created on 24 Сентябрь 2005 г., 1:24
+ * Created on 24 РЎРµРЅС‚СЏР±СЂСЊ 2005 Рі., 1:24
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

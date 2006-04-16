@@ -1,7 +1,7 @@
 /*
  * IqTimeReply.java
  *
- * Created on 10 Сентябрь 2005 г., 23:15
+ * Created on 10 РЎРµРЅС‚СЏР±СЂСЊ 2005 Рі., 23:15
  *
  * To change this template, choose Tools | Options and locate the template under
  * the Source Creation and Management node. Right-click the template and choose

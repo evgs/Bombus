@@ -1,7 +1,7 @@
 /*
  * Utf8IOStream.java
  *
- * Created on 18 ������� 2005 �., 0:52
+ * Created on 18 Декабрь 2005 пїЅ., 0:52
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -81,7 +81,7 @@ public class Utf8IOStream implements Runnable{
 //--	int srcLen = str.length();
 //--	for(int i=0; i < srcLen; i++) {
 //--	    int c = (int)str.charAt(i);
-//--	    //TODO: ��������� ���� <0x20
+//--	    //TODO: ескэйпить коды <0x20
 //--	    if ((c >= 1) && (c <= 0x7f)) {
 //--		outbuf.append( (char) c);
 //--		
@@ -115,7 +115,7 @@ public class Utf8IOStream implements Runnable{
 //--	  return cbuf[pbyte++];
 //--      }*/
 //--	
-//--	//int avail=1;// ������ Nokia
+//--	//int avail=1;// пїЅпїЅпїЅпїЅпїЅпїЅ Nokia
 //--	int avail=inpStream.available();
 //--	if (avail<2) return inpStream.read() &0xff;
 //--      /*if (avail<2) {

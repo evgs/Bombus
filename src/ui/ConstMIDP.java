@@ -1,7 +1,7 @@
 /*
  * ConstMIDP.java
  *
- * Created on 22 Октябрь 2005 г., 19:14
+ * Created on 22 РћРєС‚СЏР±СЂСЊ 2005 Рі., 19:14
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

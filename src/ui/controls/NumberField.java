@@ -1,7 +1,7 @@
 /*
  * SignNumberField.java
  *
- * Created on 10 Δεκΰαπό 2005 γ., 1:29
+ * Created on 10 Π”ΠµΠΊΠ°Π±Ρ€Ρ 2005 Π³., 1:29
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

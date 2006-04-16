@@ -1,7 +1,7 @@
 /*
  * ServiceDiscoveryListener.java
  *
- * Created on 4 Θώνό 2005 γ., 21:51
+ * Created on 4 ΠΡΠ½Ρ 2005 Π³., 21:51
  */
 
 package com.alsutton.jabber;

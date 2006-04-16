@@ -1,7 +1,7 @@
 /*
  * YesNoAlert.java
  *
- * Created on 8 Ã‡È 2005 „., 23:19
+ * Created on 8 –ú–∞–π 2005 –≥., 23:19
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

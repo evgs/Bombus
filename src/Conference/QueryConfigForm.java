@@ -1,7 +1,7 @@
 /*
  * QueryConfigForm.java
  *
- * Created on 11 Октябрь 2005 г., 0:35
+ * Created on 11 РћРєС‚СЏР±СЂСЊ 2005 Рі., 0:35
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

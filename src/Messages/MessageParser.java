@@ -1,7 +1,7 @@
 /*
  * SmileTree.java
  *
- * Created on 6 Февраль 2005 г., 19:38
+ * Created on 6 Р¤РµРІСЂР°Р»СЊ 2005 Рі., 19:38
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -50,8 +50,8 @@ public final class MessageParser implements Runnable{
     public Vector getSmileTable() { return smileTable; }
     
     private class Leaf {
-        public int Smile=NOSMILE;   // нет смайлика в узле
-        public String smileChars;     // символы смайликов
+        public int Smile=NOSMILE;   // РЅРµС‚ СЃРјР°Р№Р»РёРєР° РІ СѓР·Р»Рµ
+        public String smileChars;     // СЃРёРјРІРѕР»С‹ СЃРјР°Р№Р»РёРєРѕРІ
         public Vector child;
 
         public Leaf() {
@@ -71,7 +71,7 @@ public final class MessageParser implements Runnable{
     }
     
     private void addSmile(String smile, int index) {
-	Leaf p=root;   // этой ссылкой будем ходить по дереву
+	Leaf p=root;   // СЌС‚РѕР№ СЃСЃС‹Р»РєРѕР№ Р±СѓРґРµРј С…РѕРґРёС‚СЊ РїРѕ РґРµСЂРµРІСѓ
 	Leaf p1;
 	
 	int len=smile.length();
@@ -93,9 +93,9 @@ public final class MessageParser implements Runnable{
         // opening file;
         try { // generic errors
             
-            // счёт номера строки, он же номер смайла
+            // СЃС‡С‘С‚ РЅРѕРјРµСЂР° СЃС‚СЂРѕРєРё, РѕРЅ Р¶Рµ РЅРѕРјРµСЂ СЃРјР°Р№Р»Р°
             int strnumber=0;
-            // вложение
+            // РІР»РѕР¶РµРЅРёРµ
             // int level=0; 
             boolean strhaschars=false;
             boolean endline=false;
@@ -118,7 +118,7 @@ public final class MessageParser implements Runnable{
                             if (strhaschars) endline=true; else break;
                         case 0x09:
                         //case 0x20:
-                            // конец строки смайлика
+                            // РєРѕРЅРµС† СЃС‚СЂРѕРєРё СЃРјР°Р№Р»РёРєР°
                             
 			    String smile=s.toString();
                             if (firstSmile) smileTable.addElement(smile);
@@ -140,7 +140,7 @@ public final class MessageParser implements Runnable{
                         firstSmile=true;
                     }
                 }
-            //} catch (Exception e) { /* неправильный файл смайлов */ }
+            //} catch (Exception e) { /* РЅРµРїСЂР°РІРёР»СЊРЅС‹Р№ С„Р°Р№Р» СЃРјР°Р№Р»РѕРІ */ }
             in.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -148,7 +148,7 @@ public final class MessageParser implements Runnable{
 	addSmile("http://",URL);
     }
 
-    public void parseMsg(MessageItem messageItem,             ImageList il,       //!< если null, то смайлы игнорируются
+    public void parseMsg(MessageItem messageItem,             ImageList il,       //!< РµСЃР»Рё null, С‚Рѕ СЃРјР°Р№Р»С‹ РёРіРЅРѕСЂРёСЂСѓСЋС‚СЃСЏ
             int width)
     {
         messageItem.msgLines=new Vector();
@@ -228,20 +228,20 @@ public final class MessageParser implements Runnable{
                                     }
                                     s.setLength(0);
                             }
-                            break; // не смайл
+                            break; // РЅРµ СЃРјР°Р№Р»
                         }
                         
                         if (il==null) break;
                         
                         p1=p.findChild(c);
-                        if (p1==null) break;    //этот символ c не попал в смайл
+                        if (p1==null) break;    //СЌС‚РѕС‚ СЃРёРјРІРѕР» c РЅРµ РїРѕРїР°Р» РІ СЃРјР°Р№Р»
                         p=p1;
                         if (p.Smile!=-1) {
-                            // нашли смайл
+                            // РЅР°С€Р»Рё СЃРјР°Р№Р»
                             smileIndex=p.Smile;
                             smileEnd=i;
                         }
-                        i++; // продолжаем поиск смайла
+                        i++; // РїСЂРѕРґРѕР»Р¶Р°РµРј РїРѕРёСЃРє СЃРјР°Р№Р»Р°
                     }
                     if (smileIndex==URL) {
                         if (s.length()>0) l.addElement(s.toString());
@@ -251,28 +251,28 @@ public final class MessageParser implements Runnable{
                         //l.addUnderline();
                     }
                     if (smileIndex>=0) {
-                        // есть смайлик
-                        // добавим строку
+                        // РµСЃС‚СЊ СЃРјР°Р№Р»РёРє
+                        // РґРѕР±Р°РІРёРј СЃС‚СЂРѕРєСѓ
                         if (s.length()>0) {
                             if (inUrl) l.addUnderline();
                             l.addElement(s.toString());
                         }
-                        // очистим
+                        // РѕС‡РёСЃС‚РёРј
                         s.setLength(0);
-                        // добавим смайлик
+                        // РґРѕР±Р°РІРёРј СЃРјР°Р№Р»РёРє
                         int iw=il.getWidth();
                         if (w+iw>width) {
-                            v.addElement(l);    // добавим l в v
+                            v.addElement(l);    // РґРѕР±Р°РІРёРј l РІ v
                             task.notifyRepaint(v, task.msg, false);
-                            l=new ComplexString(il);     // новая строка
+                            l=new ComplexString(il);     // РЅРѕРІР°СЏ СЃС‚СЂРѕРєР°
                             l.setColor(color);
                             w=0;
                         }
                         l.addImage(smileIndex); w+=iw;
-                        // передвинем указатель
+                        // РїРµСЂРµРґРІРёРЅРµРј СѓРєР°Р·Р°С‚РµР»СЊ
                         i=smileEnd;
                     } else {
-                        // символ в строку-накопитель
+                        // СЃРёРјРІРѕР» РІ СЃС‚СЂРѕРєСѓ-РЅР°РєРѕРїРёС‚РµР»СЊ
                         i=smileStart;
                         char c=txt.charAt(i);
                         
@@ -282,14 +282,14 @@ public final class MessageParser implements Runnable{
                         if (c!=0x20)
                             if (w+cw>width || c==0x0d || c==0x0a || c==0xa0) {
                             if (inUrl) l.addUnderline();
-                            l.addElement(s.toString());    // последняя подстрока в l
+                            l.addElement(s.toString());    // РїРѕСЃР»РµРґРЅСЏСЏ РїРѕРґСЃС‚СЂРѕРєР° РІ l
                             s.setLength(0); w=0;
                             
                             if (c==0xa0) l.setColor(Colors.MSG_HIGHLIGHT);
                             
-                            v.addElement(l);    // добавим l в v
+                            v.addElement(l);    // РґРѕР±Р°РІРёРј l РІ v
                             task.notifyRepaint(v, task.msg, false);
-                            l=new ComplexString(il);     // новая строка
+                            l=new ComplexString(il);     // РЅРѕРІР°СЏ СЃС‚СЂРѕРєР°
                             l.setColor(color);
                             }
                         if (c>0x1f) {  s.append(c); w+=cw; } else if (c==0x09) {  s.append((char)0x20); w+=cw; }
@@ -304,7 +304,7 @@ public final class MessageParser implements Runnable{
                     l.addElement(s.toString());
                 }
                 
-                if (!l.isEmpty()) v.addElement(l);  // последняя строка
+                if (!l.isEmpty()) v.addElement(l);  // РїРѕСЃР»РµРґРЅСЏСЏ СЃС‚СЂРѕРєР°
                 
                 task.notifyRepaint(v, task.msg, true);
                 state++;

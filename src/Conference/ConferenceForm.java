@@ -1,7 +1,7 @@
 /*
  * ConferenceForm.java
  *
- * Created on 24 Июль 2005 г., 18:32
+ * Created on 24 РСЋР»СЊ 2005 Рі., 18:32
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -98,7 +98,7 @@ public class ConferenceForm implements CommandListener{
         StaticData sd=StaticData.getInstance();
         
         sd.roster.mucContact(name, Contact.ORIGIN_GROUPCHAT);
-        // требуется для возможности нормального выхода
+        // С‚СЂРµР±СѓРµС‚СЃСЏ РґР»СЏ РІРѕР·РјРѕР¶РЅРѕСЃС‚Рё РЅРѕСЂРјР°Р»СЊРЅРѕРіРѕ РІС‹С…РѕРґР°
         sd.roster.mucContact(name, Contact.ORIGIN_GC_MYSELF); 
         //sd.roster.activeRooms.addElement(jid);
  

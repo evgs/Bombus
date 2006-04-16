@@ -1,7 +1,7 @@
 /*
  * IqVersionReply.java
  *
- * Created on 27 Февраль 2005 г., 18:31
+ * Created on 27 Р¤РµРІСЂР°Р»СЊ 2005 Рі., 18:31
  */
 
 package com.alsutton.jabber.datablocks;

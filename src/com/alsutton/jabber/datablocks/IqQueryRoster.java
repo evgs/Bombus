@@ -1,7 +1,7 @@
 /*
  * IqQueryRoster.java
  *
- * Created on 12 ίνβΰπό 2005 γ., 0:17
+ * Created on 12 Π―Π½Π²Π°Ρ€Ρ 2005 Π³., 0:17
  */
 
 package com.alsutton.jabber.datablocks;

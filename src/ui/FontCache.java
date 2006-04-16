@@ -1,7 +1,7 @@
 /*
  * FontCache.java
  *
- * Created on 5 Февраль 2006 г., 3:15
+ * Created on 5 Р¤РµРІСЂР°Р»СЊ 2006 Рі., 3:15
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

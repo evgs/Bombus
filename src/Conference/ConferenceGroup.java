@@ -1,7 +1,7 @@
 /*
  * ConferenceGroup.java
  *
- * Created on 29 Íîÿáðü 2005 ã., 23:11
+ * Created on 29 ÐÐ¾ÑÐ±Ñ€ÑŒ 2005 Ð³., 23:11
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -38,7 +38,7 @@ public class ConferenceGroup extends Group{
     public void setSelfContact(Contact selfContact) { this.selfContact=selfContact; }
     public Contact getConference() { return conference; }
     public void setConference(Contact conference) { this.conference=conference; }
-    // íå ñ÷èòàåì ãðóïïó â ÷èñëå ó÷àñòíèêîâ
+    // Ð½Ðµ ÑÑ‡Ð¸Ñ‚Ð°ÐµÐ¼ Ð³Ñ€ÑƒÐ¿Ð¿Ñƒ Ð² Ñ‡Ð¸ÑÐ»Ðµ ÑƒÑ‡Ð°ÑÑ‚Ð½Ð¸ÐºÐ¾Ð²
     public int getOnlines(){ return (onlines>0)? onlines-1:0; }
     public int getNContacts(){ return (nContacts>0)? nContacts-1:0; }
 

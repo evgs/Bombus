@@ -1,7 +1,7 @@
 /*
  * StatusList.java
  *
- * Created on 3 Δεκΰαπό 2005 γ., 17:33
+ * Created on 3 Π”ΠµΠΊΠ°Π±Ρ€Ρ 2005 Π³., 17:33
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

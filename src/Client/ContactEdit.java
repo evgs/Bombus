@@ -1,7 +1,7 @@
 /*
  * ContactEdit.java
  *
- * Created on 7 Май 2005 г., 2:15
+ * Created on 7 РњР°Р№ 2005 Рі., 2:15
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -74,7 +74,7 @@ public final class ContactEdit
         tTranspList.append(sd.account.getServer(), null);
         for (Enumeration e=sd.roster.getHContacts().elements(); e.hasMoreElements(); ){
             Contact ct=(Contact)e.nextElement();
-            Jid transpJid=new Jid(ct.getJid()); //TODO: исправить этот хак (отрезание ресурса)
+            Jid transpJid=new Jid(ct.getJid()); //TODO: РёСЃРїСЂР°РІРёС‚СЊ СЌС‚РѕС‚ С…Р°Рє (РѕС‚СЂРµР·Р°РЅРёРµ СЂРµСЃСѓСЂСЃР°)
             if (transpJid.isTransport()) 
                 tTranspList.append(transpJid.getBareJid(),null);
         }
@@ -126,7 +126,7 @@ public final class ContactEdit
         if (c==cmdOk) {
             String jid=getString(tJid);
             if (jid!=null) {
-                // сохранение контакта
+                // СЃРѕС…СЂР°РЅРµРЅРёРµ РєРѕРЅС‚Р°РєС‚Р°
                 String name=getString(tNick);
                 String group=getString(tGroup);
                 roster.storeContact(jid,name,group, newContact);

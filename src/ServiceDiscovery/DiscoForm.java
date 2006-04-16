@@ -1,7 +1,7 @@
 /*
  * RegForm.java
  *
- * Created on 5 Июнь 2005 г., 20:04
+ * Created on 5 РСЋРЅСЊ 2005 Рі., 20:04
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -58,7 +58,7 @@ public class DiscoForm implements CommandListener{
         JabberDataBlock x=query.getChildBlock("x");
         this.id=resultId;
         //this.listener=listener;
-        // todo: обработать ошибку query
+        // todo: РѕР±СЂР°Р±РѕС‚Р°С‚СЊ РѕС€РёР±РєСѓ query
         fields=new Vector();
         Form form=new Form(service);
 

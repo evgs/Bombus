@@ -1,7 +1,7 @@
 /*
  * Config.java
  *
- * Created on 19 Март 2005 г., 18:37
+ * Created on 19 РњР°СЂС‚ 2005 Рі., 18:37
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -105,10 +105,10 @@ public class Config {
     public static Config getInstance(){
 	if (instance==null) {
 	    instance=new Config();
-	    // эти методы инициализации находятся вне конструктора,
-	    // т.к. используют вызовы класса NvStorage, который, в свою очередь,
-	    // использует поля Config (доступ через Config.getInstacne).
-	    // вызов вне конструктора позволяет избежать рекурсии
+	    // СЌС‚Рё РјРµС‚РѕРґС‹ РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РЅР°С…РѕРґСЏС‚СЃСЏ РІРЅРµ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР°,
+	    // С‚.Рє. РёСЃРїРѕР»СЊР·СѓСЋС‚ РІС‹Р·РѕРІС‹ РєР»Р°СЃСЃР° NvStorage, РєРѕС‚РѕСЂС‹Р№, РІ СЃРІРѕСЋ РѕС‡РµСЂРµРґСЊ,
+	    // РёСЃРїРѕР»СЊР·СѓРµС‚ РїРѕР»СЏ Config (РґРѕСЃС‚СѓРї С‡РµСЂРµР· Config.getInstacne).
+	    // РІС‹Р·РѕРІ РІРЅРµ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° РїРѕР·РІРѕР»СЏРµС‚ РёР·Р±РµР¶Р°С‚СЊ СЂРµРєСѓСЂСЃРёРё
 	    instance.loadFromStorage();
 	    instance.loadSoundName();
 
@@ -257,7 +257,7 @@ public class Config {
 	    String s=Bombus.getInstance().getAppProperty(key);
 	    return (s==null)?defvalue:s;
 	} catch (Exception e) {	}
-        // возвращает defvalue, если атрибут не существует или имеет неправильный формат
+        // РІРѕР·РІСЂР°С‰Р°РµС‚ defvalue, РµСЃР»Рё Р°С‚СЂРёР±СѓС‚ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РёР»Рё РёРјРµРµС‚ РЅРµРїСЂР°РІРёР»СЊРЅС‹Р№ С„РѕСЂРјР°С‚
         return defvalue;
     }
     
@@ -266,16 +266,16 @@ public class Config {
 	    String s=Bombus.getInstance().getAppProperty(key);
 	    return Integer.parseInt(s); //throws NullPointerException or NumberFormatException
 	} catch (Exception e) { }
-        // возвращает defvalue, если атрибут не существует или имеет неправильный формат
+        // РІРѕР·РІСЂР°С‰Р°РµС‚ defvalue, РµСЃР»Рё Р°С‚СЂРёР±СѓС‚ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РёР»Рё РёРјРµРµС‚ РЅРµРїСЂР°РІРёР»СЊРЅС‹Р№ С„РѕСЂРјР°С‚
 	return defvalue;
     }
     
     public final char getCharProperty(final String key, final char defvalue) {
 	try {
 	    String s=Bombus.getInstance().getAppProperty(key);
-	    return s.charAt(0); //throws NullPointerException или IndexOutOfBoundsException
+	    return s.charAt(0); //throws NullPointerException РёР»Рё IndexOutOfBoundsException
 	} catch (Exception e) {	}
-        // возвращает defvalue, если атрибут не существует или имеет неправильный формат
+        // РІРѕР·РІСЂР°С‰Р°РµС‚ defvalue, РµСЃР»Рё Р°С‚СЂРёР±СѓС‚ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ РёР»Рё РёРјРµРµС‚ РЅРµРїСЂР°РІРёР»СЊРЅС‹Р№ С„РѕСЂРјР°С‚
         return defvalue;
     }
     
@@ -287,7 +287,7 @@ public class Config {
 	    if (s.equals("1")) return true;
             return false;
 	} catch (Exception e) { }
-        // возвращает defvalue, если атрибут не существует 
+        // РІРѕР·РІСЂР°С‰Р°РµС‚ defvalue, РµСЃР»Рё Р°С‚СЂРёР±СѓС‚ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ 
         return defvalue;
     }
     

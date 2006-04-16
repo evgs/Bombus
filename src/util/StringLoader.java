@@ -1,7 +1,7 @@
 /*
  * StringLoader.java
  *
- * Created on 25 Νξÿαπό 2005 γ., 1:25
+ * Created on 25 ΠΠΎΡΠ±Ρ€Ρ 2005 Π³., 1:25
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

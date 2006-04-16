@@ -1,7 +1,7 @@
 /*
  * RosterIcons.java
  *
- * Created on 3 Δεκΰαπό 2005 γ., 20:02
+ * Created on 3 Π”ΠµΠΊΠ°Π±Ρ€Ρ 2005 Π³., 20:02
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

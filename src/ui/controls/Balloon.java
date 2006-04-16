@@ -1,7 +1,7 @@
 /*
  * Baloon.java
  *
- * Created on 6 Февраль 2006 г., 23:09
+ * Created on 6 Р¤РµРІСЂР°Р»СЊ 2006 Рі., 23:09
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

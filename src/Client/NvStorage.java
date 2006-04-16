@@ -1,7 +1,7 @@
 /*
  * NvStorage.java
  *
- * Created on 22 Март 2005 г., 22:56
+ * Created on 22 РњР°СЂС‚ 2005 Рі., 22:56
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -82,7 +82,7 @@ public class NvStorage {
 //--        //System.out.println("path="+path+name);
 //--        // verification
 //--        
-//--        // временно заблокирована проверка валидности пути. для C55
+//--        // РІСЂРµРјРµРЅРЅРѕ Р·Р°Р±Р»РѕРєРёСЂРѕРІР°РЅР° РїСЂРѕРІРµСЂРєР° РІР°Р»РёРґРЅРѕСЃС‚Рё РїСѓС‚Рё. РґР»СЏ C55
 //--        /*
 //--        try {
 //--            File f=new File();
@@ -111,7 +111,7 @@ public class NvStorage {
             boolean rewrite)
     {
         ByteArrayOutputStream lbaos=baos;
-        baos=null; // освободим для следующего
+        baos=null; // РѕСЃРІРѕР±РѕРґРёРј РґР»СЏ СЃР»РµРґСѓСЋС‰РµРіРѕ
         byte[] b=lbaos.toByteArray();
         
 //#if !(USE_SIEMENS_FILES)
@@ -165,7 +165,7 @@ public class NvStorage {
 //--
 //--        } catch (Exception e) {
 //--            e.printStackTrace();
-//--            return false;   //облом
+//--            return false;   //РѕР±Р»РѕРј
 //--        }
 //--        return true;
 //--    }

@@ -1,7 +1,7 @@
 /*
  * MenuItem.java
  *
- * Created on 2 ΐοπελό 2005 γ., 13:22
+ * Created on 2 ΠΠΏΡ€ΠµΠ»Ρ 2005 Π³., 13:22
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

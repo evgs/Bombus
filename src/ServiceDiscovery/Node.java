@@ -1,7 +1,7 @@
 /*
  * Item.java
  *
- * Created on 19 Октябрь 2005 г., 22:27
+ * Created on 19 РћРєС‚СЏР±СЂСЊ 2005 Рі., 22:27
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

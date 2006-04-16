@@ -1,7 +1,7 @@
 /*
  * strconv.java
  *
- * Created on 12 ßíâàðü 2005 ã., 1:25
+ * Created on 12 Ð¯Ð½Ð²Ð°Ñ€ÑŒ 2005 Ð³., 1:25
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -39,8 +39,8 @@ public class strconv {
         StringBuffer b=new StringBuffer(s.length());
         for (int i=0;i<s.length();i++){
             char ch=s.charAt(i);
-            if (ch==0x401) ch=0xa8; //¨
-            if (ch==0x451) ch=0xb8; //¸
+            if (ch==0x401) ch=0xa8; //Ð
+            if (ch==0x451) ch=0xb8; //Ñ‘
             if (ch>0x409) ch+=0xc0-0x410;
             b.append(ch);
             //setCharAt(i, ch);

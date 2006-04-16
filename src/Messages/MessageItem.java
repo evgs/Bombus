@@ -1,7 +1,7 @@
 /*
  * MessageItem.java
  *
- * Created on 21 Январь 2006 г., 23:17
+ * Created on 21 РЇРЅРІР°СЂСЊ 2006 Рі., 23:17
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -66,7 +66,7 @@ public class MessageItem implements
 		if (y>=0 && y<g.getClipHeight()) {
                     if (msg.itemCollapsed) if (msgLines.size()>1) {
                         RosterIcons.getInstance().drawImage(g, RosterIcons.ICON_MSGCOLLAPSED_INDEX, 0,0);
-                        g.translate(8,0); //FIXME: хардкод
+                        g.translate(8,0); //FIXME: С…Р°СЂРґРєРѕРґ
                     }
                     line.drawItem(g, 0, selected);
                 }

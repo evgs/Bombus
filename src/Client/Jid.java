@@ -1,7 +1,7 @@
 /*
  * Jid.java
  *
- * Created on 4 Март 2005 г., 1:25
+ * Created on 4 РњР°СЂС‚ 2005 Рі., 1:25
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -33,16 +33,16 @@ public class Jid {
         if (j==null) return false;
         
         String cj=j.fullJid;
-        // игнорируем регистр jid,
+        // РёРіРЅРѕСЂРёСЂСѓРµРј СЂРµРіРёСЃС‚СЂ jid,
         if (resourcePos!=j.resourcePos) return false;
         if (!fullJid.regionMatches(true,0,cj,0,resourcePos)) return false;
         if (!compareResource) return true;
         
-        //учитываем регистр ресурсов и длину
+        //СѓС‡РёС‚С‹РІР°РµРј СЂРµРіРёСЃС‚СЂ СЂРµСЃСѓСЂСЃРѕРІ Рё РґР»РёРЅСѓ
         int compareLen=fullJid.length();
         if (compareLen!=j.fullJid.length()) return false;
 
-        // сравнение только ресурсов
+        // СЃСЂР°РІРЅРµРЅРёРµ С‚РѕР»СЊРєРѕ СЂРµСЃСѓСЂСЃРѕРІ
         compareLen-=resourcePos;
         return fullJid.regionMatches(false,resourcePos,cj,resourcePos,compareLen);
         //int compareLen=(compareResource)?(j.getJidFull().length()):resourcePos;
@@ -50,16 +50,16 @@ public class Jid {
     }
     
     
-    /** проверка jid на "транспорт" */
+    /** РїСЂРѕРІРµСЂРєР° jid РЅР° "С‚СЂР°РЅСЃРїРѕСЂС‚" */
     public boolean isTransport(){
         return fullJid.indexOf('@')==-1;
     }
-    /** проверка наличия ресурса */
+    /** РїСЂРѕРІРµСЂРєР° РЅР°Р»РёС‡РёСЏ СЂРµСЃСѓСЂСЃР° */
     public boolean hasResource(){
         return fullJid.length()!=resourcePos;
     }
     
-    /** выделение транспорта */
+    /** РІС‹РґРµР»РµРЅРёРµ С‚СЂР°РЅСЃРїРѕСЂС‚Р° */
     public String getTransport(){
         try {
             int beginIndex=fullJid.indexOf('@')+1;
@@ -70,22 +70,22 @@ public class Jid {
         }
     }
     
-    /** выделение ресурса со слэшем */
+    /** РІС‹РґРµР»РµРЅРёРµ СЂРµСЃСѓСЂСЃР° СЃРѕ СЃР»СЌС€РµРј */
     public String getResource(){
         return fullJid.substring(resourcePos);
     }
     
-    /** выделение username */
+    /** РІС‹РґРµР»РµРЅРёРµ username */
     /*public String getUser(){
         return substr(this,(char)0,'@');
     }*/
     
-    /** выделение имени без ресурса */
+    /** РІС‹РґРµР»РµРЅРёРµ РёРјРµРЅРё Р±РµР· СЂРµСЃСѓСЂСЃР° */
     public String getBareJid(){
         return fullJid.substring(0,resourcePos);
     }
     
-    /** выделение jid/resource */
+    /** РІС‹РґРµР»РµРЅРёРµ jid/resource */
     public String getJid(){
         return fullJid;
     }

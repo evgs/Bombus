@@ -1,7 +1,7 @@
 /*
  * MessageUrl.java
  *
- * Created on 22 Δεκΰαπό 2005 γ., 3:01
+ * Created on 22 Π”ΠµΠΊΠ°Π±Ρ€Ρ 2005 Π³., 3:01
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

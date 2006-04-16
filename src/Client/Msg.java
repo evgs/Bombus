@@ -1,7 +1,7 @@
 /*
  * msg.java
  *
- * Created on 6 Январь 2005 г., 19:20
+ * Created on 6 РЇРЅРІР°СЂСЊ 2005 Рі., 19:20
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -75,16 +75,16 @@ public class Msg //implements MessageList.Element
     
     public int messageType;
     
-    /** Отправитель сообщения */
+    /** РћС‚РїСЂР°РІРёС‚РµР»СЊ СЃРѕРѕР±С‰РµРЅРёСЏ */
     public String from;
     
-    /** Тема сообщения */
+    /** РўРµРјР° СЃРѕРѕР±С‰РµРЅРёСЏ */
     public String subject;
 
-    /** Тело сообщения */
+    /** РўРµР»Рѕ СЃРѕРѕР±С‰РµРЅРёСЏ */
     private String body;
 
-    /** Дата сообщения */
+    /** Р”Р°С‚Р° СЃРѕРѕР±С‰РµРЅРёСЏ */
     public long dateGmt;
     
     public boolean unread = false;

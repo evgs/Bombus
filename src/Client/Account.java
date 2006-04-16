@@ -1,7 +1,7 @@
 /*
  * Account.java
  *
- * Created on 19 Ìàðò 2005 ã., 21:52
+ * Created on 19 ÐœÐ°Ñ€Ñ‚ 2005 Ð³., 21:52
  *
  * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -99,8 +99,8 @@ public class Account extends IconTextElement{
             a.nick     = inputStream.readUTF();
             a.resource = inputStream.readUTF();
 	    
-            // version èñïîëüçóåòñÿ äëÿ êîððåêòíîé ðàáîòû midp1 - àêêàóíòû
-            // õðàíÿòñÿ â ôàéëå áåç ðàçäåëåíèÿ íà çàïèñè
+            // version Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÑ‚ÑÑ Ð´Ð»Ñ ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾Ð¹ Ñ€Ð°Ð±Ð¾Ñ‚Ñ‹ midp1 - Ð°ÐºÐºÐ°ÑƒÐ½Ñ‚Ñ‹
+            // Ñ…Ñ€Ð°Ð½ÑÑ‚ÑÑ Ð² Ñ„Ð°Ð¹Ð»Ðµ Ð±ÐµÐ· Ñ€Ð°Ð·Ð´ÐµÐ»ÐµÐ½Ð¸Ñ Ð½Ð° Ð·Ð°Ð¿Ð¸ÑÐ¸
             if (version>=2) a.useSSL=inputStream.readBoolean();
             if (version>=3) a.plainAuth=inputStream.readBoolean();
             

@@ -1,7 +1,7 @@
 /*
  * IqRegister.java
  *
- * Created on 24 ΐοπελό 2005 γ., 3:00
+ * Created on 24 ΠΠΏΡ€ΠµΠ»Ρ 2005 Π³., 3:00
  */
 
 package com.alsutton.jabber.datablocks;

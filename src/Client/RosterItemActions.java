@@ -1,7 +1,7 @@
 /*
  * RosterItemActions.java
  *
- * Created on 11 Δεκΰαπό 2005 γ., 19:05
+ * Created on 11 Π”ΠµΠΊΠ°Π±Ρ€Ρ 2005 Π³., 19:05
  *
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
@@ -78,7 +78,7 @@ public class RosterItemActions extends Menu{
 		    addItem(SR.MS_REENTER,23);
 		else {
 		    addItem(SR.MS_LEAVE_ROOM,22);
-		    if (self.transport>0) { // γνσρνϋι υΰκ
+		    if (self.transport>0) { // Π³Π½ΡƒΡΠ½Ρ‹ΠΉ Ρ…Π°ΠΊ
 			addItem(SR.MS_CONFIG_ROOM,10);
 			addItem(SR.MS_OWNERS,11);
 			addItem(SR.MS_ADMINS,12);
