@@ -1,7 +1,7 @@
 /*
  * AffiliationList.java
  *
- * Created on 30 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 12:34
+ * Created on 30 Октябрь 2005 г., 12:34
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

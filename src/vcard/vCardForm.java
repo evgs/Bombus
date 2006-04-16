@@ -1,7 +1,7 @@
 /*
  * vCardForm.java
  *
- * Created on 3 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2005 ï¿½., 0:37
+ * Created on 3 Jrnz,hm 2005 ã., 0:37
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

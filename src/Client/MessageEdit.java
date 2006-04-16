@@ -1,7 +1,7 @@
 /*
  * MessageEdit.java
  *
- * Created on 20 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 21:20
+ * Created on 20 Февраль 2005 пїЅ., 21:20
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -76,8 +76,8 @@ public class MessageEdit
         //t.insert(s, t.getCaretPosition());
         if ( t.size()>0 )
         if ( !t.getString().endsWith(" ") ) append(" ");
-        append(s);  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
-        append(" "); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+        append(s);  // теперь вставка происходит всегда в конец строки
+        append(" "); // хвостовой пробел    
     }
     
     private void append(String s) { t.insert(s, t.size()); }
@@ -125,8 +125,8 @@ public class MessageEdit
         if (body!=null /*|| subj!=null*/ ) {
             String from=StaticData.getInstance().account.toString();
             Msg msg=new Msg(Msg.MESSAGE_TYPE_OUT,from,subj,body);
-            // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
-            // пїЅпїЅ пїЅпїЅпїЅ composing
+            // не добавляем в групчат свои сообщения
+            // не шлём composing
             if (to.origin!=Contact.ORIGIN_GROUPCHAT) {
                 to.addMessage(msg);
                 comp=1; // composing event in message

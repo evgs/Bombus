@@ -1,7 +1,7 @@
 /*
  * SearchResult.java
  *
- * Created on 10 ï¿½ï¿½ï¿½ï¿½ 2005 ï¿½., 21:40
+ * Created on 10 Èþëü 2005 ã., 21:40
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

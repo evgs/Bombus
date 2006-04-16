@@ -1,7 +1,7 @@
 /*
  * InfoWindow.java
  *
- * Created on 6 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 22:21
+ * Created on 6 Сентябрь 2005 г., 22:21
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

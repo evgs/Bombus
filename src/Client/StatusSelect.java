@@ -1,7 +1,7 @@
 /*
  * SelectStatus.java
  *
- * Created on 27 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 16:43
+ * Created on 27 Февраль 2005 г., 16:43
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

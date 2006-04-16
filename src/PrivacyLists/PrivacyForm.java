@@ -1,7 +1,7 @@
 /*
  * PrivacyForm.java
  *
- * Created on 11 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 2:32
+ * Created on 11 Сентябрь 2005 г., 2:32
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -104,7 +104,7 @@ public class PrivacyForm
                 form.set(2, textValue);
             }
              */
-        } catch (Exception e) {/* пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */ }
+        } catch (Exception e) {/* При смене на самого себя */ }
     }
     
     public void commandAction(Command c, Displayable d) {

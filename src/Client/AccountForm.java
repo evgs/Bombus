@@ -1,7 +1,7 @@
 /*
  * AccountForm.java
  *
- * Created on 20 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 21:20
+ * Created on 20 Март 2005 г., 21:20
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

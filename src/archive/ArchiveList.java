@@ -1,7 +1,7 @@
 /*
  * ArchiveList.java
  *
- * Created on 11 ������� 2005 �., 5:24
+ * Created on 11 Ltrf,hm 2005 �., 5:24
  *
  * To change this template, choose Tools | Template Manager
  * and open the template in the editor.

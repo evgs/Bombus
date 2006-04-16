@@ -1,7 +1,7 @@
 /*
  * Account.java
  *
- * Created on 19 пїЅпїЅпїЅпїЅ 2005 пїЅ., 21:52
+ * Created on 19 Март 2005 г., 21:52
  *
  * Copyright (c) 2005, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -99,8 +99,8 @@ public class Account extends IconTextElement{
             a.nick     = inputStream.readUTF();
             a.resource = inputStream.readUTF();
 	    
-	    // version пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ midp1 - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
-	    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+            // version используется для корректной работы midp1 - аккаунты
+            // хранятся в файле без разделения на записи
             if (version>=2) a.useSSL=inputStream.readBoolean();
             if (version>=3) a.plainAuth=inputStream.readBoolean();
             

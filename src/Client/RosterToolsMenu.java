@@ -1,7 +1,7 @@
 /*
  * RosterToolsMenu.java
  *
- * Created on 11 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 20:43
+ * Created on 11 Декабрь 2005 г., 20:43
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

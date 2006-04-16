@@ -1,7 +1,7 @@
 /*
  * Bombus.java
  *
- * Created on 5 пїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 21:46
+ * Created on 5 Январь 2005 г., 21:46
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

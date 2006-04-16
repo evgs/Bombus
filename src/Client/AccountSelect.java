@@ -1,7 +1,7 @@
 /*
  * AccountPicker.java
  *
- * Created on 19 пїЅпїЅпїЅпїЅ 2005 пїЅ., 23:26
+ * Created on 19 Март 2005 г., 23:26
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -87,7 +87,7 @@ public class AccountSelect
             addCommand(cmdLogin);
             addCommand(cmdSelect);
             if (activeAccount>=0)
-                addCommand(cmdCancel);  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+                addCommand(cmdCancel);  // нельзя выйти без активного аккаунта
         }
     }
 

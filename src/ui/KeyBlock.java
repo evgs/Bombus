@@ -1,7 +1,7 @@
 /*
  * KeyBlock.java
  *
- * Created on 15 пїЅпїЅпїЅ 2005 пїЅ., 3:08
+ * Created on 15 Май 2005 пїЅ., 3:08
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -104,7 +104,7 @@ public class KeyBlock extends Canvas implements Runnable{
         g.setFont(f);
         g.drawString(time, 0, 0, Graphics.BOTTOM | Graphics.HCENTER);
 //#if !(MIDP1)
-	//display.flashBacklight(0); // пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	//display.flashBacklight(0); // тест на самсунгах
         if (motorola_backlight) display.flashBacklight(1);
 //#endif
     }

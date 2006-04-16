@@ -1,7 +1,7 @@
 /*
  * AccountRegister.java
  *
- * Created on 24 пїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 2:36
+ * Created on 24 Апрель 2005 г., 2:36
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

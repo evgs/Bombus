@@ -1,7 +1,7 @@
 /*
  * Title.java
  *
- * Created on 29 пїЅпїЅпїЅпїЅпїЅпїЅ 2006 пїЅ., 1:00
+ * Created on 29 Январь 2006 г., 1:00
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -20,10 +20,10 @@ import ui.FontCache;
 public class Title extends ComplexString{
     
     /** Creates a new instance of Title
-     * @param size пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ComplexString
-     * @param first пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ ComplexString
-     * @param second пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ ComplexString
-     * @return пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ ComplexString, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+     * @param size число полей создаваемого ComplexString
+     * @param first первое поле ComplexString
+     * @param second второе поле ComplexString
+     * @return созданный объект ComplexString, присоединённый в качестве заголовка
      */
     public Title(int size, Object first, Object second) {
         this (size);

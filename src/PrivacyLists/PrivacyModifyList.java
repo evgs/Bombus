@@ -1,7 +1,7 @@
 /*
  * PrivacyModifyList.java
  *
- * Created on 11 пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 15:51
+ * Created on 11 Сентябрь 2005 г., 15:51
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.

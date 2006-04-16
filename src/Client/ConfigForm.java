@@ -1,7 +1,7 @@
 /*
  * ConfigForm.java
  *
- * Created on 2 пїЅпїЅпїЅ 2005 пїЅ., 18:19
+ * Created on 2 Май 2005 г., 18:19
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
