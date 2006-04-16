@@ -1017,9 +1017,7 @@ public class Roster
 	if (cf.popupFromMinimized)
 	    Bombus.getInstance().hideApp(false);
 	
-//#if !(DISABLE_AUTOFOCUS)
-//#         focusToContact(c, false);
-//#endif
+        if (cf.autoFocus) focusToContact(c, false);
 
         if (message.messageType!=Msg.MESSAGE_TYPE_HISTORY) 
             AlertProfile.playNotify(display, 0);

@@ -807,6 +807,8 @@ public class SR {
     public final static String MS_FROM_OWNER_TO = " from OWNER to ";
     
     public final static String MS_MODIFY_AFFILIATION = "Modify affiliation";
+
+    public final static String MS_AUTOFOCUS = "Autofocus";
 //--msgstr "Продолж. сообщ."
     
     /** Creates a new instance of SR */

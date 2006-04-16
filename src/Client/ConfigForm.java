@@ -95,14 +95,17 @@ public class ConfigForm implements
         roster.append(SR.MS_TRANSPORTS, null);
         roster.append(SR.MS_IGNORE_LIST, null);
         roster.append(SR.MS_NOT_IN_LIST, null);
-        //roster.append("Clock -",null);
+        roster.append(SR.MS_AUTOFOCUS,null);
         
-        ra=new boolean[5];
-        ra[0]=cf.showOfflineContacts;
-        ra[1]=cf.selfContact;
-        ra[2]=cf.showTransports;
-        ra[3]=cf.ignore;
-        ra[4]=cf.notInList;
+        boolean ra[]={
+            cf.showOfflineContacts,
+            cf.selfContact,
+            cf.showTransports, 
+            cf.ignore, 
+            cf.notInList,
+            cf.autoFocus
+        };
+        this.ra=ra;
         //ra[5]=false;
         roster.setSelectedFlags(ra);
 
@@ -214,6 +217,7 @@ public class ConfigForm implements
             cf.showTransports=ra[2];
             cf.ignore=ra[3];
             cf.notInList=ra[4];
+            cf.autoFocus=ra[5];
 
             cf.smiles=mv[0];
             cf.msgLog=mv[1];

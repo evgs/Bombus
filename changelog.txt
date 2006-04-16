@@ -2088,6 +2088,10 @@ syslog_msg: true
     войти в эту же конференцию
 
   fix: NullPointerException в Service Discovery
+
+(456)
+  Options>Autofocus - включение/выключение автоматического перемещения курсора
+  на контакт, получивший новое сообщение
 ---------------------------
   known issues:
 

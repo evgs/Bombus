@@ -86,6 +86,8 @@ public class Config {
     public boolean autoLogin=true;
     public boolean autoJoinConferences=false;
     
+    public boolean autoFocus=true;
+    
     public int gmtOffset;
     public int locOffset;
     
@@ -188,6 +190,8 @@ public class Config {
             
             font1=inputStream.readInt();
             font2=inputStream.readInt();
+            
+            autoFocus=inputStream.readBoolean();
 	    
 	    inputStream.close();
 	} catch (Exception e) {
@@ -240,6 +244,8 @@ public class Config {
             
             outputStream.writeInt(font1);
             outputStream.writeInt(font2);
+            
+            outputStream.writeBoolean(autoFocus);
 	    
 	} catch (IOException e) { e.printStackTrace(); }
 	
