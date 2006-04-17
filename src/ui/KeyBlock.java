@@ -36,6 +36,7 @@ public class KeyBlock extends Canvas implements Runnable{
     private TimerTaskClock tc;
     
     boolean motorola_backlight;
+    boolean singleflash;
     
     /** Creates a new instance */
     public KeyBlock(
@@ -52,10 +53,13 @@ public class KeyBlock extends Canvas implements Runnable{
         parentView=display.getCurrent();
         status.setElementAt(new Integer(RosterIcons.ICON_KEYBLOCK_INDEX),6);
         repaint();
+        
+        singleflash=true;
 
         new Thread(this).start();
         
         tc=new TimerTaskClock();
+        
         
 //#if !(MIDP1)
         setFullScreenMode(Config.getInstance().fullscreen);
@@ -105,7 +109,9 @@ public class KeyBlock extends Canvas implements Runnable{
         g.drawString(time, 0, 0, Graphics.BOTTOM | Graphics.HCENTER);
 //#if !(MIDP1)
 	//display.flashBacklight(0); // тест на самсунгах
-        if (motorola_backlight) display.flashBacklight(1);
+        if (motorola_backlight) 
+            if (singleflash) display.flashBacklight(1);
+        singleflash=false;
 //#endif
     }
     
