@@ -67,7 +67,12 @@ public class FormField {
                 }
             }
 	    // text-single
-            else formItem=new TextField(label, body, 200, 0);
+            else {
+                if (body.length()>=200) {
+                    body=body.substring(0,198);
+                }
+                formItem=new TextField(label, body, 200, 0);
+            }
         } else {
             // not x-data
             if ( instructions=name.equals("instructions") )
