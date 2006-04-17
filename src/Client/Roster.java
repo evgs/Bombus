@@ -793,6 +793,7 @@ public class Roster
                 int start_me=-1;    //  не добавлять ник
                 String name=null;
                 boolean groupchat=false;
+                
                 try { // type=null
 		    String type=message.getTypeAttribute();
                     if (type.equals("groupchat")) {
@@ -809,19 +810,24 @@ public class Roster
 		    }
                 } catch (Exception e) {}
                 Contact c=presenceContact(from, -1);
+
                 if (name==null) name=c.getName();
                 // /me
-                if (body!=null) if (body.startsWith("/me ")) start_me=3;
-                if (start_me>=0) {
-                    StringBuffer b=new StringBuffer(name);
-                    if (start_me==0) b.append("> ");
-                    b.append(body.substring(start_me));
-                    body=b.toString();
+                if (body.length()==0) body=null; 
+
+                if (body!=null) {
+                    if (body.startsWith("/me ")) start_me=3;
+                    if (start_me>=0) {
+                        StringBuffer b=new StringBuffer(name);
+                        if (start_me==0) b.append("> ");
+                        b.append(body.substring(start_me));
+                        body=b.toString();
+                    }
                 }
                 
                 boolean compose=false;
                 JabberDataBlock x=message.getChildBlock("x");
-                if (body.length()==0) body=null; 
+                //if (body.length()==0) body=null; 
                 
                 if (x!=null) {
                     compose=(x.getChildBlock("composing")!=null);
