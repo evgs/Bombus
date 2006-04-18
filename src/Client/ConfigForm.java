@@ -58,6 +58,8 @@ public class ConfigForm implements
     ChoiceGroup message;
     ChoiceGroup startup;
     ChoiceGroup application;
+
+    ChoiceGroup lang;
     
     ChoiceGroup sndFile;
     //Gauge sndVol;
@@ -172,6 +174,10 @@ public class ConfigForm implements
 	
 	f.append(sndFile);
 	
+        lang=new ChoiceGroup("Language", ConstMIDP.CHOICE_POPUP);
+        lang.append("English", null);
+        lang.append("Russian"/*SR.MS_ALT_LANG*/, null);
+        lang.setSelectedIndex(cf.lang, true);
 
         //sndVol=new Gauge("Sound volume", true, 10,  cf.soundVol/10);
 	//f.append(sndVol);
@@ -195,6 +201,8 @@ public class ConfigForm implements
         
         f.append(fieldGmt);
         f.append(fieldLoc);
+        
+        f.append(lang);
 
         f.addCommand(cmdOk);
         f.addCommand(cmdCancel);
@@ -245,6 +253,7 @@ public class ConfigForm implements
             FontCache.resetCache();
 	    
 	    //cf.soundVol=sndVol.getValue()*10;
+            cf.lang=lang.getSelectedIndex();
 	    
 	    cf.loadSoundName();
             

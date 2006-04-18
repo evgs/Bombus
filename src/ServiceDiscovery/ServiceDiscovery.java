@@ -12,6 +12,7 @@ import Conference.ConferenceForm;
 import images.RosterIcons;
 import java.util.*;
 import javax.microedition.lcdui.*;
+import locale.SR;
 import ui.*;
 import com.alsutton.jabber.*;
 import com.alsutton.jabber.datablocks.*;
@@ -40,12 +41,12 @@ public class ServiceDiscovery
     private final static String strCmds="Execute";
     private final int AD_HOC_INDEX=17;
     
-    private Command cmdOk=new Command("Browse", Command.SCREEN, 1);
-    private Command cmdRfsh=new Command("Refresh", Command.SCREEN, 2);
-    private Command cmdSrv=new Command("Server", Command.SCREEN, 10);
-    private Command cmdAdd=new Command("Add to roster", Command.SCREEN, 11);
-    private Command cmdBack=new Command("Back", Command.BACK, 98);
-    private Command cmdCancel=new Command("Cancel", Command.EXIT, 99);
+    private Command cmdOk=new Command(SR.MS_BROWSE, Command.SCREEN, 1);
+    private Command cmdRfsh=new Command(SR.MS_REFRESH, Command.SCREEN, 2);
+    private Command cmdSrv=new Command(SR.MS_SERVER, Command.SCREEN, 10);
+    private Command cmdAdd=new Command(SR.MS_ADD_TO_ROSTER, Command.SCREEN, 11);
+    private Command cmdBack=new Command(SR.MS_BACK, Command.BACK, 98);
+    private Command cmdCancel=new Command(SR.MS_CANCEL, Command.EXIT, 99);
 
     private StaticData sd=StaticData.getInstance();
     

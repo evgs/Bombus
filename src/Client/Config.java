@@ -98,6 +98,8 @@ public class Config {
     public int font2=0;
     public int font3=0;
 
+    public int lang=0;  //en
+    
     // runtime values
     public boolean allowMinimize=false;
     public int profile=0;
@@ -192,6 +194,8 @@ public class Config {
             font2=inputStream.readInt();
             
             autoFocus=inputStream.readBoolean();
+            
+            lang=inputStream.readInt();
 	    
 	    inputStream.close();
 	} catch (Exception e) {
@@ -246,6 +250,9 @@ public class Config {
             outputStream.writeInt(font2);
             
             outputStream.writeBoolean(autoFocus);
+            
+            outputStream.writeInt(lang);
+            
 	    
 	} catch (IOException e) { e.printStackTrace(); }
 	

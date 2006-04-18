@@ -208,6 +208,7 @@ public class Roster
         try {
             Account a=sd.account;
             setProgress(SR.MS_CONNECT_TO+a.getServer(), 30);
+            SR.loaded();
             theStream= a.openJabberStream();
             setProgress(SR.MS_LOGIN, 40);
             theStream.setJabberListener( this );
@@ -717,7 +718,7 @@ public class Roster
 			    SplashScreen.getInstance().close(); // display.setCurrent(this);
 			} else {
 			    JabberDataBlock qr=new IqQueryRoster();
-			    setProgress("Roster request ", 60);
+			    setProgress(SR.MS_ROSTER_REQUEST, 60);
 			    theStream.send( qr );
 			}
                     }
