@@ -208,6 +208,17 @@ public class SR {
     public   static String MS_AUTOFOCUS = loadString( "Autofocus" );
     public   static String MS_ADD_TO_ROSTER = loadString( "Add to roster" );
     public   static String MS_ALT_LANG="langfile";
+    public   static String MS_GRANT_MEMBERSHIP = "Grant Membership";
+//--toon
+    public final static String MS_REVOKE_MEMBERSHIP = "Revoke Membership";
+    public final static String MS_GRANT_MODERATOR = "Grant Moderator";
+    public final static String MS_REVOKE_MODERATOR = "Revoke Moderator";
+    public final static String MS_GRANT_ADMIN = "Grant Admin";
+    public final static String MS_REVOKE_ADMIN = "Revoke Admin";
+    public final static String MS_GRANT_OWNERSHIP = "Grant Ownership";
+    public final static String MS_REVOKE_OWNERSHIP = "Revoke Ownership";
+//--toon
+    
     private SR() { }
     
     private static Hashtable lang;

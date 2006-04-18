@@ -64,9 +64,18 @@ public class RosterItemActions extends Menu{
 	    if (contact.realJid!=null) {
 		addItem(SR.MS_KICK,8);
 		addItem(SR.MS_BAN,9);
+//--toon
                 addItem(SR.MS_GRANT_VOICE,31);
                 addItem(SR.MS_REVOKE_VOICE,32);
-               //m.addItem(new MenuItem("Set Affiliation",15));
+                addItem(SR.MS_GRANT_MEMBERSHIP,35);
+                addItem(SR.MS_REVOKE_MEMBERSHIP,36);
+                addItem(SR.MS_GRANT_MODERATOR,33);
+                addItem(SR.MS_REVOKE_MODERATOR,31);
+                addItem(SR.MS_GRANT_ADMIN,37);
+                addItem(SR.MS_REVOKE_ADMIN,35);
+                addItem(SR.MS_GRANT_OWNERSHIP,38);
+                addItem(SR.MS_REVOKE_OWNERSHIP,37);
+//--toon               //m.addItem(new MenuItem("Set Affiliation",15));
 	    }
 	} else {
 	    Group group=(Group)item;
@@ -184,6 +193,7 @@ public class RosterItemActions extends Menu{
 	    case 11: // owners
 	    case 12: // admins
 	    case 13: // members
+                
 	    case 14: // outcasts
 	    {
 		String roomJid=((ConferenceGroup)g).getConference().getJid();
@@ -216,7 +226,8 @@ public class RosterItemActions extends Menu{
 		new ServiceDiscovery(display, c.getJid(), "http://jabber.org/protocol/commands");
 		return;
 	    }
-            case 31:
+//--toon            
+            case 31: //grant voice and revoke moderator
             {
                 Hashtable attrs=new Hashtable();
                 attrs.put("role", "participant");
@@ -224,7 +235,7 @@ public class RosterItemActions extends Menu{
                 roster.setMucMod(c, attrs);
                 break;
             }
-            case 32:
+            case 32: //revoke voice
             {
                 Hashtable attrs=new Hashtable();
                 attrs.put("role", "visitor");
@@ -232,7 +243,57 @@ public class RosterItemActions extends Menu{
                 roster.setMucMod(c, attrs);
                 break;
             }
-	}
+          
+            case 33: //grant moderator
+            {
+                Hashtable attrs=new Hashtable();
+                attrs.put("role", "moderator");
+                attrs.put("nick", c.jid.getResource().substring(1));
+                roster.setMucMod(c, attrs);
+                break;
+            }
+
+            /*case 34: //reserved
+            {
+                
+            }*/
+            
+            case 35: //grant membership and revoke admin
+            {
+                Hashtable attrs=new Hashtable();
+		attrs.put("affiliation", "member");
+		attrs.put("jid", c.realJid);
+		roster.setMucMod(c, attrs);
+		break;
+            }
+
+            case 36: //revoke membership
+            {
+                Hashtable attrs=new Hashtable();
+		attrs.put("affiliation", "none");
+		attrs.put("jid", c.realJid);
+		roster.setMucMod(c, attrs);
+		break;
+            }
+
+            case 37: //grant admin and revoke owner
+            {
+                Hashtable attrs=new Hashtable();
+		attrs.put("affiliation", "admin");
+		attrs.put("jid", c.realJid);
+		roster.setMucMod(c, attrs);
+		break;
+            }
+            
+            case 38: //grant owner
+            {
+                Hashtable attrs=new Hashtable();
+		attrs.put("affiliation", "owner");
+		attrs.put("jid", c.realJid);
+		roster.setMucMod(c, attrs);
+		break;
+            }
+        }
 	destroyView();
     }
 }
