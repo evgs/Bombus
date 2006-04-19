@@ -2104,7 +2104,15 @@ syslog_msg: true
   Локализация интерфейса (пока только русский и английский языки)
   изменение языка интерфейса происходит при перезапуске Bombus
 
-  Расширение инструментов администратора конференции
+  Расширение инструментов администратора конференции (c)toon:
+		grant/revoke   Membership
+                grant/revoke   Moderator Privileges
+		grant/revoke   Admin Privileges
+                grant/revoke   Ownership Privileges
+
+(466)
+  фиксы lang.txt (zet)
+
 ---------------------------
   known issues:
 
