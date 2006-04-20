@@ -29,7 +29,7 @@ public class AccountSelect
     Vector accountList;
     int activeAccount;
     
-    Command cmdLogin=new Command(SR.MS_LOGIN, Command.OK,1);
+    Command cmdLogin=new Command(SR.MS_SELLOGIN, Command.OK,1);
     Command cmdSelect=new Command(SR.MS_NOLOGIN, Command.SCREEN,2);
     Command cmdAdd=new Command(SR.MS_NEW_ACCOUNT, Command.SCREEN,3);
     Command cmdEdit=new Command(SR.MS_EDIT,Command.ITEM,3);

@@ -193,3 +193,4 @@ Proxy port	порт прокси-сервера
 // Modify affiliation
 Autofocus	Автофокус
 
+Connect	Login

@@ -218,6 +218,8 @@ public class SR {
     public final static String MS_GRANT_OWNERSHIP = "Grant Ownership";
     public final static String MS_REVOKE_OWNERSHIP = "Revoke Ownership";
 //--toon
+
+    public   static String MS_SELLOGIN = loadString( "Connect" );
     
     private SR() { }
     
