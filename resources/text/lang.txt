@@ -1,7 +1,7 @@
 // Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
 // All rights reserved.
 // (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
-// (c) Vladimir N. Schelukhin, 2006.
+// (c) Vladimir N. Shelukhin, 2006.
 langfile	Russian
 Jid	Jid
 Loading	Загрузка
