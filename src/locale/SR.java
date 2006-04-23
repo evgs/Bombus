@@ -35,7 +35,7 @@ public class SR {
     public   static String MS_UPDATE = loadString( "Update" );
     public   static String MS_ACCOUNT_NAME = loadString( "Account name" );
     public   static String MS_GMT_OFFSET = loadString( "GMT offset" );
-    public   static String MS_TIME_SETTINGS = loadString( "Time settings (hours)\n" );
+    public   static String MS_TIME_SETTINGS = loadString( "Time settings (hours)" );
     public   static String MS_CONNECTED = loadString( "Connected" );
     public   static String MS_CONNECT_TO = loadString( "Connect to " );
     public   static String MS_ALERT_PROFILE = loadString( "Alert Profile" );

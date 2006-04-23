@@ -203,6 +203,7 @@ public class ConfigForm implements
 	f.append(keepAlive);
 	
         f.append(SR.MS_TIME_SETTINGS);
+        f.append("\n");
         
         f.append(fieldGmt);
         f.append(fieldLoc);
