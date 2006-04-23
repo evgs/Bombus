@@ -1,0 +1,192 @@
+// nothing0 Polish lang file made 19h08 19042006
+// nothing1 made by DeSnajpa_IV (jabber:tsieprawski@jabber.autocom.pl) <tsieprawski@gmail.com>
+langfile	Polish
+Jid	Jid
+// Loading	Wczytywanie
+Privacy Lists	Listy prywatnosci¸
+Existing groups	Istniejace grupy
+Message font	Czcionka wiadomosci
+Roster font	Czcionka rostera
+Paste Body	Wklej tresc
+Configure Room	Konfiguruj pokoj
+Paste Subject	Wklej temat
+Service Discovery Odkrywanie uslug
+User JID	JID uzytkownika
+New list	Nowa lista
+Select (no login)	Wybierz (nie loguj)
+Privacy rule	Zasada prywatnosci
+use SSL	Uzyj SSL
+Modify	Modyfikuj
+Update	Uaktualnij
+Account name	Nazwa konta
+GMT offset	Roznica w stosunku do GMT
+Time settings (hours)\n	Ustawienia czasu\n
+Connected	Polaczono
+Connect to 	Lacze z 
+Alert Profile	Alarmuj profil
+Move Up	Idz w gore
+Move Down	Idz w dol·
+Owners	Wlasciciele (owners)
+Ok	OK
+Minimize	Schowaj
+Room	Pokoj	
+Messages	Wiadomosci
+Refresh	Odswiez
+Resolve Nicknames	Ustal pseudonimy
+Action	Akcja
+Ban	Zbanuj
+Leave Room	Opusc pokoj
+Password	Haslo
+Actions >	Akcje >
+Activate	Akrytuj
+Affiliation	Przynaleznosc (affiliation)
+Accounts	Konta
+Delete list	Usun liste
+Account >	Konta >
+Show Offlines	Pokaz wylogowanych
+Select	Wybierz
+Subject	Temat
+Group menu	Menu grup
+Quit	Wyjdz
+Add to roster	Dodaj do rostera
+Edit list	Edytuj liste
+Registering	Rejestruje
+Done	Zrobione
+Error: 	Blad: 
+Browse	Przegladaj
+Save list	Zapisz liste
+Keep-Alive period	Odstep utrzymania polaczenia
+<New Group>	<Nowa grupa>
+Send	Wyslij
+Priority	Priorytet
+Failed	Nieudane
+Set Priority	Ustaw priorytet
+Delete rule	Usun zasade
+//Ignore-List	Lista-ignorowanych
+Roster request	Zamow roster
+Type	Typ
+Name	Nazwa
+Username	Nazwa uzytkownika
+fullscreen	Pelny ekran
+All Priorities	Wszystkie priorytety
+Add bookmark	Dodaj zakladke
+conferences only	tylko konferencje
+Client Info	Informacja o kliencie
+Discard Search	Odrzuc wyszukiwanie
+Search Results	Wyniki wyszukiwania
+// General	Generalne
+Members	Czlonkowie (members)
+// offline	wylogowany
+Add Contact	Dodaj kontakt
+Subscription	Subskrypcja
+Status >	Status >
+Join	Wejdz
+Startup actions	Akcje poczatkowe
+Server	Server
+Admins	Administratorzy (admins)
+Make Ignore-List	Utworz liste ignorowania
+Options	Opcje
+Delete	Usun
+Delete contact?	Usunac kontakt?
+Authorize	Autoryzuj
+Nicknames	Pseudonimy
+Entering setup	Wchodze do ustawien
+to Archive	do archiwum
+Back	Wroc
+// heap monitor	monitor pamieci
+Hide Splash	Ukryj logo
+Message	Wiadomosc
+<Other>	<Inny
+// history -	historia -
+Append	Dopisz
+Active Contacts	Aktywne kontakty
+Select nickname	Wybierz pseudonim
+Group	Grupa
+Join conference	Wejdz do konferencji
+No	Nie
+Yes	Tak
+Re-Enter Room	Wejdz ponownie
+New Message	Nowa wiadomosc
+Add	Dodaj
+Logon	Zaloguj sie
+Logoff	Wyloguj sie
+Login in progress	Logowanie trwa
+// Stanzas	Stanzy
+at Host	na serwerze
+join conferences	wejdz do konferencji
+Status	Status
+Smiles	Emotikony
+Contact >	Kontakt >
+Order	Zamow
+offline contacts	wylogowane kontakty 
+Transport	Transport
+composing events	wiadomosc o komponowaniu
+Add Smile	Dodaj emotikone
+"Nickname"	Pseudonim
+Revoke Voice	Zabierz glos
+// Not-in-list	Poza-lista
+Commands	Komendy
+- (Sign)	- (Minus)
+Set default	Ustaw domyslne
+Outcasts (Ban)	Zbanowani (Ban)
+Set affiliation to	Zmien przynaleznosc na 
+Hide Offlines	Ukryj niedostepnych
+Register Account	Rejestruj konto
+autologin	Autologowanie
+Publish	Publikuj
+Remove subscription	Zdejmij autoryzacje
+Set	Ustaw
+Application	Aplikacje
+Bookmarks	Zakladki
+Test sound	Testuj dzwiek
+Startup	Uruchamianie
+Edit rule	Edytuj zasade
+Cancel	Anuluj
+Close	Zamknij
+Archive	Archiwum
+free 	wolne
+Conference	Konferencja
+Sound	Dzwiek
+Login failed	Nieudane logowanie
+New Jid	Nowy JID
+plain-text password	wyslij haslo nieszyfrowane (niezalecane)
+Paste Nickname	Wklej pseudonim
+Kick	Wykop (kick)
+Clear List	Czysc liste
+Grant Voice	Nadaj glos
+Quote	Cytuj
+Roster elements	Elementy rostera
+popup from background	wyswietl z tla
+smiles	emotikony
+About	O...
+Resource	Zasob
+Disconnected	Rozlaczony
+Edit	Edytuj
+Host name/IP (optional)	Host/IP (opcjonalne)
+Add rule	Dodaj zasade
+for all status types	dla wszystkich rodzai statusow
+Paste Jid	Wklej JID
+Goto URL	Idz do URL'aL
+Clock -	Zegar -
+Login	Zaloguj sie
+Clock offset	Roznica zegara
+flash backlight	Podswietlenie
+Suspend	Przerwij
+Resume Message	Dokoncz wiadomosc
+Alert Profile >	Alarmuj profil >
+My vCard	Moj vCard
+transports	Transporty
+New Account	Nowe konto
+self-contact	Wlasny kontakt
+vCard	vCard
+Set Subject	Ustaw temat
+Tools	Narzedzia
+Jabber Tools	Narzedzia Jabber'a
+Port	Port
+// proxy CONNECT	
+// Proxy name/IP
+// Proxy port
+// Are You sure want to discard 
+//" from OWNER to ";
+// Modify affiliation
+// Autofocus

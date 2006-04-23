@@ -1,0 +1,190 @@
+langfile	Cesky
+Jid	Jid
+// Loading	Nacitam
+Privacy Lists	Soukromy seznam
+Existing groups	Existujici skupina
+Message font	Font zpravy
+Roster font	Font seznamu uziv.
+Paste Body	Vlozit telo
+Configure Room	Konfiguracni mistnost
+Paste Subject	Vlozit tema
+Service Discovery Prohledat agenty
+User JID	Uzivatelske JID
+New list	Novy list
+Select (no login)	Oznacit (nelogovat)
+Privacy rule	Pravidla soukromeho seznamu
+use SSL	pouzit SSL
+Modify	Zmenit
+Update	Updatovat
+Account name	Jmeno uctu
+GMT offset	Vyrovnani casu (GMT+)
+Time settings (hours)\n	Nastaveni casu\n
+Connected	Pripojen
+Connect to 	Pripojen k
+Alert Profile	Nastaveni upozornovani
+Move Up	Posunout nahoru
+Move Down	Posunout dolu
+Owners	Vlastnici
+Ok	OK
+Minimize	Minimalizovat
+Room	Mistonost
+Messages	Nastaveni zprav
+Refresh	Obnovit
+Resolve Nicknames	Ukazat prezdivky
+Action	Akce
+Ban	Ban
+Leave Room	Opustit mistnost
+Password	Heslo
+Actions >	Akce >
+Activate	Aktivovat
+Affiliation	Pridruzeni
+Accounts	Ucty
+Delete list	Smazat list
+Account >	Ucet >
+Show Offlines	Ukazat odpojene uzivatele
+Select	Vybrat
+Subject	Tema
+Group menu	Menu skupiny
+Quit	Konec
+Add to roster	Pridat do seznamu uziv.
+Edit list	Editovat list
+Registering	Registruji
+Done	Hotovo
+Error: 	Chyby: 
+Browse	Prozkoumat
+Save list	Ulozit list
+Keep-Alive period	perioda udrzeni spojeni (keep-alive)
+<New Group>	<Nova skupina>
+Send	Odeslat
+Priority	Priorita
+Failed	Chyba
+Set Priority	Nastavit Prioritu
+Delete rule	Smazat pravidlo
+//Ignore-List	Ingnorovani uziv.
+Roster request	Zjistituji seznam uziv.
+Type	Typ
+Name	Jmeno
+Username	Uziv. jmeno
+fullscreen	fullscreen
+All Priorities	Vsechny priority
+Add bookmark	Pridat oblibenou zalozku
+conferences only	Pouze konference
+Client Info Info o klientu
+Discard Search	Vyradit hledani
+Search Results	Vysledek hledani
+// General	General
+Members	Clenove
+// offline	odpojen
+Add Contact	Pridat kontakt
+Subscription	Povolit
+Status >	Stav >
+Join	Pripojit
+Startup actions Akce pri startu
+Server	Server
+Admins	Administratori
+Make Ignore-List	Vytvorit list ingor. uziv.
+Options	Nastaveni
+Delete	Smazat
+Delete contact?	Smazat kontakt?
+Authorize	Autorizovat
+Nicknames	Prezdivky
+Entering setup	Vstupuji do nastaveni
+to Archive	do archivu
+Back	Zpet
+// heap monitor	Monitor pameti
+Hide Splash	Schovat start logo
+Message	Zprava
+<Other>	<Ostatni>
+// history -	Historie -
+Append	Pridat
+Active Contacts	Aktivni kontakty
+Select nickname	Zvolit prezdivku
+Group	Skupina
+Join conference	Pripojit ke konferenci
+No	Ne
+Yes	Ano
+Re-Enter Room	Znovu vstoupit
+New Message	Nova zprava
+Add	Pridat
+Logon	Pripojit
+Logoff	Odpojit
+Login in progress	Prave pripojuji
+// Stanzas	Stanzas
+at Host	hostitel
+join conferences	pripojit ke konferenci
+Status	Stav
+Smiles	Smajlici
+Contact > Kontakt >
+Order	Ridit(Order)
+offline contacts	odpojeni uzivatele
+Transport	Transport
+composing events	"composing" udalosti
+Add Smile	Pridat smajlika
+"Nickname"	Prezdivka
+Revoke Voice	Odvolat Voice
+// Not-in-list	Nejsou v listu
+Commands	Prikazy
+- (Sign)	- (Cedulka)
+Set default	Nastavit jako vychozi
+Outcasts (Ban)	Outcasts (Ban)
+Set affiliation to	Nastavit pridruzeni k
+Hide Offlines	Schovat odpojene uziv.
+Register Account	Zaregistrovat ucet
+autologin	automaticky pripojit
+Publish	Uverejnit
+Remove subscription	Odstranit povoleni
+Set	Nastavit
+Application	Aplikace
+Bookmarks	Zalozky
+Test sound	Test zvuku
+Startup	Start
+Edit rule	Editovat pravidlo
+Cancel	Zrusit
+Close	Zavrit
+Archive	Archiv
+free 	zdarma / prazdno
+Conference	Konference
+Sound	Zvuk
+Login failed	Chyba prihlaseni
+New Jid	Nove JID
+plain-text password	heslo jako text
+Paste Nickname	Vlozit nick
+Kick	Vykopnout (kick)
+Clear List	Vycistit
+Grant Voice	Dat Voice
+Quote	Citace
+Roster elements	Zobrazovat v seznamu uziv.
+popup from background	popup from background
+smiles	smajlici
+About	O autorech
+Resource	Zdroj
+Disconnected	Odpojit
+Edit	Editovat
+Host name/IP (optional)	Hostitel/IP (volitelne)
+Add rule	Pridat pravidlo
+for all status types	pro vsechny stavy
+Paste Jid	Vlozit JID
+Goto URL	Prejit na adresu
+Clock -	Hodiny -
+Login	Pripojit
+Clock offset	Vyrovnani hodin
+flash backlight	blikajici podsvetleni
+Suspend	Upevnit
+Resume Message	Vratit zpravu
+Alert Profile >	Upozorneni >
+My vCard	Muj vCard
+transports	transporty
+New Account	Novy ucet
+self-contact	sebe
+vCard	vCard
+Set Subject	Nastavit tema
+Tools	Nastroje
+Jabber Tools	Jabber nastroje
+Port	Port
+// proxy CONNECT	
+// Proxy name/IP
+// Proxy port
+// Are You sure want to discard 
+//" from OWNER to ";
+// Modify affiliation
+// Autofocus
