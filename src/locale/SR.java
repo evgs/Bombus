@@ -227,9 +227,11 @@ public class SR {
     
     private static String loadString(String key) {
         if (lang==null) {
-            if (Config.getInstance().lang==0) lang=new Hashtable(); 
-            else lang=new StringLoader().hashtableLoader("/ru.txt");
-            System.out.println("Loading locale");
+            String langFile=Config.getInstance().langFileName();
+            if (langFile==null) lang=new Hashtable(); 
+            else lang=new StringLoader().hashtableLoader(langFile);
+            System.out.print("Loading locale ");
+            System.out.println(langFile);
         }
         String value=(String)lang.get(key);
 //#if LOCALE_DEBUG

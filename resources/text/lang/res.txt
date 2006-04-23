@@ -1,0 +1,4 @@
+null	English
+/lang/ru.txt	Russian
+/lang/pl.txt	Polish
+/lang/cz.txt	Czech

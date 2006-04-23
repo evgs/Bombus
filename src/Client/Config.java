@@ -213,6 +213,11 @@ public class Config {
 	messageSndType=(String) files[0].elementAt(sounsMsgIndex);
 	messagesnd=(String) files[1].elementAt(sounsMsgIndex);
     }
+    public String langFileName(){
+        if (lang==0) return null;   //english
+	Vector files[]=new StringLoader().stringLoader("/lang/res.txt", 2);
+	return (String) files[0].elementAt(lang);
+    }
     
     public void saveToStorage(){
 	

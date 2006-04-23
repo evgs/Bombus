@@ -151,8 +151,8 @@ public class ConfigForm implements
 	fieldGmt=new NumberField(SR.MS_GMT_OFFSET, cf.gmtOffset, -12, 12); 
         fieldLoc=new NumberField(SR.MS_CLOCK_OFFSET, cf.locOffset, -12, 12 );
         
-	files=new StringLoader().stringLoader("/sounds/res.txt",3);
         sndFile=new ChoiceGroup(SR.MS_SOUND, ConstMIDP.CHOICE_POPUP);
+	files=new StringLoader().stringLoader("/sounds/res.txt",3);
 	
 	for (Enumeration f=files[2].elements(); f.hasMoreElements(); ) {
 	    sndFile.append( (String)f.nextElement(), null );
@@ -175,10 +175,15 @@ public class ConfigForm implements
 	f.append(sndFile);
 	
         lang=new ChoiceGroup("Language", ConstMIDP.CHOICE_POPUP);
-        lang.append("English", null);
-        lang.append("Russian"/*SR.MS_ALT_LANG*/, null);
+	Vector langs[]=new StringLoader().stringLoader("/lang/res.txt",2);
+	
+	for (Enumeration f=langs[2].elements(); f.hasMoreElements(); ) {
+	    lang.append( (String)f.nextElement(), null );
+	}
+	
         lang.setSelectedIndex(cf.lang, true);
 
+        
         //sndVol=new Gauge("Sound volume", true, 10,  cf.soundVol/10);
 	//f.append(sndVol);
 
