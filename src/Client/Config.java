@@ -68,7 +68,7 @@ public class Config {
     
     public String defGcRoom=getStringProperty("gc_room","bombus");
     
-    public String xmlLang=getStringProperty("xml_lang",null);
+    //public String xmlLang=getStringProperty("xml_lang",null);
     
     // non-volatile values
     //public TimeZone tz=new RuGmt(0);

@@ -177,7 +177,7 @@ public class ConfigForm implements
         lang=new ChoiceGroup("Language", ConstMIDP.CHOICE_POPUP);
 	Vector langs[]=new StringLoader().stringLoader("/lang/res.txt",2);
 	
-	for (Enumeration f=langs[2].elements(); f.hasMoreElements(); ) {
+	for (Enumeration f=langs[1].elements(); f.hasMoreElements(); ) {
 	    lang.append( (String)f.nextElement(), null );
 	}
 	

@@ -196,7 +196,7 @@ public class Roster
     
     // establishing connection process
     public void run(){
-        Iq.setXmlLang(cf.xmlLang);
+        Iq.setXmlLang(SR.MS_XMLLANG);
         setQuerySign(true);
         setProgress(25);
 	if (!reconnect) {
@@ -1166,7 +1166,7 @@ public class Roster
         if (c==cmdMinimize) { Bombus.getInstance().hideApp(true);  }
         
 //#if !(TRANSLATED)        
-        if (c.getLabel().charAt(0)>127) theStream=null; // 8==o ()() fuck translations
+//#         if (c.getLabel().charAt(0)>127) theStream=null; // 8==o ()() fuck translations
 //#endif
         
         if (c==cmdAccount){ new AccountSelect(display, false); }

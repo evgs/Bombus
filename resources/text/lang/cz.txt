@@ -1,6 +1,8 @@
+// (c) 2006 Jindřich Skácel
+xmlLang cz
 langfile	Cesky
 Jid	Jid
-// Loading	Nacitam
+Loading	Nacitam
 Privacy Lists	Soukromy seznam
 Existing groups	Existujici skupina
 Message font	Font zpravy
@@ -8,7 +10,7 @@ Roster font	Font seznamu uziv.
 Paste Body	Vlozit telo
 Configure Room	Konfiguracni mistnost
 Paste Subject	Vlozit tema
-Service Discovery Prohledat agenty
+Service Discovery	Prohledat agenty
 User JID	Uzivatelske JID
 New list	Novy list
 Select (no login)	Oznacit (nelogovat)
@@ -20,7 +22,7 @@ Account name	Jmeno uctu
 GMT offset	Vyrovnani casu (GMT+)
 Time settings (hours)\n	Nastaveni casu\n
 Connected	Pripojen
-Connect to 	Pripojen k
+Connect to 	Pripojen k 
 Alert Profile	Nastaveni upozornovani
 Move Up	Posunout nahoru
 Move Down	Posunout dolu
@@ -60,7 +62,6 @@ Priority	Priorita
 Failed	Chyba
 Set Priority	Nastavit Prioritu
 Delete rule	Smazat pravidlo
-//Ignore-List	Ingnorovani uziv.
 Roster request	Zjistituji seznam uziv.
 Type	Typ
 Name	Jmeno
@@ -69,17 +70,16 @@ fullscreen	fullscreen
 All Priorities	Vsechny priority
 Add bookmark	Pridat oblibenou zalozku
 conferences only	Pouze konference
-Client Info Info o klientu
+Client Info	Info o klientu
 Discard Search	Vyradit hledani
 Search Results	Vysledek hledani
-// General	General
 Members	Clenove
 // offline	odpojen
 Add Contact	Pridat kontakt
 Subscription	Povolit
 Status >	Stav >
 Join	Pripojit
-Startup actions Akce pri startu
+Startup actions	Akce pri startu
 Server	Server
 Admins	Administratori
 Make Ignore-List	Vytvorit list ingor. uziv.
@@ -91,7 +91,7 @@ Nicknames	Prezdivky
 Entering setup	Vstupuji do nastaveni
 to Archive	do archivu
 Back	Zpet
-// heap monitor	Monitor pameti
+heap monitor	Monitor pameti
 Hide Splash	Schovat start logo
 Message	Zprava
 <Other>	<Ostatni>
@@ -109,20 +109,18 @@ Add	Pridat
 Logon	Pripojit
 Logoff	Odpojit
 Login in progress	Prave pripojuji
-// Stanzas	Stanzas
 at Host	hostitel
 join conferences	pripojit ke konferenci
 Status	Stav
 Smiles	Smajlici
-Contact > Kontakt >
+Contact >	Kontakt >
 Order	Ridit(Order)
 offline contacts	odpojeni uzivatele
 Transport	Transport
 composing events	"composing" udalosti
 Add Smile	Pridat smajlika
-"Nickname"	Prezdivka
+Nickname	Prezdivka
 Revoke Voice	Odvolat Voice
-// Not-in-list	Nejsou v listu
 Commands	Prikazy
 - (Sign)	- (Cedulka)
 Set default	Nastavit jako vychozi
@@ -181,10 +179,25 @@ Set Subject	Nastavit tema
 Tools	Nastroje
 Jabber Tools	Jabber nastroje
 Port	Port
-// proxy CONNECT	
-// Proxy name/IP
-// Proxy port
-// Are You sure want to discard 
-//" from OWNER to ";
-// Modify affiliation
-// Autofocus
+
+//473
+Proxy name/IP	Proxy name/IP
+Proxy port	Proxy port
+Autofocus	Autofocus
+
+Connect	Login
+history -	history -
+Are You sure want to discard 	Are You sure want to discard 
+ from OWNER to 	 from OWNER to 
+Modify affiliation	Modify affiliation
+
+// DO NOT TRANSLATE THIS LINES!!!
+//Ignore-List	Ingnorovani uziv.
+Ignore-List	Ignore-List
+// General	Generalne
+General	General
+// Stanzas	Stanzy
+Stanzas	Stanzas
+// Not-in-list	Nejsou v listu
+Not-in-list	Not-in-list
+proxy CONNECT	proxy CONNECT

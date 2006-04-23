@@ -2,6 +2,10 @@
 // All rights reserved.
 // (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
 // (c) Vladimir N. Shelukhin, 2006.
+
+// ask server to send us localized messages
+xmlLang	ru
+//463
 langfile	Russian
 Jid	Jid
 Loading	Загрузка
@@ -12,7 +16,7 @@ Roster font	Шрифт ростера
 Paste Body	Вставить тело сообщ.
 Configure Room	Конфигуратор Комнаты
 Paste Subject	Вставить тему сообщ.
-Service Discovery Обзор Сервисов
+Service Discovery	Обзор Сервисов
 User JID	JID пользователя
 New list	Новый список
 Select (no login)	Выбрать (без логина)
@@ -64,7 +68,6 @@ Priority	Приоритет
 Failed	Ошибка соединения
 Set Priority	Установить приоритет
 Delete rule	Удалить правило
-//Ignore-List	Ignore-List
 Roster request	Получение ростера
 Type	Тип
 Name	Имя
@@ -76,7 +79,6 @@ conferences only	только конференции
 Client Info	Инфо о клиенте
 Discard Search	Сбросить результаты
 Search Results	Результаты поиска
-// General	General
 Members	Члены
 // offline	отключенные
 Add Contact	Новый контакт
@@ -95,11 +97,10 @@ Nicknames	Ники
 Entering setup	Вход в настройки аккаунта
 to Archive	в Архив
 Back	Назад
-// heap monitor	Монитор кучи
+heap monitor	Монитор heap
 Hide Splash	Ростер
 Message	Сообщение
 <Other>	<Другой>
-// history -	история -
 Append	Добавить
 Active Contacts	Актив. контакты
 Select nickname	Выбрать ник
@@ -113,7 +114,6 @@ Add	Добавить
 Logon	Подключить
 Logoff	Отключить
 Login in progress	Проверка пароля
-// Stanzas	Stanzas
 at Host	Сервер
 join conferences	автовход в конференцию
 Status	Статус
@@ -124,9 +124,8 @@ offline contacts	показать отключенных
 Transport	Транспорт
 composing events	"composing" события
 Add Smile	:-)
-"Nickname"	Ник
+Nickname	Ник
 Revoke Voice	Отнять право голоса
-// Not-in-list	Not-in-list
 Commands	Команды
 - (Sign)	- (знак)
 Set default	Уст. по умолчанию
@@ -185,12 +184,21 @@ Set Subject	Установить Тему
 Tools	Инструменты
 Jabber Tools	Инструменты сервера
 Port	Порт
-// proxy CONNECT	
+
+//473
 Proxy name/IP	Имя прокси-сервера/IP
 Proxy port	порт прокси-сервера
-// Are You sure want to discard 
-//" from OWNER to ";
-// Modify affiliation
 Autofocus	Автофокус
 
 Connect	Login
+history -	история -
+Are You sure want to discard 	Вы действительно собираетесь понизить у 
+ from OWNER to 	 право OWNER до 
+Modify affiliation	Изменение членства
+
+// DO NOT TRANSLATE THIS LINES!!!
+Ignore-List	Ignore-List
+General	General
+Stanzas	Stanzas
+Not-in-list	Not-in-list
+proxy CONNECT	proxy CONNECT

@@ -1,16 +1,17 @@
 // nothing0 Polish lang file made 19h08 19042006
 // nothing1 made by DeSnajpa_IV (jabber:tsieprawski@jabber.autocom.pl) <tsieprawski@gmail.com>
+xmlLang	pl
 langfile	Polish
 Jid	Jid
-// Loading	Wczytywanie
-Privacy Lists	Listy prywatnosci¸
+Loading	Wczytywanie
+Privacy Lists	Listy prywatnosci
 Existing groups	Istniejace grupy
 Message font	Czcionka wiadomosci
 Roster font	Czcionka rostera
 Paste Body	Wklej tresc
 Configure Room	Konfiguruj pokoj
 Paste Subject	Wklej temat
-Service Discovery Odkrywanie uslug
+Service Discovery	Odkrywanie uslug
 User JID	JID uzytkownika
 New list	Nowa lista
 Select (no login)	Wybierz (nie loguj)
@@ -25,7 +26,7 @@ Connected	Polaczono
 Connect to 	Lacze z 
 Alert Profile	Alarmuj profil
 Move Up	Idz w gore
-Move Down	Idz w dol·
+Move Down	Idz w dol
 Owners	Wlasciciele (owners)
 Ok	OK
 Minimize	Schowaj
@@ -62,7 +63,6 @@ Priority	Priorytet
 Failed	Nieudane
 Set Priority	Ustaw priorytet
 Delete rule	Usun zasade
-//Ignore-List	Lista-ignorowanych
 Roster request	Zamow roster
 Type	Typ
 Name	Nazwa
@@ -74,7 +74,6 @@ conferences only	tylko konferencje
 Client Info	Informacja o kliencie
 Discard Search	Odrzuc wyszukiwanie
 Search Results	Wyniki wyszukiwania
-// General	Generalne
 Members	Czlonkowie (members)
 // offline	wylogowany
 Add Contact	Dodaj kontakt
@@ -93,7 +92,7 @@ Nicknames	Pseudonimy
 Entering setup	Wchodze do ustawien
 to Archive	do archiwum
 Back	Wroc
-// heap monitor	monitor pamieci
+heap monitor	monitor pamieci
 Hide Splash	Ukryj logo
 Message	Wiadomosc
 <Other>	<Inny
@@ -111,7 +110,6 @@ Add	Dodaj
 Logon	Zaloguj sie
 Logoff	Wyloguj sie
 Login in progress	Logowanie trwa
-// Stanzas	Stanzy
 at Host	na serwerze
 join conferences	wejdz do konferencji
 Status	Status
@@ -122,9 +120,8 @@ offline contacts	wylogowane kontakty
 Transport	Transport
 composing events	wiadomosc o komponowaniu
 Add Smile	Dodaj emotikone
-"Nickname"	Pseudonim
+Nickname	Pseudonim
 Revoke Voice	Zabierz glos
-// Not-in-list	Poza-lista
 Commands	Komendy
 - (Sign)	- (Minus)
 Set default	Ustaw domyslne
@@ -183,10 +180,24 @@ Set Subject	Ustaw temat
 Tools	Narzedzia
 Jabber Tools	Narzedzia Jabber'a
 Port	Port
-// proxy CONNECT	
-// Proxy name/IP
-// Proxy port
-// Are You sure want to discard 
-//" from OWNER to ";
-// Modify affiliation
-// Autofocus
+
+//473
+Proxy name/IP	Proxy name/IP
+Proxy port	Proxy port
+Autofocus	Autofocus
+
+Connect	Login
+history -	history -
+Are You sure want to discard 	Are You sure want to discard 
+ from OWNER to 	 from OWNER to 
+Modify affiliation	Modify affiliation
+
+// DO NOT TRANSLATE THIS LINES!!!
+Ignore-List	Ignore-List
+// General	Generalne
+General	General
+// Stanzas	Stanzy
+Stanzas	Stanzas
+// Not-in-list	Poza-lista
+Not-in-list	Not-in-list
+proxy CONNECT	proxy CONNECT

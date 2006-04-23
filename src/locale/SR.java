@@ -161,7 +161,7 @@ public class SR {
     public   static String MS_CONFERENCE = loadString( "Conference" );
     public   static String MS_SOUND = loadString( "Sound" );
     public   static String MS_LOGIN_FAILED = loadString( "Login failed" );
-    public   static String MS_DISCOVER = loadString( "Browswe" ); //"Discover"
+    public   static String MS_DISCOVER = loadString( "Browse" ); //"Discover"
     public   static String MS_NEW_JID = loadString( "New Jid" );
     public   static String MS_PLAIN_PWD = loadString( "plain-text password" );
     public   static String MS_PASTE_NICKNAME = loadString( "Paste Nickname" );
@@ -220,6 +220,8 @@ public class SR {
 //--toon
 
     public   static String MS_SELLOGIN = loadString( "Connect" );
+
+    public static String MS_XMLLANG;
     
     private SR() { }
     
@@ -232,13 +234,15 @@ public class SR {
             else lang=new StringLoader().hashtableLoader(langFile);
             System.out.print("Loading locale ");
             System.out.println(langFile);
+            MS_XMLLANG=(String)lang.get("xmlLang");
         }
         String value=(String)lang.get(key);
 //#if LOCALE_DEBUG
         if (value==null) {
             if (Config.getInstance().lang!=0) {
-                System.out.print("Can't find local string for ");
-                System.err.println(key);
+                System.out.print("Can't find local string for <");
+                System.err.print(key);
+                System.err.println('>');
             }
         }
 //#endif
