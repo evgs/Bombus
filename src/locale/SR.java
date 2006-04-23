@@ -228,10 +228,18 @@ public class SR {
     private static String loadString(String key) {
         if (lang==null) {
             if (Config.getInstance().lang==0) lang=new Hashtable(); 
-            else lang=new StringLoader().hashtableLoader("/lang.txt");
+            else lang=new StringLoader().hashtableLoader("/ru.txt");
             System.out.println("Loading locale");
         }
         String value=(String)lang.get(key);
+//#if LOCALE_DEBUG
+        if (value==null) {
+            if (Config.getInstance().lang!=0) {
+                System.out.print("Can't find local string for ");
+                System.err.println(key);
+            }
+        }
+//#endif
         return (value==null)?key:value;
     }
 
