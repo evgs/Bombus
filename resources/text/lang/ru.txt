@@ -190,7 +190,7 @@ Proxy name/IP	Имя прокси-сервера/IP
 Proxy port	порт прокси-сервера
 Autofocus	Автофокус
 
-Connect	Login
+Connect	Подключиться
 history -	история -
 Are You sure want to discard 	Вы действительно собираетесь понизить у 
  from OWNER to 	 право OWNER до 
