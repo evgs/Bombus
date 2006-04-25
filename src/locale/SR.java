@@ -207,6 +207,7 @@ public class SR {
     public   static String MS_MODIFY_AFFILIATION = loadString( "Modify affiliation" );
     public   static String MS_AUTOFOCUS = loadString( "Autofocus" );
     public   static String MS_ADD_TO_ROSTER = loadString( "Add to roster" );
+    public   static String MS_CLEAR=loadString( "Clear" );
     public   static String MS_ALT_LANG="langfile";
     public   static String MS_GRANT_MEMBERSHIP = "Grant Membership";
 //--toon
@@ -222,6 +223,7 @@ public class SR {
     public   static String MS_SELLOGIN = loadString( "Connect" );
 
     public static String MS_XMLLANG;
+
     
     private SR() { }
     

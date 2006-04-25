@@ -202,3 +202,6 @@ General	General
 Stanzas	Stanzas
 Not-in-list	Not-in-list
 proxy CONNECT	proxy CONNECT
+
+// 476
+Clear	Очистить
