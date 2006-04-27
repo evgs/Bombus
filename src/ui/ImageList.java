@@ -28,7 +28,10 @@ public class ImageList {
     public ImageList(String resource) {
         try {
             resImage = Image.createImage(resource);
-        } catch (Exception e) { }
+        } catch (Exception e) { 
+            System.out.print("Can't load ");
+            System.out.println(resource);
+        }
         height = 1;
         width = 1;
     }
@@ -42,7 +45,9 @@ public class ImageList {
         int iy=y-height*(int)(index>>4);
         int ix=x-width*(index&0x0f);
         g.clipRect(x,y, width,height);
-        g.drawImage(resImage,ix,iy,Graphics.TOP|Graphics.LEFT);
+        try {
+            g.drawImage(resImage,ix,iy,Graphics.TOP|Graphics.LEFT);
+        } catch (Exception e) {}
         g.setClip(xo,yo, wo, ho);
     };
     

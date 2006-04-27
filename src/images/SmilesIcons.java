@@ -21,6 +21,7 @@ public class SmilesIcons extends ImageList{
     /** Creates a new instance of SmilesIcons */
     private SmilesIcons() {
 	super("/images/smiles.png");
+        if (resImage==null) return;
 	height=width=resImage.getWidth()/SMILES_IN_ROW;
     }
     private static ImageList instance;

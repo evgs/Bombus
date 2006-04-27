@@ -22,6 +22,7 @@ public class RosterIcons extends ImageList{
     /** Creates a new instance of RosterIcons */
     private RosterIcons() {
 	super("/images/skin.png");
+        if (resImage==null) return;
 	height=resImage.getHeight()/ICONS_IN_COL;
 	width=resImage.getWidth()/ICONS_IN_ROW;
     }
