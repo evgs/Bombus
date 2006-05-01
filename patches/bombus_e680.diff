@@ -1,3 +1,6 @@
+# Мэпинг клавиш Volume+ и Volume- для перехода по контактлисту,
+# клавиши RealPlayer как "0" и FM Radio как включение режима VIBRA
+# (c) Dmitry Nezhevenko <dion@inhex.net>
 Index: src/ui/VirtualList.java
 ===================================================================
 --- src/ui/VirtualList.java	(revision 478)

@@ -1,3 +1,5 @@
+# Добавление стиля оповещения "Flash" (Только моргание)
+# (с) Dmitry Nezhevenko <dion@inhex.net>
 Index: src/Client/AlertProfile.java
 ===================================================================
 --- src/Client/AlertProfile.java	(revision 478)

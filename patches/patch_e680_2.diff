@@ -1,3 +1,5 @@
+# Мэпинг клавии RealPlayer для закрытия списка сообщений
+# (c) Dmitry Nezevenko <dion@inhex.net>
 Index: src/Client/ContactMessageList.java
 ===================================================================
 --- src/Client/ContactMessageList.java	(revision 478)
