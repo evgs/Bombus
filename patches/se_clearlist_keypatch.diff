@@ -1,0 +1,53 @@
+Index: ui/VirtualList.java
+===================================================================
+--- ui/VirtualList.java	(revision 478)
++++ ui/VirtualList.java	(working copy)
+@@ -86,7 +86,7 @@
+     public static final int NOKIA_GREEN=-10;
+     public static final int MOTOROLA_GREEN=-10;
+     public static final int SE_GREEN=0;
+-    
++    public static final int SE_CLEAR=-8;
+     public static int greenKeyCode=SIEMENS_GREEN;
+     public static boolean fullscreen=false;
+     public static boolean memMonitor;
+@@ -107,10 +107,10 @@
+     
+     /** 
+      * окно приклеено к позиции курсора 
+-     * ПРИКЛЕИВАЕТСЯ:
++     * ПР�КЛЕ�ВАЕТСЯ:
+      *   при нажатии кнопок перемещения курсора
+      *   при выборе стилусом элемента списка
+-     * ОТКЛЕИВАЕТСЯ:
++     * ОТКЛЕ�ВАЕТСЯ:
+      *   при использовании скролбара
+      */
+     protected boolean stickyWindow=true;
+@@ -738,7 +738,7 @@
+     }
+     
+     /**
+-     * событие "Нажатие ЗЕЛЁНОЙ КНОПКИ"
++     * событие "Нажатие ЗЕЛЁНОЙ КНОПК�"
+      * в классе VirtualList функция выполняет вызов eventOk().
+      * возможно переопределить (override) функцию для реализации необходимых действий
+      */
+Index: Client/ContactMessageList.java
+===================================================================
+--- Client/ContactMessageList.java	(revision 478)
++++ Client/ContactMessageList.java	(working copy)
+@@ -141,4 +141,13 @@
+ 	if (keyCode==KEY_NUM3) new ActiveContacts(display, contact);
+ 	else super.keyPressed(keyCode);
+     }
++    public void keyPressed(int keyCode) {
++        if (keyCode==SE_CLEAR) {
++            contact.purge();
++            messages=new Vector();
++            System.gc();
++            redraw();
++         }
++         else super.keyPressed(keyCode);
++    }
+ }

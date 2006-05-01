@@ -1,0 +1,35 @@
+Index: src/Client/AlertProfile.java
+===================================================================
+--- src/Client/AlertProfile.java	(revision 478)
++++ src/Client/AlertProfile.java	(working copy)
+@@ -23,10 +23,11 @@
+     public final static int ALL=1;
+     public final static int VIBRA=2;
+     public final static int SOUND=3;
+-    public final static int NONE=4;
++    public final static int FLASH=4;
++    public final static int NONE=5;
+     
+     private final static String[] alertNames=
+-    { "Auto", "All signals", "Vibra", "Sound", "No signals"};
++    { "Auto", "All signals", "Vibra", "Sound", "Flash", "No signals"};
+     
+     private Profile profile=new Profile();
+     int defp;
+@@ -65,7 +66,7 @@
+         }
+         //public void onSelect(){}
+         public int getColor(){ return Colors.LIST_INK; }
+-        public int getImageIndex(){return index+RosterIcons.ICON_PROFILE_INDEX;}
++        public int getImageIndex(){return ((index<5) ? index : 4) + RosterIcons.ICON_PROFILE_INDEX;}
+         public String toString(){ 
+             StringBuffer s=new StringBuffer(alertNames[index]);
+             if (index==defp) s.append(" (default)");
+@@ -109,6 +110,7 @@
+             case NONE:  notify=new EventNotify(display, null, null,    0,           false    ); break;
+             case VIBRA: notify=new EventNotify(display, null, null,    cf.vibraLen, blFlashEn); break;
+             case SOUND: notify=new EventNotify(display, type, message, 0,           blFlashEn); break;
++            case FLASH: notify=new EventNotify(display, null, null,    0,           blFlashEn); break;
+         }
+         if (notify!=null) notify.startNotify();
+     }

@@ -1,4 +1,4 @@
-// Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+﻿// Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
 // All rights reserved.
 // (c) zalex <zlex@ukr.net>, 2006.
 
@@ -9,7 +9,7 @@ langfile	Ukrainian
 Jid	Jid
 Loading	Завантаження
 Privacy Lists	Списки конфiденцiйностi
-Existing groups	iснуючi групи
+Existing groups	Iснуючi групи
 Message font	Шрифт повiдомлення
 Roster font	Шрифт ростера
 Paste Body	Вставити тiло повiд.
@@ -23,13 +23,13 @@ Privacy rule	Правило конфiденцiйностi
 use SSL	використовувати SSL
 Modify	Змiнити
 Update	Оновити
-Account name	iм'я акаунта
+Account name	Ім'я акаунта
 GMT offset	Часовий пояс (GMT+)
 Time settings (hours)\n	Налаштування часу\n
 Connected	З'єднання встановлено
 Connect to 	З'єднання з 
 Alert Profile	Сигнали
-Move Up	Змiстити нагору
+Move Up	Змiстити Нагору
 Move Down	Змiстити донизу
 Owners	Власники
 Ok	ОК
@@ -69,13 +69,13 @@ Set Priority	Встановити прiоритет
 Delete rule	Видалити правило
 Roster request	Отримання ростера
 Type	Тип
-Name	iм'я
-Username	iм'я користувача
+Name	Iм'я
+Username	Iм'я користувача
 fullscreen	На повний екран
 All Priorities	У всiх статусах
 Add bookmark	Дод. закладку
 conferences only	Тiльки конференцiї
-Client Info	iнфо о клiєнтi
+Client Info	Iнфо о клiєнтi
 Discard Search	Скинути результати
 Search Results	Результати пошуку
 Members	Члени
@@ -99,7 +99,7 @@ Back	Назад
 heap monitor	Монiтор heap
 Hide Splash	Ростер
 Message	Повiдомлення
-<Other>	<iнший>
+<Other>	<Iнший>
 Append	Додати
 Active Contacts	Актив. контакти
 Select nickname	Вибрати нiк
@@ -126,9 +126,9 @@ Add Smile	:-)
 Nickname	Нiк
 Revoke Voice	Вiдняти право голосу
 Commands	Команди
-- (Sign)	- (знак)
+- (Sign)	- (Знак)
 Set default	Уст. за замовчанням
-Outcasts (Ban)	iзгої (Ban)
+Outcasts (Ban)	Iзгої (Ban)
 Set affiliation to	Змiнити членство на
 Hide Offlines	Сховати вiдключених
 Register Account	Зареєструвати акаунт
@@ -162,7 +162,7 @@ About	Про програму
 Resource	Ресурс
 Disconnected	Роз'єднано
 Edit	Редагувати
-Host name/IP (optional)	iм'я хоста/IP (необов'язково)
+Host name/IP (optional)	Iм'я хоста/IP (необов'язково)
 Add rule	Додати правило
 for all status types	для усiх статусiв
 Paste Jid	Вставити Jid
@@ -181,11 +181,11 @@ self-contact	свої контакти
 vCard	vCard
 Set Subject	Установити Тему
 Tools	Iнструменти
-Jabber Tools	iнструменти сервера
+Jabber Tools	Iнструменти сервера
 Port	Порт
 
 //473
-Proxy name/IP	iм'я проксi-сервера/IP
+Proxy name/IP	Iм'я проксi-сервера/IP
 Proxy port	Порт проксi-сервера
 Autofocus	Автофокус
 

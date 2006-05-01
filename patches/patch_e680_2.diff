@@ -1,0 +1,16 @@
+Index: src/Client/ContactMessageList.java
+===================================================================
+--- src/Client/ContactMessageList.java	(revision 478)
++++ src/Client/ContactMessageList.java	(working copy)
+@@ -141,4 +141,11 @@
+ 	if (keyCode==KEY_NUM3) new ActiveContacts(display, contact);
+ 	else super.keyPressed(keyCode);
+     }
++
++    public void userKeyPressed(int keyCode) {
++	    if (keyCode==MOTOE680_REALPLAYER) {
++	        destroyView();
++	        return;
++	    }
++	}
+ }

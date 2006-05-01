@@ -1,0 +1,19 @@
+Index: changelog.txt
+===================================================================
+--- changelog.txt	(revision 463)
++++ changelog.txt	(working copy)
+@@ -2104,7 +2104,13 @@
+   Локализация интерфейса (пока только русский и английский языки)
+   изменение языка интерфейса происходит при перезапуске Bombus
+ 
+-  Расширение инструментов администратора конференции
++  Расширение инструментов администратора конференции (c)toon:
++		grant/revoke   Membership
++                grant/revoke   Moderator Privileges
++		grant/revoke   Admin Privileges
++                grant/revoke   Ownership Privileges
++
++
+ ---------------------------
+   known issues:
+ 

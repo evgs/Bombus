@@ -1,0 +1,386 @@
+Index: lang.txt
+===================================================================
+--- lang.txt	(revision 463)
++++ lang.txt	(working copy)
+@@ -1,190 +1,191 @@
+-langfile	Russian
+-Jid	Jid
+-// Loading	Loading
+-Privacy Lists	Списки Приватности
+-Existing groups	Существующие группы
+-Message font	Шрифт сообщения
+-Roster font	Шрифт ростера
+-Paste Body	Вставить тело сообщ.
+-Configure Room	Конфигуратор Комнаты
+-Paste Subject	Вставить тему сообщ.
+-Service Discovery Обзор Сервисов
+-User JID	JID пользователя
+-New list	Новый список
+-Select (no login)	Выбрать (без логина)
+-Privacy rule	Правило приватности
+-use SSL	использовать SSL
+-Modify	Изменить
+-Update	Обновить
+-Account name	Имя аккаунта
+-GMT offset	Часовой пояс (GMT+)
+-Time settings (hours)\n	Настройки времени\n
+-Connected	Соединение установлено
+-Connect to 	Соединение с 
+-Alert Profile	Сигналы
+-Move Up	Сместить вверх
+-Move Down	Сместить вниз
+-Owners	Владельцы
+-Ok	ОК
+-Minimize	Свернуть
+-Room	Комната
+-Messages	Сообщения
+-Refresh	Обновить
+-Resolve Nicknames	Преобразовать в ник
+-Action	Действие
+-Ban	Бан
+-Leave Room	Покинуть Комнату
+-Password	Пароль
+-Actions >	Действия >
+-Activate	Активировать
+-Affiliation	Членство
+-Accounts	Аккаунты
+-Delete list	Удалить список
+-Account >	Аккаунт >
+-Show Offlines	Показать отключенных
+-Select	Выбрать
+-Subject	Тема
+-Group menu	Меню групп
+-Quit	Выход
+-Add to roster	Добавить в ростер
+-Edit list	Редактировать список
+-Registering	Регистрация
+-Done	Выполнено
+-Error: 	Ошибка: 
+-Browse	Обзор
+-Save list	Сохранить список
+-Keep-Alive period	период Keep-Alive
+-<New Group>	<Новая Группа>
+-Send	Отправить
+-Priority	Приоритет
+-Failed	Ошибка соединения"
+-Set Priority	Установить приоритет
+-Delete rule	Удалить правило
+-//Ignore-List	Ignore-List
+-Roster request	Получение ростера
+-Type	Тип
+-Name	Имя
+-Username	Имя пользователя
+-fullscreen	полноэкранный
+-All Priorities	во всех статусах
+-Add bookmark	Добав. закладку
+-conferences only	только конференции
+-Client Info	Инфо о клиенте
+-Discard Search	Сбросить результаты
+-Search Results	Результаты поиска
+-// General	General
+-Members	Члены
+-// offline	Отключеные
+-Add Contact	Новый контакт
+-Subscription	Подписка
+-Status >	Статус >
+-Join	Присоединиться
+-Startup actions	Действия при запуске
+-Server	Сервер
+-Admins	Админы
+-Make Ignore-List	Создать Игнор-лист
+-Options	Настройки
+-Delete	Удалить
+-Delete contact?	Удалить контакт?
+-Authorize	Авторизовать
+-Nicknames	Ники
+-Entering setup	Вход в настройки аккаунта
+-to Archive	в Архив
+-Back	Назад
+-// heap monitor	Монитор кучи
+-Hide Splash	Ростер
+-Message	Сообщение
+-<Other>	<Другая>
+-// history -	история -
+-Append	Добавить
+-Active Contacts	Актив. контакты
+-Select nickname	Выбрать ник
+-Group	Группа
+-Join conference	Присоединиться к конференции
+-No	Нет
+-Yes	Да
+-Re-Enter Room	Перезайти в Комнату
+-New Message	Новое сообщение
+-Add	Добавить
+-Logon	Подключить
+-Logoff	Отключить
+-Login in progress	Проверка пароля
+-// Stanzas	Stanzas
+-at Host	Сервер
+-join conferences	автовход в конференцию
+-Status	Статус
+-Smiles	Смайлики
+-Contact >	Контакт >
+-Order	Порядок
+-offline contacts	показать отключенных
+-Transport	Транспорт
+-composing events	"composing" события
+-Add Smile	Добавить смайлик
+-"Nickname"	Ник
+-Revoke Voice	Отнять право голоса
+-// Not-in-list	Not-in-list
+-Commands	Команды
+-- (Sign)	- (знак)
+-Set default	Уст. по умолчанию
+-Outcasts (Ban)	Изгои (Ban)
+-Set affiliation to	Изменить членство на
+-Hide Offlines	Скрыть отключенных"
+-Register Account	Зарегистрировать аккаунт
+-autologin	автосоединение
+-Publish	Опубликовать
+-Remove subscription	Удалить подписку
+-Set	Установить
+-Application	Приложение
+-Bookmarks	Закладки
+-Test sound	Тест звука
+-Startup	Запуск
+-Edit rule	Редакт. правило
+-Cancel	Отмена
+-Close	Закрыть
+-Archive	Архив
+-free 	свободно 
+-Conference	Конференция
+-Sound	Звук
+-Login failed	Ошибка авторизации
+-New Jid	Новый Jid
+-plain-text password	пароль откр. текстом
+-Paste Nickname	Вставить ник
+-Kick	Выгнать (kick)
+-Clear List	Очистить список
+-Grant Voice	Дать право голоса
+-Quote	Цитировать
+-Roster elements	Элементы ростера"
+-popup from background	popup from background
+-smiles	смайлики
+-About	О программе
+-Resource	Ресурс
+-Disconnected	Соединение разорвано
+-Edit	Редактировать
+-Host name/IP (optional)	Имя хоста/IP (необязательно)
+-Add rule	Добавить правило
+-for all status types	для всех статсуов
+-Paste Jid	Вставить Jid
+-Goto URL	Перейти к URL
+-Clock -	Часы -
+-Login	Открытие сокета
+-Clock offset	Смещение часов
+-flash backlight	Мигать подсветкой
+-Suspend	Отложить
+-Resume Message	Черновик
+-Alert Profile >	Сигналы >
+-My vCard	Личная vCard
+-transports	транспорты
+-New Account	Новый аккаунт
+-self-contact	свои контакты
+-vCard	vCard
+-Set Subject	Установить тему
+-Tools	Инструменты
+-Jabber Tools	Инструменты сервера
+-Port	Порт
+-// proxy CONNECT	
+-// Proxy name/IP
+-// Proxy port
+-// Are You sure want to discard 
+-//" from OWNER to ";
+-// Modify affiliation
+-// Autofocus
++﻿langfile	Russian
++Jid	Jid
++Loading	Загрузка
++Privacy Lists	Списки Приватности
++Existing groups	Существующие группы
++Message font	Шрифт сообщения
++Roster font	Шрифт ростера
++Paste Body	Вставить тело сообщ.
++Configure Room	Конфигуратор Комнаты
++Paste Subject	Вставить тему сообщ.
++Service Discovery Обзор Сервисов
++User JID	JID пользователя
++New list	Новый список
++Select (no login)	Выбрать (без логина)
++Privacy rule	Правило приватности
++use SSL	использовать SSL
++Modify	Изменить
++Update	Обновить
++Account name	Имя аккаунта
++GMT offset	Часовой пояс (GMT+)
++Time settings (hours)\n	Настройки времени\n
++Connected	Соединение установлено
++Connect to 	Соединение с 
++Alert Profile	Сигналы
++Move Up	Сместить вверх
++Move Down	Сместить вниз
++Owners	Владельцы
++Ok	ОК
++Minimize	Свернуть
++Room	Комната
++Messages	Сообщения
++Refresh	Обновить
++Resolve Nicknames	Преобразовать в ник
++Action	Действие
++Ban	Бан
++Leave Room	Покинуть Комнату
++Password	Пароль
++Actions >	Действия >
++Activate	Активировать
++Affiliation	Членство
++Accounts	Аккаунты
++Delete list	Удалить список
++Account >	Аккаунт >
++Show Offlines	Показать отключенных
++Select	Выбрать
++Subject	Тема
++Group menu	Меню групп
++Quit	Выход
++Add to roster	Добавить в ростер
++Edit list	Редактировать список
++Registering	Регистрация
++Done	Выполнено
++Error: 	Ошибка: 
++Browse	Обзор
++Save list	Сохранить список
++Keep-Alive period	период Keep-Alive
++<New Group>	<Новая Группа>
++Send	Отправить
++Priority	Приоритет
++Failed	Ошибка соединения
++Set Priority	Установить приоритет
++Delete rule	Удалить правило
++//Ignore-List	Ignore-List
++Roster request	Получение ростера
++Type	Тип
++Name	Имя
++Username	Имя пользователя
++fullscreen	полноэкранный
++All Priorities	во всех статусах
++Add bookmark	Добав. закладку
++conferences only	только конференции
++Client Info	Инфо о клиенте
++Discard Search	Сбросить результаты
++Search Results	Результаты поиска
++// General	General
++Members	Члены
++// offline	отключенные
++Add Contact	Новый контакт
++Subscription	Подписка
++Status >	Статус >
++Join	Присоединиться
++Startup actions	Действия при запуске
++Server	Сервер
++Admins	Админы
++Make Ignore-List	Создать Игнор-лист
++Options	Настройки
++Delete	Удалить
++Delete contact?	Удалить контакт?
++Authorize	Авторизовать
++Nicknames	Ники
++Entering setup	Вход в настройки аккаунта
++to Archive	в Архив
++Back	Назад
++// heap monitor	Монитор кучи
++Hide Splash	Ростер
++Message	Сообщение
++<Other>	<Другой>
++// history -	история -
++Append	Добавить
++Active Contacts	Актив. контакты
++Select nickname	Выбрать ник
++Group	Группа
++Join conference	Присоединиться к конференции
++No	Нет
++Yes	Да
++Re-Enter Room	Перезайти в Комнату
++New Message	Новое сообщение
++Add	Добавить
++Logon	Подключить
++Logoff	Отключить
++Login in progress	Проверка пароля
++// Stanzas	Stanzas
++at Host	Сервер
++join conferences	автовход в конференцию
++Status	Статус
++Smiles	Смайлики
++Contact >	Контакт >
++Order	Порядок
++offline contacts	показать отключенных
++Transport	Транспорт
++composing events	"composing" события
++Add Smile	Добавить смайлик
++"Nickname"	Ник
++Revoke Voice	Отнять право голоса
++// Not-in-list	Not-in-list
++Commands	Команды
++- (Sign)	- (знак)
++Set default	Уст. по умолчанию
++Outcasts (Ban)	Изгои (Ban)
++Set affiliation to	Изменить членство на
++Hide Offlines	Скрыть отключенных
++Register Account	Зарегистрировать аккаунт
++autologin	автосоединение
++Publish	Опубликовать
++Remove subscription	Удалить подписку
++Set	Установить
++Application	Приложение
++Bookmarks	Закладки
++Test sound	Тест звука
++Startup	Запуск
++Edit rule	Редакт. правило
++Cancel	Отмена
++Close	Закрыть
++Archive	Архив
++free 	свободно 
++Conference	Конференция
++Sound	Звук
++Login failed	Ошибка авторизации
++New Jid	Новый Jid
++plain-text password	пароль откр. текстом
++Paste Nickname	Вставить ник
++Kick	Выгнать (kick)
++Clear List	Очистить список
++Grant Voice	Дать право голоса
++Quote	Цитировать
++Roster elements	Элементы ростера
++popup from background	popup from background
++smiles	смайлики
++About	О программе
++Resource	Ресурс
++Disconnected	Соединение разорвано
++Edit	Редактировать
++Host name/IP (optional)	Имя хоста/IP (необязательно)
++Add rule	Добавить правило
++for all status types	для всех статусов
++Paste Jid	Вставить Jid
++Goto URL	Перейти к URL
++Clock -	Часы -
++Login	Открытие сокета
++Clock offset	Смещение часов
++flash backlight	мигать подсветкой
++Suspend	Отложить
++Resume Message	Черновик
++Alert Profile >	Сигналы >
++My vCard	Личная vCard
++transports	транспорты
++New Account	Новый аккаунт
++self-contact	свои контакты
++vCard	vCard
++Set Subject	Установить Тему
++Tools	Инструменты
++Jabber Tools	Инструменты сервера
++Port	Порт
++// proxy CONNECT	
++Proxy name/IP	Имя прокси-сервера/IP
++Proxy port	порт прокси-сервера
++// Are You sure want to discard 
++//" from OWNER to ";
++// Modify affiliation
++Autofocus	Автофокус
++

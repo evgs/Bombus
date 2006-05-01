@@ -23,6 +23,12 @@
         </antcall>
     </target>
 
+    <target name="rebuild-midp2-release">
+	    <antcall inheritrefs="false" inheritall="false" target="rebuild">
+		    <param name="config.active" value="Release"/>
+	    </antcall>
+    </target>
+    
     <target name="deploy-release">
         <antcall target="for-release-configs">
             <param value="deploy" name="target.to.call"/>
