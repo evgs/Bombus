@@ -807,7 +807,16 @@ public class Roster
                         if (rp>0) from=from.substring(0, rp);
                     }
 		    if (type.equals("error")) {
-			body=SR.MS_ERROR_+message.getChildBlock("error")+"\n"+body;
+//toon                  
+                        
+                        String mucerrcode=message.getChildBlock("error").getAttribute("code");
+                        
+                        if ( mucerrcode.equals("403") ) {
+                            body="Visitors are not allowed to send messages to all occupants";
+                        } else                         
+                            body=SR.MS_ERROR_+message.getChildBlock("error")+"\n"+body;
+                  
+//toon                        
 		    }
                 } catch (Exception e) {}
                 Contact c=presenceContact(from, -1);
@@ -863,6 +872,7 @@ public class Roster
                 //redraw();
             }
             // присутствие
+
             else if( data instanceof Presence ) {
                 if (myStatus==Presence.PRESENCE_OFFLINE) return;
                 Presence pr= (Presence) data;
@@ -893,7 +903,9 @@ public class Roster
                     
                     JabberDataBlock status=xmuc.getChildBlock("status");
                     String statusCode=(status==null)? "" : status.getAttribute("code");
-
+//toon
+//                   String statusText=status.getChildBlockText("status"); 
+//toon                    
                     boolean moderator=role.startsWith("moderator");
                     c.transport=(moderator)? 6:0; //FIXME: убрать хардкод
                     c.jidHash=c.jidHash & 0x3fffffff | ((moderator)? 0:0x40000000);
@@ -917,6 +929,7 @@ public class Roster
                             b.append(")");
                             if (c==((ConferenceGroup)c.getGroup()).getSelfContact())
                                 leaveRoom(0,c.getGroup());
+
                         } else if (statusCode.equals("301")){
                             b.append(" was banned (");
                             b.append(reason);
@@ -924,8 +937,17 @@ public class Roster
                             //if (c==((ConferenceGroup)groups.getGroup(c.getGroupIndex())).getSelfContact())
                             if (c==((ConferenceGroup)c.getGroup()).getSelfContact())
                                 leaveRoom(0, c.getGroup());
-                        } else
+//toon                            
+                        } else if (statusCode.equals("322")){
+                            b.append(" has been kicked because room became members-only");
+                            if (c==((ConferenceGroup)c.getGroup()).getSelfContact())
+                                leaveRoom(0,c.getGroup());
+//toon                           
+                       } else
+                           
+                           
                         b.append(" has left the channel");
+                        
 		    } else {
 			if (c.status==Presence.PRESENCE_OFFLINE) {
 			    String realJid=item.getAttribute("jid");
@@ -940,11 +962,23 @@ public class Roster
 			    if (!affil.equals("none")) {
 				b.append(" and ");
 				b.append(affil);
+//toon
+                                b.append(" with status ");
+                                b.append(pr.getPresenceTxt());
+                                                             
 			    }
-			} else {                        
-			    b.append(" is now ");
-			    b.append(pr.getPresenceTxt());
+//toon
+                        } else {                        
+			    b.append(" is ");
+			    b.append(role);
+			    if (!affil.equals("none")) {
+				b.append(" and ");
+				b.append(affil);
+                                b.append(" with status ");
+                                b.append(pr.getPresenceTxt());
+			    }
 			}
+//toon
                     }
                     //System.out.println(b.toString());
 
