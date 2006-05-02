@@ -1,7 +1,7 @@
 /*
  * Contact.java
  *
- * Created on 6 пїЅпїЅпїЅпїЅпїЅпїЅ 2005 пїЅ., 19:16
+ * Created on 6 января 2005 г., 19:16
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -17,19 +17,17 @@ import ui.ImageList;
 import com.alsutton.jabber.datablocks.Presence;
 
 /**
- * пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+ * Contact
  * @author Eugene Stahov
  */
 public class Contact extends IconTextElement{
     
     private static int COLORS[]={
-        Colors.CONTACT_DEFAULT,   // online
-        Colors.CONTACT_CHAT,   // chat
-        Colors.CONTACT_AWAY,   // away
-        //0x808080,   // xa        //0x39358b,   // xa
-        Colors.CONTACT_XA,   // xa
-
-        Colors.CONTACT_DND,   // dnd
+        Colors.CONTACT_DEFAULT,
+        Colors.CONTACT_CHAT,
+        Colors.CONTACT_AWAY,
+        Colors.CONTACT_XA,
+        Colors.CONTACT_DND,
         Colors.CONTACT_DEFAULT,
         Colors.CONTACT_DEFAULT,
         Colors.CONTACT_DEFAULT
@@ -44,7 +42,7 @@ public class Contact extends IconTextElement{
     public final static byte ORIGIN_GC_MYSELF=6;
     
     /** Creates a new instance of Contact */
-    private Contact (){
+    protected Contact (){
         //lastReaded=0;
         super(RosterIcons.getInstance());
         msgs=new Vector();

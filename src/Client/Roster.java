@@ -357,7 +357,7 @@ public class Roster
         if (subscr.equals("remove")) status=-1;
         
         Jid J=new Jid(Jid);
-        Contact c=getContact(J,false); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ bare jid
+        Contact c=findContact(J,false); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ bare jid
         if (c==null) {
             c=new Contact(nick, Jid, Presence.PRESENCE_OFFLINE, null);
             addContact(c);
@@ -421,8 +421,9 @@ public class Roster
          */ 
         Contact c;
         if (isRoom){
-            c=presenceContact(from.substring(0, rp), Presence.PRESENCE_ONLINE);
-            //c.status=Presence.PRESENCE_ONLINE;  
+            c=getContact(from.substring(0, rp));
+            c.status=Presence.PRESENCE_ONLINE;  
+            sort();
             c.transport=7; //FIXME: убрать хардкод
             c.bareJid=from;
             c.origin=Contact.ORIGIN_GROUPCHAT;
@@ -434,12 +435,12 @@ public class Roster
 	    if (origin==Contact.ORIGIN_GC_MYSELF) {
 		c=((ConferenceGroup)grp).getSelfContact();
 		if (c==null) {
-		    c=presenceContact(from, -1);
+		    c=getContact(from);
 		    c.nick=from.substring(rp+1);
 		    ((ConferenceGroup)grp).setSelfContact(c);
 		}
 	    } else {
-                c=presenceContact(from, -1);
+                c=getContact(from);
 	        c.nick=from.substring(rp+1);
 	    }
         }
@@ -449,31 +450,22 @@ public class Roster
         sort();
     }
     
-    public final Contact presenceContact(final String jid, int Status) {
+    public final Contact getContact(final String jid) {
         
-        // проверим наличие по полной строке
         Jid J=new Jid(jid);
-        
-        Contact c=getContact(J, true); //Status!=Presence.PRESENCE_ASK);
-        if (c!=null) {
-            // изменился статус
-            if (Status>=0) {
-                //if (c.status<7 || c.status==Presence.PRESENCE_ASK) 
-                c.status=Status;
-                sort();
-                //System.out.println("updated");
-            }
+
+        // проверим наличие по полной строке
+        Contact c=findContact(J, true); 
+        if (c!=null) 
             return c;
-        }
+
         // проверим наличие без ресурсов
-        
-        if (Status<0) Status=Presence.PRESENCE_OFFLINE;
-        c=getContact(J, false);
+        c=findContact(J, false);
         if (c==null) {
             // хм... нет такой буквы
             // здесь будем игнорить позже
             //System.out.println("new");
-            c=new Contact(null, jid, Status, "not-in-list");
+            c=new Contact(null, jid, Presence.PRESENCE_OFFLINE, "not-in-list");
 	    c.bareJid=J.getBareJid();
             c.origin=Contact.ORIGIN_PRESENCE;
             c.setGroup(groups.getGroup(Groups.NIL_INDEX));
@@ -482,11 +474,11 @@ public class Roster
             // здесь jid с новым ресурсом
             if (c.origin==Contact.ORIGIN_ROSTER) {
                 c.origin=Contact.ORIGIN_ROSTERRES;
-                c.status=Status;
+                c.status=Presence.PRESENCE_OFFLINE;
                 c.jid=J;
                 //System.out.println("add resource");
             } else {
-                c=c.clone(J, Status);
+                c=c.clone(J, Presence.PRESENCE_OFFLINE);
                 addContact(c);
                 //System.out.println("cloned");
             }
@@ -524,9 +516,9 @@ public class Roster
     }
     
     public final Contact getContact(final String Jid, boolean compareResources) {
-        return (getContact(new Jid(Jid), compareResources));
+        return (findContact(new Jid(Jid), compareResources));
     }
-    public final Contact getContact(final Jid j, final boolean compareResources) {
+    public final Contact findContact(final Jid j, final boolean compareResources) {
         synchronized (hContacts) {
             for (Enumeration e=hContacts.elements();e.hasMoreElements();){
                 Contact c=(Contact)e.nextElement();
@@ -582,13 +574,15 @@ public class Roster
                 System.gc();
             }
         }
-        Contact c=presenceContact(myJid.getJid(), myStatus);
+        Contact c=getContact(myJid.getJid());
+        c.status=myStatus;
+        sort();
         
         reEnumRoster();
     }
     
     public Contact selfContact() {
-	return presenceContact(myJid.getJid(), -1);
+	return getContact(myJid.getJid());
     }
     
     public void sendConferencePresence() {
@@ -743,7 +737,7 @@ public class Roster
                     if (id.startsWith("getvc")) {
                         setQuerySign(false);
                         VCard vcard=new VCard(data);
-                        Contact c=presenceContact(vcard.getJid(),-1);
+                        Contact c=getContact(vcard.getJid());
                         c.vcard=vcard;
                         new vCardForm(display, vcard, c.getGroupIndex()==Groups.SELF_INDEX);
                     }
@@ -819,7 +813,7 @@ public class Roster
 //toon                        
 		    }
                 } catch (Exception e) {}
-                Contact c=presenceContact(from, -1);
+                Contact c=getContact(from);
 
                 if (name==null) name=c.getName();
                 // /me
@@ -891,15 +885,16 @@ public class Roster
                 c.priority=pr.getPriority();
                 JabberDataBlock xmuc=pr.findNamespace("http://jabber.org/protocol/muc");
                 if (xmuc!=null){
-                    int rp=from.indexOf('/');
-                    String nick=from.substring(rp+1);
-                    c.sortCode(nick);
-                    StringBuffer b=new StringBuffer(nick);
                     JabberDataBlock item=xmuc.getChildBlock("item");
                     
                     String role=item.getAttribute("role");
                     String affil=item.getAttribute("affiliation");
                     String chNick=item.getAttribute("nick");
+
+                    int rp=from.indexOf('/');
+                    String nick=from.substring(rp+1);
+                    c.sortCode(nick);
+                    StringBuffer b=new StringBuffer(nick);
                     
                     JabberDataBlock status=xmuc.getChildBlock("status");
                     String statusCode=(status==null)? "" : status.getAttribute("code");
@@ -1037,7 +1032,7 @@ public class Roster
     
     
     Contact messageStore(Msg message){
-        Contact c=presenceContact(message.from,-1);
+        Contact c=getContact(message.from);
         if (c.getGroupIndex()==Groups.NIL_INDEX) 
             if (!cf.notInList) return c;
 
