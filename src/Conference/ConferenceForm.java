@@ -97,9 +97,11 @@ public class ConferenceForm implements CommandListener{
     public static void join(String name, String pass) {
         StaticData sd=StaticData.getInstance();
         
-        sd.roster.mucContact(name, Contact.ORIGIN_GROUPCHAT);
+        
+        
+        sd.roster.mucContact(name, true);
         // требуется для возможности нормального выхода
-        sd.roster.mucContact(name, Contact.ORIGIN_GC_MYSELF); 
+        //sd.roster.mucContact(name, Contact.ORIGIN_GC_MYSELF); 
         //sd.roster.activeRooms.addElement(jid);
  
         JabberDataBlock x=new JabberDataBlock("x", null, null);

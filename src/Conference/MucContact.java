@@ -10,6 +10,7 @@
 package Conference;
 
 import Client.Contact;
+import com.alsutton.jabber.datablocks.Presence;
 
 /**
  *
@@ -21,10 +22,10 @@ public class MucContact extends Contact{
     public int affiliationIndex;
     public int roleIndex;
 
-    public long conferenceJoinTime;
-
     /** Creates a new instance of MucContact */
-    public MucContact() {
+    public MucContact(String nick, String jid) {
+        super(nick, jid, Presence.PRESENCE_OFFLINE, "muc");
+        offline_type=Presence.PRESENCE_OFFLINE;
     }
     
 }

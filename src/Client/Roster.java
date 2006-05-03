@@ -12,6 +12,7 @@
 package Client;
 
 import Conference.ConferenceGroup;
+import Conference.MucContact;
 import Conference.QueryConfigForm;
 import Conference.affiliation.Affiliations;
 import archive.ArchiveList;
@@ -395,59 +396,63 @@ public class Roster
         }
     }
 
-    public final void mucContact(String from, byte origin){
+    public final MucContact mucContact(String from, boolean serviceContacts){
         // muc message
-        boolean isRoom=(origin==Contact.ORIGIN_GROUPCHAT);
         int ri=from.indexOf('@');
         int rp=from.indexOf('/');
         String room=from.substring(0,ri);
         String roomJid=from.substring(0,rp).toLowerCase();
-        //String nick=null;
-        //if (rp>0) if (!isRoom) nick=from.substring(rp+1);
         
-        //updateContact(null /*nick*/ , from, room, "muc", false);
-        Group grp=groups.getGroup(roomJid);
+
+        ConferenceGroup grp=(ConferenceGroup)groups.getGroup(roomJid);
 	
-        if (grp==null) grp=groups.addGroup(new ConferenceGroup(roomJid, room) );
-        //grp.imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
-        /*
-        Contact c=presenceContact(from, isRoom?Presence.PRESENCE_ONLINE:-1);
-        if (isRoom){  
-            //c.status=Presence.PRESENCE_ONLINE;  
-            c.transport=7; //FIXME: убрать хардкод
-            c.jid=new Jid(from.substring(0, rp));
-            c.origin=Contact.ORIGIN_GROUPCHAT;
-        }
-         */ 
-        Contact c;
-        if (isRoom){
-            c=getContact(from.substring(0, rp));
+        if (grp==null) groups.addGroup(grp=new ConferenceGroup(roomJid, room) );
+
+        MucContact c;
+        if (serviceContacts){
+            // creating room
+            c=(MucContact) findContact( new Jid(from.substring(0, rp)), true);
+            if (c==null) {
+                c=new MucContact(room, roomJid);
+                addContact(c);
+            }
             c.status=Presence.PRESENCE_ONLINE;  
-            sort();
             c.transport=7; //FIXME: убрать хардкод
             c.bareJid=from;
             c.origin=Contact.ORIGIN_GROUPCHAT;
             //c.priority=99;
             c.jidHash=0;
-	    c.conferenceJoinTime=Time.localTime();
-	    ((ConferenceGroup)grp).setConference(c);
+	    grp.conferenceJoinTime=Time.localTime();
+	    grp.setConference(c);
+            c.setGroup(grp);
+            
+            // creating self-contact
+            c=grp.getSelfContact();
+            if (c==null) 
+                c=(MucContact)findContact(new Jid(from), true);
+            if (c==null)
+            {
+                c=new MucContact(from.substring(rp+1), from);
+                addContact(c);
+            }
+            grp.setSelfContact(c);
+            c.setGroup(grp);
+            c.origin=Contact.ORIGIN_GC_MYSELF;
+            
+            sort();
+            return c;
         } else {
-	    if (origin==Contact.ORIGIN_GC_MYSELF) {
-		c=((ConferenceGroup)grp).getSelfContact();
-		if (c==null) {
-		    c=getContact(from);
-		    c.nick=from.substring(rp+1);
-		    ((ConferenceGroup)grp).setSelfContact(c);
-		}
-	    } else {
-                c=getContact(from);
-	        c.nick=from.substring(rp+1);
-	    }
+            c=(MucContact) findContact( new Jid(from), true);
+            if (c==null)
+            {
+                c=new MucContact(from.substring(rp+1), from);
+                addContact(c);
+                c.origin=Contact.ORIGIN_GC_MEMBER;
+            }
         }
         c.setGroup(grp);
-        c.offline_type=Presence.PRESENCE_OFFLINE;
-        if (c.origin<origin) c.origin=origin;
         sort();
+        return c;
     }
     
     public final Contact getContact(final String jid) {
@@ -486,6 +491,7 @@ public class Roster
         sort();
         return c;
     }
+    
     public void addContact(Contact c) {
         synchronized (hContacts) { hContacts.addElement(c); }
     }
@@ -855,7 +861,7 @@ public class Roster
                         m.messageType=Msg.MESSAGE_TYPE_OUT;
                         m.unread=false;
                     } else {
-                        if (m.dateGmt<=c.conferenceJoinTime) m.messageType=Msg.MESSAGE_TYPE_HISTORY;
+                        if (m.dateGmt<= ((ConferenceGroup)c.getGroup()).conferenceJoinTime) m.messageType=Msg.MESSAGE_TYPE_HISTORY;
                     } 
                 }
                 messageStore(m);
@@ -881,11 +887,12 @@ public class Roster
                         from,
                         null,
                         pr.getPresenceTxt());
-                Contact c=messageStore(m);
-                c.priority=pr.getPriority();
+                
                 JabberDataBlock xmuc=pr.findNamespace("http://jabber.org/protocol/muc");
-                if (xmuc!=null){
-                    JabberDataBlock item=xmuc.getChildBlock("item");
+                try {
+                //if (xmuc!=null){
+                    JabberDataBlock item=xmuc.getChildBlock("item");    // exception if xmuc==null
+                    MucContact c = mucContact(from, false);
                     
                     String role=item.getAttribute("role");
                     String affil=item.getAttribute("affiliation");
@@ -978,17 +985,18 @@ public class Roster
                     //System.out.println(b.toString());
 
 
-                    mucContact(from, Contact.ORIGIN_GC_MEMBER);
                     //c.nick=nick;
                     
                     from=from.substring(0, rp);
-                    m=new Msg(
+                    Msg chatPresence=new Msg(
                         Msg.MESSAGE_TYPE_PRESENCE,
                         from,
                         null,
                         b.toString());
-                    messageStore(m);
-                } // if (muc)
+                    messageStore(chatPresence);
+                } /* if (muc) */ catch (Exception e) { /*e.printStackTrace();*/ }
+                Contact c=messageStore(m);
+                c.priority=pr.getPriority();
 		if (ti>=0) c.status=ti;
 		sort();
                 reEnumRoster();
