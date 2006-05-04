@@ -889,110 +889,25 @@ public class Roster
                         pr.getPresenceTxt());
                 
                 JabberDataBlock xmuc=pr.findNamespace("http://jabber.org/protocol/muc");
-                try {
-                //if (xmuc!=null){
-                    JabberDataBlock item=xmuc.getChildBlock("item");    // exception if xmuc==null
+                if (xmuc!=null) try {
                     MucContact c = mucContact(from, false);
                     
-                    String role=item.getAttribute("role");
-                    String affil=item.getAttribute("affiliation");
-                    String chNick=item.getAttribute("nick");
-
-                    int rp=from.indexOf('/');
-                    String nick=from.substring(rp+1);
-                    c.sortCode(nick);
-                    StringBuffer b=new StringBuffer(nick);
                     
-                    JabberDataBlock status=xmuc.getChildBlock("status");
-                    String statusCode=(status==null)? "" : status.getAttribute("code");
 //toon
 //                   String statusText=status.getChildBlockText("status"); 
 //toon                    
-                    boolean moderator=role.startsWith("moderator");
-                    c.transport=(moderator)? 6:0; //FIXME: убрать хардкод
-                    c.jidHash=c.jidHash & 0x3fffffff | ((moderator)? 0:0x40000000);
                     
-                    if (pr.getTypeIndex()==Presence.PRESENCE_OFFLINE) {
-                        String reason=item.getChildBlockText("reason");
-                        if (statusCode.equals("303")) {
-                            b.append(" is now known as ");
-                            b.append(chNick);
-			    // исправим jid
-			    String newJid=from.substring(0,rp+1)+chNick;
-			    System.out.println(newJid);
-			    c.jid.setJid(newJid);
-			    c.bareJid=newJid; // непонятно, зачем я так сделал...
-			    from=newJid;
-			    c.nick=chNick;
-			    
-                        } else if (statusCode.equals("307")){
-                            b.append(" was kicked (");
-                            b.append(reason);
-                            b.append(")");
-                            if (c==((ConferenceGroup)c.getGroup()).getSelfContact())
-                                leaveRoom(0,c.getGroup());
-
-                        } else if (statusCode.equals("301")){
-                            b.append(" was banned (");
-                            b.append(reason);
-                            b.append(")");
-                            //if (c==((ConferenceGroup)groups.getGroup(c.getGroupIndex())).getSelfContact())
-                            if (c==((ConferenceGroup)c.getGroup()).getSelfContact())
-                                leaveRoom(0, c.getGroup());
-//toon                            
-                        } else if (statusCode.equals("322")){
-                            b.append(" has been kicked because room became members-only");
-                            if (c==((ConferenceGroup)c.getGroup()).getSelfContact())
-                                leaveRoom(0,c.getGroup());
-//toon                           
-                       } else
-                           
-                           
-                        b.append(" has left the channel");
-                        
-		    } else {
-			if (c.status==Presence.PRESENCE_OFFLINE) {
-			    String realJid=item.getAttribute("jid");
-			    if (realJid!=null) {
-				b.append(" (");
-				b.append(realJid);
-				b.append(')');
-				c.realJid=realJid;  //for moderating purposes
-			    }
-			    b.append(" has joined the channel as ");
-			    b.append(role);
-			    if (!affil.equals("none")) {
-				b.append(" and ");
-				b.append(affil);
-//toon
-                                b.append(" with status ");
-                                b.append(pr.getPresenceTxt());
-                                                             
-			    }
-//toon
-                        } else {                        
-			    b.append(" is ");
-			    b.append(role);
-			    if (!affil.equals("none")) {
-				b.append(" and ");
-				b.append(affil);
-                                b.append(" with status ");
-                                b.append(pr.getPresenceTxt());
-			    }
-			}
-//toon
-                    }
                     //System.out.println(b.toString());
 
 
                     //c.nick=nick;
                     
-                    from=from.substring(0, rp);
+                    from=from.substring(0, from.indexOf('/'));
                     Msg chatPresence=new Msg(
                         Msg.MESSAGE_TYPE_PRESENCE,
                         from,
                         null,
-                        b.toString());
+                        c.processPresence(xmuc, pr) );
                     messageStore(chatPresence);
                 } /* if (muc) */ catch (Exception e) { /*e.printStackTrace();*/ }
                 Contact c=messageStore(m);

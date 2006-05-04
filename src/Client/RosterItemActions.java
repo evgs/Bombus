@@ -10,7 +10,9 @@
 
 package Client;
 
+import Conference.ConferenceForm;
 import Conference.ConferenceGroup;
+import Conference.MucContact;
 import Conference.QueryConfigForm;
 import Conference.affiliation.Affiliations;
 import ServiceDiscovery.ServiceDiscovery;
@@ -61,22 +63,25 @@ public class RosterItemActions extends Menu{
 		addItem(SR.MS_SUBSCRIPTION,3);
 		addItem(SR.MS_DELETE,4);
 	    }
-	    if (contact.realJid!=null) {
-		addItem(SR.MS_KICK,8);
-		addItem(SR.MS_BAN,9);
+	    if (contact instanceof MucContact) {
+                MucContact selfContact= ((ConferenceGroup) contact.getGroup()).getSelfContact();
+                if (selfContact.role.equals("moderator")) {
+                    addItem(SR.MS_KICK,8);
+                    addItem(SR.MS_BAN,9);
 //--toon
-                addItem(SR.MS_GRANT_VOICE,31);
-                addItem(SR.MS_REVOKE_VOICE,32);
-                addItem(SR.MS_GRANT_MEMBERSHIP,35);
-                addItem(SR.MS_REVOKE_MEMBERSHIP,36);
-                addItem(SR.MS_GRANT_MODERATOR,33);
-                addItem(SR.MS_REVOKE_MODERATOR,31);
-                addItem(SR.MS_GRANT_ADMIN,37);
-                addItem(SR.MS_REVOKE_ADMIN,35);
-                addItem(SR.MS_GRANT_OWNERSHIP,38);
-                addItem(SR.MS_REVOKE_OWNERSHIP,37);
+                    addItem(SR.MS_GRANT_VOICE,31);
+                    addItem(SR.MS_REVOKE_VOICE,32);
+                    addItem(SR.MS_GRANT_MEMBERSHIP,35);
+                    addItem(SR.MS_REVOKE_MEMBERSHIP,36);
+                    addItem(SR.MS_GRANT_MODERATOR,33);
+                    addItem(SR.MS_REVOKE_MODERATOR,31);
+                    addItem(SR.MS_GRANT_ADMIN,37);
+                    addItem(SR.MS_REVOKE_ADMIN,35);
+                    addItem(SR.MS_GRANT_OWNERSHIP,38);
+                    addItem(SR.MS_REVOKE_OWNERSHIP,37);
 //--toon               //m.addItem(new MenuItem("Set Affiliation",15));
-	    }
+                }
+            }
 	} else {
 	    Group group=(Group)item;
 	    if (group.index==Groups.SRC_RESULT_INDEX)
