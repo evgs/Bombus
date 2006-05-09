@@ -86,11 +86,16 @@ public class ConferenceForm implements CommandListener{
             //sd.roster.mucContact(gchat.toString(), Contact.ORIGIN_GROUPCHAT);
             if (c==cmdAdd) new Bookmarks(display, new BookmarkItem(gchat.toString(), nick, pass));
             else {
-                gchat.append('/');
-                gchat.append(nick.trim());
-                join(gchat.toString(),pass);
-                
-                display.setCurrent(sd.roster);
+                try {
+                    gchat.append('/');
+                    gchat.append(nick.trim());
+                    join(gchat.toString(),pass);
+                    
+                    display.setCurrent(sd.roster);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    display.setCurrent(new Alert("Exception", e.toString(), null, AlertType.ERROR), sd.roster);
+                }
             }
         }
     }
