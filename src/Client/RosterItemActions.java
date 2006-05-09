@@ -63,23 +63,55 @@ public class RosterItemActions extends Menu{
 		addItem(SR.MS_SUBSCRIPTION,3);
 		addItem(SR.MS_DELETE,4);
 	    }
-	    if (contact instanceof MucContact) {
+            
+	    if (contact.origin!=Contact.ORIGIN_GROUPCHAT)
+            if (contact instanceof MucContact) {
                 MucContact selfContact= ((ConferenceGroup) contact.getGroup()).getSelfContact();
-                if (selfContact.role.equals("moderator")) {
+                MucContact mc=(MucContact) contact;
+                
+                int myAffiliation=selfContact.affiliationCode;
+                if (myAffiliation==MucContact.AFFILIATION_OWNER) myAffiliation++; // allow owner to change owner's affiliation
+
+                
+                if (selfContact.roleCode==MucContact.ROLE_MODERATOR) {
                     addItem(SR.MS_KICK,8);
-                    addItem(SR.MS_BAN,9);
-//--toon
-                    addItem(SR.MS_GRANT_VOICE,31);
-                    addItem(SR.MS_REVOKE_VOICE,32);
-                    addItem(SR.MS_GRANT_MEMBERSHIP,35);
-                    addItem(SR.MS_REVOKE_MEMBERSHIP,36);
-                    addItem(SR.MS_GRANT_MODERATOR,33);
-                    addItem(SR.MS_REVOKE_MODERATOR,31);
-                    addItem(SR.MS_GRANT_ADMIN,37);
-                    addItem(SR.MS_REVOKE_ADMIN,35);
-                    addItem(SR.MS_GRANT_OWNERSHIP,38);
-                    addItem(SR.MS_REVOKE_OWNERSHIP,37);
+                    
+                    if (myAffiliation>=MucContact.AFFILIATION_ADMIN && mc.affiliationCode<myAffiliation)
+                        addItem(SR.MS_BAN,9);
+                    
+                    if (mc.affiliationCode<MucContact.AFFILIATION_ADMIN) 
+                        /* 5.1.1 *** A moderator MUST NOT be able to revoke voice privileges from an admin or owner. */ 
+                    if (mc.roleCode==MucContact.ROLE_VISITOR) addItem(SR.MS_GRANT_VOICE,31);
+                    else addItem(SR.MS_REVOKE_VOICE,32);
+                }
+                
+                if (myAffiliation>=MucContact.AFFILIATION_ADMIN) {
+                    // admin use cases
+                    
+                    //roles
+                    if (mc.affiliationCode<MucContact.AFFILIATION_ADMIN) 
+                        /* 5.2.1 ** An admin or owner MUST NOT be able to revoke moderation privileges from another admin or owner. */ 
+                    if (mc.roleCode==MucContact.ROLE_MODERATOR) addItem(SR.MS_REVOKE_MODERATOR,31);
+                    else addItem(SR.MS_GRANT_MODERATOR,33);
+                    
+                    //affiliations
+                    if (mc.affiliationCode<myAffiliation) {
+                        if (mc.affiliationCode!=MucContact.AFFILIATION_NONE) addItem(SR.MS_UNAFFILIATE,36);
+                        /* 5.2.2 */
+                        if (mc.affiliationCode!=MucContact.AFFILIATION_MEMBER) addItem(SR.MS_GRANT_MEMBERSHIP,35);
+                    }
+                    
+                    
 //--toon               //m.addItem(new MenuItem("Set Affiliation",15));
+                }
+                if (myAffiliation>=MucContact.AFFILIATION_OWNER) {
+                    // owner use cases
+                    //if (mc.affiliationCode<=selfContact.affiliationCode) /* 5.2.2 */
+                    if (mc.affiliationCode!=MucContact.AFFILIATION_ADMIN) addItem(SR.MS_GRANT_ADMIN,37);
+                    //else addItem(SR.MS_REVOKE_ADMIN,35);
+                    
+                    if (mc.affiliationCode!=MucContact.AFFILIATION_OWNER) addItem(SR.MS_GRANT_OWNERSHIP,38);
+                    //else addItem(SR.MS_REVOKE_OWNERSHIP,37);
                 }
             }
 	} else {
@@ -173,57 +205,10 @@ public class RosterItemActions extends Menu{
 		roster.resolveNicknames(c.transport);
 		break;
 	    }
-	    case 8: // kick
-	    {
-		Hashtable attrs=new Hashtable();
-		attrs.put("role", "none");
-		attrs.put("nick", c.jid.getResource().substring(1));
-		roster.setMucMod(c, attrs);
-		break;
-	    }
-	    case 9: // ban
-	    {
-		Hashtable attrs=new Hashtable();
-		attrs.put("affiliation", "outcast");
-		attrs.put("jid", c.realJid);
-		roster.setMucMod(c, attrs);
-		break;
-	    }
-	    case 10: // room config
-	    {
-		String roomJid=((ConferenceGroup)g).getConference().getJid();
-		new QueryConfigForm(display, roomJid);
-		break;
-	    }
-	    case 11: // owners
-	    case 12: // admins
-	    case 13: // members
-                
-	    case 14: // outcasts
-	    {
-		String roomJid=((ConferenceGroup)g).getConference().getJid();
-		new Affiliations(display, roomJid, index-10);
-		return;
-	    }
-		    /*case 15: // affiliation
-		    {
-			String roomJid=conferenceRoomContact(g.index).getJid();
-			new AffiliationModify(display, roomJid, c.realJid, affiliation)(display, roomJid, index-10);
-		    }
-		     */
+
 	    case 21:
 	    {
 		roster.cleanupSearch();
-		break;
-	    }
-	    case 22:
-	    {
-		roster.leaveRoom( 0, g);
-		break;
-	    }
-	    case 23:
-	    {
-		roster.reEnterRoom( g );
 		break;
 	    }
 	    case 30:
@@ -231,72 +216,127 @@ public class RosterItemActions extends Menu{
 		new ServiceDiscovery(display, c.getJid(), "http://jabber.org/protocol/commands");
 		return;
 	    }
-//--toon            
-            case 31: //grant voice and revoke moderator
-            {
-                Hashtable attrs=new Hashtable();
-                attrs.put("role", "participant");
-                attrs.put("nick", c.jid.getResource().substring(1));
-                roster.setMucMod(c, attrs);
-                break;
-            }
-            case 32: //revoke voice
-            {
-                Hashtable attrs=new Hashtable();
-                attrs.put("role", "visitor");
-                attrs.put("nick", c.jid.getResource().substring(1));
-                roster.setMucMod(c, attrs);
-                break;
-            }
-          
-            case 33: //grant moderator
-            {
-                Hashtable attrs=new Hashtable();
-                attrs.put("role", "moderator");
-                attrs.put("nick", c.jid.getResource().substring(1));
-                roster.setMucMod(c, attrs);
-                break;
-            }
-
+        }
+        
+        if (c instanceof MucContact || g instanceof ConferenceGroup) {
+            MucContact mc=(MucContact) c;
+            switch (index) { // muc contact actions
+                case 10: // room config
+                {
+                    String roomJid=((ConferenceGroup)g).getConference().getJid();
+                    new QueryConfigForm(display, roomJid);
+                    break;
+                }
+                case 11: // owners
+                case 12: // admins
+                case 13: // members
+                    
+                case 14: // outcasts
+                {
+                    String roomJid=((ConferenceGroup)g).getConference().getJid();
+                    new Affiliations(display, roomJid, index-10);
+                    return;
+                }
+                    /*case 15: // affiliation
+                    {
+                        String roomJid=conferenceRoomContact(g.index).getJid();
+                        new AffiliationModify(display, roomJid, c.realJid, affiliation)(display, roomJid, index-10);
+                    }
+                     */
+                case 22:
+                {
+                    roster.leaveRoom( 0, g);
+                    break;
+                }
+                case 23:
+                {
+                    roster.reEnterRoom( g );
+                    break;
+                }
+                
+                case 8: // kick
+                {
+                    Hashtable attrs=new Hashtable();
+                    attrs.put("role", "none");
+                    attrs.put("nick", mc.nick);
+                    roster.setMucMod(mc, attrs);
+                    break;
+                }
+                case 9: // ban
+                {
+                    Hashtable attrs=new Hashtable();
+                    attrs.put("affiliation", "outcast");
+                    attrs.put("jid", mc.realJid);
+                    roster.setMucMod(mc, attrs);
+                    break;
+                }
+                case 31: //grant voice and revoke moderator
+                {
+                    Hashtable attrs=new Hashtable();
+                    attrs.put("role", "participant");
+                    attrs.put("nick", mc.nick);
+                    roster.setMucMod(mc, attrs);
+                    break;
+                }
+                case 32: //revoke voice
+                {
+                    Hashtable attrs=new Hashtable();
+                    attrs.put("role", "visitor");
+                    attrs.put("nick", mc.nick);
+                    roster.setMucMod(mc, attrs);
+                    break;
+                }
+                
+                case 33: //grant moderator
+                {
+                    Hashtable attrs=new Hashtable();
+                    attrs.put("role", "moderator");
+                    attrs.put("nick", mc.nick);
+                    roster.setMucMod(mc, attrs);
+                    break;
+                }
+                
             /*case 34: //reserved
             {
-                
+             
             }*/
-            
-            case 35: //grant membership and revoke admin
-            {
-                Hashtable attrs=new Hashtable();
-		attrs.put("affiliation", "member");
-		attrs.put("jid", c.realJid);
-		roster.setMucMod(c, attrs);
-		break;
-            }
-
-            case 36: //revoke membership
-            {
-                Hashtable attrs=new Hashtable();
-		attrs.put("affiliation", "none");
-		attrs.put("jid", c.realJid);
-		roster.setMucMod(c, attrs);
-		break;
-            }
-
-            case 37: //grant admin and revoke owner
-            {
-                Hashtable attrs=new Hashtable();
-		attrs.put("affiliation", "admin");
-		attrs.put("jid", c.realJid);
-		roster.setMucMod(c, attrs);
-		break;
-            }
-            
-            case 38: //grant owner
-            {
-                Hashtable attrs=new Hashtable();
-		attrs.put("affiliation", "owner");
-		attrs.put("jid", c.realJid);
-		roster.setMucMod(c, attrs);
-		break;
+                
+                case 35: //grant membership and revoke admin
+                {
+                    Hashtable attrs=new Hashtable();
+                    attrs.put("affiliation", "member");
+                    attrs.put("jid", mc.realJid);
+                    roster.setMucMod(mc, attrs);
+                    break;
+                }
+                
+                case 36: //revoke membership
+                {
+                    Hashtable attrs=new Hashtable();
+                    attrs.put("affiliation", "none");
+                    attrs.put("jid", mc.realJid);
+                    roster.setMucMod(mc, attrs);
+                    break;
+                }
+                
+                case 37: //grant admin and revoke owner
+                {
+                    Hashtable attrs=new Hashtable();
+                    attrs.put("affiliation", "admin");
+                    attrs.put("jid", mc.realJid);
+                    roster.setMucMod(mc, attrs);
+                    break;
+                }
+                
+                case 38: //grant owner
+                {
+                    Hashtable attrs=new Hashtable();
+                    attrs.put("affiliation", "owner");
+                    attrs.put("jid", mc.realJid);
+                    roster.setMucMod(mc, attrs);
+                    break;
+                }
+                
             }
         }
 	destroyView();

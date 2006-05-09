@@ -20,10 +20,23 @@ import com.alsutton.jabber.datablocks.Presence;
  */
 public class MucContact extends Contact{
     
+    public final static int AFFILIATION_OUTCAST=-1;
+    public final static int AFFILIATION_NONE=0;
+    public final static int AFFILIATION_MEMBER=1;
+    public final static int AFFILIATION_ADMIN=2;
+    public final static int AFFILIATION_OWNER=3;
+    
+    public final static int ROLE_VISITOR=-1;
+    public final static int ROLE_PARTICIPANT=0;
+    public final static int ROLE_MODERATOR=1;
+    
     public String realJid;
     
     public String affiliation;
     public String role;
+    
+    public int roleCode;
+    public int affiliationCode;
 
     /** Creates a new instance of MucContact */
     public MucContact(String nick, String jid) {
@@ -37,7 +50,15 @@ public class MucContact extends Contact{
         JabberDataBlock item=xmuc.getChildBlock("item");   
 
         String role=item.getAttribute("role");
+        if (role.equals("visitor")) roleCode=ROLE_VISITOR;
+        if (role.equals("participant")) roleCode=ROLE_PARTICIPANT;
+        if (role.equals("moderator")) roleCode=ROLE_MODERATOR;
+        
         String affiliation=item.getAttribute("affiliation");
+        if (affiliation.equals("owner")) affiliationCode=AFFILIATION_OWNER;
+        if (affiliation.equals("admin")) affiliationCode=AFFILIATION_ADMIN;
+        if (affiliation.equals("member")) affiliationCode=AFFILIATION_MEMBER;
+        if (affiliation.equals("none")) affiliationCode=AFFILIATION_NONE;
         
         boolean roleChanged= !role.equals(this.role);
         boolean affiliationChanged= !affiliation.equals(this.affiliation);
@@ -126,9 +147,10 @@ public class MucContact extends Contact{
             } else {
                 b.append(" is now ");
                 if ( roleChanged ) b.append(role);
-                if (affiliationChanged) if (!affiliation.equals("none")) {
+                if (affiliationChanged) {
                     if (roleChanged) b.append(" and ");
-                    b.append(affiliation);
+                    
+                    b.append(affiliation.equals("none")? "unaffiliated" : affiliation);
                 }
                 if (!roleChanged && !affiliationChanged)
                     b.append(presence.getPresenceTxt());
