@@ -64,7 +64,8 @@ public class RosterItemActions extends Menu{
 		addItem(SR.MS_DELETE,4);
 	    }
             
-	    if (contact.origin!=Contact.ORIGIN_GROUPCHAT)
+	    if (contact.origin==Contact.ORIGIN_GROUPCHAT) return; //TODO: подключить тот же список, что и для ConferenceGroup
+            
             if (contact instanceof MucContact) {
                 MucContact selfContact= ((ConferenceGroup) contact.getGroup()).getSelfContact();
                 MucContact mc=(MucContact) contact;
