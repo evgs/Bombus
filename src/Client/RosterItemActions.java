@@ -120,13 +120,15 @@ public class RosterItemActions extends Menu{
 	    if (group.index==Groups.SRC_RESULT_INDEX)
 		addItem(SR.MS_DISCARD,21);
 	    if (group instanceof ConferenceGroup) {
-		Contact self=((ConferenceGroup)group).getSelfContact();
-		if (self.status==Presence.PRESENCE_OFFLINE)
+		MucContact self=((ConferenceGroup)group).getSelfContact();
+		if (self.status>=Presence.PRESENCE_OFFLINE) // offline or error
 		    addItem(SR.MS_REENTER,23);
 		else {
 		    addItem(SR.MS_LEAVE_ROOM,22);
-		    if (self.transport>0) { // гнусный хак
+		    if (self.affiliationCode>=MucContact.AFFILIATION_OWNER) {
 			addItem(SR.MS_CONFIG_ROOM,10);
+                    }
+		    if (self.affiliationCode>=MucContact.AFFILIATION_ADMIN) {
 			addItem(SR.MS_OWNERS,11);
 			addItem(SR.MS_ADMINS,12);
 			addItem(SR.MS_MEMBERS,13);
