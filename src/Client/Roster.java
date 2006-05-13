@@ -396,6 +396,16 @@ public class Roster
         }
     }
 
+    private MucContact findMucContact(Jid jid) {
+        Contact contact=findContact(jid, true);
+        try {
+            return (MucContact) contact;
+        } catch (Exception e) {
+            // drop buggy bookmark in roster
+            hContacts.removeElement(contact);
+            return null;
+        }
+    }
     public final MucContact mucContact(String from, boolean serviceContacts){
         // muc message
         int ri=from.indexOf('@');
@@ -406,12 +416,16 @@ public class Roster
 
         ConferenceGroup grp=(ConferenceGroup)groups.getGroup(roomJid);
 	
-        if (grp==null) groups.addGroup(grp=new ConferenceGroup(roomJid, room) );
 
         MucContact c;
         if (serviceContacts){
             // creating room
-            c=(MucContact) findContact( new Jid(from.substring(0, rp)), true);
+            
+            if (grp==null) // we hasn't joined this room yet
+                groups.addGroup(grp=new ConferenceGroup(roomJid, room) );
+            
+            c=findMucContact( new Jid(from.substring(0, rp)) );
+            
             if (c==null) {
                 c=new MucContact(room, roomJid);
                 addContact(c);
@@ -429,12 +443,14 @@ public class Roster
             // creating self-contact
             c=grp.getSelfContact();
             if (c==null) 
-                c=(MucContact)findContact(new Jid(from), true);
+                c=findMucContact( new Jid(from) );
+
             if (c==null)
             {
                 c=new MucContact(from.substring(rp+1), from);
                 addContact(c);
             }
+            
             grp.setSelfContact(c);
             c.setGroup(grp);
             c.origin=Contact.ORIGIN_GC_MYSELF;
@@ -442,7 +458,10 @@ public class Roster
             sort();
             return c;
         } else {
-            c=(MucContact) findContact( new Jid(from), true);
+            if (grp==null) return null; // we are not joined this room
+            
+            c=findMucContact( new Jid(from) );
+            
             if (c==null)
             {
                 c=new MucContact(from.substring(rp+1), from);
