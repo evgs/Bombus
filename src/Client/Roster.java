@@ -838,6 +838,22 @@ public class Roster
 //toon                        
 		    }
                 } catch (Exception e) {}
+                
+                try {
+                    //TODO: invitations
+                    JabberDataBlock xmlns=message.findNamespace("http://jabber.org/protocol/muc#user");
+                    String password=xmlns.getChildBlockText("password");
+                    
+                    JabberDataBlock invite=xmlns.getChildBlock("invite");
+                    String inviteFrom=invite.getAttribute("from");
+                    String inviteReason=invite.getChildBlockText("reason");
+                            
+                    String room=from+'/'+sd.account.getNickName();
+                    mucContact(room, true);
+                    body=inviteFrom+" is inviting You to "+from+" ("+inviteReason+')';
+                    
+                } catch (Exception e) {}
+                
                 Contact c=getContact(from);
 
                 if (name==null) name=c.getName();
@@ -1250,29 +1266,6 @@ public class Roster
 	} else
 	    theStream.send(new IqQueryRoster(c.getBareJid(),null,null,"remove"));
     }
-    /*public void focusedItem(int index) {
-        //TODO: refactor this code
-        // код должен вызываться при отрисовке (?)
-        if (!isShown()) return;
-        if (vContacts==null) return;
-        if (index>=vContacts.size()) return;
-        Object atCursor=vContacts.elementAt(index);
-        if (atCursor instanceof Contact) {
-            addCommand(cmdActions);
-            //removeCommand(cmdGroup);
-        } else removeCommand(cmdActions);
-        
-        if (atCursor instanceof Group) {    // FIXME: стирать cmdLeave
-            Group g=(Group)atCursor;
-            if (g.index==Groups.SRC_RESULT_INDEX)  addCommand(cmdDiscard);
-            if (g.imageExpandedIndex==ImageList.ICON_GCJOIN_INDEX) addCommand(cmdLeave);
-        } else {
-            removeCommand(cmdDiscard);
-            removeCommand(cmdLeave);
-        }
-        
-    }
-     */
    
     
     public void setQuerySign(boolean requestState) {
@@ -1368,7 +1361,6 @@ public class Roster
                     //resetStrCache();
                     if (cursor<0) cursor=0;
                     
-                    // TODO: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!
                     // вернём курсор на прежний элемент
                     if ( locCursor==cursor && focused!=null ) {
                         int c=vContacts.indexOf(focused);
