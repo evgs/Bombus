@@ -19,8 +19,8 @@ public class SubscriptionEdit extends Form implements CommandListener{
     
     private Display display;
       
-    Command cmdSubscrTo=new Command("Send \"to\"", Command.SCREEN, 1);
-    Command cmdSubscrFrom=new Command("Request \"from\"", Command.SCREEN, 2);
+    Command cmdSubscrTo=new Command(SR.MS_ASK_SUBSCRIPTION, Command.SCREEN, 1);
+    Command cmdSubscrFrom=new Command(SR.MS_GRANT_SUBSCRIPTION, Command.SCREEN, 2);
     Command cmdSubscrDel=new Command(SR.MS_SUBSCR_REMOVE, Command.SCREEN, 3);
     Command cmdBack=new Command(SR.MS_CANCEL, Command.BACK, 99);
     

@@ -56,10 +56,10 @@ implements CommandListener{
         addCommand(cmdPurge);
         addCommand(cmdContact);
 	addCommand(cmdActive);
-        if (getItemCount()>0) {
+        //if (getItemCount()>0) {
             addCommand(cmdQuote);
             addCommand(cmdArch);
-	}
+	//}
         setCommandListener(this);
         moveCursorTo(contact.firstUnread(), true);
     }
@@ -112,10 +112,14 @@ implements CommandListener{
         }
         if (c==cmdResume) { keyGreen(); }
         if (c==cmdQuote) {
-            if (contact!=null) new MessageEdit(display,contact,getMessage(cursor).toString());
+            try {
+                new MessageEdit(display,contact,getMessage(cursor).toString());
+            } catch (Exception e) {/*no messages*/}
         }
         if (c==cmdArch) {
-	    MessageArchive.store(getMessage(cursor));
+            try {
+                MessageArchive.store(getMessage(cursor));
+            } catch (Exception e) {/*no messages*/}
         }
         if (c==cmdPurge) {
             contact.purge();

@@ -9,6 +9,7 @@
 
 package Info;
 
+import locale.SR;
 import ui.ConstMIDP;
 
 /**
@@ -30,5 +31,7 @@ public class Version {
     public static String getOs() {
         return ConstMIDP.MIDP + " Platform=" +Version.platform();
     }
+    
+    public static String getVersionLang() { return version+" ("+SR.MS_IFACELANG+")"; }
 
 }

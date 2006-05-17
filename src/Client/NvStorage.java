@@ -15,7 +15,7 @@ import util.strconv;
 //#if !(USE_SIEMENS_FILES)
 import javax.microedition.rms.*;
 //#else
-//--import com.siemens.mp.io.File;
+//# import com.siemens.mp.io.File;
 //#endif
 
 /**
@@ -48,53 +48,53 @@ public class NvStorage {
         finally { 
             try { recordStore.closeRecordStore(); } catch (Exception e) {} }
 //#else
-//--
-//--        try {
-//--        File f=new File();
-//--        
-//--        String n=getPath(name, PATH_CFG);
-//--        System.out.println("Read "+n);
-//--        int descriptor=f.open(n);
-//--        if (descriptor<0) return null;
-//--        int len=f.length(descriptor);
-//--        if (len<1) return null; 
-//--        
-//--        byte[] b=new byte[len];
-//--        f.read(descriptor, b, 0, len);
-//--        f.close(descriptor);
-//--        
-//--        istream=new DataInputStream( new ByteArrayInputStream(b) );
-//--        } catch (Exception e) { e.printStackTrace(); }
-//--        
+//# 
+//#         try {
+//#         File f=new File();
+//#         
+//#         String n=getPath(name, PATH_CFG);
+//#         System.out.println("Read "+n);
+//#         int descriptor=f.open(n);
+//#         if (descriptor<0) return null;
+//#         int len=f.length(descriptor);
+//#         if (len<1) return null; 
+//#         
+//#         byte[] b=new byte[len];
+//#         f.read(descriptor, b, 0, len);
+//#         f.close(descriptor);
+//#         
+//#         istream=new DataInputStream( new ByteArrayInputStream(b) );
+//#         } catch (Exception e) { e.printStackTrace(); }
+//#         
 //#endif
         
         return istream;
     }
 //#if USE_SIEMENS_FILES
-//--    public static String getPath(String name, int path_index){
-//--        
-//--        String path=null;
-//--        switch (path_index) {
-//--            case PATH_CFG: path=Config.getInstance().siemensCfgPath; break;
-//--            case PATH_MSG: path=Config.getInstance().msgPath; break;
-//--        }
-//--        //System.out.println("path="+path);
-//--        //System.out.println("path="+path+name);
-//--        // verification
-//--        
-//--        // временно заблокирована проверка валидности пути. для C55
-//--        /*
-//--        try {
-//--            File f=new File();
-//--            if (!f.isDirectory(path)) return name;
-//--        } catch (Exception e) { 
-//--            //e.printStackTrace(); 
-//--            return name; 
-//--        } 
-//--         */
-//--        return path+name;
-//--    }
-//--    
+//#     public static String getPath(String name, int path_index){
+//#         
+//#         String path=null;
+//#         switch (path_index) {
+//#             case PATH_CFG: path=Config.getInstance().siemensCfgPath; break;
+//#             case PATH_MSG: path=Config.getInstance().msgPath; break;
+//#         }
+//#         //System.out.println("path="+path);
+//#         //System.out.println("path="+path+name);
+//#         // verification
+//#         
+//#         // временно заблокирована проверка валидности пути. для C55
+//#         /*
+//#         try {
+//#             File f=new File();
+//#             if (!f.isDirectory(path)) return name;
+//#         } catch (Exception e) { 
+//#             //e.printStackTrace(); 
+//#             return name; 
+//#         } 
+//#          */
+//#         return path+name;
+//#     }
+//#     
 //#endif
 
     private static ByteArrayOutputStream baos;
@@ -132,43 +132,42 @@ public class NvStorage {
             ostream.close();
         } catch (Exception e) { e.printStackTrace(); return false; }
 //#else
-//--        File f=new File();
-//--        String n=getPath(name, PATH_CFG);
-//--        System.out.println("Write "+n);
-//--
-//--        try {
-//--            if (rewrite) f.delete(n);
-//--        } catch (Exception e) {}
-//--
-//--        int descriptor;
-//--        try {
-//--            descriptor=f.open(n);
-//--            f.write(descriptor, b, 0, b.length);
-//--            f.close(descriptor);
-//--        } catch (Exception e) { e.printStackTrace(); return false; }
+//#         File f=new File();
+//#         String n=getPath(name, PATH_CFG);
+//#         System.out.println("Write "+n);
+//# 
+//#         try {
+//#             if (rewrite) f.delete(n);
+//#         } catch (Exception e) {}
+//# 
+//#         int descriptor;
+//#         try {
+//#             descriptor=f.open(n);
+//#             f.write(descriptor, b, 0, b.length);
+//#             f.close(descriptor);
+//#         } catch (Exception e) { e.printStackTrace(); return false; }
 //#endif
         return true;
     }
     
 //#if USE_SIEMENS_FILES
-//--    public final static boolean appendFile(String URL, String append_data){
-//--        try{
-//--            /*System.out.println(
-//--                    getPath(strconv.convUnicodeToAscii(URL), PATH_MSG)+" "+
-//--                    strconv.convUnicodeToAscii(append_data));*/
-//--            File file1 = new File();
-//--            int fd = file1.open(getPath(strconv.convUnicodeToCp1251(URL+".txt"), PATH_MSG));
-//--            byte abyte0[] = (strconv.convUnicodeToCp1251(append_data)).getBytes();
-//--            file1.seek(fd, file1.length(fd));
-//--            file1.write(fd, abyte0, 0, abyte0.length);
-//--            file1.close(fd);
-//--
-//--        } catch (Exception e) {
-//--            e.printStackTrace();
-//--            return false;   //облом
-//--        }
-//--        return true;
-//--    }
+//#     public final static boolean appendFile(String URL, String append_data){
+//#         try{
+//#             File file1 = new File();
+//#             int fd = file1.open(
+//#                     //getPath(strconv.convUnicodeToCp1251(URL+".txt"), PATH_MSG));
+//#                     getPath(URL+".txt", PATH_MSG));
+//#             byte abyte0[] = (strconv.convUnicodeToCp1251(append_data)).getBytes();
+//#             file1.seek(fd, file1.length(fd));
+//#             file1.write(fd, abyte0, 0, abyte0.length);
+//#             file1.close(fd);
+//# 
+//#         } catch (Exception e) {
+//#             e.printStackTrace();
+//#             return false;   //облом
+//#         }
+//#         return true;
+//#     }
 //#endif
     
 //#if USE_LOGGER

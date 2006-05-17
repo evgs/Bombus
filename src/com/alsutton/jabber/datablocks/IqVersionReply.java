@@ -11,7 +11,6 @@ import com.alsutton.jabber.*;
 import java.util.*;
 import Client.*;
 
-
 /**
  *
  * @author Eugene Stahov
@@ -27,7 +26,7 @@ public class IqVersionReply extends JabberDataBlock{
         JabberDataBlock query=addChild("query",null);
         query.setNameSpace("jabber:iq:version");
         query.addChild("name","Bombus");
-        query.addChild("version",Version.version);
+        query.addChild("version",Version.getVersionLang());
         String os=Version.getOs();
                 //+" Locale="
                 //+System.getProperty("microedition.locale");

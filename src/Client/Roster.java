@@ -831,7 +831,7 @@ public class Roster
                         String mucerrcode=message.getChildBlock("error").getAttribute("code");
                         
                         if ( mucerrcode.equals("403") ) {
-                            body="Visitors are not allowed to send messages to all occupants";
+                            body=SR.MS_VIZITORS_FORBIDDEN;
                         } else                         
                             body=SR.MS_ERROR_+message.getChildBlock("error")+"\n"+body;
                   
@@ -850,7 +850,7 @@ public class Roster
                             
                     String room=from+'/'+sd.account.getNickName();
                     mucContact(room, true);
-                    body=inviteFrom+" is inviting You to "+from+" ("+inviteReason+')';
+                    body=inviteFrom+SR.MS_IS_INVITING_YOU+from+" ("+inviteReason+')';
                     
                 } catch (Exception e) {}
                 

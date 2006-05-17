@@ -210,6 +210,7 @@ public class SR {
     public   static String MS_CLEAR=loadString( "Clear" );
     public   static String MS_ALT_LANG="langfile";
     public   static String MS_GRANT_MEMBERSHIP = "Grant Membership";
+    public   static String MS_SELLOGIN = loadString( "Connect" );
 //--toon
     public final static String MS_UNAFFILIATE = "Unaffiliate";
     public final static String MS_GRANT_MODERATOR = "Grant Moderator";
@@ -219,10 +220,17 @@ public class SR {
     public final static String MS_GRANT_OWNERSHIP = "Grant Ownership";
     //public final static String MS_REVOKE_OWNERSHIP = "Revoke Ownership";
 //--toon
-
-    public   static String MS_SELLOGIN = loadString( "Connect" );
+    public final static String MS_VIZITORS_FORBIDDEN="Visitors are not allowed to send messages to all occupants";
+    public final static String MS_IS_INVITING_YOU=" is inviting You to ";
+    public final static String MS_ASK_SUBSCRIPTION="Ask subscription";
+    public final static String MS_GRANT_SUBSCRIPTION="Grant subscription";
+    
 
     public static String MS_XMLLANG;
+    public static String MS_IFACELANG;
+
+
+
 
     
     private SR() { }
@@ -237,6 +245,9 @@ public class SR {
             System.out.print("Loading locale ");
             System.out.println(langFile);
             MS_XMLLANG=(String)lang.get("xmlLang");
+            
+            MS_IFACELANG=MS_XMLLANG;
+            if (MS_IFACELANG==null) MS_IFACELANG="en";
         }
         String value=(String)lang.get(key);
 //#if LOCALE_DEBUG
