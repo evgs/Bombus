@@ -128,7 +128,7 @@ public class SR {
     public   static String MS_STATUS = loadString( "Status" );
     public   static String MS_SMILES_TOGGLE = loadString( "Smiles" );
     public   static String MS_CONTACT = loadString( "Contact >" );
-    public   static String MS_SLASHME = loadString( "/me" );
+    public final static String MS_SLASHME = "/me";
     public   static String MS_ORDER = loadString( "Order" );
     public   static String MS_OFFLINE_CONTACTS = loadString( "offline contacts" );
     public   static String MS_TRANSPORT = loadString( "Transport" );
