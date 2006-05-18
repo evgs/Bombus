@@ -9,19 +9,19 @@ xmlLang	ru
 langfile	Russian
 Jid	Jid
 Loading	Загрузка
-Privacy Lists	Списки Приватности
+Privacy Lists	Списки приватности
 Existing groups	Существующие группы
 Message font	Шрифт сообщения
 Roster font	Шрифт ростера
 Paste Body	Вставить тело сообщ.
-Configure Room	Конфигуратор Комнаты
+Configure Room	Конфигуратор комнаты
 Paste Subject	Вставить тему сообщ.
-Service Discovery	Обзор Сервисов
+Service Discovery	Обзор сервисов
 User JID	JID пользователя
 New list	Новый список
 Select (no login)	Выбрать (без логина)
 Privacy rule	Правило приватности
-use SSL	использовать SSL
+use SSL	Использовать SSL
 Modify	Изменить
 Update	Обновить
 Account name	Имя аккаунта
@@ -41,7 +41,7 @@ Refresh	Обновить
 Resolve Nicknames	Преобразовать в ник
 Action	Действие
 Ban	Бан
-Leave Room	Покинуть Комнату
+Leave Room	Покинуть комнату
 Password	Пароль
 Actions >	Действия >
 Activate	Активировать
@@ -61,8 +61,8 @@ Done	Выполнено
 Error: 	Ошибка: 
 Browse	Обзор
 Save list	Сохранить список
-Keep-Alive period	период Keep-Alive
-<New Group>	<Новая Группа>
+Keep-Alive period	Период Keep-Alive
+<New Group>	<Новая группа>
 Send	Отправить
 Priority	Приоритет
 Failed	Ошибка соединения
@@ -72,15 +72,15 @@ Roster request	Получение ростера
 Type	Тип
 Name	Имя
 Username	Имя пользователя
-fullscreen	полноэкранный
-All Priorities	во всех статусах
+fullscreen	Полноэкранный
+All Priorities	Во всех статусах
 Add bookmark	Добав. закладку
-conferences only	только конференции
+conferences only	Только конференции
 Client Info	Инфо о клиенте
 Discard Search	Сбросить результаты
 Search Results	Результаты поиска
 Members	Члены
-// offline	отключенные
+// offline	Отключенные
 Add Contact	Новый контакт
 Subscription	Подписка
 Status >	Статус >
@@ -88,14 +88,14 @@ Join	Присоединиться
 Startup actions	Действия при запуске
 Server	Сервер
 Admins	Админы
-Make Ignore-List	Создать Игнор-лист
+Make Ignore-List	Создать игнор-лист
 Options	Настройки
 Delete	Удалить
 Delete contact?	Удалить контакт?
 Authorize	Авторизовать
 Nicknames	Ники
 Entering setup	Вход в настройки аккаунта
-to Archive	в Архив
+to Archive	В архив
 Back	Назад
 heap monitor	Монитор heap
 Hide Splash	Ростер
@@ -108,19 +108,19 @@ Group	Группа
 Join conference	Присоединиться к конференции
 No	Нет
 Yes	Да
-Re-Enter Room	Перезайти в Комнату
+Re-Enter Room	Перезайти в комнату
 New Message	Новое сообщение
 Add	Добавить
 Logon	Подключить
 Logoff	Отключить
 Login in progress	Проверка пароля
 at Host	Сервер
-join conferences	автовход в конференцию
+join conferences	Автовход в конференцию
 Status	Статус
 Smiles	Смайлики
 Contact >	Контакт >
 Order	Порядок
-offline contacts	показать отключенных
+offline contacts	Показать отключенных
 Transport	Транспорт
 composing events	"composing" события
 Add Smile	:-)
@@ -133,7 +133,7 @@ Outcasts (Ban)	Изгои (Ban)
 Set affiliation to	Изменить членство на
 Hide Offlines	Скрыть отключенных
 Register Account	Зарегистрировать аккаунт
-autologin	автосоединение
+autologin	Автосоединение
 Publish	Опубликовать
 Remove subscription	Удалить подписку
 Set	Установить
@@ -145,53 +145,53 @@ Edit rule	Редакт. правило
 Cancel	Отмена
 Close	Закрыть
 Archive	Архив
-free 	свободно 
+free 	Свободно 
 Conference	Конференция
 Sound	Звук
 Login failed	Ошибка авторизации
 New Jid	Новый Jid
-plain-text password	пароль откр. текстом
+plain-text password	Пароль откр. текстом
 Paste Nickname	Вставить ник
 Kick	Выгнать (kick)
 Clear List	Очистить список
 Grant Voice	Дать право голоса
 Quote	Цитировать
 Roster elements	Элементы ростера
-popup from background	popup from background
-smiles	смайлики
+popup from background	Всплывать из фона
+smiles	Смайлики
 About	О программе
 Resource	Ресурс
 Disconnected	Соединение разорвано
 Edit	Редактировать
 Host name/IP (optional)	Имя хоста/IP (необязательно)
 Add rule	Добавить правило
-for all status types	для всех статусов
+for all status types	Для всех статусов
 Paste Jid	Вставить Jid
 Goto URL	Перейти к URL
 Clock -	Часы -
 Login	Открытие сокета
 Clock offset	Смещение часов
-flash backlight	мигать подсветкой
+flash backlight	Мигать подсветкой
 Suspend	Отложить
 Resume Message	Черновик
 Alert Profile >	Сигналы >
 My vCard	Личная vCard
-transports	транспорты
+transports	Транспорты
 New Account	Новый аккаунт
-self-contact	свои контакты
+self-contact	Свои контакты
 vCard	vCard
-Set Subject	Установить Тему
+Set Subject	Установить тему
 Tools	Инструменты
 Jabber Tools	Инструменты сервера
 Port	Порт
 
 //473
 Proxy name/IP	Имя прокси-сервера/IP
-Proxy port	порт прокси-сервера
+Proxy port	Порт прокси-сервера
 Autofocus	Автофокус
 
 Connect	Подключиться
-history -	история -
+history -	История -
 Are You sure want to discard 	Вы действительно собираетесь понизить у 
  from OWNER to 	 право OWNER до 
 Modify affiliation	Изменение членства
@@ -205,3 +205,7 @@ proxy CONNECT	proxy CONNECT
 
 // 476
 Clear	Очистить
+
+// 494
+//Ask subscription	Запросить подписку
+//Grant subscription	Разрешить подписку

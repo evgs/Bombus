@@ -1,203 +1,202 @@
-// (c) 2006 Jindřich Skácel
+// Český překlad Bombus by jenda.69
+// Upravený překlad "(c) 2006 Jindřich Skácel"; přidána diakritika, upřesněny některé názvy
+// Pokud by jste našli nějakou chybu, překlep, chybějící diakritiku, nepřeložené slovo, pište na: jenda.69@gmail.com
 xmlLang cz
-langfile	Cesky
+langfile	Česky
 Jid	Jid
-Loading	Nacitam
-Privacy Lists	Soukromy seznam
-Existing groups	Existujici skupina
-Message font	Font zpravy
-Roster font	Font seznamu uziv.
-Paste Body	Vlozit telo
-Configure Room	Konfiguracni mistnost
-Paste Subject	Vlozit tema
-Service Discovery	Prohledat agenty
-User JID	Uzivatelske JID
-New list	Novy list
-Select (no login)	Oznacit (nelogovat)
-Privacy rule	Pravidla soukromeho seznamu
-use SSL	pouzit SSL
-Modify	Zmenit
-Update	Updatovat
-Account name	Jmeno uctu
-GMT offset	Vyrovnani casu (GMT+)
-Time settings (hours)\n	Nastaveni casu\n
-Connected	Pripojen
-Connect to 	Pripojen k 
-Alert Profile	Nastaveni upozornovani
+Loading	Načítám
+Privacy Lists	Soukromé seznamy
+Existing groups	Existující skupina
+Message font	Font zprávy
+Roster font	Font kontaktů
+Paste Body	Vložit tělo
+Configure Room	Nastavit místnost
+Paste Subject	Vložit téma
+Service Discovery	Zobrazit služby
+User JID	JID uživatele
+New list	Nový seznam
+Select (no login)	Označit (nepřihlásit)
+Privacy rule	Pravidlo soukromí
+use SSL	Použít SSL
+Modify	Změnit
+Update	Aktualizovat
+Account name	Jméno účtu
+GMT offset	GMT posunutí
+Time settings (hours)	Nastavení času
+Connected	Připojen
+Connect to 	Připojuji k 
+Alert Profile	Upozorňování
 Move Up	Posunout nahoru
-Move Down	Posunout dolu
-Owners	Vlastnici
+Move Down	Posunout dolů
+Owners	Vlastníci
 Ok	OK
 Minimize	Minimalizovat
-Room	Mistonost
-Messages	Nastaveni zprav
+Room	Místnost
+Messages	Nastavení zpráv
 Refresh	Obnovit
-Resolve Nicknames	Ukazat prezdivky
+Resolve Nicknames	Zjistit přezdívky
 Action	Akce
 Ban	Ban
-Leave Room	Opustit mistnost
+Leave Room	Opustit místnost
 Password	Heslo
 Actions >	Akce >
 Activate	Aktivovat
-Affiliation	Pridruzeni
-Accounts	Ucty
-Delete list	Smazat list
-Account >	Ucet >
-Show Offlines	Ukazat odpojene uzivatele
+Affiliation	Přidružení
+Accounts	Účty
+Delete list	Smazat seznam
+Account >	Účet >
+Show Offlines	Ukazát odpojené
 Select	Vybrat
-Subject	Tema
+Subject	Předmět
 Group menu	Menu skupiny
 Quit	Konec
-Add to roster	Pridat do seznamu uziv.
-Edit list	Editovat list
+Add to roster	Přidat do seznamu
+Edit list	Upravit seznam
 Registering	Registruji
 Done	Hotovo
 Error: 	Chyby: 
 Browse	Prozkoumat
-Save list	Ulozit list
-Keep-Alive period	perioda udrzeni spojeni (keep-alive)
-<New Group>	<Nova skupina>
+Save list	Uložit seznam
+Keep-Alive period	Udržovat spojení po (s)
+<New Group>	<Nová skupina>
 Send	Odeslat
 Priority	Priorita
 Failed	Chyba
-Set Priority	Nastavit Prioritu
+Set Priority	Nastavit prioritu
 Delete rule	Smazat pravidlo
-Roster request	Zjistituji seznam uziv.
+Roster request	Zjišťuji seznam
 Type	Typ
-Name	Jmeno
-Username	Uziv. jmeno
-fullscreen	fullscreen
-All Priorities	Vsechny priority
-Add bookmark	Pridat oblibenou zalozku
+Name	Jméno
+Username	Uživ. jméno
+fullscreen	Celý displej
+All Priorities	Všechny priority
+Add bookmark	Přidat záložku
 conferences only	Pouze konference
 Client Info	Info o klientu
-Discard Search	Vyradit hledani
-Search Results	Vysledek hledani
-Members	Clenove
-// offline	odpojen
-Add Contact	Pridat kontakt
+Discard Search	Vyřadit hledání
+Search Results	Výsledek hledání
+Members	Členové
+Add Contact	Přidat kontakt
 Subscription	Povolit
 Status >	Stav >
-Join	Pripojit
-Startup actions	Akce pri startu
+Join	Připojit
+Startup actions	Akce po spuštění
 Server	Server
-Admins	Administratori
-Make Ignore-List	Vytvorit list ingor. uziv.
-Options	Nastaveni
+Admins	Administrátoři
+Make Ignore-List	Vytvořit Ignore-List
+Options	Možnosti
 Delete	Smazat
 Delete contact?	Smazat kontakt?
 Authorize	Autorizovat
-Nicknames	Prezdivky
-Entering setup	Vstupuji do nastaveni
-to Archive	do archivu
-Back	Zpet
-heap monitor	Monitor pameti
-Hide Splash	Schovat start logo
-Message	Zprava
-<Other>	<Ostatni>
-// history -	Historie -
-Append	Pridat
-Active Contacts	Aktivni kontakty
-Select nickname	Zvolit prezdivku
+Nicknames	Přezdívky
+Entering setup	Vstupuji do nastavení
+to Archive	Do archivu
+Back	Zpět
+heap monitor	Monitor paměti
+Hide Splash	Nezobrazit logo
+Message	Zpráva
+<Other>	<Ostatní>
+Append	Přidat
+Active Contacts	Aktivní kontakty
+Select nickname	Zvolit přezdívku
 Group	Skupina
-Join conference	Pripojit ke konferenci
+Join conference	Připojit ke konferenci
 No	Ne
 Yes	Ano
 Re-Enter Room	Znovu vstoupit
-New Message	Nova zprava
-Add	Pridat
-Logon	Pripojit
+New Message	Nová zpráva
+Add	Přidat
+Logon	Připojit
 Logoff	Odpojit
-Login in progress	Prave pripojuji
-at Host	hostitel
-join conferences	pripojit ke konferenci
+Login in progress	Připojování...
+at Host	Hostitel
+join conferences	Připojit ke konferenci
 Status	Stav
-Smiles	Smajlici
+Smiles	Smajlíci
 Contact >	Kontakt >
-Order	Ridit(Order)
-offline contacts	odpojeni uzivatele
+Order	Order
+offline contacts	Odpojené kontakty
 Transport	Transport
-composing events	"composing" udalosti
-Add Smile	Pridat smajlika
-Nickname	Prezdivka
+composing events	Události "Píše"
+Add Smile	Přidat smajlíka
+Nickname	Přezdívka
 Revoke Voice	Odvolat Voice
-Commands	Prikazy
-- (Sign)	- (Cedulka)
-Set default	Nastavit jako vychozi
+Commands	Příkazy
+- (Sign)	- (Mínus)
+Set default	Výchozí
 Outcasts (Ban)	Outcasts (Ban)
-Set affiliation to	Nastavit pridruzeni k
-Hide Offlines	Schovat odpojene uziv.
-Register Account	Zaregistrovat ucet
-autologin	automaticky pripojit
-Publish	Uverejnit
-Remove subscription	Odstranit povoleni
+Set affiliation to	Nastavit přidružení k
+Hide Offlines	Schovat odpojené
+Register Account	Zaregistrovat účet
+autologin	Autopřipojení
+Publish	Uveřejnit
+Remove subscription	Odstranit povolení
 Set	Nastavit
 Application	Aplikace
-Bookmarks	Zalozky
-Test sound	Test zvuku
-Startup	Start
-Edit rule	Editovat pravidlo
-Cancel	Zrusit
-Close	Zavrit
+Bookmarks	Záložky
+Test sound	Zkusit zvuk
+Startup	Spouštění
+Edit rule	Upravit pravidlo
+Cancel	Zrušit
+Close	Zavřít
 Archive	Archiv
-free 	zdarma / prazdno
+free 	free
 Conference	Konference
 Sound	Zvuk
-Login failed	Chyba prihlaseni
-New Jid	Nove JID
-plain-text password	heslo jako text
-Paste Nickname	Vlozit nick
-Kick	Vykopnout (kick)
-Clear List	Vycistit
-Grant Voice	Dat Voice
-Quote	Citace
-Roster elements	Zobrazovat v seznamu uziv.
+Login failed	Chyba přihlášení
+New Jid	Nové JID
+plain-text password	Heslo jako text
+Paste Nickname	Vložit nick
+Kick	Kick
+Clear List	Smazat diskuzi
+Grant Voice	Dát Voice
+Quote	Citovat
+Roster elements	Seznam uživatelů
 popup from background	popup from background
-smiles	smajlici
+smiles	Smajlíci
 About	O autorech
 Resource	Zdroj
-Disconnected	Odpojit
-Edit	Editovat
-Host name/IP (optional)	Hostitel/IP (volitelne)
-Add rule	Pridat pravidlo
-for all status types	pro vsechny stavy
-Paste Jid	Vlozit JID
-Goto URL	Prejit na adresu
+Disconnected	Odpojen
+Edit	Upravit
+Host name/IP (optional)	Hostitel/IP (volitelně)
+Add rule	Přidat pravidlo
+for all status types	Pro všechny stavy
+Paste Jid	Vložit JID
+Goto URL	Přejít na adresu
 Clock -	Hodiny -
-Login	Pripojit
-Clock offset	Vyrovnani hodin
-flash backlight	blikajici podsvetleni
-Suspend	Upevnit
-Resume Message	Vratit zpravu
-Alert Profile >	Upozorneni >
-My vCard	Muj vCard
-transports	transporty
-New Account	Novy ucet
-self-contact	sebe
+Login	Připojit
+Clock offset	Vyrovnání hodin
+flash backlight	Blikat podsvětlením
+Suspend	Nechat rozepsané
+Resume Message	Dopsat zprávu
+Alert Profile >	Upozorňování >
+My vCard	Moje vCard
+transports	Transporty
+New Account	Nový účet
+self-contact	Můj kontakt
 vCard	vCard
-Set Subject	Nastavit tema
-Tools	Nastroje
-Jabber Tools	Jabber nastroje
+Set Subject	Nastavit předmět
+Tools	Nástroje
+Jabber Tools	Nástroje Jabberu
 Port	Port
+
 
 //473
 Proxy name/IP	Proxy name/IP
 Proxy port	Proxy port
 Autofocus	Autofocus
 
-Connect	Login
-history -	history -
-Are You sure want to discard 	Are You sure want to discard 
- from OWNER to 	 from OWNER to 
-Modify affiliation	Modify affiliation
+Connect	Připojit
+history -	Historie -
+Are You sure want to discard 	Jste si jistý, že chcete vyřadit 
+ from OWNER to 	 od VLASTNÍKA do 
+Modify affiliation	Upravit přiřazení
 
 // DO NOT TRANSLATE THIS LINES!!!
-//Ignore-List	Ingnorovani uziv.
 Ignore-List	Ignore-List
-// General	Generalne
 General	General
-// Stanzas	Stanzy
 Stanzas	Stanzas
-// Not-in-list	Nejsou v listu
 Not-in-list	Not-in-list
 proxy CONNECT	proxy CONNECT
+
+//...

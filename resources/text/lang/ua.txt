@@ -75,7 +75,7 @@ fullscreen	На повний екран
 All Priorities	У всiх статусах
 Add bookmark	Дод. закладку
 conferences only	Тiльки конференцiї
-Client Info	Iнфо о клiєнтi
+Client Info	Iнфо клiєнта
 Discard Search	Скинути результати
 Search Results	Результати пошуку
 Members	Члени
@@ -189,7 +189,7 @@ Proxy name/IP	Iм'я проксi-сервера/IP
 Proxy port	Порт проксi-сервера
 Autofocus	Автофокус
 
-Connect	Login
+Connect	Підключитися
 history -	iсторiя -
 Are You sure want to discard 	Ви дiйсно збираєтеся понизити в 
  from OWNER to 	 право OWNER до 
@@ -201,3 +201,6 @@ General	General
 Stanzas	Stanzas
 Not-in-list	Not-in-list
 proxy CONNECT	proxy CONNECT
+
+// 476
+Clear	Очистити
