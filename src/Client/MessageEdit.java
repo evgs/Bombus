@@ -35,8 +35,8 @@ public class MessageEdit
     private Command cmdSmile=new Command(SR.MS_ADD_SMILE, Command.SCREEN,2);
     private Command cmdInsNick=new Command(SR.MS_NICKNAMES,Command.SCREEN,3);
     private Command cmdInsMe=new Command(SR.MS_SLASHME, Command.SCREEN, 4); ; // /me
-    private Command cmdSubj=new Command(SR.MS_SET_SUBJECT, Command.SCREEN, 5);
-    private Command cmdPaste=new Command(SR.MS_ARCHIVE, Command.SCREEN, 10);
+    private Command cmdSubj=new Command(SR.MS_SET_SUBJECT, Command.SCREEN, 10);
+    private Command cmdPaste=new Command(SR.MS_ARCHIVE, Command.SCREEN, 5);
     
     private boolean composing=true;
 

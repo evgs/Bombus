@@ -1273,9 +1273,7 @@ public class Roster
         updateTitle();
     }
     void setMucMod(Contact contact, Hashtable itemAttributes){
-        JabberDataBlock iq=new Iq();
-        iq.setTypeAttribute("set");
-        iq.setAttribute("to", contact.jid.getBareJid());
+        JabberDataBlock iq=new Iq(contact.jid.getBareJid(), Iq.TYPE_SET, "itemmuc");
         JabberDataBlock query=iq.addChild("query", null);
         query.setNameSpace("http://jabber.org/protocol/muc#admin");
         JabberDataBlock item=new JabberDataBlock("item", null, itemAttributes);

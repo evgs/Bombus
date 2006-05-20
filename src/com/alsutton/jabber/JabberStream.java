@@ -55,6 +55,8 @@ public class JabberStream implements XMLEventListener, Runnable {
     
     private boolean rosterNotify;
     
+    private String server; // for ping
+    
     public void enableRosterNotify(boolean en){ rosterNotify=en; }
     
     /**
@@ -64,6 +66,7 @@ public class JabberStream implements XMLEventListener, Runnable {
     
     public JabberStream( String server, String hostAddr, String proxy, JabberListener theListener )
     throws IOException {
+        this.server=server;
         if (proxy==null) {
             StreamConnection connection = (StreamConnection) Connector.open(hostAddr);
             iostream=new Utf8IOStream(connection);
@@ -158,13 +161,16 @@ public class JabberStream implements XMLEventListener, Runnable {
      * @param The data to send to the server.
      */
     public void sendKeepAlive() throws IOException {
-	switch (Config.getInstance().keepAliveType){
-	case 1: 
-	    send("<iq/>");
-	    break;
-	default:
-	    send(" ");
-	}
+        switch (Config.getInstance().keepAliveType){
+            case 2:
+                ping();
+                break;
+            case 1:
+                send("<iq/>");
+                break;
+            default:
+                send(" ");
+        }
     }
     
     public void send( String data ) throws IOException {
@@ -278,6 +284,12 @@ public class JabberStream implements XMLEventListener, Runnable {
         } else
             parent.addChild( currentBlock );
         currentBlock = parent;
+    }
+
+    private void ping() {
+        JabberDataBlock ping=new Iq(null, false, "ping");
+        ping.addChild("query", null).setNameSpace("jabber:iq:version");
+        send(ping);
     }
     
     private class TimerTaskKeepAlive extends TimerTask{

@@ -91,10 +91,7 @@ public class DiscoForm implements CommandListener{
     }
     
     private void sendForm(String id){
-        JabberDataBlock req=new Iq();
-        req.setTypeAttribute("set");
-        req.setAttribute("to",service);
-        req.setAttribute("id",id);
+        JabberDataBlock req=new Iq(service, Iq.TYPE_SET, id);
         JabberDataBlock qry=req.addChild(childName,null);
         qry.setNameSpace(xmlns);
         //qry.setAttribute("action", "complete");

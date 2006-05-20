@@ -64,10 +64,7 @@ public class AffiliationModify implements CommandListener{
     private void modify(){
         JabberStream stream=StaticData.getInstance().roster.theStream;
         
-        JabberDataBlock request=new Iq();
-        request.setTypeAttribute("set");
-        request.setAttribute("to", room);
-        request.setAttribute("id", "admin_modify");
+        JabberDataBlock request=new Iq(room, Iq.TYPE_SET, "admin_modify");
         JabberDataBlock query=request.addChild("query", null);
         query.setNameSpace("http://jabber.org/protocol/muc#admin");
         JabberDataBlock child=query.addChild("item", null);

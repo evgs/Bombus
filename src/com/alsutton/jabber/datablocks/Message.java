@@ -46,8 +46,7 @@ public class Message extends JabberDataBlock
   {
     super();
 
-    if( to != null )
-      setAttribute( "to", to );
+    setAttribute( "to", to );
     if( message != null )
       setBodyText( message );
     if (subject!=null) 
@@ -63,7 +62,8 @@ public class Message extends JabberDataBlock
 
   public Message( String to )
   {
-    this( to, null , null, false);
+      super();
+    setAttribute( "to", to );
   }
 
   /**

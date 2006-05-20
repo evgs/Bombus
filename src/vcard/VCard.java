@@ -80,8 +80,7 @@ public class VCard {
     }
 
     public JabberDataBlock constructVCard(){
-        JabberDataBlock vcard=new Iq();
-        vcard.setTypeAttribute("set");
+        JabberDataBlock vcard=new Iq(null, Iq.TYPE_SET, null);
         JabberDataBlock child=vcard.addChild("vCard", null);
         child.setNameSpace("vcard-temp");
         
@@ -112,10 +111,7 @@ public class VCard {
     
     public static JabberDataBlock getVCardReq(String to, String id ) 
     {
-        JabberDataBlock req=new Iq();
-        req.setTypeAttribute("get");
-        req.setAttribute("to", to);
-        req.setAttribute("id", id);
+        JabberDataBlock req=new Iq(to, Iq.TYPE_GET, id);
         req.addChild("vCard", null).setNameSpace( "vcard-temp" );
 
         return req;

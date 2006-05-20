@@ -117,10 +117,7 @@ public class ServiceDiscovery
     
     private void requestQuery(String namespace, String id){
         blockWait=true; titleUpdate(); redraw();
-        JabberDataBlock req=new Iq();
-        req.setTypeAttribute("get");
-        req.setAttribute("to",service);
-        req.setAttribute("id",id);
+        JabberDataBlock req=new Iq(service, Iq.TYPE_GET, id);
         JabberDataBlock qry=req.addChild("query",null);
         qry.setNameSpace(namespace);
         qry.setAttribute("node", node);
@@ -132,10 +129,7 @@ public class ServiceDiscovery
     
     private void requestCommand(String namespace, String id){
         blockWait=true; titleUpdate(); redraw();
-        JabberDataBlock req=new Iq();
-        req.setTypeAttribute("set");
-        req.setAttribute("to",service);
-        req.setAttribute("id",id);
+        JabberDataBlock req=new Iq(service, Iq.TYPE_SET, id);
         JabberDataBlock qry=req.addChild("command",null);
         qry.setNameSpace(namespace);
         qry.setAttribute("node", node);

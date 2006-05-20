@@ -12,12 +12,14 @@ package Client;
 
 import Conference.ConferenceForm;
 import Conference.ConferenceGroup;
+import Conference.InviteForm;
 import Conference.MucContact;
 import Conference.QueryConfigForm;
 import Conference.affiliation.Affiliations;
 import ServiceDiscovery.ServiceDiscovery;
 import com.alsutton.jabber.datablocks.IqVersionReply;
 import com.alsutton.jabber.datablocks.Presence;
+import java.util.Enumeration;
 import java.util.Hashtable;
 import javax.microedition.lcdui.Display;
 import locale.SR;
@@ -114,6 +116,17 @@ public class RosterItemActions extends Menu{
                     if (mc.affiliationCode!=MucContact.AFFILIATION_OWNER) addItem(SR.MS_GRANT_OWNERSHIP,38);
                     //else addItem(SR.MS_REVOKE_OWNERSHIP,37);
                 }
+            } else {
+                // usual contact - invite item check
+                boolean onlineConferences=false;
+                for (Enumeration c=StaticData.getInstance().roster.getHContacts().elements(); c.hasMoreElements(); ) {
+                    try {
+                        MucContact mc=(MucContact)c.nextElement();
+                        if (mc.origin==Contact.ORIGIN_GROUPCHAT && mc.status==Presence.PRESENCE_ONLINE)
+                            onlineConferences=true;
+                    } catch (Exception e) {}
+                }
+                if (onlineConferences) addItem(SR.MS_INVITE,40);
             }
 	} else {
 	    Group group=(Group)item;
@@ -219,6 +232,13 @@ public class RosterItemActions extends Menu{
 		new ServiceDiscovery(display, c.getJid(), "http://jabber.org/protocol/commands");
 		return;
 	    }
+            
+            case 40: //invite
+            {
+                new InviteForm(c, display);
+                return;
+            }
+            
         }
         
         if (c instanceof MucContact || g instanceof ConferenceGroup) {
@@ -339,7 +359,7 @@ public class RosterItemActions extends Menu{
                     roster.setMucMod(mc, attrs);
                     break;
                 }
-                
+       
             }
         }
 	destroyView();

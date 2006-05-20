@@ -224,6 +224,9 @@ public class SR {
     public final static String MS_IS_INVITING_YOU=" is inviting You to ";
     public final static String MS_ASK_SUBSCRIPTION="Ask subscription";
     public final static String MS_GRANT_SUBSCRIPTION="Grant subscription";
+    public final static String MS_INVITE="Invite to conference";
+    public final static String MS_INVITE_REASON="Reason";
+    public final static String MS_YOU_HAVE_BEEN_INVITED="You have been invited to ";
     
 
     public static String MS_XMLLANG;
@@ -231,8 +234,7 @@ public class SR {
 
 
 
-
-    
+ 
     private SR() { }
     
     private static Hashtable lang;

@@ -27,10 +27,7 @@ public class QueryConfigForm implements JabberBlockListener{
     private Display display;
     /** Creates a new instance of QueryConfigForm */
     public QueryConfigForm(Display display, String roomJid) {
-        JabberDataBlock getform=new Iq();
-        getform.setTypeAttribute("get");
-        getform.setAttribute("to", roomJid);
-        getform.addChild("query", null).setNameSpace(OWNER_XMLNS);
+        JabberDataBlock getform=new Iq(roomJid, Iq.TYPE_GET, "confform");
         JabberStream stream=StaticData.getInstance().roster.theStream;
         stream.addBlockListener(this);
         stream.send(getform);
