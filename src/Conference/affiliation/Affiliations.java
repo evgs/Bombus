@@ -128,7 +128,7 @@ public class Affiliations
     
     public void listRq(boolean set, JabberDataBlock child, String id) {
         
-        JabberDataBlock request=new Iq(room, /*(set)?"set":"get"*/ set, id);
+        JabberDataBlock request=new Iq(room, (set)? Iq.TYPE_SET: Iq.TYPE_GET, id);
         JabberDataBlock query=request.addChild("query", null);
         query.setNameSpace(namespace);
         query.addChild(child);

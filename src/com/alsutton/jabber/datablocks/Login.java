@@ -35,7 +35,7 @@ import com.ssttr.crypto.SHA1;
  * received from the server.
  */
 
-public class Login extends JabberDataBlock
+public class Login extends Iq
 {
   /**
    * Constructor. Builds the string ready for sending to the server.
@@ -47,16 +47,12 @@ public class Login extends JabberDataBlock
    */
 
     public Login( String username, String server, String password, String sid, String resource) {
-        super( );
-        
-        setAttribute( "id", "auth-s" );
-        setAttribute( "type", "set" );
-        setAttribute( "to", server);
+        super(server, Iq.TYPE_SET, "auth-s" );
         
         JabberDataBlock queryBlock = addChild("query", null );
         queryBlock.setNameSpace( "jabber:iq:auth" );
         
-        if( username != null ) queryBlock.addChild( "username", username );
+        queryBlock.addChild( "username", username );
         
         if( password != null ) {
             String digest=null;
@@ -73,16 +69,6 @@ public class Login extends JabberDataBlock
             queryBlock.addChild(pwdtype, (digest==null)?password:digest  );
         }
         
-        if( resource != null ) queryBlock.addChild( "resource", resource  );
+        queryBlock.addChild( "resource", resource  );
     }
-
-  /**
-   * Method to return the tag name
-   *
-   * @return Always the string "iq".
-   */
-  public String getTagName()
-  {
-    return "iq";
-  }
 }

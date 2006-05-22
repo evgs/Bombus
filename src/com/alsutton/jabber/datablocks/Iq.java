@@ -34,8 +34,9 @@ import java.util.*;
 
 public class Iq extends JabberDataBlock
 {
-    public final static boolean TYPE_SET=true;
-    public final static boolean TYPE_GET=false;
+    public final static int TYPE_SET=0;
+    public final static int TYPE_GET=1;
+    public final static int TYPE_RESULT=2;
     
   /**
    * Constructor including an Attribute list
@@ -55,11 +56,17 @@ public class Iq extends JabberDataBlock
     super( _parent, _attributes );
   }
   
-  public Iq( String to, boolean typeSet, String id) {
+  public Iq( String to, int typeSet, String id) {
       super();
       setAttribute("xml:lang", xmlLang);
       setAttribute("to", to);
-      setAttribute("type", (typeSet)? "set":"get");
+      String type;
+      switch (typeSet) {
+          case 0: type="set"; break;
+          case 1: type="get"; break;
+          default: type="result";
+      }
+      setAttribute("type", type);
       setAttribute("id", id);
   }
 

@@ -2,6 +2,9 @@
  * IqGetVCard.java
  *
  * Created on 4 Май 2005 г., 22:48
+ *
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package com.alsutton.jabber.datablocks;
@@ -14,28 +17,11 @@ import javax.microedition.lcdui.Image;
  * Class representing the iq message block
  */
 
-public class IqGetVCard extends JabberDataBlock
+public class IqGetVCard extends Iq
 {
     public IqGetVCard(String to, String id ) {
-        super( );
-        
-        setTypeAttribute( "get" );
-        setAttribute( "to", to );
-        setAttribute( "id", id );
-        
-        JabberDataBlock qB = addChild("vCard", null);
-        qB.setNameSpace( "vcard-temp" );
+        super(to, Iq.TYPE_GET, id );
+        addChild("vCard", null).setNameSpace( "vcard-temp" );
     }
-    
-    
-  /**
-   * Method to return the tag name
-   *
-   * @return Always the string "iq".
-   */
-  public String getTagName()
-  {
-    return "iq";
-  }
     
 }

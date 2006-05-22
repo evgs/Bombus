@@ -15,14 +15,11 @@ import Client.*;
  *
  * @author Eugene Stahov
  */
-public class IqVersionReply extends JabberDataBlock{
+public class IqVersionReply extends Iq{
     
     /** Creates a new instance of IqVersionReply */
     public IqVersionReply(JabberDataBlock request) {
-        super();
-        setTypeAttribute("result");
-        setAttribute("id",request.getAttribute("id"));
-        setAttribute("to",request.getAttribute("from"));
+        super(request.getAttribute("from"), Iq.TYPE_RESULT, request.getAttribute("id") );
         JabberDataBlock query=addChild("query",null);
         query.setNameSpace("jabber:iq:version");
         query.addChild("name","Bombus");
@@ -35,18 +32,10 @@ public class IqVersionReply extends JabberDataBlock{
     
     // constructs version request
     public IqVersionReply(String to) {
-        super();
-        setTypeAttribute("get");
-        setAttribute("to",to);
-        setAttribute("id","getver");
-        JabberDataBlock query=addChild("query",null);
-        query.setNameSpace("jabber:iq:version");
+        super(to, Iq.TYPE_GET, "getver");
+        addChild("query",null).setNameSpace("jabber:iq:version");
     }
     
-    public String getTagName() {
-        return "iq";
-    }
-
     ///public static boolean 
     private final static String TOPFIELDS []={ "name",  "version",  "os"  }; 
 

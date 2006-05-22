@@ -14,14 +14,12 @@ import java.util.*;
  *
  * @author Evg_S
  */
-public class IqRegister extends JabberDataBlock{
+public class IqRegister extends Iq
+{
     
     /** Creates a new instance of IqRegister */
     public IqRegister(String username, String password, String id) {
-        super( );
-        
-        setTypeAttribute( "set" );
-        setAttribute( "id", id );
+        super(null, Iq.TYPE_SET, id );
         
         JabberDataBlock qB = addChild("query", null );
         qB.setNameSpace( "jabber:iq:register" );
@@ -29,8 +27,4 @@ public class IqRegister extends JabberDataBlock{
         qB.addChild("password",password);
         
     }
-  public String getTagName()
-  {
-    return "iq";
-  }    
 }

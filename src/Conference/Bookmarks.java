@@ -74,7 +74,7 @@ public class Bookmarks
     
     // пока здесь, но вообще-то это storageRq
     public void bookmarksRq(boolean set, JabberDataBlock child, String id) {
-        JabberDataBlock request=new Iq(null, /*(set)?"set":"get"*/ set, id);
+        JabberDataBlock request=new Iq(null, (set)?Iq.TYPE_SET: Iq.TYPE_GET, id);
         //request.setAttribute("to", StaticData.getInstance().account.getBareJid());
         JabberDataBlock query=request.addChild("query", null);
         query.setNameSpace("jabber:iq:private");

@@ -16,20 +16,16 @@ import com.alsutton.jabber.JabberDataBlock;
  *
  * @author EvgS
  */
-public class IqTimeReply extends JabberDataBlock{
+public class IqTimeReply extends Iq{
     
     /** Creates a new instance of IqTimeReply */
     public IqTimeReply(JabberDataBlock request) {
-        super();
-        setTypeAttribute("result");
-        setAttribute("id",request.getAttribute("id"));
-        setAttribute("to",request.getAttribute("from"));
+        super(request.getAttribute("from"),
+              Iq.TYPE_RESULT,
+              request.getAttribute("id") );
         JabberDataBlock query=addChild("query",null);
         query.setNameSpace("jabber:iq:time");
         query.addChild("utc",ui.Time.utcLocalTime());
         query.addChild("display", ui.Time.dispLocalTime());
-    }
-    public String getTagName() {
-        return "iq";
     }
 }
