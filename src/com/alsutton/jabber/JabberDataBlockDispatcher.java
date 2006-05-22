@@ -93,6 +93,7 @@ public class JabberDataBlockDispatcher extends Thread
           while (index<blockListeners.size()) {
               Object listener=blockListeners.elementAt(index);
               if (listener.getClass().equals(removeClass)) blockListeners.removeElementAt(index); 
+              else index++;
           }
       }
   }
