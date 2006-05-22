@@ -274,7 +274,7 @@ public class RosterItemActions extends Menu{
                 case 23:
                 {
                     roster.reEnterRoom( g );
-                    break;
+                    return; //break;
                 }
                 
                 case 8: // kick

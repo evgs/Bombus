@@ -31,6 +31,7 @@ public class ConferenceGroup extends Group{
     String label;
     
     private MucContact selfContact;
+    public String password;
     private MucContact conference;
     public String toString(){ return title(label); }
 

@@ -303,7 +303,7 @@ public class ServiceDiscovery
                         room=service.substring(0,rp);
                         server=service.substring(rp+1);
                     }
-                    new ConferenceForm(display, room, server);
+                    new ConferenceForm(display, room, server, null, null);
                     break;
                 }
                 case 1:

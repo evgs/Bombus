@@ -82,7 +82,7 @@ public class Roster
     private Command cmdStatus=new Command(SR.MS_STATUS_MENU, Command.SCREEN, 2);
     private Command cmdAdd=new Command(SR.MS_ADD_CONTACT, Command.SCREEN, 4);
     private Command cmdAlert=new Command(SR.MS_ALERT_PROFILE_CMD, Command.SCREEN, 8);
-    private Command cmdGroupChat=new Command(SR.MS_CONFERENCE, Command.SCREEN, 10);
+    private Command cmdConference=new Command(SR.MS_CONFERENCE, Command.SCREEN, 10);
     private Command cmdArchive=new Command(SR.MS_ARCHIVE, Command.SCREEN, 10);
     private Command cmdTools=new Command(SR.MS_TOOLS, Command.SCREEN, 11);    
     private Command cmdAccount=new Command(SR.MS_ACCOUNT_, Command.SCREEN, 12);
@@ -129,7 +129,7 @@ public class Roster
         addCommand(cmdAlert);
         addCommand(cmdAdd);
         //addCommand(cmdServiceDiscovery);
-        addCommand(cmdGroupChat);
+        addCommand(cmdConference);
         //addCommand(cmdPrivacy);
         addCommand(cmdTools);
         addCommand(cmdArchive);
@@ -406,7 +406,59 @@ public class Roster
             return null;
         }
     }
-    public final MucContact mucContact(String from, boolean serviceContacts){
+    
+    public final MucContact initMuc(String from, String joinPassword){
+        // muc message
+        int ri=from.indexOf('@');
+        int rp=from.indexOf('/');
+        String room=from.substring(0,ri);
+        String roomJid=from.substring(0,rp).toLowerCase();
+        
+        
+        ConferenceGroup grp=(ConferenceGroup)groups.getGroup(roomJid);
+        
+        
+        // creating room
+        
+        if (grp==null) // we hasn't joined this room yet
+            groups.addGroup(grp=new ConferenceGroup(roomJid, room) );
+        grp.password=joinPassword;
+        
+        MucContact c=findMucContact( new Jid(from.substring(0, rp)) );
+        
+        if (c==null) {
+            c=new MucContact(room, roomJid);
+            addContact(c);
+        }
+        c.status=Presence.PRESENCE_ONLINE;
+        c.transport=7; //FIXME: убрать хардкод
+        c.bareJid=from;
+        c.origin=Contact.ORIGIN_GROUPCHAT;
+        //c.priority=99;
+        c.jidHash=0;
+        grp.conferenceJoinTime=Time.localTime();
+        grp.setConference(c);
+        c.setGroup(grp);
+        
+        // creating self-contact
+        c=grp.getSelfContact();
+        if (c==null)
+            c=findMucContact( new Jid(from) );
+        
+        if (c==null) {
+            c=new MucContact(from.substring(rp+1), from);
+            addContact(c);
+        }
+        
+        grp.setSelfContact(c);
+        c.setGroup(grp);
+        c.origin=Contact.ORIGIN_GC_MYSELF;
+        
+        sort();
+        return c;
+    }
+    
+    public final MucContact mucContact(String from){
         // muc message
         int ri=from.indexOf('@');
         int rp=from.indexOf('/');
@@ -417,58 +469,17 @@ public class Roster
         ConferenceGroup grp=(ConferenceGroup)groups.getGroup(roomJid);
 	
 
-        MucContact c;
-        if (serviceContacts){
-            // creating room
-            
-            if (grp==null) // we hasn't joined this room yet
-                groups.addGroup(grp=new ConferenceGroup(roomJid, room) );
-            
-            c=findMucContact( new Jid(from.substring(0, rp)) );
-            
-            if (c==null) {
-                c=new MucContact(room, roomJid);
-                addContact(c);
-            }
-            c.status=Presence.PRESENCE_ONLINE;  
-            c.transport=7; //FIXME: убрать хардкод
-            c.bareJid=from;
-            c.origin=Contact.ORIGIN_GROUPCHAT;
-            //c.priority=99;
-            c.jidHash=0;
-	    grp.conferenceJoinTime=Time.localTime();
-	    grp.setConference(c);
-            c.setGroup(grp);
-            
-            // creating self-contact
-            c=grp.getSelfContact();
-            if (c==null) 
-                c=findMucContact( new Jid(from) );
-
-            if (c==null)
-            {
-                c=new MucContact(from.substring(rp+1), from);
-                addContact(c);
-            }
-            
-            grp.setSelfContact(c);
-            c.setGroup(grp);
-            c.origin=Contact.ORIGIN_GC_MYSELF;
-            
-            sort();
-            return c;
-        } else {
-            if (grp==null) return null; // we are not joined this room
-            
-            c=findMucContact( new Jid(from) );
-            
-            if (c==null)
-            {
-                c=new MucContact(from.substring(rp+1), from);
-                addContact(c);
-                c.origin=Contact.ORIGIN_GC_MEMBER;
-            }
+        
+        if (grp==null) return null; // we are not joined this room
+        
+        MucContact c=findMucContact( new Jid(from) );
+        
+        if (c==null) {
+            c=new MucContact(from.substring(rp+1), from);
+            addContact(c);
+            c.origin=Contact.ORIGIN_GC_MEMBER;
         }
+        
         c.setGroup(grp);
         sort();
         return c;
@@ -849,7 +860,8 @@ public class Roster
                     String inviteReason=invite.getChildBlockText("reason");
                             
                     String room=from+'/'+sd.account.getNickName();
-                    mucContact(room, true);
+                    initMuc(room, password);
+                    
                     body=inviteFrom+SR.MS_IS_INVITING_YOU+from+" ("+inviteReason+')';
                     
                 } catch (Exception e) {}
@@ -925,7 +937,7 @@ public class Roster
                 
                 JabberDataBlock xmuc=pr.findNamespace("http://jabber.org/protocol/muc");
                 if (xmuc!=null) try {
-                    MucContact c = mucContact(from, false);
+                    MucContact c = mucContact(from);
                     
                     
 //toon
@@ -1157,7 +1169,7 @@ public class Roster
 //#endif
         
         if (c==cmdAccount){ new AccountSelect(display, false); }
-        if (c==cmdGroupChat) { new ConferenceForm(display); }
+        if (c==cmdConference) { new ConferenceForm(display); }
         /*if (c==cmdLeave) {
             if (atCursor instanceof Group) leaveRoom( ((Group)atCursor).index );
         }*/
@@ -1183,9 +1195,17 @@ public class Roster
 
     public void reEnterRoom(Group group) {
 	ConferenceGroup confGroup=(ConferenceGroup)group;
-        sendPresence(confGroup.getSelfContact().getJid(), null, null);
+        String confJid=confGroup.getSelfContact().getJid();
+        int roomEnd=confJid.indexOf('@');
+        String room=confJid.substring(0, roomEnd);
+        int serverEnd=confJid.indexOf('/');
+        String server=confJid.substring(roomEnd+1,serverEnd);
+        String nick=confJid.substring(serverEnd+1);
+        
+        new ConferenceForm(display, room, server, nick, confGroup.password);
+        //sendPresence(confGroup.getSelfContact().getJid(), null, null);
 
-	confGroup.getConference().status=Presence.PRESENCE_ONLINE;
+	//confGroup.getConference().status=Presence.PRESENCE_ONLINE;
     }
     public void leaveRoom(int index, Group group){
 	//Group group=groups.getGroup(index);

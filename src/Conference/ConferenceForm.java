@@ -35,9 +35,9 @@ public class ConferenceForm implements CommandListener{
     
     StaticData sd=StaticData.getInstance();
     /** Creates a new instance of GroupChatForm */
-    public ConferenceForm(Display display) { this(display, null, null); }
+    public ConferenceForm(Display display) { this(display, null, null, null, null); }
     /** Creates a new instance of GroupChatForm */
-    public ConferenceForm(Display display, String room, String server) {
+    public ConferenceForm(Display display, String room, String server, String nick, String password) {
         this.display=display;
         parentView=display.getCurrent();
         
@@ -54,10 +54,11 @@ public class ConferenceForm implements CommandListener{
         hostField=new TextField(SR.MS_AT_HOST, server, 64, TextField.URL);
         formJoin.append(hostField);
         
-        nickField=new TextField(SR.MS_NICKNAME, sd.account.getNickName(), 32, TextField.ANY);
+        if (nick==null) nick=sd.account.getNickName();
+        nickField=new TextField(SR.MS_NICKNAME, nick, 32, TextField.ANY);
         formJoin.append(nickField);
         
-        passField=new TextField(SR.MS_PASSWORD, "", 32, TextField.ANY | ConstMIDP.TEXTFIELD_SENSITIVE );
+        passField=new TextField(SR.MS_PASSWORD, password, 32, TextField.ANY | ConstMIDP.TEXTFIELD_SENSITIVE );
         formJoin.append(passField);
         
         formJoin.addCommand(cmdJoin);
@@ -104,7 +105,7 @@ public class ConferenceForm implements CommandListener{
         
         
         
-        sd.roster.mucContact(name, true);
+        sd.roster.initMuc(name, pass);
         // требуется для возможности нормального выхода
         //sd.roster.mucContact(name, Contact.ORIGIN_GC_MYSELF); 
         //sd.roster.activeRooms.addElement(jid);
