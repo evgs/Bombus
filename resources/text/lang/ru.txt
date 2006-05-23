@@ -203,9 +203,23 @@ Stanzas	Stanzas
 Not-in-list	Not-in-list
 proxy CONNECT	proxy CONNECT
 
-// 476
+//476
 Clear	Очистить
 
-// 494
+//494
 //Ask subscription	Запросить подписку
 //Grant subscription	Разрешить подписку
+
+//502
+//Invite to conference	Пригласить в конференцию
+//Reason	Причина
+//You have been invited to 	Вы были приглашены в 
+// is inviting You to 	 пригласил Вас в 
+//Visitors are not allowed to send messages to all occupants	Гости не могут посылать сообщения в общий чат
+//Unaffiliate	Отнять членство
+//Grant Moderator	Дать право модератора
+//Revoke Moderator	Отнять право модератора
+//Grant Admin	Дать право админа
+//Revoke Admin	Отнять право админа
+//Grant Ownership	Дать право владельца
+//Revoke Ownership	Отнять право владельца
