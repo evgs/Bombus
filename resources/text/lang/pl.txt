@@ -71,7 +71,7 @@ fullscreen	Pelny ekran
 All Priorities	Wszystkie priorytety
 Add bookmark	Dodaj zakladke
 conferences only	tylko konferencje
-Client Info	Informacja o kliencie
+Client Version	Informacja o kliencie
 Discard Search	Odrzuc wyszukiwanie
 Search Results	Wyniki wyszukiwania
 Members	Czlonkowie (members)

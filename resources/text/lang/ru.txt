@@ -1,4 +1,4 @@
-// Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+﻿// Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
 // All rights reserved.
 // (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
 // (c) Vladimir N. Shelukhin, 2006.
@@ -76,7 +76,7 @@ fullscreen	Полноэкранный
 All Priorities	Во всех статусах
 Add bookmark	Добав. закладку
 conferences only	Только конференции
-Client Info	Инфо о клиенте
+Client Version	Версия клиента
 Discard Search	Сбросить результаты
 Search Results	Результаты поиска
 Members	Члены

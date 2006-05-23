@@ -75,7 +75,7 @@ fullscreen	На повний екран
 All Priorities	У всiх статусах
 Add bookmark	Дод. закладку
 conferences only	Тiльки конференцiї
-Client Info	Iнфо клiєнта
+Client Version	Iнфо клiєнта
 Discard Search	Скинути результати
 Search Results	Результати пошуку
 Members	Члени

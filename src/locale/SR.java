@@ -85,7 +85,7 @@ public class SR {
     public   static String MS_ALL_PRIORITIES = loadString( "All Priorities" );
     public   static String MS_ADD_BOOKMARK = loadString( "Add bookmark" );
     public   static String MS_CONFERENCES_ONLY = loadString( "conferences only" );
-    public   static String MS_CLIENT_INFO = loadString( "Client Info" );
+    public   static String MS_CLIENT_INFO = loadString( "Client Version" );
     public   static String MS_DISCARD = loadString( "Discard Search" );
     public   static String MS_SEARCH_RESULTS = loadString( "Search Results" );
     public   static String MS_GENERAL = loadString( "General" );

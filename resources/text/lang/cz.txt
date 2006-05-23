@@ -72,7 +72,7 @@ fullscreen	Celý displej
 All Priorities	Všechny priority
 Add bookmark	Přidat záložku
 conferences only	Pouze konference
-Client Info	Info o klientu
+Client Version	Info o klientu
 Discard Search	Vyřadit hledání
 Search Results	Výsledek hledání
 Members	Členové
