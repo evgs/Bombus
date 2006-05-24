@@ -85,6 +85,7 @@ public abstract class VirtualList
     public static final int SIEMENS_GREEN=-11;
     public static final int NOKIA_GREEN=-10;
     public static final int MOTOROLA_GREEN=-10;
+    public final static int MOTOROLA_FLIP=-200;
     public static final int SE_GREEN=0;
     
     public static int greenKeyCode=SIEMENS_GREEN;
@@ -552,17 +553,20 @@ public abstract class VirtualList
             case KEY_NUM1:  { moveCursorHome();    break; }
             case KEY_NUM7:  { moveCursorEnd();     break; }
             case '5':{ eventOk(); break; }
+            case MOTOROLA_FLIP: break;
             default:
-                switch (getGameAction(keyCode)){
-                    case UP:    { keyUp(); break; }
-                    case DOWN:  { keyDwn(); break; }
-                    case LEFT:  { keyLeft(); break; }
-                    case RIGHT: { keyRight(); break; }
-                    case FIRE:  { eventOk(); break; }
-                    default: 
-                        if (keyCode==greenKeyCode) { keyGreen(); break; }
-                        userKeyPressed(keyCode);
-                }
+                try {
+                    switch (getGameAction(keyCode)){
+                        case UP:    { keyUp(); break; }
+                        case DOWN:  { keyDwn(); break; }
+                        case LEFT:  { keyLeft(); break; }
+                        case RIGHT: { keyRight(); break; }
+                        case FIRE:  { eventOk(); break; }
+                        default:
+                            if (keyCode==greenKeyCode) { keyGreen(); break; }
+                            userKeyPressed(keyCode);
+                    }
+                } catch (Exception e) {/* IllegalArgumentException @ getGameAction */}
         }
 
         
