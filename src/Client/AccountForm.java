@@ -63,7 +63,7 @@ class AccountForm implements CommandListener, ItemStateListener {
 	    (account.toString());
 	f = new Form(title);
 	userbox = new TextField(SR.MS_USERNAME, account.getUserName(), 32, TextField.URL); f.append(userbox);
-	passbox = new TextField(SR.MS_PASSWORD, account.getPassword(), 32, /*TextField.URL |*/ TextField.PASSWORD);	f.append(passbox);		passStars();
+	passbox = new TextField(SR.MS_PASSWORD, account.getPassword(), 32, /*TextField.URL |*/ TextField.ANY);	f.append(passbox);		passStars();
 	servbox = new TextField(SR.MS_SERVER,   account.getServer(),   32, TextField.URL); f.append(servbox);
 	ipbox = new TextField(SR.MS_HOST_IP, account.getHostAddr(), 32, TextField.URL);	f.append(ipbox);
 	portbox = new NumberField(SR.MS_PORT, account.getPort(), 0, 65535); f.append(portbox);
@@ -95,7 +95,7 @@ class AccountForm implements CommandListener, ItemStateListener {
     
     private void passStars() {
 	if (passbox.size()==0)
-	    passbox.setConstraints(TextField.URL | ConstMIDP.TEXTFIELD_SENSITIVE);
+	    passbox.setConstraints(TextField.ANY | ConstMIDP.TEXTFIELD_SENSITIVE);
     }
     
     public void itemStateChanged(Item item) {
