@@ -145,4 +145,13 @@ implements CommandListener{
 	if (keyCode==KEY_NUM3) new ActiveContacts(display, contact);
 	else super.keyPressed(keyCode);
     }
+	public void keyPressed(int keyCode) {
+            if (keyCode==SE_CLEAR) {
+            contact.purge();
+            messages=new Vector();
+            System.gc();
+            redraw();
+            }
+             else super.keyPressed(keyCode);
+    }
 }

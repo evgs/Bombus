@@ -87,7 +87,7 @@ public abstract class VirtualList
     public static final int MOTOROLA_GREEN=-10;
     public final static int MOTOROLA_FLIP=-200;
     public static final int SE_GREEN=0;
-    
+    public static final int SE_CLEAR=-8;
     public static int greenKeyCode=SIEMENS_GREEN;
     public static boolean fullscreen=false;
     public static boolean memMonitor;
