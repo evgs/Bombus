@@ -122,11 +122,7 @@ implements CommandListener{
             } catch (Exception e) {/*no messages*/}
         }
         if (c==cmdPurge) {
-            contact.purge();
-            //attachList(new Vector());
-	    messages=new Vector();
-            System.gc();
-            redraw();
+            clearMessageList();
         }
         if (c==cmdContact) {
             new RosterItemActions(display, contact);
@@ -136,6 +132,16 @@ implements CommandListener{
 	    new ActiveContacts(display, contact);
 	}
     }
+
+    private void clearMessageList() {
+        //TODO: fix scrollbar size
+        moveCursorHome();
+        contact.purge();
+        messages=new Vector();
+        System.gc();
+        redraw();
+    }
+    
     public void keyGreen(){
         (new MessageEdit(display,contact,contact.msgSuspended)).setParentView(this);
         contact.msgSuspended=null;
@@ -147,13 +153,8 @@ implements CommandListener{
     }
     public void keyPressed(int keyCode) {
         if (keyCode==SE_CLEAR) {
-            new YesNoAlert(display, parentView, SR.MS_CLEAR_LIST, SR.MS_SURE_CLEAR){
-		    public void yes() {
-                        contact.purge();
-                        messages=new Vector();
-                        System.gc();
-                        redraw();
-		    };
+            new YesNoAlert(display, this, SR.MS_CLEAR_LIST, SR.MS_SURE_CLEAR){
+		    public void yes() { clearMessageList(); }
 		};
         } else super.keyPressed(keyCode);
     }
