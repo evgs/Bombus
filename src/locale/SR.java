@@ -227,10 +227,12 @@ public class SR {
     public final static String MS_INVITE="Invite to conference";
     public final static String MS_INVITE_REASON="Reason";
     public final static String MS_YOU_HAVE_BEEN_INVITED="You have been invited to ";
+    public final static String MS_SURE_CLEAR="Are You sure want to clear messagelist?";
     
 
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
+
 
 
 
