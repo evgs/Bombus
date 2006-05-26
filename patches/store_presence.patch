@@ -1,0 +1,117 @@
+# Возможность выбора в настройках вкл/выкл отображения изменения статусов, в логе конференции
+# (c) ad <daniel.apatin@gmail.com>
+
+Index: resources/text/lang/ru.txt
+===================================================================
+--- resources/text/lang/ru.txt	(revision 508)
++++ resources/text/lang/ru.txt	(working copy)
+@@ -223,3 +223,5 @@
+ //Revoke Admin	Отнять право админа
+ //Grant Ownership	Дать право владельца
+ //Revoke Ownership	Отнять право владельца
++
++Store presence	Показывать статусы
+\ No newline at end of file
+Index: src/Client/Config.java
+===================================================================
+--- src/Client/Config.java	(revision 508)
++++ src/Client/Config.java	(working copy)
+@@ -83,6 +83,8 @@
+     public boolean ignore=false;
+     public boolean eventComposing=false;
+     
++    public boolean storepresence=true;      
++    
+     public boolean autoLogin=true;
+     public boolean autoJoinConferences=false;
+     
+@@ -196,6 +198,8 @@
+             autoFocus=inputStream.readBoolean();
+             
+             lang=inputStream.readInt();
++            
++            storepresence=inputStream.readBoolean();
+ 	    
+ 	    inputStream.close();
+ 	} catch (Exception e) {
+@@ -258,6 +262,7 @@
+             
+             outputStream.writeInt(lang);
+             
++            outputStream.writeBoolean(storepresence); 
+ 	    
+ 	} catch (IOException e) { e.printStackTrace(); }
+ 	
+Index: src/Client/ConfigForm.java
+===================================================================
+--- src/Client/ConfigForm.java	(revision 508)
++++ src/Client/ConfigForm.java	(working copy)
+@@ -115,10 +115,12 @@
+         message.append(SR.MS_SMILES, null);
+         message.append(SR.MS_HISTORY, null);
+         message.append(SR.MS_COMPOSING_EVENTS, null);
+-        mv=new boolean[3];
++        message.append(SR.MS_STORE_PRESENCE,null);        
++        mv=new boolean[4];
+         mv[0]=cf.smiles;
+         mv[1]=cf.msgLog;
+         mv[2]=cf.eventComposing;
++        mv[3]=cf.storepresence;
+         message.setSelectedFlags(mv);
+ 
+ 	startup=new ChoiceGroup(SR.MS_STARTUP_ACTIONS, Choice.MULTIPLE);
+@@ -236,6 +238,7 @@
+             cf.smiles=mv[0];
+             cf.msgLog=mv[1];
+             cf.eventComposing=mv[2];
++            cf.storepresence=mv[3];
+ 	    
+ 	    cf.autoLogin=su[0];
+ 	    cf.autoJoinConferences=su[1];
+Index: src/Client/Roster.java
+===================================================================
+--- src/Client/Roster.java	(revision 508)
++++ src/Client/Roster.java	(working copy)
+@@ -33,6 +33,7 @@
+ import ServiceDiscovery.ServiceDiscovery;
+ import Conference.ConferenceForm;
+ import PrivacyLists.PrivacySelect;
++import Client.Config;
+ 
+ //import Client.msg.*;
+ 
+@@ -66,6 +67,8 @@
+     boolean reconnect=false;
+     boolean querysign=false;
+     
++    boolean storepresence=true;
++    
+     public int myStatus=Presence.PRESENCE_OFFLINE;
+     
+     private Vector hContacts;
+@@ -955,7 +958,11 @@
+                         from,
+                         null,
+                         c.processPresence(xmuc, pr) );
+-                    messageStore(chatPresence);
++                    
++                           boolean storepresence=cf.storepresence;
++                           if (storepresence) {                    
++                                messageStore(chatPresence);    
++                            }                        
+                 } /* if (muc) */ catch (Exception e) { /*e.printStackTrace();*/ }
+                 Contact c=messageStore(m);
+                 c.priority=pr.getPriority();
+Index: src/locale/SR.java
+===================================================================
+--- src/locale/SR.java	(revision 508)
++++ src/locale/SR.java	(working copy)
+@@ -229,6 +229,8 @@
+     public final static String MS_YOU_HAVE_BEEN_INVITED="You have been invited to ";
+     public final static String MS_SURE_CLEAR="Are You sure want to clear messagelist?";
+     
++    public   static String MS_STORE_PRESENCE = loadString( "Store presence" );
++    
+ 
+     public static String MS_XMLLANG;
+     public static String MS_IFACELANG;
