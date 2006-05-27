@@ -938,9 +938,6 @@ public class Roster
                 JabberDataBlock xmuc=pr.findNamespace("http://jabber.org/protocol/muc");
                 if (xmuc!=null) try {
                     MucContact c = mucContact(from);
-                    c.addMessage(m);
-                    c.priority=pr.getPriority();
-                    if (ti>=0) c.status=ti;
                     
 //toon
 //                   String statusText=status.getChildBlockText("status"); 
@@ -958,6 +955,11 @@ public class Roster
                         null,
                         c.processPresence(xmuc, pr) );
                     messageStore(chatPresence);
+                    
+                    c.addMessage(m);
+                    c.priority=pr.getPriority();
+                    if (ti>=0) c.status=ti;
+                    
                 } /* if (muc) */ catch (Exception e) { /*e.printStackTrace();*/ }
                 else {
                     Contact c=messageStore(m);
