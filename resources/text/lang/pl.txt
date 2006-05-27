@@ -1,4 +1,4 @@
-﻿// nothing0 Polish lang file made 19h08 19042006
+// nothing0 Polish lang file made 19h08 19042006
 // nothing1 made by DeSnajpa_IV (jabber:tsieprawski@jabber.autocom.pl) <tsieprawski@gmail.com> modified by djexit (jabber:djexit@jabber.papla.pl) <djexit@gmail.com>
 xmlLang	pl
 langfile	Polish
@@ -71,7 +71,7 @@ fullscreen	Pełny ekran
 All Priorities	Wszystkie priorytety
 Add bookmark	Dodaj zakładkę
 conferences only	tylko konferencje
-Client Info	Informacja o kliencie
+Client Version	Informacja o kliencie
 Discard Search	Odrzuc wyszukiwanie
 Search Results	Wyniki wyszukiwania
 Members	Członkowie (members)
