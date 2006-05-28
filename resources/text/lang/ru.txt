@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+// Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
 // All rights reserved.
 // (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
 // (c) Vladimir N. Shelukhin, 2006.
@@ -223,3 +223,5 @@ Clear	Очистить
 //Revoke Admin	Отнять право админа
 //Grant Ownership	Дать право владельца
 //Revoke Ownership	Отнять право владельца
+
+//Store presence	Показывать статусы

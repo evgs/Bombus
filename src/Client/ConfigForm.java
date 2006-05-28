@@ -115,10 +115,16 @@ public class ConfigForm implements
         message.append(SR.MS_SMILES, null);
         message.append(SR.MS_HISTORY, null);
         message.append(SR.MS_COMPOSING_EVENTS, null);
-        mv=new boolean[3];
-        mv[0]=cf.smiles;
-        mv[1]=cf.msgLog;
-        mv[2]=cf.eventComposing;
+        message.append(SR.MS_STORE_PRESENCE,null);        
+        
+        boolean mv[]={
+            cf.smiles,
+            cf.msgLog,
+            cf.eventComposing,
+            cf.storeConfPresence,
+        };
+        this.mv=mv;
+        
         message.setSelectedFlags(mv);
 
 	startup=new ChoiceGroup(SR.MS_STARTUP_ACTIONS, Choice.MULTIPLE);
@@ -236,6 +242,7 @@ public class ConfigForm implements
             cf.smiles=mv[0];
             cf.msgLog=mv[1];
             cf.eventComposing=mv[2];
+            cf.storeConfPresence=mv[3];
 	    
 	    cf.autoLogin=su[0];
 	    cf.autoJoinConferences=su[1];

@@ -33,6 +33,7 @@ import ui.*;
 import ServiceDiscovery.ServiceDiscovery;
 import Conference.ConferenceForm;
 import PrivacyLists.PrivacySelect;
+import Client.Config;
 
 //import Client.msg.*;
 
@@ -65,6 +66,8 @@ public class Roster
    
     boolean reconnect=false;
     boolean querysign=false;
+    
+    boolean storepresence=true;
     
     public int myStatus=Presence.PRESENCE_OFFLINE;
     
@@ -948,13 +951,15 @@ public class Roster
 
                     //c.nick=nick;
                     
-                    from=from.substring(0, from.indexOf('/'));
-                    Msg chatPresence=new Msg(
-                        Msg.MESSAGE_TYPE_PRESENCE,
-                        from,
-                        null,
-                        c.processPresence(xmuc, pr) );
-                    messageStore(chatPresence);
+                    if (cf.storeConfPresence) {
+                        from=from.substring(0, from.indexOf('/'));
+                        Msg chatPresence=new Msg(
+                                Msg.MESSAGE_TYPE_PRESENCE,
+                                from,
+                                null,
+                                c.processPresence(xmuc, pr) );
+                        messageStore(chatPresence);
+                    }
                     
                     c.addMessage(m);
                     c.priority=pr.getPriority();

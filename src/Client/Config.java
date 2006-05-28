@@ -83,6 +83,8 @@ public class Config {
     public boolean ignore=false;
     public boolean eventComposing=false;
     
+    public boolean storeConfPresence=true;      
+    
     public boolean autoLogin=true;
     public boolean autoJoinConferences=false;
     
@@ -196,6 +198,8 @@ public class Config {
             autoFocus=inputStream.readBoolean();
             
             lang=inputStream.readInt();
+            
+            storeConfPresence=inputStream.readBoolean();
 	    
 	    inputStream.close();
 	} catch (Exception e) {
@@ -258,6 +262,7 @@ public class Config {
             
             outputStream.writeInt(lang);
             
+            outputStream.writeBoolean(storeConfPresence); 
 	    
 	} catch (IOException e) { e.printStackTrace(); }
 	
