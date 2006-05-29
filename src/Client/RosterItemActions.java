@@ -116,7 +116,7 @@ public class RosterItemActions extends Menu{
                     if (mc.affiliationCode!=MucContact.AFFILIATION_OWNER) addItem(SR.MS_GRANT_OWNERSHIP,38);
                     //else addItem(SR.MS_REVOKE_OWNERSHIP,37);
                 }
-            } else {
+            } else if (contact.getGroupIndex()!=Groups.TRANSP_INDEX) {
                 // usual contact - invite item check
                 boolean onlineConferences=false;
                 for (Enumeration c=StaticData.getInstance().roster.getHContacts().elements(); c.hasMoreElements(); ) {

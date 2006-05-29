@@ -821,7 +821,8 @@ public class Roster
                 Message message = (Message) data;
                 
                 String from=message.getFrom();
-                String body=message.getBody().trim();
+                String body=message.getBody().trim();    if (body.length()==0) body=null; 
+                String subj=message.getSubject().trim(); if (subj.length()==0) subj=null;
                 String tStamp=message.getTimeStamp();
 		
                 int start_me=-1;    //  не добавлять ник
@@ -838,13 +839,20 @@ public class Roster
                         name=from.substring(rp+1);
                         
                         if (rp>0) from=from.substring(0, rp);
+                        
+                        // subject
+                        if (subj!=null) {
+                            if (body==null) body=subj;
+                            subj=null;
+                            start_me=-1; // не добавлять /me к subj
+                        }
                     }
 		    if (type.equals("error")) {
 //toon                  
                         
-                        String mucerrcode=message.getChildBlock("error").getAttribute("code");
+                        String mucErrCode=message.getChildBlock("error").getAttribute("code");
                         
-                        if ( mucerrcode.equals("403") ) {
+                        if ( mucErrCode.equals("403") ) {
                             body=SR.MS_VIZITORS_FORBIDDEN;
                         } else                         
                             body=SR.MS_ERROR_+message.getChildBlock("error")+"\n"+body;
@@ -873,7 +881,6 @@ public class Roster
 
                 if (name==null) name=c.getName();
                 // /me
-                if (body.length()==0) body=null; 
 
                 if (body!=null) {
                     if (body.startsWith("/me ")) start_me=3;
@@ -899,10 +906,6 @@ public class Roster
 
                 if (body==null) return;
                 
-                String subj=message.getSubject().trim();
-                if (subj.length()==0) subj=null;
-  
-            
                 Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, subj, body);
                 if (tStamp!=null) 
                     m.dateGmt=Time.dateIso8601(tStamp);
