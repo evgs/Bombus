@@ -129,7 +129,7 @@ public class ConfigForm implements
 
 	startup=new ChoiceGroup(SR.MS_STARTUP_ACTIONS, Choice.MULTIPLE);
         startup.append(SR.MS_AUTOLOGIN, null);
-        startup.append(SR.MS_JOIN_CONFERENCE,null);
+        startup.append(SR.MS_AUTO_CONFERENCES,null);
         su=new boolean[2];
         su[0]=cf.autoLogin;
         su[1]=cf.autoJoinConferences;

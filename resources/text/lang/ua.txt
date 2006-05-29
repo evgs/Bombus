@@ -20,7 +20,7 @@ User JID	JID користувача
 New list	Новий список
 Select (no login)	Вибрати (без з'єднання)
 Privacy rule	Правило конфiденцiйностi
-use SSL	використовувати SSL
+use SSL	використ. SSL
 Modify	Змiнити
 Update	Оновити
 Account name	Ім'я акаунта
@@ -75,7 +75,7 @@ fullscreen	На повний екран
 All Priorities	У всiх статусах
 Add bookmark	Дод. закладку
 conferences only	Тiльки конференцiї
-Client Version	Iнфо клiєнта
+Client Version	Версiя клiєнта
 Discard Search	Скинути результати
 Search Results	Результати пошуку
 Members	Члени
@@ -101,7 +101,7 @@ Hide Splash	Ростер
 Message	Повiдомлення
 <Other>	<Iнший>
 Append	Додати
-Active Contacts	Актив. контакти
+Active Contacts	 Актив. контакти
 Select nickname	Вибрати нiк
 Group	Група
 Join conference	Приєднатися до конференцiї
@@ -170,7 +170,7 @@ Goto URL	Перейти по URL
 Clock -	Годинник -
 Login	Вiдкриття сокета
 Clock offset	Зсув годин
-flash backlight	мигати пiдсвiчуванням
+flash backlight	Блимати пiдсвiткою
 Suspend	Вiдкласти
 Resume Message	Продовжити повiд.
 Alert Profile >	Сигнали >
@@ -191,7 +191,7 @@ Autofocus	Автофокус
 
 Connect	Підключитися
 history -	iсторiя -
-Are You sure want to discard 	Ви дiйсно збираєтеся понизити в 
+Are You sure want to discard 	Ви дiйсно збираєтеся понизити у 
  from OWNER to 	 право OWNER до 
 Modify affiliation	Змiна членства
 
@@ -204,3 +204,21 @@ proxy CONNECT	proxy CONNECT
 
 // 476
 Clear	Очистити
+
+// 494
+//Ask subscription	Запросити пiдписку
+//Grant subscription	Дозволити пiдписку
+
+//502
+//Invite to conference	Запросити у конференцiю
+//Reason	Причина
+//You have been invited to 	Ви були запрошенi у 
+// is inviting You to 	 запросив Вас у 
+//Visitors are not allowed to send messages to all occupants	Гостi не можуть вiдправляти повiдомлення у спiльний чат
+//Unaffiliate	Вiдняти членство
+//Grant Moderator	Надати право модератора
+//Revoke Moderator	Вiдняти право модератора
+//Grant Admin	Надати право адмiна
+//Revoke Admin	Вiдняти право адмiна
+//Grant Ownership	Надати право власника
+//Revoke Ownership	Вiдняти право власника
