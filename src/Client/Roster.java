@@ -951,13 +951,13 @@ public class Roster
 
                     //c.nick=nick;
                     
+                    from=from.substring(0, from.indexOf('/'));
+                    Msg chatPresence=new Msg(
+                           Msg.MESSAGE_TYPE_PRESENCE,
+                           from,
+                           null,
+                           c.processPresence(xmuc, pr) );
                     if (cf.storeConfPresence) {
-                        from=from.substring(0, from.indexOf('/'));
-                        Msg chatPresence=new Msg(
-                                Msg.MESSAGE_TYPE_PRESENCE,
-                                from,
-                                null,
-                                c.processPresence(xmuc, pr) );
                         messageStore(chatPresence);
                     }
                     
