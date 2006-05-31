@@ -23,6 +23,7 @@ public class FormField {
     public String name;
     public Item formItem;
     boolean hidden;
+    //TODO: boolean required;
     public boolean instructions;
     private Vector optionsList;
     private boolean numericBoolean;
@@ -115,7 +116,7 @@ public class FormField {
                 }
                 else {
                     int index=((ChoiceGroup) formItem).getSelectedIndex();
-                    j.addChild("value", (String)optionsList.elementAt(index));
+                    if (index>=0)  j.addChild("value", (String)optionsList.elementAt(index));
                 }
         }
         return j;
