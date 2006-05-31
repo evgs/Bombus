@@ -1370,7 +1370,8 @@ public class Roster
                         }
                     }
                     // self-contact group
-                    if (cf.selfContact || groups.getGroup(Groups.SELF_INDEX).tonlines>1)
+                    Group selfContactGroup=groups.getGroup(Groups.SELF_INDEX);
+                    if (cf.selfContact || selfContactGroup.tonlines>1 || selfContactGroup.unreadMessages>0 )
                         groups.addToVector(tContacts, Groups.SELF_INDEX);
                     // adding groups
                     for (i=Groups.COMMON_INDEX;i<groups.getCount();i++)

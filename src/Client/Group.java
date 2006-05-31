@@ -30,6 +30,7 @@ public class Group extends IconTextElement {
     private Vector tcontacts;
     public int tonlines;
     private int tncontacts;
+    public int unreadMessages=0;
     
     boolean collapsed;
     
@@ -77,6 +78,8 @@ public class Group extends IconTextElement {
 	}
 	//int gindex=c.getGroupIndex();
 	// hide offlines whithout new messages
+        unreadMessages+=c.getNewMsgsCount();
+        
 	if (
 	online
 	|| Config.getInstance().showOfflineContacts
@@ -85,8 +88,6 @@ public class Group extends IconTextElement {
 	//|| gindex==Groups.TRANSP_INDEX
 	|| index==Groups.NIL_INDEX
 	|| index==Groups.TRANSP_INDEX
-	//  *пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ* пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
-	//  пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Show offlines
 	|| c.origin==Contact.ORIGIN_GROUPCHAT
 	)
 	    contacts.addElement(c);
