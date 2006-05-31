@@ -224,4 +224,4 @@ Clear	Очистить
 //Grant Ownership	Дать право владельца
 //Revoke Ownership	Отнять право владельца
 
-//Store presence	Показывать статусы
+//room presences

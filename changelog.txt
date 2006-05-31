@@ -2178,7 +2178,7 @@ syslog_msg: true
 
   в форме набора сообщени€ обмен местами команд to Archive и Set Subject (zet)
 
-(512)
+(513)
   полнофункциональна€ команда invite
 
   при Re-enter room теперь по€вл€етс€ форма входа в конференцию, позвол€€ перезайти с
@@ -2192,6 +2192,18 @@ syslog_msg: true
   fix: FS#258 - Motorola - при закрытии флипа приложение падает с ошибкой
 
   SonyEricsson: кнопка C с кодом -8 очищает список контактов, предварительно задава€ вопрос.
+
+(520)
+  fix: FS#5 Ч проблемы с offline-сообщени€ми self-contact
+
+  fix: FS#199 Array Index Out Of Bounds @ Commands>Get list of shared files
+
+  обновление €зыковых пакетов ru и ua
+
+  Options: Join conference->join conferences
+
+  Options: room presences - отключение сохранени€ презенсов в конференции
+
 ---------------------------
   known issues:
 
