@@ -76,7 +76,7 @@ public class StringLoader {
                 } catch (Exception e) { e.printStackTrace(); }
 	    }
 	    in.close();
-	} catch (Exception e)	{ e.printStackTrace();}
+	} catch (Exception e)	{ /* Empty file or not found */}
 	return hash;
     }
     

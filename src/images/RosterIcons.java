@@ -9,7 +9,11 @@
 
 package images;
 
+import java.util.Hashtable;
+import java.util.Vector;
+import javax.microedition.lcdui.Graphics;
 import ui.ImageList;
+import util.StringLoader;
 
 /**
  *
@@ -17,19 +21,57 @@ import ui.ImageList;
  */
 public class RosterIcons extends ImageList{
     
-    private final static int ICONS_IN_ROW=8;
-    private final static int ICONS_IN_COL=10;
-    /** Creates a new instance of RosterIcons */
-    private RosterIcons() {
-	super("/images/skin.png");
-        if (resImage==null) return;
-	height=resImage.getHeight()/ICONS_IN_COL;
-	width=resImage.getWidth()/ICONS_IN_ROW;
-    }
-    private static ImageList instance;
-    public static ImageList getInstance() {
+    private static RosterIcons instance;
+    public static RosterIcons getInstance() {
 	if (instance==null) instance=new RosterIcons();
 	return instance;
+    }
+
+    private final static int ICONS_IN_ROW=8;
+    private final static int ICONS_IN_COL=10;
+    
+    private Hashtable transports;
+    private Vector transpSkins;
+    
+    /** Creates a new instance of RosterIcons */
+    private RosterIcons() {
+	super("/images/skin.png", ICONS_IN_COL, ICONS_IN_ROW);
+        
+        transports=new StringLoader().hashtableLoader("/images/transports.txt"); //new Hashtable();
+        transpSkins=new Vector(transports.size());
+        
+        transports.put("icq", new Integer(0x10));
+        transports.put("yahoo", new Integer(0x20));
+        transports.put("msn", new Integer(0x30));
+        transports.put("aim", new Integer(0x40));
+        transports.put("rss", new Integer(0x50));
+        transports.put("conference", new Integer(ICON_GROUPCHAT_INDEX));
+        
+    }
+    
+    public int getTransportIndex(String name){
+        Object o=transports.get(name);
+        if (o instanceof String) {
+            int index=(transpSkins.size()+1)<<24;
+            // loading additional skin
+            ImageList customTransp=new ImageList((String) o, 1, ICONS_IN_ROW);
+            if (customTransp.getHeight()==0) customTransp=this;
+            
+            transpSkins.addElement( customTransp );
+            transports.put(name, new Integer(index) );
+            
+            return index;
+        } else {
+            return (o==null)?0:((Integer)o).intValue();
+        }
+        //if (resource) if (index==6) index=0;
+    }
+    
+
+    public void drawImage(Graphics g, int index, int x, int y) {
+        if (index>0x0ffffff) 
+            ((ImageList)transpSkins.elementAt( (index>>24) -1 )).drawImage(g, index & 0xff, x, y);
+        super.drawImage(g, index, x, y);
     }
 
     public static final int ICON_INVISIBLE_INDEX = 0x51;

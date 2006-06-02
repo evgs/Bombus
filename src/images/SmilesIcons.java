@@ -20,9 +20,7 @@ public class SmilesIcons extends ImageList{
     private final static int SMILES_IN_ROW=16;
     /** Creates a new instance of SmilesIcons */
     private SmilesIcons() {
-	super("/images/smiles.png");
-        if (resImage==null) return;
-	height=width=resImage.getWidth()/SMILES_IN_ROW;
+	super("/images/smiles.png", 0, SMILES_IN_ROW);
     }
     private static ImageList instance;
     public static ImageList getInstance() {

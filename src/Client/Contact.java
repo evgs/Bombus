@@ -98,7 +98,7 @@ public class Contact extends IconTextElement{
         //msgs.removeAllElements();
         
         //calculating transport
-        transport=StaticData.getInstance().getTransportIndex(jid.getTransport());
+        transport=RosterIcons.getInstance().getTransportIndex(jid.getTransport());
     }
     
     public Contact clone(Jid newjid, final int status) {
@@ -111,7 +111,7 @@ public class Contact extends IconTextElement{
         clone.offline_type=offline_type;
         clone.origin=ORIGIN_CLONE; 
         clone.status=status; 
-        clone.transport=StaticData.getInstance().getTransportIndex(newjid.getTransport()); //<<<<
+        clone.transport=RosterIcons.getInstance().getTransportIndex(newjid.getTransport()); //<<<<
 
         clone.bareJid=bareJid;
         return clone;
@@ -124,7 +124,7 @@ public class Contact extends IconTextElement{
                 default: return RosterIcons.ICON_MESSAGE_INDEX;
             }
         int st=(status==Presence.PRESENCE_OFFLINE)?offline_type:status;
-        if (st<8) st+=transport<<4; 
+        if (st<8) st+=transport; 
         return st;
     }
     public int getNewMsgsCount() {

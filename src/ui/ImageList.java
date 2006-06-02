@@ -25,15 +25,15 @@ public class ImageList {
     protected int height,width;
     //int count,total;
     /** Creates a new instance of ImageListC */
-    public ImageList(String resource) {
+    public ImageList(String resource, int rows, int columns) {
         try {
             resImage = Image.createImage(resource);
+            width = resImage.getWidth()/columns;
+            height = (rows==0)? width : resImage.getHeight()/rows;
         } catch (Exception e) { 
             System.out.print("Can't load ");
             System.out.println(resource);
         }
-        height = 1;
-        width = 1;
     }
     
     public void drawImage(Graphics g, int index, int x, int y){

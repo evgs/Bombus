@@ -720,7 +720,7 @@ public abstract class VirtualList
             win_top+=winHeight;
             int endTop=listHeight-winHeight;
             if (endTop<win_top) {
-                win_top=endTop;
+                win_top= (listHeight<winHeight)? 0 : endTop;
                 cursor=getItemCount()-1;
             } else
                 if (!cursorInWindow()) {

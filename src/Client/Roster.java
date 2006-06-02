@@ -434,7 +434,7 @@ public class Roster
             addContact(c);
         }
         c.status=Presence.PRESENCE_ONLINE;
-        c.transport=7; //FIXME: убрать хардкод
+        c.transport=RosterIcons.ICON_GROUPCHAT_INDEX; //FIXME: убрать хардкод
         c.bareJid=from;
         c.origin=Contact.ORIGIN_GROUPCHAT;
         //c.priority=99;
@@ -1022,6 +1022,8 @@ public class Roster
 
         if (c==null) return c;  // not to store/signal not-in-list message
         c.addMessage(message);
+        
+        if (cf.ghostMotor) System.gc(); //TODO: тест для моторол
         //message.from=c.getNickJid();
         /*
         switch (message.messageType) {

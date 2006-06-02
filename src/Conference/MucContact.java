@@ -70,7 +70,7 @@ public class MucContact extends Contact{
         sortCode(nick);
         
         if (role.equals("moderator")) {
-            transport=6;
+            transport=0x60;
             jidHash &= 0x3fffffff;
         } else {
             transport=0;

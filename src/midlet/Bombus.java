@@ -80,7 +80,6 @@ public class Bombus extends MIDlet implements Runnable{
             e.printStackTrace();
         }
 
-        sd.initFields();
         s.setProgress(10);
 	Config cf=Config.getInstance();
 
