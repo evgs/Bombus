@@ -71,7 +71,7 @@ public class RosterIcons extends ImageList{
     public void drawImage(Graphics g, int index, int x, int y) {
         if (index>0x0ffffff) 
             ((ImageList)transpSkins.elementAt( (index>>24) -1 )).drawImage(g, index & 0xff, x, y);
-        super.drawImage(g, index, x, y);
+        else super.drawImage(g, index, x, y);
     }
 
     public static final int ICON_INVISIBLE_INDEX = 0x51;
