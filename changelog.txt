@@ -2210,7 +2210,7 @@ syslog_msg: true
 
 (521)
   возможность добавления наборов иконок пользовательских транспортов. 
-  для примера смотреть файлы images/transports.txt и images.mrim.txt
+  для примера смотреть файлы images/transports.txt и images/mrim.txt
 
   добавлены иконки транспорта mrim
 
