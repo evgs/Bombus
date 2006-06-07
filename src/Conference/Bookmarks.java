@@ -9,6 +9,7 @@
 
 package Conference;
 import Client.*;
+import ServiceDiscovery.ServiceDiscovery;
 import images.RosterIcons;
 import javax.microedition.lcdui.*;
 import locale.SR;
@@ -33,8 +34,9 @@ public class Bookmarks
     
     private Command cmdCancel=new Command (SR.MS_CANCEL, Command.BACK, 99);
     private Command cmdJoin=new Command (SR.MS_JOIN, Command.SCREEN, 10);
-    private Command cmdRfsh=new Command (SR.MS_REFRESH, Command.SCREEN, 11);
-    private Command cmdDel=new Command (SR.MS_DELETE, Command.SCREEN, 12);
+    private Command cmdDisco=new Command (SR.MS_DISCO_ROOM, Command.SCREEN, 15);
+    private Command cmdRfsh=new Command (SR.MS_REFRESH, Command.SCREEN, 20);
+    private Command cmdDel=new Command (SR.MS_DELETE, Command.SCREEN, 30);
     
     Roster roster=StaticData.getInstance().roster;
 
@@ -54,6 +56,7 @@ public class Bookmarks
         addCommand(cmdJoin);
         addCommand(cmdRfsh);
         addCommand(cmdDel);
+        addCommand(cmdDisco);
         setCommandListener(this);
     }
     
@@ -134,6 +137,7 @@ public class Bookmarks
         if (c==cmdJoin) eventOk();
         if (c==cmdRfsh) loadBookmarks();
         if (c==cmdDel) deleteBookmark();
+        if (c==cmdDisco) new ServiceDiscovery(display, ((BookmarkItem)getFocusedObject()).getJid(), null);
     }
     
     private void deleteBookmark(){

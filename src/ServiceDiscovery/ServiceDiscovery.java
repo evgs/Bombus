@@ -161,7 +161,7 @@ public class ServiceDiscovery
                     String node=i.getAttribute("node");
                     Object serv=null;
                     if (node==null) { 
-                        serv=new Contact(name,jid,0,null);
+                        serv=new DiscoContact(name,jid,0);
                     } else {
                         serv=new Node(name, node);
                     }
