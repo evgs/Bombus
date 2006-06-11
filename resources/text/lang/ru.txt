@@ -13,9 +13,9 @@ Privacy Lists	Списки приватности
 Existing groups	Существующие группы
 Message font	Шрифт сообщения
 Roster font	Шрифт ростера
-Paste Body	Вставить тело сообщ.
+Paste Body	Вставить тело сообщения
 Configure Room	Конфигуратор комнаты
-Paste Subject	Вставить тему сообщ.
+Paste Subject	Вставить тему сообщения
 Service Discovery	Обзор сервисов
 User JID	JID пользователя
 New list	Новый список
@@ -141,7 +141,7 @@ Application	Приложение
 Bookmarks	Закладки
 Test sound	Тест звука
 Startup	Запуск
-Edit rule	Редакт. правило
+Edit rule	Редактировать правило
 Cancel	Отмена
 Close	Закрыть
 Archive	Архив
@@ -224,4 +224,13 @@ Clear	Очистить
 //Grant Ownership	Дать право владельца
 //Revoke Ownership	Отнять право владельца
 
-//room presences
+room presences	статусы в конференции
+
+// is now known as 	 сменил ник на 
+// was banned 	 запретили входить в конату 
+// was kicked 	 выгнали из комнаты 
+// has been kicked because room became members-only	 выгнан, т.к. комната теперь только для членов
+// has left the channel	 вышел из конференции
+// has joined the channel as 	 подключился как 
+// and 	 и 
+// is now 	 сменил статус на 

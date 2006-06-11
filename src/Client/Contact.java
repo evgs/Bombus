@@ -123,6 +123,7 @@ public class Contact extends IconTextElement{
                 case Msg.MESSAGE_TYPE_AUTH: return RosterIcons.ICON_AUTHRQ_INDEX;
                 default: return RosterIcons.ICON_MESSAGE_INDEX;
             }
+        if (incomingComposing!=null) return RosterIcons.ICON_COMPOSING_INDEX;
         int st=(status==Presence.PRESENCE_OFFLINE)?offline_type:status;
         if (st<8) st+=transport; 
         return st;

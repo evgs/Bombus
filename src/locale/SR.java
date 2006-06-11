@@ -232,6 +232,15 @@ public class SR {
     
     public   static String MS_STORE_PRESENCE = loadString( "room presences" );
     
+    public static String MS_IS_NOW_KNOWN_AS=loadString(" is now known as ");
+    public static String MS_WAS_BANNED=loadString(" was banned ");
+    public static String MS_WAS_KICKED=loadString(" was kicked ");
+    public static String MS_HAS_BEEN_KICKED_BECAUSE_ROOM_BECAME_MEMBERS_ONLY=loadString(" has been kicked because room became members-only");
+    public static String MS_HAS_LEFT_CHANNEL=loadString(" has left the channel");
+    public static String MS_HAS_JOINED_THE_CHANNEL_AS=loadString(" has joined the channel as ");
+    public static String MS_AND=loadString(" and ");
+    public static String MS_IS_NOW=loadString(" is now ");    
+    
 
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;

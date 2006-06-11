@@ -1,0 +1,206 @@
+// Slovenský preklad pre Bombus napísal:
+// Miroslav Prašil - Cezz
+// JID: cezz@jabber.sk
+// email: cezzmail@gmail.com
+// Pôvodný dokument je od jenda.69 (jenda.69@gmail.com)
+// 
+// Ak ste našli nejakú chybu, preklep, chýbajúcu diakritiku, nepreložené slovo, dajte vedieť na hore uvedené kontakty.
+xmlLang sk
+langfile	Slovensky
+Jid	Jid
+Loading	Načítavam
+Privacy Lists	Súkromné zoznamy
+Existing groups	Existujúca skupina
+Message font	Font správy
+Roster font	Font kontaktov
+Paste Body	Vložiť telo
+Configure Room	Nastaviť miestnosť
+Paste Subject	Vložiť tému
+Service Discovery	Zobraziť služby
+User JID	JID užívateľa
+New list	Nový zoznam
+Select (no login)	Označiť (neprihlásiť)
+Privacy rule	Pravidlo súkromia
+use SSL	Použiť SSL
+Modify	Zmeniť
+Update	Aktualizovať
+Account name	Meno učtu
+GMT offset	GMT posunutie
+Time settings (hours)	Nastavenie času
+Connected	Pripojený
+Connect to 	Pripájam k 
+Alert Profile	Upozorňovanie
+Move Up	Posunout nahor
+Move Down	Posunúť nadol
+Owners	Vlastníci
+Ok	OK
+Minimize	Minimalizovať
+Room	Miestnosť
+Messages	Nastavenie správ
+Refresh	Obnoviť
+Resolve Nicknames	Zistiť prezývky
+Action	Akcie
+Ban	Ban
+Leave Room	Opustiť miestnosť
+Password	Heslo
+Actions >	Akcie >
+Activate	Aktivovať
+Affiliation	Pridruženie
+Accounts	Účty
+Delete list	Zmazať zoznam
+Account >	Účet >
+Show Offlines	Ukazáť odpojené
+Select	Vybrať
+Subject	Predmet
+Group menu	Menu skupiny
+Quit	Koniec
+Add to roster	Pridať do zoznamu
+Edit list	Upraviť zoznam
+Registering	Registrujem
+Done	Vykonané
+Error: 	Chyby: 
+Browse	Prezkúmať
+Save list	Uložiť zoznam
+Keep-Alive period	Udržovať spojenie po (s)
+<New Group>	<Nová skupina>
+Send	Odoslať
+Priority	Priorita
+Failed	Chyba
+Set Priority	Nastaviť prioritu
+Delete rule	Zmazať pravidlo
+Roster request	Zisťujem zoznam
+Type	Typ
+Name	Meno
+Username	Uživ. meno
+fullscreen	Celý displej
+All Priorities	Všetky priority
+Add bookmark	Pridať záložku
+conferences only	Iba konferencie
+Client Version	Info o klientovi
+Discard Search	Zrušiť hľadanie
+Search Results	Výsledok hľadania
+Members	Členovia
+Add Contact	Pridať kontakt
+Subscription	Povoliť
+Status >	Stav >
+Join	Pripojiť
+Startup actions	Akcie po spustení
+Server	Server
+Admins	Administrátori
+Make Ignore-List	Vytvoriť Ignore-List
+Options	Možnosti
+Delete	Zmazať
+Delete contact?	Zmazať kontakt?
+Authorize	Autorizovať
+Nicknames	Prezývky
+Entering setup	Vstupujem do nastavení
+to Archive	Do archivu
+Back	Späť
+heap monitor	Monitor pamäti
+Hide Splash	Nezobraziť logo
+Message	Správa
+<Other>	<Ostatne>
+Append	Pridať
+Active Contacts	Aktivné kontakty
+Select nickname	Zvoliť prezývku
+Group	Skupina
+Join conference	Pripojiť ku konferencii
+No	Nie
+Yes	Áno
+Re-Enter Room	Znovu vstúpiť
+New Message	Nová správa
+Add	Pridať
+Logon	Pripojiť
+Logoff	Odpojiť
+Login in progress	Pripájanie...
+at Host	Hostiteľ
+join conferences	Pripojiť ku konferenciám
+Status	Stav
+Smiles	Smajlici
+Contact >	Kontakt >
+Order	Príkaz
+offline contacts	Odpojené kontakty
+Transport	Transport
+composing events	Udalosti "Píše"
+Add Smile	Pridať smajlíka
+Nickname	Prezývka
+Revoke Voice	Odvolať Voice
+Commands	Príkazy
+- (Sign)	- (Mínus)
+Set default	Východzie
+Outcasts (Ban)	Outcasts (Ban)
+Set affiliation to	Nastavit pridruženie k
+Hide Offlines	Schovať odpojené
+Register Account	Zaregistrovať účet
+autologin	Autopripojenie
+Publish	Uverejniť
+Remove subscription	Odstraniť povolenie
+Set	Nastaviť
+Application	Aplikácie
+Bookmarks	Záložky
+Test sound	Skúsiť zvuk
+Startup	Spúšťanie
+Edit rule	Upraviť pravidlo
+Cancel	Zrušiť
+Close	Zavrieť
+Archive	Archív
+free 	free
+Conference	Konferencia
+Sound	Zvuk
+Login failed	Chyba prihlásenia
+New Jid	Nové JID
+plain-text password	Heslo ako text
+Paste Nickname	Vložiť nick
+Kick	Vykopnúť
+Clear List	Zmazať diskusiu
+Grant Voice	Dať Voice
+Quote	Citovať
+Roster elements	Zoznam užívateľov
+popup from background	popup from background
+smiles	Smajlíci
+About	O autoroch
+Resource	Zdroj
+Disconnected	Odpojený
+Edit	Upraviť
+Host name/IP (optional)	Hostiteľ/IP (nepovinné)
+Add rule	Pridať pravidlo
+for all status types	Pre všetky stavy
+Paste Jid	Vložiť JID
+Goto URL	Prejsť na adresu
+Clock -	Hodiny -
+Login	Pripojiť
+Clock offset	Vyrovnanie hodín
+flash backlight	Blikať podsvietením
+Suspend	Nechat rozpísané
+Resume Message	Dopísať správu
+Alert Profile >	Upozorňovanie >
+My vCard	Moja vCard
+transports	Transporty
+New Account	Nový účet
+self-contact	Môj kontakt
+vCard	vCard
+Set Subject	Nastaviť predmet
+Tools	Nástroje
+Jabber Tools	Nástroje Jabberu
+Port	Port
+
+
+//473
+Proxy name/IP	Meno proxy/IP
+Proxy port	Proxy port
+Autofocus	Autofocus
+
+Connect	Pripojiť
+history -	História -
+Are You sure want to discard 	Ste si istý, že chcete vymazať 
+ from OWNER to 	 od VLASTNÍKA do 
+Modify affiliation	Upravit priradenie
+
+// DO NOT TRANSLATE THIS LINES!!!
+Ignore-List	Ignore-List
+General	General
+Stanzas	Stanzas
+Not-in-list	Not-in-list
+proxy CONNECT	proxy CONNECT
+
+//...

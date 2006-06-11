@@ -13,6 +13,7 @@ import Client.Contact;
 import Client.StaticData;
 import com.alsutton.jabber.JabberDataBlock;
 import com.alsutton.jabber.datablocks.Presence;
+import locale.SR;
 
 /**
  *
@@ -95,7 +96,7 @@ public class MucContact extends Contact{
             switch (statusCode) {
                 
                 case 303:
-                    b.append(" is now known as ");
+                    b.append(SR.MS_IS_NOW_KNOWN_AS);
                     b.append(chNick);
                     // исправим jid
                     String newJid=from.substring(0,rp+1)+chNick;
@@ -109,7 +110,7 @@ public class MucContact extends Contact{
                 case 307: //kick
                 case 301: //ban
                     b.append(
-                            (statusCode==301)? " was banned " : " was kicked " );
+                            (statusCode==301)? SR.MS_WAS_BANNED : SR.MS_WAS_KICKED );
                     b.append("(");
                     b.append(reason);
                     b.append(")");
@@ -117,12 +118,12 @@ public class MucContact extends Contact{
                     break;
             
                 case 322:
-                    b.append(" has been kicked because room became members-only");
+                    b.append(SR.MS_HAS_BEEN_KICKED_BECAUSE_ROOM_BECAME_MEMBERS_ONLY);
                     testMeKicked();
                     break;
                     
                 default:
-                b.append(" has left the channel");
+                b.append(SR.MS_HAS_LEFT_CHANNEL);
             } 
                 
         } else {
@@ -134,10 +135,10 @@ public class MucContact extends Contact{
                     b.append(')');
                     this.realJid=realJid;  //for moderating purposes
                 }
-                b.append(" has joined the channel as ");
+                b.append(SR.MS_HAS_JOINED_THE_CHANNEL_AS);
                 b.append(role);
                 if (!affiliation.equals("none")) {
-                    b.append(" and ");
+                    b.append(SR.MS_AND);
                     b.append(affiliation);
 //toon
                     //b.append(" with status ");
@@ -145,7 +146,7 @@ public class MucContact extends Contact{
                     
                 }
             } else {
-                b.append(" is now ");
+                b.append(SR.MS_IS_NOW);
                 if ( roleChanged ) b.append(role);
                 if (affiliationChanged) {
                     if (roleChanged) b.append(" and ");
