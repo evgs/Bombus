@@ -114,7 +114,13 @@ public class Utf8IOStream implements Runnable{
 //#     private int chRead() throws IOException{
 //#         if (length>pbyte) return cbuf[pbyte++];
 //# 
-//#         int avail=inpStream.available();
+//#         //int avail=inpStream.available();
+//#         int avail;
+//#         do {
+//#             avail=inpStream.available();
+//#             if (avail==0) 
+//#                 try { Thread.sleep(100); } catch (Exception e) {};
+//#         } while (avail==0);
     //#if !(XML_STREAM_DEBUG)
 //# 	if (avail<2) return inpStream.read() &0xff;
     //#else
