@@ -1,0 +1,22 @@
+# SR.MS_SET_AFFILIATION > SR.MS_NEW_LIST
+# "Make Ignore-List" > SR.MS_MK_ILIST
+# "Edit list" > SR.MS_EDIT_LIST
+# (c) zet
+Index: src\PrivacyLists\PrivacySelect.java
+===================================================================
+--- PrivacySelect.java	(revision 530)
++++ PrivacySelect.java	(working copy)
+@@ -35,10 +35,10 @@
+     private Command cmdCancel=new Command (SR.MS_BACK, Command.BACK, 99);
+     private Command cmdActivate=new Command (SR.MS_ACTIVATE, Command.SCREEN, 10);
+     private Command cmdDefault=new Command (SR.MS_SETDEFAULT, Command.SCREEN, 11);
+-    private Command cmdNewList=new Command (SR.MS_SET_AFFILIATION, Command.SCREEN, 12);
++    private Command cmdNewList=new Command (SR.MS_NEW_LIST, Command.SCREEN, 12);
+     private Command cmdDelete=new Command (SR.MS_DELETE_LIST, Command.SCREEN, 13);
+-    //private Command cmdEdit=new Command ("Edit list", Command.SCREEN, 14);
+-    private Command cmdIL=new Command ("Make Ignore-List", Command.SCREEN, 16);
++    //private Command cmdEdit=new Command (SR.MS_EDIT_LIST, Command.SCREEN, 14);
++    private Command cmdIL=new Command (SR.MS_MK_ILIST, Command.SCREEN, 16);
+     
+     JabberStream stream=StaticData.getInstance().roster.theStream;
+     

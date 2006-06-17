@@ -1,0 +1,14 @@
+# (c) zet
+Index: resources\MIDP2\images\smiles.txt
+===================================================================
+--- smiles.txt	(revision 531)
++++ smiles.txt	(working copy)
+@@ -2,7 +2,7 @@
+ ;-)	;)
+ :-P	:-p	:P	:p	[:-}
+ :-D	:-d	:D	:d	:lol:	:LOL:
+-:-(	:(      :[	:-[
++:-(	:(	:[	:-[
+ :'-(	:'(	;-(	;(
+ :-O	:-o	:O	:o	=-O
+ :-@	:@	>:o

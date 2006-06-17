@@ -1,0 +1,115 @@
+﻿# изменение регистра A>a (в опциях)
+# Make Ignore-List > Создать Ignore-List
+# Participants > Участники
+# (c) zet
+Index: resources\text\lang\ru.txt
+===================================================================
+--- ru.txt	(revision 530)
++++ ru.txt	(working copy)
+@@ -1,4 +1,4 @@
+-// Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
++﻿// Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ // All rights reserved.
+ // (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
+ // (c) Vladimir N. Shelukhin, 2006.
+@@ -72,7 +72,7 @@
+ Type	Тип
+ Name	Имя
+ Username	Имя пользователя
+-fullscreen	Полноэкранный
++fullscreen	полноэкранный
+ All Priorities	Во всех статусах
+ Add bookmark	Добав. закладку
+ conferences only	Только конференции
+@@ -88,7 +88,7 @@
+ Startup actions	Действия при запуске
+ Server	Сервер
+ Admins	Админы
+-Make Ignore-List	Создать игнор-лист
++Make Ignore-List	Создать Ignore-List
+ Options	Настройки
+ Delete	Удалить
+ Delete contact?	Удалить контакт?
+@@ -97,7 +97,7 @@
+ Entering setup	Вход в настройки аккаунта
+ to Archive	В архив
+ Back	Назад
+-heap monitor	Монитор heap
++heap monitor	монитор heap
+ Hide Splash	Ростер
+ Message	Сообщение
+ <Other>	<Другой>
+@@ -115,12 +115,12 @@
+ Logoff	Отключить
+ Login in progress	Проверка пароля
+ at Host	Сервер
+-join conferences	Автовход в конференцию
++join conferences	автовход в конференцию
+ Status	Статус
+ Smiles	Смайлики
+ Contact >	Контакт >
+ Order	Порядок
+-offline contacts	Показать отключенных
++offline contacts	показать отключенных
+ Transport	Транспорт
+ composing events	"composing" события
+ Add Smile	:-)
+@@ -133,7 +133,7 @@
+ Set affiliation to	Изменить членство на
+ Hide Offlines	Скрыть отключенных
+ Register Account	Зарегистрировать аккаунт
+-autologin	Автосоединение
++autologin	автосоединение
+ Publish	Опубликовать
+ Remove subscription	Удалить подписку
+ Set	Установить
+@@ -158,7 +158,7 @@
+ Quote	Цитировать
+ Roster elements	Элементы ростера
+ popup from background	Всплывать из фона
+-smiles	Смайлики
++smiles	смайлики
+ About	О программе
+ Resource	Ресурс
+ Disconnected	Соединение разорвано
+@@ -171,14 +171,14 @@
+ Clock -	Часы -
+ Login	Открытие сокета
+ Clock offset	Смещение часов
+-flash backlight	Мигать подсветкой
++flash backlight	мигать подсветкой
+ Suspend	Отложить
+ Resume Message	Черновик
+ Alert Profile >	Сигналы >
+ My vCard	Личная vCard
+-transports	Транспорты
++transports	транспорты
+ New Account	Новый аккаунт
+-self-contact	Свои контакты
++self-contact	свои контакты
+ vCard	vCard
+ Set Subject	Установить тему
+ Tools	Инструменты
+@@ -188,10 +188,10 @@
+ //473
+ Proxy name/IP	Имя прокси-сервера/IP
+ Proxy port	Порт прокси-сервера
+-Autofocus	Автофокус
++Autofocus	автофокус
+ 
+ Connect	Подключиться
+-history -	История -
++history -	история -
+ Are You sure want to discard 	Вы действительно собираетесь понизить у 
+  from OWNER to 	 право OWNER до 
+ Modify affiliation	Изменение членства
+@@ -233,4 +233,6 @@
+ // has left the channel	 вышел из конференции
+ // has joined the channel as 	 подключился как 
+ // and 	 и 
+-// is now 	 сменил статус на 
+\ No newline at end of file
++// is now 	 сменил статус на 
++
++//Participants	Участники
+\ No newline at end of file
