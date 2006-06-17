@@ -1,5 +1,5 @@
-// nothing0 Polish lang file made 19h08 19042006
-// nothing1 made by DeSnajpa_IV (jabber:tsieprawski@jabber.autocom.pl) <tsieprawski@gmail.com> modified by djexit (jabber:djexit@jabber.papla.pl) <djexit@gmail.com>
+// nothing0 Polish lang file made 20h08 15062006
+// nothing1 made by DeSnajpa_IV (jabber:tsieprawski@jabber.autocom.pl) <tsieprawski@gmail.com> modified by ObserwatoR (jabber:obserwator@jabber.ru) <obserwator@mail.ru>
 xmlLang	pl
 langfile	Polish
 Jid	Jid
@@ -12,7 +12,7 @@ Paste Body	Wklej treść
 Configure Room	Konfiguruj pokój
 Paste Subject	Wklej temat
 Service Discovery	Odkrywanie usług
-User JID	JID uzytkownika
+User JID	JID użytkownika
 New list	Nowa lista
 Select (no login)	Wybierz (nie loguj)
 Privacy rule	Zasada prywatnosci
@@ -24,22 +24,22 @@ GMT offset	Roznica w stosunku do GMT
 Time settings (hours)\n	Ustawienia czasu\n
 Connected	Połączono
 Connect to 	Łącze z 
-Alert Profile	Alarmuj profil
-Move Up	Idź w górę
-Move Down	Idź w dół
+Alert Profile	Profil Alarmu
+Move Up	Przenieś wyżej
+Move Down	Przenieś niżej
 Owners	Właściciele (owners)
 Ok	OK
 Minimize	Schowaj
 Room	Pokój	
 Messages	Wiadomosci
-Refresh	Odświez
+Refresh	Odśwież
 Resolve Nicknames	Ustal pseudonimy
 Action	Akcja
-Ban	Zbanuj
+Ban	Zablokuj
 Leave Room	Opuść pokoj
 Password	Haslo
-Actions >	Akcje >
-Activate	Akrytuj
+Actions >	Opcje kontaktu >
+Activate	Aktywuj
 Affiliation	Przynależność (affiliation)
 Accounts	Konta
 Delete list	Usuń liste
@@ -54,9 +54,9 @@ Edit list	Edytuj liste
 Registering	Rejestruje
 Done	Zrobione
 Error: 	Błąd: 
-Browse	Przegladaj
+Browse	Przeglądaj
 Save list	Zapisz liste
-Keep-Alive period	Odstep utrzymania połączenia
+Keep-Alive period	Odstęp utrzymania połączenia
 <New Group>	<Nowa grupa>
 Send	Wyślij
 Priority	Priorytet
@@ -71,7 +71,7 @@ fullscreen	Pełny ekran
 All Priorities	Wszystkie priorytety
 Add bookmark	Dodaj zakładkę
 conferences only	tylko konferencje
-Client Version	Informacja o kliencie
+Client Version	Wersja klienta
 Discard Search	Odrzuc wyszukiwanie
 Search Results	Wyniki wyszukiwania
 Members	Członkowie (members)
@@ -80,11 +80,11 @@ Add Contact	Dodaj kontakt
 Subscription	Subskrypcja
 Status >	Status >
 Join	Wejdź
-Startup actions	Akcje poczatkowe
-Server	Server
+Startup actions	Akcje początkowe
+Server	Serwer
 Admins	Administratorzy (admins)
 Make Ignore-List	Utworz liste ignorowania
-Options	Opcje
+Options	Ustawienia
 Delete	Usuń
 Delete contact?	Usunąć kontakt?
 Authorize	Autoryzuj
@@ -95,7 +95,7 @@ Back	Wróć
 heap monitor	monitor pamieci
 Hide Splash	Ukryj logo
 Message	Wiadomość
-<Other>	<Inny
+<Other>	<Inny>
 // history -	historia -
 Append	Dopisz
 Active Contacts	Aktywne kontakty
@@ -119,22 +119,22 @@ Order	Zamów
 offline contacts	wylogowane kontakty 
 Transport	Transport
 composing events	wiadomość o komponowaniu
-Add Smile	Dodaj ikonkę
+Add Smile	Dodaj emotkę
 Nickname	Pseudonim
 Revoke Voice	Zabierz glos
 Commands	Komendy
 - (Sign)	- (Minus)
-Set default	Ustaw domyslne
-Outcasts (Ban)	Zbanowani (Ban)
+Set default	Ustaw domyślnie
+Outcasts (Ban)	Zablokowani (Ban)
 Set affiliation to	Zmień przynależność na 
-Hide Offlines	Ukryj niedostepnych
+Hide Offlines	Ukryj niedostępnych
 Register Account	Zarejestruj konto
 autologin	Autologowanie
 Publish	Publikuj
-Remove subscription	Zdejmij autoryzację
+Remove subscription	Odbierz subskrypcje
 Set	Ustaw
-Application	Aplikacje
-Bookmarks	Zakladki
+Application	Aplikacja
+Bookmarks	Zakładki
 Test sound	Testuj dźwięk
 Startup	Uruchamianie
 Edit rule	Edytuj zasadę
@@ -148,7 +148,7 @@ Login failed	Nieudane logowanie
 New Jid	Nowy JID
 plain-text password	Wyślij hasło nieszyfrowane (niezalecane)
 Paste Nickname	Wklej pseudonim
-Kick	Wykop (kick)
+Kick	Wyrzuć (kick)
 Clear List	Czyść liste
 Grant Voice	Nadaj głos
 Quote	Cytuj
@@ -170,27 +170,27 @@ Clock offset	Różnica zegara
 flash backlight	Podświetlenie
 Suspend	Przerwij
 Resume Message	Dokończ wiadomość
-Alert Profile >	Dźwięki >
-My vCard	Mój vCard
+Alert Profile >	Profil Alarmu >
+My vCard	Moja Wizytówka
 transports	Transporty
 New Account	Nowe konto
 self-contact	Własny kontakt
-vCard	vCard
+vCard	Wizytówka
 Set Subject	Ustaw temat
 Tools	Narzędzia
 Jabber Tools	Narzędzia Jabber'a
 Port	Port
 
 //473
-Proxy name/IP	Proxy name/IP
-Proxy port	Proxy port
-Autofocus	Autofocus
+Proxy name/IP	Nazwa Proxy/IP
+Proxy port	Port Proxy
+Autofocus	Autofokus
 
-Connect	Login
-history -	history -
-Are You sure want to discard 	Are You sure want to discard 
- from OWNER to 	 from OWNER to 
-Modify affiliation	Modify affiliation
+Connect	Połącz
+history -	historia -
+Are You sure want to discard 	Jesteś pewny że chcesz zmienić przynależność 
+ from OWNER to 	 z WŁAŚCICIELA na 
+Modify affiliation	Modyfikuj przynależność
 
 // DO NOT TRANSLATE THIS LINES!!!
 Ignore-List	Ignore-List
