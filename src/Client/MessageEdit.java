@@ -47,7 +47,13 @@ public class MessageEdit
         this.to=to;
         this.display=display;
         parentView=display.getCurrent();
-        t=new TextBox(to.toString(),null,500,TextField.ANY);
+        t=new TextBox(to.toString(),null,500,
+//#if MIDP1
+//#                 TextField.ANY
+//#else
+                TextField.INITIAL_CAPS_SENTENCE
+//#endif
+                );
         try {
             if (body!=null) t.setString(body);
         } catch (Exception e) {

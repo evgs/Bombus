@@ -105,6 +105,7 @@ public class Config {
     // runtime values
     public boolean allowMinimize=false;
     public int profile=0;
+    public int lastProfile=0;
     
     // Singleton
     private static Config instance;
@@ -211,7 +212,8 @@ public class Config {
 	    e.printStackTrace();
 	}
 	
-	profile=def_profile;
+	lastProfile=profile=def_profile;
+        if (lastProfile==AlertProfile.VIBRA) lastProfile=0;
 	updateTime();
 	VirtualList.fullscreen=fullscreen;
 	VirtualList.memMonitor=memMonitor;

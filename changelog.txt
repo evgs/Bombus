@@ -2243,6 +2243,31 @@ syslog_msg: true
 
   подготовка к локализации статусных сообщений в конференции
 
+(535)
+
+  * фиксы локализации
+  
+  * обновления польской локализации
+
+  * патч "ожидание готовности чтения сокета" активен только для моторол
+  (проверка влияния на S75)
+
+  * фикс смайла :(
+
+  изменение поведения кнопки KEYBLOCK - теперь запоминается текущий профиль при выборе вибры, 
+  а не переключается между профилем "по умолчанию" и виброй
+
+  экспериментальная модификация свойств ввода в форме набора сообщения - автоматический ввод с заглавной буквы
+
+  --
+  * locale fixes
+  * Polish langfile update
+  * InputStream.available() polling enabled only on Motorola phones (s75 incompatibility?)
+  * smile :( recognition fixed
+  * KEYBLOCK behaviour changed - now it performs switch between current alert state and vibra, 
+    not between default state and vibra.
+  + experimental: MessageEdit form now has INITIAL_CAPS_SENTENCE property (device dependent behaviour)
+
 ---------------------------
   known issues:
 

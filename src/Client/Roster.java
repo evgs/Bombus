@@ -1249,8 +1249,12 @@ public class Roster
             new KeyBlock(display, getTitleItem(), cf.keyLock, cf.ghostMotor); 
 
         if (keyCode==cf.keyVibra) {
-            cf.profile=(cf.profile==AlertProfile.VIBRA)? 
-                cf.def_profile : AlertProfile.VIBRA;
+            // swap profiles
+            int profile=cf.profile;
+            cf.profile=(profile==AlertProfile.VIBRA)? 
+                cf.lastProfile : AlertProfile.VIBRA;
+            cf.lastProfile=profile;
+            
             updateTitle();
             redraw();
         }
