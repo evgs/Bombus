@@ -67,12 +67,15 @@ public class JabberStream implements XMLEventListener, Runnable {
     public JabberStream( String server, String hostAddr, String proxy, JabberListener theListener )
     throws IOException {
         this.server=server;
+        boolean waiting=Config.getInstance().istreamWaiting;
         if (proxy==null) {
             StreamConnection connection = (StreamConnection) Connector.open(hostAddr);
             iostream=new Utf8IOStream(connection);
+            iostream.setStreamWaiting(waiting);
         } else {
             StreamConnection connection = (StreamConnection) Connector.open(proxy);
             iostream=new Utf8IOStream(connection);
+            iostream.setStreamWaiting(waiting);
             
             send( "CONNECT " + hostAddr + " HTTP/1.0 \r\n"
                 + "HOST " + hostAddr + "\r\n" 

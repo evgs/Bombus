@@ -27,6 +27,8 @@ public class Utf8IOStream implements Runnable{
     private InputStream inpStream;
     private OutputStream outStream;
 
+    private boolean iStreamWaiting;
+    
 //#if !(USE_UTF8_READER)
     private OutputStreamWriter outputWriter;
     private InputStreamReader inputReader;
@@ -114,13 +116,12 @@ public class Utf8IOStream implements Runnable{
 //#     private int chRead() throws IOException{
 //#         if (length>pbyte) return cbuf[pbyte++];
 //# 
-//#         //int avail=inpStream.available();
-//#         int avail;
-//#         do {
+//#         int avail=inpStream.available();
+//#         
+//#         while (avail==0 && iStreamWaiting) {
+//#             try { Thread.sleep(100); } catch (Exception e) {};
 //#             avail=inpStream.available();
-//#             if (avail==0) 
-//#                 try { Thread.sleep(100); } catch (Exception e) {};
-//#         } while (avail==0);
+//#         }
     //#if !(XML_STREAM_DEBUG)
 //# 	if (avail<2) return inpStream.read() &0xff;
     //#else
@@ -225,4 +226,10 @@ public class Utf8IOStream implements Runnable{
 	}
 	return buf.toString();
     }
+
+    /**
+     * Enables inputStream.available() polling before read
+     * it is critical for Motorola phones
+     */
+    public void setStreamWaiting(boolean iStreamWaiting) {  this.iStreamWaiting = iStreamWaiting; }
 }

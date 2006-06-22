@@ -108,6 +108,9 @@ public class Config {
     
     // Singleton
     private static Config instance;
+
+    public boolean istreamWaiting;
+    
     public static Config getInstance(){
 	if (instance==null) {
 	    instance=new Config();
@@ -149,10 +152,12 @@ public class Config {
 	if (platform.startsWith("Moto")) {
 	    ghostMotor=true;
 	    blFlash=false;
+            istreamWaiting=true;
 	    greenKeyCode=VirtualList.MOTOROLA_GREEN;
 	}
 	if (platform.startsWith("j2me")) {
 	    greenKeyCode=VirtualList.MOTOROLA_GREEN;
+            istreamWaiting=true;
 	}
 	
 	VirtualList.greenKeyCode=greenKeyCode;
