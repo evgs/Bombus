@@ -50,20 +50,20 @@ public class Config {
     public char keyLock=getCharProperty("key_lock",'*');
     public char keyVibra=getCharProperty("key_vibra",'#');
 //#else
-//--    public boolean msgLogPresence=getBooleanProperty("msg_log_presence",false);
-//--    public boolean msgLogConfPresence=getBooleanProperty("msg_log_conf_presence",false);
-//--    public boolean msgLogConf=getBooleanProperty("msg_log_conf",false);
-//--    public final String msgPath=getStringProperty("msg_log_path","");
-//--    public final String siemensCfgPath=getStringProperty("cfg_path","");
-//--    public char keyLock=getCharProperty("key_lock",'#');
-//--    public char keyVibra=getCharProperty("key_vibra",'*');
+//#     public boolean msgLogPresence=getBooleanProperty("msg_log_presence",false);
+//#     public boolean msgLogConfPresence=getBooleanProperty("msg_log_conf_presence",false);
+//#     public boolean msgLogConf=getBooleanProperty("msg_log_conf",false);
+//#     public final String msgPath=getStringProperty("msg_log_path","");
+//#     public final String siemensCfgPath=getStringProperty("cfg_path","");
+//#     public char keyLock=getCharProperty("key_lock",'#');
+//#     public char keyVibra=getCharProperty("key_vibra",'*');
 //#endif
     
     public char keyHide=getCharProperty("key_hide",'9');
     public char keyOfflines=getCharProperty("key_offlines",'0');
     
 //#if USE_LED_PATTERN
-//--    public int m55LedPattern=0;
+//#     public int m55LedPattern=0;
 //#endif
     
     public String defGcRoom=getStringProperty("gc_room","bombus");
@@ -101,24 +101,24 @@ public class Config {
     public int font3=0;
 
     public int lang=0;  //en
+    public boolean capsState=true;
     
     // runtime values
     public boolean allowMinimize=false;
     public int profile=0;
     public int lastProfile=0;
     
+    public boolean istreamWaiting;
+
     // Singleton
     private static Config instance;
 
-    public boolean istreamWaiting;
     
     public static Config getInstance(){
 	if (instance==null) {
 	    instance=new Config();
-	    // эти методы инициализации находятся вне конструктора,
-	    // т.к. используют вызовы класса NvStorage, который, в свою очередь,
-	    // использует поля Config (доступ через Config.getInstacne).
-	    // вызов вне конструктора позволяет избежать рекурсии
+	    // this method called outside class constructor to avoid recursion
+            // because using of NvStorage methods depending on Config.getInstance()
 	    instance.loadFromStorage();
 	    instance.loadSoundName();
 
@@ -163,8 +163,8 @@ public class Config {
 	
 	VirtualList.greenKeyCode=greenKeyCode;
 //#if USE_LED_PATTERN
-//--        if (platform.startsWith("M55"))
-//--        m55LedPattern=getIntProperty("led_pattern",5);
+//#         if (platform.startsWith("M55"))
+//#         m55LedPattern=getIntProperty("led_pattern",5);
 //#endif
     }
     
@@ -206,6 +206,8 @@ public class Config {
             lang=inputStream.readInt();
             
             storeConfPresence=inputStream.readBoolean();
+            
+            capsState=inputStream.readBoolean();
 	    
 	    inputStream.close();
 	} catch (Exception e) {
@@ -270,6 +272,8 @@ public class Config {
             outputStream.writeInt(lang);
             
             outputStream.writeBoolean(storeConfPresence); 
+
+            outputStream.writeBoolean(capsState); 
 	    
 	} catch (IOException e) { e.printStackTrace(); }
 	

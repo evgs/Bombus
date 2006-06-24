@@ -37,9 +37,11 @@ public class MessageEdit
     private Command cmdInsMe=new Command(SR.MS_SLASHME, Command.SCREEN, 4); ; // /me
     private Command cmdSubj=new Command(SR.MS_SET_SUBJECT, Command.SCREEN, 10);
     private Command cmdPaste=new Command(SR.MS_ARCHIVE, Command.SCREEN, 5);
+    private Command cmdABC=new Command("Abc", Command.SCREEN, 15);
+    private Command cmdAbc=new Command("abc", Command.SCREEN, 15);
     
     private boolean composing=true;
-
+    
     //private Command cmdSubject=new Command("Subject",Command.SCREEN,10);
     
     /** Creates a new instance of MessageEdit */
@@ -47,13 +49,8 @@ public class MessageEdit
         this.to=to;
         this.display=display;
         parentView=display.getCurrent();
-        t=new TextBox(to.toString(),null,500,
-//#if MIDP1
-//#                 TextField.ANY
-//#else
-                TextField.INITIAL_CAPS_SENTENCE
-//#endif
-                );
+        t=new TextBox(to.toString(),null,500, TextField.ANY);
+        
         try {
             if (body!=null) t.setString(body);
         } catch (Exception e) {
@@ -74,6 +71,8 @@ public class MessageEdit
         
         //t.setInitialInputMode("MIDP_LOWERCASE_LATIN");
         new Thread(this).start() ; // composing
+        
+        setInitialCaps(Config.getInstance().capsState);
         
         display.setCurrent(t);
     }
@@ -110,6 +109,8 @@ public class MessageEdit
         if (c==cmdInsMe) { t.insert("/me ", 0); return; }
         if (c==cmdSmile) { new SmilePicker(display, this); return; }
         if (c==cmdInsNick) { new AppendNick(display, to); return; }
+        if (c==cmdAbc) {setInitialCaps(false); return; }
+        if (c==cmdABC) {setInitialCaps(true); return; }
         if (c==cmdSend && body==null) return;
         if (c==cmdSubj) {
             if (body==null) return;
@@ -153,6 +154,15 @@ public class MessageEdit
     
     public void destroyView(){
         if (display!=null)   display.setCurrent(parentView);
+    }
+
+    private void setInitialCaps(boolean state) {
+//#if (!MIDP1)
+        t.setConstraints(state? TextField.INITIAL_CAPS_SENTENCE: TextField.ANY);
+        t.removeCommand(state? cmdABC: cmdAbc);
+        t.addCommand(state? cmdAbc: cmdABC);
+        Config.getInstance().capsState=state;
+//#endif
     }
 
 }

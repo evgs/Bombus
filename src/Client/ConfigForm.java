@@ -114,14 +114,20 @@ public class ConfigForm implements
         message=new ChoiceGroup(SR.MS_MESSAGES, Choice.MULTIPLE);
         message.append(SR.MS_SMILES, null);
         message.append(SR.MS_HISTORY, null);
-        message.append(SR.MS_COMPOSING_EVENTS, null);
         message.append(SR.MS_STORE_PRESENCE,null);        
+        message.append(SR.MS_COMPOSING_EVENTS, null);
+//#if (!MIDP1)
+        message.append(SR.CAPS_STATE, null);
+//#endif
         
         boolean mv[]={
             cf.smiles,
             cf.msgLog,
-            cf.eventComposing,
             cf.storeConfPresence,
+            cf.eventComposing
+//#if (!MIDP1)
+            ,cf.capsState
+//#endif
         };
         this.mv=mv;
         
@@ -199,7 +205,7 @@ public class ConfigForm implements
 	//sndVol.addCommand(cmdPlaySound);
 	//sndVol.setItemCommandListener(this);
 //#else
-//--	f.addCommand(cmdPlaySound);
+//# 	f.addCommand(cmdPlaySound);
 //#endif
 	
 	f.append(startup);
@@ -241,8 +247,12 @@ public class ConfigForm implements
 
             cf.smiles=mv[0];
             cf.msgLog=mv[1];
-            cf.eventComposing=mv[2];
-            cf.storeConfPresence=mv[3];
+            cf.storeConfPresence=mv[2];
+            cf.eventComposing=mv[3];
+//#if (!MIDP1)
+            cf.capsState=mv[4];
+//#endif
+
 	    
 	    cf.autoLogin=su[0];
 	    cf.autoJoinConferences=su[1];
@@ -278,7 +288,7 @@ public class ConfigForm implements
             destroyView();
         }
 //#if MIDP1
-//--        if (c==cmdPlaySound) testSound();
+//#         if (c==cmdPlaySound) testSound();
 //#endif
         if (c==cmdCancel) destroyView();
     }
