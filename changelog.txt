@@ -2268,6 +2268,17 @@ syslog_msg: true
     not between default state and vibra.
   + experimental: MessageEdit form now has INITIAL_CAPS_SENTENCE property (device dependent behaviour)
 
+(537)
+  + экспериментальная опция Options:Abcd и команды MessageBox:Abcd и abcd для переключения автоматического
+    ввода предложения с заглавной буквы
+
+  * обновление файлов локализации
+
+  --
+  + experimental: Options:Abcd and commands MessageBox:Abcd & abcd to switch INITIAL_CAPS_SENTENCE property
+
+  * localization update
+  ATTENTION! langfiles cz.txt, pl.txt and sk.txt should be corrected to show native strings
 ---------------------------
   known issues:
 

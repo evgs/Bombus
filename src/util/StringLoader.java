@@ -70,6 +70,8 @@ public class StringLoader {
                 try {
                     int indexTab=line.indexOf(0x09);
                     
+                    if (indexTab<=0) continue; // process next line
+                    
                     key=line.substring(0, indexTab);
                     value=line.substring(indexTab+1, line.length() );
                     hash.put(key, value);

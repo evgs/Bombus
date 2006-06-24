@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+// Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
 // All rights reserved.
 // (c) zalex <zlex@ukr.net>, 2006.
 
@@ -23,7 +23,7 @@ Privacy rule	Правило конфiденцiйностi
 use SSL	використ. SSL
 Modify	Змiнити
 Update	Оновити
-Account name	Ім'я акаунта
+Account name	iм'я акаунта
 GMT offset	Часовий пояс (GMT+)
 Time settings (hours)\n	Налаштування часу\n
 Connected	З'єднання встановлено
@@ -101,7 +101,7 @@ Hide Splash	Ростер
 Message	Повiдомлення
 <Other>	<Iнший>
 Append	Додати
-Active Contacts	 Актив. контакти
+Active Contacts	Актив. контакти
 Select nickname	Вибрати нiк
 Group	Група
 Join conference	Приєднатися до конференцiї
@@ -189,7 +189,7 @@ Proxy name/IP	Iм'я проксi-сервера/IP
 Proxy port	Порт проксi-сервера
 Autofocus	Автофокус
 
-Connect	Підключитися
+Connect	Пiдключитися
 history -	iсторiя -
 Are You sure want to discard 	Ви дiйсно збираєтеся понизити у 
  from OWNER to 	 право OWNER до 
@@ -206,19 +206,28 @@ proxy CONNECT	proxy CONNECT
 Clear	Очистити
 
 // 494
-//Ask subscription	Запросити пiдписку
-//Grant subscription	Дозволити пiдписку
+Ask subscription	Запросити пiдписку
+Grant subscription	Дозволити пiдписку
 
 //502
-//Invite to conference	Запросити у конференцiю
-//Reason	Причина
-//You have been invited to 	Ви були запрошенi у 
-// is inviting You to 	 запросив Вас у 
-//Visitors are not allowed to send messages to all occupants	Гостi не можуть вiдправляти повiдомлення у спiльний чат
-//Unaffiliate	Вiдняти членство
-//Grant Moderator	Надати право модератора
-//Revoke Moderator	Вiдняти право модератора
-//Grant Admin	Надати право адмiна
-//Revoke Admin	Вiдняти право адмiна
-//Grant Ownership	Надати право власника
-//Revoke Ownership	Вiдняти право власника
+Invite to conference	Запросити у конференцiю
+Reason	Причина
+You have been invited to 	Ви були запрошенi у 
+ is inviting You to 	 запросив Вас у 
+Visitors are not allowed to send messages to all occupants	Гостi не можуть вiдправляти повiдомлення у спiльний чат
+Unaffiliate	Вiдняти членство
+Grant Moderator	Надати право модератора
+Revoke Moderator	Вiдняти право модератора
+Grant Admin	Надати право адмiна
+Grant Ownership	Надати право власника
+
+room presences	статуси у конференцiї
+
+ is now known as 	 змiнив нiк на 
+ was banned 	 заборонили входити у кiмнату 
+ was kicked 	 вигнали з кiмнати 
+ has been kicked because room became members-only	 вигнаний, оскiльки кiмната тепер тiльки для членiв
+ has left the channel	 вийшов з конференцiї
+ has joined the channel as 	 пiдключився як 
+ and 	 i 
+ is now 	 змiнив статус на 

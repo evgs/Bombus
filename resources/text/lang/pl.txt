@@ -201,3 +201,34 @@ Stanzas	Stanzas
 // Not-in-list	Poza-lista
 Not-in-list	Not-in-list
 proxy CONNECT	proxy CONNECT
+
+// HERE IS NEW LINES
+//476
+Clear	Clear
+
+//494
+Ask subscription	Ask subscription
+Grant subscription	Grant subscription
+
+//502
+Invite to conference	Invite to conference
+Reason	Reason
+You have been invited to 	You have been invited to 
+ is inviting You to 	 is inviting You to 
+Visitors are not allowed to send messages to all occupants	Visitors are not allowed to send messages to all occupants
+Unaffiliate	Unaffiliate
+Grant Moderator	Grant Moderator
+Revoke Moderator	Revoke Moderator
+Grant Admin	Grant Admin
+Grant Ownership	Grant Ownership
+
+room presences	room presences
+
+ is now known as 	 is now known as 
+ was banned 	 was banned 
+ was kicked 	 was kicked 
+ has been kicked because room became members-only	 has been kicked because room became members-only
+ has left the channel	 has left the channel
+ has joined the channel as 	 has joined the channel as 
+ and 	 and 
+ is now 	 is now 

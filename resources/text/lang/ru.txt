@@ -26,7 +26,7 @@ Modify	Изменить
 Update	Обновить
 Account name	Имя аккаунта
 GMT offset	Часовой пояс (GMT+)
-Time settings (hours)\n	Настройки времени\n
+Time settings (hours)	Настройки времени
 Connected	Соединение установлено
 Connect to 	Соединение с 
 Alert Profile	Сигналы
@@ -207,30 +207,28 @@ proxy CONNECT	proxy CONNECT
 Clear	Очистить
 
 //494
-//Ask subscription	Запросить подписку
-//Grant subscription	Разрешить подписку
+Ask subscription	Запросить подписку
+Grant subscription	Разрешить подписку
 
 //502
-//Invite to conference	Пригласить в конференцию
-//Reason	Причина
-//You have been invited to 	Вы были приглашены в 
-// is inviting You to 	 пригласил Вас в 
-//Visitors are not allowed to send messages to all occupants	Гости не могут посылать сообщения в общий чат
-//Unaffiliate	Отнять членство
-//Grant Moderator	Дать право модератора
-//Revoke Moderator	Отнять право модератора
-//Grant Admin	Дать право админа
-//Revoke Admin	Отнять право админа
-//Grant Ownership	Дать право владельца
-//Revoke Ownership	Отнять право владельца
+Invite to conference	Пригласить в конференцию
+Reason	Причина
+You have been invited to 	Вы были приглашены в 
+ is inviting You to 	 пригласил Вас в 
+Visitors are not allowed to send messages to all occupants	Гости не могут посылать сообщения в общий чат
+Unaffiliate	Отнять членство
+Grant Moderator	Дать право модератора
+Revoke Moderator	Отнять право модератора
+Grant Admin	Дать право админа
+Grant Ownership	Дать право владельца
 
 room presences	статусы в конференции
 
-// is now known as 	 сменил ник на 
-// was banned 	 запретили входить в конату 
-// was kicked 	 выгнали из комнаты 
-// has been kicked because room became members-only	 выгнан, т.к. комната теперь только для членов
-// has left the channel	 вышел из конференции
-// has joined the channel as 	 подключился как 
-// and 	 и 
-// is now 	 сменил статус на
+ is now known as 	 сменил ник на 
+ was banned 	 запретили входить в конату 
+ was kicked 	 выгнали из комнаты 
+ has been kicked because room became members-only	 выгнан, т.к. комната теперь только для членов
+ has left the channel	 вышел из конференции
+ has joined the channel as 	 подключился как 
+ and 	 и 
+ is now 	 сменил статус на 

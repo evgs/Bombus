@@ -212,35 +212,34 @@ public class SR {
     public   static String MS_GRANT_MEMBERSHIP = "Grant Membership";
     public   static String MS_SELLOGIN = loadString( "Connect" );
 //--toon
-    public final static String MS_UNAFFILIATE = "Unaffiliate";
-    public final static String MS_GRANT_MODERATOR = "Grant Moderator";
-    public final static String MS_REVOKE_MODERATOR = "Revoke Moderator";
-    public final static String MS_GRANT_ADMIN = "Grant Admin";
-    //public final static String MS_REVOKE_ADMIN = "Revoke Admin";
-    public final static String MS_GRANT_OWNERSHIP = "Grant Ownership";
-    //public final static String MS_REVOKE_OWNERSHIP = "Revoke Ownership";
+    public   static String MS_UNAFFILIATE = loadString("Unaffiliate");
+    public   static String MS_GRANT_MODERATOR = loadString("Grant Moderator");
+    public   static String MS_REVOKE_MODERATOR = loadString("Revoke Moderator");
+    public   static String MS_GRANT_ADMIN = loadString("Grant Admin");
+    public   static String MS_GRANT_OWNERSHIP = loadString("Grant Ownership");
 //--toon
-    public final static String MS_VIZITORS_FORBIDDEN="Visitors are not allowed to send messages to all occupants";
-    public final static String MS_IS_INVITING_YOU=" is inviting You to ";
-    public final static String MS_ASK_SUBSCRIPTION="Ask subscription";
-    public final static String MS_GRANT_SUBSCRIPTION="Grant subscription";
-    public final static String MS_INVITE="Invite to conference";
-    public final static String MS_INVITE_REASON="Reason";
-    public final static String MS_YOU_HAVE_BEEN_INVITED="You have been invited to ";
+    
+    public   static String MS_VIZITORS_FORBIDDEN=loadString("Visitors are not allowed to send messages to all occupants");
+    public   static String MS_IS_INVITING_YOU=loadString(" is inviting You to ");
+    public   static String MS_ASK_SUBSCRIPTION=loadString( "Ask subscription");
+    public   static String MS_GRANT_SUBSCRIPTION=loadString("Grant subscription");
+    public   static String MS_INVITE=loadString("Invite to conference");
+    public   static String MS_INVITE_REASON=loadString("Reason");
+    public   static String MS_YOU_HAVE_BEEN_INVITED=loadString("You have been invited to ");
     public final static String MS_SURE_CLEAR="Are You sure want to clear messagelist?";
     public final static String MS_DISCO_ROOM="Participants";
     public final static String CAPS_STATE="Abcd";
     
     public   static String MS_STORE_PRESENCE = loadString( "room presences" );
     
-    public static String MS_IS_NOW_KNOWN_AS=loadString(" is now known as ");
-    public static String MS_WAS_BANNED=loadString(" was banned ");
-    public static String MS_WAS_KICKED=loadString(" was kicked ");
-    public static String MS_HAS_BEEN_KICKED_BECAUSE_ROOM_BECAME_MEMBERS_ONLY=loadString(" has been kicked because room became members-only");
-    public static String MS_HAS_LEFT_CHANNEL=loadString(" has left the channel");
-    public static String MS_HAS_JOINED_THE_CHANNEL_AS=loadString(" has joined the channel as ");
-    public static String MS_AND=loadString(" and ");
-    public static String MS_IS_NOW=loadString(" is now ");    
+    public   static String MS_IS_NOW_KNOWN_AS=loadString(" is now known as ");
+    public   static String MS_WAS_BANNED=loadString(" was banned ");
+    public   static String MS_WAS_KICKED=loadString(" was kicked ");
+    public   static String MS_HAS_BEEN_KICKED_BECAUSE_ROOM_BECAME_MEMBERS_ONLY=loadString(" has been kicked because room became members-only");
+    public   static String MS_HAS_LEFT_CHANNEL=loadString(" has left the channel");
+    public   static String MS_HAS_JOINED_THE_CHANNEL_AS=loadString(" has joined the channel as ");
+    public   static String MS_AND=loadString(" and ");
+    public   static String MS_IS_NOW=loadString(" is now ");    
     
 
     public static String MS_XMLLANG;
