@@ -201,31 +201,31 @@ proxy CONNECT	proxy CONNECT
 
 // HERE IS NEW LINES
 //476
-Clear	Clear
+Clear	Vyprázdnit
 
 //494
-Ask subscription	Ask subscription
-Grant subscription	Grant subscription
+Ask subscription	Dotaz na autorizaci
+Grant subscription	Odeslat autorizaci
 
 //502
-Invite to conference	Invite to conference
-Reason	Reason
-You have been invited to 	You have been invited to 
- is inviting You to 	 is inviting You to 
-Visitors are not allowed to send messages to all occupants	Visitors are not allowed to send messages to all occupants
-Unaffiliate	Unaffiliate
-Grant Moderator	Grant Moderator
-Revoke Moderator	Revoke Moderator
-Grant Admin	Grant Admin
-Grant Ownership	Grant Ownership
+Invite to conference	Pozvat na konferenci
+Reason	Důvod
+You have been invited to 	Byl jsi pozván na 
+ is inviting You to 	 tě zve na 
+Visitors are not allowed to send messages to all occupants	Hosté nemohou posílat zprávy všem obyvatelům
+Unaffiliate	Odloučit
+Grant Moderator	Dát moderátora
+Revoke Moderator	Odebrat moderátora
+Grant Admin	Dát admina
+Grant Ownership	Dát vlastnictví
 
-room presences	room presences
+room presences	chování místnosti
 
- is now known as 	 is now known as 
- was banned 	 was banned 
- was kicked 	 was kicked 
- has been kicked because room became members-only	 has been kicked because room became members-only
- has left the channel	 has left the channel
- has joined the channel as 	 has joined the channel as 
- and 	 and 
- is now 	 is now 
+ is now known as 	 je teď známý jako 
+ was banned 	 byl zabanován 
+ was kicked 	 byl vykopnut 
+ has been kicked because room became members-only	 byl vykopnut, protože místnost se stává "pouze pro členy"
+ has left the channel	 opustil kanál
+ has joined the channel as 	 se připojil ke kanálu jako 
+ and 	 a 
+ is now 	 je teď 
