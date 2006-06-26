@@ -231,4 +231,4 @@ room presences	статусы в конференции
  has left the channel	 вышел из конференции
  has joined the channel as 	 подключился как 
  and 	 и 
- is now 	 сменил статус на 
+ is now 	 теперь 
