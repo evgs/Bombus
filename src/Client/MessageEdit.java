@@ -37,8 +37,8 @@ public class MessageEdit
     private Command cmdInsMe=new Command(SR.MS_SLASHME, Command.SCREEN, 4); ; // /me
     private Command cmdSubj=new Command(SR.MS_SET_SUBJECT, Command.SCREEN, 10);
     private Command cmdPaste=new Command(SR.MS_ARCHIVE, Command.SCREEN, 5);
-    private Command cmdABC=new Command("Abcd", Command.SCREEN, 15);
-    private Command cmdAbc=new Command("abcd", Command.SCREEN, 15);
+    private Command cmdABC=new Command("Abc", Command.SCREEN, 15);
+    private Command cmdAbc=new Command("abc", Command.SCREEN, 15);
     
     private boolean composing=true;
     

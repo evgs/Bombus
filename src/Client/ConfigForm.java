@@ -117,7 +117,7 @@ public class ConfigForm implements
         message.append(SR.MS_STORE_PRESENCE,null);        
         message.append(SR.MS_COMPOSING_EVENTS, null);
 //#if (!MIDP1)
-        message.append(SR.CAPS_STATE, null);
+        message.append(SR.MS_CAPS_STATE, null);
 //#endif
         
         boolean mv[]={

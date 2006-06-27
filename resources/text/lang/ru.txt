@@ -1,4 +1,4 @@
-// Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+﻿// Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
 // All rights reserved.
 // (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
 // (c) Vladimir N. Shelukhin, 2006.
@@ -232,3 +232,6 @@ room presences	статусы в конференции
  has joined the channel as 	 подключился как 
  and 	 и 
  is now 	 теперь 
+
+Participants	Участники
+Abc	Абв

@@ -227,8 +227,8 @@ public class SR {
     public   static String MS_INVITE_REASON=loadString("Reason");
     public   static String MS_YOU_HAVE_BEEN_INVITED=loadString("You have been invited to ");
     public final static String MS_SURE_CLEAR="Are You sure want to clear messagelist?";
-    public final static String MS_DISCO_ROOM="Participants";
-    public final static String CAPS_STATE="Abcd";
+    public   static String MS_DISCO_ROOM=loadString("Participants");
+    public   static String MS_CAPS_STATE=loadString("Abc");
     
     public   static String MS_STORE_PRESENCE = loadString( "room presences" );
     
