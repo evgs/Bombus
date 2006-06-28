@@ -16,6 +16,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import javax.microedition.io.*;
+import Client.Config;
 
 /**
  *
@@ -39,7 +40,12 @@ public class Utf8IOStream implements Runnable{
 	this.connection=connection;
 //#if !(MIDP1)
         try {
-            ((SocketConnection)connection).setSocketOption(SocketConnection.KEEPALIVE, 1);
+            Config cf=Config.getInstance();
+            SocketConnection sc=(SocketConnection)connection;
+            sc.setSocketOption(SocketConnection.KEEPALIVE, 1);
+            if (cf.socketLINGER>=0) sc.setSocketOption(SocketConnection.LINGER, cf.socketLINGER);
+            if (cf.socketRCVBUF>=0) sc.setSocketOption(SocketConnection.RCVBUF, cf.socketRCVBUF);
+            if (cf.socketSNDBUF>=0) sc.setSocketOption(SocketConnection.SNDBUF, cf.socketSNDBUF);
         } catch (Exception e) {}
 //#endif
 	

@@ -32,6 +32,10 @@ public class Config {
     public int keepAlive=200;//getIntProperty("keep_alive",200);
     public int keepAliveType=getIntProperty("keep_alive_type",0);
 
+    public int socketLINGER=getIntProperty("LINGER",-1);
+    public int socketRCVBUF=getIntProperty("RCVBUF",-1);
+    public int socketSNDBUF=getIntProperty("SNDBUF",-1);
+
     public boolean ghostMotor=getBooleanProperty("moto_e398",false);
     public boolean blFlash=!ghostMotor; //true;
     
