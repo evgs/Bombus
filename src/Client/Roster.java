@@ -1192,7 +1192,9 @@ public class Roster
         if (c==cmdStatus) { new StatusSelect(display); }
         if (c==cmdAlert) { new AlertProfile(display); }
         if (c==cmdOptions){ new ConfigForm(display); }
-        if (c==cmdActions) { new RosterItemActions(display, getFocusedObject()); }
+        if (c==cmdActions) try { 
+            new RosterItemActions(display, getFocusedObject()); 
+        } catch (Exception e) { /* NullPointerException */ }
         if (c==cmdTools) { new RosterToolsMenu(display); }
         if (c==cmdArchive) { new ArchiveList(display, null); }
         if (c==cmdInfo) { new Info.InfoWindow(display); }

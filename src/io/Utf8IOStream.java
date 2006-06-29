@@ -43,9 +43,9 @@ public class Utf8IOStream implements Runnable{
             Config cf=Config.getInstance();
             SocketConnection sc=(SocketConnection)connection;
             sc.setSocketOption(SocketConnection.KEEPALIVE, 1);
-            if (cf.socketLINGER>=0) sc.setSocketOption(SocketConnection.LINGER, cf.socketLINGER);
+            /*if (cf.socketLINGER>=0) sc.setSocketOption(SocketConnection.LINGER, cf.socketLINGER);
             if (cf.socketRCVBUF>=0) sc.setSocketOption(SocketConnection.RCVBUF, cf.socketRCVBUF);
-            if (cf.socketSNDBUF>=0) sc.setSocketOption(SocketConnection.SNDBUF, cf.socketSNDBUF);
+            if (cf.socketSNDBUF>=0) sc.setSocketOption(SocketConnection.SNDBUF, cf.socketSNDBUF);*/
         } catch (Exception e) {}
 //#endif
 	
