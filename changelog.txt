@@ -2279,6 +2279,20 @@ syslog_msg: true
 
   * localization update
   ATTENTION! langfiles cz.txt, pl.txt and sk.txt should be corrected to show native strings
+
+(545)
+  * исправлен NullPointerException при вызове Actions> в пустом ростере
+  + расширение набора смайлов в MIDP2: @};- и :-*
+  + болгарская локализация
+  * обновление чешской локализации
+  * обновление русской локализации
+
+  --
+  * fix NullPointerException if Actions> called in empty roster
+  + MIDP2 smiles @};- and :-*
+  + Bulgarian langfile
+  * Czech langfile update
+  * Russian langfile update
 ---------------------------
   known issues:
 
