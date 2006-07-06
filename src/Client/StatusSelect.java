@@ -144,6 +144,4 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
             if (display!=null)   display.setCurrent(parentView);
         }
     }
-    
 }
-

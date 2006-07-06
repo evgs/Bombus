@@ -2293,6 +2293,32 @@ syslog_msg: true
   + Bulgarian langfile
   * Czech langfile update
   * Russian langfile update
+
+
+(548)
+  + экспериментальное управление подсветкой для моторол (только в ростере):
+    нажатие '*' - включение/выключение подсветки
+    нажатие любой клавиши - включение подсветки
+
+  + дополнительные кнопки motorola e680:
+    volumeUp - курсор в начало списка
+    volume- - курсор в конец списка
+    real player - в ростере функционирует подобно кнопке '0'
+
+  + Service Discovery>Features - служебная команда, показывает все возможности открытой в disco ноды
+
+  --
+  + experimental: motorola backlight control (only in roster): 
+    pressing '*' - toggle backlight on/off
+    pressing any key - switch backlight on.
+
+  + motorola e680 keys:
+    volumeUp - moves cursor home
+    volume- - moves cursor end
+    real player - in roster acts like '0'
+
+  + Service Discovery>Features - this service command shows all features of discovered node
+
 ---------------------------
   known issues:
 

@@ -86,8 +86,13 @@ public abstract class VirtualList
     public static final int NOKIA_GREEN=-10;
     public static final int MOTOROLA_GREEN=-10;
     public final static int MOTOROLA_FLIP=-200;
+    public static final int MOTOE680_VOL_UP=-9;
+    public static final int MOTOE680_VOL_DOWN=-8;
+    public static final int MOTOE680_REALPLAYER=-6;
+    public static final int MOTOE680_FMRADIO=-7;
     public static final int SE_GREEN=0;
-    public static final int SE_CLEAR=-8;
+    public static int keyClear=-8;
+    public static int keyVolDown=0x1000;
     public static int greenKeyCode=SIEMENS_GREEN;
     public static boolean fullscreen=false;
     public static boolean memMonitor;
@@ -550,6 +555,7 @@ public abstract class VirtualList
     private void key(int keyCode) {
         switch (keyCode) {
             case 0: break;
+            case MOTOE680_VOL_UP:
             case KEY_NUM1:  { moveCursorHome();    break; }
             case KEY_NUM7:  { moveCursorEnd();     break; }
             case '5':{ eventOk(); break; }
@@ -564,6 +570,7 @@ public abstract class VirtualList
                         case FIRE:  { eventOk(); break; }
                         default:
                             if (keyCode==greenKeyCode) { keyGreen(); break; }
+			     if (keyCode==keyVolDown) { moveCursorEnd(); break; }
                             userKeyPressed(keyCode);
                     }
                 } catch (Exception e) {/* IllegalArgumentException @ getGameAction */}

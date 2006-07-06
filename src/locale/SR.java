@@ -242,8 +242,11 @@ public class SR {
     public   static String MS_IS_NOW=loadString(" is now ");    
     
 
+    public final static String MS_FEATURES="Features";
+
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
+
 
     private SR() { }
     

@@ -152,7 +152,7 @@ implements CommandListener{
 	else super.keyPressed(keyCode);
     }
     public void keyPressed(int keyCode) {
-        if (keyCode==SE_CLEAR) {
+        if (keyCode==keyClear) {
             new YesNoAlert(display, this, SR.MS_CLEAR_LIST, SR.MS_SURE_CLEAR){
 		    public void yes() { clearMessageList(); }
 		};

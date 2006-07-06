@@ -96,6 +96,10 @@ public class Roster
     
     private Config cf;
     private StaticData sd=StaticData.getInstance();
+
+//#if (MOTOROLA_BACKLIGHT)
+    private int blState=Integer.MAX_VALUE;
+//#endif
     
     //public JabberBlockListener discoveryListener;
     
@@ -1137,7 +1141,7 @@ public class Roster
     }
     
     public void userKeyPressed(int keyCode){
-        if (keyCode==KEY_NUM0) {
+        if (keyCode==KEY_NUM0 || keyCode==MOTOE680_REALPLAYER) {
             if (messageCount==0) return;
             Object atcursor=getFocusedObject();
             Contact c=null;
@@ -1250,7 +1254,7 @@ public class Roster
         if (keyCode==cf.keyLock) 
             new KeyBlock(display, getTitleItem(), cf.keyLock, cf.ghostMotor); 
 
-        if (keyCode==cf.keyVibra) {
+        if (keyCode==cf.keyVibra || keyCode==MOTOE680_FMRADIO /* TODO: redefine keyVibra*/) {
             // swap profiles
             int profile=cf.profile;
             cf.profile=(profile==AlertProfile.VIBRA)? 
@@ -1261,7 +1265,7 @@ public class Roster
             redraw();
         }
         
-        if (keyCode==cf.keyOfflines) {
+        if (keyCode==cf.keyOfflines || keyCode==MOTOE680_REALPLAYER /* TODO: redifine keyOfflines*/) {
             cf.showOfflineContacts=!cf.showOfflineContacts;
             reEnumRoster();
         }
@@ -1275,6 +1279,16 @@ public class Roster
 	super.keyPressed(keyCode);
 	if (keyCode=='3') searchGroup(-1);
 	if (keyCode=='9') searchGroup(1);
+        
+//#if (MOTOROLA_BACKLIGHT)
+        if (cf.ghostMotor) {
+            // backlight management
+            if (keyCode=='*') blState=(blState==0)? Integer.MAX_VALUE : 1;
+            else blState=Integer.MAX_VALUE;
+            
+            display.flashBacklight(blState);
+        }
+//#endif
 	
     }
     private void searchGroup(int direction){

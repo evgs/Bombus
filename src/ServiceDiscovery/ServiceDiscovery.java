@@ -43,8 +43,9 @@ public class ServiceDiscovery
     
     private Command cmdOk=new Command(SR.MS_BROWSE, Command.SCREEN, 1);
     private Command cmdRfsh=new Command(SR.MS_REFRESH, Command.SCREEN, 2);
+    private Command cmdFeatures=new Command(SR.MS_FEATURES, Command.SCREEN, 3);
     private Command cmdSrv=new Command(SR.MS_SERVER, Command.SCREEN, 10);
-    private Command cmdAdd=new Command(SR.MS_ADD_TO_ROSTER, Command.SCREEN, 11);
+    //private Command cmdAdd=new Command(SR.MS_ADD_TO_ROSTER, Command.SCREEN, 11);
     private Command cmdBack=new Command(SR.MS_BACK, Command.BACK, 98);
     private Command cmdCancel=new Command(SR.MS_CANCEL, Command.EXIT, 99);
 
@@ -52,6 +53,8 @@ public class ServiceDiscovery
     
     private Vector items;
     private Vector stackItems=new Vector();
+    
+    private Vector features;
     
     private Vector cmds;
     
@@ -61,6 +64,7 @@ public class ServiceDiscovery
     private boolean blockWait;
 
     private JabberStream stream;
+
     
     /** Creates a new instance of ServiceDiscovery */
     public ServiceDiscovery(Display display, String service, String node) {
@@ -77,8 +81,10 @@ public class ServiceDiscovery
         
         addCommand(cmdRfsh);
         addCommand(cmdSrv);
+        addCommand(cmdFeatures);
         //addCommand(cmdAdd);
         addCommand(cmdCancel);
+        
 
         addCommand(cmdBack);
         setCommandListener(this);
@@ -87,6 +93,7 @@ public class ServiceDiscovery
         this.service=(service!=null)?service:sd.account.getServer();
         
         items=new Vector();
+        features=new Vector();
         
         requestQuery(NS_INFO, "disco");
     }
@@ -182,6 +189,7 @@ public class ServiceDiscovery
                 JabberDataBlock i=(JabberDataBlock)e.nextElement();
                 if (i.getTagName().equals("feature")) {
                     String var=i.getAttribute("var");
+                    features.addElement(var);
                     if (var.equals(NS_MUC)) { cmds.addElement(new DiscoCommand(0,strJoin)); }
                     if (var.equals(NS_SRCH)) { cmds.addElement(new DiscoCommand(1,strSrch)); }
                     if (var.equals(NS_REGS)) { cmds.addElement(new DiscoCommand(2,strReg)); }
@@ -242,9 +250,11 @@ public class ServiceDiscovery
             st.items=items;
             st.service=this.service;
             st.node=this.node;
+            st.features=features;
             stackItems.addElement(st);
             
             items=new Vector();
+            features=new Vector();
             addCommand(cmdBack);
             this.service=service;
             this.node=node;
@@ -264,6 +274,7 @@ public class ServiceDiscovery
             
             service=st.service;
             items=st.items;
+            features=st.features;
             blockWait=false;
             
             titleUpdate();
@@ -271,14 +282,15 @@ public class ServiceDiscovery
             redraw();
             
         }
-        if (c==cmdAdd){
+        /*if (c==cmdAdd){
             exitDiscovery();
             Contact j=(Contact)getFocusedObject();
             new ContactEdit(display, j);
             return;
-        }
+        }*/
         if (c==cmdRfsh) {requestQuery(NS_INFO, "disco"); }
         if (c==cmdSrv) { new ServerBox(display, service, this); }
+        if (c==cmdFeatures) {new DiscoFeatures(display, service, features); }
         if (c==cmdCancel) exitDiscovery();
     }
     
@@ -328,5 +340,6 @@ class State{
     public String service;
     public String node;
     public Vector items;
+    public Vector features;
     public int cursor;
 }

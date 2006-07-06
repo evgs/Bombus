@@ -162,6 +162,8 @@ public class Config {
 	}
 	if (platform.startsWith("j2me")) {
 	    greenKeyCode=VirtualList.MOTOROLA_GREEN;
+	    VirtualList.keyClear=0x1000;
+	    VirtualList.keyVolDown=VirtualList.MOTOE680_VOL_DOWN;
             istreamWaiting=true;
 	}
 	

@@ -1,0 +1,152 @@
+# Motorola E680i keys support
+# (C) Dmitry Nezhevenko <dion@inhex.net>
+Index: src/ui/VirtualList.java
+===================================================================
+--- src/ui/VirtualList.java	(revision 546)
++++ src/ui/VirtualList.java	(working copy)
+@@ -86,8 +86,13 @@
+     public static final int NOKIA_GREEN=-10;
+     public static final int MOTOROLA_GREEN=-10;
+     public final static int MOTOROLA_FLIP=-200;
++    public static final int MOTOE680_VOL_UP=-9;
++    public static final int MOTOE680_VOL_DOWN=-8;
++    public static final int MOTOE680_REALPLAYER=-6;
++    public static final int MOTOE680_FMRADIO=-7;
+     public static final int SE_GREEN=0;
+-    public static final int SE_CLEAR=-8;
++    public static int keyClear=-8;
++    public static int keyVolDown=0x1000;
+     public static int greenKeyCode=SIEMENS_GREEN;
+     public static boolean fullscreen=false;
+     public static boolean memMonitor;
+@@ -550,6 +555,7 @@
+     private void key(int keyCode) {
+         switch (keyCode) {
+             case 0: break;
++            case MOTOE680_VOL_UP:
+             case KEY_NUM1:  { moveCursorHome();    break; }
+             case KEY_NUM7:  { moveCursorEnd();     break; }
+             case '5':{ eventOk(); break; }
+@@ -564,6 +570,7 @@
+                         case FIRE:  { eventOk(); break; }
+                         default:
+                             if (keyCode==greenKeyCode) { keyGreen(); break; }
++			     if (keyCode==keyVolDown) { moveCursorEnd(); break; }
+                             userKeyPressed(keyCode);
+                     }
+                 } catch (Exception e) {/* IllegalArgumentException @ getGameAction */}
+Index: src/Client/Config.java
+===================================================================
+--- src/Client/Config.java	(revision 546)
++++ src/Client/Config.java	(working copy)
+@@ -162,6 +162,8 @@
+ 	}
+ 	if (platform.startsWith("j2me")) {
+ 	    greenKeyCode=VirtualList.MOTOROLA_GREEN;
++	    VirtualList.keyClear=0x1000;
++	    VirtualList.keyVolDown=VirtualList.MOTOE680_VOL_DOWN;
+             istreamWaiting=true;
+ 	}
+ 	
+Index: src/Client/Roster.java
+===================================================================
+--- src/Client/Roster.java	(revision 546)
++++ src/Client/Roster.java	(working copy)
+@@ -1137,7 +1137,7 @@
+     }
+     
+     public void userKeyPressed(int keyCode){
+-        if (keyCode==KEY_NUM0) {
++        if (keyCode==KEY_NUM0 || keyCode==MOTOE680_REALPLAYER) {
+             if (messageCount==0) return;
+             Object atcursor=getFocusedObject();
+             Contact c=null;
+@@ -1250,7 +1250,7 @@
+         if (keyCode==cf.keyLock) 
+             new KeyBlock(display, getTitleItem(), cf.keyLock, cf.ghostMotor); 
+ 
+-        if (keyCode==cf.keyVibra) {
++        if (keyCode==cf.keyVibra || keyCode==MOTOE680_FMRADIO) {
+             // swap profiles
+             int profile=cf.profile;
+             cf.profile=(profile==AlertProfile.VIBRA)? 
+@@ -1261,7 +1261,7 @@
+             redraw();
+         }
+         
+-        if (keyCode==cf.keyOfflines) {
++        if (keyCode==cf.keyOfflines || keyCode==MOTOE680_REALPLAYER) {
+             cf.showOfflineContacts=!cf.showOfflineContacts;
+             reEnumRoster();
+         }
+Index: src/Client/StatusSelect.java
+===================================================================
+--- src/Client/StatusSelect.java	(revision 546)
++++ src/Client/StatusSelect.java	(working copy)
+@@ -145,5 +145,10 @@
+         }
+     }
+     
++    public void userKeyPressed(int keyCode) {
++        if (keyCode==MOTOE680_REALPLAYER) {
++                destroyView();
++                return;
++        }
++    }
+ }
+-
+Index: src/Client/AlertProfile.java
+===================================================================
+--- src/Client/AlertProfile.java	(revision 546)
++++ src/Client/AlertProfile.java	(working copy)
+@@ -112,4 +112,10 @@
+         }
+         if (notify!=null) notify.startNotify();
+     }
++    public void userKeyPressed(int keyCode) {
++        if (keyCode==MOTOE680_REALPLAYER) {
++                destroyView();
++                return;
++        }
++    }
+ }
+Index: src/Client/ContactMessageList.java
+===================================================================
+--- src/Client/ContactMessageList.java	(revision 546)
++++ src/Client/ContactMessageList.java	(working copy)
+@@ -152,10 +152,17 @@
+ 	else super.keyPressed(keyCode);
+     }
+     public void keyPressed(int keyCode) {
+-        if (keyCode==SE_CLEAR) {
++        if (keyCode==keyClear) {
+             new YesNoAlert(display, this, SR.MS_CLEAR_LIST, SR.MS_SURE_CLEAR){
+ 		    public void yes() { clearMessageList(); }
+ 		};
+         } else super.keyPressed(keyCode);
+     }
++
++    public void userKeyPressed(int keyCode) {
++	    if (keyCode==MOTOE680_REALPLAYER) {
++	        destroyView();
++	        return;
++	    }
++	}
+ }
+Index: src/Client/AccountSelect.java
+===================================================================
+--- src/Client/AccountSelect.java	(revision 546)
++++ src/Client/AccountSelect.java	(working copy)
+@@ -137,5 +137,11 @@
+         NvStorage.writeFileRecord(outputStream, Account.storage, 0, true);
+     }
+ 
++    public void userKeyPressed(int keyCode) {
++        if (keyCode==MOTOE680_REALPLAYER) {
++                destroyView();
++                return;
++        }
++    }
++
+ }
+-
