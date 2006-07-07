@@ -43,9 +43,16 @@ public class ConferenceForm implements CommandListener{
         
         Form formJoin=new Form(SR.MS_JOIN_CONFERENCE);
 
-        // Lobo's M55 exception test
-        //try {
-        if (room==null) room=Config.getInstance().defGcRoom;
+        if (room==null && server==null) {
+            room=Config.getInstance().defGcRoom;
+            // trying to split string like room@server
+            int roomE=room.indexOf('@');
+            if (roomE>0) {
+                server=room.substring(roomE+1);
+                room=room.substring(0, roomE);
+            }
+        }
+        // default server
         if (server==null) server="conference."+sd.account.getServer();
         
         roomField=new TextField(SR.MS_ROOM, room, 64, TextField.URL);
@@ -64,7 +71,6 @@ public class ConferenceForm implements CommandListener{
         formJoin.addCommand(cmdJoin);
         formJoin.addCommand(cmdBookmarks);
         formJoin.addCommand(cmdAdd);
-        //} catch (Exception e) { formJoin.append(e.toString()); }
         
         formJoin.addCommand(cmdCancel);
         formJoin.setCommandListener(this);

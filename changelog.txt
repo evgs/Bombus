@@ -2319,6 +2319,29 @@ syslog_msg: true
 
   + Service Discovery>Features - this service command shows all features of discovered node
 
+(549)
+  * изменено поведение атрибута jad-файла gc_room.
+    gc_room определяет имя комнаты и адрес сервера для формы Join conference
+
+    gc_room: room@server   - заполняет соответственно имя комнаты и адрес сервера значениями room и server
+
+    gc_room: room  - в качестве имени комнаты используется room, адрес сервера получается добавлением 
+       поддомена conference к имени сервера, на котором зарегистрирован аккаунт пользователя.
+
+    по умолчанию - gc_room: bombus@conference.jabber.ru
+
+  --
+  * new behaviour of jad attribute "gc_room":
+    gc_room defines default room name and server address used in Join conference form
+
+    gc_room: room@server  - parameter will be splitted into substrings "room" and "server", this values will be
+      used as room name and server address
+
+    gc_room: room - "room" will be used as room name; subdomain "conference" will be added to user's server address, and
+    this new address like "conference.jabberserver" will be conference server address
+
+    default value - gc_room: bombus@conference.jabber.ru
+ 
 ---------------------------
   known issues:
 
