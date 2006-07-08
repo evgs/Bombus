@@ -2,6 +2,10 @@
  * IqVersionReply.java
  *
  * Created on 27 Февраль 2005 г., 18:31
+ *
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
+*
  */
 
 package com.alsutton.jabber.datablocks;

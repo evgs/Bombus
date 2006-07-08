@@ -18,6 +18,8 @@ import Conference.affiliation.Affiliations;
 import archive.ArchiveList;
 import images.RosterIcons;
 import locale.SR;
+import login.LoginListener;
+import login.NonSASLAuth;
 import midlet.Bombus;
 import vcard.VCard;
 import vcard.vCardForm;
@@ -47,7 +49,8 @@ public class Roster
         implements
         JabberListener,
         CommandListener,
-        Runnable
+        Runnable,
+        LoginListener
         //ContactEdit.StoreContact
         //Thread
 {
@@ -701,26 +704,56 @@ public class Roster
      *
      * @param data The incomming data
      */
+
+    public void loginFailed(String error){
+        myStatus=Presence.PRESENCE_OFFLINE;
+        setProgress(SR.MS_LOGIN_FAILED, 0);
+        
+        errorLog(error);
+        
+        reconnect=false;
+        setQuerySign(false);
+        redraw();
+    }
+    
+    public void loginSuccess() {
+        // залогинились. теперь, если был реконнект, то просто пошлём статус
+        if (reconnect) {
+            querysign=reconnect=false;
+            sendPresence(myStatus);
+            return;
+        }
+        
+        // иначе будем читать ростер
+        theStream.enableRosterNotify(true);
+        rpercent=60;
+        if (StaticData.getInstance().account.isMucOnly()) {
+            setProgress(SR.MS_CONNECTED,100);
+            try {
+                reEnumRoster();
+            } catch (Exception e) { e.printStackTrace(); }
+            querysign=reconnect=false;
+            SplashScreen.getInstance().close(); // display.setCurrent(this);
+        } else {
+            JabberDataBlock qr=new IqQueryRoster();
+            setProgress(SR.MS_ROSTER_REQUEST, 60);
+            theStream.send( qr );
+        }
+    }
+    
     public void blockArrived( JabberDataBlock data ) {
         try {
             
             if( data instanceof Iq ) {
                 String type = (String) data.getTypeAttribute();
-                if ( type.equals( "error" ) ) {
-                    if (data.getAttribute("id").equals("auth-s")) {
-                        // ошибка авторизации
-                        myStatus=Presence.PRESENCE_OFFLINE;
-                        setProgress(SR.MS_LOGIN_FAILED, 0);
-                        
-                        JabberDataBlock err=data.getChildBlock("error");
-                        errorLog(err.toString());
-                        
-                        reconnect=false;
-                        setQuerySign(false);
-                        redraw();
-                    }
-                }
                 String id=(String) data.getAttribute("id");
+                /*if ( type.equals( "error" ) ) {
+                    if (id.equals("auth-s")) {
+                        // Authorization error
+                        JabberDataBlock err=data.getChildBlock("error");
+                        loginFailed(err.toString());
+                    }
+                }*/
                 
                 if (id!=null) if (id.startsWith("nickvc")) {
                     VCard vc=new VCard(data);//.getNickName();
@@ -735,30 +768,6 @@ public class Roster
                 }
                 
                 if ( type.equals( "result" ) ) {
-                    if (id.equals("auth-s") ) {
-                        // залогинились. теперь, если был реконнект, то просто пошлём статус
-                        if (reconnect) {
-                            querysign=reconnect=false;
-                            sendPresence(myStatus);
-                            return;
-                        }
-                        
-                        // иначе будем читать ростер
-                        theStream.enableRosterNotify(true);
-                        rpercent=60;
-			if (StaticData.getInstance().account.isMucOnly()) {
-			    setProgress(SR.MS_CONNECTED,100);
-			    try {
-				reEnumRoster();
-			    } catch (Exception e) { e.printStackTrace(); }
-			    querysign=reconnect=false;
-			    SplashScreen.getInstance().close(); // display.setCurrent(this);
-			} else {
-			    JabberDataBlock qr=new IqQueryRoster();
-			    setProgress(SR.MS_ROSTER_REQUEST, 60);
-			    theStream.send( qr );
-			}
-                    }
                     if (id.equals("getros")) {
                         // а вот и ростер подошёл :)
                         //SplashScreen.getInstance().setProgress(95);
@@ -1072,21 +1081,8 @@ public class Roster
     public void beginConversation(String SessionId) {
         //try {
         setProgress(SR.MS_LOGINPGS, 42);
-        Account a=sd.account;//StaticData.getInstance().account;
-        Login login = new Login( 
-                a.getUserName(), 
-                a.getServer(), 
-                a.getPassword(), 
-                a.getPlainAuth()?null:SessionId, 
-                a.getResource()
-        );
-        theStream.send( login );
-        //} catch( Exception e ) {
-        //l.setTitleImgL(0);
-        //e.printStackTrace();
-        //}
-        //l.setTitleImgL(2);
         
+        new NonSASLAuth(sd.account, SessionId, this, theStream);
     }
     
     /**
@@ -1172,7 +1168,8 @@ public class Roster
             e.printStackTrace(); 
         }
     };
-    
+
+   
     public void commandAction(Command c, Displayable d){
         if (c==cmdQuit) {
             destroyView();
