@@ -53,25 +53,34 @@ public class SASLAuth implements JabberBlockListener{
         } else if (data.getTagName().equals("challenge")) {
             String challenge=decodeBase64(data.getText());
             System.out.println(challenge);
-            
-            int nonceIndex=challenge.indexOf("nonce=")+7;
-            String nonce=challenge.substring(nonceIndex, challenge.indexOf('\"', nonceIndex));
-            String cnonce="123456789abcd";
-            
-            JabberDataBlock resp=new JabberDataBlock(null, "response", 
-                    responseMd5Digest(
-                      account.getUserName(), 
-                      account.getPassword(), 
-                      account.getServer(), 
-                      "xmpp/"+account.getServer(), 
-                      nonce, 
-                      cnonce ));
+
+            JabberDataBlock resp=new JabberDataBlock("response", null, null);
             resp.setNameSpace("urn:ietf:params:xml:ns:xmpp-sasl");
-            System.out.println(resp.toString());
+            
+            int nonceIndex=challenge.indexOf("nonce=");
+            if (nonceIndex>=0) {
+                nonceIndex+=7;
+                String nonce=challenge.substring(nonceIndex, challenge.indexOf('\"', nonceIndex));
+                String cnonce="123456789abcd";
+                
+                resp.setText(responseMd5Digest(
+                        account.getUserName(),
+                        account.getPassword(),
+                        account.getServer(),
+                        "xmpp/"+account.getServer(),
+                        nonce,
+                        cnonce ));
+                System.out.println(resp.toString());
+            }
+            //if (challenge.startsWith("rspauth")) {}
+                
             stream.send(resp);
             return JabberBlockListener.BLOCK_PROCESSED;
-        } else if (data.getTagName().equals("failure")) {
-            listener.loginFailed( data.getText() );            
+            
+        } else if ( data.getTagName().equals("failure")) {
+            listener.loginFailed( data.getText() );  
+        } else if ( data.getTagName().equals("success")) {
+            return JabberBlockListener.BLOCK_PROCESSED;
         }
         
         return JabberBlockListener.BLOCK_REJECTED;
@@ -118,18 +127,18 @@ public class SASLAuth implements JabberBlockListener{
         MD5 hUserRealmPass=new MD5();
         hUserRealmPass.init();
         hUserRealmPass.updateASCII(user);
-        hUserRealmPass.update(':');
+        hUserRealmPass.update((byte)':');
         hUserRealmPass.updateASCII(realm);
-        hUserRealmPass.update(':');
+        hUserRealmPass.update((byte)':');
         hUserRealmPass.updateASCII(pass);
         hUserRealmPass.finish();
         
         MD5 hA1=new MD5();
         hA1.init();
         hA1.update(hUserRealmPass.getDigestBits());
-        hA1.update(':');
+        hA1.update((byte)':');
         hA1.updateASCII(nonce);
-        hA1.update(':');
+        hA1.update((byte)':');
         hA1.updateASCII(cnonce);
         hA1.finish();
         
@@ -142,7 +151,7 @@ public class SASLAuth implements JabberBlockListener{
         MD5 hResp=new MD5();
         hResp.init();
         hResp.updateASCII(hA1.getDigestHex());
-        hResp.update(':');
+        hResp.update((byte)':');
         hResp.updateASCII(nonce);
         hResp.updateASCII(":00000001:");
         hResp.updateASCII(cnonce);
@@ -151,9 +160,9 @@ public class SASLAuth implements JabberBlockListener{
         hResp.finish();
         
         String out = "username=\""+user+"\",realm=\""+realm+"\"," +
-                "nonce=\""+nonce+"\",cnonce=\""+cnonce+"\"," +
-                "nc=00000001,qop=auth,digest-uri=\""+digestUri+"\"," +
-                "response="+hResp.getDigestHex()+",charset=utf-8";
+                "nonce=\""+nonce+"\",nc=00000001,cnonce=\""+cnonce+"\"," +
+                "qop=auth,digest-uri=\""+digestUri+"\"," +
+                "response=\""+hResp.getDigestHex()+"\",charset=utf-8";
         String resp = toBase64(out.getBytes());
         System.out.println(decodeBase64(resp));
         
