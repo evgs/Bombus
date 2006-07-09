@@ -14,6 +14,7 @@ import com.alsutton.jabber.JabberBlockListener;
 import com.alsutton.jabber.JabberDataBlock;
 import com.alsutton.jabber.JabberStream;
 import com.ssttr.crypto.MD5;
+import com.sun.midp.ssl.MessageDigest;
 
 /**
  *
@@ -39,20 +40,38 @@ public class SASLAuth implements JabberBlockListener{
         if (data.getTagName().equals("stream:features")) {
             JabberDataBlock mech=data.getChildBlock("mechanisms");
             
-            //...
-            JabberDataBlock auth=new JabberDataBlock("auth", null,null);
-            auth.setNameSpace("urn:ietf:params:xml:ns:xmpp-sasl");
-            auth.setAttribute("mechanism", "DIGEST-MD5");
-            
-            System.out.println(auth.toString());
-            
-            stream.send(auth);
-            
+            if (mech.getChildBlockByText("DIGEST-MD5")!=null) {
+                JabberDataBlock auth=new JabberDataBlock("auth", null,null);
+                auth.setNameSpace("urn:ietf:params:xml:ns:xmpp-sasl");
+                auth.setAttribute("mechanism", "DIGEST-MD5");
+                
+                System.out.println(auth.toString());
+                
+                stream.send(auth);
+            }
             return JabberBlockListener.BLOCK_PROCESSED;
-        }
-
-        if (data.getTagName().equals("challenge")) {
-            System.out.println(decodeBase64(data.getText()));
+        } else if (data.getTagName().equals("challenge")) {
+            String challenge=decodeBase64(data.getText());
+            System.out.println(challenge);
+            
+            int nonceIndex=challenge.indexOf("nonce=")+7;
+            String nonce=challenge.substring(nonceIndex, challenge.indexOf('\"', nonceIndex));
+            String cnonce="123456789abcd";
+            
+            JabberDataBlock resp=new JabberDataBlock(null, "response", 
+                    responseMd5Digest(
+                      account.getUserName(), 
+                      account.getPassword(), 
+                      account.getServer(), 
+                      "xmpp/"+account.getServer(), 
+                      nonce, 
+                      cnonce ));
+            resp.setNameSpace("urn:ietf:params:xml:ns:xmpp-sasl");
+            System.out.println(resp.toString());
+            stream.send(resp);
+            return JabberBlockListener.BLOCK_PROCESSED;
+        } else if (data.getTagName().equals("failure")) {
+            listener.loginFailed( data.getText() );            
         }
         
         return JabberBlockListener.BLOCK_REJECTED;
@@ -75,12 +94,98 @@ public class SASLAuth implements JabberBlockListener{
             if (base64>=0) ibuf=(ibuf<<6)+base64;
             if (ibuf>=0x01000000){
                 out.append( (char)((ibuf>>16) &0xff) );
-                if (len==0) out.append( (char)((ibuf>>8) &0xff) );
-                if (len<2) out.append( (char)(ibuf &0xff) );
+                if (len<2) out.append( (char)((ibuf>>8) &0xff) );
+                if (len==0) out.append( (char)(ibuf &0xff) );
                 //len+=3;
                 ibuf=1;
             }
         }
         return out.toString();
     }
+
+    /**
+     * This routine generates MD5-DIGEST response via SASL specification
+     * @param user
+     * @param pass
+     * @param realm
+     * @param digest_uri
+     * @param nonce
+     * @param cnonce
+     * @return
+     */
+    private String responseMd5Digest(String user, String pass, String realm, String digestUri, String nonce, String cnonce) {
+
+        MD5 hUserRealmPass=new MD5();
+        hUserRealmPass.init();
+        hUserRealmPass.updateASCII(user);
+        hUserRealmPass.update(':');
+        hUserRealmPass.updateASCII(realm);
+        hUserRealmPass.update(':');
+        hUserRealmPass.updateASCII(pass);
+        hUserRealmPass.finish();
+        
+        MD5 hA1=new MD5();
+        hA1.init();
+        hA1.update(hUserRealmPass.getDigestBits());
+        hA1.update(':');
+        hA1.updateASCII(nonce);
+        hA1.update(':');
+        hA1.updateASCII(cnonce);
+        hA1.finish();
+        
+        MD5 hA2=new MD5();
+        hA2.init();
+        hA2.updateASCII("AUTHENTICATE:");
+        hA2.updateASCII(digestUri);
+        hA2.finish();
+        
+        MD5 hResp=new MD5();
+        hResp.init();
+        hResp.updateASCII(hA1.getDigestHex());
+        hResp.update(':');
+        hResp.updateASCII(nonce);
+        hResp.updateASCII(":00000001:");
+        hResp.updateASCII(cnonce);
+        hResp.updateASCII(":auth:");
+        hResp.updateASCII(hA2.getDigestHex());
+        hResp.finish();
+        
+        String out = "username=\""+user+"\",realm=\""+realm+"\"," +
+                "nonce=\""+nonce+"\",cnonce=\""+cnonce+"\"," +
+                "nc=00000001,qop=auth,digest-uri=\""+digestUri+"\"," +
+                "response="+hResp.getDigestHex()+",charset=utf-8";
+        String resp = toBase64(out.getBytes());
+        System.out.println(decodeBase64(resp));
+        
+        return resp;
+    }
+
+    public final static String toBase64( byte[] source) {
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+        char[] out = new char[((source.length + 2) / 3) * 4];
+        for (int i=0, index=0; i<source.length; i+=3, index +=4) {
+            boolean trip=false;
+            boolean quad=false;
+            
+            int val = (0xFF & source[i])<<8;
+            if ((i+1) < source.length) {
+                val |= (0xFF & source[i+1]);
+                trip = true;
+            }
+            val <<= 8;
+            if ((i+2) < source.length) {
+                val |= (0xFF & source[i+2]);
+                quad = true;
+            }
+            out[index+3] = alphabet.charAt((quad? (val & 0x3F): 64));
+            val >>= 6;
+            out[index+2] = alphabet.charAt((trip? (val & 0x3F): 64));
+            val >>= 6;
+            out[index+1] = alphabet.charAt(val & 0x3F);
+            val >>= 6;
+            out[index+0] = alphabet.charAt(val & 0x3F);
+        }
+        return new String(out);
+    }
+
 }

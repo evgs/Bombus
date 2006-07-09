@@ -270,6 +270,21 @@ public class JabberDataBlock
   }
 
   /**
+   * Returns a child block by text
+   *
+   */
+
+  public JabberDataBlock getChildBlockByText(String text)
+  {
+    if (childBlocks==null) return null;
+    for (Enumeration e=childBlocks.elements(); e.hasMoreElements();){
+        JabberDataBlock d=(JabberDataBlock)e.nextElement();
+        if (text.equals(d.getText()) ) return d;
+    }
+    return null;
+  }
+
+  /**
    * Method to return the text for a given child block
    */
 

@@ -179,6 +179,10 @@ public abstract class MessageDigest
     }
      */
     
+    public byte[] getDigestBits(){
+        return (digestValid)? digestBits:null;
+    }
+    
     public String getDigestHex()
     {
         if (!digestValid) return null;
@@ -200,35 +204,6 @@ public abstract class MessageDigest
         }
         
     	return out.toString();
-    }
-
-
-    public final String getDigestBase64( ) {
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-        char[] out = new char[((digestBits.length + 2) / 3) * 4];
-        for (int i=0, index=0; i<digestBits.length; i+=3, index +=4) {
-            boolean trip=false;
-            boolean quad=false;
-            
-            int val = (0xFF & digestBits[i])<<8;
-            if ((i+1) < digestBits.length) {
-                val |= (0xFF & digestBits[i+1]);
-                trip = true;
-            }
-            val <<= 8;
-            if ((i+2) < digestBits.length) {
-                val |= (0xFF & digestBits[i+2]);
-                quad = true;
-            }
-            out[index+3] = alphabet.charAt((quad? (val & 0x3F): 64));
-            val >>= 6;
-            out[index+2] = alphabet.charAt((trip? (val & 0x3F): 64));
-            val >>= 6;
-            out[index+1] = alphabet.charAt(val & 0x3F);
-            val >>= 6;
-            out[index+0] = alphabet.charAt(val & 0x3F);
-        }
-        return out.toString();
     }
 
 
