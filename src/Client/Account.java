@@ -37,6 +37,7 @@ public class Account extends IconTextElement{
     private int port=5222;
     public boolean active;
     private boolean useSSL;
+    private boolean sasl;
     private boolean plainAuth;
     private boolean mucOnly;
     
@@ -111,6 +112,8 @@ public class Account extends IconTextElement{
                 a.setProxyHostAddr(inputStream.readUTF());
                 a.setProxyPort(inputStream.readInt());
             }
+            
+            if (version>=6) a.sasl=inputStream.readBoolean();
 	    
         } catch (IOException e) { e.printStackTrace(); }
             
@@ -160,7 +163,7 @@ public class Account extends IconTextElement{
         if (proxyHostAddr==null) proxyHostAddr="";
         
         try {
-            outputStream.writeByte(5);
+            outputStream.writeByte(6);
             outputStream.writeUTF(userName);
             outputStream.writeUTF(password);
             outputStream.writeUTF(server);
@@ -178,6 +181,8 @@ public class Account extends IconTextElement{
             outputStream.writeBoolean(enableProxy);
             outputStream.writeUTF(proxyHostAddr);
             outputStream.writeInt(proxyPort);
+            
+            outputStream.writeBoolean(sasl);
 	    
         } catch (IOException e) {
             e.printStackTrace();
@@ -237,7 +242,7 @@ public class Account extends IconTextElement{
         } else {
             proxy="socket://" + getProxyHostAddr() + ':' + getProxyPort();
         }
-        return new JabberStream(  getServer(), url.toString(), proxy, null);    
+        return new JabberStream(  getServer(), url.toString(), sasl, proxy, null);    
     }
 
     public boolean isEnableProxy() {
@@ -262,5 +267,13 @@ public class Account extends IconTextElement{
 
     public void setProxyPort(int proxyPort) {
         this.proxyPort = proxyPort;
+    }
+
+    public boolean isSASL() {
+        return sasl;
+    }
+
+    public void setSasl(boolean sasl) {
+        this.sasl = sasl;
     }
 }

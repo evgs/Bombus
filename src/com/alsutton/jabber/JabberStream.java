@@ -64,7 +64,7 @@ public class JabberStream implements XMLEventListener, Runnable {
      *
      */
     
-    public JabberStream( String server, String hostAddr, String proxy, JabberListener theListener )
+    public JabberStream( String server, String hostAddr, boolean xmppV1, String proxy, JabberListener theListener )
     throws IOException {
         this.server=server;
         boolean waiting=Config.getInstance().istreamWaiting;
@@ -99,9 +99,11 @@ public class JabberStream implements XMLEventListener, Runnable {
         
         //sendQueue=new Vector();
         
-        StringBuffer header=new StringBuffer("<stream:stream to=\"" );
+        StringBuffer header=new StringBuffer("<stream:stream to='" );
         header.append( server );
-        header.append( "\" xmlns=\"jabber:client\" xmlns:stream=\"http://etherx.jabber.org/streams\">" );
+        header.append( "' xmlns='jabber:client' xmlns:stream='http://etherx.jabber.org/streams'" );
+        if (xmppV1) header.append(" version='1.0'");
+        header.append( '>' );
         send(header.toString());
         
         keepAlive=new TimerTaskKeepAlive(Config.getInstance().keepAlive);
@@ -248,6 +250,7 @@ public class JabberStream implements XMLEventListener, Runnable {
             currentBlock = new Iq( currentBlock, attributes );
         else if ( name.equals("presence") )
             currentBlock = new Presence( currentBlock, attributes );
+        else currentBlock = new JabberDataBlock(name, null, null);
         return false;
     }
     

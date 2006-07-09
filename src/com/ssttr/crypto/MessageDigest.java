@@ -116,6 +116,13 @@ public abstract class MessageDigest
     }
 
     /**
+     * Add an array of bytes to the digest.
+     */
+    public synchronized void update(byte input[]) {
+        update(input, 0, input.length);
+    }
+
+    /**
      * Add the bytes in the String 'input' to the current digest.
      * Note that the string characters are treated as unicode chars
      * of 16 bits each. To digestify ISO-Latin1 strings (ASCII) use
@@ -153,26 +160,6 @@ public abstract class MessageDigest
 
   
     /**
-     * helper function that prints unsigned two character hex digits.
-     */
-    private void hexDigit(PrintStream p, byte x) {
-    	char c;
-
-    	c = (char) ((x >> 4) & 0xf);
-    	if (c > 9)
-    		c = (char) ((c - 10) + 'a');
-    	else
-    		c = (char) (c + '0');
-    	p.write(c);
-    	c = (char) (x & 0xf);
-    	if (c > 9)
-    		c = (char)((c-10) + 'a');
-    	else
-    		c = (char)(c + '0');
-    	p.write(c);
-    }
-
-    /**
      * Return a string representation of this object.
     public String toString() {
     	ByteArrayOutputStream ou = new ByteArrayOutputStream();
@@ -194,18 +181,55 @@ public abstract class MessageDigest
     
     public String getDigestHex()
     {
-    	ByteArrayOutputStream ou = new ByteArrayOutputStream();
-    	PrintStream p = new PrintStream(ou);
-
-    	if (digestValid) {
-    	    for(int i = 0; i < digestBits.length; i++)
-     	        hexDigit(p, digestBits[i]);
-    	} else {
-    	    return null;
-    	}
-    	return (ou.toString());
+        if (!digestValid) return null;
+        StringBuffer out=new StringBuffer();
+        
+        for(int i = 0; i < digestBits.length; i++) {
+            char c;
+            
+            c = (char) ((digestBits[i] >> 4) & 0xf);
+            if (c > 9)   c = (char) ((c - 10) + 'a');
+            else  c = (char) (c + '0');
+            out.append(c);
+            c = (char) (digestBits[i] & 0xf);
+            if (c > 9)
+                c = (char)((c-10) + 'a');
+            else
+                c = (char)(c + '0');
+            out.append(c);
+        }
+        
+    	return out.toString();
     }
 
+
+    public final String getDigestBase64( ) {
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+        char[] out = new char[((digestBits.length + 2) / 3) * 4];
+        for (int i=0, index=0; i<digestBits.length; i+=3, index +=4) {
+            boolean trip=false;
+            boolean quad=false;
+            
+            int val = (0xFF & digestBits[i])<<8;
+            if ((i+1) < digestBits.length) {
+                val |= (0xFF & digestBits[i+1]);
+                trip = true;
+            }
+            val <<= 8;
+            if ((i+2) < digestBits.length) {
+                val |= (0xFF & digestBits[i+2]);
+                quad = true;
+            }
+            out[index+3] = alphabet.charAt((quad? (val & 0x3F): 64));
+            val >>= 6;
+            out[index+2] = alphabet.charAt((trip? (val & 0x3F): 64));
+            val >>= 6;
+            out[index+1] = alphabet.charAt(val & 0x3F);
+            val >>= 6;
+            out[index+0] = alphabet.charAt(val & 0x3F);
+        }
+        return out.toString();
+    }
 
 
     /**

@@ -20,6 +20,7 @@ import images.RosterIcons;
 import locale.SR;
 import login.LoginListener;
 import login.NonSASLAuth;
+import login.SASLAuth;
 import midlet.Bombus;
 import vcard.VCard;
 import vcard.vCardForm;
@@ -1082,7 +1083,15 @@ public class Roster
         //try {
         setProgress(SR.MS_LOGINPGS, 42);
         
+//#if SASL
+//#         if (sd.account.isSASL()) {
+//#             new SASLAuth(sd.account, SessionId, this, theStream);
+//#         } else {
+//#             new NonSASLAuth(sd.account, SessionId, this, theStream);
+//#         }
+//#else
         new NonSASLAuth(sd.account, SessionId, this, theStream);
+//#endif
     }
     
     /**
