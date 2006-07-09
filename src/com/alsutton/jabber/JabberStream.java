@@ -97,6 +97,13 @@ public class JabberStream implements XMLEventListener, Runnable {
      
         new Thread( this ). start();
         
+        initiateStream(server, xmppV1);
+        
+        keepAlive=new TimerTaskKeepAlive(Config.getInstance().keepAlive);
+    }
+
+    public void initiateStream(final String server, final boolean xmppV1) throws IOException {
+        
         //sendQueue=new Vector();
         
         StringBuffer header=new StringBuffer("<stream:stream to='" );
@@ -105,8 +112,6 @@ public class JabberStream implements XMLEventListener, Runnable {
         if (xmppV1) header.append(" version='1.0'");
         header.append( '>' );
         send(header.toString());
-        
-        keepAlive=new TimerTaskKeepAlive(Config.getInstance().keepAlive);
     }
     
     

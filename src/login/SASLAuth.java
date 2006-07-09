@@ -13,8 +13,10 @@ import Client.Account;
 import com.alsutton.jabber.JabberBlockListener;
 import com.alsutton.jabber.JabberDataBlock;
 import com.alsutton.jabber.JabberStream;
+import com.alsutton.jabber.datablocks.Iq;
 import com.ssttr.crypto.MD5;
 import com.sun.midp.ssl.MessageDigest;
+import java.io.IOException;
 
 /**
  *
@@ -39,17 +41,25 @@ public class SASLAuth implements JabberBlockListener{
         System.out.println(data.toString());
         if (data.getTagName().equals("stream:features")) {
             JabberDataBlock mech=data.getChildBlock("mechanisms");
-            
-            if (mech.getChildBlockByText("DIGEST-MD5")!=null) {
-                JabberDataBlock auth=new JabberDataBlock("auth", null,null);
-                auth.setNameSpace("urn:ietf:params:xml:ns:xmpp-sasl");
-                auth.setAttribute("mechanism", "DIGEST-MD5");
-                
-                System.out.println(auth.toString());
-                
-                stream.send(auth);
+            if (mech!=null) {
+                if (mech.getChildBlockByText("DIGEST-MD5")!=null) {
+                    JabberDataBlock auth=new JabberDataBlock("auth", null,null);
+                    auth.setNameSpace("urn:ietf:params:xml:ns:xmpp-sasl");
+                    auth.setAttribute("mechanism", "DIGEST-MD5");
+                    
+                    System.out.println(auth.toString());
+                    
+                    stream.send(auth);
+                    return JabberBlockListener.BLOCK_PROCESSED;
+                }
+            } else if (data.getChildBlock("bind")!=null) {
+                JabberDataBlock bindIq=new Iq(null, Iq.TYPE_SET, "bind");
+                JabberDataBlock bind=bindIq.addChild("bind",null);
+                bind.setNameSpace("urn:ietf:params:xml:ns:xmpp-bind");
+                bind.addChild("resource", account.getResource());
+                stream.send(bindIq);
+                return JabberBlockListener.BLOCK_PROCESSED;
             }
-            return JabberBlockListener.BLOCK_PROCESSED;
         } else if (data.getTagName().equals("challenge")) {
             String challenge=decodeBase64(data.getText());
             System.out.println(challenge);
@@ -80,9 +90,19 @@ public class SASLAuth implements JabberBlockListener{
         } else if ( data.getTagName().equals("failure")) {
             listener.loginFailed( data.getText() );  
         } else if ( data.getTagName().equals("success")) {
+            try {
+                stream.initiateStream(account.getServer(), true);
+            } catch (IOException ex) { }
             return JabberBlockListener.BLOCK_PROCESSED;
         }
-        
+
+        if (data instanceof Iq) {
+            if (data.getTypeAttribute().equals("result")) {
+                listener.loginSuccess();
+                return JabberBlockListener.NO_MORE_BLOCKS;
+                //return JabberBlockListener.BLOCK_PROCESSED;
+            }
+        }
         return JabberBlockListener.BLOCK_REJECTED;
     }
     
