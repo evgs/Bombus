@@ -98,9 +98,17 @@ public class SASLAuth implements JabberBlockListener{
 
         if (data instanceof Iq) {
             if (data.getTypeAttribute().equals("result")) {
-                listener.loginSuccess();
-                return JabberBlockListener.NO_MORE_BLOCKS;
-                //return JabberBlockListener.BLOCK_PROCESSED;
+                if (data.getAttribute("id").equals("bind")) {
+                    JabberDataBlock session=new Iq(null, Iq.TYPE_SET, "sess");
+                    session.addChild("session",null).setNameSpace("urn:ietf:params:xml:ns:xmpp-session");
+                    stream.send(session);
+                    return JabberBlockListener.BLOCK_PROCESSED;
+                    
+                } else {
+                    listener.loginSuccess();
+                    return JabberBlockListener.NO_MORE_BLOCKS;
+                    //return JabberBlockListener.BLOCK_PROCESSED;
+                }
             }
         }
         return JabberBlockListener.BLOCK_REJECTED;
