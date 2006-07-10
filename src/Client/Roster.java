@@ -1084,13 +1084,13 @@ public class Roster
         setProgress(SR.MS_LOGINPGS, 42);
         
 //#if SASL
-//#         if (sd.account.isSASL()) {
-//#             new SASLAuth(sd.account, SessionId, this, theStream);
-//#         } else {
-//#             new NonSASLAuth(sd.account, SessionId, this, theStream);
-//#         }
+        if (sd.account.isSASL()) {
+            new SASLAuth(sd.account, SessionId, this, theStream);
+        } else {
+            new NonSASLAuth(sd.account, SessionId, this, theStream);
+        }
 //#else
-        new NonSASLAuth(sd.account, SessionId, this, theStream);
+//#         new NonSASLAuth(sd.account, SessionId, this, theStream);
 //#endif
     }
     
@@ -1146,7 +1146,7 @@ public class Roster
     }
     
     public void userKeyPressed(int keyCode){
-        if (keyCode==KEY_NUM0 || keyCode==MOTOE680_REALPLAYER) {
+        if (keyCode==KEY_NUM0 /* || keyCode==MOTOE680_REALPLAYER  CONFLICT WITH ALCATEL. (platform=J2ME)*/) {
             if (messageCount==0) return;
             Object atcursor=getFocusedObject();
             Contact c=null;
@@ -1271,7 +1271,8 @@ public class Roster
             redraw();
         }
         
-        if (keyCode==cf.keyOfflines || keyCode==MOTOE680_REALPLAYER /* TODO: redifine keyOfflines*/) {
+        if (keyCode==cf.keyOfflines /* || keyCode==MOTOE680_REALPLAYER CONFLICT WITH ALCATEL. (platform=J2ME) 
+         TODO: redifine keyOfflines*/) {
             cf.showOfflineContacts=!cf.showOfflineContacts;
             reEnumRoster();
         }

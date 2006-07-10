@@ -15,7 +15,6 @@ import com.alsutton.jabber.JabberDataBlock;
 import com.alsutton.jabber.JabberStream;
 import com.alsutton.jabber.datablocks.Iq;
 import com.ssttr.crypto.MD5;
-import com.sun.midp.ssl.MessageDigest;
 import java.io.IOException;
 //#if SASL_XGOOGLETOKEN
 import java.io.InputStream;
