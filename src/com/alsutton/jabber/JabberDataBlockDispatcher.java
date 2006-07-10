@@ -138,7 +138,9 @@ public class JabberDataBlockDispatcher extends Thread
           while (i<blockListeners.size()) {
               int processResult=((JabberBlockListener)blockListeners.elementAt(i)).blockArrived(dataBlock);
               if (processResult==JabberBlockListener.BLOCK_PROCESSED) break;
-              if (processResult==JabberBlockListener.NO_MORE_BLOCKS) { blockListeners.removeElementAt(i); break; }
+              if (processResult==JabberBlockListener.NO_MORE_BLOCKS) { 
+                  blockListeners.removeElementAt(i); break; 
+              }
               i++;
           }
       }

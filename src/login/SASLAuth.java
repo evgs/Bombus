@@ -17,9 +17,11 @@ import com.alsutton.jabber.datablocks.Iq;
 import com.ssttr.crypto.MD5;
 import com.sun.midp.ssl.MessageDigest;
 import java.io.IOException;
+//#if SASL_XGOOGLETOKEN
 import java.io.InputStream;
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
+//#endif
 
 /**
  *
@@ -45,10 +47,12 @@ public class SASLAuth implements JabberBlockListener{
         if (data.getTagName().equals("stream:features")) {
             JabberDataBlock mech=data.getChildBlock("mechanisms");
             if (mech!=null) {
+                // first stream - step 1. selecting authentication mechanism
                 //common body
                 JabberDataBlock auth=new JabberDataBlock("auth", null,null);
                 auth.setNameSpace("urn:ietf:params:xml:ns:xmpp-sasl");
                 
+                // DIGEST-MD5 mechanism
                 if (mech.getChildBlockByText("DIGEST-MD5")!=null) {
                     auth.setAttribute("mechanism", "DIGEST-MD5");
                     
@@ -58,6 +62,8 @@ public class SASLAuth implements JabberBlockListener{
                     return JabberBlockListener.BLOCK_PROCESSED;
                 }
                 
+//#if SASL_XGOOGLETOKEN
+                // X-GOOGLE-TOKEN mechanism
                 if (mech.getChildBlockByText("X-GOOGLE-TOKEN")!=null) {
                     auth.setAttribute("mechanism", "X-GOOGLE-TOKEN");
                     String token=responseXGoogleToken(account.getUserName(), account.getServer(), account.getPassword());
@@ -69,11 +75,14 @@ public class SASLAuth implements JabberBlockListener{
                     return JabberBlockListener.BLOCK_PROCESSED;
                     
                 }
+//#endif
                 // no more method found
                 listener.loginFailed("SASL: Unknown mechanisms");
                 return JabberBlockListener.NO_MORE_BLOCKS;
                 
-            } else if (data.getChildBlock("bind")!=null) {
+            } 
+            // second stream - step 1. binding resource
+            else if (data.getChildBlock("bind")!=null) {
                 JabberDataBlock bindIq=new Iq(null, Iq.TYPE_SET, "bind");
                 JabberDataBlock bind=bindIq.addChild("bind",null);
                 bind.setNameSpace("urn:ietf:params:xml:ns:xmpp-bind");
@@ -82,6 +91,8 @@ public class SASLAuth implements JabberBlockListener{
                 return JabberBlockListener.BLOCK_PROCESSED;
             }
         } else if (data.getTagName().equals("challenge")) {
+            // first stream - step 2,3. reaction to challenges
+            
             String challenge=decodeBase64(data.getText());
             System.out.println(challenge);
 
@@ -89,6 +100,7 @@ public class SASLAuth implements JabberBlockListener{
             resp.setNameSpace("urn:ietf:params:xml:ns:xmpp-sasl");
             
             int nonceIndex=challenge.indexOf("nonce=");
+                // first stream - step 2. generating DIGEST-MD5 response due to challenge
             if (nonceIndex>=0) {
                 nonceIndex+=7;
                 String nonce=challenge.substring(nonceIndex, challenge.indexOf('\"', nonceIndex));
@@ -103,29 +115,35 @@ public class SASLAuth implements JabberBlockListener{
                         cnonce ));
                 System.out.println(resp.toString());
             }
+                // first stream - step 3. sending second empty response due to second challenge
             //if (challenge.startsWith("rspauth")) {}
                 
             stream.send(resp);
             return JabberBlockListener.BLOCK_PROCESSED;
             
         } else if ( data.getTagName().equals("failure")) {
+            // first stream - step 4a. not authorized
             listener.loginFailed( data.getText() );  
         } else if ( data.getTagName().equals("success")) {
+            // first stream - step 4b. success.
             try {
                 stream.initiateStream(account.getServer(), true);
             } catch (IOException ex) { }
-            return JabberBlockListener.BLOCK_PROCESSED;
+            return JabberBlockListener.NO_MORE_BLOCKS; // at first stream
         }
 
         if (data instanceof Iq) {
             if (data.getTypeAttribute().equals("result")) {
+                // second stream - step 2. resource binded - opening session
                 if (data.getAttribute("id").equals("bind")) {
+                    //TODO: get assigned resource from result
                     JabberDataBlock session=new Iq(null, Iq.TYPE_SET, "sess");
                     session.addChild("session",null).setNameSpace("urn:ietf:params:xml:ns:xmpp-session");
                     stream.send(session);
                     return JabberBlockListener.BLOCK_PROCESSED;
                     
-                } else {
+                // second stream - step 3. session opened - reporting success login
+                } else if (data.getAttribute("id").equals("sess")) {
                     listener.loginSuccess();
                     return JabberBlockListener.NO_MORE_BLOCKS;
                     //return JabberBlockListener.BLOCK_PROCESSED;
@@ -219,6 +237,7 @@ public class SASLAuth implements JabberBlockListener{
     }
     
     
+//#if SASL_XGOOGLETOKEN
     private String readLine(InputStream is) {
         StringBuffer buf = new StringBuffer();
         try {
@@ -277,6 +296,7 @@ public class SASLAuth implements JabberBlockListener{
         }
         return null;
     }
+//#endif
     
     public final static String toBase64( String source) {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
