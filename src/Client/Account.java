@@ -113,8 +113,13 @@ public class Account extends IconTextElement{
                 a.setProxyPort(inputStream.readInt());
             }
             
-            if (version>=6) a.sasl=inputStream.readBoolean();
-	    
+            if (version>=6) 
+//#if SASL
+                a.sasl=inputStream.readBoolean();
+//#else
+//#                 a.sasl=false; inputStream.readBoolean();
+//#endif
+
         } catch (IOException e) { e.printStackTrace(); }
             
         return (a.userName==null)?null:a;

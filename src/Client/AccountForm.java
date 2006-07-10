@@ -129,7 +129,9 @@ class AccountForm implements CommandListener, ItemStateListener {
 	    account.setNickName(nickbox.getString());
 	    account.setUseSSL(b[0]);
 	    account.setPlainAuth(b[1]);
+//#if SASL
             account.setSasl(b[2]);
+//#endif
 	    account.setMucOnly(b[3]);
 	    account.setEnableProxy(b[4]);
 	    //account.updateJidCache();
