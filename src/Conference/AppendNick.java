@@ -71,6 +71,7 @@ public class AppendNick
             if (t.size()>0) {
                 b.insert(0, (char)0x20);
                 b.insert(0, t.getString());
+		b.append(' ');
             } else {
                 b.append(": ");
             }
