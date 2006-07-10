@@ -3,8 +3,8 @@
  *
  * Created on 8 Июль 2006 г., 23:34
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package login;
@@ -17,6 +17,9 @@ import com.alsutton.jabber.datablocks.Iq;
 import com.ssttr.crypto.MD5;
 import com.sun.midp.ssl.MessageDigest;
 import java.io.IOException;
+import java.io.InputStream;
+import javax.microedition.io.Connector;
+import javax.microedition.io.HttpConnection;
 
 /**
  *
@@ -42,9 +45,11 @@ public class SASLAuth implements JabberBlockListener{
         if (data.getTagName().equals("stream:features")) {
             JabberDataBlock mech=data.getChildBlock("mechanisms");
             if (mech!=null) {
+                //common body
+                JabberDataBlock auth=new JabberDataBlock("auth", null,null);
+                auth.setNameSpace("urn:ietf:params:xml:ns:xmpp-sasl");
+                
                 if (mech.getChildBlockByText("DIGEST-MD5")!=null) {
-                    JabberDataBlock auth=new JabberDataBlock("auth", null,null);
-                    auth.setNameSpace("urn:ietf:params:xml:ns:xmpp-sasl");
                     auth.setAttribute("mechanism", "DIGEST-MD5");
                     
                     System.out.println(auth.toString());
@@ -52,6 +57,22 @@ public class SASLAuth implements JabberBlockListener{
                     stream.send(auth);
                     return JabberBlockListener.BLOCK_PROCESSED;
                 }
+                
+                if (mech.getChildBlockByText("X-GOOGLE-TOKEN")!=null) {
+                    auth.setAttribute("mechanism", "X-GOOGLE-TOKEN");
+                    String token=responseXGoogleToken(account.getUserName(), account.getServer(), account.getPassword());
+                    auth.setText(token);
+                    
+                    System.out.println(auth.toString());
+                    
+                    stream.send(auth);
+                    return JabberBlockListener.BLOCK_PROCESSED;
+                    
+                }
+                // no more method found
+                listener.loginFailed("SASL: Unknown mechanisms");
+                return JabberBlockListener.NO_MORE_BLOCKS;
+                
             } else if (data.getChildBlock("bind")!=null) {
                 JabberDataBlock bindIq=new Iq(null, Iq.TYPE_SET, "bind");
                 JabberDataBlock bind=bindIq.addChild("bind",null);
@@ -191,27 +212,89 @@ public class SASLAuth implements JabberBlockListener{
                 "nonce=\""+nonce+"\",nc=00000001,cnonce=\""+cnonce+"\"," +
                 "qop=auth,digest-uri=\""+digestUri+"\"," +
                 "response=\""+hResp.getDigestHex()+"\",charset=utf-8";
-        String resp = toBase64(out.getBytes());
+        String resp = toBase64(out);
         System.out.println(decodeBase64(resp));
         
         return resp;
     }
-
-    public final static String toBase64( byte[] source) {
+    
+    
+    private String readLine(InputStream is) {
+        StringBuffer buf = new StringBuffer();
+        try {
+            while(true) {
+                int ch = is.read();
+                if (ch==-1 || ch == '\n') break;
+                buf.append((char)ch);
+            }
+        } catch (Exception e) {}
+        return buf.toString();
+    }
+    
+    /**
+     * Generates X-GOOGLE-TOKEN response by communication with http://www.google.com
+     * (algorithm from MGTalk/NetworkThread.java)
+     * @param userName
+     * @param passwd
+     * @return
+     */
+    private String responseXGoogleToken(String userName, String server, String passwd) {
+        try {
+            String firstUrl = "https://www.google.com:443/accounts/ClientAuth?Email="
+                    + userName + "%40"+ server
+                    + "&Passwd=" + passwd //TODO: escaping password
+                    + "&PersistentCookie=false&source=googletalk";
+            
+            //log.addMessage("Connecting to www.google.com");
+            HttpConnection c = (HttpConnection) Connector.open(firstUrl.toString());
+            InputStream is = c.openInputStream();
+            
+            
+            String sid = readLine(is);
+            if(!sid.startsWith("SID=")) {
+                listener.loginFailed(sid);
+                return null;
+            }
+            
+            String lsid = readLine(is);
+            
+            String secondUrl = "https://www.google.com:443/accounts/IssueAuthToken?"
+                    + sid + "&" + lsid + "&service=mail&Session=true";
+            is.close();
+            c.close();
+            //log.addMessage("Next www.google.com connection");
+            c = (HttpConnection) Connector.open(secondUrl);
+            is = c.openInputStream();
+            //str = readLine(dis);
+            String token = "\0"+userName+"\0"+readLine(is);
+            is.close();
+            c.close();
+            return toBase64(token);
+            
+        } catch(Exception e) {
+            listener.loginFailed("Google token error");
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
+    public final static String toBase64( String source) {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-        char[] out = new char[((source.length + 2) / 3) * 4];
-        for (int i=0, index=0; i<source.length; i+=3, index +=4) {
+        
+        int len=source.length();
+        char[] out = new char[((len+2)/3)*4];
+        for (int i=0, index=0; i<source.length(); i+=3, index +=4) {
             boolean trip=false;
             boolean quad=false;
             
-            int val = (0xFF & source[i])<<8;
-            if ((i+1) < source.length) {
-                val |= (0xFF & source[i+1]);
+            int val = (0xFF & source.charAt(i))<<8;
+            if ((i+1) < len) {
+                val |= (0xFF & source.charAt(i+1));
                 trip = true;
             }
             val <<= 8;
-            if ((i+2) < source.length) {
-                val |= (0xFF & source[i+2]);
+            if ((i+2) < len) {
+                val |= (0xFF & source.charAt(i+2));
                 quad = true;
             }
             out[index+3] = alphabet.charAt((quad? (val & 0x3F): 64));
@@ -224,5 +307,4 @@ public class SASLAuth implements JabberBlockListener{
         }
         return new String(out);
     }
-
 }
