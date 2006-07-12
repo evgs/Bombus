@@ -103,6 +103,11 @@ public class Roster
 
 //#if (MOTOROLA_BACKLIGHT)
     private int blState=Integer.MAX_VALUE;
+
+//#endif
+
+//#if SASL
+    private String token;
 //#endif
     
     //public JabberBlockListener discoveryListener;
@@ -219,6 +224,13 @@ public class Roster
         //logoff();
         try {
             Account a=sd.account;
+//#if SASL_XGOOGLETOKEN
+            if (a.isSASL() && a.getServer().startsWith("gmail")) {
+                setProgress(SR.MS_TOKEN, 30);
+                token=new SASLAuth(a, null, this, null).responseXGoogleToken();
+                if (token==null) throw new Exception("Can't get Google token");
+            }
+//#endif
             setProgress(SR.MS_CONNECT_TO+a.getServer(), 30);
             SR.loaded();
             theStream= a.openJabberStream();
@@ -1085,7 +1097,12 @@ public class Roster
         
 //#if SASL
         if (sd.account.isSASL()) {
-            new SASLAuth(sd.account, SessionId, this, theStream);
+            new SASLAuth(sd.account, SessionId, this, theStream)
+  //#if SASL_XGOOGLETOKEN
+            .setToken(token)
+  //#endif
+            ;
+   
         } else {
             new NonSASLAuth(sd.account, SessionId, this, theStream);
         }

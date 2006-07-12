@@ -38,8 +38,13 @@ public class SASLAuth implements JabberBlockListener{
         this.account=account;
         this.sessionId=sessionId;
         this.stream=stream;
-        stream.addBlockListener(this);
+        if (stream!=null) stream.addBlockListener(this);
     }
+    
+//#if SASL_XGOOGLETOKEN
+    private String token;
+    public void setToken(String token) { this.token=token; }
+//#endif
 
     public int blockArrived(JabberDataBlock data) {
         System.out.println(data.toString());
@@ -65,7 +70,6 @@ public class SASLAuth implements JabberBlockListener{
                 // X-GOOGLE-TOKEN mechanism
                 if (mech.getChildBlockByText("X-GOOGLE-TOKEN")!=null) {
                     auth.setAttribute("mechanism", "X-GOOGLE-TOKEN");
-                    String token=responseXGoogleToken(account.getUserName(), account.getServer(), account.getPassword());
                     auth.setText(token);
                     
                     System.out.println(auth.toString());
@@ -256,11 +260,11 @@ public class SASLAuth implements JabberBlockListener{
      * @param passwd
      * @return
      */
-    private String responseXGoogleToken(String userName, String server, String passwd) {
+    public String responseXGoogleToken() {
         try {
             String firstUrl = "https://www.google.com:443/accounts/ClientAuth?Email="
-                    + userName + "%40"+ server
-                    + "&Passwd=" + passwd //TODO: escaping password
+                    + account.getUserName() + "%40"+ account.getServer()
+                    + "&Passwd=" + account.getPassword() //TODO: escaping password
                     + "&PersistentCookie=false&source=googletalk";
             
             //log.addMessage("Connecting to www.google.com");
@@ -284,14 +288,14 @@ public class SASLAuth implements JabberBlockListener{
             c = (HttpConnection) Connector.open(secondUrl);
             is = c.openInputStream();
             //str = readLine(dis);
-            String token = "\0"+userName+"\0"+readLine(is);
+            String token = "\0"+account.getUserName()+"\0"+readLine(is);
             is.close();
             c.close();
             return toBase64(token);
             
         } catch(Exception e) {
-            listener.loginFailed("Google token error");
             e.printStackTrace();
+            listener.loginFailed("Google token error");
         }
         return null;
     }
