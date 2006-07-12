@@ -2341,7 +2341,18 @@ syslog_msg: true
     this new address like "conference.jabberserver" will be conference server address
 
     default value - gc_room: bombus@conference.jabber.ru
- 
+
+(563)
+  * MessageEdit>Nicknames - вставка ника производится с добавлением хвостового пробела (при вставке не в начало текста)
+  + xmpp v1.0 SASL аутентификация: механизм DIGEST-MD5
+  + experimental: механизм SASL-аутентификации X-GOOGLE-TOKEN для GTalk. Появляется возможность работы с GTalk без ssl-сокетов,
+    но требуется https-соединение при логине.
+
+  --
+  * MessageEdit>Nicknames - Nickname appending with trailing space when appending nick to the end of message
+  + xmpp v1.0 SASL authentication: mechanism DIGEST-MD5
+  + experimental: SASL mechanism X-GOOGLE-TOKEN for GTalk. now login may be done without ssl socket, 
+    but using https connection to get that token.
 ---------------------------
   known issues:
 
