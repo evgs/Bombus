@@ -57,11 +57,10 @@ public class PrivacyForm
         choiseType.setSelectedIndex(item.type, true);
         switchType();
         
-        //textOrder=new TextField("Order", String.valueOf(item.order), 64, TextField.NUMERIC);
-        //form.append(textOrder);
-        
         form.append(choiseStanzas);
         choiseStanzas.setSelectedFlags(item.stanzasSet);
+        
+        //form.append("Order: "+item.order);
         
         form.setItemStateListener(this);
         form.setCommandListener(this);

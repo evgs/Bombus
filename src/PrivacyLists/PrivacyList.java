@@ -48,10 +48,15 @@ public class PrivacyList extends IconTextElement{
     
     
     public void generateList(){
+        int index=0;
+        
         JabberDataBlock list = listBlock();
         for (Enumeration e=rules.elements(); e.hasMoreElements(); ) {
-            JabberDataBlock item=((PrivacyItem)e.nextElement()).constructBlock();
-            list.addChild(item);
+            
+            PrivacyItem item=(PrivacyItem)e.nextElement();
+            item.order=index++;
+                        
+            list.addChild( item.constructBlock() );
         }
         PrivacyList.privacyListRq(true, list, "storelst");
     }
@@ -81,7 +86,6 @@ public class PrivacyList extends IconTextElement{
         }
         rules.insertElementAt(rule, index);
     }
-
     
     public final static void privacyListRq(boolean set, JabberDataBlock child, String id){
         JabberDataBlock pl=new Iq(null, (set)? Iq.TYPE_SET: Iq.TYPE_GET, id);
