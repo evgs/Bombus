@@ -2357,10 +2357,14 @@ syslog_msg: true
 (566)
   * исправлено исключение NullPointerException при доступе к закрытому сокету некоторыми командами.
     ServiceDiscovery, Privacy Lists, VCard и т.д. теперь недоступны при отсутствии соединения с сервером
+  
+  * исправлено сохранение правил из privacy lists с правильным полем order (порядок применения правил)
 
   --
   * NullPointerException if accessing to closed socket.
     ServiceDiscovery, Privacy Lists, VCard, etc... are blocked if there are no active xmpp connection
+
+  * Privacy List's rules now will be stored with correct 'order' field
 ---------------------------
   known issues:
 
