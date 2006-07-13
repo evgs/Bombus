@@ -1212,19 +1212,22 @@ public class Roster
 //#endif
         
         if (c==cmdAccount){ new AccountSelect(display, false); }
-        if (c==cmdConference) { new ConferenceForm(display); }
-        /*if (c==cmdLeave) {
-            if (atCursor instanceof Group) leaveRoom( ((Group)atCursor).index );
-        }*/
         if (c==cmdStatus) { new StatusSelect(display); }
         if (c==cmdAlert) { new AlertProfile(display); }
         if (c==cmdOptions){ new ConfigForm(display); }
+        if (c==cmdArchive) { new ArchiveList(display, null); }
+        if (c==cmdInfo) { new Info.InfoWindow(display); }
+        
+        // stream-sensitive commands
+        // check for closed socket
+        if (StaticData.getInstance().roster.theStream==null) return;
+        
+        if (c==cmdConference) { new ConferenceForm(display); }
         if (c==cmdActions) try { 
             new RosterItemActions(display, getFocusedObject()); 
         } catch (Exception e) { /* NullPointerException */ }
+        
         if (c==cmdTools) { new RosterToolsMenu(display); }
-        if (c==cmdArchive) { new ArchiveList(display, null); }
-        if (c==cmdInfo) { new Info.InfoWindow(display); }
         if (c==cmdAdd) {
             //new MIDPTextBox(display,"Add to roster", null, new AddContact());
             Object o=getFocusedObject();
