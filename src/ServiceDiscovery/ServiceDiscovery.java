@@ -190,16 +190,16 @@ public class ServiceDiscovery
                 if (i.getTagName().equals("feature")) {
                     String var=i.getAttribute("var");
                     features.addElement(var);
-                    if (var.equals(NS_MUC)) { cmds.addElement(new DiscoCommand(0,strJoin)); }
-                    if (var.equals(NS_SRCH)) { cmds.addElement(new DiscoCommand(1,strSrch)); }
-                    if (var.equals(NS_REGS)) { cmds.addElement(new DiscoCommand(2,strReg)); }
+                    if (var.equals(NS_MUC)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_GCJOIN_INDEX, strJoin)); }
+                    if (var.equals(NS_SRCH)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_SEARCH_INDEX, strSrch)); }
+                    if (var.equals(NS_REGS)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_REGISTER_INDEX, strReg)); }
                     //if (var.equals(NODE_CMDS)) { cmds.addElement(new DiscoCommand(AD_HOC_INDEX,strCmds)); } 
                 }
 		if (i.getTagName().equals("identity")) {
 		    String category=i.getAttribute("category");
 		    String type=i.getAttribute("type");
 		    if (category.equals("automation") && type.equals("command-node"))  { 
-			cmds.addElement(new DiscoCommand(AD_HOC_INDEX,strCmds)); 
+			cmds.addElement(new DiscoCommand(RosterIcons.ICON_AD_HOC, strCmds)); 
 		    } 
 		}
             }
@@ -297,17 +297,18 @@ public class ServiceDiscovery
     private class DiscoCommand extends IconTextElement {
         String name;
         int index;
+        int icon;
         
-        public DiscoCommand(int index, String name) {
+        public DiscoCommand(int icon, String name) {
             super(RosterIcons.getInstance());
-            this.index=index; this.name=name;
+            this.icon=icon; this.name=name;
         }
         public int getColor(){ return Colors.DISCO_CMD; }
-        public int getImageIndex() { return RosterIcons.ICON_GCJOIN_INDEX + index; }
+        public int getImageIndex() { return icon; }
         public String toString(){ return name; }
         public void onSelect(){
-            switch (index) {
-                case 0: {
+            switch (icon) {
+                case RosterIcons.ICON_GCJOIN_INDEX: {
                     int rp=service.indexOf('@');
                     String room=null;
                     String server=service;
@@ -318,14 +319,14 @@ public class ServiceDiscovery
                     new ConferenceForm(display, room, server, null, null);
                     break;
                 }
-                case 1:
+                case RosterIcons.ICON_SEARCH_INDEX:
                     requestQuery(NS_SRCH, "discosrch");
                     break;
-                case 2:
+                case RosterIcons.ICON_REGISTER_INDEX:
                     requestQuery(NS_REGS, "discoreg");
                     break;
                     
-                case AD_HOC_INDEX:
+                case RosterIcons.ICON_AD_HOC:
                     requestCommand(NODE_CMDS, "discocmd");
                 default:
             }

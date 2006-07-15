@@ -22,13 +22,14 @@ import util.StringLoader;
 public class RosterIcons extends ImageList{
     
     private static RosterIcons instance;
+
     public static RosterIcons getInstance() {
 	if (instance==null) instance=new RosterIcons();
 	return instance;
     }
 
     private final static int ICONS_IN_ROW=8;
-    private final static int ICONS_IN_COL=10;
+    private final static int ICONS_IN_COL=6;
     
     private Hashtable transports;
     private Vector transpSkins;
@@ -40,11 +41,6 @@ public class RosterIcons extends ImageList{
         transports=new StringLoader().hashtableLoader("/images/transports.txt"); //new Hashtable();
         transpSkins=new Vector(transports.size());
         
-        transports.put("icq", new Integer(0x10));
-        transports.put("yahoo", new Integer(0x20));
-        transports.put("msn", new Integer(0x30));
-        transports.put("aim", new Integer(0x40));
-        transports.put("rss", new Integer(0x50));
         transports.put("conference", new Integer(ICON_GROUPCHAT_INDEX));
         
     }
@@ -55,6 +51,7 @@ public class RosterIcons extends ImageList{
             int index=(transpSkins.size()+1)<<24;
             // loading additional skin
             ImageList customTransp=new ImageList((String) o, 1, ICONS_IN_ROW);
+            // customTransp loading success?
             if (customTransp.getHeight()==0) customTransp=this;
             
             transpSkins.addElement( customTransp );
@@ -74,49 +71,48 @@ public class RosterIcons extends ImageList{
         else super.drawImage(g, index, x, y);
     }
 
-    public static final int ICON_INVISIBLE_INDEX = 0x51;
+    public static final int ICON_INVISIBLE_INDEX = 0x10;
 
-    public static final int ICON_ERROR_INDEX = 0x52;
+    public static final int ICON_ERROR_INDEX = 0x11;
 
-    public static final int ICON_TRASHCAN_INDEX = 0x53;
+    public static final int ICON_TRASHCAN_INDEX = 0x12;
 
-    public static final int ICON_PROGRESS_INDEX = 0x54;
+    public static final int ICON_PROGRESS_INDEX = 0x13;
 
-    public static final int ICON_MODERATOR_INDEX = 0x60;
+    public static final int ICON_MODERATOR_INDEX = 0x50;
 
-    public static final int ICON_PRIVACY_ACTIVE = 0x66;
+    public static final int ICON_PRIVACY_ACTIVE = 0x46;
 
-    public static final int ICON_PRIVACY_PASSIVE = 0x67;
+    public static final int ICON_PRIVACY_PASSIVE = 0x47;
 
-    public static final int ICON_GROUPCHAT_INDEX = 0x70;
+    public static final int ICON_GROUPCHAT_INDEX = 0x40;
 
-    public static final int ICON_GCJOIN_INDEX = 0x71;
+    public static final int ICON_GCJOIN_INDEX = 0x41;
 
-    public static final int ICON_SEARCH_INDEX = 0x72;
+    public static final int ICON_SEARCH_INDEX = 0x14;
 
-    public static final int ICON_REGISTER_INDEX = 0x73;
+    public static final int ICON_REGISTER_INDEX = 0x15;
 
-    public static final int ICON_MSGCOLLAPSED_INDEX = 0x74;
+    public static final int ICON_MSGCOLLAPSED_INDEX = 0x16;
 
-    public static final int ICON_MESSAGE_INDEX = 0x80;
+    public static final int ICON_MESSAGE_INDEX = 0x20;
 
-    public static final int ICON_AUTHRQ_INDEX = 0x81;
+    public static final int ICON_AUTHRQ_INDEX = 0x21;
 
-    public static final int ICON_COMPOSING_INDEX = 0x82;
+    public static final int ICON_COMPOSING_INDEX = 0x22;
+    public static final int ICON_AD_HOC=ICON_COMPOSING_INDEX;
 
-    public static final int ICON_EXPANDED_INDEX = 0x83;
+    public static final int ICON_EXPANDED_INDEX = 0x23;
 
-    public static final int ICON_COLLAPSED_INDEX = 0x84;
+    public static final int ICON_COLLAPSED_INDEX = 0x24;
 
-    public static final int ICON_MESSAGE_BUTTONS = 0x85;
+    public static final int ICON_MESSAGE_BUTTONS = 0x25;
 
-    public static final int ICON_PROFILE_INDEX = 0x90;
+    public static final int ICON_PROFILE_INDEX = 0x30;
 
-    public static final int ICON_PRIVACY_ALLOW = 0x95;
+    public static final int ICON_PRIVACY_ALLOW = 0x36;
 
-    public static final int ICON_PRIVACY_BLOCK = 0x96;
+    public static final int ICON_PRIVACY_BLOCK = 0x37;
 
-    public static final int ICON_KEYBLOCK_INDEX = 0x97;
-
-    
+    public static final int ICON_KEYBLOCK_INDEX = 0x17;
 }

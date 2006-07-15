@@ -1,1 +1,6 @@
+aim	/images/aim.png
+icq	/images/icq.png
+msn	/images/msn.png
 mrim	/images/mrim.png
+rss	/images/rss.png
+yahoo	/images/yahoo.png
