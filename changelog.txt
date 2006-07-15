@@ -2366,8 +2366,15 @@ syslog_msg: true
 
   * Privacy List's rules now will be stored with correct 'order' field
 
-(567)
+(568)
+  * отформатирован заголовок списка Active contacts
+  --
   * formatting space in Active contacts list
+
+0.3.6.570
+  * новое расположение иконок в скине skin.png
+  --
+  * new skin.png iconset layout
 
 ---------------------------
   known issues:
