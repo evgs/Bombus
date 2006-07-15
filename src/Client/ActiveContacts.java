@@ -45,7 +45,9 @@ public class ActiveContacts
 	// не создаём вид, если нет активных контактов
 	if (getItemCount()==0) return;
 	
-        setTitleItem(new Title(2, String.valueOf(getItemCount()), SR.MS_ACTIVE_CONTACTS));
+        Title title=new Title(2, String.valueOf(getItemCount()), " ");
+        title.addElement(SR.MS_ACTIVE_CONTACTS);
+        setTitleItem(title);
 
 	addCommand(cmdSelect);
 	addCommand(cmdCancel);

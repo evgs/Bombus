@@ -2365,6 +2365,10 @@ syslog_msg: true
     ServiceDiscovery, Privacy Lists, VCard, etc... are blocked if there are no active xmpp connection
 
   * Privacy List's rules now will be stored with correct 'order' field
+
+(567)
+  * formatting space in Active contacts list
+
 ---------------------------
   known issues:
 
