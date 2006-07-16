@@ -13,6 +13,7 @@ import Client.Contact;
 import Client.StaticData;
 import com.alsutton.jabber.JabberDataBlock;
 import com.alsutton.jabber.datablocks.Presence;
+import images.RosterIcons;
 import locale.SR;
 
 /**
@@ -71,7 +72,7 @@ public class MucContact extends Contact{
         sortCode(nick);
         
         if (role.equals("moderator")) {
-            transport=0x60;
+            transport=RosterIcons.ICON_MODERATOR_INDEX;
             jidHash &= 0x3fffffff;
         } else {
             transport=0;
