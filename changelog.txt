@@ -2358,7 +2358,7 @@ syslog_msg: true
   * исправлено исключение NullPointerException при доступе к закрытому сокету некоторыми командами.
     ServiceDiscovery, Privacy Lists, VCard и т.д. теперь недоступны при отсутствии соединения с сервером
   
-  * исправлено сохранение правил из privacy lists с правильным полем order (порядок применения правил)
+  * сохранение правил из privacy lists с правильным полем order (порядок применения правил)
 
   --
   * NullPointerException if accessing to closed socket.
@@ -2376,6 +2376,15 @@ syslog_msg: true
   --
   * new skin.png iconset layout
 
+21.07.2006
+(572)
+  + MessageList>Goto URL - вернулся запуск встроенного телефонного браузера
+    вызывается список линков, содержащихся в текущем сообщении в списках сообщений
+    контакта, конференции, и в архиве 
+  --
+  + MessageList>Goto URL - internal phone's browser launch returned back
+    this command shows URLs, contained in focused message in Contact/Conference 
+    Message List, and in Archive
 ---------------------------
   known issues:
 

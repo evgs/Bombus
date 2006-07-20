@@ -27,7 +27,6 @@ import ui.ComplexString;
  */
 public class ArchiveList 
     extends MessageList 
-    implements CommandListener
 {
 
     Command cmdDelete=new Command(SR.MS_DELETE /*"Delete"*/, Command.SCREEN, 9);
@@ -73,10 +72,7 @@ public class ArchiveList
     }
 
     public void commandAction(Command c, Displayable d) {
-	if (c==cmdBack) {
-	    destroyView();
-	    return;
-	}
+        super.commandAction(c,d);
 	if (c==cmdDelete) {
 	    archive.delete(cursor);
 	    messages=new Vector();

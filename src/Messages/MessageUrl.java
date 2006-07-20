@@ -27,7 +27,7 @@ public class MessageUrl extends Menu{
 	super("URLs");
 	this.urlList=urlList;
 	
-	for (int i=0; i<urlList.size(); i++) {
+	for (int i=0; i<urlList.size(); i++) { // throws exception
 	    addItem((String)urlList.elementAt(i), i);
 	}
 	/*if (m.getItemCount()>0)*/

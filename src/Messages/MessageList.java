@@ -10,12 +10,14 @@
 package Messages;
 
 import Client.Config;
-//import Messages.MessageView;
 import Client.Msg;
+//import Messages.MessageView;
 import images.SmilesIcons;
 import java.util.Vector;
 import javax.microedition.lcdui.Command;
+import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Display;
+import javax.microedition.lcdui.Displayable;
 import locale.SR;
 import ui.ComplexString;
 import ui.VirtualElement;
@@ -27,11 +29,13 @@ import ui.VirtualList;
  */
 public abstract class MessageList 
     extends VirtualList
+    implements CommandListener
 {
     
     protected Vector messages;
     
     protected Command cmdBack = new Command(SR.MS_BACK, Command.BACK, 99);
+    protected Command cmdUrl = new Command(SR.MS_GOTO_URL, Command.SCREEN, 80);
     
     /** Creates a new instance of MessageList */
     public MessageList(Display display) {
@@ -46,6 +50,7 @@ public abstract class MessageList
         cursor=0;//activate
         
         addCommand(cmdBack);
+        addCommand(cmdUrl);
     }
 
     public abstract int getItemCount(); // из protected сделали public
@@ -74,8 +79,17 @@ public abstract class MessageList
     
     public void markRead(int msgIndex) {}
     
-
     protected boolean smiles;
+
+    public void commandAction(Command c, Displayable d) {
+        if (c==cmdBack) destroyView();
+        if (c==cmdUrl) {
+            try {
+                Vector urls=((MessageItem) getFocusedObject()).getUrlList();
+                new MessageUrl(display, urls); //throws NullPointerException if no urls
+            } catch (Exception e) {/* no urls found */}
+        }
+    }
     
     public void keyGreen() { eventOk(); }
    

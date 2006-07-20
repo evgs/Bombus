@@ -23,7 +23,7 @@ import javax.microedition.lcdui.*;
  * @author Eugene Stahov
  */
 public class ContactMessageList extends MessageList
-implements CommandListener{
+{
     
     Contact contact;
     Command cmdMessage=new Command(SR.MS_NEW_MESSAGE,Command.SCREEN,2);
@@ -100,12 +100,13 @@ implements CommandListener{
     public void focusedItem(int index){ markRead(index); }
         
     public void commandAction(Command c, Displayable d){
-        if (c==cmdBack) {
+        super.commandAction(c,d);
+        /*if (c==cmdBack) {
             //contact.lastReaded=contact.msgs.size();
             //contact.resetNewMsgCnt();            
             destroyView();
             return;
-        }
+        }*/
         if (c==cmdMessage) { 
             contact.msgSuspended=null; 
             keyGreen(); 
