@@ -111,7 +111,7 @@ public class ConferenceForm implements CommandListener{
         
         
         
-        sd.roster.initMuc(name, pass);
+        ConferenceGroup grp=sd.roster.initMuc(name, pass);
         // требуется для возможности нормального выхода
         //sd.roster.mucContact(name, Contact.ORIGIN_GC_MYSELF); 
         //sd.roster.activeRooms.addElement(jid);
@@ -122,6 +122,17 @@ public class ConferenceForm implements CommandListener{
             // adding password to presence
             x.addChild("password", pass);
         }
+        
+        JabberDataBlock history=x.addChild("history", null);
+        history.setAttribute("maxstanzas","20");
+        history.setAttribute("maxchars","32768");
+        try {
+            long delay= ( grp.conferenceJoinTime
+                              - ( (Msg)(grp.getConference().msgs.lastElement()) ).dateGmt
+                        ) /1000 ;
+            history.setAttribute("seconds",String.valueOf(delay));
+        } catch (Exception e) {};
+
         //sd.roster.groups.getGroup(name.substring(0, name.indexOf('@'))).imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
         sd.roster.sendPresence(name, null, x);
         sd.roster.reEnumRoster();

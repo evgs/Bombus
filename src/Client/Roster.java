@@ -430,7 +430,7 @@ public class Roster
         }
     }
     
-    public final MucContact initMuc(String from, String joinPassword){
+    public final ConferenceGroup initMuc(String from, String joinPassword){
         // muc message
         int ri=from.indexOf('@');
         int rp=from.indexOf('/');
@@ -478,7 +478,7 @@ public class Roster
         c.origin=Contact.ORIGIN_GC_MYSELF;
         
         sort();
-        return c;
+        return grp;
     }
     
     public final MucContact mucContact(String from){

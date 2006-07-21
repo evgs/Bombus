@@ -2385,6 +2385,18 @@ syslog_msg: true
   + MessageList>Goto URL - internal phone's browser launch returned back
     this command shows URLs, contained in focused message in Contact/Conference 
     Message List, and in Archive
+
+(573)
+  * ограничения размера истории конференции (значения временно фиксированы):
+    максимальное число сообщений = 20;
+    максимальный объём истории = 32 КБ;
+    при повторном входе запрашиваются только сообщения, 
+    поступившие в период отсутствия (с учётом вышеуказанных ограничений)
+  --
+  * MUC history limiting (experimental, fixed values):
+    maximum messages=20;
+    maximum history size=32KB;
+    only new messages if reenter conference, but limiting with upper conditions
 ---------------------------
   known issues:
 
