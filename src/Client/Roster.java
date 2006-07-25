@@ -108,8 +108,10 @@ public class Roster
 
 //#if SASL
     private String token;
+
 //#endif
     
+    private long lastMessageTime=Time.localTime();
     //public JabberBlockListener discoveryListener;
     
     /**
@@ -667,7 +669,7 @@ public class Roster
     
     public void sendMessage(Contact to, final String body, final String subject , int composingState) {
         boolean groupchat=to.origin==Contact.ORIGIN_GROUPCHAT;
-        Message simpleMessage = new Message( 
+        Message message = new Message( 
                 to.getJid(), 
                 body, 
                 subject, 
@@ -681,10 +683,11 @@ public class Roster
             if (composingState==1) {
                 event.addChild("composing", null);
             }
-            simpleMessage.addChild(event);
+            message.addChild(event);
         }
         //System.out.println(simpleMessage.toString());
-        theStream.send( simpleMessage );
+        theStream.send( message );
+        lastMessageTime=Time.localTime();
     }
     
     private Vector vCardQueue;
@@ -760,13 +763,6 @@ public class Roster
             if( data instanceof Iq ) {
                 String type = (String) data.getTypeAttribute();
                 String id=(String) data.getAttribute("id");
-                /*if ( type.equals( "error" ) ) {
-                    if (id.equals("auth-s")) {
-                        // Authorization error
-                        JabberDataBlock err=data.getChildBlock("error");
-                        loginFailed(err.toString());
-                    }
-                }*/
                 
                 if (id!=null) if (id.startsWith("nickvc")) {
                     VCard vc=new VCard(data);//.getNickName();
@@ -783,8 +779,6 @@ public class Roster
                 if ( type.equals( "result" ) ) {
                     if (id.equals("getros")) {
                         // а вот и ростер подошёл :)
-                        //SplashScreen.getInstance().setProgress(95);
-                        
                         theStream.enableRosterNotify(false);
 
                         processRoster(data);
@@ -798,7 +792,7 @@ public class Roster
                         
                         SplashScreen.getInstance().close(); // display.setCurrent(this);
                         
-                    }
+                    } 
                     if (id.startsWith("getvc")) {
                         setQuerySign(false);
                         VCard vcard=new VCard(data);
@@ -825,14 +819,14 @@ public class Roster
                     if (query!=null){
                         // проверяем на запрос версии клиента
                         if (query.isJabberNameSpace("jabber:iq:version"))
-                            //String xmlns=query.getAttribute("xmlns");
-                            //if (xmlns!=null) if (xmlns.equals("jabber:iq:version"))
                             theStream.send(new IqVersionReply(data));
                         // проверяем на запрос локального времени клиента
-                        if (query.isJabberNameSpace("jabber:iq:time"))
-                            //String xmlns=query.getAttribute("xmlns");
-                            //if (xmlns!=null) if (xmlns.equals("jabber:iq:version"))
+                        else if (query.isJabberNameSpace("jabber:iq:time"))
                             theStream.send(new IqTimeReply(data));
+                        // проверяем на запрос idle
+                        else if (query.isJabberNameSpace("jabber:iq:last"))
+                            theStream.send(new IqLast(data, lastMessageTime));
+                        else replyError(data);
                     }
                 } else if (type.equals("set")) {
                     processRoster(data);
@@ -1006,6 +1000,16 @@ public class Roster
         } catch( Exception e ) {
             e.printStackTrace();
         }
+    }
+    
+    void replyError (JabberDataBlock stanza) {
+        stanza.setAttribute("to", stanza.getAttribute("from"));
+        stanza.setAttribute("from", null);
+        stanza.setTypeAttribute("error");
+        JabberDataBlock error=stanza.addChild("error", null);
+        error.setTypeAttribute("cancel");
+        error.addChild("feature-not-implemented",null);
+        theStream.send(stanza);
     }
     
     void processRoster(JabberDataBlock data){

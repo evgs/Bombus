@@ -37,6 +37,7 @@ public class Iq extends JabberDataBlock
     public final static int TYPE_SET=0;
     public final static int TYPE_GET=1;
     public final static int TYPE_RESULT=2;
+    public final static int TYPE_ERROR=3;
     
   /**
    * Constructor including an Attribute list
@@ -62,8 +63,9 @@ public class Iq extends JabberDataBlock
       setAttribute("to", to);
       String type;
       switch (typeSet) {
-          case 0: type="set"; break;
-          case 1: type="get"; break;
+          case TYPE_SET: type="set"; break;
+          case TYPE_GET: type="get"; break;
+          case TYPE_ERROR: type="error";
           default: type="result";
       }
       setAttribute("type", type);

@@ -43,6 +43,7 @@ class AccountForm implements CommandListener, ItemStateListener {
     private ChoiceGroup register;
     
     Command cmdOk = new Command(SR.MS_OK /*"OK"*/, Command.OK, 1);
+    Command cmdPwd = new Command(SR.MS_SHOWPWD, Command.SCREEN, 2);
     Command cmdCancel = new Command(SR.MS_BACK /*"Back"*/, Command.BACK, 99);
     
     Account account;
@@ -63,7 +64,8 @@ class AccountForm implements CommandListener, ItemStateListener {
 	    (account.toString());
 	f = new Form(title);
 	userbox = new TextField(SR.MS_USERNAME, account.getUserName(), 32, TextField.URL); f.append(userbox);
-	passbox = new TextField(SR.MS_PASSWORD, account.getPassword(), 32, /*TextField.URL |*/ TextField.ANY);	f.append(passbox);		passStars();
+	passbox = new TextField(SR.MS_PASSWORD, account.getPassword(), 32, TextField.PASSWORD);	f.append(passbox);
+        passStars(false);
 	servbox = new TextField(SR.MS_SERVER,   account.getServer(),   32, TextField.URL); f.append(servbox);
 	ipbox = new TextField(SR.MS_HOST_IP, account.getHostAddr(), 32, TextField.URL);	f.append(ipbox);
 	portbox = new NumberField(SR.MS_PORT, account.getPort(), 0, 65535); f.append(portbox);
@@ -86,6 +88,7 @@ class AccountForm implements CommandListener, ItemStateListener {
 	nickbox = new TextField(SR.MS_ACCOUNT_NAME, account.getNickName(), 32, TextField.ANY); f.append(nickbox);
 	
 	f.addCommand(cmdOk);
+        f.addCommand(cmdPwd);
 	f.addCommand(cmdCancel);
 	
 	f.setCommandListener(this);
@@ -94,9 +97,21 @@ class AccountForm implements CommandListener, ItemStateListener {
 	display.setCurrent(f);
     }
     
-    private void passStars() {
-	if (passbox.size()==0)
+    private void passStars(boolean force) {
+	if (passbox.size()==0 || force)
 	    passbox.setConstraints(TextField.ANY | ConstMIDP.TEXTFIELD_SENSITIVE);
+        fixPassBugWEME();
+    }
+    
+    private String fixPassBugWEME(){
+        String newPass=passbox.getString();
+        String oldPass=account.getPassword();
+        
+        if (oldPass.startsWith("**") && newPass.endsWith("**")) {
+            newPass=oldPass;
+            passbox.setString(oldPass);
+        }
+        return newPass;
     }
     
     public void itemStateChanged(Item item) {
@@ -107,7 +122,7 @@ class AccountForm implements CommandListener, ItemStateListener {
 	    //userbox.setString(user.substring(0,at));
 	    servbox.setString(user.substring(at+1));
 	}
-	if (item==passbox) passStars();
+	if (item==passbox) passStars(false);
     }
     
     public void commandAction(Command c, Displayable d) {
@@ -122,7 +137,9 @@ class AccountForm implements CommandListener, ItemStateListener {
 	    int at = user.indexOf('@');
 	    if (at!=-1) user=user.substring(0, at);
 	    account.setUserName(user.trim());
-	    account.setPassword(passbox.getString());
+            
+	    account.setPassword(fixPassBugWEME());
+            
 	    account.setServer(servbox.getString().trim());
 	    account.setHostAddr(ipbox.getString());
 	    account.setResource(resourcebox.getString());
@@ -149,6 +166,7 @@ class AccountForm implements CommandListener, ItemStateListener {
 		new AccountRegister(account, display, parentView); 
 	    else destroyView();
 	}
+        if (c==cmdPwd) passStars(true);
     }
     
     public void destroyView()	{

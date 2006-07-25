@@ -130,7 +130,7 @@ public class ConferenceForm implements CommandListener{
             long delay= ( grp.conferenceJoinTime
                               - ( (Msg)(grp.getConference().msgs.lastElement()) ).dateGmt
                         ) /1000 ;
-            history.setAttribute("seconds",String.valueOf(delay));
+            history.setAttribute("seconds",String.valueOf(delay)); // todo: change to since
         } catch (Exception e) {};
 
         //sd.roster.groups.getGroup(name.substring(0, name.indexOf('@'))).imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;

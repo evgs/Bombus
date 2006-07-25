@@ -230,13 +230,14 @@ public class JabberDataBlock
 
   public void setAttribute( String attributeName, String value )
   {
-    if( attributeName == null || value == null )
+    if( attributeName == null )
       return;
 
     if( attributes == null )
       attributes = new Hashtable();
 
-    attributes.put( attributeName, value );
+    if (value!=null) attributes.put( attributeName, value );
+    else attributes.remove(attributeName);
   }
 
   public void setTypeAttribute( String value ) {

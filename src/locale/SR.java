@@ -245,9 +245,11 @@ public class SR {
     
     public final static String MS_SASL="SASL login";
     public final static String MS_FEATURES="Features";
+    public final static String MS_SHOWPWD="Show password";
 
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
+
 
 
 
