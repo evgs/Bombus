@@ -2413,6 +2413,10 @@ syslog_msg: true
   * password hiding in account form
   + Account>Show password command
 
+(575)
+  * NullPointerException при создании аккаунта (ошибка версии 574)
+  --
+  * NullPointerException on creating account
 ---------------------------
   known issues:
 

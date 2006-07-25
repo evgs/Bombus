@@ -107,10 +107,11 @@ class AccountForm implements CommandListener, ItemStateListener {
         String newPass=passbox.getString();
         String oldPass=account.getPassword();
         
-        if (oldPass.startsWith("**") && newPass.endsWith("**")) {
-            newPass=oldPass;
-            passbox.setString(oldPass);
-        }
+        if (oldPass!=null)
+            if (oldPass.length()==newPass.length() && newPass.startsWith("**") && newPass.endsWith("**")) {
+                newPass=oldPass;
+                passbox.setString(oldPass);
+            }
         return newPass;
     }
     
