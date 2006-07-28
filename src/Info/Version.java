@@ -31,9 +31,14 @@ public class Version {
             
             if (platformName==null) platformName="Motorola-generic/null";
             
-            if (platformName.equals("j2me")) {
+            if (platformName.startsWith("j2me")) {
                 try {
                     Class.forName("com.motorola.multimedia.Lighting");
+                    // this phone is Motorola if we still here ;)
+                    platformName="Motorola-generic/j2me";
+                } catch (Exception e) {/* no specific classes found*/ }
+                try {
+                    Class.forName("com.motorola.funlight.FunLight");
                     // this phone is Motorola if we still here ;)
                     platformName="Motorola-generic/j2me";
                 } catch (Exception e) {/* no specific classes found*/ }

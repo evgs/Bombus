@@ -2437,6 +2437,14 @@ syslog_msg: true
   + SASL: PLAIN mechanism
 
   * password fields in disco is now hide its values by ***** (only in jep-0004 disco forms)
+
+(577)
+  * добавлен детект по com.motorola.funlight.FunLight
+
+(578)
+  * подсветка на Motorola переключается нажатием * и включается нажатием любой кнопки в Roster
+  --
+  * Motorola backlight is now toggled by '*' and switched on by any key in Roster
 ---------------------------
   known issues:
 
