@@ -2417,6 +2417,26 @@ syslog_msg: true
   * NullPointerException при создании аккаунта (ошибка версии 574)
   --
   * NullPointerException on creating account
+
+(576)
+  + автодетект телефонов Motorola по результату работы 
+    Class.byName("com.motorola.multimedia.Lighting")
+    ВНИМАНИЕ! ЭТА ФУНКЦИЯ МОЖЕТ ПРИВЕСТИ К ПАДЕНИЮ ПРИЛОЖЕНИЯ ВО ВРЕМЯ СТАРТА, И 
+    ДАЖЕ ВЫЗВАТЬ НЕВОЗМОЖНОСТЬ УСТАНОВКИ МИДЛЕТА В ТЕЛЕФОН!!! ПРОСЬБА СООБЩИТЬ 
+    О РЕЗУЛЬТАТАХ РАБОТЫ ДАННОЙ ФУНКЦИИ.
+
+  + SASL: PLAIN mechanism
+
+  * поля password в Service Discovery теперь скрывают свои значения звёздочками ***** 
+    (только в формах, соответствующих jep-0004 disco forms)
+  --
+  + autodetect Motorola phones by Class.byName("com.motorola.multimedia.Lighting")
+    WARNING! THIS FUNCTION MAY CRASH DURING STARTUP OR EVEN MIDLET MAY NOT BE INSTALLED
+    ONTO YOUR PHONE AT ALL!!! PLEASE REPORT ABOUT SUCH PROBLEMS
+
+  + SASL: PLAIN mechanism
+
+  * password fields in disco is now hide its values by ***** (only in jep-0004 disco forms)
 ---------------------------
   known issues:
 

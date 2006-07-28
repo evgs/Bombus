@@ -144,7 +144,7 @@ public class Config {
 	
 	int greenKeyCode=VirtualList.SIEMENS_GREEN;
 	
-	String platform=Version.platform();
+	String platform=Version.getPlatformName();
 	
 	if (platform.startsWith("SonyE")) {
 	    allowMinimize=true;
@@ -159,13 +159,16 @@ public class Config {
 	    blFlash=false;
             istreamWaiting=true;
 	    greenKeyCode=VirtualList.MOTOROLA_GREEN;
+	    VirtualList.keyClear=0x1000;
+	    VirtualList.keyVolDown=VirtualList.MOTOE680_VOL_DOWN;
 	}
-	if (platform.startsWith("j2me")) {
+        
+	/*if (platform.startsWith("j2me")) {
 	    greenKeyCode=VirtualList.MOTOROLA_GREEN;
 	    VirtualList.keyClear=0x1000;
 	    VirtualList.keyVolDown=VirtualList.MOTOE680_VOL_DOWN;
             istreamWaiting=true;
-	}
+	}*/
 	
 	VirtualList.greenKeyCode=greenKeyCode;
 //#if USE_LED_PATTERN

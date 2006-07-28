@@ -79,6 +79,20 @@ public class SASLAuth implements JabberBlockListener{
                     
                 }
 //#endif
+
+                if (mech.getChildBlockByText("PLAIN")!=null) {
+                    auth.setAttribute("mechanism", "PLAIN");
+                    String plain=
+                            account.getJid()
+                            +(char)0x00
+                            +account.getUserName()
+                            +(char)0x00
+                            +account.getPassword();
+                    auth.setText(toBase64(plain));
+                    
+                    stream.send(auth);
+                    return JabberBlockListener.BLOCK_PROCESSED;
+                }
                 // no more method found
                 listener.loginFailed("SASL: Unknown mechanisms");
                 return JabberBlockListener.NO_MORE_BLOCKS;
@@ -98,7 +112,7 @@ public class SASLAuth implements JabberBlockListener{
             
             String challenge=decodeBase64(data.getText());
             System.out.println(challenge);
-
+            
             JabberDataBlock resp=new JabberDataBlock("response", null, null);
             resp.setNameSpace("urn:ietf:params:xml:ns:xmpp-sasl");
             

@@ -67,12 +67,13 @@ public class FormField {
                     }
                 }
             }
-	    // text-single
+	    // text-single, text-private
             else {
                 if (body.length()>=200) {
                     body=body.substring(0,198);
                 }
-                formItem=new TextField(label, body, 200, 0);
+                int constrains=(type.equals("text-private"))? TextField.PASSWORD: TextField.ANY;
+                formItem=new TextField(label, body, 200, constrains);
             }
         } else {
             // not x-data

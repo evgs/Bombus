@@ -23,13 +23,27 @@ public class Version {
     public final static String url="http://bombus.jrudevels.org";
 
 
-    public static String platform() {
-        String platform=System.getProperty("microedition.platform");
-        return (platform==null)? "Motorola-generic":platform;
+    private static String platformName;
+    
+    public static String getPlatformName() {
+        if (platformName==null) {
+            platformName=System.getProperty("microedition.platform");
+            
+            if (platformName==null) platformName="Motorola-generic/null";
+            
+            if (platformName.equals("j2me")) {
+                try {
+                    Class.forName("com.motorola.multimedia.Lighting");
+                    // this phone is Motorola if we still here ;)
+                    platformName="Motorola-generic/j2me";
+                } catch (Exception e) {/* no specific classes found*/ }
+            }
+        }
+        return platformName;
     }
 
     public static String getOs() {
-        return ConstMIDP.MIDP + " Platform=" +Version.platform();
+        return ConstMIDP.MIDP + " Platform=" +Version.getPlatformName();
     }
     
     public static String getVersionLang() { return version+" ("+SR.MS_IFACELANG+")"; }

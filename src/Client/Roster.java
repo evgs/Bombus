@@ -1188,6 +1188,19 @@ public class Roster
                 if (p==c) pass++; // полный круг пройден
             }
         }
+
+        if (keyCode=='3') searchGroup(-1);
+	if (keyCode=='9') searchGroup(1);
+        
+//#if (MOTOROLA_BACKLIGHT)
+        if (cf.ghostMotor) {
+            // backlight management
+            if (keyCode=='*') blState=(blState==0)? Integer.MAX_VALUE : 1;
+            else blState=Integer.MAX_VALUE;
+            
+            display.flashBacklight(blState);
+        }
+//#endif
     }
     
     public void logoff(){
@@ -1306,22 +1319,6 @@ public class Roster
         }
     }
 
-    protected void keyPressed(int keyCode){
-	super.keyPressed(keyCode);
-	if (keyCode=='3') searchGroup(-1);
-	if (keyCode=='9') searchGroup(1);
-        
-//#if (MOTOROLA_BACKLIGHT)
-        if (cf.ghostMotor) {
-            // backlight management
-            if (keyCode=='*') blState=(blState==0)? Integer.MAX_VALUE : 1;
-            else blState=Integer.MAX_VALUE;
-            
-            display.flashBacklight(blState);
-        }
-//#endif
-	
-    }
     private void searchGroup(int direction){
 	synchronized (vContacts) {
 	    int size=vContacts.size();
