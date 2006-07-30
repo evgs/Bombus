@@ -95,3 +95,20 @@
 
 ----------------------
 все дальнейшие todo - в багтрэкере
+
+
+-------------
+System.getProperty:
+
+[15:49:14] <Санитар> 
+microeditio.encoding iso-8859-1 
+device.software.version R373_G_0E_30.45r 
+device.model E398 
+funlights.product E398
+
+AllinC380
+funlights.product C380
+
+vdovin_da
+device.software.version R4513_G_08_B7.ABR
+device.model V360
