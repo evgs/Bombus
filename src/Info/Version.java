@@ -29,19 +29,31 @@ public class Version {
         if (platformName==null) {
             platformName=System.getProperty("microedition.platform");
             
-            if (platformName==null) platformName="Motorola-generic/null";
+            String device=System.getProperty("device.model");
+            String firmware=System.getProperty("device.software.version");
+            
+            if (platformName==null) platformName="Motorola";
             
             if (platformName.startsWith("j2me")) {
-                try {
+                /*try {
                     Class.forName("com.motorola.multimedia.Lighting");
                     // this phone is Motorola if we still here ;)
-                    platformName="Motorola-generic/j2me";
-                } catch (Exception e) {/* no specific classes found*/ }
+                    platformName="Motorola";
+                } catch (Exception e) { } // no specific classes found
                 try {
                     Class.forName("com.motorola.funlight.FunLight");
                     // this phone is Motorola if we still here ;)
-                    platformName="Motorola-generic/j2me";
-                } catch (Exception e) {/* no specific classes found*/ }
+                    platformName="Motorola";
+                } catch (Exception e) { } // no specific classes found
+                */
+                
+                if (device!=null && firmware!=null)
+                    platformName="Motorola"; // buggy v360
+            }
+            
+            if (platformName.startsWith("Moto")) {
+                if (device==null) device=System.getProperty("funlights.product");
+                if (device!=null) platformName="Motorola-"+device;
             }
         }
         return platformName;

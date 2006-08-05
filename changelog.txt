@@ -2445,6 +2445,9 @@ syslog_msg: true
   * подсветка на Motorola переключается нажатием * и включается нажатием любой кнопки в Roster
   --
   * Motorola backlight is now toggled by '*' and switched on by any key in Roster 
+
+(587) 
+  * переписан механизм детекта телефонов Motorola
 ---------------------------
   known issues:
 
