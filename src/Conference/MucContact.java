@@ -164,6 +164,18 @@ public class MucContact extends Contact{
         return b.toString();
     }
     
+    public String getTipString() {
+        StringBuffer tip=new StringBuffer();
+        int nm=getNewMsgsCount();
+        if (nm!=0) {
+            tip.append(nm);
+            tip.append(' ');
+        }
+        if (realJid!=null) tip.append(realJid);
+        
+        return (tip.length()==0)? null:tip.toString();
+    }
+    
     void testMeKicked(){
         ConferenceGroup group=(ConferenceGroup)getGroup();
         if ( group.getSelfContact() == this ) 

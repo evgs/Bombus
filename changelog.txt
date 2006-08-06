@@ -2448,6 +2448,15 @@ syslog_msg: true
 
 (587) 
   * переписан механизм детекта телефонов Motorola
+
+(588)
+  + Balloon для контактов конференции показывает реальные jid участников. 
+    доступно в полу-анонимных комнатах только для модераторов,  и всем - 
+    в неанонимных комнатах
+  --
+  + Balloons for MUC-contacts now contains real jids. Available for moderators
+    in semi-anonymous room, also available for all in non-anonymous rooms.
+
 ---------------------------
   known issues:
 
