@@ -2458,7 +2458,7 @@ syslog_msg: true
     in semi-anonymous room, also available for all in non-anonymous rooms.
 
 8.08.2006
-(589)
+(590)
   + сообщени€ в конференции, содержащие собственный ник, выдел€ютс€ жирным
     шрифтом
   --
