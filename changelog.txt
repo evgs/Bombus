@@ -2463,6 +2463,13 @@ syslog_msg: true
     шрифтом
   --
   + MUC-messages with self-nick now are highlighted with bold font
+
+(593)
+  + сообщения конференции на телефонах Моторола выделяются цветом, т.к. на
+    моторолах в Java недоступен шрифт Bold
+  --
+  + MUC messages are higlited by purple-color instead of Bold-font on Motorola 
+    because it hasn't such font
 ---------------------------
   known issues:
 

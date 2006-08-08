@@ -938,10 +938,8 @@ public class Roster
                         if (m.dateGmt<= ((ConferenceGroup)c.getGroup()).conferenceJoinTime) m.messageType=Msg.MESSAGE_TYPE_HISTORY;
                         // highliting messages with myNick substring
                         String myNick=mucGrp.getSelfContact().getName();
-                        if (body.indexOf(myNick)>-1) {
-                            System.out.println(body);
-                            m.setHighlite(true);
-                        }
+                        if (body.indexOf(myNick)>-1)   {  m.setHighlite(true);  }
+                        //TODO: custom highliting dictionary
                     } 
                 }
                 messageStore(m);

@@ -61,6 +61,8 @@ public class Msg //implements MessageList.Element
     //private TimeZone tz(){ return StaticData.getInstance().config.tz;}
     
     public int getColor() {
+        if (highlite) 
+            if (Config.getInstance().ghostMotor) return Colors.MSG_HIGHLIGHT;
         switch (messageType) {
             case MESSAGE_TYPE_IN: return Colors.MESSAGE_IN;
             case MESSAGE_TYPE_OUT: return Colors.MESSAGE_OUT;
