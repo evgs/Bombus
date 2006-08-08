@@ -8,6 +8,7 @@
  */
 
 package Client;
+import Conference.MucContact;
 import javax.microedition.lcdui.*;
 import java.util.*;
 import locale.SR;
@@ -80,22 +81,35 @@ public final class ContactEdit
         }
         tTranspList.append(SR.MS_OTHER,null);
         
-        if (c!=null) {
-            String jid=c.getBareJid();
+        try {
+            String jid;
+            if (c instanceof MucContact) {
+                jid=Jid.getBareJid( ((MucContact)c).realJid );
+            } else {
+                jid=c.getBareJid();
+            }
             // edit contact
             tJid.setString(jid);
             tNick.setString(c.nick);
+            
+            if (c instanceof MucContact) {
+                c=null;
+                throw new Exception();
+            } 
+            
             sel=c.getGroupIndex()-Groups.COMMON_INDEX;
             if (sel==-1) sel=groups.size()-1;
             if (sel<0) sel=0;
             tGroup.setString(group(sel));
+            
             if (c.getGroupIndex()!=Groups.NIL_INDEX  && c.getGroupIndex()!=Groups.SRC_RESULT_INDEX) {
                 // edit contact
                 f.setTitle(jid);
                 cmdOk=new Command(SR.MS_UPDATE, Command.OK, 1);
                 newContact=false;
             } else c=null; // adding not-in-list
-        } 
+        } catch (Exception e) {}; // if MucContact does not contains realJid
+        
         if (c==null){
             f.append(tJid);
             f.append(tTranspList);

@@ -72,6 +72,7 @@ public class MessageArchive {
 	    );
 	    DataInputStream dis=new DataInputStream(bais);
 	    Msg msg=new Msg(dis);
+            msg.itemCollapsed=true; 
 	    dis.close();
 	    return msg;
 	} catch (Exception e) {}

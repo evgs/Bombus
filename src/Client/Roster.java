@@ -1263,6 +1263,7 @@ public class Roster
                 cn=(Contact)o;
                 if (cn.getGroupIndex()!=Groups.NIL_INDEX && cn.getGroupIndex()!=Groups.SRC_RESULT_INDEX) cn=null;
             }
+            if (o instanceof MucContact) { cn=(Contact)o; }
             new ContactEdit(display, cn);
         }
     }

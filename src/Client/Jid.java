@@ -89,4 +89,9 @@ public class Jid {
     public String getJid(){
         return fullJid;
     }
+    
+    public static String getBareJid(String jid) {
+        int rp=jid.indexOf(jid);
+        return (rp<0)? jid: jid.substring(0,rp);
+    }
 }
