@@ -2471,14 +2471,14 @@ syslog_msg: true
   + MUC messages are higlited by purple-color instead of Bold-font on Motorola 
     because it hasn't such font
 
-(594)
+(595)
   * Сообщения в архиве свёрнуты
-  + поле Add Contact>Jid заполняется jid-ом контакта конференции, на которы
-    наведён курсор
-
+  + поле Add Contact>Jid заполняется jid-ом контакта конференции, на который 
+    наведён курсор (только в случае модератора или неанонимной конференции)
+  --
   * Messages in Archive are now collapsed by default
   + Add Contact>Jid field will be filled with real Jid of 
-    focused conference participant
+    focused conference participant (only for moderators or non-anonymous rooms)
 
 ---------------------------
   known issues:
