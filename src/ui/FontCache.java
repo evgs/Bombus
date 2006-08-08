@@ -20,6 +20,7 @@ public class FontCache {
     private static Font normal;
     private static Font bold;
     private static Font msgFont;
+    private static Font msgFontBold;
     private static Font balloonFont;
     private static Font clockFont;
     
@@ -49,6 +50,13 @@ public class FontCache {
         return msgFont;
     }
 
+    public static Font getMsgFontBold() {
+        if (msgFontBold==null) {
+            msgFontBold=Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD, msgFontSize);
+        }
+        return msgFontBold;
+    }
+
     public static Font getBalloonFont() {
         if (balloonFont==null) {
             balloonFont=Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_PLAIN, balloonFontSize);
@@ -57,7 +65,7 @@ public class FontCache {
     }
 
     public static void resetCache() {
-        normal=bold=msgFont=balloonFont=null;
+        normal=bold=msgFont=msgFontBold=balloonFont=null;
     }
     
 

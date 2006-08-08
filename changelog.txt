@@ -2457,6 +2457,12 @@ syslog_msg: true
   + Balloons for MUC-contacts now contains real jids. Available for moderators
     in semi-anonymous room, also available for all in non-anonymous rooms.
 
+8.08.2006
+(589)
+  + сообщени€ в конференции, содержащие собственный ник, выдел€ютс€ жирным
+    шрифтом
+  --
+  + MUC-messages with self-nick now are highlighted with bold font
 ---------------------------
   known issues:
 

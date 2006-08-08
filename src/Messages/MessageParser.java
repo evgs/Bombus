@@ -192,7 +192,8 @@ public final class MessageParser implements Runnable{
                 int w=0;
                 StringBuffer s=new StringBuffer();
                 ComplexString l=new ComplexString(il);
-                Font f=l.getFont();
+                Font f=(task.msg.isHighlited())? FontCache.getMsgFontBold(): FontCache.getMsgFont();
+                l.setFont(f);
                 
                 String txt=(state==0)? task.msg.subject: task.msg.toString();
                 
@@ -266,6 +267,7 @@ public final class MessageParser implements Runnable{
                             task.notifyRepaint(v, task.msg, false);
                             l=new ComplexString(il);     // новая строка
                             l.setColor(color);
+                            l.setFont(f);
                             w=0;
                         }
                         l.addImage(smileIndex); w+=iw;
@@ -279,19 +281,21 @@ public final class MessageParser implements Runnable{
                         if (inUrl) url.append(c);
                         
                         int cw=f.charWidth(c);
-                        if (c!=0x20)
+                        if (c!=0x20) {
                             if (w+cw>width || c==0x0d || c==0x0a || c==0xa0) {
-                            if (inUrl) l.addUnderline();
-                            l.addElement(s.toString());    // последняя подстрока в l
-                            s.setLength(0); w=0;
-                            
-                            if (c==0xa0) l.setColor(Colors.MSG_HIGHLIGHT);
-                            
-                            v.addElement(l);    // добавим l в v
-                            task.notifyRepaint(v, task.msg, false);
-                            l=new ComplexString(il);     // новая строка
-                            l.setColor(color);
+                                if (inUrl) l.addUnderline();
+                                l.addElement(s.toString());    // последняя подстрока в l
+                                s.setLength(0); w=0;
+                                
+                                if (c==0xa0) l.setColor(Colors.MSG_HIGHLIGHT);
+                                
+                                v.addElement(l);    // добавим l в v
+                                task.notifyRepaint(v, task.msg, false);
+                                l=new ComplexString(il);     // новая строка
+                                l.setColor(color);
+                                l.setFont(f);
                             }
+                        }
                         if (c>0x1f) {  s.append(c); w+=cw; } else if (c==0x09) {  s.append((char)0x20); w+=cw; }
                     }
                     i++;

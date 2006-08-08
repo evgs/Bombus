@@ -934,7 +934,14 @@ public class Roster
                         m.messageType=Msg.MESSAGE_TYPE_OUT;
                         m.unread=false;
                     } else {
+                        ConferenceGroup mucGrp=(ConferenceGroup)c.getGroup();
                         if (m.dateGmt<= ((ConferenceGroup)c.getGroup()).conferenceJoinTime) m.messageType=Msg.MESSAGE_TYPE_HISTORY;
+                        // highliting messages with myNick substring
+                        String myNick=mucGrp.getSelfContact().getName();
+                        if (body.indexOf(myNick)>-1) {
+                            System.out.println(body);
+                            m.setHighlite(true);
+                        }
                     } 
                 }
                 messageStore(m);

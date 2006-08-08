@@ -12,6 +12,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.*;
+import javax.microedition.lcdui.Font;
 import ui.Colors;
 import ui.Time;
 import Client.ContactMessageList;
@@ -32,6 +33,8 @@ public class Msg //implements MessageList.Element
     public final static int MESSAGE_TYPE_HEADLINE=11;
     public final static int MESSAGE_TYPE_ERROR=11;
     public final static int MESSAGE_TYPE_AUTH=15;
+
+    private boolean highlite;
     
     /** Creates a new instance of msg */
     public Msg(int messageType, String from, String subj, String body) {
@@ -105,7 +108,9 @@ public class Msg //implements MessageList.Element
 	try { subject=is.readUTF(); } catch (Exception e) { subject=null; }
     }
 
-    public String getBody() {
-        return body;
-    }
+    public String getBody() { return body; }
+
+    void setHighlite(boolean state) { highlite=state; }
+
+    public boolean isHighlited() { return highlite; }
 }
