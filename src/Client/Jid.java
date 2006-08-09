@@ -91,7 +91,7 @@ public class Jid {
     }
     
     public static String getBareJid(String jid) {
-        int rp=jid.indexOf(jid);
+        int rp=jid.indexOf('/');
         return (rp<0)? jid: jid.substring(0,rp);
     }
 }
