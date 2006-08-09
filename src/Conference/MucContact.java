@@ -47,7 +47,16 @@ public class MucContact extends Contact{
     }
     
     public String processPresence(JabberDataBlock xmuc, Presence presence) {
+        System.out.println(presence);
         String from=jid.getJid();
+        
+        int presenceType=presence.getTypeIndex();
+        
+        if (presenceType==Presence.PRESENCE_ERROR) {
+            String mucErrCode=presence.getChildBlock("error").getAttribute("code");            
+            if (mucErrCode.equals("409")) return "Nickname is already in use by another occupant";
+            if (mucErrCode.equals("403")) return "You are banned in this room";
+        }
         
         JabberDataBlock item=xmuc.getChildBlock("item");   
 

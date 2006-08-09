@@ -2480,6 +2480,13 @@ syslog_msg: true
   + Add Contact>Jid field will be filled with real Jid of 
     focused conference participant (only for moderators or non-anonymous rooms)
 
+(598)
+  * исправлено дополнение Add Contact>Jid (см. билд 595)
+  * скорректировано отображение ошибок conflict/forbidden при входе в комнату
+  --
+  * fixed Add Contact>Jid field completion (see build 595)
+  * error states conflict/forbidden on joining room
+
 ---------------------------
   known issues:
 
