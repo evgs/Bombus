@@ -19,8 +19,8 @@ public class SubscriptionEdit extends Form implements CommandListener{
     
     private Display display;
       
-    Command cmdSubscrTo=new Command(SR.MS_ASK_SUBSCRIPTION, Command.SCREEN, 1);
-    Command cmdSubscrFrom=new Command(SR.MS_GRANT_SUBSCRIPTION, Command.SCREEN, 2);
+    Command cmdAskSubscr=new Command(SR.MS_ASK_SUBSCRIPTION, Command.SCREEN, 1);
+    Command cmdGrantSubscr=new Command(SR.MS_GRANT_SUBSCRIPTION, Command.SCREEN, 2);
     Command cmdSubscrDel=new Command(SR.MS_SUBSCR_REMOVE, Command.SCREEN, 3);
     Command cmdBack=new Command(SR.MS_CANCEL, Command.BACK, 99);
     
@@ -42,8 +42,8 @@ public class SubscriptionEdit extends Form implements CommandListener{
         append(s.toString());
         //setString(s.toString());
 
-        addCommand(cmdSubscrFrom);
-        addCommand(cmdSubscrTo);
+        addCommand(cmdGrantSubscr);
+        addCommand(cmdAskSubscr);
         addCommand(cmdSubscrDel);
         addCommand(cmdBack);
         
@@ -54,8 +54,8 @@ public class SubscriptionEdit extends Form implements CommandListener{
     }
     public void commandAction(Command c, Displayable d ){
         String presence=null;
-        if (c==cmdSubscrFrom) { presence="subscribe"; }
-        if (c==cmdSubscrTo) { presence="subscribed"; }
+        if (c==cmdAskSubscr) { presence="subscribe"; }
+        if (c==cmdGrantSubscr) { presence="subscribed"; }
         if (c==cmdSubscrDel) { presence="unsubscribed"; }
         
         if (presence!=null) r.sendPresence(to,presence, null);

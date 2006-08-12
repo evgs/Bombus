@@ -2487,6 +2487,22 @@ syslog_msg: true
   * fixed Add Contact>Jid field completion (see build 595)
   * error states conflict/forbidden on joining room
 
+(601)
+  * Были перепутаны местами команды Ask subscription и Grant subscription
+  * Учтено поведение стандартного элемента формы ChoiceGroup на телефонах Nokia
+    В форме Edit Contact к полям ChoiceGroup присоединена команда "Update".
+    Пользователь подтверждает выбор элемента формы при помощи команды Update, 
+    модифицируя соответствующие текстовые поля.
+  --
+  * Ask/Grant subscribe were messed
+  * Nokia ChoiceGroup behaviour workaround (Java machine does not send notification 
+    to parent form if ChoiceGroup selection was changed)
+    Edit Contact now has "Update" item command
+    attached to each CoiceGroup. User should issue this command to accept his choice
+    to affect another form fields
+    Also Bombus takes group name from TextField only if value <New Group> is selected
+    in ChoiceGroup.
+
 ---------------------------
   known issues:
 

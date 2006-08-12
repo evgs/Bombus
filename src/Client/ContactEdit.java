@@ -19,7 +19,11 @@ import ui.ConstMIDP;
  * @author Evg_S
  */
 public final class ContactEdit
-        implements CommandListener, ItemStateListener {
+        implements CommandListener, ItemCommandListener
+//#if (!MIDP1)
+        , ItemStateListener 
+//#endif
+{
     private Display display;
     public Displayable parentView;
     
@@ -32,6 +36,7 @@ public final class ContactEdit
     int ngroups;
     
     Command cmdOk=new Command(SR.MS_ADD, Command.OK, 1);
+    Command cmdUpdate=new Command("Update", Command.ITEM, 2);
     Command cmdCancel=new Command(SR.MS_CANCEL,Command.BACK,99);
     
     boolean newContact=true;
@@ -59,6 +64,15 @@ public final class ContactEdit
         
         tGrpList=new ChoiceGroup(SR.MS_EXISTING_GROUPS , ConstMIDP.CHOICE_POPUP);
         tTranspList=new ChoiceGroup(SR.MS_TRANSPORT, ConstMIDP.CHOICE_POPUP);
+        
+//#if (!MIDP1)
+        //NOKIA FIX
+        tGrpList.addCommand(cmdUpdate);
+        tGrpList.setItemCommandListener(this);
+        
+        tTranspList.addCommand(cmdUpdate);
+        tTranspList.setItemCommandListener(this);
+//#endif
         
         ngroups=0;
         if (groups!=null) {
@@ -140,9 +154,13 @@ public final class ContactEdit
         if (c==cmdOk) {
             String jid=getString(tJid);
             if (jid!=null) {
-                // сохранение контакта
                 String name=getString(tNick);
                 String group=getString(tGroup);
+                
+                int gSel=tGrpList.getSelectedIndex();
+                if (gSel!=tGrpList.size()-1)  group=tGrpList.getString(gSel); // nokia fix
+                
+                // сохранение контакта
                 roster.storeContact(jid,name,group, newContact);
                 destroyView();
                 return;
@@ -152,6 +170,12 @@ public final class ContactEdit
         if (c==cmdCancel) destroyView();
     }
     
+//#if (!MIDP1)
+    public void commandAction(Command command, Item item) {
+        itemStateChanged(item);
+    }
+//#endif
+
     private String getString(TextField t){
         if (t.size()==0) return null;
         String s=t.getString().trim();
@@ -215,4 +239,5 @@ public final class ContactEdit
     public void destroyView(){
         if (display!=null)   display.setCurrent(parentView/*roster*/);
     }
+
 }
