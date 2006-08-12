@@ -19,9 +19,9 @@ import ui.ConstMIDP;
  * @author Evg_S
  */
 public final class ContactEdit
-        implements CommandListener, ItemCommandListener
+        implements CommandListener, ItemStateListener 
 //#if (!MIDP1)
-        , ItemStateListener 
+        , ItemCommandListener
 //#endif
 {
     private Display display;

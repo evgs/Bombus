@@ -2487,7 +2487,7 @@ syslog_msg: true
   * fixed Add Contact>Jid field completion (see build 595)
   * error states conflict/forbidden on joining room
 
-(601)
+(602)
   * Были перепутаны местами команды Ask subscription и Grant subscription
   * Учтено поведение стандартного элемента формы ChoiceGroup на телефонах Nokia
     В форме Edit Contact к полям ChoiceGroup присоединена команда "Update".
