@@ -2503,6 +2503,11 @@ syslog_msg: true
     Also Bombus takes group name from TextField only if value <New Group> is selected
     in ChoiceGroup.
 
+(603)
+  * Tools>My vCard не позволял редактирование, если в ростере на сервере сохранён 
+    собственный jid
+  --
+  * Tools>My vCard was uneditable if roster contains self-jid
 ---------------------------
   known issues:
 
