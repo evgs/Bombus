@@ -87,13 +87,13 @@ public class Roster
     
     private Command cmdActions=new Command(SR.MS_ITEM_ACTIONS, Command.SCREEN, 1);
     private Command cmdStatus=new Command(SR.MS_STATUS_MENU, Command.SCREEN, 2);
-    private Command cmdAdd=new Command(SR.MS_ADD_CONTACT, Command.SCREEN, 4);
+    private Command cmdActiveContact=new Command(SR.MS_ACTIVE_CONTACTS, Command.SCREEN, 3);
     private Command cmdAlert=new Command(SR.MS_ALERT_PROFILE_CMD, Command.SCREEN, 8);
     private Command cmdConference=new Command(SR.MS_CONFERENCE, Command.SCREEN, 10);
     private Command cmdArchive=new Command(SR.MS_ARCHIVE, Command.SCREEN, 10);
-    private Command cmdTools=new Command(SR.MS_TOOLS, Command.SCREEN, 11);    
-    private Command cmdAccount=new Command(SR.MS_ACCOUNT_, Command.SCREEN, 12);
-    private Command cmdOptions=new Command(SR.MS_OPTIONS, Command.SCREEN, 20);
+    private Command cmdAdd=new Command(SR.MS_ADD_CONTACT, Command.SCREEN, 12);
+    private Command cmdTools=new Command(SR.MS_TOOLS, Command.SCREEN, 14);    
+    private Command cmdAccount=new Command(SR.MS_ACCOUNT_, Command.SCREEN, 15);
     private Command cmdInfo=new Command(SR.MS_ABOUT, Command.SCREEN, 80);
     private Command cmdMinimize=new Command(SR.MS_APP_MINIMIZE, Command.SCREEN, 90);
     private Command cmdQuit=new Command(SR.MS_APP_QUIT, Command.SCREEN, 99);
@@ -144,6 +144,7 @@ public class Roster
         
         addCommand(cmdStatus);
         addCommand(cmdActions);
+        addCommand(cmdActiveContact);
         addCommand(cmdAlert);
         addCommand(cmdAdd);
         //addCommand(cmdServiceDiscovery);
@@ -154,7 +155,6 @@ public class Roster
         addCommand(cmdInfo);
         addCommand(cmdAccount);
 
-        addCommand(cmdOptions);
         addCommand(cmdQuit);
         
         
@@ -1234,14 +1234,11 @@ public class Roster
         }
         if (c==cmdMinimize) { Bombus.getInstance().hideApp(true);  }
         
-//#if !(TRANSLATED)        
-//#         if (c.getLabel().charAt(0)>127) theStream=null; // 8==o ()() fuck translations
-//#endif
+        if (c==cmdActiveContact) { new ActiveContacts(display, null); }
         
         if (c==cmdAccount){ new AccountSelect(display, false); }
         if (c==cmdStatus) { new StatusSelect(display); }
         if (c==cmdAlert) { new AlertProfile(display); }
-        if (c==cmdOptions){ new ConfigForm(display); }
         if (c==cmdArchive) { new ArchiveList(display, null); }
         if (c==cmdInfo) { new Info.InfoWindow(display); }
         
@@ -1324,6 +1321,8 @@ public class Roster
             cf.showOfflineContacts=!cf.showOfflineContacts;
             reEnumRoster();
         }
+
+       	if (keyCode==KEY_NUM3) new ActiveContacts(display, null);
 
         if (keyCode==cf.keyHide && cf.allowMinimize) {
             Bombus.getInstance().hideApp(true);

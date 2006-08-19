@@ -53,9 +53,11 @@ public class ActiveContacts
 	addCommand(cmdCancel);
 	setCommandListener(this);
 	
-	int focus=activeContacts.indexOf(current);
-	if (focus!=-1) moveCursorTo(focus, true);
-	//if (current!=null) mov
+	try {
+            int focus=activeContacts.indexOf(current);
+            moveCursorTo(focus, true);
+        } catch (Exception e) {}
+        //if (current!=null) mov
 	
 	attachDisplay(display);
     }

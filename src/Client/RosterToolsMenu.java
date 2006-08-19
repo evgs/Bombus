@@ -32,6 +32,7 @@ public class RosterToolsMenu
 	addItem(SR.MS_DISCO, 0);
 	addItem(SR.MS_PRIVACY_LISTS, 1);
 	addItem(SR.MS_MY_VCARD, 2);
+        addItem(SR.MS_OPTIONS, 3);
 	/*if (m.getItemCount()>0)*/
 	attachDisplay(display);
     }
@@ -55,6 +56,8 @@ public class RosterToolsMenu
 		}
 		VCard.request(c.getJid());
 	    }
+            case 3:
+                new ConfigForm(display);
 	}
     }
 }

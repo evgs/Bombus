@@ -466,6 +466,7 @@ public abstract class VirtualList
      */
     public void moveCursorTo(int index, boolean force){
         int count=getItemCount();
+        if (index<0) index=0;
         if (index>=count) index=count-1;    // если за последним элементом, то переместить на него
         //else if ((!force) && stickyWindow) return;
         

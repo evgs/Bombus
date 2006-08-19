@@ -47,7 +47,7 @@ public class MucContact extends Contact{
     }
     
     public String processPresence(JabberDataBlock xmuc, Presence presence) {
-        System.out.println(presence);
+        //System.out.println(presence);
         String from=jid.getJid();
         
         int presenceType=presence.getTypeIndex();
@@ -110,7 +110,7 @@ public class MucContact extends Contact{
                     b.append(chNick);
                     // исправим jid
                     String newJid=from.substring(0,rp+1)+chNick;
-                    System.out.println(newJid);
+                    //System.out.println(newJid);
                     jid.setJid(newJid);
                     bareJid=newJid; // непонятно, зачем я так сделал...
                     from=newJid;

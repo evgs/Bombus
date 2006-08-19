@@ -2508,6 +2508,16 @@ syslog_msg: true
     собственный jid
   --
   * Tools>My vCard was uneditable if roster contains self-jid
+
+20.08.2006
+(606)
+  * Вызов формы Options передвинут вглубь подменю ростера Tools
+  * команда Active Contacts теперь доступна и в ростере - через меню, либо
+    при удержании нажатой кнопки '3'
+
+  * Options form moved into Tools submenu
+  * Active Contacts now Available in roster
+    use menu>Active Contacts or hold key '3'
 ---------------------------
   known issues:
 

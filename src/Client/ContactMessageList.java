@@ -152,11 +152,12 @@ public class ContactMessageList extends MessageList
 	if (keyCode==KEY_NUM3) new ActiveContacts(display, contact);
 	else super.keyPressed(keyCode);
     }
-    public void keyPressed(int keyCode) {
+
+    public void userKeyPressed(int keyCode) {
         if (keyCode==keyClear) {
             new YesNoAlert(display, this, SR.MS_CLEAR_LIST, SR.MS_SURE_CLEAR){
-		    public void yes() { clearMessageList(); }
-		};
-        } else super.keyPressed(keyCode);
+                public void yes() { clearMessageList(); }
+            };
+        }
     }
 }
