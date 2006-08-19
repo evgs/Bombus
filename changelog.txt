@@ -2518,6 +2518,9 @@ syslog_msg: true
   * Options form moved into Tools submenu
   * Active Contacts now Available in roster
     use menu>Active Contacts or hold key '3'
+
+(607)
+  * Slovak langfile updated
 ---------------------------
   known issues:
 
