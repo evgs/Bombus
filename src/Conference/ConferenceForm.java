@@ -13,6 +13,7 @@ import com.alsutton.jabber.JabberDataBlock;
 import locale.SR;
 import ui.*;
 import javax.microedition.lcdui.*;
+import ui.controls.NumberField;
 
 /**
  *
@@ -32,6 +33,7 @@ public class ConferenceForm implements CommandListener{
     TextField hostField;
     TextField nickField;
     TextField passField;
+    NumberField msgLimitField;
     
     StaticData sd=StaticData.getInstance();
     /** Creates a new instance of GroupChatForm */
@@ -68,6 +70,9 @@ public class ConferenceForm implements CommandListener{
         passField=new TextField(SR.MS_PASSWORD, password, 32, TextField.ANY | ConstMIDP.TEXTFIELD_SENSITIVE );
         formJoin.append(passField);
         
+        msgLimitField=new NumberField("Message limit", 20, 0, 20);
+        formJoin.append(msgLimitField);
+        
         formJoin.addCommand(cmdJoin);
         formJoin.addCommand(cmdBookmarks);
         formJoin.addCommand(cmdAdd);
@@ -84,6 +89,8 @@ public class ConferenceForm implements CommandListener{
             String host=hostField.getString();
             String room=roomField.getString();
             String pass=passField.getString();
+            int msgLimit=msgLimitField.getValue();
+            
             if (nick.length()==0) return;
             if (room.length()==0) return;
             if (host.length()==0) return;
@@ -96,7 +103,7 @@ public class ConferenceForm implements CommandListener{
                 try {
                     gchat.append('/');
                     gchat.append(nick.trim());
-                    join(gchat.toString(),pass);
+                    join(gchat.toString(),pass, msgLimit);
                     
                     display.setCurrent(sd.roster);
                 } catch (Exception e) {
@@ -106,7 +113,7 @@ public class ConferenceForm implements CommandListener{
             }
         }
     }
-    public static void join(String name, String pass) {
+    public static void join(String name, String pass, int maxStanzas) {
         StaticData sd=StaticData.getInstance();
         
         
@@ -124,7 +131,7 @@ public class ConferenceForm implements CommandListener{
         }
         
         JabberDataBlock history=x.addChild("history", null);
-        history.setAttribute("maxstanzas","20");
+        history.setAttribute("maxstanzas", String.valueOf(maxStanzas));
         history.setAttribute("maxchars","32768");
         try {
             long delay= ( grp.conferenceJoinTime

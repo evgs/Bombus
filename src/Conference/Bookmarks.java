@@ -127,7 +127,7 @@ public class Bookmarks
         BookmarkItem join=(BookmarkItem)getFocusedObject();
         if (join==null) return;
         if (join.isUrl) return;
-        ConferenceForm.join(join.toString(), join.password);
+        ConferenceForm.join(join.toString(), join.password, 20);
         stream.cancelBlockListener(this);
         display.setCurrent(StaticData.getInstance().roster);
     }
