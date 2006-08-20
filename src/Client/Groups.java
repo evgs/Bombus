@@ -37,12 +37,12 @@ public class Groups{
     
     public Groups(){
         groups=new Vector();
-        addGroup(Groups.TRANSP_GROUP, null);
-        addGroup(Groups.SELF_GROUP, null);
-        addGroup(Groups.SRC_RESULT_GROUP, null);
-        addGroup(Groups.NIL_GROUP, null);
-        addGroup(Groups.IGNORE_GROUP, null);
-        addGroup(Groups.COMMON_GROUP, null);
+        addGroup(Groups.TRANSP_GROUP, false);
+        addGroup(Groups.SELF_GROUP, false);
+        addGroup(Groups.SRC_RESULT_GROUP, false);
+        addGroup(Groups.NIL_GROUP, false);
+        addGroup(Groups.IGNORE_GROUP, false);
+        addGroup(Groups.COMMON_GROUP, false);
     }
 
     private int rosterContacts;
@@ -77,15 +77,33 @@ public class Groups{
         return groups.elements();
     }
     
-    public Group getGroup(String Name) {
+    public Group getGroup(String name) {
         for (Enumeration e=groups.elements();e.hasMoreElements();){
             Group grp=(Group)e.nextElement();
-            if (Name.equals(grp.name)) return grp;
+            if (name.equals(grp.name)) return grp;
         }
         return null;
     }
-    public Group addGroup(String name, String label) {
-        return addGroup(new Group(name) );
+    public Group addGroup(String name, boolean sort) {
+        Group ng=new Group(name);
+        int index=COMMON_INDEX+1;
+        if (!sort) index=groups.size();
+        String lName=name.toLowerCase();
+        
+        while (index<groups.size()) {
+            String grpname=((Group)(groups.elementAt(index))).getName();
+            int cmp=lName.compareTo( grpname.toLowerCase() );
+            if (cmp<0) {
+                ng.index=index;
+                groups.insertElementAt(ng, index);
+                return ng;
+            }
+            index++;
+        }
+        
+        ng.index=index;
+        groups.addElement(ng);
+        return ng;
     }
     
     public Group addGroup(Group group) {

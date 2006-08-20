@@ -49,7 +49,12 @@ public class MessageEdit
         this.to=to;
         this.display=display;
         parentView=display.getCurrent();
-        t=new TextBox(to.toString(),null,500, TextField.ANY);
+        
+        try {
+            t=new TextBox(to.toString(),null,1024, TextField.ANY);
+        } catch (Exception e) {
+            t=new TextBox(to.toString(),null,500, TextField.ANY);
+        }
         
         try {
             if (body!=null) t.setString(body);

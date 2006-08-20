@@ -395,7 +395,7 @@ public class Roster
                     groups.getGroup(Groups.TRANSP_INDEX) :
                     groups.getGroup(grpName);
                 if (group==null) {
-                    group=groups.addGroup(grpName, null);
+                    group=groups.addGroup(grpName, true);
                 }
                 c.nick=nick;
                 c.setGroup(group);
@@ -764,18 +764,39 @@ public class Roster
                 String type = (String) data.getTypeAttribute();
                 String id=(String) data.getAttribute("id");
                 
-                if (id!=null) if (id.startsWith("nickvc")) {
-                    VCard vc=new VCard(data);//.getNickName();
-                    String from=vc.getJid();
-                    String nick=vc.getNickName();
-                    Contact c=getContact(from, false);
-                    String group=(c.getGroupIndex()==Groups.COMMON_INDEX)?
-                        null: c.getGroup().name;
-                    if (nick!=null)  storeContact(from,nick,group, false);
-                    //updateContact( nick, c.rosterJid, group, c.subscr, c.ask_subscribe);
-                    sendVCardReq();
-                }
-                
+                if (id!=null) {
+                    if (id.startsWith("nickvc")) {
+                        VCard vc=new VCard(data);//.getNickName();
+                        String from=vc.getJid();
+                        String nick=vc.getNickName();
+                        Contact c=getContact(from, false);
+                        String group=(c.getGroupIndex()==Groups.COMMON_INDEX)?
+                            null: c.getGroup().name;
+                        if (nick!=null)  storeContact(from,nick,group, false);
+                        //updateContact( nick, c.rosterJid, group, c.subscr, c.ask_subscribe);
+                        sendVCardReq();
+                    }
+                    
+                    if (id.equals("getver")) {
+                        String from=data.getAttribute("from");
+                        String body="";
+                        if (type.equals("error")) {
+                            body=SR.MS_NO_VERSION_AVAILABLE;
+                            querysign=false;
+                        } else if (type.equals("result")) {
+                            JabberDataBlock vc=data.getChildBlock("query");
+                            if (vc!=null) {
+                                body=IqVersionReply.dispatchVersion(vc);
+                            }
+                            querysign=false;
+                        }
+                        
+                        Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, SR.MS_CLIENT_INFO, body);
+                        messageStore(m);
+                        redraw();
+                    }
+                    
+                } // id!=null
                 if ( type.equals( "result" ) ) {
                     if (id.equals("getros")) {
                         // а вот и ростер подошёл :)
@@ -799,19 +820,6 @@ public class Roster
                         Contact c=getContact(vcard.getJid());
                         c.vcard=vcard;
                         new vCardForm(display, vcard, c.getGroupIndex()==Groups.SELF_INDEX);
-                    }
-                    if (id.equals("getver")) {
-                        JabberDataBlock vc=data.getChildBlock("query");
-                        if (vc!=null) {
-                            querysign=false;
-                            String from=data.getAttribute("from");
-                            String body=IqVersionReply.dispatchVersion(vc);
-                            
-                            Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, SR.MS_CLIENT_INFO, body);
-                            messageStore(m);
-                            redraw();
-                            
-                        }
                     }
                     
                 } else if (type.equals("get")){

@@ -2521,6 +2521,35 @@ syslog_msg: true
 
 (607)
   * Slovak langfile updated
+
+(610)
+  * при отсутствии возврата версии клиента (оффлайн или списки приватности)
+    выдаётся сообщение "No version available"
+
+  + Упорядочивание групп в ростере (сортировка): 
+    1. self-contact
+    2. General
+    3. < группы ростера в лексикографическом порядке, без учёта регистра >
+    4. конференции в порядке присоединения
+    5. Ignore-List
+    6. Not-In-List
+    7. Transports
+
+  * Размер MessageEdit увеличен до 1024 символов
+  --
+  * if client does not return version reply (offline or privacy lists)
+    Bombus will display "No version available"
+
+  + Roster groups appearance (sorting added):
+    1. self-contact
+    2. General
+    3. < here is roster groups sorted in lexicographical case-insensitive order>
+    4. conferences in join order
+    5. Ignore-List
+    6. Not-In-List
+    7. Transports
+
+  * MessageEdit form is extended up to 1024 symbols length
 ---------------------------
   known issues:
 
@@ -2539,3 +2568,4 @@ syslog_msg: true
   - Nokia 60 series - не работает vibra. глюк java-машины
 
   - другие ошибки теперь записываются в flyspray
+

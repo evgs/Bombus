@@ -36,7 +36,7 @@ public final class ContactEdit
     int ngroups;
     
     Command cmdOk=new Command(SR.MS_ADD, Command.OK, 1);
-    Command cmdUpdate=new Command("Update", Command.ITEM, 2);
+    Command cmdSet=new Command("Set", Command.ITEM, 2);
     Command cmdCancel=new Command(SR.MS_CANCEL,Command.BACK,99);
     
     boolean newContact=true;
@@ -67,10 +67,10 @@ public final class ContactEdit
         
 //#if (!MIDP1)
         //NOKIA FIX
-        tGrpList.addCommand(cmdUpdate);
+        tGrpList.addCommand(cmdSet);
         tGrpList.setItemCommandListener(this);
         
-        tTranspList.addCommand(cmdUpdate);
+        tTranspList.addCommand(cmdSet);
         tTranspList.setItemCommandListener(this);
 //#endif
         
