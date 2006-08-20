@@ -38,9 +38,9 @@ public abstract class MessageList
     protected Command cmdUrl = new Command(SR.MS_GOTO_URL, Command.SCREEN, 80);
     
     /** Creates a new instance of MessageList */
-    public MessageList(Display display) {
-        super(display);
-        
+  
+    public MessageList() {
+        super();
 	messages=new Vector();
         smiles=Config.getInstance().smiles;
         //sd.config.updateTime();
@@ -53,6 +53,12 @@ public abstract class MessageList
         addCommand(cmdUrl);
     }
 
+    public MessageList(Display display) {
+        this();
+        attachDisplay(display);
+    }
+    
+    
     public abstract int getItemCount(); // из protected сделали public
 
     protected VirtualElement getItemRef(int index) {

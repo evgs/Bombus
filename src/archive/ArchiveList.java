@@ -39,8 +39,9 @@ public class ArchiveList
     TextBox target;
     /** Creates a new instance of ArchiveList */
     public ArchiveList(Display display, TextBox target) {
-	super (display);
+	super ();
 	this.target=target;
+	setCommandListener(this);
 	addCommand(cmdBack);
 	addCommand(cmdDelete);
 	
@@ -48,15 +49,20 @@ public class ArchiveList
 	    addCommand(cmdPaste);
 	    addCommand(cmdJid);
 	}
-	focusedItem(0);
-	
-	setCommandListener(this);
+        
+        attachDisplay(display);
+        
+        
+        try {
+            focusedItem(0);
+        } catch (Exception e) {}
 	
 	Title title=new Title(SR.MS_ARCHIVE /*"Archive"*/);
 	title.addRAlign();
 	title.addElement(null);
 	title.addElement(SR.MS_FREE /*"free "*/);
         setTitleItem(title);
+        
     }
 
     protected void beginPaint() {

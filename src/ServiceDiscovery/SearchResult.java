@@ -39,8 +39,8 @@ public class SearchResult
         
         setTitleItem(new Title(2, null, service));
         
-        addCommand(cmdBack);
         setCommandListener(this);
+        addCommand(cmdBack);
         
         items=new Vector();
         

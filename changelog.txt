@@ -2536,6 +2536,7 @@ syslog_msg: true
     7. Transports
 
   * Размер MessageEdit увеличен до 1024 символов
+  * Команда "Update" переименована в "Set" (см. билд 602)
   --
   * if client does not return version reply (offline or privacy lists)
     Bombus will display "No version available"
@@ -2550,6 +2551,13 @@ syslog_msg: true
     7. Transports
 
   * MessageEdit form is extended up to 1024 symbols length
+  * "update" command is renamed to "Set" (see build 602)
+
+(611)
+  * исправление подвисания архива (см. FS#311)
+  * попытка исправления FS#111 (отсутствие команды Back в Search results
+    и Service Discovery
+
 ---------------------------
   known issues:
 

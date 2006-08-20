@@ -79,6 +79,7 @@ public class ServiceDiscovery
         stream.addBlockListener(this);
         //sd.roster.discoveryListener=this;
         
+        setCommandListener(this);
         addCommand(cmdRfsh);
         addCommand(cmdSrv);
         addCommand(cmdFeatures);
@@ -87,7 +88,6 @@ public class ServiceDiscovery
         
 
         addCommand(cmdBack);
-        setCommandListener(this);
 
         this.node=node;
         this.service=(service!=null)?service:sd.account.getServer();
