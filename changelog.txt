@@ -2559,7 +2559,7 @@ syslog_msg: true
     и Service Discovery
 
 
-(613)
+(614)
   + поле "Message limit" в форме Join conference - максимальное число загружаемых
     с сервера предыдущих сообщений конференции
 

@@ -247,14 +247,10 @@ public class SR {
     public final static String MS_FEATURES="Features";
     public final static String MS_SHOWPWD="Show password";
     public final static String MS_NO_VERSION_AVAILABLE="No client version available";
+    public final static String MS_MSG_LIMIT="Message limit";
 
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
-
-
-
-
-
 
     private SR() { }
     

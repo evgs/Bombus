@@ -70,7 +70,7 @@ public class ConferenceForm implements CommandListener{
         passField=new TextField(SR.MS_PASSWORD, password, 32, TextField.ANY | ConstMIDP.TEXTFIELD_SENSITIVE );
         formJoin.append(passField);
         
-        msgLimitField=new NumberField("Message limit", 20, 0, 20);
+        msgLimitField=new NumberField(SR.MS_MSG_LIMIT, 20, 0, 20);
         formJoin.append(msgLimitField);
         
         formJoin.addCommand(cmdJoin);
