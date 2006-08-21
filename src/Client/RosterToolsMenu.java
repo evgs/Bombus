@@ -38,23 +38,26 @@ public class RosterToolsMenu
     }
     public void eventOk(){
 	destroyView();
+        boolean connected= ( StaticData.getInstance().roster.theStream != null );
 	MenuItem me=(MenuItem) getFocusedObject();
 	if (me==null)  return;
 	int index=me.index;
 	switch (index) {
 	    case 0: // Service Discovery
-		new ServiceDiscovery(display, null, null);
+		if (connected) new ServiceDiscovery(display, null, null);
 		break;
 	    case 1: // Privacy Lists
-		new PrivacySelect(display);
+		if (connected) new PrivacySelect(display);
 		break;
 	    case 2: {
+                if (! connected) break;
 		Contact c=StaticData.getInstance().roster.selfContact();
 		if (c.vcard!=null) {
 		    new vCardForm(display, c.vcard, true);
 		    return;
 		}
 		VCard.request(c.getJid());
+                return;
 	    }
             case 3:
                 new ConfigForm(display);

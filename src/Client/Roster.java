@@ -779,7 +779,7 @@ public class Roster
                     
                     if (id.equals("getver")) {
                         String from=data.getAttribute("from");
-                        String body="";
+                        String body=null;
                         if (type.equals("error")) {
                             body=SR.MS_NO_VERSION_AVAILABLE;
                             querysign=false;
@@ -792,8 +792,10 @@ public class Roster
                         }
                         
                         Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, SR.MS_CLIENT_INFO, body);
-                        messageStore(m);
-                        redraw();
+                        if (body!=null) { 
+                            messageStore(m);
+                            redraw();
+                        }
                     }
                     
                 } // id!=null
@@ -1250,6 +1252,7 @@ public class Roster
         if (c==cmdArchive) { new ArchiveList(display, null); }
         if (c==cmdInfo) { new Info.InfoWindow(display); }
         
+        if (c==cmdTools) { new RosterToolsMenu(display); }
         // stream-sensitive commands
         // check for closed socket
         if (StaticData.getInstance().roster.theStream==null) return;
@@ -1259,7 +1262,6 @@ public class Roster
             new RosterItemActions(display, getFocusedObject()); 
         } catch (Exception e) { /* NullPointerException */ }
         
-        if (c==cmdTools) { new RosterToolsMenu(display); }
         if (c==cmdAdd) {
             //new MIDPTextBox(display,"Add to roster", null, new AddContact());
             Object o=getFocusedObject();

@@ -2567,6 +2567,15 @@ syslog_msg: true
   + "Message limit" field in "Join Conference" form - maximum number of 
     conference history messages to request from server
 
+
+(616)
+  * в билде 610 был сломан возврат версии
+  * команда Tools>Options ошибочно показывала форму Options (билд 606)
+  * Tools>Options в состоянии дисконнекта был недоступен (билд 606)
+  --
+  * version reply was broken in 610
+  * Tools>My vCard mistakenly invoked Options form (606)
+  * toils>options was unavailable if disconnected (606)
 ---------------------------
   known issues:
 
