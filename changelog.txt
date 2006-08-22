@@ -2577,7 +2577,7 @@ syslog_msg: true
   * Tools>My vCard mistakenly invoked Options form (606)
   * toils>options was unavailable if disconnected (606)
 
-(619)
+(620)
   * EditContact - выпадающий список "Group" был сломан в билде 610
   --
   * EditContact - droplist "Group" was broken in build 610

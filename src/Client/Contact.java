@@ -183,7 +183,7 @@ public class Contact extends IconTextElement{
 //#if USE_SIEMENS_FILES
 //#         Config cf=Config.getInstance();
 //# 
-//#         if (cf.msgLog && group.index!=Groups.TRANSP_INDEX && group.index!=Groups.SRC_RESULT_INDEX)
+//#         if (cf.msgLog && group.index!=Groups.TYPE_TRANSP && group.index!=Groups.TYPE_SEARCH_RESULT)
 //#         {
 //#             String histRecord=(nick==null)?getBareJid():nick;
 //#             String fromName=StaticData.getInstance().account.getUserName();
