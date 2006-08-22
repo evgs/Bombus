@@ -59,7 +59,7 @@ public class Group extends IconTextElement {
 
     public void setIndex(int index) {
 	this.index = index;
-        if (index==Groups.SRC_RESULT_INDEX) 
+        if (index==Groups.TYPE_SEARCH_RESULT) 
             imageExpandedIndex=RosterIcons.ICON_SEARCH_INDEX;
     }
 
@@ -86,8 +86,8 @@ public class Group extends IconTextElement {
 	|| c.getNewMsgsCount()>0
 	//|| gindex==Groups.NIL_INDEX
 	//|| gindex==Groups.TRANSP_INDEX
-	|| index==Groups.NIL_INDEX
-	|| index==Groups.TRANSP_INDEX
+	|| index==Groups.TYPE_NOT_IN_LIST
+	|| index==Groups.TYPE_TRANSP
 	|| c.origin==Contact.ORIGIN_GROUPCHAT
 	)
 	    contacts.addElement(c);

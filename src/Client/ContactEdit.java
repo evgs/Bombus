@@ -74,17 +74,6 @@ public final class ContactEdit
         tTranspList.setItemCommandListener(this);
 //#endif
         
-        ngroups=0;
-        if (groups!=null) {
-            ngroups=groups.size();
-            for (int i=0;i<ngroups; i++) {
-                String gn=(String)groups.elementAt(i);
-                tGrpList.append(gn, null);
-            }
-        }
-
-        int sel=0;
-        
         // Transport droplist
         tTranspList.append(sd.account.getServer(), null);
         for (Enumeration e=sd.roster.getHContacts().elements(); e.hasMoreElements(); ){
@@ -111,18 +100,34 @@ public final class ContactEdit
                 throw new Exception();
             } 
             
-            sel=c.getGroupIndex()-Groups.COMMON_INDEX;
-            if (sel==-1) sel=groups.size()-1;
-            if (sel<0) sel=0;
-            tGroup.setString(group(sel));
-            
-            if (c.getGroupIndex()!=Groups.NIL_INDEX  && c.getGroupIndex()!=Groups.SRC_RESULT_INDEX) {
+            if (c.getGroupType()!=Groups.TYPE_NOT_IN_LIST  && c.getGroupType()!=Groups.TYPE_SEARCH_RESULT) {
                 // edit contact
                 f.setTitle(jid);
                 cmdOk=new Command(SR.MS_UPDATE, Command.OK, 1);
                 newContact=false;
             } else c=null; // adding not-in-list
         } catch (Exception e) {}; // if MucContact does not contains realJid
+        
+        
+        int sel=-1;
+        ngroups=0;
+        String grpName="";
+        if (c!=null) grpName=c.getGroup().name;
+        
+        if (groups!=null) {
+            ngroups=groups.size();
+            for (int i=0;i<ngroups; i++) {
+                String gn=(String)groups.elementAt(i);
+                tGrpList.append(gn, null);
+                
+                if (gn.equals(grpName)) sel=i;
+            }
+        }
+            
+        if (sel==-1) sel=groups.size()-1;
+        if (sel<0) sel=0;
+        tGroup.setString(group(sel));
+        
         
         if (c==null){
             f.append(tJid);

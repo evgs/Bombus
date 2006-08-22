@@ -129,7 +129,7 @@ public class Contact extends IconTextElement{
         return st;
     }
     public int getNewMsgsCount() {
-        if (getGroupIndex()==Groups.IGNORE_INDEX) return 0;
+        if (getGroupType()==Groups.TYPE_IGNORE) return 0;
         //return msgs.size()-lastReaded;
         if (newMsgCnt>-1) return newMsgCnt;
         int nm=0;
@@ -297,7 +297,7 @@ public class Contact extends IconTextElement{
     }
 
     public Group getGroup() { return group; }
-    public int getGroupIndex() {  
+    public int getGroupType() {  
         if (group==null) return 0; 
         return group.index;  
     }

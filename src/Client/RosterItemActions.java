@@ -48,7 +48,7 @@ public class RosterItemActions extends Menu{
 
 	if (isContact) {
 	    Contact contact=(Contact)item;
-	    if (contact.getGroupIndex()==Groups.TRANSP_INDEX) {
+	    if (contact.getGroupType()==Groups.TYPE_TRANSP) {
 		addItem(SR.MS_LOGON,5);
 		addItem(SR.MS_LOGOFF,6);
 		addItem(SR.MS_RESOLVE_NICKNAMES, 7);
@@ -59,8 +59,8 @@ public class RosterItemActions extends Menu{
 	    addItem(SR.MS_CLIENT_INFO,0);
 	    addItem(SR.MS_COMMANDS,30);
 	    
-	    if (contact.getGroupIndex()!=Groups.SELF_INDEX && contact.getGroupIndex()!=Groups.SRC_RESULT_INDEX && contact.origin<Contact.ORIGIN_GROUPCHAT) {
-		if (contact.getGroupIndex()!=Groups.TRANSP_INDEX)
+	    if (contact.getGroupType()!=Groups.TYPE_SELF && contact.getGroupType()!=Groups.TYPE_SEARCH_RESULT && contact.origin<Contact.ORIGIN_GROUPCHAT) {
+		if (contact.getGroupType()!=Groups.TYPE_TRANSP)
 		    addItem(SR.MS_EDIT,2);
 		addItem(SR.MS_SUBSCRIPTION,3);
 		addItem(SR.MS_DELETE,4);
@@ -116,7 +116,7 @@ public class RosterItemActions extends Menu{
                     if (mc.affiliationCode!=MucContact.AFFILIATION_OWNER) addItem(SR.MS_GRANT_OWNERSHIP,38);
                     //else addItem(SR.MS_REVOKE_OWNERSHIP,37);
                 }
-            } else if (contact.getGroupIndex()!=Groups.TRANSP_INDEX) {
+            } else if (contact.getGroupType()!=Groups.TYPE_TRANSP) {
                 // usual contact - invite item check
                 boolean onlineConferences=false;
                 for (Enumeration c=StaticData.getInstance().roster.getHContacts().elements(); c.hasMoreElements(); ) {
@@ -130,7 +130,7 @@ public class RosterItemActions extends Menu{
             }
 	} else {
 	    Group group=(Group)item;
-	    if (group.index==Groups.SRC_RESULT_INDEX)
+	    if (group.index==Groups.TYPE_SEARCH_RESULT)
 		addItem(SR.MS_DISCARD,21);
 	    if (group instanceof ConferenceGroup) {
 		MucContact self=((ConferenceGroup)group).getSelfContact();
@@ -177,7 +177,7 @@ public class RosterItemActions extends Menu{
 		break;
 	    case 1: // vCard
 		if (c.vcard!=null) {
-		    new vCardForm(display, c.vcard, c.getGroupIndex()==Groups.SELF_INDEX);
+		    new vCardForm(display, c.vcard, c.getGroupType()==Groups.TYPE_SELF);
 		    return;
 		}
 		VCard.request(c.getJid());

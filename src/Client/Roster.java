@@ -319,7 +319,7 @@ public class Roster
         int index=0;
         synchronized (hContacts) {
             while (index<hContacts.size()) {
-                if ( ((Contact) hContacts.elementAt(index)).getGroupIndex()==Groups.SRC_RESULT_INDEX )
+                if ( ((Contact) hContacts.elementAt(index)).getGroupType()==Groups.TYPE_SEARCH_RESULT )
                     hContacts.removeElementAt(index);
                 else index++;
             }
@@ -359,7 +359,7 @@ public class Roster
                 else index++; 
             }
             if (onlineContacts==0) {
-                if (g.index>Groups.COMMON_INDEX) groups.removeGroup(g);
+                if (g.index>Groups.TYPE_COMMON) groups.removeGroup(g);
             }
         }
     }
@@ -392,7 +392,7 @@ public class Roster
             c=(Contact)e.nextElement();
             if (c.jid.equals(J,false)) {
                 Group group= (c.jid.isTransport())? 
-                    groups.getGroup(Groups.TRANSP_INDEX) :
+                    groups.getGroup(Groups.TYPE_TRANSP) :
                     groups.getGroup(grpName);
                 if (group==null) {
                     group=groups.addGroup(grpName, true);
@@ -528,7 +528,7 @@ public class Roster
             c=new Contact(null, jid, Presence.PRESENCE_OFFLINE, "not-in-list");
 	    c.bareJid=J.getBareJid();
             c.origin=Contact.ORIGIN_PRESENCE;
-            c.setGroup(groups.getGroup(Groups.NIL_INDEX));
+            c.setGroup(groups.getGroup(Groups.TYPE_NOT_IN_LIST));
             addContact(c);
         } else {
             // здесь jid с новым ресурсом
@@ -696,7 +696,7 @@ public class Roster
 	for (Enumeration e=hContacts.elements(); e.hasMoreElements();){
 	    Contact k=(Contact) e.nextElement();
 	    if (k.jid.isTransport()) continue;
-	    if (k.transport==transportIndex && k.nick==null && k.getGroupIndex()>=Groups.COMMON_INDEX) {
+	    if (k.transport==transportIndex && k.nick==null && k.getGroupType()>=Groups.TYPE_COMMON) {
 		vCardQueue.addElement(VCard.getVCardReq(k.getJid(), "nickvc"+k.bareJid));
 	    }
 	}
@@ -770,7 +770,7 @@ public class Roster
                         String from=vc.getJid();
                         String nick=vc.getNickName();
                         Contact c=getContact(from, false);
-                        String group=(c.getGroupIndex()==Groups.COMMON_INDEX)?
+                        String group=(c.getGroupType()==Groups.TYPE_COMMON)?
                             null: c.getGroup().name;
                         if (nick!=null)  storeContact(from,nick,group, false);
                         //updateContact( nick, c.rosterJid, group, c.subscr, c.ask_subscribe);
@@ -821,7 +821,7 @@ public class Roster
                         VCard vcard=new VCard(data);
                         Contact c=getContact(vcard.getJid());
                         c.vcard=vcard;
-                        new vCardForm(display, vcard, c.getGroupIndex()==Groups.SELF_INDEX);
+                        new vCardForm(display, vcard, c.getGroupType()==Groups.TYPE_SELF);
                     }
                     
                 } else if (type.equals("get")){
@@ -1062,7 +1062,7 @@ public class Roster
     
     Contact messageStore(Msg message){
         Contact c=getContact(message.from);
-        if (c.getGroupIndex()==Groups.NIL_INDEX) 
+        if (c.getGroupType()==Groups.TYPE_NOT_IN_LIST) 
             if (!cf.notInList) return c;
 
         if (c==null) return c;  // not to store/signal not-in-list message
@@ -1079,7 +1079,7 @@ public class Roster
         
         if (countNewMsgs()) reEnumRoster();
         
-        if (c.getGroupIndex()==Groups.IGNORE_INDEX) return c;    // no signalling/focus on ignore
+        if (c.getGroupType()==Groups.TYPE_IGNORE) return c;    // no signalling/focus on ignore
         
 	if (cf.popupFromMinimized)
 	    Bombus.getInstance().hideApp(false);
@@ -1268,7 +1268,7 @@ public class Roster
             Contact cn=null;
             if (o instanceof Contact) {
                 cn=(Contact)o;
-                if (cn.getGroupIndex()!=Groups.NIL_INDEX && cn.getGroupIndex()!=Groups.SRC_RESULT_INDEX) cn=null;
+                if (cn.getGroupType()!=Groups.TYPE_NOT_IN_LIST && cn.getGroupType()!=Groups.TYPE_SEARCH_RESULT) cn=null;
             }
             if (o instanceof MucContact) { cn=(Contact)o; }
             new ContactEdit(display, cn);
@@ -1364,7 +1364,7 @@ public class Roster
 	    }
 	}
 	
-	if (c.getGroupIndex()==Groups.NIL_INDEX) {
+	if (c.getGroupType()==Groups.TYPE_NOT_IN_LIST) {
 	    hContacts.removeElement(c);
 	    reEnumRoster();
 	} else
@@ -1440,22 +1440,22 @@ public class Roster
                         }
                     }
                     // self-contact group
-                    Group selfContactGroup=groups.getGroup(Groups.SELF_INDEX);
+                    Group selfContactGroup=groups.getGroup(Groups.TYPE_SELF);
                     if (cf.selfContact || selfContactGroup.tonlines>1 || selfContactGroup.unreadMessages>0 )
-                        groups.addToVector(tContacts, Groups.SELF_INDEX);
+                        groups.addToVector(tContacts, Groups.TYPE_SELF);
                     // adding groups
-                    for (i=Groups.COMMON_INDEX;i<groups.getCount();i++)
+                    for (i=Groups.TYPE_COMMON;i<groups.getCount();i++)
                         groups.addToVector(tContacts,i);
                     // hiddens
-                    if (cf.ignore) groups.addToVector(tContacts,Groups.IGNORE_INDEX);
+                    if (cf.ignore) groups.addToVector(tContacts,Groups.TYPE_IGNORE);
                     // not-in-list
-                    if (cf.notInList) groups.addToVector(tContacts,Groups.NIL_INDEX);
+                    if (cf.notInList) groups.addToVector(tContacts,Groups.TYPE_NOT_IN_LIST);
                     // transports
-                    if (cf.showTransports) groups.addToVector(tContacts,Groups.TRANSP_INDEX);
+                    if (cf.showTransports) groups.addToVector(tContacts,Groups.TYPE_TRANSP);
                     
                     // search result
                     //if (groups.getGroup(Groups.SRC_RESULT_INDEX).tncontacts>0)
-                    groups.addToVector(tContacts, Groups.SRC_RESULT_INDEX);
+                    groups.addToVector(tContacts, Groups.TYPE_SEARCH_RESULT);
                     
                     vContacts=tContacts;
                     

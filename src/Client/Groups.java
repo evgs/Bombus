@@ -22,17 +22,17 @@ public class Groups{
     
     Vector groups;
     
-    public final static int TRANSP_INDEX=0;
+    public final static int TYPE_TRANSP=0;
     public final static String TRANSP_GROUP=SR.MS_TRANSPORTS;
-    public final static int SELF_INDEX=1;
+    public final static int TYPE_SELF=1;
     public final static String SELF_GROUP=SR.MS_SELF_CONTACT;
-    public final static int SRC_RESULT_INDEX=2;
+    public final static int TYPE_SEARCH_RESULT=2;
     public final static String SRC_RESULT_GROUP=SR.MS_SEARCH_RESULTS;
-    public final static int NIL_INDEX=3;
+    public final static int TYPE_NOT_IN_LIST=3;
     public final static String NIL_GROUP=SR.MS_NOT_IN_LIST;
-    public final static int IGNORE_INDEX=4;
+    public final static int TYPE_IGNORE=4;
     public final static String IGNORE_GROUP=SR.MS_IGNORE_LIST;
-    public final static int COMMON_INDEX=5;
+    public final static int TYPE_COMMON=5;
     public final static String COMMON_GROUP=SR.MS_GENERAL;
     
     public Groups(){
@@ -86,7 +86,7 @@ public class Groups{
     }
     public Group addGroup(String name, boolean sort) {
         Group ng=new Group(name);
-        int index=COMMON_INDEX+1;
+        int index=TYPE_COMMON+1;
         if (!sort) index=groups.size();
         String lName=name.toLowerCase();
         
@@ -114,7 +114,7 @@ public class Groups{
 
     public Vector getRosterGroupNames(){
         Vector s=new Vector();
-        for (int i=Groups.COMMON_INDEX; i<groups.size(); i++) {
+        for (int i=Groups.TYPE_COMMON; i<groups.size(); i++) {
 	    Group grp=(Group) groups.elementAt(i);
 	    if (grp.imageExpandedIndex!=RosterIcons.ICON_GCJOIN_INDEX)
             s.addElement(grp.name);
