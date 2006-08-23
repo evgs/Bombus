@@ -44,6 +44,7 @@ public class ScrollBar {
     
     /** Creates a new instance of ScrollBar */
     public ScrollBar() {
+        point_y=-1;
     }
 
     public void setWindowSize(int windowSize) {

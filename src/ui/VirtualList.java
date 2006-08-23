@@ -91,6 +91,9 @@ public abstract class VirtualList
     public static final int MOTOE680_REALPLAYER=-6;
     public static final int MOTOE680_FMRADIO=-7;
     public static final int SE_GREEN=0;
+    
+    private final static int STRING_SZ=15;
+
     public static int keyClear=-8;
     public static int keyVolDown=0x1000;
     public static int greenKeyCode=SIEMENS_GREEN;
@@ -123,6 +126,7 @@ public abstract class VirtualList
     
     private int itemLayoutY[]=new int[1];
     private int listHeight;
+
     
     protected void updateLayout(){
         int size=getItemCount();
@@ -145,7 +149,7 @@ public abstract class VirtualList
             int index=(end+begin)/2;
             if (yPos<itemLayoutY[index]) end=index; else begin=index;
         }
-        return begin;
+        return (yPos<itemLayoutY[end])? begin:end;
     }
     
     public int win_top;    // верхняя граница окна относительно списка
@@ -323,7 +327,7 @@ public abstract class VirtualList
             win_top=0;
         }
 
-        if (count>0 && stickyWindow) fitCursor();
+        if (count>0 && stickyWindow) fitCursorByTop();
         
         int itemMaxWidth=(scroll) ?(width-scrollbar.getScrollWidth()) : (width);
         // элементы окна
@@ -477,17 +481,37 @@ public abstract class VirtualList
         //moveCursor(index-cursor, force); 
     }
     
-    protected void fitCursor(){
-        //проверка по верхней границе
+    protected void fitCursorByTop(){
         try {
+            //проверка по верхней границе
             int top=itemLayoutY[cursor];
-            if (top<win_top) win_top=top;
+            // если верхний край выше окна, выровнять по верху
+            if (top<win_top) win_top=top;   
             if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) {
                 // объект помещается на экране - проверим и нижнюю границу
                 int bottom=itemLayoutY[cursor+1]-winHeight;
-                if (bottom>win_top) win_top=bottom;
+                // если нижний край ниже окна, выровнять по низу
+                if (bottom>win_top) win_top=bottom;  
             }
-            if (top>=win_top+winHeight) win_top=top;
+            // случай, когда курсор больше окна, и он НИЖЕ окна
+            if (top>=win_top+winHeight) win_top=top; 
+        } catch (Exception e) { e.printStackTrace(); }
+    }
+    
+    protected void fitCursorByBottom(){
+        //проверка по верхней границе
+        try {
+            int bottom=itemLayoutY[cursor+1]-winHeight;
+            // если нижний край ниже окна, выровнять по низу
+            if (bottom>win_top) win_top=bottom;
+            if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) {
+                // объект помещается на экране - проверим и нижнюю границу
+                int top=itemLayoutY[cursor];
+                // если верхний край выше окна, выровнять по верху
+                if (top<win_top) win_top=top;
+            }
+            // случай, когда курсор больше окна, и он ВЫШЕ окна
+            if (itemLayoutY[cursor+1]<=win_top) win_top=bottom;
         } catch (Exception e) { e.printStackTrace(); }
     }
 
@@ -609,8 +633,9 @@ public abstract class VirtualList
         }
          */
         if (itemPageUp()) return;
-        stickyWindow=true;
+        //stickyWindow=true;
         cursor--;
+        fitCursorByBottom();
         setRotator();
     }
     
@@ -655,7 +680,7 @@ public abstract class VirtualList
             }
             
             // объект на экране есть? (не смещён ли экран стилусом)
-            if (itemLayoutY[cursor]>=win_top+winHeight) return false;
+            if (!cursorInWindow()) return false;
             
             int remainder=itemLayoutY[cursor+1]-win_top;
             // хвост сообщения уже на экране?
@@ -665,7 +690,7 @@ public abstract class VirtualList
                 win_top=remainder-winHeight+win_top+8;
                 return true;
             }
-            win_top+=winHeight;
+            win_top+=winHeight-STRING_SZ;
             return true;
         } catch (Exception e) {}
         return false;
@@ -676,22 +701,23 @@ public abstract class VirtualList
             stickyWindow=false;
             // объект помещается полностью на экране?
             if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) {
-                stickyWindow=true;
+                //stickyWindow=true;
                 return false;
             }
             
             // объект на экране есть? (не смещён ли экран стилусом)
-            if (itemLayoutY[cursor+1]>=win_top+winHeight) return false;
+            
+            if (!cursorInWindow()) { return false; }
             
             int remainder=win_top-itemLayoutY[cursor];
-            // хвост сообщения уже на экране?
-            if (remainder<0) return false;
+            // голова сообщения уже на экране?
+            if (remainder<=0) return false;
             // хвост сообщения на следующем экране?
             if (remainder<=winHeight) {
                 win_top=itemLayoutY[cursor];
                 return true;
             }
-            win_top-=winHeight;
+            win_top-=winHeight-STRING_SZ;
             return true;
         } catch (Exception e) {}
         return false;
@@ -711,7 +737,7 @@ public abstract class VirtualList
             }
             if (!cursorInWindow()) {
                 cursor=getElementIndexAt(itemLayoutY[cursor]-winHeight);
-                if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) fitCursor();
+                if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) fitCursorByTop();
             }
             setRotator();
         } catch (Exception e) {};
@@ -733,7 +759,7 @@ public abstract class VirtualList
             } else
                 if (!cursorInWindow()) {
                     cursor=getElementIndexAt(itemLayoutY[cursor]+winHeight);
-                    if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) fitCursor();
+                    if (((VirtualElement)getFocusedObject()).getVHeight()<=winHeight) fitCursorByTop();
                 }
             setRotator();
         } catch (Exception e) {};
@@ -743,8 +769,8 @@ public abstract class VirtualList
         try {
             int y1=itemLayoutY[cursor]-win_top;
             int y2=itemLayoutY[cursor+1]-win_top;
-            if (y1<0 && y2>0 && y2<winHeight) return true;
-            if (y1>=0 && y1<winHeight) return true;
+            if (y1>=winHeight) return false;
+            if (y2>=0) return true;
         } catch (Exception e) { }
         return false;
     }

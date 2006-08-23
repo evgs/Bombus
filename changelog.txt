@@ -2582,6 +2582,12 @@ syslog_msg: true
   --
   * EditContact - droplist "Group" was broken in build 610
 
+
+(621)
+  * VirtualList - фиксы скроллинга больших элементов
+  --
+  * VirtualList - fixing scrolling issues
+
 ---------------------------
   known issues:
 
