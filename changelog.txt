@@ -2588,6 +2588,30 @@ syslog_msg: true
   --
   * VirtualList - fixing scrolling issues
 
+(624)
+  + В несколько видоизменённой форме вернулась функция отключения смайлов.
+    Команда вызывается либо через меню, либо кнопкой '*'.
+    Данная команда выполняет переключение режима отображения смайлов только для сообщения,
+    на котором установлен курсор.
+    Также можно установить состояние смайлов для всего MessageView через Tools/Options
+
+  + Опция "Ask subscription" в форме "Add Contact" позволяет разрешить/запретить 
+    запрос подписки для добавляемого контакта. В предыдущих версиях данный запрос
+    выполнялся и не мог быть отключен.
+
+  * Перемещение фокуса окна на курсор после сворачивания сообщения (FS#328)
+
+  --
+  + Toggling smiles is returned to MessageList - via menu or '*' key
+    This command applies to single focused message.
+    Also smiles can be disabled in options form
+
+  + "Ask subscription" option in "Add Contact" form allows/disables automatic 
+    subscription request (on by default). 
+    Subscription request was always performed in previous version.
+
+  * Focusing view to cursor after collapsing or expanding message in MessageView (FS#328)
+
 ---------------------------
   known issues:
 

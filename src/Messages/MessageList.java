@@ -36,6 +36,8 @@ public abstract class MessageList
     
     protected Command cmdBack = new Command(SR.MS_BACK, Command.BACK, 99);
     protected Command cmdUrl = new Command(SR.MS_GOTO_URL, Command.SCREEN, 80);
+
+    protected Command cmdSmiles = new Command(SR.MS_SMILES_TOGGLE, Command.SCREEN, 50);
     
     /** Creates a new instance of MessageList */
   
@@ -49,6 +51,7 @@ public abstract class MessageList
 	
         cursor=0;//activate
         
+        addCommand(cmdSmiles);
         addCommand(cmdBack);
         addCommand(cmdUrl);
     }
@@ -65,7 +68,7 @@ public abstract class MessageList
 	if (messages.size()<getItemCount()) messages.setSize(getItemCount());
 	MessageItem mi=(MessageItem) messages.elementAt(index);
 	if (mi==null) {
-	    mi=new MessageItem(getMessage(index), this);
+	    mi=new MessageItem(getMessage(index), this, smiles);
             mi.setEven( (index & 1) == 0);
 	    messages.setElementAt(mi, index);
 	}
@@ -95,6 +98,13 @@ public abstract class MessageList
                 new MessageUrl(display, urls); //throws NullPointerException if no urls
             } catch (Exception e) {/* no urls found */}
         }
+        if (c==cmdSmiles) {
+            ((MessageItem)getFocusedObject()).toggleSmiles();
+        }
+    }
+
+    public void userKeyPressed(int keyCode) {
+        if (keyCode=='*') ((MessageItem)getFocusedObject()).toggleSmiles();
     }
     
     public void keyGreen() { eventOk(); }

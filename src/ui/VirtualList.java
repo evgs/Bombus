@@ -68,7 +68,7 @@ public abstract class VirtualList
     public void eventOk(){
         try {
             ((VirtualElement)getFocusedObject()).onSelect();
-            //fitCursor();
+            fitCursorByTop();
         } catch (Exception e) { e.printStackTrace();} 
     }
     

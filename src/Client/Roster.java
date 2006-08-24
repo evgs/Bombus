@@ -1388,10 +1388,10 @@ public class Roster
     /**
      * store cotnact on server
      */
-    public void storeContact(String jid, String name, String group, boolean newContact){
+    public void storeContact(String jid, String name, String group, boolean askSubscribe){
         
         theStream.send(new IqQueryRoster(jid, name, group, null));
-        if (newContact) theStream.send(new Presence(jid,"subscribe"));
+        if (askSubscribe) theStream.send(new Presence(jid,"subscribe"));
     }
 
     private class ReEnumerator implements Runnable{

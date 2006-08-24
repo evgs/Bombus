@@ -33,6 +33,8 @@ public final class ContactEdit
     TextField tGroup;
     ChoiceGroup tGrpList;
     ChoiceGroup tTranspList;
+    ChoiceGroup tAskSubscrCheckBox;
+    
     int ngroups;
     
     Command cmdOk=new Command(SR.MS_ADD, Command.OK, 1);
@@ -42,6 +44,8 @@ public final class ContactEdit
     boolean newContact=true;
     Config cf;
     Roster roster;
+
+    
     //StoreContact sC;
     
     public ContactEdit(Display display, Contact c) {
@@ -64,6 +68,10 @@ public final class ContactEdit
         
         tGrpList=new ChoiceGroup(SR.MS_EXISTING_GROUPS , ConstMIDP.CHOICE_POPUP);
         tTranspList=new ChoiceGroup(SR.MS_TRANSPORT, ConstMIDP.CHOICE_POPUP);
+        
+        tAskSubscrCheckBox=new ChoiceGroup(SR.MS_SUBSCRIPTION, ChoiceGroup.MULTIPLE);
+        tAskSubscrCheckBox.append(SR.MS_ASK_SUBSCRIPTION, null);
+        
         
 //#if (!MIDP1)
         //NOKIA FIX
@@ -124,7 +132,7 @@ public final class ContactEdit
             }
         }
             
-        if (sel==-1) sel=groups.size()-1;
+        //if (sel==-1) sel=groups.size()-1;
         if (sel<0) sel=0;
         tGroup.setString(group(sel));
         
@@ -141,6 +149,11 @@ public final class ContactEdit
         tGrpList.setSelectedIndex(sel, true);
         
         f.append(tGrpList);
+        
+        if (newContact) {
+            f.append(tAskSubscrCheckBox);
+            tAskSubscrCheckBox.setSelectedIndex(0, true);
+        }
         
         f.addCommand(cmdOk);
         f.addCommand(cmdCancel);
@@ -163,10 +176,14 @@ public final class ContactEdit
                 String group=getString(tGroup);
                 
                 int gSel=tGrpList.getSelectedIndex();
-                if (gSel!=tGrpList.size()-1)  group=tGrpList.getString(gSel); // nokia fix
+                if (gSel!=tGrpList.size()-1)  {
+                    group=(gSel>0)? tGrpList.getString(gSel) : ""; // nokia fix
+                }
                 
                 // сохранение контакта
-                roster.storeContact(jid,name,group, newContact);
+                boolean ask[]=new boolean[1];
+                tAskSubscrCheckBox.getSelectedFlags(ask);
+                roster.storeContact(jid,name,group, ask[0]);
                 destroyView();
                 return;
             }

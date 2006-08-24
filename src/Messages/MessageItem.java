@@ -33,12 +33,16 @@ public class MessageItem implements
     Vector msgLines;
     private VirtualList view;
     private boolean even;
+    private boolean smiles;
+    
     private Vector urlList;
     
+    
     /** Creates a new instance of MessageItem */
-    public MessageItem(Msg msg, VirtualList view) {
+    public MessageItem(Msg msg, VirtualList view, boolean showSmiles) {
 	this.msg=msg;
 	this.view=view;
+        this.smiles=showSmiles;
     }
 
     public int getVHeight() { return msg.itemHeight; }
@@ -57,7 +61,7 @@ public class MessageItem implements
         /*if (selected)*/
         g.translate(1,0);
         if (msgLines==null) {
-            MessageParser.getInstance().parseMsg(this, SmilesIcons.getInstance(), view.getListWidth());
+            MessageParser.getInstance().parseMsg(this, (smiles)?SmilesIcons.getInstance() : null, view.getListWidth());
             return;
         }
         int y=0;
@@ -113,5 +117,10 @@ public class MessageItem implements
 
     public String getTipString() {
         return msg.getTime();
+    }
+
+    void toggleSmiles() {
+        smiles=!smiles;
+        MessageParser.getInstance().parseMsg(this, (smiles)?SmilesIcons.getInstance() : null, view.getListWidth());    
     }
 }
