@@ -1,0 +1,1303 @@
+Index: resources/text/skins/opera.txt
+===================================================================
+--- resources/text/skins/opera.txt	(revision 0)
++++ resources/text/skins/opera.txt	(revision 0)
+@@ -0,0 +1,46 @@
++xmlSkin	opera
++//(by_HekpoHoMukoH)
++
++BALLOON_INK	0x000000
++
++BALLOON_BGND	0xfcaaaa
++
++LIST_BGND	0xfdfcfc
++LIST_BGND_EVEN	0xf7e1e1
++LIST_INK	0x000000
++MSG_SUBJ	0x470c49
++MSG_HIGHLIGHT	0x000000
++
++BLK_INK	0xffffff
++BLK_BGND	0x861010
++
++
++PGS_REMAINED	0xffffff
++PGS_COMPLETE	0xa60303
++PGS_BORDER	0x000000
++PGS_BGND	0xffffff
++
++HEAP_TOTAL	0xffffff
++HEAP_FREE	0x6e25c8
++CURSOR_BGND	0xbfd5f0
++CURSOR_OUTLINE	0x000000
++
++SCROLL_BRD	0x790e0e
++SCROLL_BAR	0xc41616
++SCROLL_BGND	0x7f7575
++
++DISCO_CMD	0x000080
++HEADER_BGND	0xa60303
++HEADER_INK	0xffffff
++CONTACT_DEFAULT	0x000000
++CONTACT_CHAT	0x000000
++CONTACT_AWAY	0x000000
++CONTACT_XA	0x000000
++CONTACT_DND	0x000000
++GROUP_INK	0x000000
++MESSAGE_IN	0x000000
++MESSAGE_OUT	0xbd0d0d
++MESSAGE_PRESENCE	0x000000
++MESSAGE_AUTH	0x000000
++MESSAGE_HISTORY	0x000000
++TITLE_BGND	0x000000
+\ No newline at end of file
+Index: resources/text/skins/res.txt
+===================================================================
+--- resources/text/skins/res.txt	(revision 0)
++++ resources/text/skins/res.txt	(revision 0)
+@@ -0,0 +1,3 @@
++null	default
++/skins/opera.txt	opera
++/skins/tkabber.txt	tkabber
+\ No newline at end of file
+Index: resources/text/skins/tkabber.txt
+===================================================================
+--- resources/text/skins/tkabber.txt	(revision 0)
++++ resources/text/skins/tkabber.txt	(revision 0)
+@@ -0,0 +1,46 @@
++xmlSkin	tkabber
++//(by_HekpoHoMukoH)
++
++BALLOON_INK	0x000000
++
++BALLOON_BGND	0xcbcbcb
++
++LIST_BGND	0xc4cacb
++LIST_BGND_EVEN	0xb4b4b4
++LIST_INK	0x000000
++MSG_SUBJ	0x000000
++MSG_HIGHLIGHT	0x000000
++
++BLK_INK	0xffffff
++BLK_BGND	0x686868
++
++
++PGS_REMAINED	0xd0d1d1
++PGS_COMPLETE	0x7d7d7d
++PGS_BORDER	0x000000
++PGS_BGND	0xffffff
++
++HEAP_TOTAL	0xdadada
++HEAP_FREE	0xe31717
++CURSOR_BGND	0x8c8c8c
++CURSOR_OUTLINE	0x000000
++
++SCROLL_BRD	0x565656
++SCROLL_BAR	0x929292
++SCROLL_BGND	0x727272
++
++DISCO_CMD	0x000000
++HEADER_BGND	0x4c4c4c
++HEADER_INK	0xf20202
++CONTACT_DEFAULT	0x000000
++CONTACT_CHAT	0x000000
++CONTACT_AWAY	0x000000
++CONTACT_XA	0x000000
++CONTACT_DND	0x000000
++GROUP_INK	0x000000
++MESSAGE_IN	0x000000
++MESSAGE_OUT	0xa90909
++MESSAGE_PRESENCE	0x000000
++MESSAGE_AUTH	0x000000
++MESSAGE_HISTORY	0x000000
++TITLE_BGND	0x000000
+\ No newline at end of file
+Index: resources/text/skins/opera.txt
+===================================================================
+--- resources/text/skins/opera.txt	(revision 0)
++++ resources/text/skins/opera.txt	(revision 0)
+@@ -0,0 +1,46 @@
++xmlSkin	opera
++//(by_HekpoHoMukoH)
++
++BALLOON_INK	0x000000
++
++BALLOON_BGND	0xfcaaaa
++
++LIST_BGND	0xfdfcfc
++LIST_BGND_EVEN	0xf7e1e1
++LIST_INK	0x000000
++MSG_SUBJ	0x470c49
++MSG_HIGHLIGHT	0x000000
++
++BLK_INK	0xffffff
++BLK_BGND	0x861010
++
++
++PGS_REMAINED	0xffffff
++PGS_COMPLETE	0xa60303
++PGS_BORDER	0x000000
++PGS_BGND	0xffffff
++
++HEAP_TOTAL	0xffffff
++HEAP_FREE	0x6e25c8
++CURSOR_BGND	0xbfd5f0
++CURSOR_OUTLINE	0x000000
++
++SCROLL_BRD	0x790e0e
++SCROLL_BAR	0xc41616
++SCROLL_BGND	0x7f7575
++
++DISCO_CMD	0x000080
++HEADER_BGND	0xa60303
++HEADER_INK	0xffffff
++CONTACT_DEFAULT	0x000000
++CONTACT_CHAT	0x000000
++CONTACT_AWAY	0x000000
++CONTACT_XA	0x000000
++CONTACT_DND	0x000000
++GROUP_INK	0x000000
++MESSAGE_IN	0x000000
++MESSAGE_OUT	0xbd0d0d
++MESSAGE_PRESENCE	0x000000
++MESSAGE_AUTH	0x000000
++MESSAGE_HISTORY	0x000000
++TITLE_BGND	0x000000
+\ No newline at end of file
+Index: resources/text/skins/res.txt
+===================================================================
+--- resources/text/skins/res.txt	(revision 0)
++++ resources/text/skins/res.txt	(revision 0)
+@@ -0,0 +1,3 @@
++null	default
++/skins/opera.txt	opera
++/skins/tkabber.txt	tkabber
+\ No newline at end of file
+Index: resources/text/skins/tkabber.txt
+===================================================================
+--- resources/text/skins/tkabber.txt	(revision 0)
++++ resources/text/skins/tkabber.txt	(revision 0)
+@@ -0,0 +1,46 @@
++xmlSkin	tkabber
++//(by_HekpoHoMukoH)
++
++BALLOON_INK	0x000000
++
++BALLOON_BGND	0xcbcbcb
++
++LIST_BGND	0xc4cacb
++LIST_BGND_EVEN	0xb4b4b4
++LIST_INK	0x000000
++MSG_SUBJ	0x000000
++MSG_HIGHLIGHT	0x000000
++
++BLK_INK	0xffffff
++BLK_BGND	0x686868
++
++
++PGS_REMAINED	0xd0d1d1
++PGS_COMPLETE	0x7d7d7d
++PGS_BORDER	0x000000
++PGS_BGND	0xffffff
++
++HEAP_TOTAL	0xdadada
++HEAP_FREE	0xe31717
++CURSOR_BGND	0x8c8c8c
++CURSOR_OUTLINE	0x000000
++
++SCROLL_BRD	0x565656
++SCROLL_BAR	0x929292
++SCROLL_BGND	0x727272
++
++DISCO_CMD	0x000000
++HEADER_BGND	0x4c4c4c
++HEADER_INK	0xf20202
++CONTACT_DEFAULT	0x000000
++CONTACT_CHAT	0x000000
++CONTACT_AWAY	0x000000
++CONTACT_XA	0x000000
++CONTACT_DND	0x000000
++GROUP_INK	0x000000
++MESSAGE_IN	0x000000
++MESSAGE_OUT	0xa90909
++MESSAGE_PRESENCE	0x000000
++MESSAGE_AUTH	0x000000
++MESSAGE_HISTORY	0x000000
++TITLE_BGND	0x000000
+\ No newline at end of file
+Index: src/Client/Account.java
+===================================================================
+--- src/Client/Account.java	(revision 508)
++++ src/Client/Account.java	(working copy)
+@@ -14,7 +14,7 @@
+ import java.io.*;
+ import javax.microedition.midlet.MIDlet;
+ import midlet.Bombus;
+-import ui.Colors;
++import skin.SKINS;
+ import ui.IconTextElement;
+ import ui.ImageList;
+ import javax.microedition.rms.*;
+@@ -187,7 +187,7 @@
+     
+     //public void onSelect(){ }
+     //public String toString(){ return jid; }
+-    public int getColor(){ return Colors.LIST_INK; }
++    public int getColor(){ return SKINS.getCol(SKINS.LIST_INK,0x000000); }
+     
+     protected int getImageIndex() {return active?0:5;}
+     public void onSelect(){};
+Index: src/Client/AlertProfile.java
+===================================================================
+--- src/Client/AlertProfile.java	(revision 508)
++++ src/Client/AlertProfile.java	(working copy)
+@@ -13,6 +13,7 @@
+ import locale.SR;
+ import ui.*;
+ import javax.microedition.lcdui.*;
++import skin.SKINS;
+ 
+ /**
+  *
+@@ -64,7 +65,7 @@
+             super(RosterIcons.getInstance());
+         }
+         //public void onSelect(){}
+-        public int getColor(){ return Colors.LIST_INK; }
++        public int getColor(){ return SKINS.getCol(SKINS.LIST_INK,0x000000); }
+         public int getImageIndex(){return index+RosterIcons.ICON_PROFILE_INDEX;}
+         public String toString(){ 
+             StringBuffer s=new StringBuffer(alertNames[index]);
+Index: src/Client/Config.java
+===================================================================
+--- src/Client/Config.java	(revision 508)
++++ src/Client/Config.java	(working copy)
+@@ -99,6 +99,7 @@
+     public int font3=0;
+ 
+     public int lang=0;  //en
++    public int skin=0;  //default  
+     
+     // runtime values
+     public boolean allowMinimize=false;
+@@ -196,6 +197,7 @@
+             autoFocus=inputStream.readBoolean();
+             
+             lang=inputStream.readInt();
++            skin=inputStream.readInt(); 
+ 	    
+ 	    inputStream.close();
+ 	} catch (Exception e) {
+@@ -219,6 +221,12 @@
+ 	return (String) files[0].elementAt(lang);
+     }
+     
++    public String skinFileName(){
++       if (skin==0) return null;   //default
++		Vector files[]=new StringLoader().stringLoader("/skins/res.txt", 2);
++		return (String) files[0].elementAt(skin);
++    }      
++    
+     public void saveToStorage(){
+ 	
+ 	DataOutputStream outputStream=NvStorage.CreateDataOutputStream();
+@@ -257,6 +265,7 @@
+             outputStream.writeBoolean(autoFocus);
+             
+             outputStream.writeInt(lang);
++            outputStream.writeInt(skin); 
+             
+ 	    
+ 	} catch (IOException e) { e.printStackTrace(); }
+Index: src/Client/ConfigForm.java
+===================================================================
+--- src/Client/ConfigForm.java	(revision 508)
++++ src/Client/ConfigForm.java	(working copy)
+@@ -15,6 +15,7 @@
+ import ui.controls.NumberField;
+ import util.StringLoader;
+ import ui.*;
++import skin.SKINS;
+ 
+ /**
+  *
+@@ -60,6 +61,7 @@
+     ChoiceGroup application;
+ 
+     ChoiceGroup lang;
++    ChoiceGroup skin;
+     
+     ChoiceGroup sndFile;
+     //Gauge sndVol;
+@@ -182,6 +184,15 @@
+ 	}
+ 	
+         lang.setSelectedIndex(cf.lang, true);
++        
++        skin=new ChoiceGroup("Color Sheme", ConstMIDP.CHOICE_POPUP);
++	Vector skins[]=new StringLoader().stringLoader("/skins/res.txt",2);
++	
++	for (Enumeration f=skins[1].elements(); f.hasMoreElements(); ) {
++	    skin.append( (String)f.nextElement(), null );
++	}
++	
++        skin.setSelectedIndex(cf.skin, true);
+ 
+         
+         //sndVol=new Gauge("Sound volume", true, 10,  cf.soundVol/10);
+@@ -209,7 +220,8 @@
+         f.append(fieldLoc);
+         
+         f.append(lang);
+-
++        f.append(skin);
++        
+         f.addCommand(cmdOk);
+         f.addCommand(cmdCancel);
+         
+@@ -260,6 +272,7 @@
+ 	    
+ 	    //cf.soundVol=sndVol.getValue()*10;
+             cf.lang=lang.getSelectedIndex();
++            cf.skin=skin.getSelectedIndex();
+ 	    
+ 	    cf.loadSoundName();
+             
+Index: src/Client/Contact.java
+===================================================================
+--- src/Client/Contact.java	(revision 508)
++++ src/Client/Contact.java	(working copy)
+@@ -9,7 +9,7 @@
+ 
+ package Client;
+ import images.RosterIcons;
+-import ui.Colors;
++import skin.SKINS;
+ import vcard.VCard;
+ import java.util.*;
+ import ui.IconTextElement;
+@@ -23,14 +23,14 @@
+ public class Contact extends IconTextElement{
+     
+     private static int COLORS[]={
+-        Colors.CONTACT_DEFAULT,
+-        Colors.CONTACT_CHAT,
+-        Colors.CONTACT_AWAY,
+-        Colors.CONTACT_XA,
+-        Colors.CONTACT_DND,
+-        Colors.CONTACT_DEFAULT,
+-        Colors.CONTACT_DEFAULT,
+-        Colors.CONTACT_DEFAULT
++        SKINS.getCol(SKINS.CONTACT_DEFAULT,0x000000),
++        SKINS.getCol(SKINS.CONTACT_CHAT,0x39358b),
++        SKINS.getCol(SKINS.CONTACT_AWAY,0x008080),
++        SKINS.getCol(SKINS.CONTACT_XA,0x535353),
++        SKINS.getCol(SKINS.CONTACT_DND,0x800000),
++        SKINS.getCol(SKINS.CONTACT_DEFAULT,0x000000),
++        SKINS.getCol(SKINS.CONTACT_DEFAULT,0x000000),
++        SKINS.getCol(SKINS.CONTACT_DEFAULT,0x000000)
+     };
+     
+     public final static byte ORIGIN_ROSTER=0;
+Index: src/Client/ExtendedStatus.java
+===================================================================
+--- src/Client/ExtendedStatus.java	(revision 508)
++++ src/Client/ExtendedStatus.java	(working copy)
+@@ -13,7 +13,7 @@
+ import java.util.Enumeration;
+ import java.io.*;
+ import java.util.Vector;
+-import ui.Colors;
++import skin.SKINS;
+ import ui.IconTextElement;
+ import ui.ImageList;
+ import com.alsutton.jabber.datablocks.Presence;
+@@ -50,7 +50,7 @@
+         //return name+" ("+priority+") \""+status+"\""; 
+         return s.toString();
+     }
+-    public int getColor(){ return Colors.LIST_INK;}
++    public int getColor(){ return SKINS.getCol(SKINS.LIST_INK,0x000000); }
+     public int getImageIndex(){ return index;}
+ 
+     public String getName() { return name; }
+Index: src/Client/Group.java
+===================================================================
+--- src/Client/Group.java	(revision 508)
++++ src/Client/Group.java	(working copy)
+@@ -11,6 +11,7 @@
+ import images.RosterIcons;
+ import java.util.*;
+ import ui.*;
++import skin.SKINS;
+ 
+ 
+ /**
+@@ -39,7 +40,7 @@
+         /*this.label=label;*/
+         
+     }
+-    public int getColor(){ return Colors.GROUP_INK; }
++    public int getColor(){ return SKINS.getCol(SKINS.GROUP_INK,0x000080); }
+     public int getImageIndex() {
+         return collapsed?
+             RosterIcons.ICON_COLLAPSED_INDEX
+Index: src/Client/Msg.java
+===================================================================
+--- src/Client/Msg.java	(revision 508)
++++ src/Client/Msg.java	(working copy)
+@@ -12,7 +12,7 @@
+ import java.io.DataOutputStream;
+ import java.io.IOException;
+ import java.util.*;
+-import ui.Colors;
++import skin.SKINS;
+ import ui.Time;
+ import Client.ContactMessageList;
+ import javax.microedition.lcdui.Image;
+@@ -59,11 +59,11 @@
+     
+     public int getColor() {
+         switch (messageType) {
+-            case MESSAGE_TYPE_IN: return Colors.MESSAGE_IN;
+-            case MESSAGE_TYPE_OUT: return Colors.MESSAGE_OUT;
+-            case MESSAGE_TYPE_PRESENCE: return Colors.MESSAGE_PRESENCE;
+-            case MESSAGE_TYPE_AUTH: return Colors.MESSAGE_AUTH;
+-            case MESSAGE_TYPE_HISTORY: return Colors.MESSAGE_HISTORY;
++            case MESSAGE_TYPE_IN: return SKINS.getCol(SKINS.MESSAGE_IN,0x0000b0);
++            case MESSAGE_TYPE_OUT: return SKINS.getCol(SKINS.MESSAGE_OUT,0xb00000);
++            case MESSAGE_TYPE_PRESENCE: return SKINS.getCol(SKINS.MESSAGE_PRESENCE,0x006000);
++            case MESSAGE_TYPE_AUTH: return SKINS.getCol(SKINS.MESSAGE_AUTH,0x400040);
++            case MESSAGE_TYPE_HISTORY: return SKINS.getCol(SKINS.MESSAGE_HISTORY,0x535353);
+         }
+         return 0;
+     }
+Index: src/Client/Roster.java
+===================================================================
+--- src/Client/Roster.java	(revision 508)
++++ src/Client/Roster.java	(working copy)
+@@ -33,6 +33,7 @@
+ import ServiceDiscovery.ServiceDiscovery;
+ import Conference.ConferenceForm;
+ import PrivacyLists.PrivacySelect;
++import skin.SKINS;
+ 
+ //import Client.msg.*;
+ 
+@@ -198,6 +199,7 @@
+     // establishing connection process
+     public void run(){
+         Iq.setXmlLang(SR.MS_XMLLANG);
++        Iq.setXmlSkin(SKINS.MS_XMLSKIN);
+         setQuerySign(true);
+         setProgress(25);
+ 	if (!reconnect) {
+Index: src/Client/SmilePicker.java
+===================================================================
+--- src/Client/SmilePicker.java	(revision 508)
++++ src/Client/SmilePicker.java	(working copy)
+@@ -15,6 +15,7 @@
+ import javax.microedition.lcdui.*;
+ import java.util.Vector;
+ import ui.controls.Balloon;
++import skin.SKINS;
+ 
+ /**
+  *
+@@ -89,8 +90,8 @@
+     //private class SmileItem implements VirtualElement {
+     public int getVWidth(){ return 0; }
+     public int getVHeight() { return lineHeight; }
+-    public int getColor(){ return Colors.LIST_INK; }
+-    public int getColorBGnd(){ return Colors.LIST_BGND; }
++    public int getColor(){ return SKINS.getCol(SKINS.LIST_INK,0x000000); }
++    public int getColorBGnd(){ return SKINS.getCol(SKINS.LIST_BGND,0xFFFFFF); }
+     public void onSelect(){
+         try {
+             me.addText( getTipString() );
+@@ -109,7 +110,7 @@
+     //}
+     public void drawCursor (Graphics g, int width, int height){
+         int x=xCursor*imgWidth;
+-        g.setColor(Colors.LIST_BGND);
++        g.setColor(SKINS.getCol(SKINS.LIST_BGND,0xFFFFFF));
+         g.fillRect(0,0,width, height);
+         g.translate(x,0);
+         super.drawCursor(g, imgWidth, lineHeight);
+Index: src/com/alsutton/jabber/datablocks/Iq.java
+===================================================================
+--- src/com/alsutton/jabber/datablocks/Iq.java	(revision 508)
++++ src/com/alsutton/jabber/datablocks/Iq.java	(working copy)
+@@ -51,6 +51,12 @@
+         xmlLang=lang;
+     }
+     
++    private static String xmlSkin=null;
++    
++    public static void setXmlSkin(String skin){
++        xmlSkin=skin;
++    } 
++
+   public Iq( JabberDataBlock _parent, Hashtable _attributes )
+   {
+     super( _parent, _attributes );
+Index: src/Conference/affiliation/AffiliationItem.java
+===================================================================
+--- src/Conference/affiliation/AffiliationItem.java	(revision 508)
++++ src/Conference/affiliation/AffiliationItem.java	(working copy)
+@@ -12,7 +12,7 @@
+ import Client.StaticData;
+ import com.alsutton.jabber.JabberDataBlock;
+ import images.RosterIcons;
+-import ui.Colors;
++import skin.SKINS;
+ import ui.IconTextElement;
+ import ui.ImageList;
+ 
+@@ -64,7 +64,7 @@
+     }
+     
+     
+-    public int getColor() { return Colors.LIST_INK; }
++    public int getColor() { return SKINS.getCol(SKINS.LIST_INK,0x000000); }
+     
+     public String toString() { return jid; }
+ }
+Index: src/Conference/BookmarkItem.java
+===================================================================
+--- src/Conference/BookmarkItem.java	(revision 508)
++++ src/Conference/BookmarkItem.java	(working copy)
+@@ -12,6 +12,7 @@
+ import com.alsutton.jabber.JabberDataBlock;
+ import images.RosterIcons;
+ import ui.*;
++import skin.SKINS;
+ 
+ /**
+  *
+@@ -28,7 +29,7 @@
+     
+     public int getImageIndex(){ return (isUrl)? RosterIcons.ICON_PRIVACY_ACTIVE: RosterIcons.ICON_GCJOIN_INDEX; }
+     public String toString(){ return jid+'/'+nick; }
+-    public int getColor(){ return Colors.LIST_INK;}
++    public int getColor(){ return SKINS.getCol(SKINS.LIST_INK,0x000000);}
+     
+     /** Creates a new instance of BookmarkItem */
+     public BookmarkItem() {
+Index: src/Messages/MessageItem.java
+===================================================================
+--- src/Messages/MessageItem.java	(revision 508)
++++ src/Messages/MessageItem.java	(working copy)
+@@ -15,7 +15,7 @@
+ import java.util.Enumeration;
+ import java.util.Vector;
+ import javax.microedition.lcdui.Graphics;
+-import ui.Colors;
++import skin.SKINS;
+ import ui.ComplexString;
+ import ui.VirtualElement;
+ import ui.VirtualList;
+@@ -46,8 +46,8 @@
+ 
+ 	public int getColorBGnd() { 
+             return (even)?
+-                Colors.LIST_BGND_EVEN:
+-                Colors.LIST_BGND; 
++                SKINS.getCol(SKINS.LIST_BGND_EVEN,0xffeeff):
++                SKINS.getCol(SKINS.LIST_BGND,0xFFFFFF); 
+         }
+ 
+ 	public int getColor() { return msg.getColor(); }
+Index: src/Messages/MessageParser.java
+===================================================================
+--- src/Messages/MessageParser.java	(revision 508)
++++ src/Messages/MessageParser.java	(working copy)
+@@ -15,6 +15,7 @@
+ 
+ import ui.*;
+ import Client.Msg;
++import skin.SKINS;
+ /**
+  *
+  * @author Eugene Stahov
+@@ -197,8 +198,8 @@
+                 String txt=(state==0)? task.msg.subject: task.msg.toString();
+                 
+                 int color=(state==0)? 
+-                    Colors.MSG_SUBJ:
+-                    Colors.LIST_INK;
++                    SKINS.getCol(SKINS.MSG_SUBJ,0xa00000):
++                    SKINS.getCol(SKINS.LIST_INK,0x000000);
+                 l.setColor(color);
+                 
+                 int i=0;
+@@ -285,7 +286,7 @@
+                             l.addElement(s.toString());    // последняя подстрока в l
+                             s.setLength(0); w=0;
+                             
+-                            if (c==0xa0) l.setColor(Colors.MSG_HIGHLIGHT);
++                            if (c==0xa0) l.setColor(SKINS.getCol(SKINS.MSG_HIGHLIGHT,0x904090));
+                             
+                             v.addElement(l);    // добавим l в v
+                             task.notifyRepaint(v, task.msg, false);
+Index: src/Messages/MessageView.java
+===================================================================
+--- src/Messages/MessageView.java	(revision 508)
++++ src/Messages/MessageView.java	(working copy)
+@@ -15,6 +15,7 @@
+ import ui.*;
+ import javax.microedition.lcdui.*;
+ import java.util.*;
++import skin.SKINS;
+ 
+ /**
+  *
+@@ -41,7 +42,7 @@
+ 
+     private MessageList msglist;
+ 
+-    public int getTitleBGndRGB() {return 0x338888;} 
++    public int getTitleBGndRGB() {return SKINS.getCol(SKINS.TITLE_BGND,0x338888);}
+     public int getTitleRGB() {return titlecolor;} 
+     
+     int repaintCounter=5;
+Index: src/PrivacyLists/PrivacyItem.java
+===================================================================
+--- src/PrivacyLists/PrivacyItem.java	(revision 508)
++++ src/PrivacyLists/PrivacyItem.java	(working copy)
+@@ -12,6 +12,7 @@
+ import ui.*;
+ import com.alsutton.jabber.*;
+ import Client.*;
++import skin.SKINS;
+ 
+ /**
+  *
+@@ -47,7 +48,7 @@
+         return action+ RosterIcons.ICON_PRIVACY_ALLOW;
+     }
+     
+-    public int getColor() { return Colors.LIST_INK; }
++    public int getColor() { return SKINS.getCol(SKINS.LIST_INK,0x000000); }
+     
+     public String toString() { return (type==ITEM_ANY)?"ANY":value; }
+     
+Index: src/PrivacyLists/PrivacyList.java
+===================================================================
+--- src/PrivacyLists/PrivacyList.java	(revision 508)
++++ src/PrivacyLists/PrivacyList.java	(working copy)
+@@ -15,6 +15,7 @@
+ import ui.*;
+ import Client.*;
+ import com.alsutton.jabber.*;
++import skin.SKINS;
+ 
+ /**
+  *
+@@ -37,7 +38,7 @@
+     public int getImageIndex() {return (isActive)?
+         RosterIcons.ICON_PRIVACY_ACTIVE:
+         RosterIcons.ICON_PRIVACY_PASSIVE; }
+-    public int getColor() {return Colors.LIST_INK; }
++    public int getColor() {return SKINS.getCol(SKINS.LIST_INK,0x000000); }
+     
+     public String toString() {
+         StringBuffer result=new StringBuffer((name==null)? "<none>": name);
+Index: src/ServiceDiscovery/Node.java
+===================================================================
+--- src/ServiceDiscovery/Node.java	(revision 508)
++++ src/ServiceDiscovery/Node.java	(working copy)
+@@ -11,7 +11,7 @@
+ 
+ import Client.StaticData;
+ import images.RosterIcons;
+-import ui.Colors;
++import skin.SKINS;
+ import ui.IconTextElement;
+ import ui.ImageList;
+ 
+@@ -25,7 +25,7 @@
+     private String name;
+     
+     public int getImageIndex() { return RosterIcons.ICON_COLLAPSED_INDEX; }
+-    public int getColor() { return Colors.LIST_INK; }
++    public int getColor() { return SKINS.getCol(SKINS.LIST_INK,0x000000); }
+     /** Creates a new instance of Item */
+     public Node(String name, String node) {
+         super(RosterIcons.getInstance());
+Index: src/ServiceDiscovery/ServiceDiscovery.java
+===================================================================
+--- src/ServiceDiscovery/ServiceDiscovery.java	(revision 508)
++++ src/ServiceDiscovery/ServiceDiscovery.java	(working copy)
+@@ -1,7 +1,7 @@
+ /*
+  * ServiceDiscovery.java
+  *
+- * Created on 4 Июнь 2005 г., 21:12
++ * Created on 4 �?юнь 2005 г., 21:12
+  *
+  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+  * All rights reserved.
+@@ -17,6 +17,7 @@
+ import com.alsutton.jabber.*;
+ import com.alsutton.jabber.datablocks.*;
+ import Client.*;
++import skin.SKINS;
+ 
+ /**
+  *
+@@ -290,7 +291,7 @@
+             super(RosterIcons.getInstance());
+             this.index=index; this.name=name;
+         }
+-        public int getColor(){ return Colors.DISCO_CMD; }
++        public int getColor(){ return SKINS.getCol(SKINS.DISCO_CMD,0x000080); }
+         public int getImageIndex() { return RosterIcons.ICON_GCJOIN_INDEX + index; }
+         public String toString(){ return name; }
+         public void onSelect(){
+Index: src/skin/SKINS.java
+===================================================================
+--- src/skin/SKINS.java	(revision 0)
++++ src/skin/SKINS.java	(revision 0)
+@@ -0,0 +1,113 @@
++/*
++ * SKINS.java
++ *
++ * Created on May 22, 2006, 3:06 PM
++ *
++ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
++ * All rights reserved.
++ * (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
++ */
++
++package skin;
++
++import Client.Config;
++import java.util.Hashtable;
++import util.StringLoader;
++
++       
++public class SKINS {
++
++	static public int RGBtoInteger (int red, int green, int blue)
++	{	
++		return (int)((255 << 24) | (red << 16) | (green << 8) | blue);
++	}  
++    
++        public static int getCol(final String key, final int defvalue) {
++	try {
++	    String s=loadString( key );
++            return RGBtoInteger(Integer.parseInt(s.substring(2,4),16),Integer.parseInt(s.substring(4,6),16),Integer.parseInt(s.substring(6,8),16));
++	} catch (Exception e) { }
++	return defvalue;
++        }
++       
++
++    public static String BALLOON_INK = loadString( "BALLOON_INK" ); 
++    public static String BALLOON_BGND = loadString( "BALLOON_BGND" );     
++    
++    public static String LIST_BGND = loadString( "LIST_BGND" );    
++    public static String LIST_BGND_EVEN = loadString( "LIST_BGND_EVEN" ); 
++    
++    public static String LIST_INK  = loadString( "LIST_INK" );
++    public static String MSG_SUBJ  = loadString( "MSG_SUBJ" );     
++    public static String MSG_HIGHLIGHT  = loadString( "MSG_HIGHLIGHT" );  
++
++    public static String DISCO_CMD  = loadString( "DISCO_CMD" );
++
++    public static String HEADER_BGND  = loadString( "HEADER_BGND" );
++    public static String HEADER_INK  = loadString( "HEADER_INK" );    
++
++    public static String CONTACT_DEFAULT  = loadString( "CONTACT_DEFAULT" );  
++    public static String CONTACT_CHAT  = loadString( "CONTACT_CHAT" );  
++    public static String CONTACT_AWAY  = loadString( "CONTACT_AWAY" );  
++    public static String CONTACT_XA  = loadString( "CONTACT_XA" );  
++    public static String CONTACT_DND  = loadString( "CONTACT_DND" );  
++    
++    public static String GROUP_INK  = loadString( "GROUP_INK" );  
++   
++    public static String BLK_INK = loadString( "BLK_INK" );   
++    public static String BLK_BGND = loadString( "BLK_BGND" );       
++
++    public static String MESSAGE_IN  = loadString( "MESSAGE_IN" );
++    public static String MESSAGE_OUT  = loadString( "MESSAGE_OUT" );
++    public static String MESSAGE_PRESENCE  = loadString( "MESSAGE_PRESENCE" );
++    public static String MESSAGE_AUTH  = loadString( "MESSAGE_AUTH" );
++    public static String MESSAGE_HISTORY  = loadString( "MESSAGE_HISTORY" );
++
++    public static String PGS_REMAINED = loadString( "PGS_REMAINED" );   
++    public static String PGS_COMPLETE = loadString( "PGS_COMPLETE" );       
++    public static String PGS_BORDER = loadString( "PGS_BORDER" );     
++    public static String PGS_BGND = loadString( "PGS_BGND" );     
++  
++    public static String HEAP_TOTAL = loadString( "HEAP_TOTAL" ); 
++    public static String HEAP_FREE = loadString( "HEAP_FREE" ); 
++    
++    public static String CURSOR_BGND = loadString( "CURSOR_BGND" );   
++    public static String CURSOR_OUTLINE = loadString( "CURSOR_OUTLINE" );       
++
++    public static String SCROLL_BRD = loadString( "SCROLL_BRD" );
++    public static String SCROLL_BAR = loadString( "SCROLL_BAR" );
++    public static String SCROLL_BGND = loadString( "SCROLL_BGND" );
++
++    public static String TITLE_BGND = loadString( "TITLE_BGND" );    
++   
++    
++    public static String MS_XMLSKIN;
++    public static String MS_IFACESKIN;
++
++
++
++
++    private SKINS() { }
++
++    private static Hashtable skin;
++
++    private static String loadString(String key) {
++        if (skin==null) {
++            String skinFile=Config.getInstance().skinFileName();
++            if (skinFile==null) skin=new Hashtable();
++            else skin=new StringLoader().hashtableLoader(skinFile);
++            System.out.print("Loading skin ");
++            System.out.println(skinFile);
++            MS_XMLSKIN=(String)skin.get("xmlSkin");
++
++            MS_IFACESKIN=MS_XMLSKIN;
++            if (MS_IFACESKIN==null) MS_IFACESKIN="default";
++        }
++        String value=(String)skin.get(key);
++        return (value==null)?key:value;
++    }
++
++    public static void loaded() {
++        skin=null;
++    }
++}
+Index: src/skin/SKINS.java
+===================================================================
+--- src/skin/SKINS.java	(revision 0)
++++ src/skin/SKINS.java	(revision 0)
+@@ -0,0 +1,113 @@
++/*
++ * SKINS.java
++ *
++ * Created on May 22, 2006, 3:06 PM
++ *
++ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
++ * All rights reserved.
++ * (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
++ */
++
++package skin;
++
++import Client.Config;
++import java.util.Hashtable;
++import util.StringLoader;
++
++       
++public class SKINS {
++
++	static public int RGBtoInteger (int red, int green, int blue)
++	{	
++		return (int)((255 << 24) | (red << 16) | (green << 8) | blue);
++	}  
++    
++        public static int getCol(final String key, final int defvalue) {
++	try {
++	    String s=loadString( key );
++            return RGBtoInteger(Integer.parseInt(s.substring(2,4),16),Integer.parseInt(s.substring(4,6),16),Integer.parseInt(s.substring(6,8),16));
++	} catch (Exception e) { }
++	return defvalue;
++        }
++       
++
++    public static String BALLOON_INK = loadString( "BALLOON_INK" ); 
++    public static String BALLOON_BGND = loadString( "BALLOON_BGND" );     
++    
++    public static String LIST_BGND = loadString( "LIST_BGND" );    
++    public static String LIST_BGND_EVEN = loadString( "LIST_BGND_EVEN" ); 
++    
++    public static String LIST_INK  = loadString( "LIST_INK" );
++    public static String MSG_SUBJ  = loadString( "MSG_SUBJ" );     
++    public static String MSG_HIGHLIGHT  = loadString( "MSG_HIGHLIGHT" );  
++
++    public static String DISCO_CMD  = loadString( "DISCO_CMD" );
++
++    public static String HEADER_BGND  = loadString( "HEADER_BGND" );
++    public static String HEADER_INK  = loadString( "HEADER_INK" );    
++
++    public static String CONTACT_DEFAULT  = loadString( "CONTACT_DEFAULT" );  
++    public static String CONTACT_CHAT  = loadString( "CONTACT_CHAT" );  
++    public static String CONTACT_AWAY  = loadString( "CONTACT_AWAY" );  
++    public static String CONTACT_XA  = loadString( "CONTACT_XA" );  
++    public static String CONTACT_DND  = loadString( "CONTACT_DND" );  
++    
++    public static String GROUP_INK  = loadString( "GROUP_INK" );  
++   
++    public static String BLK_INK = loadString( "BLK_INK" );   
++    public static String BLK_BGND = loadString( "BLK_BGND" );       
++
++    public static String MESSAGE_IN  = loadString( "MESSAGE_IN" );
++    public static String MESSAGE_OUT  = loadString( "MESSAGE_OUT" );
++    public static String MESSAGE_PRESENCE  = loadString( "MESSAGE_PRESENCE" );
++    public static String MESSAGE_AUTH  = loadString( "MESSAGE_AUTH" );
++    public static String MESSAGE_HISTORY  = loadString( "MESSAGE_HISTORY" );
++
++    public static String PGS_REMAINED = loadString( "PGS_REMAINED" );   
++    public static String PGS_COMPLETE = loadString( "PGS_COMPLETE" );       
++    public static String PGS_BORDER = loadString( "PGS_BORDER" );     
++    public static String PGS_BGND = loadString( "PGS_BGND" );     
++  
++    public static String HEAP_TOTAL = loadString( "HEAP_TOTAL" ); 
++    public static String HEAP_FREE = loadString( "HEAP_FREE" ); 
++    
++    public static String CURSOR_BGND = loadString( "CURSOR_BGND" );   
++    public static String CURSOR_OUTLINE = loadString( "CURSOR_OUTLINE" );       
++
++    public static String SCROLL_BRD = loadString( "SCROLL_BRD" );
++    public static String SCROLL_BAR = loadString( "SCROLL_BAR" );
++    public static String SCROLL_BGND = loadString( "SCROLL_BGND" );
++
++    public static String TITLE_BGND = loadString( "TITLE_BGND" );    
++   
++    
++    public static String MS_XMLSKIN;
++    public static String MS_IFACESKIN;
++
++
++
++
++    private SKINS() { }
++
++    private static Hashtable skin;
++
++    private static String loadString(String key) {
++        if (skin==null) {
++            String skinFile=Config.getInstance().skinFileName();
++            if (skinFile==null) skin=new Hashtable();
++            else skin=new StringLoader().hashtableLoader(skinFile);
++            System.out.print("Loading skin ");
++            System.out.println(skinFile);
++            MS_XMLSKIN=(String)skin.get("xmlSkin");
++
++            MS_IFACESKIN=MS_XMLSKIN;
++            if (MS_IFACESKIN==null) MS_IFACESKIN="default";
++        }
++        String value=(String)skin.get(key);
++        return (value==null)?key:value;
++    }
++
++    public static void loaded() {
++        skin=null;
++    }
++}
+Index: src/ui/ComplexString.java
+===================================================================
+--- src/ui/ComplexString.java	(revision 508)
++++ src/ui/ComplexString.java	(working copy)
+@@ -11,6 +11,7 @@
+ import java.util.*;
+ import javax.microedition.lcdui.*;
+ import ui.VirtualElement;
++import skin.SKINS;
+ 
+ /**
+  *
+@@ -28,8 +29,8 @@
+     private int height;
+     private int width;
+     private ImageList imageList;
+-    private int colorBGnd=Colors.LIST_BGND;
+-    private int color=Colors.LIST_INK;
++    private int colorBGnd=SKINS.getCol(SKINS.LIST_BGND,0xFFFFFF);
++    private int color=SKINS.getCol(SKINS.LIST_INK,0x000000);
+     
+     /** Creates a new instance of ComplexString */
+     public ComplexString() {
+Index: src/ui/controls/Balloon.java
+===================================================================
+--- src/ui/controls/Balloon.java	(revision 508)
++++ src/ui/controls/Balloon.java	(working copy)
+@@ -11,7 +11,7 @@
+ 
+ import javax.microedition.lcdui.Font;
+ import javax.microedition.lcdui.Graphics;
+-import ui.Colors;
++import skin.SKINS;
+ import ui.FontCache;
+ 
+ /**
+@@ -36,13 +36,13 @@
+         y-=height-1;
+         g.translate(0, y);
+         
+-        g.setColor(Colors.BALLOON_INK);
++        g.setColor(SKINS.getCol(SKINS.BALLOON_INK,0x000000));
+         g.fillRect(2, 0, width, height);
+ 
+-        g.setColor(Colors.BALLOON_BGND);
++        g.setColor(SKINS.getCol(SKINS.BALLOON_BGND,0xffffe0));
+         g.fillRect(3, 1, width-2, height-2);
+        
+-        g.setColor(Colors.BALLOON_INK);
++        g.setColor(SKINS.getCol(SKINS.BALLOON_INK,0x000000));
+         g.drawString(text, 5, 2, Graphics.TOP | Graphics.LEFT);
+     }
+ }
+Index: src/ui/controls/ScrollBar.java
+===================================================================
+--- src/ui/controls/ScrollBar.java	(revision 508)
++++ src/ui/controls/ScrollBar.java	(working copy)
+@@ -10,7 +10,7 @@
+ package ui.controls;
+ 
+ import javax.microedition.lcdui.Graphics;
+-import ui.Colors;
++import skin.SKINS;
+ import ui.VirtualList;
+ 
+ /**
+@@ -117,10 +117,10 @@
+ 
+ 	g.translate(scrollerX, 0);
+ 
+-        g.setColor(Colors.SCROLL_BGND);
++        g.setColor(SKINS.getCol(SKINS.SCROLL_BGND,0xDDDDDD));
+ 	g.fillRect(1, 1, scrollWidth-2, drawHeight-2);
+ 	
+-        g.setColor(Colors.LIST_BGND);
++        g.setColor(SKINS.getCol(SKINS.LIST_BGND,0xDDDDDD));
+         g.drawRect(0,0,scrollWidth-1,drawHeight-1);
+             
+ 	drawHeight-=minimumHeight;
+@@ -128,10 +128,10 @@
+ 	scrollerSize=(drawHeight*windowSize)/size+minimumHeight;
+ 	
+ 	scrollerPos=(drawHeight*position)/size;
+-        g.setColor(Colors.SCROLL_BAR);
++        g.setColor(SKINS.getCol(SKINS.SCROLL_BAR,0xBBBBBB));
+         g.fillRect(1, scrollerPos, scrollWidth-2, scrollerSize);
+         
+-        g.setColor(Colors.SCROLL_BRD);
++        g.setColor(SKINS.getCol(SKINS.SCROLL_BRD,0x000000));
+         g.drawRect(0, scrollerPos, scrollWidth-1, scrollerSize);
+ 	
+ 	//scrollerPos+=g.getTranslateY();
+Index: src/ui/IconTextElement.java
+===================================================================
+--- src/ui/IconTextElement.java	(revision 508)
++++ src/ui/IconTextElement.java	(working copy)
+@@ -11,6 +11,7 @@
+ import ui.ImageList;
+ import javax.microedition.lcdui.*;
+ import java.util.*;
++import skin.SKINS;
+ 
+ 
+ /**
+@@ -30,7 +31,7 @@
+     abstract protected int getImageIndex();
+     //abstract public void onSelect();
+ 
+-    public int getBGndRGB(){ return 0xffffff;}
++    public int getBGndRGB(){ return SKINS.getCol(SKINS.LIST_BGND,0xFFFFFF);}
+     public int getFontIndex() { return 0;}
+     private Font getFont() { 
+         //return Font.getFont(Font.FACE_PROPORTIONAL, getFontIndex(), Font.SIZE_MEDIUM);
+@@ -59,7 +60,7 @@
+     }
+     //public int getItemCount()
+     public int getVHeight(){ return itemHeight;}
+-    public int getColorBGnd(){ return Colors.LIST_BGND;}
++    public int getColorBGnd(){ return SKINS.getCol(SKINS.LIST_BGND,0xFFFFFF);}
+     public void onSelect(){};
+     
+     /*public void eventOk(){
+Index: src/ui/KeyBlock.java
+===================================================================
+--- src/ui/KeyBlock.java	(revision 508)
++++ src/ui/KeyBlock.java	(working copy)
+@@ -13,6 +13,7 @@
+ import images.RosterIcons;
+ import javax.microedition.lcdui.*;
+ import java.util.*;
++import skin.SKINS;
+ 
+ /**
+  *
+@@ -82,7 +83,7 @@
+         height=getHeight();
+         Font f=FontCache.getClockFont();
+         
+-        g.setColor(Colors.BLK_BGND);
++        g.setColor(SKINS.getCol(SKINS.BLK_BGND,0x000000));
+         g.fillRect(0,0, width, height);
+         
+         if (img!=null) g.drawImage(img, width/2, 0, Graphics.TOP|Graphics.HCENTER);
+@@ -93,7 +94,7 @@
+ //#else
+         int y=height-h;
+ //#endif
+-        g.setColor(Colors.BLK_INK);
++        g.setColor(SKINS.getCol(SKINS.BLK_INK,0xFFFFFF));
+         g.translate(0, y);
+         status.drawItem(g, 0, false);
+         
+@@ -101,10 +102,10 @@
+         int tw=f.stringWidth(time);
+         
+         g.translate(width/2, -h);
+-        g.setColor(Colors.BLK_BGND);
++        g.setColor(SKINS.getCol(SKINS.BLK_BGND,0x000000));
+         g.fillRect(-tw/2-5, -h, tw+10, h);
+ 
+-        g.setColor(Colors.BLK_INK);
++        g.setColor(SKINS.getCol(SKINS.BLK_INK,0xFFFFFF));
+         g.setFont(f);
+         g.drawString(time, 0, 0, Graphics.BOTTOM | Graphics.HCENTER);
+ //#if !(MIDP1)
+Index: src/ui/MenuItem.java
+===================================================================
+--- src/ui/MenuItem.java	(revision 508)
++++ src/ui/MenuItem.java	(working copy)
+@@ -8,6 +8,7 @@
+  */
+ 
+ package ui;
++import skin.SKINS;
+ 
+ /**
+  *
+@@ -27,6 +28,6 @@
+     }
+ 
+     protected int getImageIndex() { return -1;  }
+-    public int getColor() { return Colors.LIST_INK; }
++    public int getColor() { return SKINS.getCol(SKINS.LIST_INK,0x000000); }
+     public String toString(){ return name; }
+ }
+Index: src/ui/SplashScreen.java
+===================================================================
+--- src/ui/SplashScreen.java	(revision 508)
++++ src/ui/SplashScreen.java	(working copy)
+@@ -11,6 +11,7 @@
+ 
+ import Client.NvStorage;
+ import javax.microedition.lcdui.*;
++import skin.SKINS;
+ 
+ /**
+  *
+@@ -58,27 +59,27 @@
+ //#         int y=height-h;
+ //#endif
+         
+-        g.setColor(Colors.PGS_BGND);
++        g.setColor(SKINS.getCol(SKINS.PGS_BGND,0x000000));
+         g.fillRect(0,0, width, height);
+         
+         if (img!=null) g.drawImage(img, width/2, 0, Graphics.TOP|Graphics.HCENTER);
+         
+-        g.setColor(Colors.PGS_BORDER);
++        g.setColor(SKINS.getCol(SKINS.PGS_BORDER,0x808080));
+         g.drawRect(0, y, width-1, h-1);
+         
+-        g.setColor(Colors.PGS_REMAINED);
++        g.setColor(SKINS.getCol(SKINS.PGS_REMAINED,0xFFFFFF));
+         //g.setStrokeStyle(Graphics.DOTTED); <- не работает
+         g.fillRect(1, y+1, width-2,h-2);
+         //g.setStrokeStyle(Graphics.SOLID);
+         
+         g.setFont(f);
+-        g.setColor(Colors.PGS_COMPLETE);
++        g.setColor(SKINS.getCol(SKINS.PGS_COMPLETE,0x0000ff));
+         g.drawString(capt,xt,y+2, Graphics.TOP|Graphics.HCENTER);
+         
+         g.setClip(1, y+1, xp, h-2);
+         g.fillRect(1, y+1, width-2,h-2);
+         
+-        g.setColor(Colors.PGS_REMAINED);
++        g.setColor(SKINS.getCol(SKINS.PGS_REMAINED,0xFFFFFF));
+ //#if ALCATEL_FONT
+ //#         g.drawString(capt,xt,y+2, Graphics.TOP|Graphics.HCENTER);
+ //#else
+Index: src/ui/VirtualList.java
+===================================================================
+--- src/ui/VirtualList.java	(revision 508)
++++ src/ui/VirtualList.java	(working copy)
+@@ -13,6 +13,7 @@
+ import Client.*;
+ import ui.controls.Balloon;
+ import ui.controls.ScrollBar;
++import skin.SKINS;
+ 
+ /**
+  * Вертикальный список виртуальных элементов.
+@@ -52,13 +53,13 @@
+      * цвет фона заголовка
+      * @return RGB-цвет фона заголовка
+      */
+-    protected int getTitleBGndRGB() {return Colors.HEADER_BGND;} 
++    protected int getTitleBGndRGB() {return SKINS.getCol(SKINS.HEADER_BGND,0x0033ff);} 
+ 
+     /**
+      * цвет текста заголовка
+      * @return RGB-цвет текста заголовка
+      */
+-    protected int getTitleRGB() {return Colors.HEADER_INK;} 
++    protected int getTitleRGB() {return SKINS.getCol(SKINS.HEADER_INK,0x33ffff);} 
+     
+     /**
+      * событие "Нажатие кнопки ОК"
+@@ -108,10 +109,10 @@
+     
+     /** 
+      * окно приклеено к позиции курсора 
+-     * ПРИКЛЕИВАЕТСЯ:
++     * ПР�?КЛЕ�?ВАЕТСЯ:
+      *   при нажатии кнопок перемещения курсора
+      *   при выборе стилусом элемента списка
+-     * ОТКЛЕИВАЕТСЯ:
++     * ОТКЛЕ�?ВАЕТСЯ:
+      *   при использовании скролбара
+      */
+     protected boolean stickyWindow=true;
+@@ -368,7 +369,7 @@
+         if (clrH>0) {
+             setAbsOrg(g, 0,displayedBottom);
+             g.setClip(0, 0, itemMaxWidth, clrH);
+-            g.setColor(Colors.LIST_BGND);
++            g.setColor(SKINS.getCol(SKINS.LIST_BGND,0xFFFFFF));
+             //g.setColor(VL_CURSOR_OUTLINE);
+             g.fillRect(0, 0, itemMaxWidth, clrH);
+         }
+@@ -410,8 +411,8 @@
+     private void drawHeapMonitor(final Graphics g) {
+         if (memMonitor) {
+             int ram=(int)((Runtime.getRuntime().freeMemory()*32)/Runtime.getRuntime().totalMemory());
+-            g.setColor(0xffffff);  g.fillRect(width-34,0,34,3);
+-            g.setColor(0x00007f);  g.fillRect(width-33,1,ram,2);
++            g.setColor(SKINS.getCol(SKINS.HEAP_TOTAL,0xFFFFFF));  g.fillRect(width-34,0,34,3);
++            g.setColor(SKINS.getCol(SKINS.HEAP_FREE,0x00007f));  g.fillRect(width-33,1,ram,2);
+         }
+     }
+     
+@@ -742,7 +743,7 @@
+     }
+     
+     /**
+-     * событие "Нажатие ЗЕЛЁНОЙ КНОПКИ"
++     * событие "Нажатие ЗЕЛЁНОЙ КНОПК�?"
+      * в классе VirtualList функция выполняет вызов eventOk().
+      * возможно переопределить (override) функцию для реализации необходимых действий
+      */
+@@ -808,8 +809,8 @@
+      */
+     protected void drawCursor (Graphics g, int width, int height){
+         //g.setColor(VL_CURSOR_SHADE);   g.drawRoundRect(x+2, y+2, width-1, height-1, 3,3);
+-        g.setColor(Colors.CURSOR_BGND);    g.fillRect(1, 1, width-1, height-1);
+-        g.setColor(Colors.CURSOR_OUTLINE); g.drawRect(0, 0, width-1, height-1);
++        g.setColor(SKINS.getCol(SKINS.CURSOR_BGND,0xC8D7E6));    g.fillRect(1, 1, width-1, height-1);
++        g.setColor(SKINS.getCol(SKINS.CURSOR_OUTLINE,0x000066)); g.drawRect(0, 0, width-1, height-1);
+         /*
+         g.drawLine(1,0,width-2,0);
+         g.drawLine(0,1,0,height-2);
