@@ -2599,7 +2599,7 @@ syslog_msg: true
     запрос подписки для добавляемого контакта. В предыдущих версиях данный запрос
     выполнялся и не мог быть отключен.
 
-  * Перемещение фокуса окна на курсор после сворачивания сообщения (FS#328)
+  * Перемещение фокуса окна на курсор после сворачивания сообщения (FS#328) (broken)
 
   --
   + Toggling smiles is returned to MessageList - via menu or '*' key
@@ -2610,7 +2610,16 @@ syslog_msg: true
     subscription request (on by default). 
     Subscription request was always performed in previous version.
 
-  * Focusing view to cursor after collapsing or expanding message in MessageView (FS#328)
+  * Focusing view to cursor after collapsing or expanding message in MessageView (FS#328) (broken)
+
+(627)
+  * Перемещение фокуса окна на курсор после сворачивания сообщения
+  * исправлено выключение смайлов по '*'
+  + больше информации о телефонах siemens в version reply
+  --
+  * Focusing view to cursor after collapsing message now works correctly
+  * Toggling smiles with '*' key
+  + More details in version reply for Siemens phones
 
 ---------------------------
   known issues:

@@ -68,6 +68,7 @@ public abstract class VirtualList
     public void eventOk(){
         try {
             ((VirtualElement)getFocusedObject()).onSelect();
+            updateLayout();
             fitCursorByTop();
         } catch (Exception e) { e.printStackTrace();} 
     }
@@ -128,7 +129,7 @@ public abstract class VirtualList
     private int listHeight;
 
     
-    protected void updateLayout(){
+    protected synchronized void updateLayout(){
         int size=getItemCount();
         if (size==0) return;
         int layout[]=new int[size+1];

@@ -73,7 +73,7 @@ public class ContactMessageList extends MessageList
     
     protected void beginPaint(){
         getTitleItem().setElementAt(sd.roster.messageIcon,2);
-        getTitleItem().setElementAt(contact.incomingComposing, 3);
+        //getTitleItem().setElementAt(contact.incomingComposing, 3);
     }
     
     public void markRead(int msgIndex) {
@@ -154,6 +154,7 @@ public class ContactMessageList extends MessageList
     }
 
     public void userKeyPressed(int keyCode) {
+        super.userKeyPressed(keyCode);
         if (keyCode==keyClear) {
             new YesNoAlert(display, this, SR.MS_CLEAR_LIST, SR.MS_SURE_CLEAR){
                 public void yes() { clearMessageList(); }

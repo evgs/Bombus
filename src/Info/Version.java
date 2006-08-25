@@ -22,7 +22,8 @@ public class Version {
     
     public final static String url="http://bombus.jrudevels.org";
 
-
+    public static boolean isSiemens;
+	
     private static String platformName;
     
     public static String getPlatformName() {
@@ -35,17 +36,6 @@ public class Version {
             if (platformName==null) platformName="Motorola";
             
             if (platformName.startsWith("j2me")) {
-                /*try {
-                    Class.forName("com.motorola.multimedia.Lighting");
-                    // this phone is Motorola if we still here ;)
-                    platformName="Motorola";
-                } catch (Exception e) { } // no specific classes found
-                try {
-                    Class.forName("com.motorola.funlight.FunLight");
-                    // this phone is Motorola if we still here ;)
-                    platformName="Motorola";
-                } catch (Exception e) { } // no specific classes found
-                */
                 
                 if (device!=null && firmware!=null)
                     platformName="Motorola"; // buggy v360
@@ -55,6 +45,16 @@ public class Version {
                 if (device==null) device=System.getProperty("funlights.product");
                 if (device!=null) platformName="Motorola-"+device;
             }
+            
+//#if (!MIDP1)
+            if (platformName.indexOf("SIE") > -1) {
+                platformName=System.getProperty("microedition.platform");
+                isSiemens=true;
+            } else if (System.getProperty("com.siemens.OSVersion")!=null) {
+                platformName="SIE-"+System.getProperty("microedition.platform")+"/"+System.getProperty("com.siemens.OSVersion");
+                isSiemens=true;
+            }
+//#endif
         }
         return platformName;
     }
