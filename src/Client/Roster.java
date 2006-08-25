@@ -1212,6 +1212,7 @@ public class Roster
                 Contact p=(Contact)i.nextElement();
                 if (pass==1) if (p.getNewMsgsCount()>0) { 
 		    focusToContact(p, true);
+                    setRotator();
                     break; 
                 }
                 if (p==c) pass++; // полный круг пройден
