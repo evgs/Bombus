@@ -2612,14 +2612,16 @@ syslog_msg: true
 
   * Focusing view to cursor after collapsing or expanding message in MessageView (FS#328) (broken)
 
-(627)
+(628)
   * Перемещение фокуса окна на курсор после сворачивания сообщения
   * исправлено выключение смайлов по '*'
   + больше информации о телефонах siemens в version reply
+  - убрана вторая (правая) иконка Composing в MessageList
   --
   * Focusing view to cursor after collapsing message now works correctly
   * Toggling smiles with '*' key
   + More details in version reply for Siemens phones
+  - Double icon "Composing" in MessageList
 
 ---------------------------
   known issues:
