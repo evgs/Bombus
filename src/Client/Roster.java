@@ -679,7 +679,7 @@ public class Roster
         if (composingState>0) {
             JabberDataBlock event=new JabberDataBlock("x", null,null);
             event.setNameSpace("jabber:x:event");
-            //event.addChild(new JabberDataBlock("id",null, null));
+            if (body==null) event.addChild(new JabberDataBlock("id",null, null));
             if (composingState==1) {
                 event.addChild("composing", null);
             }

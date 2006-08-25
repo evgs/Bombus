@@ -2626,6 +2626,8 @@ syslog_msg: true
 
 (629)
   * автопрокрутка контакта и баллон при перемещении по '0'
+(630)
+  * Message Composing core fix (jabber:x:event now contains <id/> child)
 ---------------------------
   known issues:
 
