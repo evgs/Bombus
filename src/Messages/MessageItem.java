@@ -34,9 +34,7 @@ public class MessageItem implements
     private VirtualList view;
     private boolean even;
     private boolean smiles;
-    
-    private Vector urlList;
-    
+    private boolean partialParse=false;
     
     /** Creates a new instance of MessageItem */
     public MessageItem(Msg msg, VirtualList view, boolean showSmiles) {
@@ -61,12 +59,13 @@ public class MessageItem implements
         /*if (selected)*/
         g.translate(1,0);
         if (msgLines==null) {
-            MessageParser.getInstance().parseMsg(this, (smiles)?SmilesIcons.getInstance() : null, view.getListWidth());
+            MessageParser.getInstance().parseMsg(this, view.getListWidth(), smiles);
             return;
         }
         int y=0;
         for (Enumeration e=msgLines.elements(); e.hasMoreElements(); ) {
             ComplexString line=(ComplexString) e.nextElement();
+            if (line.isEmpty()) break;
             int h=line.getVHeight();
             if (y>=0 && y<g.getClipHeight()) {
                 if (msg.itemCollapsed) if (msgLines.size()>1) {
@@ -83,13 +82,18 @@ public class MessageItem implements
     public void onSelect() {
         msg.itemCollapsed=!msg.itemCollapsed;
         updateHeight();
+        if (partialParse) {
+            partialParse=false;
+            MessageParser.getInstance().parseMsg(this, view.getListWidth(), smiles);
+        }
     }
     
     byte repaintCounter;
     public void notifyRepaint(Vector v, Msg parsedMsg, boolean finalized) {
         msgLines=v;
         updateHeight();
-        if (!finalized) if ((--repaintCounter)>=0) return;
+        partialParse=!finalized;
+        if (!finalized && !msg.itemCollapsed) if ((--repaintCounter)>=0) return;
         repaintCounter=5;
         view.redraw();
     }
@@ -104,13 +108,38 @@ public class MessageItem implements
         msg.itemHeight=height;
     }
     
-    public void notifyUrl(String url) { 
-        if (urlList==null) urlList=new Vector();
-        urlList.addElement(url);
+    /*public void notifyUrl(String url) { 
+        //if (urlList==null) urlList=new Vector();
+        //urlList.addElement(url);
+    }*/
+    
+    public Vector getUrlList() { 
+        Vector urlList=new Vector();
+        addUrls(msg.getBody(), urlList);
+        return (urlList.size()==0)? null: urlList;
+    }
+
+    private void addUrls(String text, Vector urlList) {
+        int pos=0;
+        int len=text.length();
+        while (pos<len) {
+            int head=text.indexOf("http://", pos);
+            if (head>=0) {
+                pos=head;
+                
+                while (pos<len) {
+                    char c=text.charAt(pos);
+                    if (c==' ' || c==0x09 || c==0x0d || c==0x0a || c==0xa0 || c==')' ) {
+                        urlList.addElement(text.substring(head, pos));
+                        break;
+                    }
+                    pos++;
+                }
+                
+            } else break;
+        }
     }
     
-    public Vector getUrlList() { return urlList; }
-
     public void setEven(boolean even) {
         this.even = even;
     }
@@ -121,6 +150,6 @@ public class MessageItem implements
 
     void toggleSmiles() {
         smiles=!smiles;
-        MessageParser.getInstance().parseMsg(this, (smiles)?SmilesIcons.getInstance() : null, view.getListWidth());    
+        MessageParser.getInstance().parseMsg(this, view.getListWidth(), smiles);    
     }
 }

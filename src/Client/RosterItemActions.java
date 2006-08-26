@@ -156,212 +156,215 @@ public class RosterItemActions extends Menu{
     }
     
     public void eventOk(){
-	final Roster roster=StaticData.getInstance().roster;
-        boolean isContact=( item instanceof Contact );
-	Contact c = null;
-	Group g = null;
-	if (isContact) c=(Contact)item; else g=(Group) item;
-	
-	MenuItem me=(MenuItem) getFocusedObject();
-	if (me==null) {
-	    destroyView(); return;
-	}
-	int index=me.index;
-	String to=null;
-	if (isContact) to=(index<3)? c.getJid() : c.getBareJid();
-	destroyView();
-	switch (index) {
-	    case 0: // info
-		roster.setQuerySign(true);
-		roster.theStream.send(new IqVersionReply(to));
-		break;
-	    case 1: // vCard
-		if (c.vcard!=null) {
-		    new vCardForm(display, c.vcard, c.getGroupType()==Groups.TYPE_SELF);
-		    return;
-		}
-		VCard.request(c.getJid());
-		break;
-		
-	    case 2:
-		(new ContactEdit(display, c )).parentView=roster;
-		return; //break;
-		
-	    case 3: //subscription
-		new SubscriptionEdit(display, c);
-		return; //break;
-	    case 4:
-		new YesNoAlert(display, roster, SR.MS_DELETE_ASK, c.getNickJid()){
-		    public void yes() {
-			roster.deleteContact((Contact)item);
-		    };
-		};
-		return;
-		//new DeleteContact(display,c);
-		//break;
-	    case 6: // logoff
-	    {
-		//querysign=true; displayStatus();
-		Presence presence = new Presence(
-		Presence.PRESENCE_OFFLINE, -1, "");
-		presence.setTo(c.getJid());
-		roster.theStream.send( presence );
-		break;
-	    }
-	    case 5: // logon
-	    {
-		//querysign=true; displayStatus();
-		Presence presence = new Presence(roster.myStatus, 0, "");
-		presence.setTo(c.getJid());
-		roster.theStream.send( presence );
-		break;
-	    }
-	    case 7: // Nick resolver
-	    {
-		roster.resolveNicknames(c.transport);
-		break;
-	    }
-
-	    case 21:
-	    {
-		roster.cleanupSearch();
-		break;
-	    }
-	    case 30:
-	    {
-		new ServiceDiscovery(display, c.getJid(), "http://jabber.org/protocol/commands");
-		return;
-	    }
+        try {
+            final Roster roster=StaticData.getInstance().roster;
+            boolean isContact=( item instanceof Contact );
+            Contact c = null;
+            Group g = null;
+            if (isContact) c=(Contact)item; else g=(Group) item;
             
-            case 40: //invite
-            {
-                new InviteForm(c, display);
-                return;
+            MenuItem me=(MenuItem) getFocusedObject();
+            if (me==null) {
+                destroyView(); return;
             }
-            
-        }
-        
-        if (c instanceof MucContact || g instanceof ConferenceGroup) {
-            MucContact mc=(MucContact) c;
-            switch (index) { // muc contact actions
-                case 10: // room config
+            int index=me.index;
+            String to=null;
+            if (isContact) to=(index<3)? c.getJid() : c.getBareJid();
+            destroyView();
+            switch (index) {
+                case 0: // info
+                    roster.setQuerySign(true);
+                    roster.theStream.send(new IqVersionReply(to));
+                    break;
+                case 1: // vCard
+                    if (c.vcard!=null) {
+                        new vCardForm(display, c.vcard, c.getGroupType()==Groups.TYPE_SELF);
+                        return;
+                    }
+                    VCard.request(c.getJid());
+                    break;
+                    
+                case 2:
+                    (new ContactEdit(display, c )).parentView=roster;
+                    return; //break;
+                    
+                case 3: //subscription
+                    new SubscriptionEdit(display, c);
+                    return; //break;
+                case 4:
+                    new YesNoAlert(display, roster, SR.MS_DELETE_ASK, c.getNickJid()){
+                        public void yes() {
+                            roster.deleteContact((Contact)item);
+                        };
+                    };
+                    return;
+                    //new DeleteContact(display,c);
+                    //break;
+                case 6: // logoff
                 {
-                    String roomJid=((ConferenceGroup)g).getConference().getJid();
-                    new QueryConfigForm(display, roomJid);
+                    //querysign=true; displayStatus();
+                    Presence presence = new Presence(
+                            Presence.PRESENCE_OFFLINE, -1, "");
+                    presence.setTo(c.getJid());
+                    roster.theStream.send( presence );
                     break;
                 }
-                case 11: // owners
-                case 12: // admins
-                case 13: // members
-                    
-                case 14: // outcasts
+                case 5: // logon
                 {
-                    String roomJid=((ConferenceGroup)g).getConference().getJid();
-                    new Affiliations(display, roomJid, index-10);
+                    //querysign=true; displayStatus();
+                    Presence presence = new Presence(roster.myStatus, 0, "");
+                    presence.setTo(c.getJid());
+                    roster.theStream.send( presence );
+                    break;
+                }
+                case 7: // Nick resolver
+                {
+                    roster.resolveNicknames(c.transport);
+                    break;
+                }
+                
+                case 21:
+                {
+                    roster.cleanupSearch();
+                    break;
+                }
+                case 30:
+                {
+                    new ServiceDiscovery(display, c.getJid(), "http://jabber.org/protocol/commands");
                     return;
                 }
+                
+                case 40: //invite
+                {
+                    new InviteForm(c, display);
+                    return;
+                }
+                
+            }
+            
+            if (c instanceof MucContact || g instanceof ConferenceGroup) {
+                MucContact mc=(MucContact) c;
+                switch (index) { // muc contact actions
+                    case 10: // room config
+                    {
+                        String roomJid=((ConferenceGroup)g).getConference().getJid();
+                        new QueryConfigForm(display, roomJid);
+                        break;
+                    }
+                    case 11: // owners
+                    case 12: // admins
+                    case 13: // members
+                        
+                    case 14: // outcasts
+                    {
+                        String roomJid=((ConferenceGroup)g).getConference().getJid();
+                        new Affiliations(display, roomJid, index-10);
+                        return;
+                    }
                     /*case 15: // affiliation
                     {
                         String roomJid=conferenceRoomContact(g.index).getJid();
                         new AffiliationModify(display, roomJid, c.realJid, affiliation)(display, roomJid, index-10);
                     }
                      */
-                case 22:
-                {
-                    roster.leaveRoom( 0, g);
-                    break;
-                }
-                case 23:
-                {
-                    roster.reEnterRoom( g );
-                    return; //break;
-                }
-                
-                case 8: // kick
-                {
-                    Hashtable attrs=new Hashtable();
-                    attrs.put("role", "none");
-                    attrs.put("nick", mc.nick);
-                    roster.setMucMod(mc, attrs);
-                    break;
-                }
-                case 9: // ban
-                {
-                    Hashtable attrs=new Hashtable();
-                    attrs.put("affiliation", "outcast");
-                    attrs.put("jid", mc.realJid);
-                    roster.setMucMod(mc, attrs);
-                    break;
-                }
-                case 31: //grant voice and revoke moderator
-                {
-                    Hashtable attrs=new Hashtable();
-                    attrs.put("role", "participant");
-                    attrs.put("nick", mc.nick);
-                    roster.setMucMod(mc, attrs);
-                    break;
-                }
-                case 32: //revoke voice
-                {
-                    Hashtable attrs=new Hashtable();
-                    attrs.put("role", "visitor");
-                    attrs.put("nick", mc.nick);
-                    roster.setMucMod(mc, attrs);
-                    break;
-                }
-                
-                case 33: //grant moderator
-                {
-                    Hashtable attrs=new Hashtable();
-                    attrs.put("role", "moderator");
-                    attrs.put("nick", mc.nick);
-                    roster.setMucMod(mc, attrs);
-                    break;
-                }
-                
+                    case 22:
+                    {
+                        roster.leaveRoom( 0, g);
+                        break;
+                    }
+                    case 23:
+                    {
+                        roster.reEnterRoom( g );
+                        return; //break;
+                    }
+                    
+                    case 8: // kick
+                    {
+                        Hashtable attrs=new Hashtable();
+                        attrs.put("role", "none");
+                        attrs.put("nick", mc.nick);
+                        roster.setMucMod(mc, attrs);
+                        break;
+                    }
+                    case 9: // ban
+                    {
+                        Hashtable attrs=new Hashtable();
+                        attrs.put("affiliation", "outcast");
+                        attrs.put("jid", mc.realJid);
+                        roster.setMucMod(mc, attrs);
+                        break;
+                    }
+                    case 31: //grant voice and revoke moderator
+                    {
+                        Hashtable attrs=new Hashtable();
+                        attrs.put("role", "participant");
+                        attrs.put("nick", mc.nick);
+                        roster.setMucMod(mc, attrs);
+                        break;
+                    }
+                    case 32: //revoke voice
+                    {
+                        Hashtable attrs=new Hashtable();
+                        attrs.put("role", "visitor");
+                        attrs.put("nick", mc.nick);
+                        roster.setMucMod(mc, attrs);
+                        break;
+                    }
+                    
+                    case 33: //grant moderator
+                    {
+                        Hashtable attrs=new Hashtable();
+                        attrs.put("role", "moderator");
+                        attrs.put("nick", mc.nick);
+                        roster.setMucMod(mc, attrs);
+                        break;
+                    }
+                    
             /*case 34: //reserved
             {
              
             }*/
-                
-                case 35: //grant membership and revoke admin
-                {
-                    Hashtable attrs=new Hashtable();
-                    attrs.put("affiliation", "member");
-                    attrs.put("jid", mc.realJid);
-                    roster.setMucMod(mc, attrs);
-                    break;
+                    
+                    case 35: //grant membership and revoke admin
+                    {
+                        Hashtable attrs=new Hashtable();
+                        attrs.put("affiliation", "member");
+                        attrs.put("jid", mc.realJid);
+                        roster.setMucMod(mc, attrs);
+                        break;
+                    }
+                    
+                    case 36: //revoke membership
+                    {
+                        Hashtable attrs=new Hashtable();
+                        attrs.put("affiliation", "none");
+                        attrs.put("jid", mc.realJid);
+                        roster.setMucMod(mc, attrs);
+                        break;
+                    }
+                    
+                    case 37: //grant admin and revoke owner
+                    {
+                        Hashtable attrs=new Hashtable();
+                        attrs.put("affiliation", "admin");
+                        attrs.put("jid", mc.realJid);
+                        roster.setMucMod(mc, attrs);
+                        break;
+                    }
+                    
+                    case 38: //grant owner
+                    {
+                        Hashtable attrs=new Hashtable();
+                        attrs.put("affiliation", "owner");
+                        attrs.put("jid", mc.realJid);
+                        roster.setMucMod(mc, attrs);
+                        break;
+                    }
+                    
                 }
-                
-                case 36: //revoke membership
-                {
-                    Hashtable attrs=new Hashtable();
-                    attrs.put("affiliation", "none");
-                    attrs.put("jid", mc.realJid);
-                    roster.setMucMod(mc, attrs);
-                    break;
-                }
-                
-                case 37: //grant admin and revoke owner
-                {
-                    Hashtable attrs=new Hashtable();
-                    attrs.put("affiliation", "admin");
-                    attrs.put("jid", mc.realJid);
-                    roster.setMucMod(mc, attrs);
-                    break;
-                }
-                
-                case 38: //grant owner
-                {
-                    Hashtable attrs=new Hashtable();
-                    attrs.put("affiliation", "owner");
-                    attrs.put("jid", mc.realJid);
-                    roster.setMucMod(mc, attrs);
-                    break;
-                }
-       
             }
-        }
-	destroyView();
+            destroyView();
+        } catch (Exception e) { e.printStackTrace();  }
     }
+        
 }

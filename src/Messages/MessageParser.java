@@ -9,6 +9,7 @@
 
 package Messages;
 
+import images.SmilesIcons;
 import java.io.*;
 import java.util.Vector;
 import javax.microedition.lcdui.Font;
@@ -31,7 +32,9 @@ public final class MessageParser implements Runnable{
     private static MessageParser instance=null;
     
     private int width; // window width
+    
     private ImageList il;
+    boolean enableSmiles;
     
     private Vector tasks=new Vector();
     
@@ -148,12 +151,12 @@ public final class MessageParser implements Runnable{
 	addSmile("http://",URL);
     }
 
-    public void parseMsg(MessageItem messageItem,             ImageList il,       //!< если null, то смайлы игнорируются
-            int width)
+    public void parseMsg(MessageItem messageItem,  int width, boolean smiles)
     {
         messageItem.msgLines=new Vector();
-        this.il=il;
+        this.il=(smiles)? SmilesIcons.getInstance() : null;
         this.width=width;
+        this.enableSmiles=smiles;
         
         synchronized (tasks) {
             tasks.addElement(messageItem);
@@ -178,146 +181,161 @@ public final class MessageParser implements Runnable{
                 task=(MessageItem) tasks.lastElement();
                 tasks.removeElement(task);
             }
+            parseMessage(task);
+        }
+    }
+
+    private void parseMessage(final MessageItem task) {
+        
+        Vector lines=task.msgLines;
+        boolean singleLine=task.msg.itemCollapsed;
+        
+        //boolean noWrapSpace=false;
+        boolean underline=false;
+        
+        int state=0;
+        if (task.msg.subject==null) state=1;
+        while (state<2) {
+            int w=0;
+            StringBuffer s=new StringBuffer();
             
-            Vector v=task.msgLines;
+            ComplexString l=new ComplexString(il);
+            lines.addElement(l);
             
-            StringBuffer url = null;
+            Font f=(task.msg.isHighlited())? FontCache.getMsgFontBold(): FontCache.getMsgFont();
+            l.setFont(f);
             
-            //boolean noWrapSpace=false;
-            boolean inUrl=false;
+            String txt=(state==0)? task.msg.subject: task.msg.toString();
             
-            int state=0;
-            if (task.msg.subject==null) state=1;
-            while (state<2) {
-                int w=0;
-                StringBuffer s=new StringBuffer();
-                ComplexString l=new ComplexString(il);
-                Font f=(task.msg.isHighlited())? FontCache.getMsgFontBold(): FontCache.getMsgFont();
-                l.setFont(f);
+            int color=(state==0)?
+                Colors.MSG_SUBJ:
+                Colors.LIST_INK;
+            l.setColor(color);
+           
+            if (txt==null) {
+                state++;
+                continue;
+            }
+            
+            int pos=0;
+            while (pos<txt.length()) {
+                Leaf smileLeaf=root;
+                int smileIndex=-1;
+                int smileStartPos=pos;
+                int smileEndPos=pos;
                 
-                String txt=(state==0)? task.msg.subject: task.msg.toString();
+                while (pos<txt.length()) {
+                    char c=txt.charAt(pos);
+                    
+                    if (underline) {
+                        switch (c) {
+                            case ' ':
+                            case 0x09:
+                            case 0x0d:
+                            case 0x0a:
+                            case 0xa0:
+                            case ')':
+                                underline=false;
+                                if (s.length()>0) {
+                                    l.addUnderline();
+                                    l.addElement(s.toString());
+                                }
+                                s.setLength(0);
+                        }
+                        break; // не смайл
+                    }
+                    
+                    smileLeaf=smileLeaf.findChild(c);
+                    if (smileLeaf==null) {
+                        break;    //этот символ c не попал в смайл
+                    }
+                    if (smileLeaf.Smile!=-1) {
+                        // нашли смайл
+                        smileIndex=smileLeaf.Smile;
+                        smileEndPos=pos;
+                    }
+                    pos++; // продолжаем поиск смайла
+                    
+                } //while (i<txt.length())
                 
-                int color=(state==0)? 
-                    Colors.MSG_SUBJ:
-                    Colors.LIST_INK;
-                l.setColor(color);
-                
-                int i=0;
-                if (txt!=null)
-                    while (i<txt.length()) {
-                    Leaf p1,p=root;
-                    int smileIndex=-1;
-                    int smileStart=i;
-                    int smileEnd=i;
-                    while (i<txt.length()) {
-                        char c=txt.charAt(i);
-                        
-                        if (inUrl) {
-                            switch (c) {
-                                case ' ':
-                                case 0x09:
-                                case 0x0d:
-                                case 0x0a:
-                                case 0xa0:
-                                case ')':
-                                    inUrl=false;
-                                    task.notifyUrl(url.toString());
-                                    url=null;
-                                    if (s.length()>0) {
-                                        l.addUnderline();
-                                        l.addElement(s.toString());
-                                    }
-                                    s.setLength(0);
-                            }
-                            break; // не смайл
-                        }
-                        
-                        if (il==null) break;
-                        
-                        p1=p.findChild(c);
-                        if (p1==null) break;    //этот символ c не попал в смайл
-                        p=p1;
-                        if (p.Smile!=-1) {
-                            // нашли смайл
-                            smileIndex=p.Smile;
-                            smileEnd=i;
-                        }
-                        i++; // продолжаем поиск смайла
-                    }
-                    if (smileIndex==URL) {
-                        if (s.length()>0) l.addElement(s.toString());
-                        s.setLength(0);
-                        inUrl=true;
-                        url=new StringBuffer();
-                        //l.addUnderline();
-                    }
-                    if (smileIndex>=0) {
-                        // есть смайлик
-                        // добавим строку
-                        if (s.length()>0) {
-                            if (inUrl) l.addUnderline();
-                            l.addElement(s.toString());
-                        }
-                        // очистим
-                        s.setLength(0);
-                        // добавим смайлик
-                        int iw=il.getWidth();
-                        if (w+iw>width) {
-                            v.addElement(l);    // добавим l в v
-                            task.notifyRepaint(v, task.msg, false);
-                            l=new ComplexString(il);     // новая строка
-                            l.setColor(color);
-                            l.setFont(f);
-                            w=0;
-                        }
-                        l.addImage(smileIndex); w+=iw;
-                        // передвинем указатель
-                        i=smileEnd;
-                    } else {
-                        // символ в строку-накопитель
-                        i=smileStart;
-                        char c=txt.charAt(i);
-                        
-                        if (inUrl) url.append(c);
-                        
-                        int cw=f.charWidth(c);
-                        if (c!=0x20) {
-                            if (w+cw>width || c==0x0d || c==0x0a || c==0xa0) {
-                                if (inUrl) l.addUnderline();
-                                l.addElement(s.toString());    // последняя подстрока в l
-                                s.setLength(0); w=0;
-                                
-                                if (c==0xa0) l.setColor(Colors.MSG_HIGHLIGHT);
-                                
-                                v.addElement(l);    // добавим l в v
-                                task.notifyRepaint(v, task.msg, false);
-                                l=new ComplexString(il);     // новая строка
-                                l.setColor(color);
-                                l.setFont(f);
-                            }
-                        }
-                        if (c>0x1f) {  s.append(c); w+=cw; } else if (c==0x09) {  s.append((char)0x20); w+=cw; }
-                    }
-                    i++;
-                    }
-                if (s.length()>0) {
-                    if (inUrl) {
-                        l.addUnderline();
-                        task.notifyUrl(url.toString());
-                    }
-                    l.addElement(s.toString());
+                if (smileIndex==URL) {
+                    if (s.length()>0) l.addElement(s.toString());
+                    s.setLength(0);
+                    underline=true;
                 }
                 
-                if (!l.isEmpty()) v.addElement(l);  // последняя строка
-                
-                task.notifyRepaint(v, task.msg, true);
-                state++;
+                if (smileIndex>=0 && enableSmiles) {
+                    // есть смайлик
+                    // добавим строку
+                    if (s.length()>0) {
+                        if (underline) l.addUnderline();
+                        l.addElement(s.toString());
+                    }
+                    // очистим
+                    s.setLength(0);
+                    // добавим смайлик
+                    int iw=il.getWidth();
+                    if (w+iw>width) {
+                        task.notifyRepaint(lines, task.msg, false);
+                        l=new ComplexString(il);     // новая строка
+                        lines.addElement(l);    // добавим l в v
+                        
+                        if (singleLine) {
+                            return;
+                        }
+                        
+                        l.setColor(color);
+                        l.setFont(f);
+                        w=0;
+                    }
+                    l.addImage(smileIndex); w+=iw;
+                    // передвинем указатель
+                    pos=smileEndPos;
+                } else {
+                    pos=smileStartPos;
+                    char c=txt.charAt(pos);
+                    
+                    int cw=f.charWidth(c);
+                    if (c!=0x20) {
+                        if (w+cw>width || c==0x0d || c==0x0a || c==0xa0) {
+                            if (underline) l.addUnderline();
+                            l.addElement(s.toString());    // последняя подстрока в l
+                            s.setLength(0); w=0;
+                            
+                            if (c==0xa0) l.setColor(Colors.MSG_HIGHLIGHT);
+                            
+                            l=new ComplexString(il);     // новая строка
+                            lines.addElement(l);    // добавим l в v
+                            task.notifyRepaint(lines, task.msg, false);
+
+                            if (singleLine) {
+                                return;
+                            }
+                            
+                            l.setColor(color);
+                            l.setFont(f);
+                        }
+                    }
+                    if (c>0x1f) {  s.append(c); w+=cw; } else if (c==0x09) {  s.append((char)0x20); w+=cw; }
+                }
+                pos++;
             }
+            if (s.length()>0) {
+                if (underline) {
+                    l.addUnderline();
+                }
+                l.addElement(s.toString());
+            }
+            
+            if (l.isEmpty()) lines.removeElementAt(lines.size()-1);  // последняя строка
+            
+            task.notifyRepaint(lines, task.msg, true);
+            state++;
         }
     }
 
     public interface MessageParserNotify {
         void notifyRepaint(Vector v, Msg parsedMsg, boolean finalized);
-	void notifyUrl(String url);
+	//void notifyUrl(String url);
     }
 }

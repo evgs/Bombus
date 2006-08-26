@@ -2628,6 +2628,18 @@ syslog_msg: true
   * автопрокрутка контакта и баллон при перемещении по '0'
 (630)
   * Message Composing core fix (jabber:x:event now contains <id/> child)
+
+27.08.2006
+(632)
+  * Для Siemens изменено назначение клавиш KEYVIBRA=* и KEYBLOCK=#
+  * подчёркивание url исчезало при отключении смайлов
+  * ускорение работы парсера смайлов на свёрнутых сообщениях
+  * Actions> - устранён NullPointerException в состоянии Offline
+  --
+  * key bindings KEYVIBRA=* and KEYBLOCK=# for Siemens phones
+  * url underlinig was disabled if smiles were disabled
+  * parser boosting for collapsed messages (single line parsing)
+  * Actions> NullPointerException if disconnected state
 ---------------------------
   known issues:
 

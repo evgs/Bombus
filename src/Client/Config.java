@@ -169,7 +169,12 @@ public class Config {
 	    VirtualList.keyVolDown=VirtualList.MOTOE680_VOL_DOWN;
             istreamWaiting=true;
 	}*/
-	
+        
+        if (Version.isSiemens==true) {
+            keyLock='#';
+            keyVibra='*';
+        }
+        
 	VirtualList.greenKeyCode=greenKeyCode;
 //#if USE_LED_PATTERN
 //#         if (platform.startsWith("M55"))
