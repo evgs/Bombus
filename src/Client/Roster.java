@@ -460,7 +460,7 @@ public class Roster
         c.bareJid=from;
         c.origin=Contact.ORIGIN_GROUPCHAT;
         //c.priority=99;
-        c.jidHash=0;
+        //c.key1=0;
         grp.conferenceJoinTime=Time.localTime();
         grp.setConference(c);
         c.setGroup(grp);

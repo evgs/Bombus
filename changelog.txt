@@ -2640,6 +2640,17 @@ syslog_msg: true
   * url underlinig was disabled if smiles were disabled
   * parser boosting for collapsed messages (single line parsing)
   * Actions> NullPointerException if disconnected state
+
+(634)
+  * —ортировка контактов: в качестве ключа сортировки используютс€
+    полные отображаемые имена контактов (регистронезависимо).
+    –анее использовались первые 2 буквы имени контакта как ключ
+  * —ортировка контактов конференции: роль контакта теперь более приоритетна,
+    чем статус. (модераторы всегда сверху)
+  --
+  * Contact sorting: full screen names as sort keys (non case-sensitive)
+  * Conference contact sorting: role is used prior to status and string
+    
 ---------------------------
   known issues:
 

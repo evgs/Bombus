@@ -78,14 +78,16 @@ public class MucContact extends Contact{
         
         String chNick=item.getAttribute("nick");
 
-        sortCode(nick);
+        setSortKey(nick);
         
         if (role.equals("moderator")) {
             transport=RosterIcons.ICON_MODERATOR_INDEX;
-            jidHash &= 0x3fffffff;
+            key0=1;
+            //jidHash &= 0x3fffffff;
         } else {
             transport=0;
-            jidHash |= 0x40000000;
+            key0=2;
+            //jidHash |= 0x40000000;
         }
 
 

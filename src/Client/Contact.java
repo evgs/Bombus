@@ -40,12 +40,14 @@ public class Contact extends IconTextElement{
     public final static byte ORIGIN_GROUPCHAT=4;
     public final static byte ORIGIN_GC_MEMBER=5;
     public final static byte ORIGIN_GC_MYSELF=6;
-    
+
+   
     /** Creates a new instance of Contact */
     protected Contact (){
         //lastReaded=0;
         super(RosterIcons.getInstance());
         msgs=new Vector();
+        key1="";
     }
 
     public String nick;
@@ -61,7 +63,9 @@ public class Contact extends IconTextElement{
     
     public String msgSuspended;
     
-    public int jidHash;
+    //public int key1;
+    protected int key0;
+    protected String key1;
 
     public byte origin;
     //public boolean gcMyself;
@@ -94,7 +98,7 @@ public class Contact extends IconTextElement{
         bareJid=sJid;
         this.subscr=subscr;
     
-        sortCode((Nick==null)?sJid:Nick);
+        setSortKey((Nick==null)?sJid:Nick);
         //msgs.removeAllElements();
         
         //calculating transport
@@ -106,7 +110,7 @@ public class Contact extends IconTextElement{
         clone.group=group; 
         clone.jid=newjid; 
         clone.nick=nick;
-        clone.jidHash=jidHash;
+        clone.key1=key1;
         clone.subscr=subscr;
         clone.offline_type=offline_type;
         clone.origin=ORIGIN_CLONE; 
@@ -167,8 +171,9 @@ public class Contact extends IconTextElement{
         //} else {
         //    if ((cmp=status-c.status) !=0) return cmp;
         //}
+        if ((cmp=key0-c.key0) !=0) return cmp;
         if ((cmp=status-c.status) !=0) return cmp;
-        if ((cmp=jidHash-c.jidHash) !=0) return cmp;
+        if ((cmp=key1.compareTo(c.key1)) !=0) return cmp;
         if ((cmp=c.priority-priority) !=0) return cmp;
         return c.transport-transport;
         //return 0;
@@ -283,12 +288,8 @@ public class Contact extends IconTextElement{
         resetNewMsgCnt();
     }
     
-    public final void sortCode(String s){
-        try {
-            String ls=s.toLowerCase();
-            jidHash= ls.charAt(1)+ (ls.charAt(0)<<16);
-            
-        } catch (Exception e) { }
+    public final void setSortKey(String sortKey){
+        key1=(sortKey==null)? "": sortKey.toLowerCase();
     }
 
     public String getTipString() {
