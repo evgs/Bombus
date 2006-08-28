@@ -58,7 +58,7 @@ public class Contact extends IconTextElement{
     private Group group;
     public int transport;
     
-    public boolean accept_composing;
+    public boolean acceptComposing;
     public Integer incomingComposing;
     
     public String msgSuspended;

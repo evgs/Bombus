@@ -15,6 +15,7 @@ import com.alsutton.jabber.JabberDataBlock;
 import com.alsutton.jabber.JabberStream;
 import com.alsutton.jabber.datablocks.Iq;
 import com.ssttr.crypto.SHA1;
+import locale.SR;
 
 /**
  *
@@ -50,6 +51,8 @@ public class NonSASLAuth implements JabberBlockListener{
         }
         
         queryBlock.addChild( "resource", account.getResource() );
+        
+        listener.loginMessage(SR.MS_AUTH);
         
         stream.send(auth);
     }

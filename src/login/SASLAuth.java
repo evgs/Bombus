@@ -16,6 +16,7 @@ import com.alsutton.jabber.JabberStream;
 import com.alsutton.jabber.datablocks.Iq;
 import com.ssttr.crypto.MD5;
 import java.io.IOException;
+import locale.SR;
 //#if SASL_XGOOGLETOKEN
 import java.io.InputStream;
 import javax.microedition.io.Connector;
@@ -39,6 +40,7 @@ public class SASLAuth implements JabberBlockListener{
         this.sessionId=sessionId;
         this.stream=stream;
         if (stream!=null) stream.addBlockListener(this);
+        listener.loginMessage(SR.MS_SASL_STREAM);
     }
     
 //#if SASL_XGOOGLETOKEN
@@ -49,6 +51,20 @@ public class SASLAuth implements JabberBlockListener{
     public int blockArrived(JabberDataBlock data) {
         System.out.println(data.toString());
         if (data.getTagName().equals("stream:features")) {
+//#if ZLIB
+            JabberDataBlock compr=data.getChildBlock("compression");
+            if (compr!=null) {
+                if (compr.getChildBlockByText("zlib")!=null) {
+                    // negotiating compression
+                    JabberDataBlock askCompr=new JabberDataBlock("compress", null, null);
+                    askCompr.setNameSpace("http://jabber.org/protocol/compress");
+                    askCompr.addChild("method", "zlib");
+                    stream.send(askCompr);
+                    listener.loginMessage(SR.MS_ZLIB);
+                    return JabberBlockListener.BLOCK_PROCESSED;
+                }
+            }
+//#endif            
             JabberDataBlock mech=data.getChildBlock("mechanisms");
             if (mech!=null) {
                 // first stream - step 1. selecting authentication mechanism
@@ -63,6 +79,7 @@ public class SASLAuth implements JabberBlockListener{
                     System.out.println(auth.toString());
                     
                     stream.send(auth);
+                    listener.loginMessage(SR.MS_AUTH);
                     return JabberBlockListener.BLOCK_PROCESSED;
                 }
                 
@@ -75,6 +92,7 @@ public class SASLAuth implements JabberBlockListener{
                     System.out.println(auth.toString());
                     
                     stream.send(auth);
+                    listener.loginMessage(SR.MS_AUTH);
                     return JabberBlockListener.BLOCK_PROCESSED;
                     
                 }
@@ -91,6 +109,7 @@ public class SASLAuth implements JabberBlockListener{
                     auth.setText(toBase64(plain));
                     
                     stream.send(auth);
+                    listener.loginMessage(SR.MS_AUTH);
                     return JabberBlockListener.BLOCK_PROCESSED;
                 }
                 // no more method found
@@ -105,6 +124,9 @@ public class SASLAuth implements JabberBlockListener{
                 bind.setNameSpace("urn:ietf:params:xml:ns:xmpp-bind");
                 bind.addChild("resource", account.getResource());
                 stream.send(bindIq);
+
+                listener.loginMessage(SR.MS_RESOURCE_BINDING);
+                
                 return JabberBlockListener.BLOCK_PROCESSED;
             }
         } else if (data.getTagName().equals("challenge")) {
@@ -157,6 +179,7 @@ public class SASLAuth implements JabberBlockListener{
                     JabberDataBlock session=new Iq(null, Iq.TYPE_SET, "sess");
                     session.addChild("session",null).setNameSpace("urn:ietf:params:xml:ns:xmpp-session");
                     stream.send(session);
+                    listener.loginMessage(SR.MS_SESSION);
                     return JabberBlockListener.BLOCK_PROCESSED;
                     
                 // second stream - step 3. session opened - reporting success login

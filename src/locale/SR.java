@@ -248,9 +248,23 @@ public class SR {
     public final static String MS_SHOWPWD="Show password";
     public final static String MS_NO_VERSION_AVAILABLE="No client version available";
     public final static String MS_MSG_LIMIT="Message limit";
+    
+    public final static String MS_OPENING_STREAM="Opening stream";
+    public final static String MS_SASL_STREAM="SASL handshake";
+    public final static String MS_ZLIB="Using compression";
+    public final static String MS_AUTH="Authenticating";
+    public final static String MS_RESOURCE_BINDING="Resource binding";
+    public final static String MS_SESSION="Initiating session";
+    
 
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
+
+
+
+
+
+
 
     private SR() { }
     

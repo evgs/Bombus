@@ -236,7 +236,7 @@ public class Roster
             setProgress(SR.MS_CONNECT_TO+a.getServer(), 30);
             SR.loaded();
             theStream= a.openJabberStream();
-            setProgress(SR.MS_LOGIN, 40);
+            setProgress(SR.MS_OPENING_STREAM, 40);
             theStream.setJabberListener( this );
         } catch( Exception e ) {
             setProgress(SR.MS_FAILED, 0);
@@ -374,7 +374,7 @@ public class Roster
     
     public Vector getHContacts() {return hContacts;}
     
-    public final void updateContact(final String nick, final String Jid, final String grpName, String subscr, boolean ask) {
+    public final void updateContact(final String nick, final String jid, final String grpName, String subscr, boolean ask) {
         // called only on roster read
         int status=Presence.PRESENCE_OFFLINE;
         if (subscr.equals("none")) status=Presence.PRESENCE_UNKNOWN;
@@ -382,10 +382,10 @@ public class Roster
         //if (subscr.equals("remove")) status=Presence.PRESENCE_TRASH;
         if (subscr.equals("remove")) status=-1;
         
-        Jid J=new Jid(Jid);
+        Jid J=new Jid(jid);
         Contact c=findContact(J,false); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ bare jid
         if (c==null) {
-            c=new Contact(nick, Jid, Presence.PRESENCE_OFFLINE, null);
+            c=new Contact(nick, jid, Presence.PRESENCE_OFFLINE, null);
             addContact(c);
         }
         for (Enumeration e=hContacts.elements();e.hasMoreElements();) {
@@ -404,6 +404,7 @@ public class Roster
                 c.ask_subscribe=ask;
                 //if (status==Presence.PRESENCE_TRASH) c.status=status;
                 //if (status!=Presence.PRESENCE_OFFLINE) c.status=status;
+                c.setSortKey((nick==null)? jid:nick);
             }
         }
         if (status<0) removeTrash();
@@ -877,18 +878,16 @@ public class Roster
                             start_me=-1; // не добавлять /me к subj
                         }
                     }
-		    if (type.equals("error")) {
-//toon                  
+                    if (type.equals("error")) {
                         
-                        String mucErrCode=message.getChildBlock("error").getAttribute("code");
+                        String errCode=message.getChildBlock("error").getAttribute("code");
                         
-                        if ( mucErrCode.equals("403") ) {
-                            body=SR.MS_VIZITORS_FORBIDDEN;
-                        } else                         
-                            body=SR.MS_ERROR_+message.getChildBlock("error")+"\n"+body;
-                  
-//toon                        
-		    }
+                        switch (Integer.parseInt(errCode)) {
+                            case 403: body=SR.MS_VIZITORS_FORBIDDEN; break;
+                            case 503: break;
+                            default: body=SR.MS_ERROR_+message.getChildBlock("error")+"\n"+body;
+                        }
+                    }
                 } catch (Exception e) {}
                 
                 try {
@@ -928,7 +927,7 @@ public class Roster
                 
                 if (x!=null) {
                     compose=(x.getChildBlock("composing")!=null);
-                    if (compose) c.accept_composing=true;
+                    if (compose) c.acceptComposing=true;
                     if (body!=null) compose=false;
                     c.setComposing(compose);
                 }
@@ -1008,6 +1007,7 @@ public class Roster
                     Contact c=messageStore(m);
                     c.priority=pr.getPriority();
                     if (ti>=0) c.status=ti;
+                    if (ti==Presence.PRESENCE_OFFLINE) c.acceptComposing=false;
                 }
 		sort();
                 reEnumRoster();
@@ -1054,6 +1054,7 @@ public class Roster
                     //if (iqType.equals("set")) type=1;
 
                     updateContact(name,jid,group, subscr, ask);
+                    sort();
                 }
             
             }
@@ -1112,7 +1113,7 @@ public class Roster
     
     public void beginConversation(String SessionId) {
         //try {
-        setProgress(SR.MS_LOGINPGS, 42);
+        //setProgress(SR.MS_LOGINPGS, 42);
         
 //#if SASL
         if (sd.account.isSASL()) {
@@ -1393,6 +1394,10 @@ public class Roster
         
         theStream.send(new IqQueryRoster(jid, name, group, null));
         if (askSubscribe) theStream.send(new Presence(jid,"subscribe"));
+    }
+
+    public void loginMessage(String msg) {
+        setProgress(msg, 42);
     }
 
     private class ReEnumerator implements Runnable{

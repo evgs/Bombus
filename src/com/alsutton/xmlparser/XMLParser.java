@@ -50,6 +50,8 @@ public class XMLParser
   
   private static final int MAX_BLOCK_SIZE=4096-3; //max array for m55=4096?
 
+  private final static int MAX_BIN_DATASIZE=100*1024; //100 KB - experimental
+
   /** Constructor, Used to override default dispatcher.
    *
    * @param _eventHandler The event handle to dispatch events through.
@@ -265,6 +267,7 @@ public class XMLParser
           else if (nextChar=='=') {base64=0; len++;}
           else if (nextChar=='<') break;
           if (base64>=0) ibuf=(ibuf<<6)+base64;
+          if (baos.size()<MAX_BIN_DATASIZE)
           if (ibuf>=0x01000000){
               baos.write((ibuf>>16) &0xff);
               if (len==0) baos.write((ibuf>>8) &0xff);

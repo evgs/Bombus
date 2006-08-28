@@ -129,12 +129,11 @@ public class MessageItem implements
                 
                 while (pos<len) {
                     char c=text.charAt(pos);
-                    if (c==' ' || c==0x09 || c==0x0d || c==0x0a || c==0xa0 || c==')' ) {
-                        urlList.addElement(text.substring(head, pos));
+                    if (c==' ' || c==0x09 || c==0x0d || c==0x0a || c==0xa0 || c==')' )  
                         break;
-                    }
                     pos++;
                 }
+                urlList.addElement(text.substring(head, pos));
                 
             } else break;
         }

@@ -2650,7 +2650,24 @@ syslog_msg: true
   --
   * Contact sorting: full screen names as sort keys (non case-sensitive)
   * Conference contact sorting: role is used prior to status and string
-    
+
+29.08.2006
+(636)
+  * ошибка 503: composing events теперь запрещено посылать offline
+  * сортировка контактов после модификаций ростера 
+    (например, переименовывание)
+  * более информативные сообщения в процессе логина (особенно SASL)
+  * аватары в vCard: защита от загрузки картинок размером более 100 КБ
+  * Goto URL корректно воспринимает последнюю ссылку в сообщении
+  * запрет автоповтора клавиши '*' (Toggle smiles) в MessageList
+  --
+  * error 503: composing events to offline entity are forbidden
+  * sorting contacts after roster push
+  * login messages now are more informative
+  * vCard avatar: size is now limited by 100KB
+  * Goto URL now also handle last url in message
+  * disabled autorepeat of '*' (Toggle smiles) in MessageList
+
 ---------------------------
   known issues:
 

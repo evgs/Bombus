@@ -144,7 +144,7 @@ public class MessageEdit
                 comp=1; // composing event in message
             }
             
-        } else if (to.accept_composing) comp=(composing)? 1:2;
+        } else if (to.acceptComposing) comp=(composing)? 1:2;
         
         if (!Config.getInstance().eventComposing) comp=0;
         
