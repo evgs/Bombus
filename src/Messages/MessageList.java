@@ -99,13 +99,18 @@ public abstract class MessageList
             } catch (Exception e) {/* no urls found */}
         }
         if (c==cmdSmiles) {
-            ((MessageItem)getFocusedObject()).toggleSmiles();
+            try {
+                ((MessageItem)getFocusedObject()).toggleSmiles();
+            } catch (Exception e){}
         }
     }
 
     protected void keyPressed(int keyCode) { // overriding this method to avoid autorepeat
         super.keyPressed(keyCode);
-        if (keyCode=='*') ((MessageItem)getFocusedObject()).toggleSmiles();
+        if (keyCode=='*') 
+            try {
+                ((MessageItem)getFocusedObject()).toggleSmiles();
+            } catch (Exception e){}
     }
 
     public void keyGreen() { eventOk(); }
