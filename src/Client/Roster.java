@@ -480,7 +480,7 @@ public class Roster
         c.setGroup(grp);
         c.origin=Contact.ORIGIN_GC_MYSELF;
         
-        sort();
+        sort(hContacts);
         return grp;
     }
     
@@ -507,7 +507,7 @@ public class Roster
         }
         
         c.setGroup(grp);
-        sort();
+        sort(hContacts);
         return c;
     }
     
@@ -544,7 +544,7 @@ public class Roster
                 //System.out.println("cloned");
             }
         }
-        sort();
+        sort(hContacts);
         return c;
     }
     
@@ -552,29 +552,25 @@ public class Roster
         synchronized (hContacts) { hContacts.addElement(c); }
     }
     
-    private void sort(){
-        synchronized (hContacts) {
+    public void sort(Vector sortVector){
+        synchronized (sortVector) {
             int f, i;
             Contact temp, temp2;
             
-            for (f = 1; f < hContacts.size(); f++) {
-                temp=getContact(f);
-                if ( temp.compare(getContact(f-1)) >=0 ) continue;
+            for (f = 1; f < sortVector.size(); f++) {
+                temp=(Contact)sortVector.elementAt(f);
+                temp2=(Contact)sortVector.elementAt(f-1);
+                if ( temp.compare(temp2) >=0 ) continue;
                 i    = f-1;
                 while (i>=0){
-                    temp2=getContact(i);
+                    temp2=(Contact)sortVector.elementAt(i);
                     if (temp2.compare(temp) <0) break;
-                    hContacts.setElementAt(temp2,i+1);
+                    sortVector.setElementAt(temp2,i+1);
                     i--;
                 }
-                hContacts.setElementAt(temp,i+1);
+                sortVector.setElementAt(temp,i+1);
             }
         }
-        //reEnumRoster();
-    }
-    
-    private final Contact getContact(int index) {
-        return (Contact)(hContacts.elementAt(index));
     }
     
     public final Contact getContact(final String Jid, boolean compareResources) {
@@ -638,7 +634,7 @@ public class Roster
         }
         Contact c=getContact(myJid.getJid());
         c.status=myStatus;
-        sort();
+        sort(hContacts);
         
         reEnumRoster();
     }
@@ -1009,7 +1005,7 @@ public class Roster
                     if (ti>=0) c.status=ti;
                     if (ti==Presence.PRESENCE_OFFLINE) c.acceptComposing=false;
                 }
-		sort();
+		sort(hContacts);
                 reEnumRoster();
             }
         } catch( Exception e ) {
@@ -1054,7 +1050,7 @@ public class Roster
                     //if (iqType.equals("set")) type=1;
 
                     updateContact(name,jid,group, subscr, ask);
-                    sort();
+                    sort(hContacts);
                 }
             
             }

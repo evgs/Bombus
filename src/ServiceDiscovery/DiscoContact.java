@@ -16,4 +16,8 @@ public class DiscoContact extends Contact{
         super(Nick, sJid, Status, null);
     }
     public String toString() { return (nick==null)?getJid():nick; }
+
+    public int compare(Contact c) {
+        return this.toString().compareTo( c.toString() );
+    }
 }
