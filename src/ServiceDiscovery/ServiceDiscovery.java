@@ -61,7 +61,7 @@ public class ServiceDiscovery
     private String service;
     private String node;
 
-    private boolean blockWait;
+    private int discoIcon;
 
     private JabberStream stream;
 
@@ -105,8 +105,8 @@ public class ServiceDiscovery
     
     
     private void titleUpdate(){
-        int icon=(blockWait)?RosterIcons.ICON_PROGRESS_INDEX:0;
-        getTitleItem().setElementAt(new Integer(icon), 0);
+        
+        getTitleItem().setElementAt(new Integer(discoIcon), 0);
         getTitleItem().setElementAt(service, 2);
         getTitleItem().setElementAt(sd.roster.messageIcon, 4);
 	
@@ -123,7 +123,7 @@ public class ServiceDiscovery
     }
     
     private void requestQuery(String namespace, String id){
-        blockWait=true; titleUpdate(); redraw();
+        discoIcon=RosterIcons.ICON_PROGRESS_INDEX; titleUpdate(); redraw();
         JabberDataBlock req=new Iq(service, Iq.TYPE_GET, id);
         JabberDataBlock qry=req.addChild("query",null);
         qry.setNameSpace(namespace);
@@ -135,7 +135,7 @@ public class ServiceDiscovery
     }
     
     private void requestCommand(String namespace, String id){
-        blockWait=true; titleUpdate(); redraw();
+        discoIcon=RosterIcons.ICON_PROGRESS_INDEX; titleUpdate(); redraw();
         JabberDataBlock req=new Iq(service, Iq.TYPE_SET, id);
         JabberDataBlock qry=req.addChild("command",null);
         qry.setNameSpace(namespace);
@@ -153,6 +153,14 @@ public class ServiceDiscovery
         if (!(data instanceof Iq)) return JabberBlockListener.BLOCK_REJECTED;
         String id=data.getAttribute("id");
         if (!id.startsWith("disco")) return JabberBlockListener.BLOCK_REJECTED;
+        
+        if (data.getTypeAttribute().equals("error")) {
+            //System.out.println(data.toString());
+            discoIcon=RosterIcons.ICON_ERROR_INDEX;
+            titleUpdate();
+            redraw();
+            return JabberBlockListener.BLOCK_PROCESSED;
+        }
 
         JabberDataBlock query=data.getChildBlock((id.equals("discocmd"))?"command":"query");
         Vector childs=query.getChildBlocks();
@@ -180,7 +188,7 @@ public class ServiceDiscovery
                     items.insertElementAt(e.nextElement(),0);
                 this.items=items;
                 moveCursorHome();
-                blockWait=false; titleUpdate(); 
+                discoIcon=0; titleUpdate(); 
             }
         } else if (id.equals("disco")) {
             Vector cmds=new Vector();
@@ -208,13 +216,13 @@ public class ServiceDiscovery
                 requestQuery(NS_ITEMS, "disco2");
             }
         } else if (id.equals ("discoreg")) {
-            blockWait=false;
+            discoIcon=0;
             new DiscoForm(display, data, stream, "discoResult", "query");
         } else if (id.equals ("discocmd")) {
-            blockWait=false;
+            discoIcon=0;
             new DiscoForm(display, data, stream, "discoResult", "command");
         } else if (id.equals ("discosrch")) {
-            blockWait=false;
+            discoIcon=0;
             new DiscoForm(display, data, stream, "discoRSearch", "query");
         } else if (id.startsWith("discoR")) {
             String text="Successful";
@@ -275,7 +283,7 @@ public class ServiceDiscovery
             service=st.service;
             items=st.items;
             features=st.features;
-            blockWait=false;
+            discoIcon=0;
             
             titleUpdate();
             moveCursorTo(st.cursor, true);

@@ -2669,12 +2669,15 @@ syslog_msg: true
   * disabled autorepeat of '*' (Toggle smiles) in MessageList
 
 31.08.2006
-(639)
+(640)
   + Опция "Remove registration в формах Service Discovery jabber:iq:register 
     для возможности отмены регистрации на транспортах (jep-0100)
+  + Service Discovery: иконка ошибки в заголовке окна при невозможности
+    обработки запроса
   --
   + New option "Remove registration" in disco forms jabber:iq:register 
     to cancel registration on legacy gateways (jep-0100)
+  + Service Discovery: ERROR icon if query was failed
 ---------------------------
   known issues:
 
