@@ -2678,6 +2678,13 @@ syslog_msg: true
   + New option "Remove registration" in disco forms jabber:iq:register 
     to cancel registration on legacy gateways (jep-0100)
   + Service Discovery: ERROR icon if query was failed
+
+(643)
+  + Service Discovery: jid-ы во всплывающих баллонах
+  + Service Discovery: сортировка (лексикографическая, регистрозависимая)
+  --
+  + Service Discovery: jids in balloons
+  + Service Discovery: lexicographical case-sensitive sorting
 ---------------------------
   known issues:
 

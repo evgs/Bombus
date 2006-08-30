@@ -183,7 +183,7 @@ public class ServiceDiscovery
                     items.addElement(serv);
                 }
                 
-                StaticData.getInstance().roster.sort(items);
+                Contact.sort(items);
             }
             if (data.getAttribute("from").equals(service)) {
                 for (Enumeration e=cmds.elements(); e.hasMoreElements();) 

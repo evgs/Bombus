@@ -480,7 +480,7 @@ public class Roster
         c.setGroup(grp);
         c.origin=Contact.ORIGIN_GC_MYSELF;
         
-        sort(hContacts);
+        Contact.sort(hContacts);
         return grp;
     }
     
@@ -507,7 +507,7 @@ public class Roster
         }
         
         c.setGroup(grp);
-        sort(hContacts);
+        Contact.sort(hContacts);
         return c;
     }
     
@@ -544,33 +544,12 @@ public class Roster
                 //System.out.println("cloned");
             }
         }
-        sort(hContacts);
+        Contact.sort(hContacts);
         return c;
     }
     
     public void addContact(Contact c) {
         synchronized (hContacts) { hContacts.addElement(c); }
-    }
-    
-    public void sort(Vector sortVector){
-        synchronized (sortVector) {
-            int f, i;
-            Contact temp, temp2;
-            
-            for (f = 1; f < sortVector.size(); f++) {
-                temp=(Contact)sortVector.elementAt(f);
-                temp2=(Contact)sortVector.elementAt(f-1);
-                if ( temp.compare(temp2) >=0 ) continue;
-                i    = f-1;
-                while (i>=0){
-                    temp2=(Contact)sortVector.elementAt(i);
-                    if (temp2.compare(temp) <0) break;
-                    sortVector.setElementAt(temp2,i+1);
-                    i--;
-                }
-                sortVector.setElementAt(temp,i+1);
-            }
-        }
     }
     
     public final Contact getContact(final String Jid, boolean compareResources) {
@@ -634,7 +613,7 @@ public class Roster
         }
         Contact c=getContact(myJid.getJid());
         c.status=myStatus;
-        sort(hContacts);
+        Contact.sort(hContacts);
         
         reEnumRoster();
     }
@@ -1005,7 +984,7 @@ public class Roster
                     if (ti>=0) c.status=ti;
                     if (ti==Presence.PRESENCE_OFFLINE) c.acceptComposing=false;
                 }
-		sort(hContacts);
+		Contact.sort(hContacts);
                 reEnumRoster();
             }
         } catch( Exception e ) {
@@ -1050,7 +1029,7 @@ public class Roster
                     //if (iqType.equals("set")) type=1;
 
                     updateContact(name,jid,group, subscr, ask);
-                    sort(hContacts);
+                    Contact.sort(hContacts);
                 }
             
             }

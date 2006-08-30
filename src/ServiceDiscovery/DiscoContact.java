@@ -20,4 +20,8 @@ public class DiscoContact extends Contact{
     public int compare(Contact c) {
         return this.toString().compareTo( c.toString() );
     }
+
+    public String getTipString() {
+        return getJid();
+    }
 }
