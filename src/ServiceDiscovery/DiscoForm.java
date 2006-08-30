@@ -109,8 +109,15 @@ public class DiscoForm implements CommandListener{
             FormField f=(FormField) e.nextElement();
             if (f==null) continue;
             JabberDataBlock ch=f.constructJabberDataBlock();
-            if (ch!=null) qry.addChild(ch);
+            if (ch!=null) {
+                if (ch.getTagName().equals("remove")) {
+                    qry.getChildBlocks().removeAllElements();
+                }
+                qry.addChild(ch);
+            }
         }
+        
+        req.addChild(qry);
         //System.out.println(req.toString());
         //if (listener!=null) stream.addBlockListener(listener);
         stream.send(req);

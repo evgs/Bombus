@@ -27,6 +27,7 @@ public class FormField {
     public boolean instructions;
     private Vector optionsList;
     private boolean numericBoolean;
+    private boolean registered;
     /** Creates a new instance of FormField */
     public FormField(JabberDataBlock field) {
         name=field.getTagName();
@@ -81,8 +82,12 @@ public class FormField {
                 formItem=new StringItem("Instructions", body);
             else if ( name.equals("title") )
                 formItem=new StringItem(null, body);
-            else if ( name.equals("registered") )
-                formItem=new StringItem(null, name);
+            else if ( name.equals("registered") ) {
+                ChoiceGroup cg=new ChoiceGroup("Registration", ChoiceGroup.MULTIPLE);
+                cg.append("Remove registration", null);
+                formItem=cg;
+                registered=true;
+            }
             else
                 formItem=new TextField(label, body, 64, 0);
         }
@@ -105,6 +110,12 @@ public class FormField {
             }
         }
         if (formItem instanceof ChoiceGroup) {
+            if (registered) {
+                boolean unregister=((ChoiceGroup)formItem).isSelected(0);
+                if (unregister) return new JabberDataBlock("remove", null, null);
+                return null;
+            }
+                
             //only x:data
                 j=new JabberDataBlock("field", null, null);
                 j.setAttribute("var", name);

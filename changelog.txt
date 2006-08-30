@@ -2668,6 +2668,13 @@ syslog_msg: true
   * Goto URL now also handle last url in message
   * disabled autorepeat of '*' (Toggle smiles) in MessageList
 
+31.08.2006
+(639)
+  + Опция "Remove registration в формах Service Discovery jabber:iq:register 
+    для возможности отмены регистрации на транспортах (jep-0100)
+  --
+  + New option "Remove registration" in disco forms jabber:iq:register 
+    to cancel registration on legacy gateways (jep-0100)
 ---------------------------
   known issues:
 

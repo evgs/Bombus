@@ -126,7 +126,8 @@ public class ContactMessageList extends MessageList
             clearMessageList();
         }
         if (c==cmdContact) {
-            new RosterItemActions(display, contact);
+            if (StaticData.getInstance().roster.theStream!=null)
+                new RosterItemActions(display, contact);
         }
 	
 	if (c==cmdActive) {
@@ -150,7 +151,7 @@ public class ContactMessageList extends MessageList
     
     public void keyRepeated(int keyCode) {
 	if (keyCode==KEY_NUM3) new ActiveContacts(display, contact);
-	else super.keyPressed(keyCode);
+	else super.keyRepeated(keyCode);
     }
 
     public void userKeyPressed(int keyCode) {
