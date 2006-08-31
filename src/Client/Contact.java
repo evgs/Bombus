@@ -319,7 +319,7 @@ public class Contact extends IconTextElement{
                 temp=(Contact)sortVector.elementAt(f);
                 temp2=(Contact)sortVector.elementAt(f-1);
                 if ( temp.compare(temp2) >=0 ) continue;
-                i    = f-1;
+                i = f-1;
                 while (i>=0){
                     temp2=(Contact)sortVector.elementAt(i);
                     if (temp2.compare(temp) <0) break;

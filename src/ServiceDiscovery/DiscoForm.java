@@ -117,7 +117,6 @@ public class DiscoForm implements CommandListener{
             }
         }
         
-        req.addChild(qry);
         //System.out.println(req.toString());
         //if (listener!=null) stream.addBlockListener(listener);
         stream.send(req);

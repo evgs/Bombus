@@ -183,8 +183,13 @@ public class ServiceDiscovery
                     items.addElement(serv);
                 }
                 
-                Contact.sort(items);
+                
             }
+            
+            try { 
+                Contact.sort(items);
+            } catch (Exception e) { e.printStackTrace(); };
+            
             if (data.getAttribute("from").equals(service)) {
                 for (Enumeration e=cmds.elements(); e.hasMoreElements();) 
                     items.insertElementAt(e.nextElement(),0);

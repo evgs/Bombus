@@ -2685,6 +2685,11 @@ syslog_msg: true
   --
   + Service Discovery: jids in balloons
   + Service Discovery: lexicographical case-sensitive sorting
+
+(646)
+  * jabber:x:data was broken in 640
+  * disco nodes was broken in 643
+  * SASL login was broken
 ---------------------------
   known issues:
 
