@@ -2689,6 +2689,8 @@ syslog_msg: true
 (646)
   * jabber:x:data was broken in 640
   * disco nodes was broken in 643
+
+(648)
   * SASL login was broken
 ---------------------------
   known issues:
