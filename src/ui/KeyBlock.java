@@ -13,6 +13,7 @@ import Client.Config;
 import images.RosterIcons;
 import javax.microedition.lcdui.*;
 import java.util.*;
+import midlet.Bombus;
 
 /**
  *
@@ -71,7 +72,8 @@ public class KeyBlock extends Canvas implements Runnable{
     
     public void run(){
         try {
-            img=Image.createImage("/images/splash.png");
+            img=Bombus.splash;
+            if (img==null) img=Image.createImage("/images/splash.png");
         } catch (Exception e) {};
         
         display.setCurrent(this);

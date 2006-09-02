@@ -155,10 +155,16 @@ public class ServiceDiscovery
         if (!id.startsWith("disco")) return JabberBlockListener.BLOCK_REJECTED;
         
         if (data.getTypeAttribute().equals("error")) {
-            //System.out.println(data.toString());
+            System.out.println(data.toString());
             discoIcon=RosterIcons.ICON_ERROR_INDEX;
             titleUpdate();
-            redraw();
+            //redraw();
+            
+            String err=((JabberDataBlock)(data.getChildBlock("error").getChildBlocks().firstElement())).getTagName();
+            Alert alert=new Alert(SR.MS_ERROR_, err, null, null /*AlertType.ALARM*/);
+            
+            display.setCurrent(alert, this);
+
             return JabberBlockListener.BLOCK_PROCESSED;
         }
 

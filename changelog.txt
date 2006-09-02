@@ -2690,8 +2690,16 @@ syslog_msg: true
   * jabber:x:data was broken in 640
   * disco nodes was broken in 643
 
+03.09.2006
 (648)
+
   * SASL login was broken
+  * Contacts in Not-In-List group and in Search results will not be
+    counted in roster title anymore (FS#10)
+  * Error handling in Service Discovery (FS#344)
+  * Image caching on Nokia devices (fixing one of numerous memory leaks) (FS#343)
+  
+  
 ---------------------------
   known issues:
 

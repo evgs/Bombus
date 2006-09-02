@@ -93,7 +93,7 @@ public class SplashScreen extends Canvas implements CommandListener{
     }
 
     public void setFailed(){
-        SplashScreen.getInstance().setProgress("Failed", 0);
+        setProgress("Failed", 0);
     }
     public void setProgress(String caption, int progress){
         capt=caption;

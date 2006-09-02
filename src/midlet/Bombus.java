@@ -34,6 +34,9 @@ public class Bombus extends MIDlet implements Runnable{
     private boolean isRunning;
     private boolean isMinimized;
     StaticData sd;
+    
+    public static Image programIcon;
+    public static Image splash;
     //IconTextList l;
     
     private static Bombus instance; 
@@ -73,8 +76,15 @@ public class Bombus extends MIDlet implements Runnable{
         SplashScreen s= SplashScreen.getInstance();
         s.setProgress(5);
         
+        
         try {
             s.img=Image.createImage("/images/splash.png");
+            
+            if (Version.getPlatformName().startsWith("Nokia")) {
+                splash=s.img;
+                programIcon=Image.createImage("/_icon.png");
+            }
+            
             s.setProgress("Bombus "+Version.version,7);
         } catch (Exception e) {
             e.printStackTrace();

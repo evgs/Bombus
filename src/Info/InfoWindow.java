@@ -10,6 +10,7 @@
 package Info;
 import javax.microedition.lcdui.*;
 import locale.SR;
+import midlet.Bombus;
 
 /**
  *
@@ -30,7 +31,9 @@ public class InfoWindow implements CommandListener{
         form=new Form(SR.MS_ABOUT);
         form.addCommand(new Command(SR.MS_CLOSE, Command.BACK, 99));
         try {
-            form.append(Image.createImage("/_icon.png"));
+            Image icon=Bombus.programIcon;
+            if (icon==null) icon=Image.createImage("/_icon.png");
+            form.append(icon);
         } catch (Exception e) { }
         form.append("Bombus v"+Version.version+"\nMobile Jabber client\n");
         form.append(Version.getOs());
