@@ -114,7 +114,7 @@ public final class ContactEdit
                 cmdOk=new Command(SR.MS_UPDATE, Command.OK, 1);
                 newContact=false;
             } else c=null; // adding not-in-list
-        } catch (Exception e) {}; // if MucContact does not contains realJid
+        } catch (Exception e) {c=null;} // if MucContact does not contains realJid
         
         
         int sel=-1;
@@ -175,10 +175,12 @@ public final class ContactEdit
                 String name=getString(tNick);
                 String group=getString(tGroup);
                 
-                int gSel=tGrpList.getSelectedIndex();
-                if (gSel!=tGrpList.size()-1)  {
-                    group=(gSel>0)? tGrpList.getString(gSel) : ""; // nokia fix
-                }
+                try {
+                    int gSel=tGrpList.getSelectedIndex();
+                    if (gSel!=tGrpList.size()-1)  {
+                        group=(gSel>0)? tGrpList.getString(gSel) : null; // nokia fix
+                    }
+                } catch (Exception e) {} // nokia fix
                 
                 // сохранение контакта
                 boolean ask[]=new boolean[1];

@@ -131,7 +131,10 @@ public abstract class VirtualList
     
     protected synchronized void updateLayout(){
         int size=getItemCount();
-        if (size==0) return;
+        if (size==0) {
+            listHeight=0;
+            return;
+        }
         int layout[]=new int[size+1];
         int y=0;
         for (int index=0; index<size; index++){
@@ -303,6 +306,8 @@ public abstract class VirtualList
         beginPaint();
         
         int list_top=0; // верхняя граница списка
+        updateLayout(); //fixme: только при изменении списка
+        
         if (title!=null) {
             list_top=title.getVHeight();
             g.setClip(0,0, width, list_top);
@@ -315,7 +320,6 @@ public abstract class VirtualList
         drawHeapMonitor(g);
         winHeight=height-list_top;
 
-        updateLayout(); //fixme: только при изменении списка
 
         itemBorder[0]=list_top;
         
