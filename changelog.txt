@@ -2699,7 +2699,11 @@ syslog_msg: true
   * Error handling in Service Discovery (FS#344)
   * Image caching on Nokia devices (fixing one of numerous memory leaks) (FS#343)
   
-  
+(651)
+  * Add Contact: jid field missed in form invoked if cursor was focused 
+    on conference contact
+  * Add Contact: group General issues on Nokia
+  * VirtualList: Scrollbar now is disabled on empte lists
 ---------------------------
   known issues:
 
