@@ -26,6 +26,7 @@ public class ContactMessageList extends MessageList
 {
     
     Contact contact;
+    Command cmdSubscribe=new Command(SR.MS_SUBSCRIBE, Command.SCREEN, 1);
     Command cmdMessage=new Command(SR.MS_NEW_MESSAGE,Command.SCREEN,2);
     Command cmdResume=new Command(SR.MS_RESUME,Command.SCREEN,1);
     Command cmdQuote=new Command(SR.MS_QUOTE,Command.SCREEN,3);
@@ -62,6 +63,7 @@ public class ContactMessageList extends MessageList
 	//}
         setCommandListener(this);
         moveCursorTo(contact.firstUnread(), true);
+        setRotator();
     }
     
     public void showNotify(){
@@ -97,7 +99,12 @@ public class ContactMessageList extends MessageList
 	return msg;
     }
     
-    public void focusedItem(int index){ markRead(index); }
+    public void focusedItem(int index){ 
+        markRead(index); 
+	Msg msg=(Msg) contact.msgs.elementAt(index); 
+        if (msg.messageType==Msg.MESSAGE_TYPE_AUTH) addCommand(cmdSubscribe);
+        else removeCommand(cmdSubscribe);
+    }
         
     public void commandAction(Command c, Displayable d){
         super.commandAction(c,d);
@@ -126,13 +133,31 @@ public class ContactMessageList extends MessageList
             clearMessageList();
         }
         if (c==cmdContact) {
-            if (StaticData.getInstance().roster.theStream!=null)
+            if (sd.roster.theStream!=null)
                 new RosterItemActions(display, contact);
         }
 	
 	if (c==cmdActive) {
 	    new ActiveContacts(display, contact);
 	}
+        
+        if (c==cmdSubscribe) {
+            boolean subscribe = 
+                    contact.subscr.startsWith("none") || 
+                    contact.subscr.startsWith("from");
+            if (contact.ask_subscribe) subscribe=false;
+
+            boolean subscribed = 
+                    contact.subscr.startsWith("none") || 
+                    contact.subscr.startsWith("to");
+                    //getMessage(cursor).messageType==Msg.MESSAGE_TYPE_AUTH;
+            
+            String to=contact.getBareJid();
+            
+            if (subscribed) sd.roster.sendPresence(to,"subscribed", null);
+            if (subscribe) sd.roster.sendPresence(to,"subscribe", null);
+
+        }
     }
 
     private void clearMessageList() {

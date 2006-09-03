@@ -2692,7 +2692,12 @@ syslog_msg: true
 
 03.09.2006
 (648)
-
+  * Отремонтирована SASL-авторизация
+  * Контакты из псевдо-групп Not-In-List и Search results более не учитываются
+    в счётчике в заголовке ростера (FS#10)
+  * Обработка ошибок в Service Discovery (FS#344)
+  * Кэширование ресурсов изображений на телефонах Nokia (FS#343)
+  --
   * SASL login was broken
   * Contacts in Not-In-List group and in Search results will not be
     counted in roster title anymore (FS#10)
@@ -2700,10 +2705,23 @@ syslog_msg: true
   * Image caching on Nokia devices (fixing one of numerous memory leaks) (FS#343)
   
 (651)
+  * Add Contact: поле ввода jid отсутствовало в форме, вызванной при курсоре, наведённом
+    на контакты конференции
+  * Add Contact: глюки группы General на телефонах Nokia
+  * VirtualList: отключение скроллбара для пустых списков
+  --
   * Add Contact: jid field missed in form invoked if cursor was focused 
     on conference contact
   * Add Contact: group General issues on Nokia
-  * VirtualList: Scrollbar now is disabled on empte lists
+  * VirtualList: Scrollbar now is disabled on empty lists
+
+(653)
+  + MessageList:Authorize - упрощённая процедура подписки. Команда доступна при
+    наведении курсора на сообщение с запросом на подписку.
+  --
+  + MessageList:Authorize - Simplified subscription procedure, 
+    works if subscription request is focused
+
 ---------------------------
   known issues:
 
