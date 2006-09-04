@@ -101,9 +101,11 @@ public class ContactMessageList extends MessageList
     
     public void focusedItem(int index){ 
         markRead(index); 
-	Msg msg=(Msg) contact.msgs.elementAt(index); 
-        if (msg.messageType==Msg.MESSAGE_TYPE_AUTH) addCommand(cmdSubscribe);
-        else removeCommand(cmdSubscribe);
+        try {
+            Msg msg=(Msg) contact.msgs.elementAt(index); 
+            if (msg.messageType==Msg.MESSAGE_TYPE_AUTH) addCommand(cmdSubscribe);
+            else removeCommand(cmdSubscribe);
+        } catch (Exception e) {}
     }
         
     public void commandAction(Command c, Displayable d){
@@ -142,6 +144,7 @@ public class ContactMessageList extends MessageList
 	}
         
         if (c==cmdSubscribe) {
+            if (contact.subscr==null) return;
             boolean subscribe = 
                     contact.subscr.startsWith("none") || 
                     contact.subscr.startsWith("from");

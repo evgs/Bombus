@@ -2720,7 +2720,11 @@ syslog_msg: true
     наведении курсора на сообщение с запросом на подписку.
   --
   + MessageList:Authorize - Simplified subscription procedure, 
-    works if subscription request is focused
+    works if subscription request is focused (FS#326)
+
+(655)
+  * ArrayIndexOutOfBoundsException при попытке открыть 
+    MessageList пустого контакта
 
 ---------------------------
   known issues:
