@@ -17,6 +17,7 @@ import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
 import ui.Colors;
 import ui.ComplexString;
+import ui.Time;
 import ui.VirtualElement;
 import ui.VirtualList;
 
@@ -144,6 +145,7 @@ public class MessageItem implements
     }
 
     public String getTipString() {
+        if (Time.localTime() - msg.dateGmt> (24*60*60*1000)) return msg.getDayTime();
         return msg.getTime();
     }
 

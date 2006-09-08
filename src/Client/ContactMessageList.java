@@ -63,7 +63,7 @@ public class ContactMessageList extends MessageList
 	//}
         setCommandListener(this);
         moveCursorTo(contact.firstUnread(), true);
-        setRotator();
+        //setRotator();
     }
     
     public void showNotify(){

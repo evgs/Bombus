@@ -511,7 +511,7 @@ public class Roster
         return c;
     }
     
-    public final Contact getContact(final String jid) {
+    public final Contact getContact(final String jid, boolean createInNIL) {
         
         Jid J=new Jid(jid);
 
@@ -523,9 +523,7 @@ public class Roster
         // проверим наличие без ресурсов
         c=findContact(J, false);
         if (c==null) {
-            // хм... нет такой буквы
-            // здесь будем игнорить позже
-            //System.out.println("new");
+            if (!createInNIL) return null;
             c=new Contact(null, jid, Presence.PRESENCE_OFFLINE, "not-in-list");
 	    c.bareJid=J.getBareJid();
             c.origin=Contact.ORIGIN_PRESENCE;
@@ -552,9 +550,7 @@ public class Roster
         synchronized (hContacts) { hContacts.addElement(c); }
     }
     
-    public final Contact getContact(final String Jid, boolean compareResources) {
-        return (findContact(new Jid(Jid), compareResources));
-    }
+
     public final Contact findContact(final Jid j, final boolean compareResources) {
         synchronized (hContacts) {
             for (Enumeration e=hContacts.elements();e.hasMoreElements();){
@@ -611,7 +607,7 @@ public class Roster
                 System.gc();
             }
         }
-        Contact c=getContact(myJid.getJid());
+        Contact c=selfContact();
         c.status=myStatus;
         Contact.sort(hContacts);
         
@@ -619,7 +615,7 @@ public class Roster
     }
     
     public Contact selfContact() {
-	return getContact(myJid.getJid());
+	return getContact(myJid.getJid(), true);
     }
     
     public void sendConferencePresence() {
@@ -745,7 +741,9 @@ public class Roster
                         VCard vc=new VCard(data);//.getNickName();
                         String from=vc.getJid();
                         String nick=vc.getNickName();
-                        Contact c=getContact(from, false);
+                        
+                        Contact c=findContact(new Jid(from), false);
+                        
                         String group=(c.getGroupType()==Groups.TYPE_COMMON)?
                             null: c.getGroup().name;
                         if (nick!=null)  storeContact(from,nick,group, false);
@@ -795,9 +793,11 @@ public class Roster
                     if (id.startsWith("getvc")) {
                         setQuerySign(false);
                         VCard vcard=new VCard(data);
-                        Contact c=getContact(vcard.getJid());
-                        c.vcard=vcard;
-                        new vCardForm(display, vcard, c.getGroupType()==Groups.TYPE_SELF);
+                        Contact c=getContact(vcard.getJid(), true);
+                        if (c!=null) {
+                            c.vcard=vcard;
+                            new vCardForm(display, vcard, c.getGroupType()==Groups.TYPE_SELF);
+                        }
                     }
                     
                 } else if (type.equals("get")){
@@ -881,7 +881,7 @@ public class Roster
                     
                 } catch (Exception e) {}
                 
-                Contact c=getContact(from);
+                Contact c=getContact(from, true);
 
                 if (name==null) name=c.getName();
                 // /me
@@ -979,7 +979,9 @@ public class Roster
                     
                 } /* if (muc) */ catch (Exception e) { /*e.printStackTrace();*/ }
                 else {
-                    Contact c=messageStore(m);
+                    Contact c=getContact(m.from, false); 
+                    if (c==null) return; // drop presence
+                    messageStore(c, m);
                     c.priority=pr.getPriority();
                     if (ti>=0) c.status=ti;
                     if (ti==Presence.PRESENCE_OFFLINE) c.acceptComposing=false;
@@ -1036,26 +1038,18 @@ public class Roster
     }
     
     
-    Contact messageStore(Msg message){
-        Contact c=getContact(message.from);
-        if (c.getGroupType()==Groups.TYPE_NOT_IN_LIST) 
-            if (!cf.notInList) return c;
-
-        if (c==null) return c;  // not to store/signal not-in-list message
+    void messageStore(Contact c, Msg message) {
+        if (c==null) return;  
         c.addMessage(message);
         
-        if (cf.ghostMotor) System.gc(); //TODO: тест для моторол
-        //message.from=c.getNickJid();
-        /*
-        switch (message.messageType) {
-            case Msg.MESSAGE_TYPE_PRESENCE:
-            case Msg.MESSAGE_TYPE_OUT: return c;
-        }*/
-        if (!message.unread) return c;
+        if (cf.ghostMotor) System.gc(); 
+
+        if (!message.unread) return;
+        //TODO: clear unread flag if not-in-list IS HIDDEN
         
         if (countNewMsgs()) reEnumRoster();
         
-        if (c.getGroupType()==Groups.TYPE_IGNORE) return c;    // no signalling/focus on ignore
+        if (c.getGroupType()==Groups.TYPE_IGNORE) return;    // no signalling/focus on ignore
         
 	if (cf.popupFromMinimized)
 	    Bombus.getInstance().hideApp(false);
@@ -1064,6 +1058,14 @@ public class Roster
 
         if (message.messageType!=Msg.MESSAGE_TYPE_HISTORY) 
             AlertProfile.playNotify(display, 0);
+    }
+    
+    Contact messageStore(Msg message){
+        Contact c=getContact(message.from, true);
+        if (c.getGroupType()==Groups.TYPE_NOT_IN_LIST) 
+            if (!cf.notInList) return c;
+
+        messageStore(c, message);
         return c;
     }
 
