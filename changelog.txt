@@ -2785,6 +2785,9 @@ syslog_msg: true
   --
   * cursor was out of list in some cases (error made in build 664)
 
+17.09.2006
+0.4.0.669RC
+  
 ---------------------------
   known issues:
 
