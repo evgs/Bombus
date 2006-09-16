@@ -2767,10 +2767,17 @@ syslog_msg: true
   * FS#125 Disabled "Transports" group will be shown if this group contains 
     tramsport has unreaded messages
 
-(662)
+(663)
   * пробная оптимизация загрузки графики для SonyEricsson
   --
   * trying to prefetch images into dedicated videoram for SonyEricsson
+
+(664)
+  * FS#260 Повторный вход в конференцию с другим ником и сворачивание 
+    группы конференции приводило к потере контакта конференции
+  --
+  * FS#260 Reentering into conference with another name, then collapsing
+    conference group causing conference to disappear
 ---------------------------
   known issues:
 

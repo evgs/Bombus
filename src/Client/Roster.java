@@ -470,11 +470,14 @@ public class Roster
         c=grp.getSelfContact();
         if (c==null)
             c=findMucContact( new Jid(from) );
+
+        if (c!=null) if (c.status==Presence.PRESENCE_OFFLINE) { c=null; }
         
         if (c==null) {
             c=new MucContact(from.substring(rp+1), from);
             addContact(c);
         }
+        
         
         grp.setSelfContact(c);
         c.setGroup(grp);
