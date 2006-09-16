@@ -330,9 +330,7 @@ public abstract class VirtualList
         if (count==0) {
             cursor=(cursor==-1)?-1:0; 
             win_top=0;
-        }
-
-        if (cursor>=count) {
+        } else if (cursor>=count) {
             cursor=count-1;
             stickyWindow=true;
         }
