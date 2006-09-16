@@ -2729,13 +2729,43 @@ syslog_msg: true
 08.09.2006
 (656)
   * иконка программы - 15*15
+  --
+  * Bombus icon size now is 15*15
+
 (657)
   + если возраст сообщения более суток, то время в баллонах пишется 
     в формате dd.mm.yy hh:mm
+  --
+  + balloons will show time of messages elder than 24 hours in format
+    dd.mm.yy hh:mm
+
 (658)
   * игнорируются презенсы от контактов вне ростера, не попадают в Not-In-List
     (FS#367)
+  --
+  * FS#367 - ignoring presences from contacts not in roster
 
+
+(660)
+  ? для тестирования ошибки http://technom.ru/flyspray/task/111#comment614
+    временно команда Authorize появляется ТОЛЬКО после перемещения курсора
+    в MessageList
+  --
+  ? looking for bug http://technom.ru/flyspray/task/111#comment614
+
+16.09.2005
+(661)
+  * изменение формирования контекстно-зависимого меню 
+    в MessageList - проверяем http://technom.ru/flyspray/task/111#comment614
+    на Symbian S60
+
+  * FS#348 Белый экран в ростере при удержании 0 - IndexOutOfBounds
+  * FS#125 сообщения в скрытых спецгруппах - теперь группа транспортов 
+    отображается, если у одного из транспортов есть непрочитанные сообщения
+  --
+  * FS#348 IndexOutOfBounds when toggle displaying offline contacts
+  * FS#125 Disabled "Transports" group will be shown if this group contains 
+    tramsport has unreaded messages
 ---------------------------
   known issues:
 

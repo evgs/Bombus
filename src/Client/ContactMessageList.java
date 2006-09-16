@@ -71,6 +71,14 @@ public class ContactMessageList extends MessageList
         if (cmdResume==null) return;
         if (contact.msgSuspended==null) removeCommand(cmdResume);
         else addCommand(cmdResume);
+        
+        if (cmdSubscribe==null) return;
+        try {
+            Msg msg=(Msg) contact.msgs.elementAt(cursor); 
+            if (msg.messageType==Msg.MESSAGE_TYPE_AUTH) addCommand(cmdSubscribe);
+            else removeCommand(cmdSubscribe);
+        } catch (Exception e) {}
+        
     }
     
     protected void beginPaint(){
@@ -101,11 +109,11 @@ public class ContactMessageList extends MessageList
     
     public void focusedItem(int index){ 
         markRead(index); 
-        try {
+        /*try {
             Msg msg=(Msg) contact.msgs.elementAt(index); 
             if (msg.messageType==Msg.MESSAGE_TYPE_AUTH) addCommand(cmdSubscribe);
             else removeCommand(cmdSubscribe);
-        } catch (Exception e) {}
+        } catch (Exception e) {}*/
     }
         
     public void commandAction(Command c, Displayable d){

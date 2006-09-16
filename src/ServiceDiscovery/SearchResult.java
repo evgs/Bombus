@@ -47,6 +47,9 @@ public class SearchResult
         JabberDataBlock query=result.getChildBlock("query");
         if (query==null) return;
         
+        addCommand(cmdAdd);
+
+        
         JabberDataBlock x=query.getChildBlock("x");
         if (x!=null) { query=x; xData=true; }
         
@@ -98,7 +101,6 @@ public class SearchResult
             }
         }
         sd.roster.reEnumRoster();
-        addCommand(cmdAdd);
     }
     
     public int getItemCount(){ return items.size();}

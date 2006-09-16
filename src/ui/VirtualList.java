@@ -332,6 +332,10 @@ public abstract class VirtualList
             win_top=0;
         }
 
+        if (cursor>=count) {
+            cursor=count-1;
+            stickyWindow=true;
+        }
         if (count>0 && stickyWindow) fitCursorByTop();
         
         int itemMaxWidth=(scroll) ?(width-scrollbar.getScrollWidth()) : (width);

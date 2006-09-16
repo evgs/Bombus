@@ -1433,8 +1433,11 @@ public class Roster
                     if (cf.ignore) groups.addToVector(tContacts,Groups.TYPE_IGNORE);
                     // not-in-list
                     if (cf.notInList) groups.addToVector(tContacts,Groups.TYPE_NOT_IN_LIST);
+
                     // transports
-                    if (cf.showTransports) groups.addToVector(tContacts,Groups.TYPE_TRANSP);
+                    Group transpGroup=groups.getGroup(Groups.TYPE_TRANSP);
+                    if (cf.showTransports || transpGroup.unreadMessages>0)
+                        groups.addToVector(tContacts,Groups.TYPE_TRANSP);
                     
                     // search result
                     //if (groups.getGroup(Groups.SRC_RESULT_INDEX).tncontacts>0)
@@ -1453,7 +1456,7 @@ public class Roster
                         if (c>=0) moveCursorTo(c, force);
 			force=false;
                     }
-                    if (cursor>=vContacts.size()) moveCursorEnd(); // вернём курсор из нирваны
+                    //if (cursor>=vContacts.size()) cursor=vContacts.size()-1; //moveCursorEnd(); // вернём курсор из нирваны
                     
                     focusedItem(cursor);
                     redraw();
