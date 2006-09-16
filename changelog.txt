@@ -2778,6 +2778,13 @@ syslog_msg: true
   --
   * FS#260 Reentering into conference with another name, then collapsing
     conference group causing conference to disappear
+
+(668)
+  * устранено пропадание курсора в некоторых списках, например, bookmarks и
+    service discovery (ошибка появилась в 664)
+  --
+  * cursor was out of list in some cases (error made in build 664)
+
 ---------------------------
   known issues:
 
