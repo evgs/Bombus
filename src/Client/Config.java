@@ -10,6 +10,8 @@
 package Client;
 
 import Info.Version;
+import images.RosterIcons;
+import images.SmilesIcons;
 import java.io.*;
 import java.util.*;
 import javax.microedition.lcdui.Font;
@@ -147,6 +149,10 @@ public class Config {
 	String platform=Version.getPlatformName();
 	
 	if (platform.startsWith("SonyE")) {
+            //prefetch images
+            RosterIcons.getInstance();
+            SmilesIcons.getInstance();
+            
 	    allowMinimize=true;
             greenKeyCode=VirtualList.SE_GREEN;
 	}
