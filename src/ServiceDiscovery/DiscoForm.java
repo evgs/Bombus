@@ -64,19 +64,20 @@ public class DiscoForm implements CommandListener{
 
         // for instructions
         fields.addElement(null);
-        form.append("-");
         
         Vector vFields=(xData=(x!=null))? x.getChildBlocks() : query.getChildBlocks();
-        
-        for (Enumeration e=vFields.elements(); e.hasMoreElements(); ){
+
+	Enumeration e;        
+        for (e=vFields.elements(); e.hasMoreElements(); ){
             FormField field=new FormField((JabberDataBlock)e.nextElement());
             if (field.instructions) {
-                fields.setElementAt(field, 0);
-                form.set(0, field.formItem);
-            } else {
-                fields.addElement(field);
-                if (!field.hidden) form.append(field.formItem);
-            }
+                fields.insertElementAt(field, 0);
+            } else { fields.addElement(field); }
+        }
+
+        for (e=fields.elements(); e.hasMoreElements(); ){
+            FormField field=(FormField) e.nextElement();
+            if (!field.hidden) form.append(field.formItem);
         }
         
        

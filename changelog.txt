@@ -2787,6 +2787,10 @@ syslog_msg: true
 
 17.09.2006
 0.4.0.669RC
+
+18.09.2006
+(671)
+  * fix disco forms with instructions on SonyEricsson JP6
   
 ---------------------------
   known issues:
