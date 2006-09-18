@@ -467,14 +467,19 @@ public class Roster
         c.setGroup(grp);
         
         // creating self-contact
+        String nick=from.substring(rp+1);
         c=grp.getSelfContact();
         if (c==null)
             c=findMucContact( new Jid(from) );
 
-        if (c!=null) if (c.status==Presence.PRESENCE_OFFLINE) { c=null; }
+        if (c!=null) if (c.status==Presence.PRESENCE_OFFLINE) { 
+            c.nick=nick;
+            c.jid.setJid(from);
+            c.bareJid=from;
+        }
         
         if (c==null) {
-            c=new MucContact(from.substring(rp+1), from);
+            c=new MucContact(nick, from);
             addContact(c);
         }
         

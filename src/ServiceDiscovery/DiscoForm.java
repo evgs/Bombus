@@ -63,7 +63,6 @@ public class DiscoForm implements CommandListener{
         Form form=new Form(service);
 
         // for instructions
-        fields.addElement(null);
         
         Vector vFields=(xData=(x!=null))? x.getChildBlocks() : query.getChildBlocks();
 
