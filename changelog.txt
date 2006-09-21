@@ -2798,6 +2798,10 @@ syslog_msg: true
   --
   * fix disco forms with instructions on SonyEricsson JP6
   * muc-reenter
+
+21.09.2005
+0.4.0.675
+  версия застабилизирована
 ---------------------------
   known issues:
 
