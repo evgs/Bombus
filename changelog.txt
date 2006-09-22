@@ -2804,8 +2804,8 @@ syslog_msg: true
   версия застабилизирована
 
 22.09.2005
-(677)
-  * FS#372 [end of vcard] preceeded with /n/n
+(679)
+  * FS#372 [end of vcard] preceeded with \n\n
   * FS#377 Exception in Config form
 ---------------------------
   known issues:
