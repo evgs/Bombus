@@ -17,7 +17,11 @@ import ui.ConstMIDP;
  * @author Evg_S
  */
 public class Version {
-    public final static String version="$BOMBUSVERSION$";
+//#if (!ZLIB)
+//#     public final static String version="$BOMBUSVERSION$";
+//#else
+    public final static String version="$BOMBUSVERSION$-Zlib";
+//#endif
     // this string will be patched by build.xml/post-preprocess
     
     public final static String url="http://bombus.jrudevels.org";
