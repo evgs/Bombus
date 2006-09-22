@@ -2514,12 +2514,12 @@ syslog_msg: true
   * Вызов формы Options передвинут вглубь подменю ростера Tools
   * команда Active Contacts теперь доступна и в ростере - через меню, либо
     при удержании нажатой кнопки '3'
-
+  --
   * Options form moved into Tools submenu
   * Active Contacts now Available in roster
     use menu>Active Contacts or hold key '3'
 
-(607)
+(608)
   * Slovak langfile updated
 
 (610)
@@ -2588,7 +2588,7 @@ syslog_msg: true
   --
   * VirtualList - fixing scrolling issues
 
-(624)
+(625)
   + В несколько видоизменённой форме вернулась функция отключения смайлов.
     Команда вызывается либо через меню, либо кнопкой '*'.
     Данная команда выполняет переключение режима отображения смайлов только для сообщения,

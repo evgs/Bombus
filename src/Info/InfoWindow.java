@@ -8,6 +8,7 @@
  */
 
 package Info;
+import Client.StaticData;
 import javax.microedition.lcdui.*;
 import locale.SR;
 import midlet.Bombus;
@@ -53,6 +54,16 @@ public class InfoWindow implements CommandListener{
         memInfo.append("\nTotal=");
         memInfo.append(Runtime.getRuntime().totalMemory()>>10);
         form.append(memInfo.toString());
+//#if ZLIB
+        form.append("\n\n");
+        String conn_stats;
+        try {
+            conn_stats=StaticData.getInstance().roster.theStream.getStreamStats();
+        } catch (Exception e) {
+            conn_stats="disconnected";
+        }
+        form.append(conn_stats);
+//#endif
      
         form.setCommandListener(this);
         display.setCurrent(form);

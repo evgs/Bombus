@@ -65,7 +65,7 @@ public class Group extends IconTextElement {
 
     public void startCount(){
 	//int size=(contacts==null)?10:contacts.size();
-	tonlines=tncontacts=0;
+	tonlines=tncontacts=unreadMessages=0;
 	//tcontacts=new Vector(size);
 	contacts=new Vector();
     }

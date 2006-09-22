@@ -304,6 +304,16 @@ public class JabberStream implements XMLEventListener, Runnable {
         ping.addChild("query", null).setNameSpace("jabber:iq:version");
         send(ping);
     }
+
+//#if ZLIB
+    public void setZlibCompression() {
+        iostream.setStreamCompression();
+    }
+
+    public String getStreamStats() {
+        return iostream.getStreamStats();
+    }
+//#endif
     
     private class TimerTaskKeepAlive extends TimerTask{
         private Timer t;

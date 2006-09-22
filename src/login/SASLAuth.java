@@ -159,8 +159,19 @@ public class SASLAuth implements JabberBlockListener{
                 
             stream.send(resp);
             return JabberBlockListener.BLOCK_PROCESSED;
+        }
+//#if ZLIB
+        else if ( data.getTagName().equals("compressed")) {
+            stream.setZlibCompression();
+            try {
+                stream.initiateStream(account.getServer(), true);
+            } catch (IOException ex) { }
+            return JabberBlockListener.NO_MORE_BLOCKS;
+        }
+        
+//#endif
             
-        } else if ( data.getTagName().equals("failure")) {
+        else if ( data.getTagName().equals("failure")) {
             // first stream - step 4a. not authorized
             listener.loginFailed( data.getText() );  
         } else if ( data.getTagName().equals("success")) {
