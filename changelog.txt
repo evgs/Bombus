@@ -2807,6 +2807,9 @@ syslog_msg: true
 (679)
   * FS#372 [end of vcard] preceeded with \n\n
   * FS#377 Exception in Config form
+
+(680) 
+  * fullscreen fix
 ---------------------------
   known issues:
 

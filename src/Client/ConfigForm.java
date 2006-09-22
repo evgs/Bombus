@@ -262,6 +262,7 @@ public class ConfigForm implements
 	    int apctr=0;
 //#if !(MIDP1)
             VirtualList.fullscreen=cf.fullscreen=ap[apctr++];
+            StaticData.getInstance().roster.setFullScreenMode(cf.fullscreen);
 //#endif
 	    VirtualList.memMonitor=cf.memMonitor=ap[apctr++];
 	    cf.blFlash=ap[apctr++];
