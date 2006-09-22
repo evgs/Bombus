@@ -15,6 +15,9 @@
         <antcall inheritrefs="false" inheritall="false" target="${target.to.call}">
             <param name="config.active" value="Release"/>
         </antcall>
+        <antcall inheritrefs="false" inheritall="false" target="${target.to.call}">
+            <param name="config.active" value="ReleaseJZLIB"/>
+        </antcall>
     </target>
 
     <target name="rebuild-release">
@@ -63,12 +66,14 @@
 	<zip destfile="${destfile}.zip">
 	    <zipfileset dir="ftp/midp1.0" prefix="siemens-midp1.0"/>
 	    <zipfileset dir="ftp/midp2.0" prefix="midp2.0"/>
+	    <zipfileset dir="ftp/midp2.0z" prefix="midp2.0-ZLIB"/>
 	    <zipfileset file="changelog.txt"/>
 	</zip>
 
 	<tar destfile="${destfile}.tar">
 	    <tarfileset dir="ftp/midp1.0" prefix="siemens-midp1.0"/>
 	    <tarfileset dir="ftp/midp2.0" prefix="midp2.0"/>
+	    <tarfileset dir="ftp/midp2.0z" prefix="midp2.0-ZLIB"/>
 	    <tarfileset file="changelog.txt"/>
 	</tar>
 	<bzip2 src="${destfile}.tar" destfile="${destfile}.tar.bz2"/>

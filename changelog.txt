@@ -2810,6 +2810,9 @@ syslog_msg: true
 
 (680) 
   * fullscreen fix
+
+(687)
+  * подготовка бета-версии с jzlib
 ---------------------------
   known issues:
 

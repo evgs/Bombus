@@ -9,9 +9,11 @@
 
 package io;
 
+//#if ZLIB
 import com.jcraft.jzlib.JZlib;
 import com.jcraft.jzlib.ZInputStream;
 import com.jcraft.jzlib.ZOutputStream;
+//#endif
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -144,9 +146,15 @@ public class Utf8IOStream implements Runnable{
 
         int avail=inpStream.available();
         
+//#if ZLIB
         if (inpStream instanceof ZInputStream) avail=512;
+//#endif
         
-        while (avail==0 /*&& iStreamWaiting*/) {
+        while (avail==0 
+//#if (!ZLIB)
+//#                 && iStreamWaiting
+//#endif
+                ) {
             try { Thread.sleep(100); } catch (Exception e) {};
             avail=inpStream.available();
         }
