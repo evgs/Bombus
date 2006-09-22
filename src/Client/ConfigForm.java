@@ -193,7 +193,9 @@ public class ConfigForm implements
 	    lang.append( (String)f.nextElement(), null );
 	}
 	
-        lang.setSelectedIndex(cf.lang, true);
+        try {
+            lang.setSelectedIndex(cf.lang, true);
+        } catch (Exception e) {}
 
         
         //sndVol=new Gauge("Sound volume", true, 10,  cf.soundVol/10);

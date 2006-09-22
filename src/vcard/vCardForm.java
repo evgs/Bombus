@@ -64,7 +64,7 @@ public class vCardForm
         Image photo=vcard.getPhoto();
         if (photo!=null) f.append(photo);
         
-        f.append("[end of vCard]");
+        f.append("/n/n[end of vCard]");
         
         f.addCommand(cmdCancel);
         f.addCommand(cmdRefresh);
