@@ -601,7 +601,7 @@ final class Deflate{
   // on one bit only.
   void _tr_align(){
     send_bits(STATIC_TREES<<1, 3);
-    send_code(END_BLOCK, StaticTree.static_ltree);
+    send_code(END_BLOCK, StaticTree.getStatic_ltree());
 
     bi_flush();
 
@@ -611,7 +611,7 @@ final class Deflate{
     // of the EOB plus what we have just sent of the empty static block.
     if (1 + last_eob_len + 10 - bi_valid < 9) {
       send_bits(STATIC_TREES<<1, 3);
-      send_code(END_BLOCK, StaticTree.static_ltree);
+      send_code(END_BLOCK, StaticTree.getStatic_ltree());
       bi_flush();
     }
     last_eob_len = 7;
@@ -889,7 +889,7 @@ final class Deflate{
     }
     else if(static_lenb == opt_lenb){
       send_bits((STATIC_TREES<<1)+(eof?1:0), 3);
-      compress_block(StaticTree.static_ltree, StaticTree.static_dtree);
+      compress_block(StaticTree.getStatic_ltree(), StaticTree.static_dtree);
     }
     else{
       send_bits((DYN_TREES<<1)+(eof?1:0), 3);

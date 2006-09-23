@@ -34,6 +34,8 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jzlib;
 
+import util.ArrayLoader;
+
 final class InfTree{
 
   static final private int MANY=1440;
@@ -51,7 +53,7 @@ final class InfTree{
   static final int fixed_bl = 9;
   static final int fixed_bd = 5;
 
-  static final int[] fixed_tl = {
+/*  static final int[] fixed_tl = {
     96,7,256, 0,8,80, 0,8,16, 84,8,115,
     82,7,31, 0,8,112, 0,8,48, 0,9,192,
     80,7,10, 0,8,96, 0,8,32, 0,9,160,
@@ -191,7 +193,8 @@ final class InfTree{
     81,5,7, 89,5,1537, 85,5,97, 93,5,24577,
     80,5,4, 88,5,769, 84,5,49, 92,5,12289,
     82,5,13, 90,5,3073, 86,5,193, 192,5,24577
-  };
+  };*/
+  
 
   // Tables for deflate from PKZIP's appnote.txt.
   static final int[] cplens = { // Copy lengths for literal codes 257..285
@@ -225,6 +228,10 @@ final class InfTree{
   int[] r = null;   // table entry for structure assignment
   int[] u = null;   // table stack
   int[] x = null;   // bit offsets, then code stack
+
+  private static int[] fixed_tl;
+
+  private static int[] fixed_td;
 
   private int huft_build(int[] b, // code lengths in bits (all assumed <= BMAX)
                          int bindex, 
@@ -494,7 +501,10 @@ final class InfTree{
 				 ){
     bl[0]=fixed_bl;
     bd[0]=fixed_bd;
+    
+    if (fixed_tl==null) fixed_tl=new ArrayLoader().readIntArray("/fixed_tl");
     tl[0]=fixed_tl;
+    if (fixed_td==null) fixed_td=new ArrayLoader().readIntArray("/fixed_td");
     td[0]=fixed_td;
     return Z_OK;
   }

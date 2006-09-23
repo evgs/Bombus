@@ -46,7 +46,7 @@ final class StaticTree{
   // Bit length codes must not exceed MAX_BL_BITS bits
   static final int MAX_BL_BITS=7; 
 
-  static final short[] static_ltree = {
+  /*private static final short[] static_ltree = {
     12,  8, 140,  8,  76,  8, 204,  8,  44,  8,
     172,  8, 108,  8, 236,  8,  28,  8, 156,  8,
     92,  8, 220,  8,  60,  8, 188,  8, 124,  8,
@@ -105,7 +105,7 @@ final class StaticTree{
     100,  7,  20,  7,  84,  7,  52,  7, 116,  7,
     3,  8, 131,  8,  67,  8, 195,  8,  35,  8,
     163,  8,  99,  8, 227,  8
-  };
+  };*/
 
   static final short[] static_dtree = {
     0, 5, 16, 5,  8, 5, 24, 5,  4, 5,
@@ -117,7 +117,7 @@ final class StaticTree{
   };
 
   static StaticTree static_l_desc =
-    new StaticTree(static_ltree, Tree.extra_lbits,
+    new StaticTree(getStatic_ltree(), Tree.extra_lbits,
 		   LITERALS+1, L_CODES, MAX_BITS);
 
   static StaticTree static_d_desc =
@@ -134,6 +134,8 @@ final class StaticTree{
   int elems;               // max number of elements in the tree
   int max_length;          // max bit length for the codes
 
+    private static short[] static_ltree;
+
   StaticTree(short[] static_tree,
 	     int[] extra_bits,
 	     int extra_base,
@@ -146,4 +148,9 @@ final class StaticTree{
     this.elems=elems;
     this.max_length=max_length;
   }
+
+    public static short[] getStatic_ltree() {
+        if (static_ltree==null) static_ltree=new ArrayLoader().readShortArray("/static_ltree");
+        return static_ltree;
+    }
 }
