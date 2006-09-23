@@ -1,0 +1,327 @@
+Index: src/Client/Config.java
+===================================================================
+--- src/Client/Config.java	(revision 674)
++++ src/Client/Config.java	(working copy)
+@@ -55,11 +55,12 @@
+ //#if !(MIDP1)
+     public char keyLock=getCharProperty("key_lock",'*');
+     public char keyVibra=getCharProperty("key_vibra",'#');
++    public boolean msgLogPresence=getBooleanProperty("msg_log_presence",false);
++    public boolean msgLogConfPresence=getBooleanProperty("msg_log_conf_presence",false);
++    public boolean msgLogConf=getBooleanProperty("msg_log_conf",false);
++    public final String msgPath=getStringProperty("msg_log_path","");
++    public boolean cp1251=getBooleanProperty("cp1251",false);
+ //#else
+-//#     public boolean msgLogPresence=getBooleanProperty("msg_log_presence",false);
+-//#     public boolean msgLogConfPresence=getBooleanProperty("msg_log_conf_presence",false);
+-//#     public boolean msgLogConf=getBooleanProperty("msg_log_conf",false);
+-//#     public final String msgPath=getStringProperty("msg_log_path","");
+ //#     public final String siemensCfgPath=getStringProperty("cfg_path","");
+ //#     public char keyLock=getCharProperty("key_lock",'#');
+ //#     public char keyVibra=getCharProperty("key_vibra",'*');
+Index: src/Client/Contact.java
+===================================================================
+--- src/Client/Contact.java	(revision 674)
++++ src/Client/Contact.java	(working copy)
+@@ -8,8 +8,11 @@
+  */
+ 
+ package Client;
++import History.FileWriter;
+ import images.RosterIcons;
++import java.io.IOException;
+ import ui.Colors;
++import util.strconv;
+ import vcard.VCard;
+ import java.util.*;
+ import ui.IconTextElement;
+@@ -185,41 +188,57 @@
+             if (msgs.size()==1) 
+                 if ( ((Msg)msgs.firstElement()).isPresence())
+                     if (origin!=ORIGIN_GROUPCHAT) first_replace=true;
++         // Start History
++         Config cf=Config.getInstance();
++ 
++         if (cf.msgLog && group.index!=Groups.TYPE_TRANSP && group.index!=Groups.TYPE_SEARCH_RESULT)
++         {
++             String histRecord=(nick==null)?getBareJid():nick;
++             String fromName=StaticData.getInstance().account.getUserName();
++             if (m.messageType!=Msg.MESSAGE_TYPE_OUT) fromName=toString();
++             boolean allowLog=false;
++             switch (m.messageType) {
++                 case Msg.MESSAGE_TYPE_PRESENCE:
++                     if (origin>=ORIGIN_GROUPCHAT && cf.msgLogConfPresence) allowLog=true;
++                     if (origin<ORIGIN_GROUPCHAT && cf.msgLogPresence) allowLog=true;
++                     break;
++                 default:
++                     if (origin>=ORIGIN_GROUPCHAT && cf.msgLogConf) allowLog=true;
++                     if (origin<ORIGIN_GROUPCHAT) allowLog=true;
++             }
++             if (allowLog)
++                 //if (!first_replace || !m.)
++             {
++                 StringBuffer body=new StringBuffer(m.getDayTime());
++                 body.append(" <");
++                 body.append(fromName);
++                 body.append("> ");
++                 if (m.subject!=null) {
++                     body.append(m.subject);
++                     body.append("\r\n");
++                 }
++                 body.append(m.getBody());
++                 body.append("\r\n");
+ //#if USE_SIEMENS_FILES
+-//#         Config cf=Config.getInstance();
+-//# 
+-//#         if (cf.msgLog && group.index!=Groups.TYPE_TRANSP && group.index!=Groups.TYPE_SEARCH_RESULT)
+-//#         {
+-//#             String histRecord=(nick==null)?getBareJid():nick;
+-//#             String fromName=StaticData.getInstance().account.getUserName();
+-//#             if (m.messageType!=Msg.MESSAGE_TYPE_OUT) fromName=toString();
+-//#             boolean allowLog=false;
+-//#             switch (m.messageType) {
+-//#                 case Msg.MESSAGE_TYPE_PRESENCE:
+-//#                     if (origin>=ORIGIN_GROUPCHAT && cf.msgLogConfPresence) allowLog=true;
+-//#                     if (origin<ORIGIN_GROUPCHAT && cf.msgLogPresence) allowLog=true;
+-//#                     break;
+-//#                 default:
+-//#                     if (origin>=ORIGIN_GROUPCHAT && cf.msgLogConf) allowLog=true;
+-//#                     if (origin<ORIGIN_GROUPCHAT) allowLog=true;
+-//#             }
+-//#             if (allowLog)
+-//#                 //if (!first_replace || !m.)
+-//#             {
+-//#                 StringBuffer body=new StringBuffer(m.getDayTime());
+-//#                 body.append(" <");
+-//#                 body.append(fromName);
+-//#                 body.append("> ");
+-//#                 if (m.subject!=null) {
+-//#                     body.append(m.subject);
+-//#                     body.append("\r\n");
+-//#                 }
+-//#                 body.append(m.getBody());
+-//#                 body.append("\r\n");
+-//#                 NvStorage.appendFile("Log_"+histRecord, body.toString());
+-//#             }
+-//#         }
++//#                  NvStorage.appendFile("Log_"+histRecord, body.toString());
++//#else 
++                 byte[] bodyMessage;
++                 if (cf.cp1251) {
++                    bodyMessage=strconv.convUnicodeToCp1251(body.toString()).getBytes();
++                } else {
++                    bodyMessage=body.toString().getBytes();
++                }
++                try {
++                    FileWriter.Write(cf.msgPath+histRecord+".txt",bodyMessage);                 
++                } catch (IOException ex) {
++                    ex.printStackTrace();
++                }                 
+ //#endif
++                 
++             }
++         }
++         // end History
++
+         // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - presence, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
+         if (first_replace) {
+             msgs.setElementAt(m,0);
+Index: src/History/SiemensWriter.java
+===================================================================
+--- src/History/SiemensWriter.java	(revision 0)
++++ src/History/SiemensWriter.java	(revision 0)
+@@ -0,0 +1,21 @@
++package History;
++
++import com.siemens.mp.io.File;
++
++public class SiemensWriter {
++    public final static boolean Write(String fname,  byte[] append_data) {
++         try{
++             File F = new File();
++             int fd=F.open(fname);
++             long bs=append_data.length;
++             F.seek(fd, F.length(fd));
++             F.write(fd,append_data,0,(int)bs);
++             F.close(fd);
++ 
++         } catch (Exception e) {
++             e.printStackTrace();
++             return false;
++         }
++         return true;
++     }
++}
+\ No newline at end of file
+Index: src/History/Jsr75FileWriter.java
+===================================================================
+--- src/History/Jsr75FileWriter.java	(revision 0)
++++ src/History/Jsr75FileWriter.java	(revision 0)
+@@ -0,0 +1,29 @@
++package History;
++
++import javax.microedition.io.*;
++import java.io.*;
++import javax.microedition.io.file.FileConnection;
++
++
++public class Jsr75FileWriter {
++
++    public final static boolean Write(String fname, byte[] append_data) throws IOException
++    {
++        try {
++            FileConnection fc = (FileConnection)Connector.open("file://localhost/" + fname);
++            if (!fc.exists()) fc.create();
++            long pos_eof=fc.fileSize();
++            OutputStream os = fc.openOutputStream(pos_eof);
++            os.write(append_data);
++            //OutputStream os = fc.openOutputStream();
++            //os.write(append_data, (int)pos_eof, append_data.length);
++            os.flush();
++            os.close();
++            fc.close();
++            return true;
++        } catch (IOException ex) {
++            ex.printStackTrace();
++            return false;
++        }
++    }
++}
+\ No newline at end of file
+Index: src/History/SieJsr75FileWriter.java
+===================================================================
+--- src/History/SieJsr75FileWriter.java	(revision 0)
++++ src/History/SieJsr75FileWriter.java	(revision 0)
+@@ -0,0 +1,29 @@
++package History;
++
++import javax.microedition.io.*;
++import java.io.*;
++import javax.microedition.io.file.FileConnection;
++
++
++public class SieJsr75FileWriter {
++    
++    public final static boolean Write(String fname, byte[] append_data) throws IOException
++    {
++        try {
++            FileConnection fc = (FileConnection)Connector.open("file:///" + fname);
++            if (!fc.exists()) fc.create();
++            long pos_eof=fc.fileSize();
++            OutputStream os = fc.openOutputStream(pos_eof);
++            os.write(append_data);
++            //OutputStream os = fc.openOutputStream();
++            //os.write(append_data, (int)pos_eof, append_data.length);
++            os.flush();
++            os.close();
++            fc.close();
++            return true;
++        } catch (IOException ex) {
++            ex.printStackTrace();
++            return false;
++        }
++    }
++}
+Index: src/History/MotorolaWriter.java
+===================================================================
+--- src/History/MotorolaWriter.java	(revision 0)
++++ src/History/MotorolaWriter.java	(revision 0)
+@@ -0,0 +1,26 @@
++package History;
++
++import javax.microedition.io.Connector;
++import java.io.*;
++import com.motorola.io.FileConnection;
++
++public class MotorolaWriter {
++    
++    public final static boolean Write(String fname, byte[] append_data) {
++        try {
++            FileConnection fc = (FileConnection)Connector.open("file://" + fname);
++            long pos_eof=fc.fileSize();
++            //OutputStream os = fc.openOutputStream(pos_eof);
++            //os.write(append_data);
++            OutputStream os = fc.openOutputStream(); //�� ������ ��� ��� ����� ��������
++            os.write(append_data, (int)pos_eof, append_data.length); //�� ������ ��� ��� ����� ��������
++            os.flush();
++            os.close();
++            fc.close();
++            return true;
++        } catch (IOException ex) {
++            ex.printStackTrace();
++            return false;
++        }        
++    }
++}
+Index: src/History/FileWriter.java
+===================================================================
+--- src/History/FileWriter.java	(revision 0)
++++ src/History/FileWriter.java	(revision 0)
+@@ -0,0 +1,67 @@
++package History;
++
++import java.io.IOException;
++
++public class FileWriter
++{
++private final static int NOT_DETECTED=0;
++private final static int JSR75_GENERIC=1;
++private final static int JSR75_SIEMENS=2;
++private final static int SIEMENS2=3;
++private final static int MOTOROLA=4;
++private final static int NO_FS=-1;
++
++private static int fsType=NOT_DETECTED;
++
++    public static void Write(String fname, byte[] append_data) throws IOException
++    {
++        if (fsType==NOT_DETECTED) {
++            try 
++            {
++                if (System.getProperty("microedition.io.file.FileConnection.version") != null)
++                {
++                    try 
++                    {
++                         Class.forName ("javax.microedition.io.file.FileConnection");
++                         fsType=JSR75_GENERIC;
++                    } catch (ClassNotFoundException ex) { }
++                    try
++                    {
++                        Class.forName ("com.siemens.mp.io.file.FileConnection");
++                        fsType=JSR75_SIEMENS;
++                    } catch (ClassNotFoundException ex2) { }
++                }
++            } catch (Exception e) { }
++
++            try
++            {
++                Class.forName("com.siemens.mp.io.File");
++                fsType=SIEMENS2;
++            } catch (ClassNotFoundException ex3) { }
++
++            try
++            {
++                Class.forName("com.motorola.io.FileConnection");
++                fsType=MOTOROLA;
++            } catch (ClassNotFoundException ex3) { }
++        }
++        if (fsType==NOT_DETECTED) {
++            fsType=NO_FS;
++        } else {
++            switch (fsType) {
++                case JSR75_GENERIC:
++                    Jsr75FileWriter.Write(fname, append_data);
++                    break;
++                case JSR75_SIEMENS:
++                    SieJsr75FileWriter.Write(fname, append_data);
++                    break;
++                case SIEMENS2:
++                    SiemensWriter.Write(fname, append_data);
++                    break;
++                case MOTOROLA:
++                    MotorolaWriter.Write(fname, append_data); 
++                    break;
++            }
++        }
++    }
++};

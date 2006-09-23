@@ -1,0 +1,41 @@
+# Detect Motorola EZX phones (E680, E680i, A780)
+# (C) Dmitry Nezhevenko <dion@inhex.net>
+Index: src/Info/Version.java
+===================================================================
+--- src/Info/Version.java	(revision 647)
++++ src/Info/Version.java	(working copy)
+@@ -11,6 +11,7 @@
+ 
+ import locale.SR;
+ import ui.ConstMIDP;
++import midlet.Bombus;
+ 
+ /**
+  *
+@@ -28,6 +29,10 @@
+     
+     public static String getPlatformName() {
+         if (platformName==null) {
++	    platformName=Bombus.getInstance().getAppProperty("platform");
++	    if (platformName!=null)
++	    	return platformName;
++	
+             platformName=System.getProperty("microedition.platform");
+             
+             String device=System.getProperty("device.model");
+@@ -39,6 +44,15 @@
+                 
+                 if (device!=null && firmware!=null)
+                     platformName="Motorola"; // buggy v360
++
++		// Motorola EZX phones
++		String hostname=System.getProperty("microedition.hostname");
++		if (hostname!=null && device==null)
++		{
++		    platformName="Motorola-EZX";
++			if (hostname.indexOf("(none)")<0)
++				platformName+="/"+hostname;
++		}
+             }
+             
+             if (platformName.startsWith("Moto")) {

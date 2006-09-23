@@ -1,0 +1,96 @@
+# Bold font in roster can be disabled via options
+# (C) Dmitry Nezhevenko <dion@inhex.net>
+Index: src/locale/SR.java
+===================================================================
+--- src/locale/SR.java	(revision 647)
++++ src/locale/SR.java	(working copy)
+@@ -206,6 +206,7 @@
+     public   static String MS_FROM_OWNER_TO = loadString( " from OWNER to " );
+     public   static String MS_MODIFY_AFFILIATION = loadString( "Modify affiliation" );
+     public   static String MS_AUTOFOCUS = loadString( "Autofocus" );
++    public   static String MS_ROSTERFONTBOLD = loadString("Bold font");
+     public   static String MS_ADD_TO_ROSTER = loadString( "Add to roster" );
+     public   static String MS_CLEAR=loadString( "Clear" );
+     public   static String MS_ALT_LANG="langfile";
+Index: src/ui/FontCache.java
+===================================================================
+--- src/ui/FontCache.java	(revision 647)
++++ src/ui/FontCache.java	(working copy)
+@@ -10,6 +10,7 @@
+ package ui;
+ 
+ import javax.microedition.lcdui.Font;
++import Client.Config;
+ 
+ /**
+  *
+@@ -38,7 +39,8 @@
+     
+     public static Font getRosterBoldFont() {
+         if (bold==null) {
+-            bold=Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD, rosterFontSize);
++            bold=Font.getFont(Font.FACE_PROPORTIONAL, 
++	    	Config.getInstance().rosterFontBold ? Font.STYLE_BOLD: Font.STYLE_PLAIN, rosterFontSize);
+         }
+         return bold;
+     }
+Index: src/Client/Config.java
+===================================================================
+--- src/Client/Config.java	(revision 648)
++++ src/Client/Config.java	(working copy)
+@@ -93,6 +93,7 @@
+     public boolean autoJoinConferences=false;
+     
+     public boolean autoFocus=true;
++    public boolean rosterFontBold=true;
+     
+     public int gmtOffset;
+     public int locOffset;
+@@ -223,6 +224,8 @@
+             
+             capsState=inputStream.readBoolean();
+ 	    
++	    rosterFontBold=inputStream.readBoolean();
++	    
+ 	    inputStream.close();
+ 	} catch (Exception e) {
+ 	    e.printStackTrace();
+@@ -289,6 +292,8 @@
+ 
+             outputStream.writeBoolean(capsState); 
+ 	    
++	    outputStream.writeBoolean(rosterFontBold);
++	    
+ 	} catch (IOException e) { e.printStackTrace(); }
+ 	
+ 	NvStorage.writeFileRecord(outputStream, "config", 0, true);
+Index: src/Client/ConfigForm.java
+===================================================================
+--- src/Client/ConfigForm.java	(revision 648)
++++ src/Client/ConfigForm.java	(working copy)
+@@ -98,6 +98,7 @@
+         roster.append(SR.MS_IGNORE_LIST, null);
+         roster.append(SR.MS_NOT_IN_LIST, null);
+         roster.append(SR.MS_AUTOFOCUS,null);
++	roster.append(SR.MS_ROSTERFONTBOLD,null);
+         
+         boolean ra[]={
+             cf.showOfflineContacts,
+@@ -105,7 +106,8 @@
+             cf.showTransports, 
+             cf.ignore, 
+             cf.notInList,
+-            cf.autoFocus
++            cf.autoFocus,
++	    cf.rosterFontBold
+         };
+         this.ra=ra;
+         //ra[5]=false;
+@@ -244,6 +246,7 @@
+             cf.ignore=ra[3];
+             cf.notInList=ra[4];
+             cf.autoFocus=ra[5];
++	    cf.rosterFontBold=ra[6];
+ 
+             cf.smiles=mv[0];
+             cf.msgLog=mv[1];

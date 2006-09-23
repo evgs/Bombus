@@ -1,0 +1,23 @@
+# Motorola Rokr E2 Volume keys support
+# (C) Dmitry Nezhevenko <dion@inhex.net>
+--- src/ui/VirtualList.java.orig	2006-09-22 22:36:22.000000000 +0300
++++ src/ui/VirtualList.java	2006-09-22 22:40:51.000000000 +0300
+@@ -91,6 +91,8 @@ public abstract class VirtualList       
+     public static final int MOTOE680_VOL_DOWN=-8;
+     public static final int MOTOE680_REALPLAYER=-6;
+     public static final int MOTOE680_FMRADIO=-7;
++    public static final int MOTOROKRE2_VOL_UP=-30;
++    public static final int MOTOROKRE2_VOL_DOWN=-31;
+     public static final int SE_GREEN=0;
+     
+     private final static int STRING_SZ=15;
+@@ -589,7 +591,9 @@ public abstract class VirtualList       
+         switch (keyCode) {
+             case 0: break;
+             case MOTOE680_VOL_UP:
++	    case MOTOROKRE2_VOL_UP:
+             case KEY_NUM1:  { moveCursorHome();    break; }
++	    case MOTOROKRE2_VOL_DOWN:
+             case KEY_NUM7:  { moveCursorEnd();     break; }
+             case '5':{ eventOk(); break; }
+             case MOTOROLA_FLIP: break;

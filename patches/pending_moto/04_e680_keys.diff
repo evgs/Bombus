@@ -1,0 +1,120 @@
+# Enable Motorola E680i keys
+# (C) Dmitry Nezhevenko <dion@inhex.net>
+diff -Nuar ../trunk1/src/Client/AccountSelect.java ./src/Client/AccountSelect.java
+--- ../trunk1/src/Client/AccountSelect.java	2006-09-01 16:43:16.000000000 +0300
++++ ./src/Client/AccountSelect.java	2006-09-01 16:49:27.000000000 +0300
+@@ -136,5 +136,11 @@
+             ((Account)accountList.elementAt(i)).saveToDataOutputStream(outputStream);
+         NvStorage.writeFileRecord(outputStream, Account.storage, 0, true);
+     }
+-
++    
++    public void userKeyPressed(int keyCode) {
++        if (keyCode==keyBack) {
++                destroyView();
++                return;
++        }
++    }
+ }
+diff -Nuar ../trunk1/src/Client/AlertProfile.java ./src/Client/AlertProfile.java
+--- ../trunk1/src/Client/AlertProfile.java	2006-09-01 16:47:27.000000000 +0300
++++ ./src/Client/AlertProfile.java	2006-09-01 16:51:57.000000000 +0300
+@@ -114,4 +114,11 @@
+         }
+         if (notify!=null) notify.startNotify();
+     }
++
++    public void userKeyPressed(int keyCode) {
++        if (keyCode==keyBack) {
++            destroyView();
++            return;
++        }
++    }
+ }
+diff -Nuar ../trunk1/src/Client/Config.java ./src/Client/Config.java
+--- ../trunk1/src/Client/Config.java	2006-09-01 16:45:26.000000000 +0300
++++ ./src/Client/Config.java	2006-09-01 16:51:26.000000000 +0300
+@@ -162,6 +162,7 @@
+ 	    greenKeyCode=VirtualList.MOTOROLA_GREEN;
+ 	    VirtualList.keyClear=0x1000;
+ 	    VirtualList.keyVolDown=VirtualList.MOTOE680_VOL_DOWN;
++	    VirtualList.keyBack=VirtualList.MOTOE680_REALPLAYER;
+ 	}
+         
+ 	/*if (platform.startsWith("j2me")) {
+diff -Nuar ../trunk1/src/Client/ContactMessageList.java ./src/Client/ContactMessageList.java
+--- ../trunk1/src/Client/ContactMessageList.java	2006-09-01 16:43:16.000000000 +0300
++++ ./src/Client/ContactMessageList.java	2006-09-01 16:49:27.000000000 +0300
+@@ -161,5 +161,9 @@
+                 public void yes() { clearMessageList(); }
+             };
+         }
++	if (keyCode==keyBack) {
++	    destroyView();
++	    return;
++	}
+     }
+ }
+diff -Nuar ../trunk1/src/Client/Roster.java ./src/Client/Roster.java
+--- ../trunk1/src/Client/Roster.java	2006-09-01 16:43:16.000000000 +0300
++++ ./src/Client/Roster.java	2006-09-01 16:49:12.000000000 +0300
+@@ -1172,7 +1172,7 @@
+     
+ 
+     public void userKeyPressed(int keyCode){
+-        if (keyCode==KEY_NUM0 /* || keyCode==MOTOE680_REALPLAYER  CONFLICT WITH ALCATEL. (platform=J2ME)*/) {
++        if (keyCode==KEY_NUM0 || keyCode==keyBack) {
+             if (messageCount==0) return;
+             Object atcursor=getFocusedObject();
+             Contact c=null;
+@@ -1303,8 +1303,7 @@
+             redraw();
+         }
+         
+-        if (keyCode==cf.keyOfflines /* || keyCode==MOTOE680_REALPLAYER CONFLICT WITH ALCATEL. (platform=J2ME) 
+-         TODO: redifine keyOfflines*/) {
++        if (keyCode==cf.keyOfflines || keyCode==keyBack /*TODO: redifine keyOfflines*/) {
+             cf.showOfflineContacts=!cf.showOfflineContacts;
+             reEnumRoster();
+         }
+diff -Nuar ../trunk1/src/Client/StatusSelect.java ./src/Client/StatusSelect.java
+--- ../trunk1/src/Client/StatusSelect.java	2006-09-01 16:43:16.000000000 +0300
++++ ./src/Client/StatusSelect.java	2006-09-01 16:49:13.000000000 +0300
+@@ -144,4 +144,11 @@
+             if (display!=null)   display.setCurrent(parentView);
+         }
+     }
++    
++    public void userKeyPressed(int keyCode) {
++	if (keyCode==keyBack) {
++	    destroyView();
++	    return;
++	}
++    }
+ }
+diff -Nuar ../trunk1/src/ui/Menu.java ./src/ui/Menu.java
+--- ../trunk1/src/ui/Menu.java	2006-09-01 16:43:16.000000000 +0300
++++ ./src/ui/Menu.java	2006-09-01 16:49:12.000000000 +0300
+@@ -49,4 +49,11 @@
+         if (c==cmdBack) destroyView();
+ 	if (c==cmdOk) eventOk();
+     }
++
++    public void userKeyPressed(int keyCode) {
++        if (keyCode==MOTOE680_REALPLAYER) {
++                destroyView();
++                return;
++        }
++    }
+ }
+diff -Nuar ../trunk1/src/ui/VirtualList.java ./src/ui/VirtualList.java
+--- ../trunk1/src/ui/VirtualList.java	2006-09-01 16:43:16.000000000 +0300
++++ ./src/ui/VirtualList.java	2006-09-01 16:49:12.000000000 +0300
+@@ -97,6 +97,7 @@
+ 
+     public static int keyClear=-8;
+     public static int keyVolDown=0x1000;
++    public static int keyBack=0x1000;
+     public static int greenKeyCode=SIEMENS_GREEN;
+     public static boolean fullscreen=false;
+     public static boolean memMonitor;

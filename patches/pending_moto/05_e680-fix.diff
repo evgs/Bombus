@@ -1,0 +1,25 @@
+# Disable some Motorola workarounds for EZX phones
+# (C) Dmitry Nezhevenko <dion@inhex.net>
+--- ../648/src/Client/Config.java	2006-09-03 20:26:51.000000000 +0300
++++ src/Client/Config.java	2006-09-03 21:53:11.000000000 +0300
+@@ -155,14 +155,18 @@
+ 	    blFlash=false;
+ 	    greenKeyCode=VirtualList.NOKIA_GREEN;
+ 	}
++	
++	if (platform.startsWith("Motorola-EZX")) {
++	    VirtualList.keyClear=0x1000;
++	    VirtualList.keyVolDown=VirtualList.MOTOE680_VOL_DOWN;
++	    VirtualList.keyBack=VirtualList.MOTOE680_REALPLAYER;
++	} else
+ 	if (platform.startsWith("Moto")) {
+ 	    ghostMotor=true;
+ 	    blFlash=false;
+             istreamWaiting=true;
+ 	    greenKeyCode=VirtualList.MOTOROLA_GREEN;
+ 	    VirtualList.keyClear=0x1000;
+-	    VirtualList.keyVolDown=VirtualList.MOTOE680_VOL_DOWN;
+-	    VirtualList.keyBack=VirtualList.MOTOE680_REALPLAYER;
+ 	}
+         
+ 	/*if (platform.startsWith("j2me")) {
