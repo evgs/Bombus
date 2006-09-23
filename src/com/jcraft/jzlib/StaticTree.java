@@ -34,6 +34,8 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jzlib;
 
+import util.ArrayLoader;
+
 final class StaticTree{
   static final private int MAX_BITS=15;
 
