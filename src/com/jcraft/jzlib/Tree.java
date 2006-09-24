@@ -34,6 +34,8 @@ EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package com.jcraft.jzlib;
 
+import util.ArrayLoader;
+
 final class Tree{
   static final private int MAX_BITS=15;
   static final private int BL_CODES=19;
@@ -86,7 +88,8 @@ final class Tree{
   // see definition of array dist_code below
   static final int DIST_CODE_LEN=512;
 
-  static final byte[] _dist_code = {
+  static byte[] _dist_code;
+  /*static final byte[] _dist_code = {
     0,  1,  2,  3,  4,  4,  5,  5,  6,  6,  6,  6,  7,  7,  7,  7,  8,  8,  8,  8,
     8,  8,  8,  8,  9,  9,  9,  9,  9,  9,  9,  9, 10, 10, 10, 10, 10, 10, 10, 10,
     10, 10, 10, 10, 10, 10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11,
@@ -113,9 +116,10 @@ final class Tree{
     29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29,
     29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29,
     29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29
-  };
+  };*/
 
-  static final byte[] _length_code={
+  private static byte[] _length_code;
+  /*private static final byte[] _length_code={
     0,  1,  2,  3,  4,  5,  6,  7,  8,  8,  9,  9, 10, 10, 11, 11, 12, 12, 12, 12,
     13, 13, 13, 13, 14, 14, 14, 14, 15, 15, 15, 15, 16, 16, 16, 16, 16, 16, 16, 16,
     17, 17, 17, 17, 17, 17, 17, 17, 18, 18, 18, 18, 18, 18, 18, 18, 19, 19, 19, 19,
@@ -129,7 +133,7 @@ final class Tree{
     26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
     26, 26, 26, 26, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27,
     27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 28
-  };
+  };*/
 
   static final int[] base_length = {
     0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 16, 20, 24, 28, 32, 40, 48, 56,
@@ -146,6 +150,8 @@ final class Tree{
   // must not have side effects. _dist_code[256] and _dist_code[257] are never
   // used.
   static int d_code(int dist){
+      if (_dist_code==null) _dist_code=new ArrayLoader().readByteArray("/dist_code");
+      //ArrayLoader.writeByteArray("dist_code", _dist_code);
     return ((dist) < 256 ? _dist_code[dist] : _dist_code[256+((dist)>>>7)]);
   }
 
@@ -361,5 +367,11 @@ final class Tree{
     while(--len>0);
     return res>>>1;
   }
+
+    public static byte getLength_code(int lc) {
+        //ArrayLoader.writeByteArray("length_code",_length_code);
+        if (_length_code==null) _length_code=new ArrayLoader().readByteArray("/length_code");
+        return _length_code[lc];
+    }
 }
 

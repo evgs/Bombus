@@ -13,11 +13,12 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.util.Enumeration;
+
 /*
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
 import javax.microedition.io.file.FileSystemRegistry;
- */
+*/
 
 /**
  *
@@ -59,8 +60,22 @@ public class ArrayLoader {
         
         return null;
     }
+    public byte[] readByteArray(String name) {
+        try {
+            InputStream in = this.getClass().getResourceAsStream(name);
+            DataInputStream is=new DataInputStream(in);
+            int len=is.readInt();
+            byte[] arrayByte=new byte[len];
 
-    /*public static void writeIntArray(String name, int[] intArray) {
+            is.read(arrayByte, 0, len);
+            return arrayByte;
+        } catch (Exception ex) {}
+        
+        return null;
+    }
+
+/*
+    public static void writeIntArray(String name, int[] intArray) {
         try {
             for (Enumeration e=FileSystemRegistry.listRoots(); e.hasMoreElements(); ){
                 String root = (String) e.nextElement();
@@ -102,5 +117,23 @@ public class ArrayLoader {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }*/
+    }
+    
+    public static void writeByteArray(String name, byte[] byteArray) {
+        try {
+            FileConnection fc=(FileConnection)Connector.open("file:///root1/" + name);
+            if (fc.exists()) return;
+            fc.create();
+            DataOutputStream os=fc.openDataOutputStream();
+            os.writeInt(byteArray.length);
+            
+            os.write(byteArray, 0, byteArray.length);
+           
+            os.close();
+            fc.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+*/
 }

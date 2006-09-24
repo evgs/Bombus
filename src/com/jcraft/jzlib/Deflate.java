@@ -637,7 +637,7 @@ final class Deflate{
       matches++;
       // Here, lc is the match length - MIN_MATCH
       dist--;             // dist = match distance - 1
-      dyn_ltree[(Tree._length_code[lc]+LITERALS+1)*2]++;
+      dyn_ltree[(Tree.getLength_code(lc)+LITERALS+1)*2]++;
       dyn_dtree[Tree.d_code(dist)*2]++;
     }
 
@@ -679,7 +679,7 @@ final class Deflate{
 	} 
 	else{
 	  // Here, lc is the match length - MIN_MATCH
-	  code = Tree._length_code[lc];
+	  code = Tree.getLength_code(lc);
 
 	  send_code(code+LITERALS+1, ltree); // send the length code
 	  extra = Tree.extra_lbits[code];
