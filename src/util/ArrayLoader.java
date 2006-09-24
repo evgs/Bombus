@@ -40,7 +40,7 @@ public class ArrayLoader {
                 arrayInt[i]=is.readInt();
             }
             return arrayInt;
-        } catch (Exception ex) {}
+        } catch (Exception ex) { ex.printStackTrace(); }
         
         return null;
     }
@@ -56,7 +56,7 @@ public class ArrayLoader {
                 arrayShort[i]=is.readShort();
             }
             return arrayShort;
-        } catch (Exception ex) {}
+        } catch (Exception ex) { ex.printStackTrace(); }
         
         return null;
     }
@@ -69,7 +69,7 @@ public class ArrayLoader {
 
             is.read(arrayByte, 0, len);
             return arrayByte;
-        } catch (Exception ex) {}
+        } catch (Exception ex) { ex.printStackTrace(); }
         
         return null;
     }
