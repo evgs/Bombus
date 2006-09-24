@@ -2813,6 +2813,13 @@ syslog_msg: true
 
 (687)
   * подготовка бета-версии с jzlib
+
+24.09.2005
+(698)
+  * Небольшая оптимизация Zlib - теперь потребляет свободной памяти меньше примерно
+    на 30 КБ.
+  --
+  * Zlib lite optimizations - reduced memory consumption in runtime (aprox. 30KB)
 ---------------------------
   known issues:
 
