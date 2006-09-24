@@ -2799,11 +2799,11 @@ syslog_msg: true
   * fix disco forms with instructions on SonyEricsson JP6
   * muc-reenter
 
-21.09.2005
+21.09.2006
 0.4.0.675
   версия застабилизирована
 
-22.09.2005
+22.09.2006
 (679)
   * FS#372 [end of vcard] preceeded with \n\n
   * FS#377 Exception in Config form
@@ -2814,7 +2814,7 @@ syslog_msg: true
 (687)
   * подготовка бета-версии с jzlib
 
-24.09.2005
+24.09.2006
 (698)
   * Небольшая оптимизация Zlib - теперь потребляет свободной памяти меньше примерно
     на 30 КБ.
