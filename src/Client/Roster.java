@@ -243,7 +243,8 @@ public class Roster
             reconnect=false;
             myStatus=Presence.PRESENCE_OFFLINE;
             e.printStackTrace();
-            errorLog( e.getMessage() );
+            String error=e.getClass().getName()+"\n"+e.getMessage();
+            errorLog( error );
             setQuerySign(false);
             redraw();
             //l.setTitleImgL(0);//offline
@@ -265,8 +266,11 @@ public class Roster
     }
     
     public void errorLog(String s){
-            Msg m=new Msg(Msg.MESSAGE_TYPE_OUT, myJid.getJid(), "Error", s);
-            messageStore(m);
+        Alert error=new Alert(SR.MS_ERROR_, s, null, null);
+        //error.setTimeout(30000);
+        display.setCurrent(error, display.getCurrent());
+        Msg m=new Msg(Msg.MESSAGE_TYPE_OUT, myJid.getJid(), "Error", s);
+        messageStore(m);
     }
     
     public void beginPaint() {

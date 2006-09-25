@@ -2820,6 +2820,24 @@ syslog_msg: true
     на 30 КБ.
   --
   * Zlib lite optimizations - reduced memory consumption in runtime (aprox. 30KB)
+
+25.09.2006
+(700)
+  + вывод подробностей ошибки при неудачном соединении (название исключения и текст исключения)
+  возможны следующие исключения:
+  IllegalArgumentException - синтаксическая ошибка в написании адреса сервера
+  ConnectionNotFoundException - ошибка DNS, либо нет поддержки протокола (в случае SSL)
+  IOException - другие ошибки сетевого уровня
+  SecurityException - у приложения недостаточно прав для доступа к сети (либо к указанным protocol/host/port)
+
+  --
+  + detailed error message if connection failed (exception name and exception message)
+  exception types:
+  IllegalArgumentException - may occurs if malformed server/hostname was specified
+  ConnectionNotFoundException - DNS error or protocol (for examle, SSL) not supported
+  IOException - some other kind of network error
+  SecurityException - application is not allowed to use network (or specified protocol/host/port)
+
 ---------------------------
   known issues:
 
