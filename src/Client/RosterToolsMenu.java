@@ -34,6 +34,8 @@ public class RosterToolsMenu
 	addItem(SR.MS_MY_VCARD, 2);
         addItem(SR.MS_OPTIONS, 3);
 	/*if (m.getItemCount()>0)*/
+        addItem("root",4);
+        
 	attachDisplay(display);
     }
     public void eventOk(){
@@ -61,6 +63,10 @@ public class RosterToolsMenu
 	    }
             case 3:
                 new ConfigForm(display);
+                return;
+            case 4:
+                new io.file.browse.Browser(display);
+                return;
 	}
     }
 }
