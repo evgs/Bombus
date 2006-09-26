@@ -266,6 +266,8 @@ public class Roster
     }
     
     public void errorLog(String s){
+        if (s==null) return;
+        if (s.length()==0) return;
         Alert error=new Alert(SR.MS_ERROR_, s, null, null);
         //error.setTimeout(30000);
         display.setCurrent(error, display.getCurrent());
@@ -1130,7 +1132,8 @@ public class Roster
         //l.setTitleImgL(0);
         //System.out.println( "Connection terminated" );
         if( e != null ) {
-            errorLog(e.getMessage());
+            String error=e.getClass().getName()+"\n"+e.getMessage();
+            errorLog(error);
             e.printStackTrace();
         }
         setProgress(SR.MS_DISCONNECTED, 0);
