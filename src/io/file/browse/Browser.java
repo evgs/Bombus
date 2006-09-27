@@ -65,7 +65,17 @@ public class Browser extends VirtualList implements CommandListener{
     protected VirtualElement getItemRef(int index) { return (VirtualElement) dir.elementAt(index); }
 
     public void commandAction(Command command, Displayable displayable) {
-        if (command==cmdBack) destroyView();
+        if (command==cmdBack) { 
+            readDirectory("..");
+            if (root.length()==0) {
+                try { fc.close(); } catch (Exception e) {}
+                destroyView();
+            }
+        }
+        if (command==cmdCancel) {
+            try { fc.close(); } catch (Exception e) {}
+            destroyView();
+        }
     }
 
     private void readDirectory(String name) {
@@ -82,6 +92,7 @@ public class Browser extends VirtualList implements CommandListener{
         if (root.length()==0 && name.length()!=0) {
             if (fc!=null) 
                 try {fc.close(); } catch (IOException ex) { ex.printStackTrace(); }
+            fc=null;
             try {
                 fc = (FileConnection) Connector.open("file:///" + name);
             } catch (IOException ex) { ex.printStackTrace(); return; }
