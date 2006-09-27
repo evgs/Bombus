@@ -58,6 +58,7 @@ public class Browser extends VirtualList implements CommandListener{
         
         root="";
         readDirectory("");
+        sort(dir);
     }
 
     protected int getItemCount() { return dir.size(); }
@@ -66,11 +67,12 @@ public class Browser extends VirtualList implements CommandListener{
 
     public void commandAction(Command command, Displayable displayable) {
         if (command==cmdBack) { 
-            readDirectory("..");
             if (root.length()==0) {
                 try { fc.close(); } catch (Exception e) {}
                 destroyView();
             }
+            readDirectory("..");
+            sort(dir);
         }
         if (command==cmdCancel) {
             try { fc.close(); } catch (Exception e) {}
@@ -123,10 +125,31 @@ public class Browser extends VirtualList implements CommandListener{
     public void eventOk() {
         String f=((FileItem)getFocusedObject()).name;
         if (f.endsWith("/")) readDirectory(f);
+        sort(dir);
         redraw();
     }
     
 
+    public final void sort(Vector sortVector){
+        synchronized (sortVector) {
+            int f, i;
+            FileItem temp, temp2;
+            
+            for (f = 1; f < sortVector.size(); f++) {
+                temp=(FileItem)sortVector.elementAt(f);
+                temp2=(FileItem)sortVector.elementAt(f-1);
+                if ( temp.compare(temp2) >=0 ) continue;
+                i = f-1;
+                while (i>=0){
+                    temp2=(FileItem)sortVector.elementAt(i);
+                    if (temp2.compare(temp) <0) break;
+                    sortVector.setElementAt(temp2,i+1);
+                    i--;
+                }
+                sortVector.setElementAt(temp,i+1);
+            }
+        }
+    }
     
     private class FileItem extends IconTextElement {
 
@@ -144,5 +167,13 @@ public class Browser extends VirtualList implements CommandListener{
         public int getColor() { return 0; }
         
         public String toString() { return name; }
+
+        private int compare(FileItem fileItem) {
+            int cpi=iconIndex-fileItem.iconIndex;
+            if (cpi==0) cpi=name.compareTo(fileItem.name);
+            return cpi;
+        }
+        
+        
     }
 }
