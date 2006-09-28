@@ -52,9 +52,13 @@ public class FormField {
                 numericBoolean=body.length()==1;
                 ch.setSelectedIndex(0, set);
             }
-            else if (type.equals("list-single")) {
-                ChoiceGroup ch=new ChoiceGroup(label,ConstMIDP.CHOICE_POPUP);
+            else if (type.equals("list-single") || type.equals("list-multi")) {
+                
+                int choiceType=(type.equals("list-single"))? 
+                    ConstMIDP.CHOICE_POPUP : ChoiceGroup.MULTIPLE;
+                ChoiceGroup ch=new ChoiceGroup(label, choiceType);
                 formItem=ch;
+                
                 optionsList=new Vector();
                 for (Enumeration e=field.getChildBlocks().elements(); e.hasMoreElements();) {
                     JabberDataBlock option=(JabberDataBlock)e.nextElement();
@@ -127,8 +131,14 @@ public class FormField {
                     j.addChild("value", result);
                 }
                 else {
-                    int index=((ChoiceGroup) formItem).getSelectedIndex();
-                    if (index>=0)  j.addChild("value", (String)optionsList.elementAt(index));
+                    ChoiceGroup ch=(ChoiceGroup) formItem;
+                    int count=ch.size();
+                    for (int i=0; i<count; i++) {
+                        if (ch.isSelected(i))  
+                            j.addChild("value", (String)optionsList.elementAt(i));                    
+                    }
+                    //int index=((ChoiceGroup) formItem).getSelectedIndex();
+                    //if (index>=0)  j.addChild("value", (String)optionsList.elementAt(index));
                 }
         }
         return j;

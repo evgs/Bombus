@@ -233,7 +233,7 @@ public class ServiceDiscovery
             new DiscoForm(display, data, stream, "discoResult", "query");
         } else if (id.equals ("discocmd")) {
             discoIcon=0;
-            new DiscoForm(display, data, stream, "discoResult", "command");
+            new DiscoForm(display, data, stream, "discocmd", "command");
         } else if (id.equals ("discosrch")) {
             discoIcon=0;
             new DiscoForm(display, data, stream, "discoRSearch", "query");

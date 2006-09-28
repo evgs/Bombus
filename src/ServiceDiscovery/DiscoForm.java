@@ -67,21 +67,28 @@ public class DiscoForm implements CommandListener{
         Vector vFields=(xData=(x!=null))? x.getChildBlocks() : query.getChildBlocks();
 
 	Enumeration e;        
-        for (e=vFields.elements(); e.hasMoreElements(); ){
-            FormField field=new FormField((JabberDataBlock)e.nextElement());
-            if (field.instructions) {
-                fields.insertElementAt(field, 0);
-            } else { fields.addElement(field); }
-        }
-
-        for (e=fields.elements(); e.hasMoreElements(); ){
-            FormField field=(FormField) e.nextElement();
-            if (!field.hidden) form.append(field.formItem);
-        }
         
+        if (vFields!=null) {
+            for (e=vFields.elements(); e.hasMoreElements(); ){
+                FormField field=new FormField((JabberDataBlock)e.nextElement());
+                if (field.instructions) {
+                    fields.insertElementAt(field, 0);
+                } else { fields.addElement(field); }
+            }
+            
+            for (e=fields.elements(); e.hasMoreElements(); ){
+                FormField field=(FormField) e.nextElement();
+                if (!field.hidden) form.append(field.formItem);
+            }
+        }
        
         form.setCommandListener(this);
-        form.addCommand(cmdOk);
+        
+        if (childName.equals("command")) {
+            if (query.getAttribute("status").equals("completed")) {
+                form.append("Complete.");
+            } else form.addCommand(cmdOk);
+        } else form.addCommand(cmdOk);
         form.addCommand(cmdCancel);
         
         this.display=display;

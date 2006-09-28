@@ -2838,6 +2838,13 @@ syslog_msg: true
   IOException - some other kind of network error
   SecurityException - application is not allowed to use network (or specified protocol/host/port)
 
+29.09.2006
+(705)
+  + Data forms: поддержка полей list-multi. протестировано на удалённом управлении Ткаббером
+  * Ad-Hoc: исправлен переход в состояние "Complete"
+  --
+  + Data forms: list-multi fields now are supported. Tested on Tkabber's Remote Controlling
+  * Ad-Hoc: "Complete" state fix
 ---------------------------
   known issues:
 
