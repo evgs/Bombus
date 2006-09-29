@@ -18,7 +18,7 @@ import locale.SR;
  * @author EvgS
  */
 public class vCardForm 
-        implements CommandListener
+        implements CommandListener, Runnable
 {
     
     private Display display;
@@ -87,11 +87,16 @@ public class vCardForm
             vcard.setVCardData(index, field);
         }
         //System.out.println(vcard.constructVCard().toString());
-        StaticData.getInstance().roster.theStream.send(vcard.constructVCard());
+        new Thread(this).start();
         destroyView();
     }
     
     private void destroyView() {
         display.setCurrent(parentView);
+    }
+
+    public void run() {
+        StaticData.getInstance().roster.theStream.send(vcard.constructVCard());
+        System.out.println("VCard sent");
     }
 }

@@ -15,6 +15,7 @@ import java.util.*;
 import java.io.*;
 import javax.microedition.lcdui.Image;
 import util.StringLoader;
+import util.strconv;
 
 /**
  *
@@ -91,7 +92,10 @@ public class VCard {
             subLevel.addChild(f1, field);
             
         }
-        System.out.println(vcard.toString());
+        if (photo!=null) {
+            vcard.addChild("PHOTO", null).addChild("BINVAL", strconv.toBase64(photo));
+        }
+        //System.out.println(vcard.toString());
         return vcard;
     }
     

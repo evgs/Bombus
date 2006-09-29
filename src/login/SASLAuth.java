@@ -17,6 +17,8 @@ import com.alsutton.jabber.datablocks.Iq;
 import com.ssttr.crypto.MD5;
 import java.io.IOException;
 import locale.SR;
+
+import util.strconv;
 //#if SASL_XGOOGLETOKEN
 import java.io.InputStream;
 import javax.microedition.io.Connector;
@@ -106,7 +108,7 @@ public class SASLAuth implements JabberBlockListener{
                             +account.getUserName()
                             +(char)0x00
                             +account.getPassword();
-                    auth.setText(toBase64(plain));
+                    auth.setText(strconv.toBase64(plain));
                     
                     stream.send(auth);
                     listener.loginMessage(SR.MS_AUTH);
@@ -281,7 +283,7 @@ public class SASLAuth implements JabberBlockListener{
                 "nonce=\""+nonce+"\",nc=00000001,cnonce=\""+cnonce+"\"," +
                 "qop=auth,digest-uri=\""+digestUri+"\"," +
                 "response=\""+hResp.getDigestHex()+"\",charset=utf-8";
-        String resp = toBase64(out);
+        String resp = strconv.toBase64(out);
         //System.out.println(decodeBase64(resp));
         
         return resp;
@@ -339,7 +341,7 @@ public class SASLAuth implements JabberBlockListener{
             String token = "\0"+account.getUserName()+"\0"+readLine(is);
             is.close();
             c.close();
-            return toBase64(token);
+            return strconv.toBase64(token);
             
         } catch(Exception e) {
             e.printStackTrace();
@@ -349,33 +351,4 @@ public class SASLAuth implements JabberBlockListener{
     }
 //#endif
     
-    public final static String toBase64( String source) {
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-        
-        int len=source.length();
-        char[] out = new char[((len+2)/3)*4];
-        for (int i=0, index=0; i<source.length(); i+=3, index +=4) {
-            boolean trip=false;
-            boolean quad=false;
-            
-            int val = (0xFF & source.charAt(i))<<8;
-            if ((i+1) < len) {
-                val |= (0xFF & source.charAt(i+1));
-                trip = true;
-            }
-            val <<= 8;
-            if ((i+2) < len) {
-                val |= (0xFF & source.charAt(i+2));
-                quad = true;
-            }
-            out[index+3] = alphabet.charAt((quad? (val & 0x3F): 64));
-            val >>= 6;
-            out[index+2] = alphabet.charAt((trip? (val & 0x3F): 64));
-            val >>= 6;
-            out[index+1] = alphabet.charAt(val & 0x3F);
-            val >>= 6;
-            out[index+0] = alphabet.charAt(val & 0x3F);
-        }
-        return new String(out);
-    }
 }
