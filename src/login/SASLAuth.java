@@ -103,11 +103,11 @@ public class SASLAuth implements JabberBlockListener{
                 if (mech.getChildBlockByText("PLAIN")!=null) {
                     auth.setAttribute("mechanism", "PLAIN");
                     String plain=
-                            account.getJid()
+                            strconv.wCharToUTF(account.getJid())
                             +(char)0x00
-                            +account.getUserName()
+                            +strconv.wCharToUTF(account.getUserName())
                             +(char)0x00
-                            +account.getPassword();
+                            +strconv.wCharToUTF(account.getPassword());
                     auth.setText(strconv.toBase64(plain));
                     
                     stream.send(auth);
@@ -148,8 +148,8 @@ public class SASLAuth implements JabberBlockListener{
                 String cnonce="123456789abcd";
                 
                 resp.setText(responseMd5Digest(
-                        account.getUserName(),
-                        account.getPassword(),
+                        strconv.wCharToUTF(account.getUserName()),
+                        strconv.wCharToUTF(account.getPassword()),
                         account.getServer(),
                         "xmpp/"+account.getServer(),
                         nonce,
@@ -313,8 +313,8 @@ public class SASLAuth implements JabberBlockListener{
     public String responseXGoogleToken() {
         try {
             String firstUrl = "https://www.google.com:443/accounts/ClientAuth?Email="
-                    + account.getUserName() + "%40"+ account.getServer()
-                    + "&Passwd=" + account.getPassword() //TODO: escaping password
+                    + strconv.wCharToUTF(account.getUserName()) + "%40"+ account.getServer()
+                    + "&Passwd=" + strconv.wCharToUTF(account.getPassword()) 
                     + "&PersistentCookie=false&source=googletalk";
             
             //log.addMessage("Connecting to www.google.com");
@@ -338,7 +338,7 @@ public class SASLAuth implements JabberBlockListener{
             c = (HttpConnection) Connector.open(secondUrl);
             is = c.openInputStream();
             //str = readLine(dis);
-            String token = "\0"+account.getUserName()+"\0"+readLine(is);
+            String token = "\0"+strconv.wCharToUTF(account.getUserName())+"\0"+readLine(is);
             is.close();
             c.close();
             return strconv.toBase64(token);

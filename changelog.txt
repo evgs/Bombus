@@ -2855,6 +2855,9 @@ syslog_msg: true
 
 (709)
   * Status message size limit increased from 50 to 100 chars
+
+(710)
+  * SASL login if username or password contains non-ASCII chars (UTF-8 encoding performed)
 ---------------------------
   known issues:
 

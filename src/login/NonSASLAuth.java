@@ -16,6 +16,7 @@ import com.alsutton.jabber.JabberStream;
 import com.alsutton.jabber.datablocks.Iq;
 import com.ssttr.crypto.SHA1;
 import locale.SR;
+import util.strconv;
 
 /**
  *
@@ -45,7 +46,7 @@ public class NonSASLAuth implements JabberBlockListener{
             SHA1 sha=new SHA1();
                 sha.init();
                 sha.updateASCII(sessionId);
-                sha.updateASCII(account.getPassword());
+                sha.updateASCII(strconv.wCharToUTF(account.getPassword()) );
                 sha.finish();
             queryBlock.addChild("digest", sha.getDigestHex() );
         }

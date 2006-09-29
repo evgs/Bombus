@@ -22,6 +22,7 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import javax.microedition.io.*;
 import Client.Config;
+import util.strconv;
 
 /**
  *
@@ -91,8 +92,15 @@ public class Utf8IOStream implements Runnable{
 	    //	System.out.print(" "+((char)a[i])+"="+a[i]);
 	    //}
 	    //System.out.println();
-            byte b[]=toUTF(data);
-	    outStream.write(b);
+            
+            StringBuffer outbuf=strconv.toUTFSb(data);
+            int outLen=outbuf.length();
+            byte bytes[]=new byte[outLen];
+            for (int i=0; i<outLen; i++) {
+                bytes[i]=(byte)outbuf.charAt(i);
+            }
+            
+	    outStream.write(bytes);
             bytesSent++;
 //#endif
 	    
@@ -107,34 +115,6 @@ public class Utf8IOStream implements Runnable{
     
 //#if USE_UTF8_READER
     // temporary
-    public static byte[] toUTF(StringBuffer str) {
-	int srcLen = str.length();
-	StringBuffer outbuf=new StringBuffer( srcLen );
-	for(int i=0; i < srcLen; i++) {
-	    int c = (int)str.charAt(i);
-	    //TODO: ескэйпить коды <0x20
-	    if ((c >= 1) && (c <= 0x7f)) {
-		outbuf.append( (char) c);
-		
-	    }
-	    if (((c >= 0x80) && (c <= 0x7ff)) || (c==0)) {
-		outbuf.append((char)(0xc0 | (0x1f & (c >> 6))));
-		outbuf.append((char)(0x80 | (0x3f & c)));
-	    }
-	    if ((c >= 0x800) && (c <= 0xffff)) {
-		outbuf.append(((char)(0xe0 | (0x0f & (c >> 12)))));
-		outbuf.append((char)(0x80 | (0x3f & (c >>  6))));
-		outbuf.append(((char)(0x80 | (0x3f & c))));
-	    }
-	}
-	
-	int outLen=outbuf.length();
-	byte bytes[]=new byte[outLen];
-	for (int i=0; i<outLen; i++) {
-	    bytes[i]=(byte)outbuf.charAt(i);
-	}
-	return bytes;
-    }
 
     byte cbuf[]=new byte[512];
     int length;

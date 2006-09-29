@@ -33,7 +33,7 @@ public class strconv {
         }
         return b.toString();
     }
-
+    
     public static final String convUnicodeToCp1251(final String s){
         if (s==null) return null;
         StringBuffer b=new StringBuffer(s.length());
@@ -77,7 +77,7 @@ public class strconv {
         }
         return new String(out);
     }
-
+    
     public final static String toBase64( byte source[]) {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
         
@@ -108,4 +108,31 @@ public class strconv {
         return new String(out);
     }
     
+    public static StringBuffer toUTFSb(StringBuffer str) {
+        int srcLen = str.length();
+        StringBuffer outbuf=new StringBuffer( srcLen );
+        for(int i=0; i < srcLen; i++) {
+            int c = (int)str.charAt(i);
+            //TODO: ескэйпить коды <0x20
+            if ((c >= 1) && (c <= 0x7f)) {
+                outbuf.append( (char) c);
+                
+            }
+            if (((c >= 0x80) && (c <= 0x7ff)) || (c==0)) {
+                outbuf.append((char)(0xc0 | (0x1f & (c >> 6))));
+                outbuf.append((char)(0x80 | (0x3f & c)));
+            }
+            if ((c >= 0x800) && (c <= 0xffff)) {
+                outbuf.append(((char)(0xe0 | (0x0f & (c >> 12)))));
+                outbuf.append((char)(0x80 | (0x3f & (c >>  6))));
+                outbuf.append(((char)(0x80 | (0x3f & c))));
+            }
+        }
+        return outbuf;
+    }
+    
+    
+    public static String wCharToUTF(String src) {
+        return toUTFSb(new StringBuffer(src)).toString();
+    }
 }
