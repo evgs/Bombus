@@ -2848,15 +2848,23 @@ syslog_msg: true
 
 30.09.2006
 (707)
-  * stream refactoring
+  * оптимизация операций с xml
+  --
+  * xml stream refactoring
 
 (708)
+  * не происходит потеря фотографии при редактировании собственного vCard из Bombus
+  --
   * VCard: Photo will be preserved if vCard has been modified
 
 (709)
+  * максимальный размер статусного сообщения увеличен с 50 до 100 символов
+  --
   * Status message size limit increased from 50 to 100 chars
 
-(710)
+(711)
+  * SASL-логин теперь правильно обрабатывает username и password, состоящие из не-ASCII символов
+  --
   * SASL login if username or password contains non-ASCII chars (UTF-8 encoding performed)
 ---------------------------
   known issues:
