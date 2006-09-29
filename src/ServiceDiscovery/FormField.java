@@ -129,16 +129,17 @@ public class FormField {
                     String result=String.valueOf(set);
                     if (numericBoolean) result=set?"1":"0";
                     j.addChild("value", result);
-                }
-                else {
+                } else 
+                if (type.equals("lsit-multi")) {
                     ChoiceGroup ch=(ChoiceGroup) formItem;
                     int count=ch.size();
                     for (int i=0; i<count; i++) {
                         if (ch.isSelected(i))  
                             j.addChild("value", (String)optionsList.elementAt(i));                    
                     }
-                    //int index=((ChoiceGroup) formItem).getSelectedIndex();
-                    //if (index>=0)  j.addChild("value", (String)optionsList.elementAt(index));
+                } else /* list-single */ {
+                    int index=((ChoiceGroup) formItem).getSelectedIndex();
+                    if (index>=0)  j.addChild("value", (String)optionsList.elementAt(index));
                 }
         }
         return j;
