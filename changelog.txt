@@ -2845,6 +2845,16 @@ syslog_msg: true
   --
   + Data forms: list-multi fields now are supported. Tested on Tkabber's Remote Controlling
   * Ad-Hoc: "Complete" state fix
+
+30.09.2006
+(707)
+  * stream refactoring
+
+(708)
+  * VCard: Photo will be preserved if vCard has been modified
+
+(709)
+  * Status message size limit increased from 50 to 100 chars
 ---------------------------
   known issues:
 

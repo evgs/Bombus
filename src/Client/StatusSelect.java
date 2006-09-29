@@ -109,7 +109,7 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
             chPriorityAll.append(SR.MS_ALL_STATUSES, null);
             f.append(chPriorityAll);
             
-            tfMessage=new TextField(SR.MS_MESSAGE, status.getMessage(), 50, 0);
+            tfMessage=new TextField(SR.MS_MESSAGE, status.getMessage(), 100, 0);
             f.append(tfMessage);
             
             f.addCommand(cmdOk);
