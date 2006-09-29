@@ -186,6 +186,11 @@ public class JabberStream implements XMLEventListener, Runnable {
     }
     
     public void send( String data ) throws IOException {
+	iostream.send(new StringBuffer(data));
+        //System.out.println(data);
+    }
+    
+    public void sendBuf( StringBuffer data ) throws IOException {
 	iostream.send(data);
         //System.out.println(data);
     }
@@ -348,7 +353,9 @@ public class JabberStream implements XMLEventListener, Runnable {
         }
         public void run(){
             try {
-                send( data.toString() );
+                StringBuffer buf=new StringBuffer();
+                data.constructXML(buf);
+                sendBuf( buf );
             } catch (Exception e) {e.printStackTrace(); }
         }
     }

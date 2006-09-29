@@ -80,7 +80,7 @@ public class Utf8IOStream implements Runnable{
 
     }
     
-    public void send( String data ) throws IOException {
+    public void send( StringBuffer data ) throws IOException {
 	
 	synchronized (outStream) {
 //#if !(USE_UTF8_READER)
@@ -107,9 +107,9 @@ public class Utf8IOStream implements Runnable{
     
 //#if USE_UTF8_READER
     // temporary
-    private byte[] toUTF(String str) {
-	StringBuffer outbuf=new StringBuffer();
+    public static byte[] toUTF(StringBuffer str) {
 	int srcLen = str.length();
+	StringBuffer outbuf=new StringBuffer( srcLen );
 	for(int i=0; i < srcLen; i++) {
 	    int c = (int)str.charAt(i);
 	    //TODO: ескэйпить коды <0x20

@@ -49,7 +49,7 @@ public class SASLAuth implements JabberBlockListener{
 //#endif
 
     public int blockArrived(JabberDataBlock data) {
-        System.out.println(data.toString());
+        //System.out.println(data.toString());
         if (data.getTagName().equals("stream:features")) {
 //#if ZLIB
             JabberDataBlock compr=data.getChildBlock("compression");
@@ -76,7 +76,7 @@ public class SASLAuth implements JabberBlockListener{
                 if (mech.getChildBlockByText("DIGEST-MD5")!=null) {
                     auth.setAttribute("mechanism", "DIGEST-MD5");
                     
-                    System.out.println(auth.toString());
+                    //System.out.println(auth.toString());
                     
                     stream.send(auth);
                     listener.loginMessage(SR.MS_AUTH);
@@ -89,7 +89,7 @@ public class SASLAuth implements JabberBlockListener{
                     auth.setAttribute("mechanism", "X-GOOGLE-TOKEN");
                     auth.setText(token);
                     
-                    System.out.println(auth.toString());
+                    //System.out.println(auth.toString());
                     
                     stream.send(auth);
                     listener.loginMessage(SR.MS_AUTH);
@@ -133,7 +133,7 @@ public class SASLAuth implements JabberBlockListener{
             // first stream - step 2,3. reaction to challenges
             
             String challenge=decodeBase64(data.getText());
-            System.out.println(challenge);
+            //System.out.println(challenge);
             
             JabberDataBlock resp=new JabberDataBlock("response", null, null);
             resp.setNameSpace("urn:ietf:params:xml:ns:xmpp-sasl");
@@ -152,7 +152,7 @@ public class SASLAuth implements JabberBlockListener{
                         "xmpp/"+account.getServer(),
                         nonce,
                         cnonce ));
-                System.out.println(resp.toString());
+                //System.out.println(resp.toString());
             }
                 // first stream - step 3. sending second empty response due to second challenge
             //if (challenge.startsWith("rspauth")) {}
@@ -282,7 +282,7 @@ public class SASLAuth implements JabberBlockListener{
                 "qop=auth,digest-uri=\""+digestUri+"\"," +
                 "response=\""+hResp.getDigestHex()+"\",charset=utf-8";
         String resp = toBase64(out);
-        System.out.println(decodeBase64(resp));
+        //System.out.println(decodeBase64(resp));
         
         return resp;
     }

@@ -31,7 +31,7 @@ public class VCard {
     private Vector vCardData;
     private String jid;
     
-    Image photo;
+    byte photo[];
     
     /** Creates a new instance of vCard */
     public VCard() {
@@ -63,20 +63,10 @@ public class VCard {
             } catch (Exception e) {/**/}
         }
         
-       JabberDataBlock photo=vcard.getChildBlock("PHOTO");
-       if (photo==null) return;
-//#if !(MIDP1)
-       try {
-           photo=photo.getChildBlock("BINVAL");
-           byte src[]=(byte[])photo.getChildBlocks().lastElement();
-           this.photo=Image.createImage(src, 0, src.length);
-       } catch (Exception e) {
-           e.printStackTrace();
-           try {
-               this.photo=Image.createImage(1,1); // stub
-           } catch (Exception img) {/**/};
-       }
-//#endif
+       JabberDataBlock photoXML=vcard.getChildBlock("PHOTO");
+       if (photoXML==null) return;
+       photoXML=photoXML.getChildBlock("BINVAL");
+       photo=(byte[])photoXML.getChildBlocks().lastElement();
     }
 
     public JabberDataBlock constructVCard(){
@@ -105,7 +95,14 @@ public class VCard {
         return vcard;
     }
     
-    public Image getPhoto() { return photo; }
+    public Image getPhoto() { 
+//#if !(MIDP1)
+       try {
+           return Image.createImage(photo, 0, photo.length);
+       } catch (Exception e) { e.printStackTrace(); }
+//#endif
+       return null; 
+    }
     
     public String getNickName() { return getVCardData(NICK_INDEX);}
     

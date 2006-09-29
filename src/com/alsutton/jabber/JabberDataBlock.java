@@ -322,40 +322,42 @@ public class JabberDataBlock
 
   public String toString()
   {
-    StringBuffer data = new StringBuffer( "<" );
-    data.append( getTagName() );
-    if( attributes != null )
-      addAttributeToStringBuffer( data );
-
-    // short xml
-    if (textData==null && childBlocks ==null ) {
-        data.append("/>");
-        return data.toString();
-    }
-    
-    data.append( '>' );
-    
-
-    appendXML(data, textData);
-
-    if( childBlocks != null )
-    {
-      Enumeration e = childBlocks.elements();
-      while( e.hasMoreElements() )
-      {
-        JabberDataBlock thisBlock = (JabberDataBlock) e.nextElement();
-        data.append( thisBlock.toString() );
-      }
-    }
-
-    // end tag
-    data.append( "</" );
-    data.append( getTagName() );
-    data.append( '>' );
-
+    StringBuffer data = new StringBuffer();
+    constructXML(data);
     return data.toString();
   }
 
+  public void constructXML(StringBuffer data) {
+      data.append('<');
+      data.append( getTagName() );
+      if( attributes != null )
+          addAttributeToStringBuffer( data );
+      
+      // short xml
+      if (textData==null && childBlocks ==null ) {
+          data.append("/>");
+          return;
+      }
+      
+      data.append( '>' );
+      
+      
+      appendXML(data, textData);
+      
+      if( childBlocks != null ) {
+          Enumeration e = childBlocks.elements();
+          while( e.hasMoreElements() ) {
+              JabberDataBlock thisBlock = (JabberDataBlock) e.nextElement();
+              thisBlock.constructXML(data);
+          }
+      }
+      
+      // end tag
+      data.append( "</" );
+      data.append( getTagName() );
+      data.append( '>' );
+  }
+  
   /**
    * Method to add all the attributes to a string buffer
    *
