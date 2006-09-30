@@ -71,9 +71,9 @@ public class VCard {
     }
 
     public JabberDataBlock constructVCard(){
-        JabberDataBlock vcard=new Iq(null, Iq.TYPE_SET, null);
-        JabberDataBlock child=vcard.addChild("vCard", null);
-        child.setNameSpace("vcard-temp");
+        JabberDataBlock vcardIq=new Iq(null, Iq.TYPE_SET, "vcard-set");
+        JabberDataBlock vcardTemp=vcardIq.addChild("vCard", null);
+        vcardTemp.setNameSpace("vcard-temp");
         
         int itemsCount=getCount();
         
@@ -84,19 +84,19 @@ public class VCard {
             String f1=(String)VCard.vCardFields.elementAt(i);
             String f2=(String)VCard.vCardFields2.elementAt(i);
             
-            JabberDataBlock subLevel=child;
+            JabberDataBlock subLevel=vcardTemp;
             if (f2!=null) {
-                subLevel=child.getChildBlock(f2);
-                if (subLevel==null) subLevel=child.addChild(f2, null);
+                subLevel=vcardTemp.getChildBlock(f2);
+                if (subLevel==null) subLevel=vcardTemp.addChild(f2, null);
             }
             subLevel.addChild(f1, field);
             
         }
         if (photo!=null) {
-            vcard.addChild("PHOTO", null).addChild("BINVAL", strconv.toBase64(photo));
+            vcardTemp.addChild("PHOTO", null).addChild("BINVAL", strconv.toBase64(photo));
         }
         //System.out.println(vcard.toString());
-        return vcard;
+        return vcardIq;
     }
     
     public Image getPhoto() { 

@@ -162,7 +162,7 @@ public class Message extends JabberDataBlock
       try {
           oob.append("\n");
           oob.append(oobData.getChildBlockText("desc"));
-          if (oob.length()>0) oob.append(" ");
+          if (oob.length()>1) oob.append(" ");
           oob.append("( ");
           oob.append(oobData.getChildBlockText("url"));
           oob.append(" )");

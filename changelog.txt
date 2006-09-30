@@ -2878,10 +2878,12 @@ syslog_msg: true
 (714)
   * FS#368: VCard-not-found for contacts at jabberd2
 
-(715)
-  * FS#323: вложенные в сообщения url по схеме jabber:x:oob (к примеру, хэдлайны от rss.jabber.ru)
+(716)
+  + FS#323: вложенные в сообщения url по схеме jabber:x:oob (к примеру, хэдлайны от rss.jabber.ru)
+  * vCard, содержащий фотографию, не мог быть модифицирован (ошибка билда 708)
   --
-  * FS#323: jabber:x:oob attaches (url) in messages (like headlines from rss.jabber.ru)
+  + FS#323: jabber:x:oob attaches (url) in messages (like headlines from rss.jabber.ru)
+  * vCard editor was broken in build 708 - can't publish data if photo is present
 ---------------------------
   known issues:
 
