@@ -103,7 +103,7 @@ public class VCard {
 //#if !(MIDP1)
        try {
            return Image.createImage(photo, 0, photo.length);
-       } catch (Exception e) { e.printStackTrace(); }
+       } catch (Exception e) { }
 //#endif
        return null; 
     }

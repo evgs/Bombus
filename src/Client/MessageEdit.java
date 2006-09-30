@@ -100,29 +100,28 @@ public class MessageEdit
         body=t.getString();
         if (body.length()==0) body=null;
         
-        if (c==cmdCancel) { 
-            composing=false; 
-            body=null; 
-            /*destroyView(); return;*/ 
-        }
-        if (c==cmdSuspend) { 
-            composing=false; 
-            to.msgSuspended=body; 
-            body=null;
-            /*destroyView(); return;*/ 
-        }
         if (c==cmdInsMe) { t.insert("/me ", 0); return; }
         if (c==cmdSmile) { new SmilePicker(display, this); return; }
         if (c==cmdInsNick) { new AppendNick(display, to); return; }
         if (c==cmdAbc) {setInitialCaps(false); return; }
         if (c==cmdABC) {setInitialCaps(true); return; }
+	if (c==cmdPaste) { new ArchiveList(display, t); return; }
+        
+        if (c==cmdCancel) { 
+            composing=false; 
+            body=null; 
+        }
+        if (c==cmdSuspend) { 
+            composing=false; 
+            to.msgSuspended=body; 
+            body=null;
+        }
         if (c==cmdSend && body==null) return;
         if (c==cmdSubj) {
             if (body==null) return;
             subj=body;
             body="/me has set the topic to: "+subj;
         }
-	if (c==cmdPaste) { new ArchiveList(display, t); return; }
         // message/composing sending
         destroyView();
         new Thread(this).start();

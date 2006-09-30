@@ -766,6 +766,16 @@ public class Roster
                         sendVCardReq();
                     }
                     
+                    if (id.startsWith("getvc")) {
+                        setQuerySign(false);
+                        VCard vcard=new VCard(data);
+                        Contact c=getContact(vcard.getJid(), true);
+                        if (c!=null) {
+                            c.vcard=vcard;
+                            new vCardForm(display, vcard, c.getGroupType()==Groups.TYPE_SELF);
+                        }
+                    }
+                    
                     if (id.equals("getver")) {
                         String from=data.getAttribute("from");
                         String body=null;
@@ -805,15 +815,6 @@ public class Roster
                         SplashScreen.getInstance().close(); // display.setCurrent(this);
                         
                     } 
-                    if (id.startsWith("getvc")) {
-                        setQuerySign(false);
-                        VCard vcard=new VCard(data);
-                        Contact c=getContact(vcard.getJid(), true);
-                        if (c!=null) {
-                            c.vcard=vcard;
-                            new vCardForm(display, vcard, c.getGroupType()==Groups.TYPE_SELF);
-                        }
-                    }
                     
                 } else if (type.equals("get")){
                     JabberDataBlock query=data.getChildBlock("query");
