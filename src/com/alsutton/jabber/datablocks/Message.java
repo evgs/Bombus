@@ -154,6 +154,22 @@ public class Message extends JabberDataBlock
    */
 
   public String getBody() { return getChildBlockText( "body" ); }
+  
+  
+  public String getOOB() {
+      JabberDataBlock oobData=findNamespace("jabber:x:oob");
+      StringBuffer oob=new StringBuffer();
+      try {
+          oob.append("\n");
+          oob.append(oobData.getChildBlockText("desc"));
+          if (oob.length()>0) oob.append(" ");
+          oob.append("( ");
+          oob.append(oobData.getChildBlockText("url"));
+          oob.append(" )");
+      } catch (Exception ex) { return null; }
+  
+      return oob.toString();
+  }
 
   public String getTimeStamp(){
       JabberDataBlock stamp=findNamespace("jabber:x:delay");

@@ -2877,6 +2877,11 @@ syslog_msg: true
 
 (714)
   * FS#368: VCard-not-found for contacts at jabberd2
+
+(715)
+  * FS#323: вложенные в сообщения url по схеме jabber:x:oob (к примеру, хэдлайны от rss.jabber.ru)
+  --
+  * FS#323: jabber:x:oob attaches (url) in messages (like headlines from rss.jabber.ru)
 ---------------------------
   known issues:
 

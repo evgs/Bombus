@@ -843,7 +843,10 @@ public class Roster
                 Message message = (Message) data;
                 
                 String from=message.getFrom();
-                String body=message.getBody().trim();    if (body.length()==0) body=null; 
+                String body=message.getBody().trim();    
+                String oob=message.getOOB();
+                if (oob!=null) body+=oob;
+                if (body.length()==0) body=null; 
                 String subj=message.getSubject().trim(); if (subj.length()==0) subj=null;
                 String tStamp=message.getTimeStamp();
 		
