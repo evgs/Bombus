@@ -425,6 +425,7 @@ public class Roster
                     hContacts.removeElementAt(index);
                 } else index++;
             }
+            countNewMsgs();
         }
     }
 
@@ -1360,6 +1361,7 @@ public class Roster
 	
 	if (c.getGroupType()==Groups.TYPE_NOT_IN_LIST) {
 	    hContacts.removeElement(c);
+            countNewMsgs();
 	    reEnumRoster();
 	} else
 	    theStream.send(new IqQueryRoster(c.getBareJid(),null,null,"remove"));

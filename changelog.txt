@@ -2866,6 +2866,15 @@ syslog_msg: true
   * SASL-логин теперь правильно обрабатывает username и password, состоящие из не-ASCII символов
   --
   * SASL login if username or password contains non-ASCII chars (UTF-8 encoding performed)
+
+(712)
+  + FS#338: в заголовке Archive указывается число записей архива
+  * FS#387: обновление счётчика сообщений после удаления контакта, содержащего непрочтённые
+    сообщения
+  --
+  + FS#338: Archive title now includes total message count
+  * FS:387: New message counter will be updated after removing contact with unreaded messages
+
 ---------------------------
   known issues:
 

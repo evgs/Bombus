@@ -58,6 +58,7 @@ public class ArchiveList
         } catch (Exception e) {}
 	
 	Title title=new Title(SR.MS_ARCHIVE /*"Archive"*/);
+	title.addElement(null);
 	title.addRAlign();
 	title.addElement(null);
 	title.addElement(SR.MS_FREE /*"free "*/);
@@ -66,7 +67,8 @@ public class ArchiveList
     }
 
     protected void beginPaint() {
-	getTitleItem().setElementAt(String.valueOf(archive.freeSpace()),2);
+        getTitleItem().setElementAt(" ("+String.valueOf(getItemCount())+")",1);
+	getTitleItem().setElementAt(String.valueOf(archive.freeSpace()),3);
     }
     
     public int getItemCount() {
