@@ -2873,9 +2873,11 @@ syslog_msg: true
     сообщения
   --
   + FS#338: Archive title now includes total message count
-  * FS:387: New message counter will be updated after removing contact with unreaded messages
+  * FS#387: New message counter will be updated after removing contact with unreaded messages
 
 (714)
+  * FS#368: обработка ошибки при запросе vCard с серверов jabberd2
+  --
   * FS#368: VCard-not-found for contacts at jabberd2
 
 (716)
