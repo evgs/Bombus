@@ -11,6 +11,7 @@ package io.file.browse;
 
 import Client.Title;
 import images.RosterIcons;
+import io.file.FileIO;
 import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Vector;
@@ -33,22 +34,21 @@ import ui.VirtualList;
  * @author evgs
  */
 public class Browser extends VirtualList implements CommandListener{
-    
+ 
     private Vector dir;
-
+    
     Command cmdOk=new Command(SR.MS_BROWSE, Command.OK, 1);
     Command cmdSelect=new Command(SR.MS_SELECT, Command.SCREEN, 2);
     Command cmdBack=new Command(SR.MS_BACK, Command.BACK, 98);
     Command cmdCancel=new Command(SR.MS_CANCEL, Command.CANCEL, 99);
-
-    private FileConnection fc;
-    private String root;
+    
+    private String path;
     
     /** Creates a new instance of Browser */
     public Browser(Display display) {
         super(display);
         
-        setTitleItem(new Title(2, "/", null));
+        setTitleItem(new Title(2, null, null));
         
         addCommand(cmdOk);
         addCommand(cmdSelect);
@@ -56,80 +56,65 @@ public class Browser extends VirtualList implements CommandListener{
         addCommand(cmdCancel);
         setCommandListener(this);
         
-        root="";
-        readDirectory("");
+        path="/";
+        readDirectory(path);
         sort(dir);
     }
-
+    
     protected int getItemCount() { return dir.size(); }
-
+    
     protected VirtualElement getItemRef(int index) { return (VirtualElement) dir.elementAt(index); }
-
+    
     public void commandAction(Command command, Displayable displayable) {
-        if (command==cmdBack) { 
-            if (root.length()==0) {
-                try { fc.close(); } catch (Exception e) {}
+        if (command==cmdBack) {
+            if (!chDir("../")) {
                 destroyView();
+                return;
             }
-            readDirectory("..");
+            readDirectory(path);
             sort(dir);
         }
-        if (command==cmdCancel) {
-            try { fc.close(); } catch (Exception e) {}
-            destroyView();
-        }
+        if (command==cmdCancel) { destroyView(); }
     }
-
+    
+    
+    private boolean chDir(String relativePath) {
+        if (relativePath.equals("../")) {
+            if (path.length()<2) return false;
+            path=path.substring(0, 1+path.lastIndexOf('/', path.length()-2));
+        } else {
+            path+=relativePath;
+        }
+        return true;
+    }
+    
     private void readDirectory(String name) {
-        getTitleItem().setElementAt(root, 0);
+        getTitleItem().setElementAt(path, 0);
+        
         dir=new Vector();
         
-        if (root.length()!=0 && name.length()!=0 ) {
-            try {
-                if (name.equals("../")) name="..";
-                fc.setFileConnection(name); // traversing
-            } catch (Exception ex) { ex.printStackTrace(); root=""; name=""; }
-        } 
-            
-        if (root.length()==0 && name.length()!=0) {
-            if (fc!=null) 
-                try {fc.close(); } catch (IOException ex) { ex.printStackTrace(); }
-            fc=null;
-            try {
-                fc = (FileConnection) Connector.open("file:///" + name);
-            } catch (IOException ex) { ex.printStackTrace(); return; }
-            root=name;
-            getTitleItem().setElementAt("/", 0);
-        } else 
-        
-        if (root.length()==0 && name.length()==0) {
-            for (Enumeration root=FileSystemRegistry.listRoots(); root.hasMoreElements(); )
-                dir.addElement( new FileItem((String) root.nextElement()) );
-            getTitleItem().setElementAt("/", 0);
-            return; //roots list
-        }
-        
-        getTitleItem().setElementAt(fc.getPath(), 0);
-        getTitleItem().setElementAt(fc.getName(), 1);
-        dir.addElement(new FileItem("../"));
         try {
-            if (!fc.isDirectory()) return;
-            for (Enumeration files=fc.list(); files.hasMoreElements(); ) 
+            FileIO f=io.file.FileIO.createConnection(name);
+            
+            Enumeration files=f.fileList(false).elements();
+            
+            while (files.hasMoreElements() )
                 dir.addElement( new FileItem((String) files.nextElement()) );
-                
+            
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-
+    
     public void eventOk() {
         String f=((FileItem)getFocusedObject()).name;
-        if (f.endsWith("/")) readDirectory(f);
+        if (!chDir(f)) { destroyView(); return; }
+        readDirectory(path);
         sort(dir);
         redraw();
     }
     
-
+    
     public final void sort(Vector sortVector){
         synchronized (sortVector) {
             int f, i;
@@ -152,22 +137,22 @@ public class Browser extends VirtualList implements CommandListener{
     }
     
     private class FileItem extends IconTextElement {
-
+        
         public String name;
         private int iconIndex;
         
-        public FileItem (String name) {
-            super (RosterIcons.getInstance());
+        public FileItem(String name) {
+            super(RosterIcons.getInstance());
             this.name=name;
             //TODO: file icons
             iconIndex=name.endsWith("/")? RosterIcons.ICON_COLLAPSED_INDEX: RosterIcons.ICON_PRIVACY_ACTIVE;
         }
         protected int getImageIndex() { return iconIndex; }
-
+        
         public int getColor() { return 0; }
         
         public String toString() { return name; }
-
+        
         private int compare(FileItem fileItem) {
             int cpi=iconIndex-fileItem.iconIndex;
             if (cpi==0) cpi=name.compareTo(fileItem.name);

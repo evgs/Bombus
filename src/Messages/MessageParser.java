@@ -94,7 +94,6 @@ public final class MessageParser implements Runnable{
     }
     
     private MessageParser(String resource) {
-	wordsWrap=Config.getInstance().textWrap==1;
         
         smileTable=new Vector();
         root=new Leaf();
@@ -158,6 +157,7 @@ public final class MessageParser implements Runnable{
 
     public void parseMsg(MessageItem messageItem,  int width, boolean smiles)
     {
+	wordsWrap=Config.getInstance().textWrap==1;
         messageItem.msgLines=new Vector();
         this.il=(smiles)? SmilesIcons.getInstance() : null;
         this.width=width;

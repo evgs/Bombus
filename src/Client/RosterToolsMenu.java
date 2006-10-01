@@ -34,8 +34,8 @@ public class RosterToolsMenu
         addItem(SR.MS_OPTIONS, 3);
         /*if (m.getItemCount()>0)*/
         
-//#if (JSR75)
-//#         addItem("root",4);
+//#if (FILE_IO)
+        addItem("root",4);
 //#endif
         
         attachDisplay(display);
@@ -66,10 +66,10 @@ public class RosterToolsMenu
             case 3:
                 new ConfigForm(display);
                 return;
-//#if (JSR75)
-//#             case 4:
-//#                 new io.file.browse.Browser(display);
-//#                 return;
+//#if (FILE_IO)
+            case 4:
+                new io.file.browse.Browser(display);
+                return;
 //#endif
         }
     }
