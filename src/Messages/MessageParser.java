@@ -16,6 +16,7 @@ import javax.microedition.lcdui.Font;
 
 import ui.*;
 import Client.Msg;
+import Client.Config;
 /**
  *
  * @author Eugene Stahov
@@ -39,6 +40,8 @@ public final class MessageParser implements Runnable{
     private Vector tasks=new Vector();
     
     private Thread thread;
+    boolean wordsWrap;
+    private static String wrapSeparators=" .,-=/\\;:+*()[]<>~!@#%^_";
     
     public static MessageParser getInstance() {
         if (instance==null) instance=new MessageParser("/images/smiles.txt");
@@ -91,6 +94,8 @@ public final class MessageParser implements Runnable{
     }
     
     private MessageParser(String resource) {
+	wordsWrap=Config.getInstance().textWrap==1;
+        
         smileTable=new Vector();
         root=new Leaf();
         // opening file;
@@ -198,6 +203,8 @@ public final class MessageParser implements Runnable{
         while (state<2) {
             int w=0;
             StringBuffer s=new StringBuffer();
+	    int wordWidth=0;
+	    int wordStartPos=0;
             
             ComplexString l=new ComplexString(il);
             lines.addElement(l);
@@ -266,6 +273,9 @@ public final class MessageParser implements Runnable{
                 
                 if (smileIndex>=0 && enableSmiles) {
                     // есть смайлик
+ 		    if (wordStartPos!=smileStartPos) {
+ 			s.append(txt.substring(wordStartPos, smileStartPos));
+ 		    }
                     // добавим строку
                     if (s.length()>0) {
                         if (underline) l.addUnderline();
@@ -291,13 +301,24 @@ public final class MessageParser implements Runnable{
                     l.addImage(smileIndex); w+=iw;
                     // передвинем указатель
                     pos=smileEndPos;
+		    // next word will start after smile
+		    wordStartPos=pos+1;
                 } else {
                     pos=smileStartPos;
                     char c=txt.charAt(pos);
                     
                     int cw=f.charWidth(c);
                     if (c!=0x20) {
-                        if (w+cw>width || c==0x0d || c==0x0a || c==0xa0) {
+			if (wordWidth+cw>width || c==0x0d || c==0x0a || c==0xa0) {
+			    // Add current oneWord buffer to s because:
+			    // word is too long to fit in line or character is newline
+
+			    s.append(txt.substring(wordStartPos,pos));
+			    w+=wordWidth;
+			    wordWidth=0;
+			    wordStartPos=pos;
+			}
+                        if (w+wordWidth+cw>width || c==0x0d || c==0x0a || c==0xa0) {
                             if (underline) l.addUnderline();
                             l.addElement(s.toString());    // последняя подстрока в l
                             s.setLength(0); w=0;
@@ -316,10 +337,23 @@ public final class MessageParser implements Runnable{
                             l.setFont(f);
                         }
                     }
-                    if (c>0x1f) {  s.append(c); w+=cw; } else if (c==0x09) {  s.append((char)0x20); w+=cw; }
+		    if (c==0x09)
+			c=0x20;
+		    	    
+                    if (c>0x1f) {
+			wordWidth+=cw;
+		    }
+		    if (wrapSeparators.indexOf(c)>=0 || !wordsWrap) {
+			s.append(txt.substring(wordStartPos,pos+1));
+			w+=wordWidth;
+			wordStartPos=pos+1;
+			wordWidth=0;
+		    }
                 }
                 pos++;
             }
+	    if (wordStartPos!=pos)
+		s.append(txt.substring(wordStartPos,pos));
             if (s.length()>0) {
                 if (underline) {
                     l.addUnderline();

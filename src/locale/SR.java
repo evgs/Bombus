@@ -256,14 +256,12 @@ public class SR {
     public final static String MS_RESOURCE_BINDING="Resource binding";
     public final static String MS_SESSION="Initiating session";
     
+    public final static String MS_TEXTWRAP="Text wrapping";
+    public final static String MS_TEXTWRAP_CHARACTER="by chars";
+    public final static String MS_TEXTWRAP_WORD="by words";
 
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
-
-
-
-
-
 
 
     private SR() { }

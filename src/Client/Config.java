@@ -108,6 +108,7 @@ public class Config {
 
     public int lang=0;  //en
     public boolean capsState=true;
+    public int textWrap=0;
     
     // runtime values
     public boolean allowMinimize=false;
@@ -229,6 +230,8 @@ public class Config {
             
             capsState=inputStream.readBoolean();
 	    
+	    textWrap=inputStream.readInt();
+	    
 	    inputStream.close();
 	} catch (Exception e) {
 	    e.printStackTrace();
@@ -294,6 +297,8 @@ public class Config {
             outputStream.writeBoolean(storeConfPresence); 
 
             outputStream.writeBoolean(capsState); 
+	    
+	    outputStream.writeInt(textWrap);
 	    
 	} catch (IOException e) { e.printStackTrace(); }
 	

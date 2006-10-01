@@ -67,6 +67,8 @@ public class ConfigForm implements
     ChoiceGroup font1;
     ChoiceGroup font2;
     
+    ChoiceGroup textWrap;
+    
     NumberField keepAlive;
     NumberField fieldLoc;
     NumberField fieldGmt;
@@ -184,6 +186,11 @@ public class ConfigForm implements
         f.append(message);
         f.append(font2);
 	
+	String textWraps[]={SR.MS_TEXTWRAP_CHARACTER, SR.MS_TEXTWRAP_WORD};
+	textWrap=new ChoiceGroup(SR.MS_TEXTWRAP, ConstMIDP.CHOICE_POPUP, textWraps,null);
+	textWrap.setSelectedIndex(cf.textWrap, true);
+	f.append(textWrap);
+	
 	f.append(sndFile);
 	
         lang=new ChoiceGroup("Language", ConstMIDP.CHOICE_POPUP);
@@ -277,6 +284,8 @@ public class ConfigForm implements
             FontCache.rosterFontSize=cf.font1=font1.getSelectedIndex()*8;
             FontCache.msgFontSize=cf.font2=font2.getSelectedIndex()*8;
             FontCache.resetCache();
+	    
+	    cf.textWrap=textWrap.getSelectedIndex();
 	    
 	    //cf.soundVol=sndVol.getValue()*10;
             cf.lang=lang.getSelectedIndex();

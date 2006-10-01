@@ -2886,6 +2886,11 @@ syslog_msg: true
   --
   + FS#323: jabber:x:oob attaches (url) in messages (like headlines from rss.jabber.ru)
   * vCard editor was broken in build 708 - can't publish data if photo is present
+
+(718)
+  + Options>Text Wrapping - переносы текста по словам в списке сообщений  (с) Dion
+  --
+  + Options>Text Wrapping - Text wrapping by words in MessageLists - (с) Dion
 ---------------------------
   known issues:
 
