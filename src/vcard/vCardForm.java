@@ -9,12 +9,14 @@
 
 package vcard;
 import Client.StaticData;
+//#if (FILE_IO)
 import io.file.FileIO;
 import io.file.browse.Browser;
 import io.file.browse.BrowserListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+//#endif
 import java.util.*;
 import javax.microedition.lcdui.*;
 import locale.SR;
@@ -24,7 +26,10 @@ import locale.SR;
  * @author EvgS
  */
 public class vCardForm 
-        implements CommandListener, Runnable, BrowserListener
+        implements CommandListener, Runnable
+//#if (FILE_IO)
+        , BrowserListener
+//#endif
 {
     
     private Display display;
@@ -101,9 +106,11 @@ public class vCardForm
             destroyView();
         }
         
+//#if (FILE_IO)
         if (c==cmdPhoto) {
             new Browser(display, this, false);
         }
+//#endif
         if (c==cmdDelPhoto) {photo=null; setPhoto();}
         
         if (c!=cmdPublish) return;
