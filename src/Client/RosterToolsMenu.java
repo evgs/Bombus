@@ -68,7 +68,7 @@ public class RosterToolsMenu
                 return;
 //#if (FILE_IO)
             case 4:
-                new io.file.browse.Browser(display);
+                new io.file.browse.Browser(display, null, false);
                 return;
 //#endif
         }

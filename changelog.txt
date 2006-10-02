@@ -2891,7 +2891,24 @@ syslog_msg: true
   + Options>Text Wrapping - переносы текста по словам в списке сообщений  (с) Dion
   --
   + Options>Text Wrapping - Text wrapping by words in MessageLists - (с) Dion
-  
+
+(722)
+  * »справление ошибок переносов
+  Ёкспериментальные функции:
+  + ‘айловый браузер(проводник). пока только реализаци€ JSR-75.
+  временно доступен в Tools>root
+  + Tools>My vCard>Photo - добавление фотографии в vCard, 
+    изображение загружаетс€ из файловой системы телефона. 
+    дл€ передачи на сервер требуетс€ команда Publish
+  + Tools>My vCard>Clear Photo - удаление из vCard фотографии. 
+    аналогично требуетс€ Publish
+
+  --
+  * Text Wrapping fixes
+  Experimental features (available only in ZLib version):
+  + JSR-75 filesystem browser (temporary at Tools>root)
+  + Tools>My vCard>Photo - inserting photo into vCard. Publish required
+  + Tools>My vCard>Clear Photo  - removing photo. Publish required
 ---------------------------
   known issues:
 

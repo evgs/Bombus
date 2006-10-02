@@ -99,13 +99,9 @@ public class VCard {
         return vcardIq;
     }
     
-    public Image getPhoto() { 
-//#if !(MIDP1)
-       try {
-           return Image.createImage(photo, 0, photo.length);
-       } catch (Exception e) { }
-//#endif
-       return null; 
+    public byte[] getPhoto() { return photo; }
+    public void setPhoto(byte[] photo) {
+        this.photo=photo;
     }
     
     public String getNickName() { return getVCardData(NICK_INDEX);}
@@ -142,5 +138,6 @@ public class VCard {
     public int getCount(){ return vCardFields.size(); }
 
     public String getJid() { return jid; }
+
 
 }

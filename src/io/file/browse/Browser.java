@@ -43,10 +43,13 @@ public class Browser extends VirtualList implements CommandListener{
     Command cmdCancel=new Command(SR.MS_CANCEL, Command.CANCEL, 99);
     
     private String path;
+    private BrowserListener browserListener;
     
     /** Creates a new instance of Browser */
-    public Browser(Display display) {
+    public Browser(Display display, BrowserListener browserListener, boolean getDirectory) {
         super(display);
+        
+        this.browserListener=browserListener;
         
         setTitleItem(new Title(2, null, null));
         
@@ -74,6 +77,7 @@ public class Browser extends VirtualList implements CommandListener{
             readDirectory(path);
             sort(dir);
         }
+        if (command==cmdSelect) eventOk();
         if (command==cmdCancel) { destroyView(); }
     }
     
@@ -108,7 +112,16 @@ public class Browser extends VirtualList implements CommandListener{
     
     public void eventOk() {
         String f=((FileItem)getFocusedObject()).name;
-        if (!chDir(f)) { destroyView(); return; }
+        if (!f.endsWith("/")) {
+            if (browserListener==null) return;
+            destroyView(); 
+            browserListener.BrowserFilePathNotify(path+f); 
+            return; 
+        }
+        if (!chDir(f)) { 
+            destroyView(); 
+            return; 
+        }
         readDirectory(path);
         sort(dir);
         redraw();
