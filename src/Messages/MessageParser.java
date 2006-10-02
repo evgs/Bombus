@@ -273,8 +273,12 @@ public final class MessageParser implements Runnable{
                 
                 if (smileIndex>=0 && enableSmiles) {
                     // есть смайлик
+                    
+                    // слово перед смайлом в буфер
  		    if (wordStartPos!=smileStartPos) {
  			s.append(txt.substring(wordStartPos, smileStartPos));
+                        w+=wordWidth;
+                        wordWidth=0;
  		    }
                     // добавим строку
                     if (s.length()>0) {
@@ -309,7 +313,8 @@ public final class MessageParser implements Runnable{
                     
                     int cw=f.charWidth(c);
                     if (c!=0x20) {
-			if (wordWidth+cw>width || c==0x0d || c==0x0a || c==0xa0) {
+                        boolean newline= ( c==0x0d || c==0x0a /*|| c==0xa0*/ );
+			if (wordWidth+cw>width || newline) {
 			    // Add current oneWord buffer to s because:
 			    // word is too long to fit in line or character is newline
 
@@ -317,8 +322,9 @@ public final class MessageParser implements Runnable{
 			    w+=wordWidth;
 			    wordWidth=0;
 			    wordStartPos=pos;
+                            if (newline) wordStartPos++;
 			}
-                        if (w+wordWidth+cw>width || c==0x0d || c==0x0a || c==0xa0) {
+                        if (w+wordWidth+cw>width || newline) {
                             if (underline) l.addUnderline();
                             l.addElement(s.toString());    // последняя подстрока в l
                             s.setLength(0); w=0;
