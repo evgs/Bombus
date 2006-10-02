@@ -41,7 +41,7 @@ public final class MessageParser implements Runnable{
     
     private Thread thread;
     boolean wordsWrap;
-    private static String wrapSeparators=" .,-=/\\;:+*()[]<>~!@#%^_";
+    private static String wrapSeparators=" .,-=/\\;:+*()[]<>~!@#%^_&";
     
     public static MessageParser getInstance() {
         if (instance==null) instance=new MessageParser("/images/smiles.txt");
@@ -243,6 +243,11 @@ public final class MessageParser implements Runnable{
                             case 0xa0:
                             case ')':
                                 underline=false;
+                                if (wordStartPos!=pos) {
+                                    s.append(txt.substring(wordStartPos,pos-1));
+                                    wordStartPos=pos;
+                                    wordWidth=0;
+                                }
                                 if (s.length()>0) {
                                     l.addUnderline();
                                     l.addElement(s.toString());
