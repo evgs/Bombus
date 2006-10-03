@@ -2909,6 +2909,9 @@ syslog_msg: true
   + JSR-75 filesystem browser (temporary at Tools>root)
   + Tools>My vCard>Photo - inserting photo into vCard. Publish required
   + Tools>My vCard>Clear Photo  - removing photo. Publish required
+
+(727)
+  + com.motorola.io.FileConnection support
 ---------------------------
   known issues:
 
