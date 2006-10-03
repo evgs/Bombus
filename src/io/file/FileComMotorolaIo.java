@@ -9,6 +9,7 @@
 
 package io.file;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Vector;
@@ -27,11 +28,12 @@ class FileComMotorolaIo extends FileIO{
         this.fileName=fileName;
     }
 
-    protected void openFile() {
+    protected void openFile() throws IOException {
         fileConnection = (com.motorola.io.FileConnection) Connector.open("file://" + fileName);
     }
 
-    public OutputStream openOutputStream() {
+    public OutputStream openOutputStream() throws IOException {
+        if (fileConnection==null) openFile();
         if (!fileConnection.exists()) {
             fileConnection.create();
         } else {
@@ -41,9 +43,12 @@ class FileComMotorolaIo extends FileIO{
         return fileConnection.openOutputStream();
     }
 
-    public InputStream openInputStream() { return fileConnection.openInputStream(); }
+    public InputStream openInputStream() throws IOException {
+        if (fileConnection==null) openFile();
+        return fileConnection.openInputStream(); 
+    }
 
-    public void close() {
+    public void close() throws IOException {
         if (fileConnection!=null) fileConnection.close();
         fileConnection=null;
     }
@@ -60,7 +65,7 @@ class FileComMotorolaIo extends FileIO{
         return rd;
     }
 
-    protected Vector dirs(boolean directoriesOnly) {
+    protected Vector dirs(boolean directoriesOnly) throws IOException {
         openFile();
         String[] list = fileConnection.list();
         close();
