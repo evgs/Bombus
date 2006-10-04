@@ -244,7 +244,7 @@ public final class MessageParser implements Runnable{
                             case ')':
                                 underline=false;
                                 if (wordStartPos!=pos) {
-                                    s.append(txt.substring(wordStartPos,pos-1));
+                                    s.append(txt.substring(wordStartPos,pos));
                                     wordStartPos=pos;
                                     wordWidth=0;
                                 }
