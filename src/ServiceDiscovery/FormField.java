@@ -130,7 +130,7 @@ public class FormField {
                     if (numericBoolean) result=set?"1":"0";
                     j.addChild("value", result);
                 } else 
-                if (type.equals("lsit-multi")) {
+                if (type.equals("list-multi")) {
                     ChoiceGroup ch=(ChoiceGroup) formItem;
                     int count=ch.size();
                     for (int i=0; i<count; i++) {
