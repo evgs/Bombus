@@ -224,7 +224,7 @@ public class ServiceDiscovery
 		    } 
 		}
             }
-            if (data.getAttribute("from").equals(service)) {
+            if (data.getAttribute("from").equals(service)) { //FIXME!!!
                 this.cmds=cmds;
                 requestQuery(NS_ITEMS, "disco2");
             }
