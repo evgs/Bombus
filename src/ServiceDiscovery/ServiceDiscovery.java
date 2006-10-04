@@ -98,6 +98,10 @@ public class ServiceDiscovery
         requestQuery(NS_INFO, "disco");
     }
     
+    private String discoId(String id) {
+        return id+service.hashCode();
+    }
+    
     public int getItemCount(){ return items.size();}
     public VirtualElement getItemRef(int index) { return (VirtualElement) items.elementAt(index);}
     
@@ -124,7 +128,7 @@ public class ServiceDiscovery
     
     private void requestQuery(String namespace, String id){
         discoIcon=RosterIcons.ICON_PROGRESS_INDEX; titleUpdate(); redraw();
-        JabberDataBlock req=new Iq(service, Iq.TYPE_GET, id);
+        JabberDataBlock req=new Iq(service, Iq.TYPE_GET, discoId(id));
         JabberDataBlock qry=req.addChild("query",null);
         qry.setNameSpace(namespace);
         qry.setAttribute("node", node);
@@ -171,7 +175,7 @@ public class ServiceDiscovery
         JabberDataBlock query=data.getChildBlock((id.equals("discocmd"))?"command":"query");
         Vector childs=query.getChildBlocks();
         //System.out.println(id);
-        if (id.equals("disco2")) {
+        if (id.equals(discoId("disco2"))) {
             Vector items=new Vector();
             if (childs!=null)
             for (Enumeration e=childs.elements(); e.hasMoreElements(); ){
@@ -196,14 +200,14 @@ public class ServiceDiscovery
                 Contact.sort(items);
             } catch (Exception e) { e.printStackTrace(); };
             
-            if (data.getAttribute("from").equals(service)) {
+            /*if (data.getAttribute("from").equals(service)) - jid hashed in id attribute*/ {
                 for (Enumeration e=cmds.elements(); e.hasMoreElements();) 
                     items.insertElementAt(e.nextElement(),0);
                 this.items=items;
                 moveCursorHome();
                 discoIcon=0; titleUpdate(); 
             }
-        } else if (id.equals("disco")) {
+        } else if (id.equals(discoId("disco"))) {
             Vector cmds=new Vector();
             if (childs!=null)
             for (Enumeration e=childs.elements(); e.hasMoreElements();) {
@@ -224,17 +228,17 @@ public class ServiceDiscovery
 		    } 
 		}
             }
-            if (data.getAttribute("from").equals(service)) { //FIXME!!!
+            /*if (data.getAttribute("from").equals(service)) */ { //FIXME!!!
                 this.cmds=cmds;
                 requestQuery(NS_ITEMS, "disco2");
             }
-        } else if (id.equals ("discoreg")) {
+        } else if (id.startsWith ("discoreg")) {
             discoIcon=0;
             new DiscoForm(display, data, stream, "discoResult", "query");
-        } else if (id.equals ("discocmd")) {
+        } else if (id.startsWith("discocmd")) {
             discoIcon=0;
             new DiscoForm(display, data, stream, "discocmd", "command");
-        } else if (id.equals ("discosrch")) {
+        } else if (id.startsWith("discosrch")) {
             discoIcon=0;
             new DiscoForm(display, data, stream, "discoRSearch", "query");
         } else if (id.startsWith("discoR")) {
