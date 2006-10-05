@@ -144,6 +144,46 @@
 	    token="$MIDLETVERSION$"
 	    value="${bombus.midlet}"/>
     </target>
+
+    <!-- overrided to change bootclasspath -->
+    <target depends="pre-load-properties,exists.config.active,exists.netbeans.user,exists.user.properties.file" name="load-properties">
+
+        <loadproperties srcfile="nbproject/project.properties">
+            <filterchain>
+                <containsregex replace="\1" pattern="^configs\.${config.active}\.(.*)"/>
+                <concatfilter prepend="nbproject/project.properties"/>
+                <containsregex pattern="^platform.active=|^deployment.method=|^bombus.bootclasspath="/>
+            </filterchain>
+        </loadproperties>
+	<property name="bombus.bootclasspath" value=""/>
+
+        <loadproperties srcfile="${user.properties.file}">
+            <filterchain>
+                <replaceregex replace="platform." pattern="^platforms\.${platform.active}\."/>
+                <replaceregex replace="deployment.scriptfile=" pattern="^deployment\.${deployment.method}\.scriptfile="/>
+            </filterchain>
+        </loadproperties>
+
+	<!-- patching bootclasspath -->
+        <loadproperties srcfile="nbproject/project.properties">
+            <filterchain>
+                <containsregex replace="platform.bootclasspath=\1${bombus.bootclasspath}" pattern="^configs\.${config.active}\.platform\.bootclasspath=(.*)"/>
+            </filterchain>
+        </loadproperties>
+
+
+        <loadproperties srcfile="nbproject/project.properties">
+            <filterchain>
+                <containsregex replace="\1" pattern="^configs\.${config.active}\.(.*)"/>
+                <concatfilter prepend="nbproject/project.properties"/>
+            </filterchain>
+        </loadproperties>
+
+
+	<echo message="Modified bootclasspath=${platform.bootclasspath}" />
+    </target>
+
+
     <!--
 
     There exist several targets which are by default empty and which can be
