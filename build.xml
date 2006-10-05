@@ -34,7 +34,7 @@
 
     <target name="rebuild-jzlib-release">
 	    <antcall inheritrefs="false" inheritall="false" target="rebuild">
-		    <param name="config.active" value="Release"/>
+		    <param name="config.active" value="ReleaseJZLIB"/>
 	    </antcall>
     </target>
     
