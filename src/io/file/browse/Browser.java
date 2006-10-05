@@ -54,7 +54,7 @@ public class Browser extends VirtualList implements CommandListener{
         setTitleItem(new Title(2, null, null));
         
         addCommand(cmdOk);
-        addCommand(cmdSelect);
+        if (getDirectory) addCommand(cmdSelect);
         addCommand(cmdBack);
         addCommand(cmdCancel);
         setCommandListener(this);
@@ -77,7 +77,19 @@ public class Browser extends VirtualList implements CommandListener{
             readDirectory(path);
             sort(dir);
         }
-        if (command==cmdSelect) eventOk();
+        
+        
+        if (command==cmdOk) eventOk();
+        if (command==cmdSelect) {
+            String f=((FileItem)getFocusedObject()).name;
+            if (f.endsWith("/")) {
+                if (browserListener==null) return;
+                destroyView();
+                browserListener.BrowserFilePathNotify(path+f);
+                return;
+            }
+            //todo: choose directory here
+        }
         if (command==cmdCancel) { destroyView(); }
     }
     
@@ -114,9 +126,9 @@ public class Browser extends VirtualList implements CommandListener{
         String f=((FileItem)getFocusedObject()).name;
         if (!f.endsWith("/")) {
             if (browserListener==null) return;
-            destroyView(); 
-            browserListener.BrowserFilePathNotify(path+f); 
-            return; 
+            destroyView();
+            browserListener.BrowserFilePathNotify(path+f);
+            return;
         }
         if (!chDir(f)) { 
             destroyView(); 

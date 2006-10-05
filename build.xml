@@ -156,6 +156,7 @@
             </filterchain>
         </loadproperties>
 	<property name="bombus.bootclasspath" value=""/>
+	<echo message="${bombus.bootclasspath}"/>
 
         <loadproperties srcfile="${user.properties.file}">
             <filterchain>
@@ -168,6 +169,11 @@
         <loadproperties srcfile="nbproject/project.properties">
             <filterchain>
                 <containsregex replace="platform.bootclasspath=\1${bombus.bootclasspath}" pattern="^configs\.${config.active}\.platform\.bootclasspath=(.*)"/>
+            </filterchain>
+        </loadproperties>
+        <loadproperties srcfile="nbproject/project.properties">
+            <filterchain>
+                <containsregex replace="platform.bootclasspath=\1${bombus.bootclasspath}" pattern="^platform\.bootclasspath=(.*)"/>
             </filterchain>
         </loadproperties>
 
