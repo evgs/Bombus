@@ -155,7 +155,7 @@ public class vCardForm
 //#if !(MIDP1)
         try {
             Image photoImg=Image.createImage(photo, 0, photo.length);
-            ImageItem photoItem=new ImageItem(null, photoImg, 0, null);
+            ImageItem photoItem=new ImageItem(String.valueOf(photo.length/1024)+"KB", photoImg, 0, null);
             f.set(photoIndex, photoItem);
         } catch (Exception e) { }
 //#endif

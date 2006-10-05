@@ -2917,8 +2917,12 @@ syslog_msg: true
   * disco fix: case-sensitive comparing of jids removed
   * message parser url fix
 
+6.10.2005
 (734)
   * message parser tab fix
+
+(738)
+  + photo size shown as photo label
 ---------------------------
   known issues:
 
