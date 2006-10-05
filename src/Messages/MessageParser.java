@@ -246,6 +246,7 @@ public final class MessageParser implements Runnable{
                                 if (wordStartPos!=pos) {
                                     s.append(txt.substring(wordStartPos,pos));
                                     wordStartPos=pos;
+				    w+=wordWidth;
                                     wordWidth=0;
                                 }
                                 if (s.length()>0) {
@@ -355,7 +356,8 @@ public final class MessageParser implements Runnable{
 			wordWidth+=cw;
 		    }
 		    if (wrapSeparators.indexOf(c)>=0 || !wordsWrap) {
-			s.append(txt.substring(wordStartPos,pos+1));
+			s.append(txt.substring(wordStartPos,pos));
+			s.append(c);
 			w+=wordWidth;
 			wordStartPos=pos+1;
 			wordWidth=0;

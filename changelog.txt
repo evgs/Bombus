@@ -2916,6 +2916,9 @@ syslog_msg: true
 (731)
   * disco fix: case-sensitive comparing of jids removed
   * message parser url fix
+
+(734)
+  * message parser tab fix
 ---------------------------
   known issues:
 
