@@ -2917,7 +2917,7 @@ syslog_msg: true
   * disco fix: case-sensitive comparing of jids removed
   * message parser url fix
 
-6.10.2005
+6.10.2006
 (734)
   * message parser tab fix
 
