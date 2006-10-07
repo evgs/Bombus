@@ -64,10 +64,10 @@ public class VCard {
             } catch (Exception e) {/**/}
         }
         
-       JabberDataBlock photoXML=vcard.getChildBlock("PHOTO");
-       if (photoXML==null) return;
-       photoXML=photoXML.getChildBlock("BINVAL");
-       photo=(byte[])photoXML.getChildBlocks().lastElement();
+       try {
+           JabberDataBlock photoXML=vcard.getChildBlock("PHOTO").getChildBlock("BINVAL");
+           photo=(byte[])photoXML.getChildBlocks().lastElement();
+       } catch (Exception e) {};
     }
 
     public JabberDataBlock constructVCard(){

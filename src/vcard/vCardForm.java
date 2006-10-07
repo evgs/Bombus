@@ -152,12 +152,15 @@ public class vCardForm
 //#endif
 
     private void setPhoto() {
+        if (photo==null) return;
+        String size=String.valueOf(photo.length)+" bytes";
+        Item photoItem;
 //#if !(MIDP1)
         try {
             Image photoImg=Image.createImage(photo, 0, photo.length);
-            ImageItem photoItem=new ImageItem(String.valueOf(photo.length/1024)+"KB", photoImg, 0, null);
-            f.set(photoIndex, photoItem);
-        } catch (Exception e) { }
+            photoItem=new ImageItem(size, photoImg, 0, null);
+        } catch (Exception e) { photoItem=new StringItem(size, "[Unsupported format]"); }
+        f.set(photoIndex, photoItem);
 //#endif
     }
 }
