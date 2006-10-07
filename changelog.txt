@@ -2914,7 +2914,7 @@ syslog_msg: true
   + com.motorola.io.FileConnection support
 
 7.10.2006
-(741)
+(742)
   * Исправлено несколько ошибок парсера сообщений:
     отрисовка URL, символов TAB, StringIndexOutOfBounds
   * Service Discovery - исправления чуствительности Bombus
