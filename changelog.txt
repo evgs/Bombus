@@ -2913,15 +2913,18 @@ syslog_msg: true
 (727)
   + com.motorola.io.FileConnection support
 
-(731)
+7.10.2006
+(741)
+  * Исправлено несколько ошибок парсера сообщений:
+    отрисовка URL, символов TAB, StringIndexOutOfBounds
+  * Service Discovery - исправления чуствительности Bombus
+    к регистру jid
+  + отображение размера фотографии в vCard
+  --
+  * message parser bugfix: StringIndexOutOfBounds
   * disco fix: case-sensitive comparing of jids removed
   * message parser url fix
-
-6.10.2006
-(734)
   * message parser tab fix
-
-(738)
   + photo size shown as photo label
 ---------------------------
   known issues:
