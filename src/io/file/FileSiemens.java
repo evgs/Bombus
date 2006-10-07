@@ -18,7 +18,7 @@ import java.util.Vector;
 
 public class FileSiemens extends FileIO{
     
-    private File F;
+    private File f;
     private int fd;
 
     public FileSiemens(String fileName) {
@@ -27,17 +27,17 @@ public class FileSiemens extends FileIO{
     }
     
     public void openFile() throws IOException{
-	F = new File();
-        fd = F.open(fileName);
+	f = new File();
+        fd = f.open(fileName);
     }
     
     public void close() throws IOException{
-	F.close(fd);
-	F = null;
+	f.close(fd);
+	f = null;
     }
     
     public long fileSize() throws IOException {
-	return F.length(fd);
+	return f.length(fd);
     }
 
     protected Vector rootDirs() {
@@ -68,6 +68,25 @@ public class FileSiemens extends FileIO{
     }
 
     public InputStream openInputStream() throws IOException {
-        return null;
+        return new FileSiemensInputStream(f, fd);
     }  
+}
+
+class FileSiemensInputStream extends InputStream {
+    private int fileDescriptor;
+    private File f;
+
+    public FileSiemensInputStream(File f, int fd) {
+        this.f=f; this.fileDescriptor=fd;
+    }
+    
+    public int read() throws IOException {
+        byte buf[]=new byte[1];
+        f.read(fileDescriptor, buf, 0, 1);
+        return buf[0];
+    }
+
+    public int read(byte[] b, int off, int len) throws IOException {  return f.read(fileDescriptor, b, off, len); }
+
+    public int read(byte[] b) throws IOException {  return f.read(fileDescriptor, b, 0, b.length);  }
 }
