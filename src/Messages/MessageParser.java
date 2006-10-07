@@ -356,7 +356,7 @@ public final class MessageParser implements Runnable{
 			wordWidth+=cw;
 		    }
 		    if (wrapSeparators.indexOf(c)>=0 || !wordsWrap) {
-			s.append(txt.substring(wordStartPos,pos));
+			if (pos>wordStartPos) s.append(txt.substring(wordStartPos,pos));
 			s.append(c);
 			w+=wordWidth;
 			wordStartPos=pos+1;
