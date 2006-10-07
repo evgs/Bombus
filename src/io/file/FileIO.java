@@ -23,6 +23,7 @@ public abstract class FileIO {
     private final static int NONE=-1;
     private final static int JSR75=1;
     private final static int COM_MOTOROLA=2;
+    private final static int COM_SIEMENS=3;
     
     private static int fileSystemType;
     
@@ -38,6 +39,10 @@ public abstract class FileIO {
             try {
                 Class.forName("com.motorola.io.FileConnection");
                 fileSystemType=COM_MOTOROLA;
+            } catch (Exception e) {}
+            try {
+                Class.forName("com.siemens.mp.io.File");
+                fileSystemType=COM_SIEMENS;
             } catch (Exception e) {}
         }
         switch (fileSystemType) {
