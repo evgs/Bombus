@@ -2926,6 +2926,13 @@ syslog_msg: true
   * message parser url fix
   * message parser tab fix
   + photo size shown as photo label
+
+(749)
+  * MessageParser: \n
+  + экспериментальная поддержка com.siemens.mp.io.File (платформа x65)
+  --
+  * MessageParser: \n
+  + com.siemens.mp.io.File experimental support added.
 ---------------------------
   known issues:
 
