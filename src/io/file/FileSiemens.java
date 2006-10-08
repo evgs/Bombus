@@ -22,6 +22,7 @@ public class FileSiemens extends FileIO{
     private int fd;
 
     public FileSiemens(String fileName) {
+        System.out.println("Siemens fs accessor for "+fileName);
         // Siemens requires backslashes
         this.fileName=fileName=fileName.replace('/', '\\').substring(1);
     }
@@ -41,18 +42,21 @@ public class FileSiemens extends FileIO{
     }
 
     protected Vector rootDirs() {
+        System.out.println("Siemens root");
         Vector rd = new Vector();
-        rd.addElement("/0:/");
-        rd.addElement("/1:/");
-        rd.addElement("/2:/");
-        rd.addElement("/3:/");
-        rd.addElement("/4:/");
+        rd.addElement("0:/");
+        rd.addElement("1:/");
+        rd.addElement("2:/");
+        rd.addElement("3:/");
+        rd.addElement("4:/");
         return rd;
     }
 
     protected Vector dirs(boolean directoriesOnly) throws IOException{
         String[] directory=File.list(fileName);
-        Vector rd=new Vector(directory.length + 1);
+        Vector rd=new Vector();
+        
+        if (directory!=null) 
         for (int i = 0; i < File.list(fileName).length; i++) {
             if (File.isDirectory(fileName+directory[i])) {
                 rd.addElement(directory[i]+"/");

@@ -44,6 +44,7 @@ public abstract class FileIO {
                 Class.forName("com.siemens.mp.io.File");
                 fileSystemType=COM_SIEMENS;
             } catch (Exception e) {}
+            System.out.println("Detected fs:"+fileSystemType );
         }
         switch (fileSystemType) {
             case JSR75: return new FileJSR75(fileName);
@@ -54,7 +55,7 @@ public abstract class FileIO {
     }
     
     public Vector fileList(boolean directoriesOnly) throws IOException{
-        if (fileName.equals("/")) return rootDirs();
+        if (fileName.length()<2) return rootDirs();
         Vector dir=dirs(directoriesOnly);
         dir.addElement("../");
         return dir;
