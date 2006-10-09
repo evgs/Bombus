@@ -22,7 +22,7 @@ public class FileSiemens extends FileIO{
     private int fd;
 
     public FileSiemens(String fileName) {
-        System.out.println("Siemens fs accessor for "+fileName);
+        //System.out.println("Siemens fs accessor for "+fileName);
         // Siemens requires backslashes
         this.fileName=fileName=fileName.replace('/', '\\').substring(1);
     }
@@ -42,7 +42,7 @@ public class FileSiemens extends FileIO{
     }
 
     protected Vector rootDirs() {
-        System.out.println("Siemens root");
+        //System.out.println("Siemens root");
         Vector rd = new Vector();
         rd.addElement("0:/");
         rd.addElement("1:/");
