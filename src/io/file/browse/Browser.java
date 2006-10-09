@@ -88,14 +88,14 @@ public class Browser extends VirtualList implements CommandListener{
                 browserListener.BrowserFilePathNotify(path+f);
                 return;
             }
-            //todo: choose directory here
+            //todo: choose directory here, drop ../
         }
         if (command==cmdCancel) { destroyView(); }
     }
     
     
     private boolean chDir(String relativePath) {
-        if (relativePath.equals("../")) {
+        if (relativePath.startsWith("../")) {
             if (path.length()<2) return false;
             path=path.substring(0, 1+path.lastIndexOf('/', path.length()-2));
         } else {
@@ -118,6 +118,7 @@ public class Browser extends VirtualList implements CommandListener{
                 dir.addElement( new FileItem((String) files.nextElement()) );
             
         } catch (Exception ex) {
+            dir.addElement( new FileItem("../(Restricted Access)"));
             ex.printStackTrace();
         }
     }
