@@ -58,7 +58,9 @@ public class FileSiemens extends FileIO{
         
         if (directory!=null) 
         for (int i = 0; i < File.list(fileName).length; i++) {
-            if (File.isDirectory(fileName+directory[i])) {
+            if (directory[i].endsWith("/")) { // x75 feature? (excepting s75)
+                rd.addElement(directory[i]);
+            } else if (File.isDirectory(fileName+directory[i])) {
                 rd.addElement(directory[i]+"/");
             } else {
                 rd.addElement(directory[i]);
