@@ -59,6 +59,11 @@ class FileJSR75 extends FileIO{
 
     protected Vector rootDirs() {
         Vector rd = new Vector();
+        if (fileSystemType==JSR75_SIEMENS) {
+            rd.addElement("0:/");
+            rd.addElement("4:/");
+            return rd;
+        }
         Enumeration roots = javax.microedition.io.file.FileSystemRegistry.listRoots();
         while (roots.hasMoreElements())
             rd.addElement(((String) roots.nextElement()));

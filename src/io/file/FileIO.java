@@ -19,13 +19,14 @@ import java.util.Vector;
  * @author evgs
  */
 public abstract class FileIO {
-    private final static int NOT_DETECTED=0;
-    private final static int NONE=-1;
-    private final static int JSR75=1;
-    private final static int COM_MOTOROLA=2;
-    private final static int COM_SIEMENS=3;
+    protected final static int NOT_DETECTED=0;
+    protected final static int NONE=-1;
+    protected final static int JSR75=1;
+    protected final static int COM_MOTOROLA=2;
+    protected final static int COM_SIEMENS=3;
+    protected final static int JSR75_SIEMENS=4;
     
-    private static int fileSystemType;
+    protected static int fileSystemType;
     
     protected String fileName;
     
@@ -35,6 +36,7 @@ public abstract class FileIO {
             try {
                 Class.forName("javax.microedition.io.file.FileConnection");
                 fileSystemType=JSR75;
+                if (Info.Version.getPlatformName().startsWith("SIE")) fileSystemType=JSR75_SIEMENS;
             } catch (Exception e) {}
             try {
                 Class.forName("com.motorola.io.FileConnection");
@@ -47,6 +49,7 @@ public abstract class FileIO {
             //System.out.println("Detected fs:"+fileSystemType );
         }
         switch (fileSystemType) {
+            case JSR75_SIEMENS:
             case JSR75: return new FileJSR75(fileName);
             case COM_MOTOROLA: return new FileComMotorolaIo(fileName);
             case COM_SIEMENS: return new FileSiemens(fileName);
