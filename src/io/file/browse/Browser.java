@@ -118,7 +118,8 @@ public class Browser extends VirtualList implements CommandListener{
                 dir.addElement( new FileItem((String) files.nextElement()) );
             
         } catch (Exception ex) {
-            dir.addElement( new FileItem("../(Restricted Access)"));
+            //dir.addElement( new FileItem("../(Restricted Access)"));
+            dir.addElement( new FileItem("../ Ex: "+ex.getClass().getName()+" "+ex.toString()));
             ex.printStackTrace();
         }
     }
