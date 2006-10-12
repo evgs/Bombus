@@ -76,6 +76,7 @@ public class Browser extends VirtualList implements CommandListener{
             }
             readDirectory(path);
             sort(dir);
+            redraw();
         }
         
         
