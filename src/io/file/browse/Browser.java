@@ -36,6 +36,7 @@ import ui.VirtualList;
 public class Browser extends VirtualList implements CommandListener{
  
     private Vector dir;
+    private Vector backStack;
     
     Command cmdOk=new Command(SR.MS_BROWSE, Command.OK, 1);
     Command cmdSelect=new Command(SR.MS_SELECT, Command.SCREEN, 2);
@@ -60,6 +61,7 @@ public class Browser extends VirtualList implements CommandListener{
         setCommandListener(this);
         
         path="/";
+        backStack=new Vector();
         readDirectory(path);
         sort(dir);
     }
@@ -76,6 +78,11 @@ public class Browser extends VirtualList implements CommandListener{
             }
             readDirectory(path);
             sort(dir);
+            try {
+                Integer pos=(Integer) backStack.lastElement();
+                backStack.removeElement(pos);
+                moveCursorTo(pos.intValue(), true);
+            } catch (Exception e) { moveCursorHome(); }
             redraw();
         }
         
@@ -119,8 +126,8 @@ public class Browser extends VirtualList implements CommandListener{
                 dir.addElement( new FileItem((String) files.nextElement()) );
             
         } catch (Exception ex) {
-            //dir.addElement( new FileItem("../(Restricted Access)"));
-            dir.addElement( new FileItem("../ Ex: "+ex.getClass().getName()+" "+ex.toString()));
+            dir.addElement( new FileItem("../(Restricted Access)"));
+            //dir.addElement( new FileItem("../ Ex: "+ex.getClass().getName()+" "+ex.toString()));
             ex.printStackTrace();
         }
     }
@@ -137,8 +144,10 @@ public class Browser extends VirtualList implements CommandListener{
             destroyView(); 
             return; 
         }
+        backStack.addElement(new Integer(cursor));
         readDirectory(path);
         sort(dir);
+        moveCursorHome();
         redraw();
     }
     

@@ -2941,6 +2941,8 @@ syslog_msg: true
   * Conference Affiliations: jid list sorting
   * Affiliations: jid list size
 
+(757)
+  * correct cursor position while browsing file structures
 ---------------------------
   known issues:
 
