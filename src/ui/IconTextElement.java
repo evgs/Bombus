@@ -89,4 +89,6 @@ abstract public class IconTextElement implements VirtualElement
     public String getTipString() {
         return null;
     }
+    
+    public int compare(IconTextElement right) { return 0; /* stub */ }
 }

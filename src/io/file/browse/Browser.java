@@ -143,27 +143,6 @@ public class Browser extends VirtualList implements CommandListener{
     }
     
     
-    public final void sort(Vector sortVector){
-        synchronized (sortVector) {
-            int f, i;
-            FileItem temp, temp2;
-            
-            for (f = 1; f < sortVector.size(); f++) {
-                temp=(FileItem)sortVector.elementAt(f);
-                temp2=(FileItem)sortVector.elementAt(f-1);
-                if ( temp.compare(temp2) >=0 ) continue;
-                i = f-1;
-                while (i>=0){
-                    temp2=(FileItem)sortVector.elementAt(i);
-                    if (temp2.compare(temp) <0) break;
-                    sortVector.setElementAt(temp2,i+1);
-                    i--;
-                }
-                sortVector.setElementAt(temp,i+1);
-            }
-        }
-    }
-    
     private class FileItem extends IconTextElement {
         
         public String name;
@@ -181,12 +160,12 @@ public class Browser extends VirtualList implements CommandListener{
         
         public String toString() { return name; }
         
-        private int compare(FileItem fileItem) {
+        public int compare(IconTextElement right){
+            FileItem fileItem=(FileItem) right;
+            
             int cpi=iconIndex-fileItem.iconIndex;
             if (cpi==0) cpi=name.compareTo(fileItem.name);
             return cpi;
         }
-        
-        
     }
 }

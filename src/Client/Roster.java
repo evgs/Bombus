@@ -495,7 +495,7 @@ public class Roster
         c.setGroup(grp);
         c.origin=Contact.ORIGIN_GC_MYSELF;
         
-        Contact.sort(hContacts);
+        sort(hContacts);
         return grp;
     }
     
@@ -522,7 +522,7 @@ public class Roster
         }
         
         c.setGroup(grp);
-        Contact.sort(hContacts);
+        sort(hContacts);
         return c;
     }
     
@@ -557,7 +557,7 @@ public class Roster
                 //System.out.println("cloned");
             }
         }
-        Contact.sort(hContacts);
+        sort(hContacts);
         return c;
     }
     
@@ -624,7 +624,7 @@ public class Roster
         }
         Contact c=selfContact();
         c.status=myStatus;
-        Contact.sort(hContacts);
+        sort(hContacts);
         
         reEnumRoster();
     }
@@ -1005,7 +1005,7 @@ public class Roster
                     if (ti>=0) c.status=ti;
                     if (ti==Presence.PRESENCE_OFFLINE) c.acceptComposing=false;
                 }
-		Contact.sort(hContacts);
+		sort(hContacts);
                 reEnumRoster();
             }
         } catch( Exception e ) {
@@ -1050,7 +1050,7 @@ public class Roster
                     //if (iqType.equals("set")) type=1;
 
                     updateContact(name,jid,group, subscr, ask);
-                    Contact.sort(hContacts);
+                    sort(hContacts);
                 }
             
             }

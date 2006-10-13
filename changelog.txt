@@ -2933,6 +2933,14 @@ syslog_msg: true
   --
   * MessageParser: \n
   + com.siemens.mp.io.File experimental support added.
+
+(756)
+  + Сортировка списков jid в редакторе Conference Affiliations
+  + Счётчик jid в редакторе Affiliations
+  --
+  * Conference Affiliations: jid list sorting
+  * Affiliations: jid list size
+
 ---------------------------
   known issues:
 

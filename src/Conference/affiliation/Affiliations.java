@@ -64,7 +64,8 @@ public class Affiliations
 	
         this.id=AffiliationItem.getAffiliationName(affiliationIndex);
         
-        setTitleItem(new Title(2, null, id));
+        setTitleItem(new Title(2, null, " "));
+        getTitleItem().addElement(id);
         items=new Vector();
         
         addCommand(cmdCancel);
@@ -98,7 +99,10 @@ public class Affiliations
     }
     
     private void processIcon(boolean processing){
-        getTitleItem().setElementAt((processing)?(Object)new Integer(RosterIcons.ICON_PROGRESS_INDEX):(Object)null, 0);
+        String count=(items==null)? null: String.valueOf(items.size());
+        getTitleItem().setElementAt((processing)?
+            (Object)new Integer(RosterIcons.ICON_PROGRESS_INDEX): 
+            (Object)count, 0);
         redraw();
     }
     
@@ -115,6 +119,7 @@ public class Affiliations
                     }
                 } catch (Exception e) { /* no any items */}
                 //StaticData.getInstance().roster.bookmarks=
+                sort(items);
                 this.items=items;
                 
                 if (display!=null) redraw();

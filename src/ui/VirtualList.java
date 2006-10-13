@@ -85,6 +85,7 @@ public abstract class VirtualList
 
     public static final int SIEMENS_GREEN=-11;
     public static final int NOKIA_GREEN=-10;
+    public final static int NOKIA_PEN=-50;
     public static final int MOTOROLA_GREEN=-10;
     public final static int MOTOROLA_FLIP=-200;
     public static final int MOTOE680_VOL_UP=-9;
@@ -128,7 +129,7 @@ public abstract class VirtualList
     private int itemLayoutY[]=new int[1];
     private int listHeight;
 
-    
+   
     protected synchronized void updateLayout(){
         int size=getItemCount();
         if (size==0) {
@@ -587,6 +588,7 @@ public abstract class VirtualList
     private void key(int keyCode) {
         switch (keyCode) {
             case 0: break;
+            case NOKIA_PEN: { destroyView(); break; }
             case MOTOE680_VOL_UP:
             case KEY_NUM1:  { moveCursorHome();    break; }
             case KEY_NUM7:  { moveCursorEnd();     break; }
@@ -873,6 +875,31 @@ public abstract class VirtualList
 
     public int getListWidth() {
         return width-scrollbar.getScrollWidth();
+    }
+
+    public final static void sort(Vector sortVector){
+        try {
+            synchronized (sortVector) {
+                int f, i;
+                IconTextElement left, right;
+                
+                for (f = 1; f < sortVector.size(); f++) {
+                    left=(IconTextElement)sortVector.elementAt(f);
+                    right=(IconTextElement)sortVector.elementAt(f-1);
+                    if ( left.compare(right) >=0 ) continue;
+                    i = f-1;
+                    while (i>=0){
+                        right=(IconTextElement)sortVector.elementAt(i);
+                        if (right.compare(left) <0) break;
+                        sortVector.setElementAt(right,i+1);
+                        i--;
+                    }
+                    sortVector.setElementAt(left,i+1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); /* ClassCastException */
+        }
     }
 
 }

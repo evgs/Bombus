@@ -67,4 +67,8 @@ public class AffiliationItem extends IconTextElement{
     public int getColor() { return Colors.LIST_INK; }
     
     public String toString() { return jid; }
+    
+    public int compare(IconTextElement temp2) {
+        return jid.compareTo( ((AffiliationItem)temp2).jid);
+    }
 }

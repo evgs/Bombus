@@ -163,7 +163,8 @@ public class Contact extends IconTextElement{
         //System.out.println("Composing:"+state);
     }
     
-    public int compare(Contact c){
+    public int compare(IconTextElement right){
+        Contact c=(Contact) right;
         //1. status
         int cmp;
         //if (origin>=ORIGIN_GROUPCHAT && c.origin>=ORIGIN_GROUPCHAT) {
@@ -309,26 +310,4 @@ public class Contact extends IconTextElement{
     }*/
     public void setGroup(Group group) { this.group = group; }
 
-    
-    public final static void sort(Vector sortVector){
-        synchronized (sortVector) {
-            int f, i;
-            Contact temp, temp2;
-            
-            for (f = 1; f < sortVector.size(); f++) {
-                temp=(Contact)sortVector.elementAt(f);
-                temp2=(Contact)sortVector.elementAt(f-1);
-                if ( temp.compare(temp2) >=0 ) continue;
-                i = f-1;
-                while (i>=0){
-                    temp2=(Contact)sortVector.elementAt(i);
-                    if (temp2.compare(temp) <0) break;
-                    sortVector.setElementAt(temp2,i+1);
-                    i--;
-                }
-                sortVector.setElementAt(temp,i+1);
-            }
-        }
-    }
-    
 }

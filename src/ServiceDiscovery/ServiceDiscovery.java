@@ -197,7 +197,7 @@ public class ServiceDiscovery
             }
             
             try { 
-                Contact.sort(items);
+                sort(items);
             } catch (Exception e) { e.printStackTrace(); };
             
             /*if (data.getAttribute("from").equals(service)) - jid hashed in id attribute*/ {
