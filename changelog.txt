@@ -2943,6 +2943,15 @@ syslog_msg: true
 
 (757)
   * correct cursor position while browsing file structures
+
+(758)
+  * сброс иконки Composing у контакта, приславшего presence
+  --
+  * reset composing icon if presence received
+
+14.10.2006
+0.4.2.759
+
 ---------------------------
   known issues:
 

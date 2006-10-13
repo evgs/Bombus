@@ -1004,6 +1004,7 @@ public class Roster
                     c.priority=pr.getPriority();
                     if (ti>=0) c.status=ti;
                     if (ti==Presence.PRESENCE_OFFLINE) c.acceptComposing=false;
+                    c.setComposing(false);
                 }
 		sort(hContacts);
                 reEnumRoster();
