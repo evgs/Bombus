@@ -2951,6 +2951,15 @@ syslog_msg: true
 
 14.10.2006
 0.4.2.759
+  + Бета-версия файл-браузера. На данный момент поддерживаются
+  JSR-75,
+  com.siemens.mp.io.File,
+  com.motorola.io.FileConnection
+  --
+  + File browser beta version. Next File i/o layers are supported:
+  JSR-75,
+  com.siemens.mp.io.File,
+  com.motorola.io.FileConnection
 
 ---------------------------
   known issues:
