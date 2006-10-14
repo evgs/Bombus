@@ -305,7 +305,7 @@ public class JabberStream implements XMLEventListener, Runnable {
     }
 
     private void ping() {
-        JabberDataBlock ping=new Iq(null, Iq.TYPE_SET, "ping");
+        JabberDataBlock ping=new Iq(null, Iq.TYPE_GET, "ping");
         ping.addChild("query", null).setNameSpace("jabber:iq:version");
         send(ping);
     }

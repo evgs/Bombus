@@ -9,14 +9,16 @@
 
 package Client;
 
+import util.strconv;
+
 /**
  *
  * @author Eugene Stahov
  */
 public class Jid {
     
-    private String fullJid;
-    private int resourcePos;
+    private String bareJid;
+    private String resource;
     
     /** Creates a new instance of Jid */
     public Jid(String s) {
@@ -24,56 +26,45 @@ public class Jid {
     }
     
     public void setJid(String s){
-        fullJid=s;
-        resourcePos=fullJid.indexOf('/');
-        if (resourcePos<0) resourcePos=fullJid.length();
+        int resourcePos=s.indexOf('/');
+        if (resourcePos<0) resourcePos=s.length();
+        resource=s.substring(resourcePos);
+        bareJid=strconv.toLowerCase(s.substring(0,resourcePos));
     }
     /** Compares two Jids */
     public boolean equals(Jid j, boolean compareResource) {
         if (j==null) return false;
         
-        String cj=j.fullJid;
-        // игнорируем регистр jid,
-        if (resourcePos!=j.resourcePos) return false;
-        if (!fullJid.regionMatches(true,0,cj,0,resourcePos)) return false;
+        if (!bareJid.equals(j.bareJid)) return false;
+
         if (!compareResource) return true;
         
-        //учитываем регистр ресурсов и длину
-        int compareLen=fullJid.length();
-        if (compareLen!=j.fullJid.length()) return false;
-
-        // сравнение только ресурсов
-        compareLen-=resourcePos;
-        return fullJid.regionMatches(false,resourcePos,cj,resourcePos,compareLen);
-        //int compareLen=(compareResource)?(j.getJidFull().length()):resourcePos;
-        //return fullJid.regionMatches(true,0,j.fullJid,0,compareLen);
+        return (resource.equals(j.resource));
     }
     
     
     /** проверка jid на "транспорт" */
     public boolean isTransport(){
-        return fullJid.indexOf('@')==-1;
+        return bareJid.indexOf('@')==-1;
     }
     /** проверка наличия ресурса */
     public boolean hasResource(){
-        return fullJid.length()!=resourcePos;
+        return (resource.length()!=0) ;
     }
     
     /** выделение транспорта */
     public String getTransport(){
         try {
-            int beginIndex=fullJid.indexOf('@')+1;
-            int endIndex=fullJid.indexOf('.',beginIndex);
-            return fullJid.substring(beginIndex, endIndex);
+            int beginIndex=bareJid.indexOf('@')+1;
+            int endIndex=bareJid.indexOf('.',beginIndex);
+            return bareJid.substring(beginIndex, endIndex);
         } catch (Exception e) {
             return "-";
         }
     }
     
     /** выделение ресурса со слэшем */
-    public String getResource(){
-        return fullJid.substring(resourcePos);
-    }
+    public String getResource(){ return resource; }
     
     /** выделение username */
     /*public String getUser(){
@@ -81,17 +72,13 @@ public class Jid {
     }*/
     
     /** выделение имени без ресурса */
-    public String getBareJid(){
-        return fullJid.substring(0,resourcePos);
-    }
+    public String getBareJid(){ return bareJid; }
     
     /** выделение jid/resource */
     public String getJid(){
-        return fullJid;
+        if (resource.length()==0) return bareJid;
+        return bareJid+'/'+resource;
     }
     
-    public static String getBareJid(String jid) {
-        int rp=jid.indexOf('/');
-        return (rp<0)? jid: jid.substring(0,rp);
-    }
+    public static String toBareJid(String jid) { return new Jid(jid).getBareJid(); }
 }

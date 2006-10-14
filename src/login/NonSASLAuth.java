@@ -46,7 +46,7 @@ public class NonSASLAuth implements JabberBlockListener{
             SHA1 sha=new SHA1();
                 sha.init();
                 sha.updateASCII(sessionId);
-                sha.updateASCII(strconv.wCharToUTF(account.getPassword()) );
+                sha.updateASCII(strconv.unicodeToUTF(account.getPassword()) );
                 sha.finish();
             queryBlock.addChild("digest", sha.getDigestHex() );
         }

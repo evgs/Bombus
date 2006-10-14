@@ -2938,8 +2938,8 @@ syslog_msg: true
   + Сортировка списков jid в редакторе Conference Affiliations
   + Счётчик jid в редакторе Affiliations
   --
-  * Conference Affiliations: jid list sorting
-  * Affiliations: jid list size
+  + Conference Affiliations: jid list sorting
+  + Affiliations: jid list size
 
 (757)
   * correct cursor position while browsing file structures
@@ -2960,6 +2960,14 @@ syslog_msg: true
   JSR-75,
   com.siemens.mp.io.File,
   com.motorola.io.FileConnection
+
+15.10.2006
+(760)
+  * Отцентрована картинка на SplashScreen
+  + регистронезависимое сравнение jid теперь работает для юникодов кириллицы
+  --
+  * Image centered on SplashScreen
+  + case-insensitive jid-comparing now works for cyrillic unicode chars
 
 ---------------------------
   known issues:

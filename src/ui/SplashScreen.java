@@ -58,7 +58,7 @@ public class SplashScreen extends Canvas implements CommandListener{
         g.setColor(Colors.PGS_BGND);
         g.fillRect(0,0, width, height);
         
-        if (img!=null) g.drawImage(img, width/2, 0, Graphics.TOP|Graphics.HCENTER);
+        if (img!=null) g.drawImage(img, width/2, height/2, Graphics.VCENTER|Graphics.HCENTER);
         
         g.setColor(Colors.PGS_BORDER);
         g.drawRect(0, y, width-1, h-1);

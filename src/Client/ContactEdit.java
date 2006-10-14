@@ -86,7 +86,7 @@ public final class ContactEdit
         tTranspList.append(sd.account.getServer(), null);
         for (Enumeration e=sd.roster.getHContacts().elements(); e.hasMoreElements(); ){
             Contact ct=(Contact)e.nextElement();
-            Jid transpJid=new Jid(ct.getJid()); //TODO: исправить этот хак (отрезание ресурса)
+            Jid transpJid=ct.jid;
             if (transpJid.isTransport()) 
                 tTranspList.append(transpJid.getBareJid(),null);
         }
@@ -95,7 +95,7 @@ public final class ContactEdit
         try {
             String jid;
             if (c instanceof MucContact) {
-                jid=Jid.getBareJid( ((MucContact)c).realJid );
+                jid=Jid.toBareJid( ((MucContact)c).realJid );
             } else {
                 jid=c.getBareJid();
             }
