@@ -77,7 +77,7 @@ public class Jid {
     /** выделение jid/resource */
     public String getJid(){
         if (resource.length()==0) return bareJid;
-        return bareJid+'/'+resource;
+        return bareJid /** +'/' **/ +resource;
     }
     
     public static String toBareJid(String jid) { return new Jid(jid).getBareJid(); }
