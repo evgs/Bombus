@@ -144,7 +144,7 @@ public class strconv {
             if (c>'A'-1 && c<'Z'+1) c+='a'-'A';         // default latin chars
             if (c>0x40f && c<0x430) c+=0x430-0x410;     // cyrillic chars
             // TODO: other schemes by request
-            setCharAt(i, c);
+            dst.setCharAt(i, c);
         }
         return dst.toString();
     }

@@ -1,3 +1,13 @@
+/*
+ * FilterInputStream.java
+ *
+ * Created on 15.10.2006, 20:31
+ *
+ * Copyright (c) 2006, Roman Kapl <msntfs@gmail.com>
+ * Copyright (c) 2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
+ */
+
 package com.jcraft.jzlib;
 import java.io.IOException;
 import java.io.OutputStream;
