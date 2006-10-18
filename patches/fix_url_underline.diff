@@ -1,0 +1,23 @@
+--- ./src/Messages/MessageParser.java.orig	2006-10-02 18:51:38.000000000 +0300
++++ ./src/Messages/MessageParser.java	2006-10-02 20:12:16.000000000 +0300
+@@ -41,7 +41,7 @@ public final class MessageParser impleme
+     
+     private Thread thread;
+     boolean wordsWrap;
+-    private static String wrapSeparators=" .,-=/\\;:+*()[]<>~!@#%^_";
++    private static String wrapSeparators=" .,-=/\\;:+*()[]<>~!@#%^_&";
+     
+     public static MessageParser getInstance() {
+         if (instance==null) instance=new MessageParser("/images/smiles.txt");
+@@ -243,6 +243,11 @@ public final class MessageParser impleme
+                             case 0xa0:
+                             case ')':
+                                 underline=false;
++				if (wordStartPos!=pos) {
++				    s.append(txt.substring(wordStartPos,pos-1));
++				    wordStartPos=pos;
++				    wordWidth=0;
++				}
+                                 if (s.length()>0) {
+                                     l.addUnderline();
+                                     l.addElement(s.toString());

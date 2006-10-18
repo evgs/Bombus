@@ -178,11 +178,13 @@ public class MucContact extends Contact{
     public String getTipString() {
         StringBuffer tip=new StringBuffer();
         int nm=getNewMsgsCount();
-        if (nm!=0) {
-            tip.append(nm);
-            tip.append(' ');
+        
+        if (nm!=0) tip.append(nm);
+        
+        if (realJid!=null) {
+            if (tip.length()!=0)  tip.append(' ');
+            tip.append(realJid);
         }
-        if (realJid!=null) tip.append(realJid);
         
         return (tip.length()==0)? null:tip.toString();
     }

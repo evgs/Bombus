@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Created-By: 1.4.2_02 (Sun Microsystems Inc.)
+API-Dependencies: CLDC > 1.0
+API-Specification-Version: 1.0
+API: Legacy API
+API-Name: File Connection com.motorola.io and com.siemens.io Legacy API
+API-Type: Optional
+

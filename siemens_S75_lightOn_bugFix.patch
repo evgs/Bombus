@@ -1,0 +1,38 @@
+Index: src/Client/Roster.java
+===================================================================
+--- src/Client/Roster.java	(revision 727)
++++ src/Client/Roster.java	(working copy)
+@@ -94,6 +94,8 @@
+     private Command cmdAdd=new Command(SR.MS_ADD_CONTACT, Command.SCREEN, 12);
+     private Command cmdTools=new Command(SR.MS_TOOLS, Command.SCREEN, 14);    
+     private Command cmdAccount=new Command(SR.MS_ACCOUNT_, Command.SCREEN, 15);
++    private Command cmdLightOn=new Command("LightOn", Command.SCREEN, 16);
++    private Command cmdLightOff=new Command("LightOFF", Command.SCREEN, 16);
+     private Command cmdInfo=new Command(SR.MS_ABOUT, Command.SCREEN, 80);
+     private Command cmdMinimize=new Command(SR.MS_APP_MINIMIZE, Command.SCREEN, 90);
+     private Command cmdQuit=new Command(SR.MS_APP_QUIT, Command.SCREEN, 99);
+@@ -150,6 +152,7 @@
+         //addCommand(cmdServiceDiscovery);
+         addCommand(cmdConference);
+         //addCommand(cmdPrivacy);
++		setLight(true);
+         addCommand(cmdTools);
+         addCommand(cmdArchive);
+         addCommand(cmdInfo);
+@@ -1486,5 +1489,16 @@
+             thread=null;
+         }
+     }
++    private void setLight(boolean state) {
++        if (Version.getPlatformName().indexOf("SIE-S75") > -1) {
++            if (state){
++                com.siemens.mp.game.Light.setLightOn();
++            } else { 
++                com.siemens.mp.game.Light.setLightOff();
++            }
++            removeCommand(state? cmdLightOn: cmdLightOff);
++            addCommand(state? cmdLightOff: cmdLightOn);
++        }
++    }
+ }
+ 
