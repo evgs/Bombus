@@ -2969,6 +2969,13 @@ syslog_msg: true
   * Image centered on SplashScreen
   + case-insensitive jid-comparing now works for cyrillic unicode chars
 
+19.10.2006
+(769)
+  + выделение темы конференции
+  * коррекция выравнивания текста в баллонах для контактов конференции
+  --
+  + Conference subject is always highlighted
+  * Muc contact's balloon text now is properly aligned
 ---------------------------
   known issues:
 

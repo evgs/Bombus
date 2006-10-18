@@ -840,6 +840,7 @@ public class Roster
             
             else if( data instanceof Message ) {
                 querysign=false;
+                boolean highlite=false;
                 Message message = (Message) data;
                 
                 String from=message.getFrom();
@@ -870,6 +871,7 @@ public class Roster
                             if (body==null) body=subj;
                             subj=null;
                             start_me=-1; // не добавлять /me к subj
+                            highlite=true;
                         }
                     }
                     if (type.equals("error")) {
@@ -941,10 +943,11 @@ public class Roster
                         if (m.dateGmt<= ((ConferenceGroup)c.getGroup()).conferenceJoinTime) m.messageType=Msg.MESSAGE_TYPE_HISTORY;
                         // highliting messages with myNick substring
                         String myNick=mucGrp.getSelfContact().getName();
-                        if (body.indexOf(myNick)>-1)   {  m.setHighlite(true);  }
+                        highlite |= body.indexOf(myNick)>-1;
                         //TODO: custom highliting dictionary
                     } 
                 }
+                m.setHighlite(highlite);  
                 messageStore(m);
                 //Contact c=getContact(from);
                 //c.msgs.addElement(m);
