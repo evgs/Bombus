@@ -225,7 +225,7 @@ Grant Ownership	Дать право владельца
 room presences	статусы в конференции
 
  is now known as 	 сменил ник на 
- was banned 	 запретили входить в конату 
+ was banned 	 запретили входить в комнату 
  was kicked 	 выгнали из комнаты 
  has been kicked because room became members-only	 выгнан, т.к. комната теперь только для членов
  has left the channel	 вышел из конференции
