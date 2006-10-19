@@ -1,5 +1,0 @@
-changelog.txt
-todo.txt
-dist\M55_Release\*.*
-dist\Release\*.*
-dist\Release_Moto\*.*

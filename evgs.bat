@@ -1,1 +1,0 @@
-call private\evgs.bat
