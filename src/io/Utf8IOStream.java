@@ -101,7 +101,7 @@ public class Utf8IOStream implements Runnable{
             }
             
 	    outStream.write(bytes);
-            bytesSent++;
+            bytesSent+=outLen;
 //#endif
 	    
 //#if OUTSTREAM_FLUSH
@@ -258,9 +258,9 @@ public class Utf8IOStream implements Runnable{
             ZInputStream z = (ZInputStream) inpStream;
             recv+=z.getTotalIn()-z.getTotalOut();
             ZOutputStream zo = (ZOutputStream) outStream;
-            sent+=zo.getTotalIn()-zo.getTotalOut();
-            stats.append("ZLib:\nin="); stats.append(z.getTotalIn()); stats.append(" inz="); stats.append(z.getTotalOut());
-            stats.append("\nout="); stats.append(zo.getTotalOut()); stats.append(" outz="); stats.append(zo.getTotalIn());
+            sent+=zo.getTotalOut()-zo.getTotalIn();
+            stats.append("ZLib:\nin="); stats.append(z.getTotalIn()); stats.append(">>>"); stats.append(z.getTotalOut());
+            stats.append("\nout="); stats.append(zo.getTotalOut()); stats.append("<<<"); stats.append(zo.getTotalIn());
         }
         stats.append("\nStream:\nin="); stats.append(recv);
         stats.append("\nout="); stats.append(sent);
