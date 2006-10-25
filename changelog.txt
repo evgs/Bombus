@@ -2976,6 +2976,16 @@ syslog_msg: true
   --
   + Conference subject is always highlighted
   * Muc contact's balloon text now is properly aligned
+
+(775)
+  + My vCard>Camera - съёмка фото при помощи встроенной камеры 
+    для вставки в vCard. актуально для MIDP2-устройств, не имеющих
+    доступа к файловой системе
+  * ZLib: исправлена работа счётчика "Stream: Sent"
+  --
+  + My vCard>Camera - capturing photo using phone's built-in camera for use
+    in vCard
+  * Zlib: "Stream: Sent" counter now works correct
 ---------------------------
   known issues:
 

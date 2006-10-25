@@ -17,6 +17,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 //#endif
+
+//#if (!MIDP1)
+import images.camera.*;
+//#endif
+
 import java.util.*;
 import javax.microedition.lcdui.*;
 import locale.SR;
@@ -30,6 +35,10 @@ public class vCardForm
 //#if (FILE_IO)
         , BrowserListener
 //#endif
+
+//#if (!MIDP1)
+        , CameraImageListener
+//#endif
 {
     
     private Display display;
@@ -40,6 +49,7 @@ public class vCardForm
     protected Command cmdRefresh=new Command(SR.MS_REFRESH, Command.SCREEN, 2);
     protected Command cmdPhoto=new Command("Load Photo", Command.SCREEN,3);
     protected Command cmdDelPhoto=new Command("Clear Photo", Command.SCREEN,4);
+    protected Command cmdCamera=new Command("Camera", Command.SCREEN,5);
     
     private Form f;
     private Vector items=new Vector();
@@ -93,6 +103,9 @@ public class vCardForm
 //#if (FILE_IO)
             f.addCommand(cmdPhoto);
 //#endif
+//#if !(MIDP1)
+            f.addCommand(cmdCamera);
+//#endif
             f.addCommand(cmdDelPhoto);
         }
         f.setCommandListener(this);
@@ -111,7 +124,13 @@ public class vCardForm
             new Browser(display, this, false);
         }
 //#endif
-        if (c==cmdDelPhoto) {photo=null; setPhoto();}
+
+//#if (!MIDP1)
+        if (c==cmdCamera)
+            new CameraImage(display, this);
+//#endif
+
+    if (c==cmdDelPhoto) {photo=null; setPhoto();}
         
         if (c!=cmdPublish) return;
         
@@ -151,6 +170,13 @@ public class vCardForm
     }
 //#endif
 
+//#if (!MIDP1)
+    public void cameraImageNotify(byte[] capturedPhoto) {
+        photo=capturedPhoto;
+        setPhoto();
+    }
+//#endif
+
     private void setPhoto() {
         if (photo==null) return;
         String size=String.valueOf(photo.length)+" bytes";
@@ -163,4 +189,5 @@ public class vCardForm
         f.set(photoIndex, photoItem);
 //#endif
     }
+
 }
