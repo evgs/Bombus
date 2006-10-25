@@ -9,6 +9,8 @@
 
 package images.camera;
 
+import javax.microedition.lcdui.Alert;
+import javax.microedition.lcdui.AlertType;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Display;
@@ -61,7 +63,12 @@ public class CameraImage implements CommandListener{
             display.setCurrent(form);
             
             player.start();
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) { 
+            display.setCurrent(
+                    new Alert("Error", e.toString(), null, null), 
+                    parentView);
+            e.printStackTrace(); 
+        }
     }
     
     public void commandAction(Command command, Displayable displayable) {
