@@ -48,7 +48,16 @@ public class CameraImage implements CommandListener{
         this.imgListener=imgListener;
         
         try {
-            player = Manager.createPlayer("capture://video");
+            //capture://image for nokia S40
+            String uri="capture://video";
+            String contentTypes[]=Manager.getSupportedContentTypes("capture://");
+            for (int i=0; i < contentTypes.length; i++) {
+                if (contentTypes[i].equals("image")) {
+                    uri="capture://image"; break;
+                }
+            }
+            
+            player = Manager.createPlayer(uri);
             player.realize();
             
             videoControl = (VideoControl)player.getControl("VideoControl");
