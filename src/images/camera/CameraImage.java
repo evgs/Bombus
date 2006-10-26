@@ -58,13 +58,13 @@ public class CameraImage implements CommandListener{
                 }
             }*/
             
-            exp=1; player = Manager.createPlayer(uri);
-            exp=2; player.realize();
+            player = Manager.createPlayer(uri);
+            player.realize();
             
-            exp=3; videoControl = (VideoControl)player.getControl("VideoControl");
+            videoControl = (VideoControl)player.getControl("VideoControl");
             
             Form form = new Form("Camera");
-            exp=4; Item item = (Item)videoControl.initDisplayMode(
+            Item item = (Item)videoControl.initDisplayMode(
                     GUIControl.USE_GUI_PRIMITIVE, null);
             form.append(item);
             form.addCommand(cmdShot);
@@ -72,10 +72,10 @@ public class CameraImage implements CommandListener{
             form.setCommandListener(this);
             display.setCurrent(form);
             
-            exp=5; player.start();
+            player.start();
         } catch (Exception e) { 
             display.setCurrent(
-                    new Alert("Error", e.toString()+" at "+exp, null, null), 
+                    new Alert("Error", e.toString(), null, null), 
                     parentView);
             e.printStackTrace(); 
         }

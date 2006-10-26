@@ -11,7 +11,6 @@ package Client;
 
 import PrivacyLists.PrivacySelect;
 import ServiceDiscovery.ServiceDiscovery;
-import images.camera.CameraImage;
 import javax.microedition.lcdui.Display;
 import locale.SR;
 import ui.Menu;
@@ -38,7 +37,6 @@ public class RosterToolsMenu
 //#if (FILE_IO)
         addItem("root",4);
 //#endif
-        addItem("camera-debug",5);
         
         attachDisplay(display);
     }
@@ -73,9 +71,6 @@ public class RosterToolsMenu
                 new io.file.browse.Browser(display, null, false);
                 return;
 //#endif
-            case 5:
-                new CameraImage(display, null);
-                return;
         }
     }
 }
