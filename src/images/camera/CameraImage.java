@@ -46,24 +46,25 @@ public class CameraImage implements CommandListener{
         this.display=display;
         parentView=display.getCurrent();
         this.imgListener=imgListener;
-        
+
+        int exp=0;
         try {
-            //capture://image for nokia S40
             String uri="capture://video";
-            String contentTypes[]=Manager.getSupportedContentTypes("capture://");
+            /*String contentTypes[]=Manager.getSupportedContentTypes(null);
             for (int i=0; i < contentTypes.length; i++) {
+                System.out.println(contentTypes[i]);
                 if (contentTypes[i].equals("image")) {
-                    uri="capture://image"; break;
+                    uri="capture://image"; //break;
                 }
-            }
+            }*/
             
-            player = Manager.createPlayer(uri);
-            player.realize();
+            exp=1; player = Manager.createPlayer(uri);
+            exp=2; player.realize();
             
-            videoControl = (VideoControl)player.getControl("VideoControl");
+            exp=3; videoControl = (VideoControl)player.getControl("VideoControl");
             
             Form form = new Form("Camera");
-            Item item = (Item)videoControl.initDisplayMode(
+            exp=4; Item item = (Item)videoControl.initDisplayMode(
                     GUIControl.USE_GUI_PRIMITIVE, null);
             form.append(item);
             form.addCommand(cmdShot);
@@ -71,10 +72,10 @@ public class CameraImage implements CommandListener{
             form.setCommandListener(this);
             display.setCurrent(form);
             
-            player.start();
+            exp=5; player.start();
         } catch (Exception e) { 
             display.setCurrent(
-                    new Alert("Error", e.toString(), null, null), 
+                    new Alert("Error", e.toString()+" at "+exp, null, null), 
                     parentView);
             e.printStackTrace(); 
         }
