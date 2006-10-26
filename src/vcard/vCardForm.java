@@ -104,7 +104,9 @@ public class vCardForm
             f.addCommand(cmdPhoto);
 //#endif
 //#if !(MIDP1)
-            f.addCommand(cmdCamera);
+            String cameraAvailable=System.getProperty("supports.video.capture");
+            if (cameraAvailable!=null) if (cameraAvailable.startsWith("true"))
+                f.addCommand(cmdCamera);
 //#endif
             f.addCommand(cmdDelPhoto);
         }
