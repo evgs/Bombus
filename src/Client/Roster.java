@@ -832,7 +832,7 @@ public class Roster
                         SplashScreen.getInstance().close(); // display.setCurrent(this);
                         
                         //loading bookmarks
-                        if (cf.autoJoinConferences)
+                        //if (cf.autoJoinConferences)
                             theStream.addBlockListener(new BookmarkQurery(BookmarkQurery.LOAD));
                         
 //#if (FILE_IO && FILE_TRANSFER)
