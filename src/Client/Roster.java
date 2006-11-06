@@ -11,7 +11,7 @@
 
 package Client;
 
-import Conference.BookmarkQurery;
+import Conference.BookmarkQuery;
 import Conference.ConferenceGroup;
 import Conference.MucContact;
 import Conference.QueryConfigForm;
@@ -833,7 +833,7 @@ public class Roster
                         
                         //loading bookmarks
                         //if (cf.autoJoinConferences)
-                            theStream.addBlockListener(new BookmarkQurery(BookmarkQurery.LOAD));
+                            theStream.addBlockListener(new BookmarkQuery(BookmarkQuery.LOAD));
                         
 //#if (FILE_IO && FILE_TRANSFER)
                         theStream.addBlockListener(TransferDispatcher.getInstance());

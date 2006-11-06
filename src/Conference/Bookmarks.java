@@ -110,7 +110,7 @@ public class Bookmarks
     }
     
     private void saveBookmarks() {
-        new BookmarkQurery(BookmarkQurery.SAVE);
+        new BookmarkQuery(BookmarkQuery.SAVE);
     }
 
     private void exitBookmarks(){

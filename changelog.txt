@@ -3026,6 +3026,10 @@ syslog_msg: true
   + Tools>File Transfers - file transfer manager. 
     Used to accept file and view transmission progress
 
+(816)
+  * fix: загрузка Bookmarks теперь не зависит от "join conferences"
+  --
+  * fix: Bookmarks loading is not dependent from option "join conferences"
 ---------------------------
   known issues:
 
