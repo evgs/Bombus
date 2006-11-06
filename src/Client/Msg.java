@@ -95,7 +95,7 @@ public class Msg //implements MessageList.Element
     public boolean unread = false;
     
     public boolean itemCollapsed;
-    public int  itemHeight=14;
+    public int  itemHeight=-1;
     
     public void serialize(DataOutputStream os) throws IOException {
 	os.writeUTF(from);

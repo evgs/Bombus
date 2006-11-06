@@ -34,8 +34,9 @@ public class RosterToolsMenu
         addItem(SR.MS_OPTIONS, 3);
         /*if (m.getItemCount()>0)*/
         
-//#if (FILE_IO)
+//#if (FILE_IO && FILE_TRANSFER)
         addItem("root",4);
+        addItem("File Transfers", 5);
 //#endif
         
         attachDisplay(display);
@@ -69,6 +70,9 @@ public class RosterToolsMenu
 //#if (FILE_IO)
             case 4:
                 new io.file.browse.Browser(display, null, false);
+                return;
+            case 5:
+                new io.file.transfer.TransferManager(display);
                 return;
 //#endif
         }

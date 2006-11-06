@@ -19,6 +19,9 @@ import Conference.affiliation.Affiliations;
 import ServiceDiscovery.ServiceDiscovery;
 import com.alsutton.jabber.datablocks.IqVersionReply;
 import com.alsutton.jabber.datablocks.Presence;
+//#if FILE_TRANSFER
+import io.file.transfer.TransferSendFile;
+//#endif
 import java.util.Enumeration;
 import java.util.Hashtable;
 import javax.microedition.lcdui.Display;
@@ -127,8 +130,15 @@ public class RosterItemActions extends Menu{
                     } catch (Exception e) {}
                 }
                 if (onlineConferences) addItem(SR.MS_INVITE,40);
+                
             }
-	} else {
+            
+//#if (FILE_IO && FILE_TRANSFER)
+            if (contact.getGroupType()!=Groups.TYPE_TRANSP) 
+                if (contact!=StaticData.getInstance().roster.selfContact())
+                    addItem("Send file", 50);
+//#endif
+        } else {
 	    Group group=(Group)item;
 	    if (group.index==Groups.TYPE_SEARCH_RESULT)
 		addItem(SR.MS_DISCARD,21);
@@ -240,6 +250,13 @@ public class RosterItemActions extends Menu{
                     return;
                 }
                 
+//#if (FILE_IO && FILE_TRANSFER)
+                case 50: //send file
+                {
+                    new TransferSendFile(display, c.getJid());
+                    return;
+                }
+//#endif
             }
             
             if (c instanceof MucContact || g instanceof ConferenceGroup) {

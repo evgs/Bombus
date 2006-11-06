@@ -50,7 +50,7 @@ public class XMLParser
   
   private static final int MAX_BLOCK_SIZE=4096-3; //max array for m55=4096?
 
-  private final static int MAX_BIN_DATASIZE=100*1024; //100 KB - experimental
+  private final static int MAX_BIN_DATASIZE=64*1024; //64 KB - experimental
 
   /** Constructor, Used to override default dispatcher.
    *
@@ -251,7 +251,7 @@ public class XMLParser
   private void handleBinValue() 
     throws IOException, EndOfXMLException
   {
-      int len=0;
+      int padding=0;
       int ibuf=1;
       ByteArrayOutputStream baos=new ByteArrayOutputStream(2048);
       while (true) {
@@ -264,22 +264,24 @@ public class XMLParser
           else if (nextChar>'0'-1 && nextChar<'9'+1) base64=nextChar+52-'0';
           else if (nextChar=='+') base64=62;
           else if (nextChar=='/') base64=63;
-          else if (nextChar=='=') {base64=0; len++;}
+          else if (nextChar=='=') {base64=0; padding++;}
           else if (nextChar=='<') break;
           if (base64>=0) ibuf=(ibuf<<6)+base64;
-          if (baos.size()<MAX_BIN_DATASIZE)
-          if (ibuf>=0x01000000){
-              baos.write((ibuf>>16) &0xff);
-              if (len==0) baos.write((ibuf>>8) &0xff);
-              if (len<2) baos.write(ibuf &0xff);
-              //len+=3;
-              ibuf=1;
+          if (baos.size()<MAX_BIN_DATASIZE) {
+              if (ibuf>=0x01000000){
+                  baos.write((ibuf>>16) &0xff);
+                  if (padding<2) baos.write((ibuf>>8) &0xff);
+                  if (padding==0) baos.write(ibuf &0xff);
+                  //len+=3;
+                  ibuf=1;
+              }
           }
       }
       baos.close();
       //System.out.println(ibuf);
       //System.out.println(baos.size());
-      eventHandler.binValueEncountered( baos.toByteArray() );
+      if (baos.size()<MAX_BIN_DATASIZE) 
+          eventHandler.binValueEncountered( baos.toByteArray() );
   }
   /**
    * The main parsing loop.

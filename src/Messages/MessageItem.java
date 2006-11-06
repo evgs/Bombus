@@ -17,6 +17,7 @@ import java.util.Vector;
 import javax.microedition.lcdui.Graphics;
 import ui.Colors;
 import ui.ComplexString;
+import ui.FontCache;
 import ui.Time;
 import ui.VirtualElement;
 import ui.VirtualList;
@@ -44,7 +45,10 @@ public class MessageItem implements
         this.smiles=showSmiles;
     }
 
-    public int getVHeight() { return msg.itemHeight; }
+    public int getVHeight() { 
+        if (msg.itemHeight<0) msg.itemHeight=FontCache.getMsgFont().getHeight();
+        return msg.itemHeight; 
+    }
     
     public int getVWidth() { return 0; }
     

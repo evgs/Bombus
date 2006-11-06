@@ -82,7 +82,7 @@ public class ContactMessageList extends MessageList
     }
     
     protected void beginPaint(){
-        getTitleItem().setElementAt(sd.roster.messageIcon,2);
+        getTitleItem().setElementAt(sd.roster.getEventIcon(), 2);
         //getTitleItem().setElementAt(contact.incomingComposing, 3);
     }
     

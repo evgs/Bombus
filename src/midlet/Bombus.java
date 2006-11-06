@@ -121,7 +121,7 @@ public class Bombus extends MIDlet implements Runnable{
 	    display.setCurrent(null);
 	} else {
             if (isMinimized) {
-                display.setCurrent(sd.roster);
+                display.setCurrent(/*sd.roster*/ display.getCurrent());
             }
 	}
         isMinimized=hide;

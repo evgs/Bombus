@@ -93,7 +93,7 @@ public class VCard {
             
         }
         if (photo!=null) {
-            vcardTemp.addChild("PHOTO", null).addChild("BINVAL", strconv.toBase64(photo));
+            vcardTemp.addChild("PHOTO", null).addChild("BINVAL", strconv.toBase64(photo, -1));
         }
         //System.out.println(vcard.toString());
         return vcardIq;

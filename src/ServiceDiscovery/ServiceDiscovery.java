@@ -105,14 +105,14 @@ public class ServiceDiscovery
     public int getItemCount(){ return items.size();}
     public VirtualElement getItemRef(int index) { return (VirtualElement) items.elementAt(index);}
     
-    protected void beginPaint(){ getTitleItem().setElementAt(sd.roster.messageIcon,4); }
+    protected void beginPaint(){ getTitleItem().setElementAt(sd.roster.getEventIcon(), 4); }
     
     
     private void titleUpdate(){
         
         getTitleItem().setElementAt(new Integer(discoIcon), 0);
         getTitleItem().setElementAt(service, 2);
-        getTitleItem().setElementAt(sd.roster.messageIcon, 4);
+        getTitleItem().setElementAt(sd.roster.getEventIcon(), 4);
 	
 	int size=0;
 	try { size=items.size(); } catch (Exception e) {}

@@ -85,9 +85,9 @@ public class ConferenceForm implements CommandListener{
         if (c==cmdCancel) { destroyView(); }
         if (c==cmdBookmarks) { new Bookmarks(display, null); }
         if (c==cmdJoin || c==cmdAdd) {
-            String nick=nickField.getString();
-            String host=hostField.getString();
-            String room=roomField.getString();
+            String nick=nickField.getString().trim();
+            String host=hostField.getString().trim();
+            String room=roomField.getString().trim();
             String pass=passField.getString();
             int msgLimit=msgLimitField.getValue();
             
@@ -108,7 +108,7 @@ public class ConferenceForm implements CommandListener{
                     display.setCurrent(sd.roster);
                 } catch (Exception e) {
                     e.printStackTrace();
-                    display.setCurrent(new Alert("Exception", e.toString(), null, AlertType.ERROR), sd.roster);
+                    //display.setCurrent(new Alert("Exception", e.toString(), null, AlertType.ERROR), sd.roster);
                 }
             }
         }

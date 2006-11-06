@@ -12,6 +12,7 @@
  * @author Eugene Stahov
  */
 package util;
+import java.io.ByteArrayOutputStream;
 import java.lang.*;
 
 public class strconv {
@@ -78,10 +79,10 @@ public class strconv {
         return new String(out);
     }
     
-    public final static String toBase64( byte source[]) {
+    public final static String toBase64( byte source[], int len) {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
         
-        int len=source.length;
+        if (len<0) len=source.length;
         char[] out = new char[((len+2)/3)*4];
         for (int i=0, index=0; i<len; i+=3, index +=4) {
             boolean trip=false;
@@ -131,6 +132,53 @@ public class strconv {
         return outbuf;
     }
     
+    public static byte[] fromBase64(String s) {
+        int padding=0;
+        int ibuf=1;
+        ByteArrayOutputStream baos=new ByteArrayOutputStream(2048);
+        for (int i=0; i<s.length(); i++) {
+            int nextChar = s.charAt(i);
+            //if( nextChar == -1 )
+            //    throw new EndOfXMLException();
+            int base64=-1;
+            if (nextChar>'A'-1 && nextChar<'Z'+1) base64=nextChar-'A';
+            else if (nextChar>'a'-1 && nextChar<'z'+1) base64=nextChar+26-'a';
+            else if (nextChar>'0'-1 && nextChar<'9'+1) base64=nextChar+52-'0';
+            else if (nextChar=='+') base64=62;
+            else if (nextChar=='/') base64=63;
+            else if (nextChar=='=') {base64=0; padding++;} else if (nextChar=='<') break;
+            if (base64>=0) ibuf=(ibuf<<6)+base64;
+            if (ibuf>=0x01000000){
+                baos.write((ibuf>>16) &0xff);                   //00xx0000 0,1,2 =
+                if (padding<2) baos.write((ibuf>>8) &0xff);     //0000xx00 0,1 =
+                if (padding==0) baos.write(ibuf &0xff);         //000000xx 0 =
+                //len+=3;
+                ibuf=1;
+            }
+        }
+        try { baos.close(); } catch (Exception e) {};
+        //System.out.println(ibuf);
+        //System.out.println(baos.size());
+        return baos.toByteArray();
+    }
+    
+    /* test
+        byte b1[]={1,2,3,4};
+        String b64=util.strconv.toBase64(b1, -1);
+        byte bo[]=util.strconv.fromBase64(b64);
+        
+        byte b2[]={1,2,3};
+        b64=util.strconv.toBase64(b2, -1);
+        bo=util.strconv.fromBase64(b64);
+        
+        byte b3[]={1,2};
+        b64=util.strconv.toBase64(b3, -1);
+        bo=util.strconv.fromBase64(b64);
+
+        byte b4[]={1};
+        b64=util.strconv.toBase64(b4, -1);
+        bo=util.strconv.fromBase64(b64);
+    */
     
     public static String unicodeToUTF(String src) {
         return toUTFSb(new StringBuffer(src)).toString();

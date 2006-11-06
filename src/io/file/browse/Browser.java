@@ -13,17 +13,20 @@ import Client.Title;
 import images.RosterIcons;
 import io.file.FileIO;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Vector;
 
 import javax.microedition.io.Connector;
 import javax.microedition.io.file.FileConnection;
 import javax.microedition.io.file.FileSystemRegistry;
+import javax.microedition.lcdui.Alert;
 
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
+import javax.microedition.lcdui.Image;
 import locale.SR;
 import ui.IconTextElement;
 import ui.VirtualElement;
@@ -40,6 +43,7 @@ public class Browser extends VirtualList implements CommandListener{
     
     Command cmdOk=new Command(SR.MS_BROWSE, Command.OK, 1);
     Command cmdSelect=new Command(SR.MS_SELECT, Command.SCREEN, 2);
+    Command cmdInfo=new Command(SR.MS_INFO, Command.SCREEN, 3);
     Command cmdBack=new Command(SR.MS_BACK, Command.BACK, 98);
     Command cmdCancel=new Command(SR.MS_CANCEL, Command.CANCEL, 99);
     
@@ -55,7 +59,11 @@ public class Browser extends VirtualList implements CommandListener{
         setTitleItem(new Title(2, null, null));
         
         addCommand(cmdOk);
-        if (getDirectory) addCommand(cmdSelect);
+        if (getDirectory) {
+            addCommand(cmdSelect);
+        } else {
+            addCommand(cmdInfo);
+        }
         addCommand(cmdBack);
         addCommand(cmdCancel);
         setCommandListener(this);
@@ -91,12 +99,36 @@ public class Browser extends VirtualList implements CommandListener{
         if (command==cmdSelect) {
             String f=((FileItem)getFocusedObject()).name;
             if (f.endsWith("/")) {
+                if (f.startsWith("../")) f="";
                 if (browserListener==null) return;
                 destroyView();
                 browserListener.BrowserFilePathNotify(path+f);
                 return;
             }
             //todo: choose directory here, drop ../
+        }
+        if (command==cmdInfo) {
+            String f=((FileItem)getFocusedObject()).name;
+            if (f.endsWith("/")) return;
+            String ext=f.substring(f.lastIndexOf('.')+1).toLowerCase();
+            Image img=null;
+            try {
+                FileIO fio=FileIO.createConnection(path+f);
+                InputStream is=fio.openInputStream();
+                String info="Size="+String.valueOf(fio.fileSize());
+                String imgs="png.jpg.jpeg.gif";
+                if (imgs.indexOf(ext)>=0) {
+                    if (fio.fileSize()<65536) 
+                        img=Image.createImage(is);
+                }
+                is.close();
+                fio.close();
+                
+                Alert finfo=new Alert(f, info, img, null);
+                finfo.setTimeout(15*1000);
+                display.setCurrent(finfo, this);
+                
+            } catch (Exception e) { e.printStackTrace(); }
         }
         if (command==cmdCancel) { destroyView(); }
     }
@@ -118,7 +150,7 @@ public class Browser extends VirtualList implements CommandListener{
         dir=new Vector();
         
         try {
-            FileIO f=io.file.FileIO.createConnection(name);
+            FileIO f=FileIO.createConnection(name);
             
             Enumeration files=f.fileList(false).elements();
             

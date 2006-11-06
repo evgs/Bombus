@@ -260,8 +260,11 @@ public class SR {
     public final static String MS_TEXTWRAP_CHARACTER="by chars";
     public final static String MS_TEXTWRAP_WORD="by words";
 
+    public final static String MS_INFO="Info";
+
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
+
 
 
     private SR() { }

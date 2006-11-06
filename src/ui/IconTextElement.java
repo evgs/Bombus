@@ -30,7 +30,6 @@ abstract public class IconTextElement implements VirtualElement
     abstract protected int getImageIndex();
     //abstract public void onSelect();
 
-    public int getBGndRGB(){ return 0xffffff;}
     public int getFontIndex() { return 0;}
     private Font getFont() { 
         //return Font.getFont(Font.FACE_PROPORTIONAL, getFontIndex(), Font.SIZE_MEDIUM);

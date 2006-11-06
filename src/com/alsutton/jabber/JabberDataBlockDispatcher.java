@@ -134,18 +134,20 @@ public class JabberDataBlockDispatcher extends Thread
       waitingQueue.removeElementAt( 0 );
       int i=0;
       try {
-      synchronized (blockListeners) {
-          while (i<blockListeners.size()) {
-              int processResult=((JabberBlockListener)blockListeners.elementAt(i)).blockArrived(dataBlock);
-              if (processResult==JabberBlockListener.BLOCK_PROCESSED) break;
-              if (processResult==JabberBlockListener.NO_MORE_BLOCKS) { 
-                  blockListeners.removeElementAt(i); break; 
+          int processResult=JabberBlockListener.BLOCK_REJECTED;
+          synchronized (blockListeners) {
+              while (i<blockListeners.size()) {
+                  processResult=((JabberBlockListener)blockListeners.elementAt(i)).blockArrived(dataBlock);
+                  if (processResult==JabberBlockListener.BLOCK_PROCESSED) break;
+                  if (processResult==JabberBlockListener.NO_MORE_BLOCKS) {
+                      blockListeners.removeElementAt(i); break;
+                  }
+                  i++;
               }
-              i++;
           }
-      }
-      if( listener != null )
-        listener.blockArrived( dataBlock );
+          if (processResult==JabberBlockListener.BLOCK_REJECTED)
+              if( listener != null )
+                  listener.blockArrived( dataBlock );
       } catch (Exception e) {e.printStackTrace();}
     }
   }
