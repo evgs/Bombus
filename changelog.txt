@@ -2986,6 +2986,46 @@ syslog_msg: true
   + My vCard>Camera - capturing photo using phone's built-in camera for use
     in vCard
   * Zlib: "Stream: Sent" counter now works correct
+
+7.11.2006
+0.4.3.814
+
+  Накопительные изменения с r776:
+  * vCard>Camera отображается только в случае поддержки камеры в Java
+  + File Browser>Info - отображение размера файла и просмотр
+    изображения для jpg, png, gif
+  * всплывание Bombus на SonyEricsson: однократное ложное переключение 
+    отображаемого экрана на ростер, происходившее при входящем сообщении,
+    если Bombus был вручную выведен из фонового режима 
+  * base64 декодер - ошибка выравнивания '=' 
+  * MessageList: минимальная высота сообщения устанавливается по шрифту, 
+    а не жёстко заданная 12 пикселей (FS#355)
+  * закладки конференций (bookmarks) загружаются автоматически при логине
+
+  только в версии JZLIB:
+  + Actions>Send file - отправка файла 
+    с использованием схемы In-Band-Bytestreams (XEP-0047 & XEP-0096)
+  + Tools>File Transfers - менеджер закачек.
+    Используется для приёма ожидающего входящего файла, а также для наблюдения
+    за процессом передачи.
+  --
+  Cumulative changes since r776:
+  * vCard>Camera command is sown only if camera available
+  + File Browser>Info shows file size 
+    and image preview for jpg, png, gif
+  * application popup on SonyEricsson: display was switched once to roster 
+    on incoming message if Bombus was raised manually.
+  * base64 decoder - '=' padding issue
+  * MessageList: minimal message height is set to font height 
+    rather than 12 pix (FS#355)
+  * conference bookmarks is now loaded automatically on login
+
+  JZLIB version only:
+  + Actions>Send file - sends file to contact 
+    using In-Band-Bytestreams scheme (XEP-0047 & XEP-0096)
+  + Tools>File Transfers - file transfer manager. 
+    Used to accept file and view transmission progress
+
 ---------------------------
   known issues:
 
