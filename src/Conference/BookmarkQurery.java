@@ -40,6 +40,7 @@ public class BookmarkQurery implements JabberBlockListener{
         }
         
         StaticData.getInstance().roster.theStream.send(request);
+        System.out.println("Bookmarks query sent");
     }
     
     
@@ -59,9 +60,10 @@ public class BookmarkQurery implements JabberBlockListener{
                 StaticData.getInstance().roster.bookmarks=bookmarks;
                 StaticData.getInstance().roster.redraw();
                 
+                System.out.println("Bookmark query result success");
                 return JabberBlockListener.NO_MORE_BLOCKS;
             }
-        } catch (Exception e) { }
+        } catch (Exception e) { e.printStackTrace(); }
         return JabberBlockListener.BLOCK_REJECTED;
     }
 }
