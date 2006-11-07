@@ -3030,6 +3030,15 @@ syslog_msg: true
   * fix: загрузка Bookmarks теперь не зависит от "join conferences"
   --
   * fix: Bookmarks loading is not dependent from option "join conferences"
+
+(820)
+  * исправлена запись файлов модуля совместимости с файловой системой Siemens
+  + ограничение использования полосы пропускания при передаче файлов (шейпер)
+  * не указывался параметр bolck-size при старте потока ibb
+  --
+  * FileSiemens writing module fixed
+  + Send file: outgoing traffic shaping. 
+  * ibb iq open stanza now contains bolck-size attribute
 ---------------------------
   known issues:
 
