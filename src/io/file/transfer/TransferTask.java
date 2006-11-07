@@ -253,6 +253,7 @@ public class TransferTask
         JabberDataBlock open=iq.addChild("open", null);
         open.setNameSpace("http://jabber.org/protocol/ibb");
         open.setAttribute("sid", sid);
+        open.setAttribute("block-size","2048");
         TransferDispatcher.getInstance().send(iq, false);
     }
 
@@ -288,6 +289,8 @@ public class TransferTask
             
             TransferDispatcher.getInstance().send(msg, false);
             TransferDispatcher.getInstance().repaintNotify();
+
+            Thread.sleep( 2000L ); //shaping traffic
         }
         } catch (Exception e) { /*null pointer exception if terminated*/}
         closeFile();
