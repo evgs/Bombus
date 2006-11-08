@@ -3039,6 +3039,12 @@ syslog_msg: true
   * FileSiemens writing module fixed
   + Send file: outgoing traffic shaping. 
   * ibb iq open stanza now contains bolck-size attribute
+
+8.11.2006
+(822)
+  * исправлена запись файлов модуля совместимости с файловой системой Siemens
+  --
+  * FileSiemens writing module fixed
 ---------------------------
   known issues:
 
