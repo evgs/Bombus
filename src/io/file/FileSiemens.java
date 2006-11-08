@@ -70,6 +70,7 @@ public class FileSiemens extends FileIO{
     }
 
     public OutputStream openOutputStream() throws IOException {
+        openFile();
         return new FileSiemensOutputStream(f, fd);
     }
 
