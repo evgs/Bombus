@@ -217,7 +217,7 @@ public class Contact extends IconTextElement{
 //#                 }
 //#                 body.append(m.getBody());
 //#                 body.append("\r\n");
-//#                 NvStorage.appendFile("Log_"+histRecord, body.toString());
+//#                 io.NvStorage.appendFile("Log_"+histRecord, body.toString());
 //#             }
 //#         }
 //#endif

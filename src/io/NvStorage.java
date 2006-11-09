@@ -74,8 +74,8 @@ public class NvStorage {
 //#         
 //#         String path=null;
 //#         switch (path_index) {
-//#             case PATH_CFG: path=Config.getInstance().siemensCfgPath; break;
-//#             case PATH_MSG: path=Config.getInstance().msgPath; break;
+//#             case PATH_CFG: path=Client.Config.getInstance().siemensCfgPath; break;
+//#             case PATH_MSG: path=Client.Config.getInstance().msgPath; break;
 //#         }
 //#         //System.out.println("path="+path);
 //#         //System.out.println("path="+path+name);
