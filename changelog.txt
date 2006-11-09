@@ -3046,6 +3046,7 @@ syslog_msg: true
   --
   * FileSiemens writing module fixed
 
+10.11.2006
 0.4.4.828
   + История ввода для некоторых текстовых полей:
      Service Discovery>Server
