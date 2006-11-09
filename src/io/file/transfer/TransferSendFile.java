@@ -19,6 +19,7 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Form;
 import javax.microedition.lcdui.StringItem;
 import javax.microedition.lcdui.TextField;
+import ui.controls.TextFieldCombo;
 
 /**
  *
@@ -51,7 +52,7 @@ public class TransferSendFile
         f=new Form("Send file");
         f.append(new StringItem("To: ", recipientJid));
         
-        fileName=new TextField("File", "", 256, TextField.ANY | TextField.UNEDITABLE );
+        fileName=new TextFieldCombo("File", null, 256, TextField.ANY | TextField.UNEDITABLE, "sendfile", display );
         f.append(fileName);
         
         /*size=new TextField("size", "", 8, TextField.ANY | TextField.UNEDITABLE );

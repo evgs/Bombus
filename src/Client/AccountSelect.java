@@ -9,6 +9,7 @@
 
 package Client;
 import images.RosterIcons;
+import io.NvStorage;
 import locale.SR;
 import midlet.Bombus;
 import ui.*;

@@ -12,6 +12,7 @@ package Client;
 import Info.Version;
 import images.RosterIcons;
 import images.SmilesIcons;
+import io.NvStorage;
 import java.io.*;
 import java.util.*;
 import javax.microedition.lcdui.Font;
@@ -300,7 +301,7 @@ public class Config {
 	    
 	    outputStream.writeInt(textWrap);
 	    
-	} catch (IOException e) { e.printStackTrace(); }
+	} catch (Exception e) { e.printStackTrace(); }
 	
 	NvStorage.writeFileRecord(outputStream, "config", 0, true);
     }

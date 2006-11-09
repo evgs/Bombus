@@ -10,6 +10,7 @@
 package Client;
 import com.alsutton.jabber.datablocks.Presence;
 import images.RosterIcons;
+import io.NvStorage;
 import java.util.*;
 import java.io.*;
 import javax.microedition.midlet.MIDlet;

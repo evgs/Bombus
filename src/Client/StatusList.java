@@ -10,6 +10,7 @@
 package Client;
 
 import com.alsutton.jabber.datablocks.Presence;
+import io.NvStorage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.util.Enumeration;

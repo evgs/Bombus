@@ -14,6 +14,7 @@ import locale.SR;
 import ui.*;
 import javax.microedition.lcdui.*;
 import ui.controls.NumberField;
+import ui.controls.TextFieldCombo;
 
 /**
  *
@@ -64,7 +65,7 @@ public class ConferenceForm implements CommandListener{
         formJoin.append(hostField);
         
         if (nick==null) nick=sd.account.getNickName();
-        nickField=new TextField(SR.MS_NICKNAME, nick, 32, TextField.ANY);
+        nickField=new TextFieldCombo(SR.MS_NICKNAME, nick, 32, TextField.ANY, "roomnick", display);
         formJoin.append(nickField);
         
         passField=new TextField(SR.MS_PASSWORD, password, 32, TextField.ANY | ConstMIDP.TEXTFIELD_SENSITIVE );

@@ -7,8 +7,7 @@
  * All rights reserved.
  */
 
-package Client;
-import com.alsutton.jabber.JabberDataBlock;
+package io;
 import java.io.*;
 import util.strconv;
 
