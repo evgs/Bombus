@@ -69,6 +69,7 @@ public class TextFieldCombo
     }
 
     public void commandAction(Command command, Item item) {
+        if (recentList.isEmpty()) return;
         parentView=display.getCurrent();
         
         cmdBack=new Command("Back", Command.BACK, 99);
@@ -112,7 +113,7 @@ public class TextFieldCombo
             while (is.available()>0)
                 recentList.addElement(is.readUTF());
             is.close();
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) { }
     }
 }
 //#else

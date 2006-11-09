@@ -3045,6 +3045,29 @@ syslog_msg: true
   * исправлена запись файлов модуля совместимости с файловой системой Siemens
   --
   * FileSiemens writing module fixed
+
+0.4.4.828
+  + История ввода для некоторых текстовых полей:
+     Service Discovery>Server
+     Status>Edit>Message
+     Conference>Nickname
+     Transfers>Accept File>Save to
+     Actions>Send File>File
+
+    Каждое такое текстовое поле содержит команду Recent.
+    Последнее введённое значение сохраняется в начало списка,
+    остальные смещаются вниз. Максимум 10 строк.
+  --
+  + Recent List for some text fields:
+     Service Discovery>Server
+     Status>Edit>Message
+     Conference>Nickname
+     Transfers>Accept File>Save to
+     Actions>Send File>File
+
+    Theese fields have context-sensitive command Recent.
+    There are maximum 10 stored values for each field.
+    Most recent value is added to begin of list.
 ---------------------------
   known issues:
 
