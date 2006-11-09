@@ -25,7 +25,6 @@
 */
 
 package com.alsutton.jabber;
-import Client.NvStorage;
 import java.util.*;
 
 /**

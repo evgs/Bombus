@@ -26,7 +26,6 @@
 
 package com.alsutton.jabber;
 import Client.Config;
-import Client.NvStorage;
 import io.Utf8IOStream;
 import java.io.*;
 import java.util.*;
