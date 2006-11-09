@@ -11,6 +11,7 @@ package ServiceDiscovery;
 
 import javax.microedition.lcdui.*;
 import ui.VirtualList;
+import ui.controls.TextFieldCombo;
 /**
  *
  * @author EvgS
@@ -18,7 +19,8 @@ import ui.VirtualList;
 public class ServerBox implements CommandListener {
     
     private Display display;
-    private TextBox t;
+    private Form f;
+    private TextField t;
     
     private ServiceDiscovery sd;
     
@@ -30,22 +32,25 @@ public class ServerBox implements CommandListener {
         this.display=display;
         this.sd=sd;
         
-        t=new TextBox("Address",service,500,TextField.URL);
-        t.addCommand(cmdSend);
-        t.addCommand(cmdCancel);
-        t.setCommandListener(this);
+        f=new Form("Service Discovery");
+        f.append("Enter Jabber server address here");
+        t=new TextFieldCombo("Address",service,500,TextField.URL, "disco", display);
+        f.append(t);
+        f.addCommand(cmdSend);
+        f.addCommand(cmdCancel);
+        f.setCommandListener(this);
         
         //t.setInitialInputMode("MIDP_LOWERCASE_LATIN");
-        display.setCurrent(t);
+        display.setCurrent(f);
     }
     
     public void commandAction(Command c, Displayable d){
         String server=t.getString();
         if (server.length()==0) server=null;
         
-        if (c==cmdCancel) {
-            /*destroyView(); return;*/
-        }
+        /*if (c==cmdCancel) {
+            destroyView(); return;
+        }*/
         if (c==cmdSend && server!=null) { sd.browse(server, null); }
         
         display.setCurrent(sd);
