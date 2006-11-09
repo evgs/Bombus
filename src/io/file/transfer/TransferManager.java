@@ -48,7 +48,8 @@ public class TransferManager extends VirtualList implements CommandListener{
 
     public void eventOk() {
         TransferTask t=(TransferTask) getFocusedObject();
-        if (t.isAcceptWaiting()) new TransferAcceptFile(display, t);
+        if (t!=null)
+            if (t.isAcceptWaiting()) new TransferAcceptFile(display, t);
     }
 
     public void commandAction(Command c, Displayable d) {
