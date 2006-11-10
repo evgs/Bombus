@@ -75,12 +75,21 @@ public class DiscoForm implements CommandListener{
                     fields.insertElementAt(field, 0);
                 } else { fields.addElement(field); }
             }
+
+            if (x!=null) {
+                JabberDataBlock registered=query.getChildBlock("registered");
+                if (registered!=null) {
+                    FormField unreg=new FormField(registered);
+                    fields.addElement(unreg);
+                }
+            }
             
             for (e=fields.elements(); e.hasMoreElements(); ){
                 FormField field=(FormField) e.nextElement();
                 if (!field.hidden) form.append(field.formItem);
             }
         }
+        
        
         form.setCommandListener(this);
         

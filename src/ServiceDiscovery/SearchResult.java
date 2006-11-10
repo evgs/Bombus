@@ -123,6 +123,8 @@ public class SearchResult
         f.setCommandListener(this);
         f.addCommand(cmdBack);
         f.addCommand(cmdAdd);*/
-        new ContactMessageList((Contact) getFocusedObject(), display);
+        try {
+            new ContactMessageList((Contact) getFocusedObject(), display);
+        } catch (Exception e) {}
     }
 }

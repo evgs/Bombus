@@ -41,7 +41,7 @@ public class TextFieldCombo
 
     /** Creates a new instance of TextFieldCombo */
     public TextFieldCombo(String label, String value, int maxlen, int constraints, String id, Display display) {
-        super(label, "", maxlen, constraints);
+        super(label, null, maxlen, constraints);
         
         this.display=display;
         this.label=label;
