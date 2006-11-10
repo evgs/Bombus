@@ -94,7 +94,7 @@ public class TransferTask
         } catch (Exception e) {
             e.printStackTrace();
             state=ERROR;
-            errMsg="Can't open file"';
+            errMsg="Can't open file";
             showEvent=true;
         }
     }
