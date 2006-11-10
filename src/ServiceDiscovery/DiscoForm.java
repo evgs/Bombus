@@ -114,11 +114,12 @@ public class DiscoForm implements CommandListener{
         qry.setAttribute("node", node);
         qry.setAttribute("sessionid", sessionId);
         
+        JabberDataBlock cform=qry;
         if (xData) {
             JabberDataBlock x=qry.addChild("x", null);
             x.setNameSpace("jabber:x:data");
             x.setAttribute("type", "submit");
-            qry=x;
+            cform=x;
         }
         
         for (Enumeration e=fields.elements(); e.hasMoreElements(); ) {
@@ -127,9 +128,10 @@ public class DiscoForm implements CommandListener{
             JabberDataBlock ch=f.constructJabberDataBlock();
             if (ch!=null) {
                 if (ch.getTagName().equals("remove")) {
-                    qry.getChildBlocks().removeAllElements();
+                    cform=qry;
+                    cform.getChildBlocks().removeAllElements();
                 }
-                qry.addChild(ch);
+                cform.addChild(ch);
             }
         }
         
