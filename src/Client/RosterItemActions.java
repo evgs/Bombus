@@ -255,14 +255,14 @@ public class RosterItemActions extends Menu{
                 case 45: //direct presence
                 {
                     new StatusSelect(display, c);
-                    break;
+                    return;
                 }
                 
 //#if (FILE_IO && FILE_TRANSFER)
                 case 50: //send file
                 {
                     new TransferSendFile(display, c.getJid());
-                    break;
+                    return;
                 }
 //#endif
             }
@@ -306,7 +306,7 @@ public class RosterItemActions extends Menu{
                     case 46: //conference presence
                     {
                         new StatusSelect(display, ((ConferenceGroup)g).getConference());
-                        break;
+                        return;
                     }
 
                     case 8: // kick
