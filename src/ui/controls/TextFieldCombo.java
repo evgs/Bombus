@@ -41,7 +41,7 @@ public class TextFieldCombo
 
     /** Creates a new instance of TextFieldCombo */
     public TextFieldCombo(String label, String value, int maxlen, int constraints, String id, Display display) {
-        super(label, value, maxlen, constraints);
+        super(label, "", maxlen, constraints);
         
         this.display=display;
         this.label=label;
@@ -50,6 +50,7 @@ public class TextFieldCombo
         loadRecentList();
         if (value==null) value="";
         if (value.length()==0) value=(String) recentList.elementAt(0);
+        setString(value);
         
         cmdRecent=new Command("Recent", Command.ITEM, 1);
 
