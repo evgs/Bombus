@@ -40,6 +40,8 @@ public class MucContact extends Contact{
     public int roleCode;
     public int affiliationCode;
 
+    public boolean commonPresence=true;
+
     /** Creates a new instance of MucContact */
     public MucContact(String nick, String jid) {
         super(nick, jid, Presence.PRESENCE_OFFLINE, "muc");

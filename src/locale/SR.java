@@ -261,11 +261,12 @@ public class SR {
     public final static String MS_TEXTWRAP_WORD="by words";
 
     public final static String MS_INFO="Info";
-
     public final static String MS_REPLY="Reply";
+    public final static String MS_DIRECT_PRESENCE="Send status";
     
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
+
 
 
 

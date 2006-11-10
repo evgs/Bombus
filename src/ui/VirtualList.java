@@ -94,7 +94,7 @@ public abstract class VirtualList
     public static final int MOTOE680_FMRADIO=-7;
     public static final int SE_GREEN=0;
     
-    private final static int STRING_SZ=15;
+    public int stringHeight=15;
 
     public static int keyClear=-8;
     public static int keyVolDown=0x1000;
@@ -699,7 +699,7 @@ public abstract class VirtualList
                 win_top=remainder-winHeight+win_top+8;
                 return true;
             }
-            win_top+=winHeight-STRING_SZ;
+            win_top+=winHeight-stringHeight;
             return true;
         } catch (Exception e) {}
         return false;
@@ -726,7 +726,7 @@ public abstract class VirtualList
                 win_top=itemLayoutY[cursor];
                 return true;
             }
-            win_top-=winHeight-STRING_SZ;
+            win_top-=winHeight-stringHeight;
             return true;
         } catch (Exception e) {}
         return false;

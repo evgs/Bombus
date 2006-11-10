@@ -20,6 +20,7 @@ import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import locale.SR;
 import ui.ComplexString;
+import ui.FontCache;
 import ui.VirtualElement;
 import ui.VirtualList;
 
@@ -54,6 +55,7 @@ public abstract class MessageList
         addCommand(cmdSmiles);
         addCommand(cmdBack);
         addCommand(cmdUrl);
+        stringHeight=FontCache.getMsgFont().getHeight();
     }
 
     public MessageList(Display display) {

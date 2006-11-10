@@ -67,6 +67,7 @@ public class RosterItemActions extends Menu{
 		    addItem(SR.MS_EDIT,2);
 		addItem(SR.MS_SUBSCRIPTION,3);
 		addItem(SR.MS_DELETE,4);
+                addItem(SR.MS_DIRECT_PRESENCE,45);
 	    }
             
 	    if (contact.origin==Contact.ORIGIN_GROUPCHAT) return; //TODO: подключить тот же список, что и для ConferenceGroup
@@ -148,6 +149,7 @@ public class RosterItemActions extends Menu{
 		    addItem(SR.MS_REENTER,23);
 		else {
 		    addItem(SR.MS_LEAVE_ROOM,22);
+                    addItem(SR.MS_DIRECT_PRESENCE,46);
 		    if (self.affiliationCode>=MucContact.AFFILIATION_OWNER) {
 			addItem(SR.MS_CONFIG_ROOM,10);
                     }
@@ -250,11 +252,17 @@ public class RosterItemActions extends Menu{
                     return;
                 }
                 
+                case 45: //direct presence
+                {
+                    new StatusSelect(display, c);
+                    break;
+                }
+                
 //#if (FILE_IO && FILE_TRANSFER)
                 case 50: //send file
                 {
                     new TransferSendFile(display, c.getJid());
-                    return;
+                    break;
                 }
 //#endif
             }
@@ -294,7 +302,13 @@ public class RosterItemActions extends Menu{
                         roster.reEnterRoom( g );
                         return; //break;
                     }
-                    
+                                       
+                    case 46: //conference presence
+                    {
+                        new StatusSelect(display, ((ConferenceGroup)g).getConference());
+                        break;
+                    }
+
                     case 8: // kick
                     {
                         Hashtable attrs=new Hashtable();
@@ -377,7 +391,6 @@ public class RosterItemActions extends Menu{
                         roster.setMucMod(mc, attrs);
                         break;
                     }
-                    
                 }
             }
             destroyView();

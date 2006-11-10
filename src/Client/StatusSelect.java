@@ -27,10 +27,13 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
     private Command cmdCancel=new Command(SR.MS_CANCEL,Command.BACK,99);
     /** Creates a new instance of SelectStatus */
     private Vector statusList=StatusList.getInstance().statusList;
+    private Contact to;
     
-    public StatusSelect(Display d) {
+    public StatusSelect(Display d, Contact to) {
         super();
-        setTitleItem(new Title(SR.MS_STATUS));
+        this.to=to;
+        if (to==null) { setTitleItem(new Title(SR.MS_STATUS)); }
+        else setTitleItem(new Title(to));
         
         addCommand(cmdOk);
         addCommand(cmdEdit);
@@ -71,7 +74,7 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
     public void run(){
         int status=getSel().getImageIndex();
         try {
-            StaticData.getInstance().roster.sendPresence(status);
+            StaticData.getInstance().roster.sendDirectPresence(status, to);
         } catch (Exception e) { e.printStackTrace(); }
     }
     
