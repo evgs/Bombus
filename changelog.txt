@@ -3083,7 +3083,16 @@ syslog_msg: true
   * TextFieldCombo: exception was thrown if both initial value and recent list
     were empty
 
----------------------------
+(842)
+  + сообщения об ошибках передачи файлов
+  + установка отдельных статусов для конференций и контактов ростера.
+  + команда Reply для сообщений в конференции
+  --
+  + Transfer error messages
+  + Direct Presence for roster contacts and MUC
+  + MUC: Reply command
+
+-------------------
   known issues:
 
   - невозможна установка смещения времени в минутах.
