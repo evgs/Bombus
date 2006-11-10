@@ -3082,10 +3082,7 @@ syslog_msg: true
   * xep-0100: unregister in the case of jabber:x:data used in registry form
   * TextFieldCombo: exception was thrown if both initial value and recent list
     were empty
-------------------------------------------------------------------------
-r834 | evgs | 2006-11-10 14:10:07 +0500 (ѕт, 10 но€ 2006) | 1 line
 
-TextFieldCombo: take 3
 ---------------------------
   known issues:
 

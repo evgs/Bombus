@@ -8,6 +8,7 @@
  */
 
 package Client;
+import Conference.MucContact;
 import Messages.MessageList;
 import Messages.MessageParser;
 import archive.MessageArchive;
@@ -30,7 +31,8 @@ public class ContactMessageList extends MessageList
     Command cmdMessage=new Command(SR.MS_NEW_MESSAGE,Command.SCREEN,2);
     Command cmdResume=new Command(SR.MS_RESUME,Command.SCREEN,1);
     Command cmdQuote=new Command(SR.MS_QUOTE,Command.SCREEN,3);
-    Command cmdArch=new Command(SR.MS_ADD_ARCHIVE,Command.SCREEN,4);
+    Command cmdReply=new Command(SR.MS_REPLY,Command.SCREEN,4);
+    Command cmdArch=new Command(SR.MS_ADD_ARCHIVE,Command.SCREEN,5);
     Command cmdPurge=new Command(SR.MS_CLEAR_LIST, Command.SCREEN, 10);
     Command cmdContact=new Command(SR.MS_CONTACT,Command.SCREEN,11);
     Command cmdActive=new Command(SR.MS_ACTIVE_CONTACTS,Command.SCREEN,11);
@@ -58,9 +60,12 @@ public class ContactMessageList extends MessageList
         addCommand(cmdContact);
 	addCommand(cmdActive);
         //if (getItemCount()>0) {
-            addCommand(cmdQuote);
-            addCommand(cmdArch);
+        addCommand(cmdQuote);
+        addCommand(cmdArch);
 	//}
+        if (contact instanceof MucContact && contact.origin==Contact.ORIGIN_GROUPCHAT) {
+            addCommand(cmdReply);
+        }
         setCommandListener(this);
         moveCursorTo(contact.firstUnread(), true);
         //setRotator();
@@ -132,6 +137,16 @@ public class ContactMessageList extends MessageList
         if (c==cmdQuote) {
             try {
                 new MessageEdit(display,contact,getMessage(cursor).toString());
+            } catch (Exception e) {/*no messages*/}
+        }
+        if (c==cmdReply) {
+            try {
+                String body=getMessage(cursor).toString();
+                int nickLen=body.indexOf(">");
+                if (nickLen<0) nickLen=body.indexOf(" ");
+                if (nickLen<0) return;
+                
+                new MessageEdit(display,contact,body.substring(0, nickLen)+":");
             } catch (Exception e) {/*no messages*/}
         }
         if (c==cmdArch) {
