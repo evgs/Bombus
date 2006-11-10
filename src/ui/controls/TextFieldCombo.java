@@ -48,7 +48,8 @@ public class TextFieldCombo
         this.id="mru-"+id;
         
         loadRecentList();
-        if (value==null) value=(String) recentList.elementAt(0);
+        if (value==null) value="";
+        if (value.length()==0) value=(String) recentList.elementAt(0);
         
         cmdRecent=new Command("Recent", Command.ITEM, 1);
 
@@ -59,6 +60,7 @@ public class TextFieldCombo
     public String getString() {
         String result=super.getString();
         int i=0;
+        if (result.length()==0) return result;
         while (i<recentList.size()) {
             if ( result.equals((String)recentList.elementAt(i)) || i>9 ) recentList.removeElementAt(i);
             else i++;
