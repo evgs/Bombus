@@ -3069,6 +3069,23 @@ syslog_msg: true
     Theese fields have context-sensitive command Recent.
     There are maximum 10 stored values for each field.
     Most recent value is added to begin of list.
+
+11.11.2006
+(836)
+  * NullPointerException при вызове Search Results>Ok в пустом списке
+  * xep-0100: отмена регистрации транспорта в случае использовани€ форм 
+    jabber:x:data
+  * TextFieldCombo: при инициализации пол€ пустой строкой и отсутствии
+    истории ввода возникало исключение
+  --
+  * NullPointerException at Search Results>Ok if empty list
+  * xep-0100: unregister in the case of jabber:x:data used in registry form
+  * TextFieldCombo: exception was thrown if both initial value and recent list
+    were empty
+------------------------------------------------------------------------
+r834 | evgs | 2006-11-10 14:10:07 +0500 (ѕт, 10 но€ 2006) | 1 line
+
+TextFieldCombo: take 3
 ---------------------------
   known issues:
 
