@@ -48,9 +48,11 @@ public class TextFieldCombo
         this.id="mru-"+id;
         
         loadRecentList();
-        if (value==null) value="";
-        if (value.length()==0) value=(String) recentList.elementAt(0);
-        setString(value);
+        try {
+          if (value==null) value="";
+          if (value.length()==0) value=(String) recentList.elementAt(0);
+          setString(value);
+        } catch (Exception e) {/* no history available */}
         
         cmdRecent=new Command("Recent", Command.ITEM, 1);
 
