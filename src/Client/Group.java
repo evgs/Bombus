@@ -1,7 +1,7 @@
 /*
  * Group.java
  *
- * Created on 8 пїЅпїЅпїЅ 2005 пїЅ., 0:36
+ * Created on 8 Май 2005 2005, 0:36
  *
  * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
  * All rights reserved.
@@ -26,7 +26,6 @@ public class Group extends IconTextElement {
         
     public Vector contacts;
     
-    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     private Vector tcontacts;
     public int tonlines;
     private int tncontacts;
