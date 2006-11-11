@@ -69,7 +69,7 @@ public class TransferAcceptFile
 
     public void commandAction(Command c, Displayable d) {
         if (c==cmdDecline) { t.decline(); }
-        if (c==cmdPath) { new Browser(display, this, true); return; }
+        if (c==cmdPath) { new Browser(path.getString(), display, this, true); return; }
         if (c==cmdOk) {
             t.fileName=fileName.getString();
             t.filePath=path.getString();

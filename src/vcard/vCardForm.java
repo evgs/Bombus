@@ -123,7 +123,7 @@ public class vCardForm
         
 //#if (FILE_IO)
         if (c==cmdPhoto) {
-            new Browser(display, this, false);
+            new Browser(null, display, this, false);
         }
 //#endif
 

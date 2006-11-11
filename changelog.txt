@@ -3083,7 +3083,7 @@ syslog_msg: true
   * TextFieldCombo: exception was thrown if both initial value and recent list
     were empty
 
-(842)
+(843)
   + сообщения об ошибках передачи файлов
   + установка отдельных статусов для конференций и контактов ростера.
   + команда Reply для сообщений в конференции

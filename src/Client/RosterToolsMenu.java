@@ -69,7 +69,7 @@ public class RosterToolsMenu
                 return;
 //#if (FILE_IO)
             case 4:
-                new io.file.browse.Browser(display, null, false);
+                new io.file.browse.Browser(null, display, null, false);
                 return;
             case 5:
                 new io.file.transfer.TransferManager(display);
