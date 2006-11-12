@@ -38,7 +38,7 @@ public final class ContactEdit
     int ngroups;
     
     Command cmdOk=new Command(SR.MS_ADD, Command.OK, 1);
-    Command cmdSet=new Command("Set", Command.ITEM, 2);
+    Command cmdSet=new Command(SR.MS_SET, Command.ITEM, 2);
     Command cmdCancel=new Command(SR.MS_CANCEL,Command.BACK,99);
     
     boolean newContact=true;

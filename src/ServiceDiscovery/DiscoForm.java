@@ -12,6 +12,7 @@ import java.util.*;
 import javax.microedition.lcdui.*;
 import com.alsutton.jabber.*;
 import com.alsutton.jabber.datablocks.*;
+import locale.SR;
 //import Client.*;
 
 
@@ -37,8 +38,8 @@ public class DiscoForm implements CommandListener{
     
     private boolean xData;
     
-    private Command cmdOk=new Command("Send", Command.OK /*Command.SCREEN*/, 1);
-    private Command cmdCancel=new Command("Cancel", Command.BACK, 99);
+    private Command cmdOk=new Command(SR.MS_SEND, Command.OK /*Command.SCREEN*/, 1);
+    private Command cmdCancel=new Command(SR.MS_CANCEL, Command.BACK, 99);
     
     private String id;
     

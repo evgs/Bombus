@@ -12,6 +12,7 @@ package locale;
 
 import Client.Config;
 import java.util.Hashtable;
+import javax.microedition.lcdui.Item;
 import util.StringLoader;
 
 public class SR {
@@ -107,7 +108,7 @@ public class SR {
     public   static String MS_ADD_ARCHIVE = loadString( "to Archive" );
     public   static String MS_BACK = loadString( "Back" );
     public   static String MS_HEAP_MONITOR = loadString( "heap monitor" );
-    public   static String MS_HIDE_SPLASH = loadString( "Hide Splash" );
+    //public   static String MS_HIDE_SPLASH = loadString( "Hide Splash" );
     public   static String MS_MESSAGE = loadString( "Message" );
     public   static String MS_OTHER = loadString( "<Other>" );
     public   static String MS_HISTORY = loadString( "history -" );
@@ -263,11 +264,20 @@ public class SR {
     public final static String MS_INFO="Info";
     public final static String MS_REPLY="Reply";
     public final static String MS_DIRECT_PRESENCE="Send status";
-    
+
+    public final static String MS_CONFIRM_BAN="Are you sure want to BAN this person?";
+    public final static String MS_NO_REASON="No reason";
+
+    public final static String MS_RECENT="Recent";
+    public final static String MS_CAMERASHOT="Shot";
+
+    public final static String MS_SELECT_FILE="Select file";
+    public final static String MS_LOAD_PHOTO="Load Photo";
+    public final static String MS_CLEAR_PHOTO="Clear Photo";
+    public final static String MS_CAMERA="Camera";
+
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
-
-
 
 
 

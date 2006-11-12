@@ -10,6 +10,7 @@
 package ServiceDiscovery;
 
 import javax.microedition.lcdui.*;
+import locale.SR;
 import ui.VirtualList;
 import ui.controls.TextFieldCombo;
 /**
@@ -24,8 +25,8 @@ public class ServerBox implements CommandListener {
     
     private ServiceDiscovery sd;
     
-    private Command cmdCancel=new Command("Cancel",Command.BACK,99);
-    private Command cmdSend=new Command("Discover",Command.OK /*Command.SCREEN*/,1);
+    private Command cmdCancel=new Command(SR.MS_CANCEL, Command.BACK,99);
+    private Command cmdSend=new Command(SR.MS_DISCOVER, Command.OK /*Command.SCREEN*/,1);
     
     /** Creates a new instance of ServerBox */
     public ServerBox(Display display, String service, ServiceDiscovery sd) {

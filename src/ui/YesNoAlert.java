@@ -9,6 +9,7 @@
 
 package ui;
 import javax.microedition.lcdui.*;
+import locale.SR;
 
 /**
  *
@@ -20,8 +21,8 @@ public abstract class YesNoAlert extends Form implements CommandListener{
     private Displayable parentView;
 
     
-    Command cmdYes=new Command("Yes", Command.OK, 1);
-    Command cmdNo=new Command("No", Command.BACK, 99);
+    Command cmdYes=new Command(SR.MS_YES, Command.OK, 1);
+    Command cmdNo=new Command(SR.MS_NO, Command.BACK, 99);
     /** Creates a new instance of YesNoAlert */
     public YesNoAlert(Display display, Displayable parentView, String title, String alertText) {
         super(title);

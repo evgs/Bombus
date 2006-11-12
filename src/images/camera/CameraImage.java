@@ -20,6 +20,7 @@ import javax.microedition.media.MediaException;
 import javax.microedition.media.Player;
 import javax.microedition.media.control.GUIControl;
 import javax.microedition.media.control.VideoControl;
+import locale.SR;
 
 /**
  *
@@ -27,8 +28,8 @@ import javax.microedition.media.control.VideoControl;
  */
 public class CameraImage implements CommandListener{
     
-    private Command cmdShot=new Command ("Shot", Command.OK, 1);
-    private Command cmdCancel=new Command ("Cancel", Command.BACK, 99);
+    private Command cmdShot=new Command (SR.MS_CAMERASHOT, Command.OK, 1);
+    private Command cmdCancel=new Command (SR.MS_CANCEL, Command.BACK, 99);
     
     private Display display;
     private Displayable parentView;

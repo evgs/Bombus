@@ -15,6 +15,7 @@ import java.io.DataOutputStream;
 import java.util.Enumeration;
 import java.util.Vector;
 import javax.microedition.lcdui.*;
+import locale.SR;
 
 /**
  *
@@ -54,7 +55,7 @@ public class TextFieldCombo
           setString(value);
         } catch (Exception e) {/* no history available */}
         
-        cmdRecent=new Command("Recent", Command.ITEM, 1);
+        cmdRecent=new Command(SR.MS_RECENT, Command.ITEM, 1);
 
         addCommand(cmdRecent);
         setItemCommandListener(this);
@@ -77,8 +78,8 @@ public class TextFieldCombo
         if (recentList.isEmpty()) return;
         parentView=display.getCurrent();
         
-        cmdBack=new Command("Back", Command.BACK, 99);
-        cmdSelect=new Command("Select", Command.OK, 1);
+        cmdBack=new Command(SR.MS_BACK, Command.BACK, 99);
+        cmdSelect=new Command(SR.MS_SELECT, Command.OK, 1);
         
         list=new List(label, List.IMPLICIT);
         list.addCommand(cmdBack);

@@ -11,6 +11,7 @@ package ui;
 import Client.Title;
 import java.util.*;
 import javax.microedition.lcdui.*;
+import locale.SR;
 
 /**
  *
@@ -20,8 +21,8 @@ public class Menu extends VirtualList implements CommandListener
 {
     Vector menuitems;
     /** Creates a new instance of Menu */
-    Command cmdBack=new Command("Back",Command.BACK,99);
-    Command cmdOk=new Command("Ok",Command.OK,1);
+    Command cmdBack=new Command(SR.MS_BACK,Command.BACK,99);
+    Command cmdOk=new Command(SR.MS_OK,Command.OK,1);
     
     public Menu(String title) {
         super();

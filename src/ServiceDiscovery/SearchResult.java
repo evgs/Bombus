@@ -11,6 +11,7 @@ package ServiceDiscovery;
 import images.RosterIcons;
 import java.util.*;
 import javax.microedition.lcdui.*;
+import locale.SR;
 import ui.*;
 import com.alsutton.jabber.*;
 import com.alsutton.jabber.datablocks.*;
@@ -25,8 +26,8 @@ public class SearchResult
         implements CommandListener {
     
     StaticData sd=StaticData.getInstance();
-    private Command cmdBack=new Command("Back", Command.BACK, 98);
-    private Command cmdAdd=new Command("Add", Command.SCREEN, 1);
+    private Command cmdBack=new Command(SR.MS_BACK, Command.BACK, 98);
+    private Command cmdAdd=new Command(SR.MS_ADD, Command.SCREEN, 1);
     
     private Vector items;
     boolean xData;

@@ -47,7 +47,7 @@ public class ConferenceQuickPrivelegeModify implements CommandListener{
     private MucContact victim;
     
     private Command cmdOk;
-    private Command cmdNoReason=new Command("No reason", Command.SCREEN, 2);
+    private Command cmdNoReason=new Command(SR.MS_NO_REASON, Command.SCREEN, 2);
     private Command cmdCancel=new Command(SR.MS_CANCEL, Command.BACK, 99);
     
     private int action;
@@ -67,7 +67,7 @@ public class ConferenceQuickPrivelegeModify implements CommandListener{
 
             case OUTCAST:
                 f=new Form(SR.MS_BAN);
-                f.append("Are you sure want to BAN this person?");
+                f.append(SR.MS_CONFIRM_BAN);
                 break;
                 
         } // switch
