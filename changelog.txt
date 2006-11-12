@@ -3092,6 +3092,22 @@ syslog_msg: true
   + Direct Presence for roster contacts and MUC
   + MUC: Reply command
 
+12.11.2006
+(852)
+  * исправлено использование некоторых строк локализации
+  + возможность указания причин для kick и ban
+  * File Browser: команды Cancel и Back теперь назначены на софткнопки
+    так же, как и в Service Discovery
+  * File Browser: команда Back и переход в директорию "../" теперь полностью 
+    равнозначны. При вызове Browser происходит переход в последнюю использованную
+    директорию (пока используется только в FileTransfer)
+  --
+  * locale usage fix
+  + kick and ban reasons
+  * File Browser: commands Cancel and Back now are mapped to softkeys 
+    like in Service Discovery
+  * File Browser: command Back and OK at directory "../" are fully equals now.
+    Browser can be started at specified path (used in FileTransfer)
 -------------------
   known issues:
 
