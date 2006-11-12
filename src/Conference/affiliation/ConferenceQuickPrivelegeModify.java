@@ -46,7 +46,7 @@ public class ConferenceQuickPrivelegeModify implements CommandListener{
     private TextFieldCombo reason;
     private MucContact victim;
     
-    private Command cmdOk=new Command(SR.MS_OK, Command.OK, 1);
+    private Command cmdOk;
     private Command cmdNoReason=new Command("No reason", Command.SCREEN, 2);
     private Command cmdCancel=new Command(SR.MS_CANCEL, Command.BACK, 99);
     
@@ -90,6 +90,7 @@ public class ConferenceQuickPrivelegeModify implements CommandListener{
         reason=new TextFieldCombo("Reason", null, 64, TextField.ANY, "reason", display);
         f.append(reason);
         
+        cmdOk=new Command( (action==KICK)? SR.MS_KICK : SR.MS_BAN, Command.SCREEN, 1);
         f.addCommand(cmdOk);
         f.addCommand(cmdNoReason);
         f.addCommand(cmdCancel);
