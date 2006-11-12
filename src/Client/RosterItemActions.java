@@ -12,6 +12,7 @@ package Client;
 
 import Conference.ConferenceForm;
 import Conference.ConferenceGroup;
+import Conference.affiliation.ConferenceQuickPrivelegeModify;
 import Conference.InviteForm;
 import Conference.MucContact;
 import Conference.QueryConfigForm;
@@ -311,44 +312,29 @@ public class RosterItemActions extends Menu{
 
                     case 8: // kick
                     {
-                        Hashtable attrs=new Hashtable();
-                        attrs.put("role", "none");
-                        attrs.put("nick", mc.nick);
-                        roster.setMucMod(mc, attrs);
-                        break;
+                        new ConferenceQuickPrivelegeModify(display, mc, ConferenceQuickPrivelegeModify.KICK);
+                        return;
                     }
                     case 9: // ban
                     {
-                        Hashtable attrs=new Hashtable();
-                        attrs.put("affiliation", "outcast");
-                        attrs.put("jid", mc.realJid);
-                        roster.setMucMod(mc, attrs);
-                        break;
+                        new ConferenceQuickPrivelegeModify(display, mc, ConferenceQuickPrivelegeModify.OUTCAST);
+                        return;
                     }
                     case 31: //grant voice and revoke moderator
                     {
-                        Hashtable attrs=new Hashtable();
-                        attrs.put("role", "participant");
-                        attrs.put("nick", mc.nick);
-                        roster.setMucMod(mc, attrs);
-                        break;
+                        new ConferenceQuickPrivelegeModify(null, mc, ConferenceQuickPrivelegeModify.PARTICIPANT);
+                        return;
                     }
                     case 32: //revoke voice
                     {
-                        Hashtable attrs=new Hashtable();
-                        attrs.put("role", "visitor");
-                        attrs.put("nick", mc.nick);
-                        roster.setMucMod(mc, attrs);
-                        break;
+                        new ConferenceQuickPrivelegeModify(null, mc, ConferenceQuickPrivelegeModify.VISITOR);
+                        return;
                     }
                     
                     case 33: //grant moderator
                     {
-                        Hashtable attrs=new Hashtable();
-                        attrs.put("role", "moderator");
-                        attrs.put("nick", mc.nick);
-                        roster.setMucMod(mc, attrs);
-                        break;
+                        new ConferenceQuickPrivelegeModify(null, mc, ConferenceQuickPrivelegeModify.MODERATOR);
+                        return;
                     }
                     
             /*case 34: //reserved
@@ -358,38 +344,26 @@ public class RosterItemActions extends Menu{
                     
                     case 35: //grant membership and revoke admin
                     {
-                        Hashtable attrs=new Hashtable();
-                        attrs.put("affiliation", "member");
-                        attrs.put("jid", mc.realJid);
-                        roster.setMucMod(mc, attrs);
-                        break;
+                        new ConferenceQuickPrivelegeModify(null, mc, ConferenceQuickPrivelegeModify.MEMBER);
+                        return;
                     }
                     
                     case 36: //revoke membership
                     {
-                        Hashtable attrs=new Hashtable();
-                        attrs.put("affiliation", "none");
-                        attrs.put("jid", mc.realJid);
-                        roster.setMucMod(mc, attrs);
-                        break;
+                        new ConferenceQuickPrivelegeModify(null, mc, ConferenceQuickPrivelegeModify.NONE);
+                        return;
                     }
                     
                     case 37: //grant admin and revoke owner
                     {
-                        Hashtable attrs=new Hashtable();
-                        attrs.put("affiliation", "admin");
-                        attrs.put("jid", mc.realJid);
-                        roster.setMucMod(mc, attrs);
-                        break;
+                        new ConferenceQuickPrivelegeModify(null, mc, ConferenceQuickPrivelegeModify.ADMIN);
+                        return;
                     }
                     
                     case 38: //grant owner
                     {
-                        Hashtable attrs=new Hashtable();
-                        attrs.put("affiliation", "owner");
-                        attrs.put("jid", mc.realJid);
-                        roster.setMucMod(mc, attrs);
-                        break;
+                        new ConferenceQuickPrivelegeModify(null, mc, ConferenceQuickPrivelegeModify.OWNER);
+                        return;
                     }
                 }
             }

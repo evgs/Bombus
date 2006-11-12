@@ -1443,15 +1443,6 @@ public class Roster
         querysign=requestState;
         updateTitle();
     }
-    void setMucMod(Contact contact, Hashtable itemAttributes){
-        JabberDataBlock iq=new Iq(contact.jid.getBareJid(), Iq.TYPE_SET, "itemmuc");
-        JabberDataBlock query=iq.addChild("query", null);
-        query.setNameSpace("http://jabber.org/protocol/muc#admin");
-        JabberDataBlock item=new JabberDataBlock("item", null, itemAttributes);
-        query.addChild(item);
-        //System.out.println(iq);
-        theStream.send(iq);
-    }
     /**
      * store cotnact on server
      */
