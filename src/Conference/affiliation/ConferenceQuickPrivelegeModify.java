@@ -82,7 +82,7 @@ public class ConferenceQuickPrivelegeModify implements CommandListener{
         StringBuffer user=new StringBuffer(victim.nick);
         if (victim.jid!=null) {
             user.append(" (");
-            user.append(victim.jid);
+            user.append(victim.realJid);
             user.append(")");
         }
         f.append(new StringItem("User",user.toString()));
