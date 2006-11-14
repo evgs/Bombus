@@ -115,7 +115,9 @@ public class ConfigForm implements
 
         message=new ChoiceGroup(SR.MS_MESSAGES, Choice.MULTIPLE);
         message.append(SR.MS_SMILES, null);
-        message.append(SR.MS_HISTORY, null);
+//#if (HISTORY)        
+//#         message.append(SR.MS_HISTORY, null);
+//#endif
         message.append(SR.MS_STORE_PRESENCE,null);        
         message.append(SR.MS_COMPOSING_EVENTS, null);
 //#if (!MIDP1)
@@ -124,7 +126,9 @@ public class ConfigForm implements
         
         boolean mv[]={
             cf.smiles,
-            cf.msgLog,
+//#if (HISTORY)        
+//#             cf.msgLog,
+//#endif
             cf.storeConfPresence,
             cf.eventComposing
 //#if (!MIDP1)
@@ -255,11 +259,15 @@ public class ConfigForm implements
             cf.autoFocus=ra[5];
 
             cf.smiles=mv[0];
-            cf.msgLog=mv[1];
-            cf.storeConfPresence=mv[2];
-            cf.eventComposing=mv[3];
+            int haIdx=1;
+//#if (HISTORY)
+//#             cf.msgLog=mv[1];
+//#             haIdx=2;
+//#endif
+            cf.storeConfPresence=mv[haIdx++];
+            cf.eventComposing=mv[haIdx++];
 //#if (!MIDP1)
-            cf.capsState=mv[4];
+            cf.capsState=mv[haIdx++];
 //#endif
 
 	    

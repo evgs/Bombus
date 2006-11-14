@@ -7,7 +7,6 @@
  * All rights reserved.
  */
 
-//TODO: упростить обработку исключений для theStream.send
 
 package Client;
 
@@ -481,7 +480,7 @@ public class Roster
             addContact(c);
         }
         c.status=Presence.PRESENCE_ONLINE;
-        c.transport=RosterIcons.ICON_GROUPCHAT_INDEX; //FIXME: убрать хардкод
+        c.transport=RosterIcons.ICON_GROUPCHAT_INDEX; 
         c.bareJid=from;
         c.origin=Contact.ORIGIN_GROUPCHAT;
         c.commonPresence=true;
@@ -929,7 +928,6 @@ public class Roster
                 } catch (Exception e) {}
                 
                 try {
-                    //TODO: invitations
                     JabberDataBlock xmlns=message.findNamespace("http://jabber.org/protocol/muc#user");
                     String password=xmlns.getChildBlockText("password");
                     

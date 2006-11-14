@@ -23,7 +23,7 @@ public class FormField {
     public String name;
     public Item formItem;
     boolean hidden;
-    //TODO: boolean required;
+    //TODO: boolean required; //mark required fields in form
     public boolean instructions;
     private Vector optionsList;
     private boolean numericBoolean;
