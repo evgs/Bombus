@@ -26,8 +26,6 @@ public class Version {
     
     public final static String url="http://bombus.jrudevels.org";
 
-    public static boolean isSiemens;
-	
     private static String platformName;
     
     public static String getPlatformName() {
@@ -53,10 +51,8 @@ public class Version {
 //#if (!MIDP1)
             if (platformName.indexOf("SIE") > -1) {
                 platformName=System.getProperty("microedition.platform");
-                isSiemens=true;
             } else if (System.getProperty("com.siemens.OSVersion")!=null) {
                 platformName="SIE-"+System.getProperty("microedition.platform")+"/"+System.getProperty("com.siemens.OSVersion");
-                isSiemens=true;
             }
 //#endif
         }

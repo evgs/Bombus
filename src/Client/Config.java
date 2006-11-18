@@ -178,7 +178,7 @@ public class Config {
             istreamWaiting=true;
 	}*/
         
-        if (Version.isSiemens==true) {
+        if (platform.startsWith("SIE")) {
             keyLock='#';
             keyVibra='*';
         }

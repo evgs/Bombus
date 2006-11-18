@@ -276,8 +276,13 @@ public class SR {
     public final static String MS_CLEAR_PHOTO="Clear Photo";
     public final static String MS_CAMERA="Camera";
 
+    public final static String MS_HIDE_FINISHED="Hide finished";
+    public final static String MS_TRANSFERS="Transfer tasks";
+
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
+
+
 
 
 

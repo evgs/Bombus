@@ -55,6 +55,8 @@ public class JabberStream implements XMLEventListener, Runnable {
     private boolean rosterNotify;
     
     private String server; // for ping
+
+    boolean pingSent;
     
     public void enableRosterNotify(boolean en){ rosterNotify=en; }
     
@@ -306,6 +308,7 @@ public class JabberStream implements XMLEventListener, Runnable {
     private void ping() {
         JabberDataBlock ping=new Iq(null, Iq.TYPE_GET, "ping");
         ping.addChild("query", null).setNameSpace("jabber:iq:version");
+        pingSent=true;
         send(ping);
     }
 

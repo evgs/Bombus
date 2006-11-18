@@ -28,7 +28,7 @@ public class TransferManager extends VirtualList implements CommandListener{
     private Vector taskList;
     
     Command cmdBack=new Command(SR.MS_BACK, Command.BACK, 99);
-    Command cmdClrF=new Command("Hide finished", Command.SCREEN, 10);
+    Command cmdClrF=new Command(SR.MS_HIDE_FINISHED, Command.SCREEN, 10);
     
     /** Creates a new instance of TransferManager */
     public TransferManager(Display display) {
@@ -37,7 +37,7 @@ public class TransferManager extends VirtualList implements CommandListener{
         addCommand(cmdBack);
         addCommand(cmdClrF);
         setCommandListener(this);
-        setTitleItem(new Title(2, null, "Transfer tasks"));
+        setTitleItem(new Title(2, null, SR.MS_TRANSFERS));
         
         taskList=TransferDispatcher.getInstance().getTaskList();
     }

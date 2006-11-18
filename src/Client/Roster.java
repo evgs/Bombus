@@ -15,6 +15,7 @@ import Conference.ConferenceGroup;
 import Conference.MucContact;
 import Conference.QueryConfigForm;
 import Conference.affiliation.Affiliations;
+import Info.Version;
 import archive.ArchiveList;
 import images.RosterIcons;
 //#if FILE_TRANSFER
@@ -91,7 +92,7 @@ public class Roster
     
     private Command cmdActions=new Command(SR.MS_ITEM_ACTIONS, Command.SCREEN, 1);
     private Command cmdStatus=new Command(SR.MS_STATUS_MENU, Command.SCREEN, 2);
-    private Command cmdActiveContact=new Command(SR.MS_ACTIVE_CONTACTS, Command.SCREEN, 3);
+    private Command cmdActiveContact;//=new Command(SR.MS_ACTIVE_CONTACTS, Command.SCREEN, 3);
     private Command cmdAlert=new Command(SR.MS_ALERT_PROFILE_CMD, Command.SCREEN, 8);
     private Command cmdConference=new Command(SR.MS_CONFERENCE, Command.SCREEN, 10);
     private Command cmdArchive=new Command(SR.MS_ARCHIVE, Command.SCREEN, 10);
@@ -146,6 +147,13 @@ public class Roster
         groups=new Groups();
         
         vContacts=new Vector(); // just for displaying
+        
+        int activeType=Command.SCREEN;
+        String platform=Version.getPlatformName();
+        if (platform.startsWith("Nokia")) activeType=Command.BACK;
+        if (platform.startsWith("Intent")) activeType=Command.BACK;
+        
+        cmdActiveContact=new Command(SR.MS_ACTIVE_CONTACTS, activeType, 3);
         
         addCommand(cmdStatus);
         addCommand(cmdActions);
@@ -753,6 +761,10 @@ public class Roster
     }
     
     public void loginSuccess() {
+        // enable File transfers
+//#if (FILE_IO && FILE_TRANSFER)
+            theStream.addBlockListener(TransferDispatcher.getInstance());
+//#endif
         // залогинились. теперь, если был реконнект, то просто пошлём статус
         if (reconnect) {
             querysign=reconnect=false;
@@ -770,6 +782,9 @@ public class Roster
             } catch (Exception e) { e.printStackTrace(); }
             querysign=reconnect=false;
             SplashScreen.getInstance().close(); // display.setCurrent(this);
+            
+            //query bookmarks
+            theStream.addBlockListener(new BookmarkQuery(BookmarkQuery.LOAD));
         } else {
             JabberDataBlock qr=new IqQueryRoster();
             setProgress(SR.MS_ROSTER_REQUEST, 60);
@@ -850,11 +865,6 @@ public class Roster
                         //loading bookmarks
                         //if (cf.autoJoinConferences)
                             theStream.addBlockListener(new BookmarkQuery(BookmarkQuery.LOAD));
-                        
-//#if (FILE_IO && FILE_TRANSFER)
-                        theStream.addBlockListener(TransferDispatcher.getInstance());
-//#endif
-                        
                     } 
                     
                 } else if (type.equals("get")){
