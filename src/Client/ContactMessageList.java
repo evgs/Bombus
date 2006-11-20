@@ -88,6 +88,7 @@ public class ContactMessageList extends MessageList
     
     protected void beginPaint(){
         getTitleItem().setElementAt(sd.roster.getEventIcon(), 2);
+        getTitleItem().setElementAt((contact.vcard==null)?null:RosterIcons.iconHasVcard, 3);
         //getTitleItem().setElementAt(contact.incomingComposing, 3);
     }
     

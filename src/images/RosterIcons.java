@@ -23,6 +23,7 @@ public class RosterIcons extends ImageList{
     
     private static RosterIcons instance;
 
+
     public static RosterIcons getInstance() {
 	if (instance==null) instance=new RosterIcons();
 	return instance;
@@ -115,4 +116,7 @@ public class RosterIcons extends ImageList{
     public static final int ICON_PRIVACY_BLOCK = 0x37;
 
     public static final int ICON_KEYBLOCK_INDEX = 0x17;
+
+    public static Integer iconHasVcard=new Integer(ICON_SEARCH_INDEX);
+
 }
