@@ -264,6 +264,14 @@ public class Utf8IOStream implements Runnable{
         }
         stats.append("\nStream:\nin="); stats.append(recv);
         stats.append("\nout="); stats.append(sent);
+        stats.append("\n\nIP=");
+        try {
+            stats.append(((SocketConnection)connection).getLocalAddress());
+            stats.append(":"); 
+            stats.append(((SocketConnection)connection).getLocalPort());
+        } catch (Exception ex) {
+            stats.append("unknown");
+        } 
         
         return stats.toString();
     }

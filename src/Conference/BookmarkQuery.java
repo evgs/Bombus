@@ -3,8 +3,8 @@
  *
  * Created on 6 Ноябрь 2006 г., 22:24
  *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
+ * Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
+ * All rights reserved.
  */
 
 package Conference;
@@ -40,13 +40,13 @@ public class BookmarkQuery implements JabberBlockListener{
         }
         
         StaticData.getInstance().roster.theStream.send(request);
-        System.out.println("Bookmarks query sent");
+        //System.out.println("Bookmarks query sent");
     }
     
     
     public int blockArrived(JabberDataBlock data) {
         try {
-            
+            if (!(data instanceof Iq)) return JabberBlockListener.BLOCK_REJECTED;
             if (data.getAttribute("id").equals("getbookmarks")) {
                 JabberDataBlock storage=data.findNamespace("jabber:iq:private").
                         findNamespace("storage:bookmarks");
@@ -60,10 +60,10 @@ public class BookmarkQuery implements JabberBlockListener{
                 StaticData.getInstance().roster.bookmarks=bookmarks;
                 StaticData.getInstance().roster.redraw();
                 
-                System.out.println("Bookmark query result success");
+                //System.out.println("Bookmark query result success");
                 return JabberBlockListener.NO_MORE_BLOCKS;
             }
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {}
         return JabberBlockListener.BLOCK_REJECTED;
     }
 }

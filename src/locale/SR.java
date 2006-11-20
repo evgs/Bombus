@@ -283,9 +283,6 @@ public class SR {
     public static String MS_IFACELANG;
 
 
-
-
-
     private SR() { }
     
     private static Hashtable lang;
