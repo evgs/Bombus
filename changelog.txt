@@ -3108,6 +3108,39 @@ syslog_msg: true
     like in Service Discovery
   * File Browser: command Back and OK at directory "../" are fully equals now.
     Browser can be started at specified path (used in FileTransfer)
+
+23.11.2006
+(858)
+  * Окна класса Alert  FileBrowser>Info, Connection Error, Disco>Error 
+    теперь содержат команду закрытия окна с типом Command.BACK
+
+  + ContactMessageList: новая иконка "для этого контакта скэширован vCard".
+    (temporary used "search" icon)
+
+  * Поле Account:Account name переименовано в Nickname
+
+  * Исправлена передача файлов при логине в состоянии "только конференции"
+  * Исправлено получение закладок при логине в состоянии "только конференции"
+  * Для телефонов Nokia команда Active Contacts в ростере назначена на 
+    неиспользованную софт-клавишу (Back)
+
+  --
+  * Alert screens FileBrowser>Info, Connection Error, Disco>Error 
+    now have dismiss command with type=BACK
+
+  + ContactMessageList: new icon "has cached vCard" 
+    (temporary used "search" icon)
+
+  * Field Account:Account_name is renamed to Nickname
+
+  * File Transfer now works in Conference-only mode.
+  * Bookmark qurey fixed for Conference-only mode
+  * Active Contacts mapped in roster to "Back" softkey. Only for Nokia
+
+------------------------------------------------------------------------
+r853 | evgs | 2006-11-14 21:40:33 +0500 (Вт, 14 ноя 2006) | 1 line
+
+config: history option removed until feature to be implemented
 -------------------
   known issues:
 
