@@ -58,7 +58,7 @@ public abstract class FileIO {
     }
     
     public Vector fileList(boolean directoriesOnly) throws IOException{
-        if (fileName.length()<2) return rootDirs();
+        if (fileName.length()==0) return rootDirs();
         Vector dir=dirs(directoriesOnly);
         dir.addElement("../");
         return dir;
