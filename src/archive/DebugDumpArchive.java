@@ -58,12 +58,14 @@ public class DebugDumpArchive implements BrowserListener{
             int index[]=new int[size];
             
 	    RecordEnumeration re=rs.enumerateRecords(null, null, false);
-	    
+	    ps.println("Enum constructed"); ps.flush();
             int i=0;
 	    while (re.hasNextElement() ){
+                ps.print("id="); ps.flush();
                 int id=re.nextRecordId();
 		index[i++]=id;
-                ps.println(id);
+                ps.println(id); ps.flush();
+
 	    }
             
             ps.println("RAW dump:");
