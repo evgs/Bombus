@@ -40,7 +40,9 @@ public class TextFieldCombo
 
     private String id;
 
-    /** Creates a new instance of TextFieldCombo */
+    /** Creates a new instance of TextFieldCombo 
+     *  if value is null, TextField will be filled using recent list
+     */
     public TextFieldCombo(String label, String value, int maxlen, int constraints, String id, Display display) {
         super(label, null, maxlen, constraints);
         
@@ -50,8 +52,7 @@ public class TextFieldCombo
         
         loadRecentList();
         try {
-          if (value==null) value="";
-          if (value.length()==0) value=(String) recentList.elementAt(0);
+          if (value==null) value=(String) recentList.elementAt(0);
           setString(value);
         } catch (Exception e) {/* no history available */}
         

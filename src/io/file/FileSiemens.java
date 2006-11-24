@@ -24,7 +24,7 @@ public class FileSiemens extends FileIO{
     public FileSiemens(String fileName) {
         //System.out.println("Siemens fs accessor for "+fileName);
         // Siemens requires backslashes
-        this.fileName=fileName=fileName.replace('/', '\\').substring(1);
+        this.fileName=fileName=fileName.replace('/', '\\');//.substring(1);
     }
     
     public void openFile() throws IOException{

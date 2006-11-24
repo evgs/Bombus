@@ -29,7 +29,7 @@ class FileJSR75 extends FileIO{
     }
     
     protected void openFile() throws IOException{
-        fileConnection = (javax.microedition.io.file.FileConnection) Connector.open("file://" + fileName);
+        fileConnection = (javax.microedition.io.file.FileConnection) Connector.open("file:///" + fileName);
     }
 
     public OutputStream openOutputStream() throws IOException{

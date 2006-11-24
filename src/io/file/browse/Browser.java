@@ -54,6 +54,7 @@ public class Browser extends VirtualList implements CommandListener{
         super(display);
         
         this.browserListener=browserListener;
+        this.path="";
         
         setTitleItem(new Title(2, null, null));
         
@@ -147,7 +148,7 @@ public class Browser extends VirtualList implements CommandListener{
                 path=path.substring(0, 1+path.lastIndexOf('/', path.length()-2));
             }
         } else {
-            if (path.length()==0) path="/";
+            //if (path.length()==0) path="/";
             path+=relativePath;
         }
         readDirectory(this.path);
