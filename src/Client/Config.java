@@ -247,14 +247,14 @@ public class Config {
     
     public void loadSoundName(){
 	Vector files[]=new StringLoader().stringLoader("/sounds/res.txt", 3);
-        if (soundsMsgIndex>=files.length) soundsMsgIndex=0;
+        if (soundsMsgIndex>=files[0].size()) soundsMsgIndex=0;
 	messageSndType=(String) files[0].elementAt(soundsMsgIndex);
 	messagesnd=(String) files[1].elementAt(soundsMsgIndex);
     }
     public String langFileName(){
         if (lang==0) return null;   //english
 	Vector files[]=new StringLoader().stringLoader("/lang/res.txt", 2);
-        if (lang>=files.length) return null;
+        if (lang>=files[0].size()) return null;
 	return (String) files[0].elementAt(lang);
     }
     

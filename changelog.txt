@@ -3148,7 +3148,7 @@ syslog_msg: true
   * vCard: [No vCard available] при отсутствии vCard у контакта
   * исправление зависаний окон Alert
   * запрос vCard отправляется с использованием jid контакта без указания ресурса
-  + TextFieldCombo:Clear - destroys input history for associated field
+  + TextFieldCombo:Clear - очищает историю ввода для данного поля
   * по умолчанию причина kick/ban пустая, а не последняя выбранная
   * корневая точка файловой системы отображается как "", а не как "/"
   --
@@ -3162,6 +3162,10 @@ syslog_msg: true
   * Empty kick/ban reason by default
   * File system root is now '' rather than '/'
 
+(869)
+  * исправлена загрузка языковых пакетов
+  --
+  * langfile loading fix (after 868)
 -------------------
   known issues:
 
