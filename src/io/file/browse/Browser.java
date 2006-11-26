@@ -28,6 +28,7 @@ import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Image;
 import locale.SR;
+import ui.AlertBox;
 import ui.IconTextElement;
 import ui.VirtualElement;
 import ui.VirtualList;
@@ -123,10 +124,14 @@ public class Browser extends VirtualList implements CommandListener{
                 is.close();
                 fio.close();
                 
+                new AlertBox(f, info, img, display, this);
+
+                /*
                 Alert finfo=new Alert(f, info, img, null);
                 finfo.setTimeout(15*1000);
                 finfo.addCommand(cmdBack);
                 display.setCurrent(finfo, this);
+                 */
                 
             } catch (Exception e) { e.printStackTrace(); }
         }

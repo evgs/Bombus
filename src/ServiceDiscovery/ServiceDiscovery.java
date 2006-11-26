@@ -165,10 +165,15 @@ public class ServiceDiscovery
             //redraw();
             
             String err=((JabberDataBlock)(data.getChildBlock("error").getChildBlocks().firstElement())).getTagName();
-            Alert alert=new Alert(SR.MS_ERROR_, err, null, null /*AlertType.ALARM*/);
+            
+            new AlertBox(SR.MS_ERROR_, err, null, display, this);
+
+            /*
+            Alert alert=new Alert(SR.MS_ERROR_, err, null, null );
             alert.addCommand(new Command(SR.MS_OK, Command.BACK, 1));
 
             display.setCurrent(alert, this);
+            */
 
             return JabberBlockListener.BLOCK_PROCESSED;
         }

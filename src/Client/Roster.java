@@ -281,10 +281,12 @@ public class Roster
     public void errorLog(String s){
         if (s==null) return;
         if (s.length()==0) return;
-        Alert error=new Alert(SR.MS_ERROR_, s, null, null);
-        //error.setTimeout(30000);
+        new AlertBox(SR.MS_ERROR_, s, null, display, null);
+        /*Alert error=new Alert(SR.MS_ERROR_, s, null, null);
+        error.setTimeout(30000);
         error.addCommand(new Command(SR.MS_OK, Command.BACK, 1));
         display.setCurrent(error, display.getCurrent());
+         */
         Msg m=new Msg(Msg.MESSAGE_TYPE_OUT, myJid.getJid(), "Error", s);
         messageStore(m);
     }
