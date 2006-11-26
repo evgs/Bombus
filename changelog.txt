@@ -3136,11 +3136,32 @@ syslog_msg: true
   * File Transfer now works in Conference-only mode.
   * Bookmark qurey fixed for Conference-only mode
   * Active Contacts mapped in roster to "Back" softkey. Only for Nokia
+  * config: history option removed until feature to be implemented
 
-------------------------------------------------------------------------
-r853 | evgs | 2006-11-14 21:40:33 +0500 (Вт, 14 ноя 2006) | 1 line
+27.11.2005
+(868)
+  + ArchiveList: кнопка C удаляет выбранное сообщение, 
+    дублируя команду меню Delete
+  * FS#425 - исключения при удалении ресурсов из Bombus.jad/*/res.txt
+  * MessageList:Reply - теперь команда может быть выполнена и для 
+    сообщений из истории конференции
+  * vCard: [No vCard available] при отсутствии vCard у контакта
+  * исправление зависаний окон Alert
+  * запрос vCard отправляется с использованием jid контакта без указания ресурса
+  + TextFieldCombo:Clear - destroys input history for associated field
+  * по умолчанию причина kick/ban пустая, а не последняя выбранная
+  * корневая точка файловой системы отображается как "", а не как "/"
+  --
+  + ArchiveList: key C removes focused message
+  * FS#425 - exceptions when loading enumerated resource file
+  * MessageList:Reply - enable replying to history messages
+  * vCard: [No vCard available] if contact has no vCard
+  * Alert screens fixup
+  * vcard request is querying now with bare jid instead of jid/resource
+  + TextFieldCombo:Clear - destroys input history for associated field
+  * Empty kick/ban reason by default
+  * File system root is now '' rather than '/'
 
-config: history option removed until feature to be implemented
 -------------------
   known issues:
 
