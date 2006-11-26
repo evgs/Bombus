@@ -194,7 +194,7 @@ public class RosterItemActions extends Menu{
                         new vCardForm(display, c.vcard, c.getGroupType()==Groups.TYPE_SELF);
                         return;
                     }
-                    VCard.request(c.getJid());
+                    VCard.request(c.getBareJid(), c.getJid());
                     break;
                     
                 case 2:

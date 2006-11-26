@@ -30,6 +30,7 @@ public class TextFieldCombo
     private Command cmdRecent;
     private Command cmdBack;
     private Command cmdSelect;
+    private Command cmdClear;
     
     private Display display;
     private Displayable parentView;
@@ -81,9 +82,11 @@ public class TextFieldCombo
         
         cmdBack=new Command(SR.MS_BACK, Command.BACK, 99);
         cmdSelect=new Command(SR.MS_SELECT, Command.OK, 1);
+        cmdClear=new Command(SR.MS_CLEAR, command.SCREEN,2);
         
         list=new List(label, List.IMPLICIT);
         list.addCommand(cmdBack);
+        list.addCommand(cmdClear);
         list.setSelectCommand(cmdSelect);
         
         for (Enumeration e=recentList.elements(); e.hasMoreElements();)
@@ -98,6 +101,7 @@ public class TextFieldCombo
         if (command==cmdSelect) {        
             setString( list.getString(list.getSelectedIndex()));
         }
+        if (command==cmdClear) recentList.removeAllElements();
     }
 
     private void saveRecentList() {

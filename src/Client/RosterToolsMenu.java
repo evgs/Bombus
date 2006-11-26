@@ -63,7 +63,7 @@ public class RosterToolsMenu
                     new vCardForm(display, c.vcard, true);
                     return;
                 }
-                VCard.request(c.getJid());
+                VCard.request(c.getBareJid(), c.getJid());
                 return;
             }
             case 3:

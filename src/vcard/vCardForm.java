@@ -117,7 +117,7 @@ public class vCardForm
     public void commandAction(Command c, Displayable d) {
         if (c==cmdCancel) destroyView();
         if (c==cmdRefresh) {
-            VCard.request(vcard.getJid());
+            VCard.request(vcard.getJid(), vcard.getId().substring(5));
             destroyView();
         }
         

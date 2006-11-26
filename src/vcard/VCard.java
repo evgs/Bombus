@@ -31,6 +31,7 @@ public class VCard {
     
     private Vector vCardData;
     private String jid;
+    private String id;
     
     byte photo[];
     
@@ -42,6 +43,7 @@ public class VCard {
     public VCard(JabberDataBlock data) {
         this();
         jid=data.getAttribute("from");
+        id=data.getAttribute("id");
         int itemsCount=getCount();
         vCardData=new Vector(itemsCount);
         vCardData.setSize(itemsCount);
@@ -106,17 +108,23 @@ public class VCard {
     
     public String getNickName() { return getVCardData(NICK_INDEX);}
     
-    public static JabberDataBlock getVCardReq(String to, String id ) 
+    public static JabberDataBlock getQueryVCard(String to, String id ) 
     {
         JabberDataBlock req=new Iq(to, Iq.TYPE_GET, id);
         req.addChild("vCard", null).setNameSpace( "vcard-temp" );
 
+        /*
+        System.out.print("to=");
+        System.out.print(to);
+        System.out.print(" id=");
+        System.out.println(id);
+         */
         return req;
     }
     
-    public static void request(String jid) {
+    public static void request(String jid, String id) {
         StaticData.getInstance().roster.setQuerySign(true); 
-        StaticData.getInstance().roster.theStream.send(getVCardReq(jid, "getvc"));
+        StaticData.getInstance().roster.theStream.send(getQueryVCard(jid, "getvc"+id));
     }
     
     private void fieldsLoader(){
@@ -138,6 +146,10 @@ public class VCard {
     public int getCount(){ return vCardFields.size(); }
 
     public String getJid() { return jid; }
+
+    public String getId() {
+        return id;
+    }
 
 
 }
