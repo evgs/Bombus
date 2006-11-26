@@ -279,8 +279,11 @@ public class SR {
     public final static String MS_HIDE_FINISHED="Hide finished";
     public final static String MS_TRANSFERS="Transfer tasks";
 
+    public final static String MS_SURE_DELETE="Are you sure want to delete this message?";
+
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
+
 
 
     private SR() { }

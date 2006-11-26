@@ -21,7 +21,7 @@ import ui.YesNoAlert;
  *
  * @author EvgS
  */
-public class AffiliationModify implements CommandListener{
+public class AffiliationModify implements CommandListener, YesNoAlert.YesNoListener{
     
     Display display;
     Displayable parentView;
@@ -91,15 +91,15 @@ public class AffiliationModify implements CommandListener{
                 warn.append(jid.getString());
                 warn.append(SR.MS_FROM_OWNER_TO/*" from OWNER to "*/);
                 warn.append(AffiliationItem.getAffiliationName(affiliation.getSelectedIndex()));
-                new YesNoAlert(display, parentView, SR.MS_MODIFY_AFFILIATION/*"Modify affiliation"*/, warn.toString()) {
-                    public void yes() {
-                        modify();
-                    }
-                };
+                new YesNoAlert(display, parentView, SR.MS_MODIFY_AFFILIATION/*"Modify affiliation"*/, warn.toString());
             } else modify();
         }
         if (c==cmdCancel) { destroyView(); }
     }
     
+    public void ActionConfirmed() {
+        modify();
+    }
+
     private void destroyView() { display.setCurrent(parentView); }
 }

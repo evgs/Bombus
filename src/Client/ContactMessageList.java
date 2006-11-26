@@ -24,6 +24,7 @@ import javax.microedition.lcdui.*;
  * @author Eugene Stahov
  */
 public class ContactMessageList extends MessageList
+        implements YesNoAlert.YesNoListener
 {
     
     Contact contact;
@@ -211,9 +212,9 @@ public class ContactMessageList extends MessageList
     public void userKeyPressed(int keyCode) {
         super.userKeyPressed(keyCode);
         if (keyCode==keyClear) {
-            new YesNoAlert(display, this, SR.MS_CLEAR_LIST, SR.MS_SURE_CLEAR){
-                public void yes() { clearMessageList(); }
-            };
+            new YesNoAlert(display, this, SR.MS_CLEAR_LIST, SR.MS_SURE_CLEAR);
         }
     }
+
+    public void ActionConfirmed() { clearMessageList(); }
 }

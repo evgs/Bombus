@@ -20,6 +20,7 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.TextBox;
 import locale.SR;
 import ui.ComplexString;
+import ui.YesNoAlert;
 
 /**
  *
@@ -27,6 +28,7 @@ import ui.ComplexString;
  */
 public class ArchiveList 
     extends MessageList 
+    implements YesNoAlert.YesNoListener
 {
 
     Command cmdDelete=new Command(SR.MS_DELETE /*"Delete"*/, Command.SCREEN, 9);
@@ -81,14 +83,16 @@ public class ArchiveList
 
     public void commandAction(Command c, Displayable d) {
         super.commandAction(c,d);
-	if (c==cmdDelete) {
-	    archive.delete(cursor);
-	    messages=new Vector();
-	    redraw();
-	}
+	if (c==cmdDelete) { deleteMessage(); }
 	if (c==cmdPaste) { pasteData(0); }
 	if (c==cmdSubj) { pasteData(1); }
 	if (c==cmdJid) { pasteData(2); }
+    }
+
+    private void deleteMessage() {
+        archive.delete(cursor);
+        messages=new Vector();
+        redraw();
     }
     
     private void pasteData(int field) {
@@ -118,6 +122,16 @@ public class ArchiveList
     
     public void keyGreen() { pasteData(0); }
     
+    public void userKeyPressed(int keyCode) {
+        super.userKeyPressed(keyCode);
+        if (keyCode==keyClear) {
+            if (getItemCount()>0) new YesNoAlert(display, this, SR.MS_DELETE, SR.MS_SURE_DELETE);
+        }
+    }
+    public void ActionConfirmed() {
+        deleteMessage();
+    }
+    
     public void focusedItem(int index) {
 	if (target==null) return;
 	try {
@@ -133,4 +147,5 @@ public class ArchiveList
 	super.destroyView();
 	archive.close();
     }
+
 }

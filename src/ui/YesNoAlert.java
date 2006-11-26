@@ -15,14 +15,21 @@ import locale.SR;
  *
  * @author Evg_S
  */
-public abstract class YesNoAlert extends Form implements CommandListener{
+public class YesNoAlert extends Form implements CommandListener{
+    
+    public interface YesNoListener {
+        public void ActionConfirmed();
+    }
     
     private Display display;
     private Displayable parentView;
+    
+    private YesNoListener listener;
 
     
     Command cmdYes=new Command(SR.MS_YES, Command.OK, 1);
     Command cmdNo=new Command(SR.MS_NO, Command.BACK, 99);
+    
     /** Creates a new instance of YesNoAlert */
     public YesNoAlert(Display display, Displayable parentView, String title, String alertText) {
         super(title);
@@ -44,7 +51,9 @@ public abstract class YesNoAlert extends Form implements CommandListener{
             yes();
         } else no();
     }
-    abstract public void yes();
+    public void yes() {
+        if (parentView instanceof YesNoListener) ((YesNoListener)parentView).ActionConfirmed(); 
+    };
     public void no(){};
     
     public void destroyView(){
