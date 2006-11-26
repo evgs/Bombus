@@ -35,6 +35,8 @@ public class VCard {
     
     byte photo[];
     
+    private boolean empty=true;
+    
     /** Creates a new instance of vCard */
     public VCard() {
         if (vCardFields==null) fieldsLoader();
@@ -48,9 +50,10 @@ public class VCard {
         vCardData=new Vector(itemsCount);
         vCardData.setSize(itemsCount);
         
-        if (data==null) return; //"No vCard available";
+        if (data==null) return; 
+        if (data.getTypeAttribute().equals("error")) return;
         JabberDataBlock vcard=data.findNamespace("vcard-temp");
-        if (vcard==null) return;
+        if (vcard==null) return; //"No vCard available" 
         
         for (int i=0; i<itemsCount; i++){
             try {
@@ -149,6 +152,10 @@ public class VCard {
 
     public String getId() {
         return id;
+    }
+
+    public boolean isEmpty() {
+        return empty;
     }
 
 
