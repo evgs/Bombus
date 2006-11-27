@@ -125,6 +125,8 @@ public class SearchResult
         f.addCommand(cmdBack);
         f.addCommand(cmdAdd);*/
         try {
+            Contact c=(Contact)getFocusedObject();
+            if (c==null) return;
             new ContactMessageList((Contact) getFocusedObject(), display);
         } catch (Exception e) {}
     }
