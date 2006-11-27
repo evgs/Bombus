@@ -54,6 +54,8 @@ public class VCard {
         if (data.getTypeAttribute().equals("error")) return;
         JabberDataBlock vcard=data.findNamespace("vcard-temp");
         if (vcard==null) return; //"No vCard available" 
+
+        empty=false;
         
         for (int i=0; i<itemsCount; i++){
             try {
