@@ -3166,6 +3166,20 @@ syslog_msg: true
   * исправлена загрузка языковых пакетов
   --
   * langfile loading fix (after 868)
+
+29.11.2005
+(873)
+  * устранено исключение в форме My vCard при наличии длинных строк в полях vCard
+    длинные строки vCard обрезаются до 500 символов
+  * исправлено расположение и выравнивание надписи [no vCard available]
+  * vCardForm:Clear Photo - фото удаляется сразу из отображаемой формы
+  * FS#447: исключения в пустом списке Search Results
+  --
+  * exception in My vCard form caught if large string encountered. 
+    now large strings will be truncated to 500 chars
+  * [no vCard available] fixed and aligned
+  * vCardForm:Clear Photo - photo will be removed from this form immediately
+  * FS#447: Exceptions in empty Search results
 -------------------
   known issues:
 
