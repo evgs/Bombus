@@ -35,14 +35,20 @@ public class Bookmarks
     private Command cmdJoin=new Command (SR.MS_JOIN, Command.SCREEN, 10);
     private Command cmdDisco=new Command (SR.MS_DISCO_ROOM, Command.SCREEN, 15);
     //private Command cmdRfsh=new Command (SR.MS_REFRESH, Command.SCREEN, 20);
+    private Command cmdNew=new Command (SR.MS_NEW_BOOKMARK, Command.SCREEN, 20);
     private Command cmdDel=new Command (SR.MS_DELETE, Command.SCREEN, 30);
+    
     
     Roster roster=StaticData.getInstance().roster;
 
     JabberStream stream=roster.theStream;
     /** Creates a new instance of Bookmarks */
     public Bookmarks(Display display, BookmarkItem toAdd) {
-        super (display);
+        super ();
+        if (getItemCount()==0 && toAdd==null) {
+            new ConferenceForm(display);
+            return;
+        }
         setTitleItem(new Title(2, null, SR.MS_BOOKMARKS));
         
         this.toAdd=toAdd;
@@ -54,9 +60,11 @@ public class Bookmarks
         addCommand(cmdCancel);
         addCommand(cmdJoin);
         //addCommand(cmdRfsh);
+        addCommand(cmdNew);
         addCommand(cmdDel);
         addCommand(cmdDisco);
         setCommandListener(this);
+        attachDisplay(display);
     }
     
     /*private void processIcon(boolean processing){
@@ -87,9 +95,7 @@ public class Bookmarks
         BookmarkItem join=(BookmarkItem)getFocusedObject();
         if (join==null) return;
         if (join.isUrl) return;
-        ConferenceForm.join(join.toString(), join.password, 20);
-        //stream.cancelBlockListener(this);
-        display.setCurrent(StaticData.getInstance().roster);
+        new ConferenceForm(display, join.toString(), join.password);
     }
     
     public void commandAction(Command c, Displayable d){
@@ -115,7 +121,7 @@ public class Bookmarks
 
     private void exitBookmarks(){
         //stream.cancelBlockListener(this);
-        destroyView();
-        //display.setCurrent(StaticData.getInstance().roster);
+        //destroyView();
+        display.setCurrent(roster);
     }
 }

@@ -74,8 +74,11 @@ public class vCardForm
             Item item=null;
             if (editable) {
                 //truncating large string
-                if (data!=null) if (data.length()>500) 
-                    data=data.substring(0, 494)+"<...>";
+                if (data!=null) {
+                    int len=data.length();
+                    if (data.length()>500)
+                        data=data.substring(0, 494)+"<...>";
+                } 
                 
                 item=new TextField(name, data, 500, TextField.ANY);
                 items.addElement(item);

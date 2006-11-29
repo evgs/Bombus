@@ -26,7 +26,7 @@ public class ConferenceForm implements CommandListener{
     private Displayable parentView;
     
     Command cmdJoin=new Command(SR.MS_JOIN, Command.SCREEN, 1);
-    Command cmdBookmarks=new Command(SR.MS_BOOKMARKS, Command.SCREEN, 2);
+    //Command cmdBookmarks=new Command(SR.MS_BOOKMARKS, Command.SCREEN, 2);
     Command cmdAdd=new Command(SR.MS_ADD_BOOKMARK, Command.SCREEN, 3);
     Command cmdCancel=new Command (SR.MS_CANCEL, Command.BACK, 99);
     
@@ -38,25 +38,46 @@ public class ConferenceForm implements CommandListener{
     
     StaticData sd=StaticData.getInstance();
     /** Creates a new instance of GroupChatForm */
-    public ConferenceForm(Display display) { this(display, null, null, null, null); }
+    public ConferenceForm(Display display) { 
+        String room=Config.getInstance().defGcRoom;
+        String server=null;
+        // trying to split string like room@server
+        int roomE=room.indexOf('@');
+        if (roomE>0) {
+            server=room.substring(roomE+1);
+            room=room.substring(0, roomE);
+        }
+        // default server
+        if (server==null) server="conference."+sd.account.getServer();
+        createForm(display, room, server, null, null); 
+    }
     /** Creates a new instance of GroupChatForm */
+    
+    /** Creates a new instance of GroupChatForm */
+    public ConferenceForm(Display display, String confJid, String password) {
+        int roomEnd=confJid.indexOf('@');
+        String room=confJid.substring(0, roomEnd);
+        String server;
+        String nick=null;
+        int serverEnd=confJid.indexOf('/');
+        if (serverEnd>0) {
+            server=confJid.substring(roomEnd+1,serverEnd);
+            nick=confJid.substring(serverEnd+1);
+        } else {
+            server=confJid.substring(roomEnd+1);
+        }
+        createForm(display, room, server, nick, password);
+    }
+
     public ConferenceForm(Display display, String room, String server, String nick, String password) {
+        createForm(display, room, server, nick, password);
+    }
+
+    private void createForm(final Display display, String room, String server, String nick, final String password) {
         this.display=display;
         parentView=display.getCurrent();
         
         Form formJoin=new Form(SR.MS_JOIN_CONFERENCE);
-
-        if (room==null && server==null) {
-            room=Config.getInstance().defGcRoom;
-            // trying to split string like room@server
-            int roomE=room.indexOf('@');
-            if (roomE>0) {
-                server=room.substring(roomE+1);
-                room=room.substring(0, roomE);
-            }
-        }
-        // default server
-        if (server==null) server="conference."+sd.account.getServer();
         
         roomField=new TextField(SR.MS_ROOM, room, 64, TextField.URL);
         formJoin.append(roomField);
@@ -75,7 +96,7 @@ public class ConferenceForm implements CommandListener{
         formJoin.append(msgLimitField);
         
         formJoin.addCommand(cmdJoin);
-        formJoin.addCommand(cmdBookmarks);
+        //formJoin.addCommand(cmdBookmarks);
         formJoin.addCommand(cmdAdd);
         
         formJoin.addCommand(cmdCancel);
@@ -84,7 +105,7 @@ public class ConferenceForm implements CommandListener{
     }
     public void commandAction(Command c, Displayable d){
         if (c==cmdCancel) { destroyView(); }
-        if (c==cmdBookmarks) { new Bookmarks(display, null); }
+        //if (c==cmdBookmarks) { new Bookmarks(display, null); }
         if (c==cmdJoin || c==cmdAdd) {
             String nick=nickField.getString().trim();
             String host=hostField.getString().trim();
@@ -103,7 +124,7 @@ public class ConferenceForm implements CommandListener{
             else {
                 try {
                     gchat.append('/');
-                    gchat.append(nick.trim());
+                    gchat.append(nick);
                     join(gchat.toString(),pass, msgLimit);
                     
                     display.setCurrent(sd.roster);

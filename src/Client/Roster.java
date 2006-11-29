@@ -11,6 +11,7 @@
 package Client;
 
 import Conference.BookmarkQuery;
+import Conference.Bookmarks;
 import Conference.ConferenceGroup;
 import Conference.MucContact;
 import Conference.QueryConfigForm;
@@ -1335,7 +1336,10 @@ public class Roster
         // check for closed socket
         if (StaticData.getInstance().roster.theStream==null) return;
         
-        if (c==cmdConference) { new ConferenceForm(display); }
+        if (c==cmdConference) { 
+            //new ConferenceForm(display); 
+            new Bookmarks(display, null);
+        }
         if (c==cmdActions) try { 
             new RosterItemActions(display, getFocusedObject()); 
         } catch (Exception e) { /* NullPointerException */ }
@@ -1357,13 +1361,8 @@ public class Roster
     public void reEnterRoom(Group group) {
 	ConferenceGroup confGroup=(ConferenceGroup)group;
         String confJid=confGroup.getSelfContact().getJid();
-        int roomEnd=confJid.indexOf('@');
-        String room=confJid.substring(0, roomEnd);
-        int serverEnd=confJid.indexOf('/');
-        String server=confJid.substring(roomEnd+1,serverEnd);
-        String nick=confJid.substring(serverEnd+1);
         
-        new ConferenceForm(display, room, server, nick, confGroup.password);
+        new ConferenceForm(display, confJid, confGroup.password);
         //sendPresence(confGroup.getSelfContact().getJid(), null, null);
 
 	//confGroup.getConference().status=Presence.PRESENCE_ONLINE;

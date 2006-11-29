@@ -3180,6 +3180,26 @@ syslog_msg: true
   * [no vCard available] fixed and aligned
   * vCardForm:Clear Photo - photo will be removed from this form immediately
   * FS#447: Exceptions in empty Search results
+
+30.11.2005
+(875)
+  * Изменена идеология работы с закладками и присоединением к конференциям.
+    Список закладок доступен непосредственно по команде "Join Conference".
+  + Добавлена команда Bookmarks:"New conference" (название подлежит обсуждению) - 
+    открывает форму присоединения к конференции, заполняязначениями по умолчанию
+  + Если список закладок пуст, вместо списка Bookmarks открывается форма присоединения
+    к конференции.
+  * выбор закладки в списке Bookmarks открывает форму присоединения к помеченой закладкой
+    конференции.
+  --
+  * Join conference redesigned. 
+    Bookmarks list is now available directly by roster's command "Join Conference".
+  + Bookmarks list has a command "New conference" (subject to change)
+  + If there are no any bookmarks Join Conference form with default values 
+    will be invoked instead of Bookmarks list
+  * Selecting bookmark is followed by Join Conference form.
+  - SASL Handshake message removed
+  
 -------------------
   known issues:
 

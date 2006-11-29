@@ -42,7 +42,7 @@ public class SASLAuth implements JabberBlockListener{
         this.sessionId=sessionId;
         this.stream=stream;
         if (stream!=null) stream.addBlockListener(this);
-        listener.loginMessage(SR.MS_SASL_STREAM);
+        //listener.loginMessage(SR.MS_SASL_STREAM);
     }
     
 //#if SASL_XGOOGLETOKEN
