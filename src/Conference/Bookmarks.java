@@ -101,6 +101,7 @@ public class Bookmarks
     public void commandAction(Command c, Displayable d){
         if (c==cmdCancel) exitBookmarks();
         if (c==cmdJoin) eventOk();
+        if (c==cmdNew) new ConferenceForm(display);
         //if (c==cmdRfsh) loadBookmarks();
         if (c==cmdDel) deleteBookmark();
         if (c==cmdDisco) new ServiceDiscovery(display, ((BookmarkItem)getFocusedObject()).getJid(), null);
