@@ -100,11 +100,13 @@ public class vCardForm
         else { 
             photoIndex=f.append("[]");
             
+            photo=vcard.getPhoto();
+            setPhoto();
+            
             f.append("\n\n[end of vCard]");
+
         }
         
-        photo=vcard.getPhoto();
-        setPhoto();
         
         f.addCommand(cmdCancel);
         f.addCommand(cmdRefresh);

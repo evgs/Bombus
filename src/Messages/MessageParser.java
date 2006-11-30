@@ -48,7 +48,8 @@ public final class MessageParser implements Runnable{
         return instance;
     }
     /**
-     * Smile table loader
+     * smile table loader
+     * 
      * @param resource - path to smiles-description text file
      * @param smileTable - (result) Vector of smile's string-representations
      */
@@ -56,7 +57,7 @@ public final class MessageParser implements Runnable{
     public Vector getSmileTable() { return smileTable; }
     
     private class Leaf {
-        public int Smile=NOSMILE;   // нет смайлика в узле
+        public int smile=NOSMILE;   // нет смайлика в узле
         public String smileChars;     // символы смайликов
         public Vector child;
 
@@ -90,7 +91,7 @@ public final class MessageParser implements Runnable{
 	    }
 	    p=p1;
 	}
-	p.Smile=index;
+	p.smile=index;
     }
     
     private MessageParser(String resource) {
@@ -262,9 +263,9 @@ public final class MessageParser implements Runnable{
                     if (smileLeaf==null) {
                         break;    //этот символ c не попал в смайл
                     }
-                    if (smileLeaf.Smile!=-1) {
+                    if (smileLeaf.smile!=-1) {
                         // нашли смайл
-                        smileIndex=smileLeaf.Smile;
+                        smileIndex=smileLeaf.smile;
                         smileEndPos=pos;
                     }
                     pos++; // продолжаем поиск смайла
