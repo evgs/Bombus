@@ -67,6 +67,7 @@ public class Browser extends VirtualList implements CommandListener{
             addCommand(cmdInfo);
         }
         addCommand(cmdBack);
+        addCommand(cmdRoot);
         addCommand(cmdCancel);
         setCommandListener(this);
         
