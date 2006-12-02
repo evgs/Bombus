@@ -99,6 +99,7 @@ public class Browser extends VirtualList implements CommandListener{
         if (command==cmdRoot) {
             path="";
             chDir(path);
+            redraw();
         }
         
         if (command==cmdOk) eventOk();
