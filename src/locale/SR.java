@@ -282,9 +282,12 @@ public class SR {
     public final static String MS_SURE_DELETE="Are you sure want to delete this message?";
 
     public final static String MS_NEW_BOOKMARK="New conference";
+
+    public final static String MS_ROOT="Root";
     
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
+
 
 
 

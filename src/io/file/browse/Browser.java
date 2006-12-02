@@ -44,6 +44,7 @@ public class Browser extends VirtualList implements CommandListener{
     Command cmdOk=new Command(SR.MS_BROWSE, Command.OK, 1);
     Command cmdSelect=new Command(SR.MS_SELECT, Command.SCREEN, 2);
     Command cmdInfo=new Command(SR.MS_INFO, Command.SCREEN, 3);
+    Command cmdRoot=new Command(SR.MS_ROOT, Command.SCREEN, 4);
     Command cmdBack=new Command(SR.MS_BACK, Command.BACK, 98);
     Command cmdCancel=new Command(SR.MS_CANCEL, Command.EXIT, 99);
     
@@ -94,6 +95,10 @@ public class Browser extends VirtualList implements CommandListener{
             redraw();
         }
         
+        if (command==cmdRoot) {
+            path="";
+            chDir(path);
+        }
         
         if (command==cmdOk) eventOk();
         if (command==cmdSelect) {

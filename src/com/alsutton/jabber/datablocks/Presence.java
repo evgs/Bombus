@@ -117,7 +117,7 @@ public class Presence extends JabberDataBlock
       
       // priority
       int priority=getPriority();
-      if (priority>=0) {
+      if (priority!=0) {
           text.append(" [");
           text.append(getPriority());
           text.append(']');
