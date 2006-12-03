@@ -60,7 +60,7 @@ public final class ContactEdit
         
         f=new Form(SR.MS_ADD_CONTACT);
         
-        tJid=new TextField(SR.MS_USER_JID, null, 64, TextField.EMAILADDR); 
+        tJid=new TextField(SR.MS_USER_JID, null, 150, TextField.EMAILADDR); 
         
         tNick=new TextField(SR.MS_NAME, null, 32, TextField.ANY); 
         tGroup=new TextField(SR.MS_GROUP ,null, 32, TextField.ANY);
