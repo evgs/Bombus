@@ -142,7 +142,7 @@ public class Presence extends JabberDataBlock
   public int getPriority(){
       try {
           return Integer.parseInt(getChildBlockText("priority"));
-      } catch (Exception e) {return -1;}
+      } catch (Exception e) {return 0;}
   }
   
   public void setShow(String text){ addChild("show", text); }
