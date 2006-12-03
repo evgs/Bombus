@@ -55,9 +55,23 @@ public class MucContact extends Contact{
         int presenceType=presence.getTypeIndex();
         
         if (presenceType==Presence.PRESENCE_ERROR) {
-            String mucErrCode=presence.getChildBlock("error").getAttribute("code");            
-            if (mucErrCode.equals("409")) return "Nickname is already in use by another occupant";
-            if (mucErrCode.equals("403")) return "You are banned in this room";
+            JabberDataBlock error=presence.getChildBlock("error");
+            String mucErrCode=error.getAttribute("code");
+            int errCode=0;
+            try {
+                errCode=Integer.parseInt(mucErrCode);
+            } catch (Exception e) { return "Unsupported MUC error"; }
+            switch (errCode) {
+                case 401: return "Password required";
+                case 403: return "You are banned in this room";
+                case 404: return "Room does not exists";
+                case 405: return "You can't create room on this server";
+                case 406: return "Reserved roomnick must be used";
+                case 407: return "This room is members-only";
+                case 409: return "Nickname is already in use by another occupant";
+                case 503: return "Maximum number of users has been reached in this room";
+                default: return error.toString();
+            }
         }
         
         JabberDataBlock item=xmuc.getChildBlock("item");   

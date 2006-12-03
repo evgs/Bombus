@@ -157,7 +157,7 @@ public class ConferenceForm implements CommandListener{
         history.setAttribute("maxchars","32768");
         try {
             long delay= ( grp.conferenceJoinTime
-                              - ( (Msg)(grp.getConference().msgs.lastElement()) ).dateGmt
+                              - ( (Msg)(grp.getConference().msgs.lastElement()) ).dateGmt //TODO: excude presences from time
                         ) /1000 ;
             history.setAttribute("seconds",String.valueOf(delay)); // todo: change to since
         } catch (Exception e) {};
