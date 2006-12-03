@@ -3138,7 +3138,7 @@ syslog_msg: true
   * Active Contacts mapped in roster to "Back" softkey. Only for Nokia
   * config: history option removed until feature to be implemented
 
-27.11.2005
+27.11.2006
 (868)
   + ArchiveList: кнопка C удаляет выбранное сообщение, 
     дублируя команду меню Delete
@@ -3167,7 +3167,7 @@ syslog_msg: true
   --
   * langfile loading fix (after 868)
 
-29.11.2005
+29.11.2006
 (873)
   * устранено исключение в форме My vCard при наличии длинных строк в полях vCard
     длинные строки vCard обрезаются до 500 символов
@@ -3181,7 +3181,7 @@ syslog_msg: true
   * vCardForm:Clear Photo - photo will be removed from this form immediately
   * FS#447: Exceptions in empty Search results
 
-30.11.2005
+30.11.2006
 (875)
   * Изменена идеология работы с закладками и присоединением к конференциям.
     Список закладок доступен непосредственно по команде "Join Conference".
@@ -3199,7 +3199,24 @@ syslog_msg: true
     will be invoked instead of Bookmarks list
   * Selecting bookmark is followed by Join Conference form.
   - SASL Handshake message removed
-  
+
+4.12.2006
+(884)
+  + Обработка всех сообщений об ошибках присоединения к конференции
+  * Форма Add/Edit Contact: длина поля JID увеличена до 150 знаков
+  * исправлено отображение отрицательных приоритетов в статусных сообщениях
+  * Команда Join в списке Bookmarks переименована в Select
+  + Возможность перейти к корню файловой системы в файлбраузере - команда "Root".
+    поможет вернуть значение Recent в случае приёма и передачи файлов в правильное значение
+    (старый путь может неправильно обрабатываться после версии 868
+  * vCardForm: удалена метка [no photo available] из пустого vCard
+  --
+  + all MUC error codes now are handled
+  * Contact form: JID field length increased up to 150 chars
+  * displaying negative priority in status messages fixed
+  * command Join in Bookmarks list is renamed to Select
+  + new command "Root" in file browser. will help to reset buggy path after r868
+  * vCardForm: removed [no photo available] from empty vcard
 -------------------
   known issues:
 
