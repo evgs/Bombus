@@ -70,7 +70,7 @@ public class Presence extends JabberDataBlock
         case PRESENCE_XA: setShow(PRS_XA);break;
         case PRESENCE_DND: setShow(PRS_DND);break;
     }
-    if (priority>=0) addChild("priority",String.valueOf(priority));
+    if (priority!=0) addChild("priority",String.valueOf(priority));
     if (message!=null) 
         if (message.length()>0) addChild("status",message);
   }
