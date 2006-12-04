@@ -3217,6 +3217,12 @@ syslog_msg: true
   * command Join in Bookmarks list is renamed to Select
   + new command "Root" in file browser. will help to reset buggy path after r868
   * vCardForm: removed [no photo available] from empty vcard
+
+(888)
+  * блокировка отправки сообщений, манипулирования контактами ростера и остальных запросов,
+    инициированных пользователем начиная с установки соединения до успешной авторизации
+  --
+  * blocking user communication and network queries until success login
 -------------------
   known issues:
 
