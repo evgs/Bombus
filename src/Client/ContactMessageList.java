@@ -125,12 +125,20 @@ public class ContactMessageList extends MessageList
         
     public void commandAction(Command c, Displayable d){
         super.commandAction(c,d);
-        /*if (c==cmdBack) {
-            //contact.lastReaded=contact.msgs.size();
-            //contact.resetNewMsgCnt();            
-            destroyView();
-            return;
-        }*/
+
+        /** login-insensitive commands */
+        if (c==cmdArch) {
+            try {
+                MessageArchive.store(getMessage(cursor));
+            } catch (Exception e) {/*no messages*/}
+        }
+        if (c==cmdPurge) {
+            clearMessageList();
+        }
+        
+        /** login-critical section */
+        if (!sd.roster.isLoggedIn()) return;
+
         if (c==cmdMessage) { 
             contact.msgSuspended=null; 
             keyGreen(); 
@@ -153,17 +161,8 @@ public class ContactMessageList extends MessageList
                 new MessageEdit(display,contact,body.substring(0, nickLen)+": ");
             } catch (Exception e) {/*no messages*/}
         }
-        if (c==cmdArch) {
-            try {
-                MessageArchive.store(getMessage(cursor));
-            } catch (Exception e) {/*no messages*/}
-        }
-        if (c==cmdPurge) {
-            clearMessageList();
-        }
         if (c==cmdContact) {
-            if (sd.roster.isLoggedIn())
-                new RosterItemActions(display, contact);
+            new RosterItemActions(display, contact);
         }
 	
 	if (c==cmdActive) {
