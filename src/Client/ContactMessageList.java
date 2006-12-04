@@ -162,7 +162,7 @@ public class ContactMessageList extends MessageList
             clearMessageList();
         }
         if (c==cmdContact) {
-            if (sd.roster.theStream!=null)
+            if (sd.roster.isLoggedIn())
                 new RosterItemActions(display, contact);
         }
 	

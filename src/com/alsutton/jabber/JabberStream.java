@@ -58,6 +58,8 @@ public class JabberStream implements XMLEventListener, Runnable {
 
     boolean pingSent;
     
+    public boolean loggedIn;
+    
     public void enableRosterNotify(boolean en){ rosterNotify=en; }
     
     /**

@@ -47,7 +47,7 @@ public class RosterToolsMenu
     }
     public void eventOk(){
         destroyView();
-        boolean connected= ( StaticData.getInstance().roster.theStream != null );
+        boolean connected= ( StaticData.getInstance().roster.isLoggedIn() );
         MenuItem me=(MenuItem) getFocusedObject();
         if (me==null)  return;
         int index=me.index;

@@ -636,7 +636,7 @@ public class Roster
         // send presence
         ExtendedStatus es= StatusList.getInstance().getStatus(myStatus);
         Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
-        if (theStream!=null) {
+        if (isLoggedIn()) {
             if (!StaticData.getInstance().account.isMucOnly() )
 		theStream.send( presence );
             
@@ -666,12 +666,16 @@ public class Roster
         ExtendedStatus es= StatusList.getInstance().getStatus(status);
         Presence presence = new Presence(status, es.getPriority(), es.getMessage());
         presence.setTo(to.getJid());
-        if (theStream!=null) {
+        if (isLoggedIn()){
             theStream.send( presence );
         }
         if (to instanceof MucContact) ((MucContact)to).commonPresence=false;
     }
 
+    public boolean isLoggedIn() {
+        if (theStream==null) return false;
+        return theStream.loggedIn;
+    }
     
     public Contact selfContact() {
 	return getContact(myJid.getJid(), true);
@@ -767,8 +771,10 @@ public class Roster
     public void loginSuccess() {
         // enable File transfers
 //#if (FILE_IO && FILE_TRANSFER)
-            theStream.addBlockListener(TransferDispatcher.getInstance());
+        theStream.addBlockListener(TransferDispatcher.getInstance());
 //#endif
+
+         theStream.loggedIn=true;
         // залогинились. теперь, если был реконнект, то просто пошлём статус
         if (reconnect) {
             querysign=reconnect=false;
@@ -1303,7 +1309,7 @@ public class Roster
     }
     
     public void logoff(){
-        if (theStream!=null)
+        if (isLoggedIn())
         try {
              sendPresence(Presence.PRESENCE_OFFLINE);
         } catch (Exception e) { 
@@ -1334,7 +1340,7 @@ public class Roster
         if (c==cmdTools) { new RosterToolsMenu(display); }
         // stream-sensitive commands
         // check for closed socket
-        if (StaticData.getInstance().roster.theStream==null) return;
+        if (!isLoggedIn()) return;
         
         if (c==cmdConference) { 
             //new ConferenceForm(display); 

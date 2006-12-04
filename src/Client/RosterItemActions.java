@@ -42,9 +42,15 @@ public class RosterItemActions extends Menu{
     
     Object item;
     
+    Roster roster;
     /** Creates a new instance of RosterItemActions */
     public RosterItemActions(Display display, Object item) {
 	super(item.toString());
+        
+        roster=StaticData.getInstance().roster;
+        
+        if (!roster.isLoggedIn()) return;
+        
 	this.item=item;
 	
         if (item==null) return;
@@ -170,7 +176,7 @@ public class RosterItemActions extends Menu{
     
     public void eventOk(){
         try {
-            final Roster roster=StaticData.getInstance().roster;
+            //final Roster roster=StaticData.getInstance().roster;
             boolean isContact=( item instanceof Contact );
             Contact c = null;
             Group g = null;
