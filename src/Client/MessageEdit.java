@@ -82,15 +82,30 @@ public class MessageEdit
         display.setCurrent(t);
     }
     
-    public void addText(String s) {
-        //t.insert(s, t.getCaretPosition());
-        if ( t.size()>0 )
-        if ( !t.getString().endsWith(" ") ) append(" ");
-        append(s);  // теперь вставка происходит всегда в конец строки
-        append(" "); // хвостовой пробел    
+    public void insertText(String s, int caretPos) {
+        String src=t.getString();
+
+        StringBuffer sb=new StringBuffer(s);
+        
+        if (caretPos<0) caretPos=src.length();
+        
+        if (caretPos>0) 
+            if (src.charAt(caretPos-1)!=' ')   
+                sb.insert(0, ' ');
+        
+        if (caretPos<src.length())
+            if (src.charAt(caretPos)!=' ')
+                sb.append(' ');
+        
+        if (caretPos==src.length()) sb.append(' ');
+        
+        try {
+            int freeSz=t.getMaxSize()-t.size();
+            if (freeSz<sb.length()) sb.delete(freeSz, sb.length());
+        } catch (Exception e) {e.printStackTrace();}
+       
+        t.insert(sb.toString(), caretPos);
     }
-    
-    private void append(String s) { t.insert(s, t.size()); }
     
     public void setParentView(Displayable parentView){
         this.parentView=parentView;
@@ -101,11 +116,11 @@ public class MessageEdit
         if (body.length()==0) body=null;
         
         if (c==cmdInsMe) { t.insert("/me ", 0); return; }
-        if (c==cmdSmile) { new SmilePicker(display, this); return; }
-        if (c==cmdInsNick) { new AppendNick(display, to); return; }
+        if (c==cmdSmile) { new SmilePicker(display, this, t.getCaretPosition()); return; }
+        if (c==cmdInsNick) { new AppendNick(display, to, this, t.getCaretPosition()); return; }
         if (c==cmdAbc) {setInitialCaps(false); return; }
         if (c==cmdABC) {setInitialCaps(true); return; }
-	if (c==cmdPaste) { new ArchiveList(display, t); return; }
+	if (c==cmdPaste) { new ArchiveList(display, this, t.getCaretPosition()); return; }
         
         if (c==cmdCancel) { 
             composing=false; 

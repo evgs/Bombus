@@ -1334,7 +1334,7 @@ public class Roster
         if (c==cmdAccount){ new AccountSelect(display, false); }
         if (c==cmdStatus) { new StatusSelect(display, null); }
         if (c==cmdAlert) { new AlertProfile(display); }
-        if (c==cmdArchive) { new ArchiveList(display, null); }
+        if (c==cmdArchive) { new ArchiveList(display, null, -1); }
         if (c==cmdInfo) { new Info.InfoWindow(display); }
         
         if (c==cmdTools) { new RosterToolsMenu(display); }
