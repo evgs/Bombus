@@ -3223,6 +3223,26 @@ syslog_msg: true
     инициированных пользователем начина€ с установки соединени€ до успешной авторизации
   --
   * blocking user communication and network queries until success login
+
+11.12.2006
+(892)
+  * ƒоделан Resource binding. “еперь корректно работает self-contact при указании в
+    Account:Resource пустого ресурса и использовании SASL. ¬ этом случае сервер назначает 
+    клиенту на врем€ сессии уникальный ресурс. “о же справедливо дл€ GMail, добавл€ющего
+    к ресурсу уникальный идентификатор.
+  + Actions>Outcasts (Ban): вывод причины во всплывающем баллоне. (инструменты администратора 
+    конференции)
+  + AffiliationModify: возможность просмотра и редактировани€ причины Ban
+  * ¬ставка смайлов, записей из архива и ников в конференци€х производитс€ в позицию курсора.
+    замечание. некоторые java-платформы могут не возвращать правильную позицию курсора, 
+    указыва€ всегда на конец введЄнной строки
+  --
+  * Resource binding complete. now Resource in Account may be left empty, 
+    and server will assign random resource for each session
+  + Actions>Outcasts (Ban): reason in balloons
+  + AffiliationModify: reason can be modified
+  * inserting smile, archive record and nickname into cursor position.
+    note: some platforms (ex: WTK emulator) always report end-of-line as caret position
 -------------------
   known issues:
 
