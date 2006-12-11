@@ -49,6 +49,7 @@ public class AffiliationItem extends IconTextElement{
 
     public String jid;
     public int affiliation;
+    public String reason;
         
     /** Creates a new instance of AffiliationItem */
     public AffiliationItem(String jid, String affiliation) {
@@ -61,14 +62,20 @@ public class AffiliationItem extends IconTextElement{
     
     public AffiliationItem(JabberDataBlock item) {
         this(item.getAttribute("jid"), item.getAttribute("affiliation"));
+        reason=item.getChildBlockText("reason");
+        if (reason.length()==0) reason=null;
     }
     
     
     public int getColor() { return Colors.LIST_INK; }
     
-    public String toString() { return jid; }
+    public String toString() { return (reason!=null)? jid+" *" : jid; }
     
     public int compare(IconTextElement temp2) {
         return jid.compareTo( ((AffiliationItem)temp2).jid);
+    }
+
+    public String getTipString() {
+        return reason;
     }
 }

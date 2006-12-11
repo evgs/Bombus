@@ -16,6 +16,7 @@ import com.alsutton.jabber.datablocks.Iq;
 import javax.microedition.lcdui.*;
 import locale.SR;
 import ui.YesNoAlert;
+import ui.controls.TextFieldCombo;
 
 /**
  *
@@ -28,6 +29,7 @@ public class AffiliationModify implements CommandListener, YesNoAlert.YesNoListe
     
     Form f=new Form("Affiliation");
     TextField jid;
+    TextFieldCombo reason;
     ChoiceGroup affiliation;
     
     String room;
@@ -37,12 +39,13 @@ public class AffiliationModify implements CommandListener, YesNoAlert.YesNoListe
     Command cmdOk=new Command(SR.MS_SET, Command.OK, 1);
     
     /** Creates a new instance of AffiliationModify */
-    public AffiliationModify(Display display, String room, String jid, String affiliation) {
+    public AffiliationModify(Display display, String room, String jid, String affiliation, String reason) {
         this.display=display;
         parentView=display.getCurrent();
         
         this.room=room;
         this.jid=new TextField(SR.MS_JID /*"Jid"*/ , jid, 80, TextField.URL);
+        this.reason=new TextFieldCombo("Reason", reason, 64, TextField.ANY, "reason", display);
         f.append(this.jid);
         
         this.affiliation=new ChoiceGroup(SR.MS_SET_AFFILIATION /*"Set affiliation to"*/, ui.ConstMIDP.CHOICE_POPUP);
@@ -53,6 +56,8 @@ public class AffiliationModify implements CommandListener, YesNoAlert.YesNoListe
         }
         this.affiliation.setSelectedIndex(recentAffiliation, true);
         f.append(this.affiliation);
+        
+        f.append(this.reason);
         
         f.addCommand(cmdCancel);
         f.addCommand(cmdOk);
@@ -71,6 +76,8 @@ public class AffiliationModify implements CommandListener, YesNoAlert.YesNoListe
         child.setAttribute("jid", jid.getString());
         child.setAttribute("affiliation", AffiliationItem.getAffiliationName(affiliation.getSelectedIndex()));
         
+        String rs=reason.getString();
+        if (rs.length()>0) child.addChild("reason", rs);
         
         //processIcon(true);
         //System.out.println(request.toString());

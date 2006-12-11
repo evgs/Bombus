@@ -83,7 +83,7 @@ public class Affiliations
     }
     
     public void commandAction(Command c, Displayable d){
-        if (c==cmdNew) new AffiliationModify(display, room, null, "none");
+        if (c==cmdNew) new AffiliationModify(display, room, null, "none", "");
         if (c==cmdModify) eventOk();
         if (c!=cmdCancel) return;
         stream.cancelBlockListener(this);
@@ -94,7 +94,7 @@ public class Affiliations
         try {
             AffiliationItem item=(AffiliationItem)getFocusedObject();
             new AffiliationModify(display, room, item.jid, 
-                    AffiliationItem.getAffiliationName(item.affiliation));
+                    AffiliationItem.getAffiliationName(item.affiliation), item.reason);
         } catch (Exception e) { }
     }
     
