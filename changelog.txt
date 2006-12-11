@@ -3224,7 +3224,7 @@ syslog_msg: true
   --
   * blocking user communication and network queries until success login
 
-11.12.2006
+12.12.2006
 (892)
   * ƒоделан Resource binding. “еперь корректно работает self-contact при указании в
     Account:Resource пустого ресурса и использовании SASL. ¬ этом случае сервер назначает 
@@ -3243,6 +3243,11 @@ syslog_msg: true
   + AffiliationModify: reason can be modified
   * inserting smile, archive record and nickname into cursor position.
     note: some platforms (ex: WTK emulator) always report end-of-line as caret position
+
+(893)
+  + обработка jabber-сообщений c типом type="error"
+  --
+  + message type="error" handling;
 -------------------
   known issues:
 

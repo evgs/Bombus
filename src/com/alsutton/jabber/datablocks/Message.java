@@ -153,7 +153,13 @@ public class Message extends JabberDataBlock
    * @return The message body as a string
    */
 
-  public String getBody() { return getChildBlockText( "body" ); }
+  public String getBody() { 
+      String body=getChildBlockText( "body" ); 
+      
+      JabberDataBlock error=getChildBlock("error");
+      if (error==null) return body;
+      return body+"Error\n"+error.toString();
+  }
   
   
   public String getOOB() {

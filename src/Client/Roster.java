@@ -901,7 +901,7 @@ public class Roster
                     processRoster(data);
                     reEnumRoster();
                 }
-            }
+            } //if( data instanceof Iq )
             
             // If we've received a message
             
