@@ -273,7 +273,7 @@ public class Roster
 	    vContacts=new Vector(); // just for displaying
 	    bookmarks=null;
 	}
-	myJid=new Jid(sd.account.getJid());
+	setMyJid(new Jid(sd.account.getJid()));
 	updateContact(sd.account.getNickName(), myJid.getBareJid(), Groups.SELF_GROUP, "self", false);
 	
 	System.gc();
@@ -800,6 +800,11 @@ public class Roster
             setProgress(SR.MS_ROSTER_REQUEST, 60);
             theStream.send( qr );
         }
+    }
+
+    public void bindResource(String myJid) {
+        Contact self=selfContact();
+        self.jid=this.myJid=new Jid(myJid);
     }
     
     public void blockArrived( JabberDataBlock data ) {
@@ -1560,6 +1565,10 @@ public class Roster
             } catch (Exception e) {e.printStackTrace();}
             thread=null;
         }
+    }
+
+    public void setMyJid(Jid myJid) {
+        this.myJid = myJid;
     }
 }
 

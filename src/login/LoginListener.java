@@ -17,4 +17,5 @@ public interface LoginListener {
     public void loginFailed(String error);
     public void loginSuccess();
     public void loginMessage(String msg);
+    public void bindResource(String myJid);
 }

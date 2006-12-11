@@ -188,7 +188,8 @@ public class SASLAuth implements JabberBlockListener{
             if (data.getTypeAttribute().equals("result")) {
                 // second stream - step 2. resource binded - opening session
                 if (data.getAttribute("id").equals("bind")) {
-                    //TODO: get assigned resource from result
+                    String myJid=data.getChildBlock("bind").getChildBlockText("jid");
+                    listener.bindResource(myJid);
                     JabberDataBlock session=new Iq(null, Iq.TYPE_SET, "sess");
                     session.addChild("session",null).setNameSpace("urn:ietf:params:xml:ns:xmpp-session");
                     stream.send(session);
