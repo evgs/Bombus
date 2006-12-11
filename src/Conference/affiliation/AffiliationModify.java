@@ -98,7 +98,7 @@ public class AffiliationModify implements CommandListener, YesNoAlert.YesNoListe
                 warn.append(jid.getString());
                 warn.append(SR.MS_FROM_OWNER_TO/*" from OWNER to "*/);
                 warn.append(AffiliationItem.getAffiliationName(affiliation.getSelectedIndex()));
-                new YesNoAlert(display, parentView, SR.MS_MODIFY_AFFILIATION/*"Modify affiliation"*/, warn.toString());
+                new YesNoAlert(display, SR.MS_MODIFY_AFFILIATION/*"Modify affiliation"*/, warn.toString(), this);
             } else modify();
         }
         if (c==cmdCancel) { destroyView(); }
@@ -106,6 +106,7 @@ public class AffiliationModify implements CommandListener, YesNoAlert.YesNoListe
     
     public void ActionConfirmed() {
         modify();
+        destroyView();
     }
 
     private void destroyView() { display.setCurrent(parentView); }

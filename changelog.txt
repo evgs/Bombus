@@ -3248,6 +3248,11 @@ syslog_msg: true
   + обработка jabber-сообщений c типом type="error"
   --
   + message type="error" handling;
+
+(894)
+  * Actions>Owners fixed
+  --
+  * »справлено Actions>Owners - удаление owners
 -------------------
   known issues:
 

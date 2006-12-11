@@ -211,9 +211,11 @@ public class RosterItemActions extends Menu{
                     new SubscriptionEdit(display, c);
                     return; //break;
                 case 4:
-                    new YesNoAlert(display, roster, SR.MS_DELETE_ASK, c.getNickJid()){
+                    new YesNoAlert(display, SR.MS_DELETE_ASK, c.getNickJid(), null){
                         public void yes() {
                             roster.deleteContact((Contact)item);
+                            display.setCurrent(roster);
+                            //destroyView();
                         };
                     };
                     return;

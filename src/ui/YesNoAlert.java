@@ -31,17 +31,18 @@ public class YesNoAlert extends Form implements CommandListener{
     Command cmdNo=new Command(SR.MS_NO, Command.BACK, 99);
     
     /** Creates a new instance of YesNoAlert */
-    public YesNoAlert(Display display, Displayable parentView, String title, String alertText) {
+    public YesNoAlert(Display display, String title, String alertText, YesNoListener listener) {
         super(title);
         addCommand(cmdYes);
         addCommand(cmdNo);
         setCommandListener(this);
-
+        this.listener=listener;
+        
         append("\n");
         append(alertText);
         
         this.display=display;
-        this.parentView=parentView;//display.getCurrent();
+        this.parentView=display.getCurrent();
         display.setCurrent(this);
         
     }
@@ -52,7 +53,7 @@ public class YesNoAlert extends Form implements CommandListener{
         } else no();
     }
     public void yes() {
-        if (parentView instanceof YesNoListener) ((YesNoListener)parentView).ActionConfirmed(); 
+        if (listener!=null) listener.ActionConfirmed(); 
     };
     public void no(){};
     
