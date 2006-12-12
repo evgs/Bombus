@@ -1304,6 +1304,41 @@ public class Roster
 //#endif
     }
     
+    protected void keyRepeated(int keyCode) {
+        super.keyRepeated(keyCode);
+        if (kHold==keyCode) return;
+        //kHold=keyCode;
+        kHold=keyCode;
+        
+        if (keyCode==cf.keyLock) 
+            new KeyBlock(display, getTitleItem(), cf.keyLock, cf.ghostMotor); 
+
+        if (keyCode==cf.keyVibra || keyCode==MOTOE680_FMRADIO /* TODO: redefine keyVibra*/) {
+            // swap profiles
+            int profile=cf.profile;
+            cf.profile=(profile==AlertProfile.VIBRA)? 
+                cf.lastProfile : AlertProfile.VIBRA;
+            cf.lastProfile=profile;
+            
+            updateTitle();
+            redraw();
+        }
+        
+        if (keyCode==cf.keyOfflines /* || keyCode==MOTOE680_REALPLAYER CONFLICT WITH ALCATEL. (platform=J2ME) 
+         TODO: redifine keyOfflines*/) {
+            cf.showOfflineContacts=!cf.showOfflineContacts;
+            reEnumRoster();
+        }
+
+       	if (keyCode==KEY_NUM3) new ActiveContacts(display, null);
+
+        if (keyCode==cf.keyHide && cf.allowMinimize) {
+            Bombus.getInstance().hideApp(true);
+        }
+        
+        if (keyCode==KEY_NUM9) toggleLight();
+    }
+
 
     public void userKeyPressed(int keyCode){
         if (keyCode==KEY_NUM0 /* || keyCode==MOTOE680_REALPLAYER  CONFLICT WITH ALCATEL. (platform=J2ME)*/) {
@@ -1332,6 +1367,17 @@ public class Roster
         if (keyCode=='3') searchGroup(-1);
 	if (keyCode=='9') searchGroup(1);
         
+    }
+    private void toggleLight() {
+        if (Version.getPlatformName().startsWith("SIE-S75")) {
+            if (blState!=1){
+                com.siemens.mp.game.Light.setLightOn();
+                blState=1;
+            } else {
+                com.siemens.mp.game.Light.setLightOff();
+                blState=Integer.MAX_VALUE;
+            }
+        }
     }
     
     public void logoff(){
@@ -1414,40 +1460,6 @@ public class Roster
     
     protected void showNotify() { super.showNotify(); countNewMsgs(); }
     
-    
-    protected void keyRepeated(int keyCode) {
-        super.keyRepeated(keyCode);
-        if (kHold==keyCode) return;
-        //kHold=keyCode;
-        kHold=keyCode;
-        
-        if (keyCode==cf.keyLock) 
-            new KeyBlock(display, getTitleItem(), cf.keyLock, cf.ghostMotor); 
-
-        if (keyCode==cf.keyVibra || keyCode==MOTOE680_FMRADIO /* TODO: redefine keyVibra*/) {
-            // swap profiles
-            int profile=cf.profile;
-            cf.profile=(profile==AlertProfile.VIBRA)? 
-                cf.lastProfile : AlertProfile.VIBRA;
-            cf.lastProfile=profile;
-            
-            updateTitle();
-            redraw();
-        }
-        
-        if (keyCode==cf.keyOfflines /* || keyCode==MOTOE680_REALPLAYER CONFLICT WITH ALCATEL. (platform=J2ME) 
-         TODO: redifine keyOfflines*/) {
-            cf.showOfflineContacts=!cf.showOfflineContacts;
-            reEnumRoster();
-        }
-
-       	if (keyCode==KEY_NUM3) new ActiveContacts(display, null);
-
-        if (keyCode==cf.keyHide && cf.allowMinimize) {
-            Bombus.getInstance().hideApp(true);
-        }
-    }
-
     private void searchGroup(int direction){
 	synchronized (vContacts) {
 	    int size=vContacts.size();
