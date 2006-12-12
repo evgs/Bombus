@@ -58,18 +58,18 @@ public class AffiliationItem extends IconTextElement{
         for (int index=1; index<5; index++) {
             if (affiliation.equals(getAffiliationName(index))) this.affiliation=index;
         }
-        reason="";
     }
     
     public AffiliationItem(JabberDataBlock item) {
         this(item.getAttribute("jid"), item.getAttribute("affiliation"));
         reason=item.getChildBlockText("reason");
+        if (reason.length()==0) reason=null;
     }
     
     
     public int getColor() { return Colors.LIST_INK; }
     
-    public String toString() { return (reason.length()!=0)? jid+" *" : jid; }
+    public String toString() { return (reason!=null)? jid+" *" : jid; }
     
     public int compare(IconTextElement temp2) {
         return jid.compareTo( ((AffiliationItem)temp2).jid);

@@ -94,7 +94,10 @@ public class Affiliations
         try {
             AffiliationItem item=(AffiliationItem)getFocusedObject();
             new AffiliationModify(display, room, item.jid, 
-                    AffiliationItem.getAffiliationName(item.affiliation), item.reason);
+                    AffiliationItem.getAffiliationName(
+                        item.affiliation), 
+                        (item.reason==null)? "":item.reason
+                    );
         } catch (Exception e) { }
     }
     
