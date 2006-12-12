@@ -1077,7 +1077,7 @@ public class Roster
                     
                 } /* if (muc) */ catch (Exception e) { /*e.printStackTrace();*/ }
                 else {
-                    Contact c=getContact(m.from, false); 
+                    Contact c=getContact(from, false); 
                     if (c==null) return; // drop presence
                     
                     messageStore(c, m);

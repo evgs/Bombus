@@ -49,9 +49,9 @@ public class Msg //implements MessageList.Element
     }
     
     public void onSelect(){}
-    public String getMsgHeader(){
+    /*public String getMsgHeader(){
         return getTime()+from; 
-    }
+    }*/
     public String getTime(){
         return '['+Time.timeString(dateGmt)+"] "; 
     }
