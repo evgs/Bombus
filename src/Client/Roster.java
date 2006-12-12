@@ -288,8 +288,8 @@ public class Roster
         error.addCommand(new Command(SR.MS_OK, Command.BACK, 1));
         display.setCurrent(error, display.getCurrent());
          */
-        Msg m=new Msg(Msg.MESSAGE_TYPE_OUT, myJid.getJid(), "Error", s);
-        messageStore(m);
+        Msg m=new Msg(Msg.MESSAGE_TYPE_OUT, "local", "Error", s);
+        messageStore(selfContact(), m);
     }
     
     public void beginPaint() {
@@ -1032,14 +1032,12 @@ public class Roster
                         highlite |= body.indexOf(myNick)>-1;
                         //TODO: custom highliting dictionary
                     } 
+                    m.from=name;
                 }
                 m.setHighlite(highlite);  
-                messageStore(m);
-                //Contact c=getContact(from);
-                //c.msgs.addElement(m);
-                //countNewMsgs();
-                //setFocusTo(c);
-                //redraw();
+                
+                if (c.getGroupType()!=Groups.TYPE_NOT_IN_LIST || cf.notInList)
+                    messageStore(c, m);
             }
             // присутствие
 
@@ -1066,11 +1064,11 @@ public class Roster
                     from=from.substring(0, from.indexOf('/'));
                     Msg chatPresence=new Msg(
                            Msg.MESSAGE_TYPE_PRESENCE,
-                           from,
+                           "prs",
                            null,
                            c.processPresence(xmuc, pr) );
                     if (cf.storeConfPresence) {
-                        messageStore(chatPresence);
+                        messageStore(c, chatPresence);
                     }
                     
                     c.addMessage(m);
