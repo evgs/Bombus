@@ -140,7 +140,7 @@ public class MessageEdit
         if (c==cmdSubj) {
             if (body==null) return;
             subj=body;
-            body="/me has set the topic to: "+subj;
+            body=null; //"/me has set the topic to: "+subj;
         }
         // message/composing sending
         destroyView();
@@ -153,7 +153,7 @@ public class MessageEdit
         Roster r=StaticData.getInstance().roster;
         int comp=0; // composing event off
         
-        if (body!=null /*|| subj!=null*/ ) {
+        if (body!=null || subj!=null ) {
             String from=StaticData.getInstance().account.toString();
             Msg msg=new Msg(Msg.MESSAGE_TYPE_OUT,from,subj,body);
             // не добавляем в групчат свои сообщения
@@ -168,7 +168,7 @@ public class MessageEdit
         if (!Config.getInstance().eventComposing) comp=0;
         
         try {
-            if (body!=null /*|| subj!=null*/ || comp>0)
+            if (body!=null || subj!=null || comp>0)
             r.sendMessage(to, body, subj, comp);
         } catch (Exception e) {
             e.printStackTrace();

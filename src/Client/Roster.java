@@ -107,10 +107,10 @@ public class Roster
     private Config cf;
     private StaticData sd=StaticData.getInstance();
 
-//#if (MOTOROLA_BACKLIGHT)
+// #if (MOTOROLA_BACKLIGHT)
     private int blState=Integer.MAX_VALUE;
 
-//#endif
+// #endif
 
 //#if SASL
     private String token;
@@ -731,7 +731,7 @@ public class Roster
                 subject, 
                 groupchat 
         );
-        if (groupchat && body==null /*&& subject==null*/) return;
+        if (groupchat && body==null && subject==null) return;
         if (composingState>0) {
             JabberDataBlock event=new JabberDataBlock("x", null,null);
             event.setNameSpace("jabber:x:event");
@@ -955,7 +955,8 @@ public class Roster
                         
                         // subject
                         if (subj!=null) {
-                            if (body==null) body=subj;
+                            if (body==null) 
+                                body=name+" has changed subject to: "+subj;
                             subj=null;
                             start_me=-1; // не добавлять /me к subj
                             highlite=true;
