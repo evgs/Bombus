@@ -111,12 +111,15 @@ public class Config {
     public boolean capsState=true;
     public int textWrap=0;
     
+    public boolean autoSubscribe=false;
+    
     // runtime values
     public boolean allowMinimize=false;
     public int profile=0;
     public int lastProfile=0;
     
     public boolean istreamWaiting;
+    
 
     // Singleton
     private static Config instance;
@@ -232,6 +235,8 @@ public class Config {
             capsState=inputStream.readBoolean();
 	    
 	    textWrap=inputStream.readInt();
+            
+            autoSubscribe=inputStream.readBoolean();
 	    
 	    inputStream.close();
 	} catch (Exception e) {
@@ -302,6 +307,8 @@ public class Config {
             outputStream.writeBoolean(capsState); 
 	    
 	    outputStream.writeInt(textWrap);
+            
+            outputStream.writeBoolean(autoSubscribe);
 	    
 	} catch (Exception e) { e.printStackTrace(); }
 	

@@ -22,6 +22,7 @@ public class SubscriptionEdit extends Form implements CommandListener{
     Command cmdAskSubscr=new Command(SR.MS_ASK_SUBSCRIPTION, Command.SCREEN, 1);
     Command cmdGrantSubscr=new Command(SR.MS_GRANT_SUBSCRIPTION, Command.SCREEN, 2);
     Command cmdSubscrDel=new Command(SR.MS_SUBSCR_REMOVE, Command.SCREEN, 3);
+    //Command cmdUnsubscr=new Command(SR.MS_UNSUBSCRIBE, Command.SCREEN);
     Command cmdBack=new Command(SR.MS_CANCEL, Command.BACK, 99);
     
     Roster r=StaticData.getInstance().roster;

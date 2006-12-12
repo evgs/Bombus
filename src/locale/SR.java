@@ -284,12 +284,13 @@ public class SR {
     public final static String MS_NEW_BOOKMARK="New conference";
 
     public final static String MS_ROOT="Root";
+
+    public final static String MS_DECLINE="Decline";
+    public final static String MS_AUTH_NEW="Authorize new contacts";
+    public final static String MS_AUTH_AUTO="[auto-subscribe]";
     
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
-
-
-
 
 
     private SR() { }

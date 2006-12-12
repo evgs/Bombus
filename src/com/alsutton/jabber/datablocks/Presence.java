@@ -89,7 +89,10 @@ public class Presence extends JabberDataBlock
               presenceCode=PRESENCE_OFFLINE;
               text.append("offline");
           };
-          if (type.equals("subscribe")) text.append(SUBSCRIBE); 
+          if (type.equals("subscribe")) {
+              presenceCode=PRESENCE_AUTH_ASK;
+              text.append(SUBSCRIBE);
+          } 
           if (type.equals("subscribed")) text.append(SUBSCRIBED);
           if (type.equals("unsubscribed")) text.append(UNSUBSCRIBED);
           
@@ -185,6 +188,7 @@ public class Presence extends JabberDataBlock
   public final static int PRESENCE_ERROR=RosterIcons.ICON_ERROR_INDEX;
   public final static int PRESENCE_TRASH=RosterIcons.ICON_ERROR_INDEX+1;
   public final static int PRESENCE_AUTH=-1;
+  public final static int PRESENCE_AUTH_ASK=-2;
   
   public final static String PRS_OFFLINE="unavailable";
   public final static String PRS_ERROR="error";
