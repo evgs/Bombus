@@ -874,9 +874,9 @@ public class Roster
                             querysign=false;
                         }
                         
-                        Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, SR.MS_CLIENT_INFO, body);
+                        Msg m=new Msg(Msg.MESSAGE_TYPE_IN, "ver", SR.MS_CLIENT_INFO, body);
                         if (body!=null) { 
-                            messageStore(m);
+                            messageStore( getContact(from, false), m);
                             redraw();
                         }
                     }
@@ -1186,16 +1186,6 @@ public class Roster
             case AlertProfile.SOUND: notify=new EventNotify(display, type, message, 0,           blFlashEn); break;
         }
         if (notify!=null) notify.startNotify();
-    }
-    
-    
-    Contact messageStore(Msg message){
-        Contact c=getContact(message.from, true);
-        if (c.getGroupType()==Groups.TYPE_NOT_IN_LIST) 
-            if (!cf.notInList) return c;
-
-        messageStore(c, message);
-        return c;
     }
 
     private void focusToContact(final Contact c, boolean force) {
