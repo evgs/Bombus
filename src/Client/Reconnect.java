@@ -34,7 +34,9 @@ public class Reconnect extends AlertBox implements Runnable{
         alert.setTimeout(Alert.FOREVER);
         
         timer=new Gauge(null, false, WAITTIME, 1);
+//#if (!MIDP1)
         alert.setIndicator(timer);
+//#endif
         alert.addCommand(cmdCancel);
         
         new Thread(this).start();
