@@ -39,9 +39,9 @@ public class RosterToolsMenu
         addItem("File Transfers", 5);
 //#endif
         
-        /*
-        addItem("ArchiveDump", 10);
-         */
+        
+        addItem("Break connection", 10);
+        
         
         attachDisplay(display);
     }
@@ -79,11 +79,11 @@ public class RosterToolsMenu
                 new io.file.transfer.TransferManager(display);
                 return;
 //#endif
-            /*
+            
             case 10:
-                new archive.DebugDumpArchive(display);
+                StaticData.getInstance().roster.connectionTerminated(new Exception("Simulated break"));
                 return;
-             */
+            
         }
     }
 }

@@ -22,17 +22,17 @@ import javax.microedition.lcdui.Image;
  */
 public class AlertBox implements CommandListener{
     
-    private Display display;
-    private Displayable next;
-    private Alert alert;
-    private Command cmdOk=new Command("OK", Command.OK, 1);
+    protected Display display;
+    protected Displayable next;
+    protected Alert alert;
+    protected Command cmdOk=new Command("OK", Command.OK, 1);
     /** Creates a new instance of AlertBox */
     public AlertBox(String title, String text, Image image, Display display, Displayable nextDisplayable) {
         alert=new Alert(title, text, image, null);
         this.display=display;
         next=(nextDisplayable==null)? display.getCurrent() : nextDisplayable;
         
-        alert.setTimeout(Alert.FOREVER);
+        alert.setTimeout(15000); //15 seconds
         alert.addCommand(cmdOk);
         alert.setCommandListener(this);
         display.setCurrent(alert);
