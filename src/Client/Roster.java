@@ -1069,7 +1069,7 @@ public class Roster
                            null,
                            c.processPresence(xmuc, pr) );
                     if (cf.storeConfPresence) {
-                        messageStore(c, chatPresence);
+                        messageStore(getContact(from, false), chatPresence);
                     }
                     
                     c.addMessage(m);
@@ -1079,7 +1079,7 @@ public class Roster
                 } /* if (muc) */ catch (Exception e) { /*e.printStackTrace();*/ }
                 else {
                     Contact c=getContact(from, false); 
-                    if (c==null) return; // drop presence
+                    //if (c==null) return; drop presence
                     
                     messageStore(c, m);
                     
