@@ -38,7 +38,7 @@ import vcard.vCardForm;
  *
  * @author EvgS
  */
-public class RosterItemActions extends Menu{
+public class RosterItemActions extends Menu implements YesNoAlert.YesNoListener{
     
     Object item;
     
@@ -211,13 +211,7 @@ public class RosterItemActions extends Menu{
                     new SubscriptionEdit(display, c);
                     return; //break;
                 case 4:
-                    new YesNoAlert(display, SR.MS_DELETE_ASK, c.getNickJid(), null){
-                        public void yes() {
-                            roster.deleteContact((Contact)item);
-                            display.setCurrent(roster);
-                            //destroyView();
-                        };
-                    };
+                    new YesNoAlert(display, SR.MS_DELETE_ASK, c.getNickJid(), this);
                     return;
                     //new DeleteContact(display,c);
                     //break;
@@ -378,5 +372,9 @@ public class RosterItemActions extends Menu{
             destroyView();
         } catch (Exception e) { e.printStackTrace();  }
     }
-        
+
+    public void ActionConfirmed() {
+        roster.deleteContact((Contact)item);
+        display.setCurrent(roster);
+    }
 }

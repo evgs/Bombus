@@ -32,6 +32,7 @@ public class AlertBox implements CommandListener{
         this.display=display;
         next=(nextDisplayable==null)? display.getCurrent() : nextDisplayable;
         
+        alert.setTimeout(Alert.FOREVER);
         alert.addCommand(cmdOk);
         alert.setCommandListener(this);
         display.setCurrent(alert);
