@@ -3250,9 +3250,10 @@ syslog_msg: true
   + message type="error" handling;
 
 (894)
-  * Actions>Owners fixed
-  --
   * Исправлено Actions>Owners - удаление owners
+  --
+  * Actions>Owners fixed
+  * no empty balloons if no ban reason
 
 13.12.2006
 (902)
@@ -3272,10 +3273,23 @@ syslog_msg: true
     incoming "subscribe" request
   + ContactMessageList>Decline - command to send "unsubscribed" to incoming "subscribe" 
     request.
-------------------------------------------------------------------------
-r895 | evgs | 2006-12-12 13:43:50 +0500 (Вт, 12 дек 2006) | 1 line
 
-no empty balloons if no ban reason
+14.12.2006
+(908)
+  + Начальный вариант выполнения повторного соединения при обрывах.
+    Реконнект производится при всех исключениях, кроме SecurityException (приложению запрещён 
+    доступ в сеть). после каждого обрыва выполняется 5 попыток реконнекта. интервал между попытками -
+    5 секунд. все значения пока жёстко заданы, реконнект в настройках не выключается.
+    реконнект может быть отменён в течение 5-секундной паузы.
+  + RosterToolsMenu: "Break Connection" - команда присутствует временно для имитации обрыва связи
+  * AlertBox.java - таймаут по умолчанию - 15 секунд. (окна ошибки и просмотра инфо о файле)
+  * конференции - вернулись сообщения о присутствии, пропавшие в r902
+  --
+  + Reconnect.java - draft.
+  + RosterToolsMenu: "Break Connection" for debug reasons only. starts reconnection
+  * src/ui/AlertBox.java - default timeout is 15 seconds now
+  * MUC: presenses fixed (after r902)
+
 -------------------
   known issues:
 
