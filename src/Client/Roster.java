@@ -841,6 +841,8 @@ public class Roster
                 String id=(String) data.getAttribute("id");
                 
                 if (id!=null) {
+                    if (id.startsWith("ping")) theStream.pingSent=false;
+                    
                     if (id.startsWith("nickvc")) {
                         VCard vc=new VCard(data);//.getNickName();
                         String from=vc.getJid();

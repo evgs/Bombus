@@ -56,7 +56,7 @@ public class JabberStream implements XMLEventListener, Runnable {
     
     private String server; // for ping
 
-    boolean pingSent;
+    public boolean pingSent;
     
     public boolean loggedIn;
     
@@ -326,16 +326,33 @@ public class JabberStream implements XMLEventListener, Runnable {
     
     private class TimerTaskKeepAlive extends TimerTask{
         private Timer t;
+        private int verifyCtr;
+        private int period;
         public TimerTaskKeepAlive(int periodSeconds){
             t=new Timer();
-            long period=periodSeconds*1000; // milliseconds
-            t.schedule(this, period, period);
+            this.period=periodSeconds;
+            long periodRun=periodSeconds*1000; // milliseconds
+            t.schedule(this, periodRun, periodRun);
         }
         public void run() {
             try {
                 System.out.println("Keep-Alive");
                 sendKeepAlive();
-            } catch (Exception e) { e.printStackTrace(); }
+                
+                verifyCtr+=period;
+                if (verifyCtr>=200) {
+                    verifyCtr=0;
+                    if (pingSent) {
+                        dispatcher.broadcastTerminatedConnection(new Exception("Ping Timeout"));
+                    } else {
+                        System.out.println("Ping myself");
+                        ping();
+                    }
+                }
+            } catch (Exception e) { 
+                dispatcher.broadcastTerminatedConnection(e);
+                e.printStackTrace(); 
+            }
         }
 	
         public void destroyTask(){
@@ -357,6 +374,7 @@ public class JabberStream implements XMLEventListener, Runnable {
         }
         public void run(){
             try {
+                Thread.sleep(100);
                 StringBuffer buf=new StringBuffer();
                 data.constructXML(buf);
                 sendBuf( buf );
