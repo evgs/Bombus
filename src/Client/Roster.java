@@ -623,6 +623,8 @@ public class Roster
                         c.status=Presence.PRESENCE_OFFLINE; // keep error & unknown
                 }
             }
+        } else {
+            lastOnlineStatus=myStatus;
         }
         //Vector v=sd.statusList;//StaticData.getInstance().statusList;
         //ExtendedStatus es=null;
@@ -1261,12 +1263,11 @@ public class Roster
         error=e.getClass().getName()+"\n"+e.getMessage();
         e.printStackTrace();
 
-        lastStatus=myStatus;
         try {
             sendPresence(Presence.PRESENCE_OFFLINE);
         } catch (Exception e2) { }
 
-        if (e instanceof SecurityException || reconnectCount>maxReconnect) {
+        if (e instanceof SecurityException || reconnectCount>=maxReconnect) {
             errorLog(error);
         } else {
             reconnectCount++;
@@ -1274,9 +1275,9 @@ public class Roster
             new Reconnect(title, error, display);
         }
     }
-    private int lastStatus;
+    private int lastOnlineStatus;
     public void doReconnect() {
-        sendPresence(lastStatus);
+        sendPresence(lastOnlineStatus);
     }
     
     //private VList l;
