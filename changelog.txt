@@ -3309,15 +3309,13 @@ syslog_msg: true
   + check for connection alive - periodically sending jabber:iq:version to self-side
     connection will be reinitialized if there will be no answer. 
     WARNING! privacy lists may affect this function
-------------------------------------------------------------------------
-r911 | evgs | 2006-12-14 15:49:25 +0500 (Чт, 14 дек 2006) | 1 line
 
-double reconnection removed
-------------------------------------------------------------------------
-r910 | evgs | 2006-12-14 15:15:19 +0500 (Чт, 14 дек 2006) | 2 lines
-
-fixed reconnection if connection broken on login
-fixed reconnection counter
+(921)
+  * исправлена ошибка сворачивания конференции в процессе входа
+  * исправлена ошибка смены ника на ник, находящийся в комнате
+  --
+  * collapsing conference while entering room
+  * changing nickname to already used
 -------------------
   known issues:
 
