@@ -798,7 +798,10 @@ public class Roster
 //#if (FILE_IO && FILE_TRANSFER)
         theStream.addBlockListener(TransferDispatcher.getInstance());
 //#endif
-
+        
+        //enable keep-alive packets
+        theStream.startKeepAliveTask();
+        
          theStream.loggedIn=true;
          reconnectCount=0;
         // залогинились. теперь, если был реконнект, то просто пошлём статус

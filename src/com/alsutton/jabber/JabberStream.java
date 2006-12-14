@@ -102,7 +102,6 @@ public class JabberStream implements XMLEventListener, Runnable {
         
         initiateStream(server, xmppV1);
         
-        keepAlive=new TimerTaskKeepAlive(Config.getInstance().keepAlive);
     }
 
     public void initiateStream(final String server, final boolean xmppV1) throws IOException {
@@ -116,13 +115,16 @@ public class JabberStream implements XMLEventListener, Runnable {
         header.append( '>' );
         send(header.toString());
     }
+
     
+    public void startKeepAliveTask(){
+        keepAlive=new TimerTaskKeepAlive(Config.getInstance().keepAlive);
+    }
     
     /**
      * The threads run method. Handles the parsing of incomming data in its
      * own thread.
      */
-    
     public void run() {
         try {
             XMLParser parser = new XMLParser( this );
