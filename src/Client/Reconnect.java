@@ -44,7 +44,10 @@ public class Reconnect extends AlertBox implements Runnable{
 
     public void commandAction(Command command, Displayable displayable) {
         if (command==cmdOk) {
-            if (isRunning) StaticData.getInstance().roster.doReconnect();
+            if (isRunning) {
+                isRunning=false;
+                StaticData.getInstance().roster.doReconnect();
+            }
         }
         isRunning=false;
         display.setCurrent(next);
