@@ -61,6 +61,10 @@ public class MucContact extends Contact{
             try {
                 errCode=Integer.parseInt(mucErrCode);
             } catch (Exception e) { return "Unsupported MUC error"; }
+            ConferenceGroup grp=(ConferenceGroup)getGroup();
+            if (status>=Presence.PRESENCE_OFFLINE) testMeOffline();
+            /*grp.getConference().setStatus(Presence.PRESENCE_OFFLINE);*/
+            setStatus(presenceType);
             switch (errCode) {
                 case 401: return "Password required";
                 case 403: return "You are banned in this room";
@@ -142,16 +146,17 @@ public class MucContact extends Contact{
                     b.append("(");
                     b.append(reason);
                     b.append(")");
-                    testMeKicked();
+                    testMeOffline();
                     break;
             
                 case 322:
                     b.append(SR.MS_HAS_BEEN_KICKED_BECAUSE_ROOM_BECAME_MEMBERS_ONLY);
-                    testMeKicked();
+                    testMeOffline();
                     break;
                     
                 default:
                 b.append(SR.MS_HAS_LEFT_CHANNEL);
+                testMeOffline();
             } 
                 
         } else {
@@ -187,7 +192,7 @@ public class MucContact extends Contact{
 //toon
         }
         
-        
+        setStatus(presenceType);
         return b.toString();
     }
     
@@ -205,9 +210,9 @@ public class MucContact extends Contact{
         return (tip.length()==0)? null:tip.toString();
     }
     
-    void testMeKicked(){
+    void testMeOffline(){
         ConferenceGroup group=(ConferenceGroup)getGroup();
         if ( group.getSelfContact() == this ) 
-            StaticData.getInstance().roster.leaveRoom(0,getGroup());
+            StaticData.getInstance().roster.roomOffline(group);
     }
 }

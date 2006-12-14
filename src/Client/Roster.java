@@ -371,7 +371,7 @@ public class Roster
         
         if (g instanceof ConferenceGroup) {
             ConferenceGroup cg= (ConferenceGroup) g;
-            if (cg.getSelfContact().status==Presence.PRESENCE_OFFLINE)
+            if (cg.getSelfContact().status>=Presence.PRESENCE_OFFLINE)
                 cg.getConference().setStatus(Presence.PRESENCE_OFFLINE);
         }
         //int gi=g.index;
@@ -385,7 +385,7 @@ public class Roster
                 Contact contact=(Contact)hContacts.elementAt(index);
                 if (contact.inGroup(g)) {
                     if ( contact.origin>Contact.ORIGIN_ROSTERRES
-                         && contact.status==Presence.PRESENCE_OFFLINE
+                         && contact.status>=Presence.PRESENCE_OFFLINE
                          && contact.getNewMsgsCount()==0 )
                         hContacts.removeElementAt(index);
                     else { 
@@ -488,7 +488,7 @@ public class Roster
             groups.addGroup(grp=new ConferenceGroup(roomJid, room) );
         grp.password=joinPassword;
         
-        MucContact c=findMucContact( new Jid(from.substring(0, rp)) );
+        MucContact c=findMucContact( new Jid(roomJid) );
         
         if (c==null) {
             c=new MucContact(room, roomJid);
@@ -511,7 +511,7 @@ public class Roster
         if (c==null)
             c=findMucContact( new Jid(from) );
 
-        if (c!=null) if (c.status==Presence.PRESENCE_OFFLINE) { 
+        if (c!=null) if (c.status>=Presence.PRESENCE_OFFLINE) { 
             c.nick=nick;
             c.jid.setJid(from);
             c.bareJid=from;
@@ -1085,7 +1085,7 @@ public class Roster
                     
                     c.addMessage(m);
                     c.priority=pr.getPriority();
-                    if (ti>=0) c.setStatus(ti);
+                    //if (ti>=0) c.setStatus(ti);
                     
                 } /* if (muc) */ catch (Exception e) { /*e.printStackTrace();*/ }
                 else {
@@ -1473,12 +1473,14 @@ public class Roster
 	ConferenceGroup confGroup=(ConferenceGroup)group;
 	Contact myself=confGroup.getSelfContact();
         sendPresence(myself.getJid(), "unavailable", null);
-	
+        //roomOffline(group);
+    }
+
+    public void roomOffline(final Group group) {
         for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
             Contact contact=(Contact)e.nextElement();
-            if (contact.inGroup(group)) contact.setStatus(Presence.PRESENCE_OFFLINE); 
+            if (contact.inGroup(group)) contact.setStatus(Presence.PRESENCE_OFFLINE);
         }
-
     }
     
     protected void showNotify() { super.showNotify(); countNewMsgs(); }
