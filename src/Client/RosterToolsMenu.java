@@ -40,7 +40,7 @@ public class RosterToolsMenu
 //#endif
         
         
-        addItem("Break connection", 10);
+        /*addItem("Break connection", 10);*/
         
         
         attachDisplay(display);
@@ -80,9 +80,9 @@ public class RosterToolsMenu
                 return;
 //#endif
             
-            case 10:
-                StaticData.getInstance().roster.connectionTerminated(new Exception("Simulated break"));
-                return;
+            //case 10:
+            //    StaticData.getInstance().roster.connectionTerminated(new Exception("Simulated break"));
+            //    return;
             
         }
     }
