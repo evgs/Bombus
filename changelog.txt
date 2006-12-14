@@ -3290,6 +3290,34 @@ syslog_msg: true
   * src/ui/AlertBox.java - default timeout is 15 seconds now
   * MUC: presenses fixed (after r902)
 
+15.12.2006
+(916)
+  * Многочисленные исправления ошибок входа-выхода в конференциях
+  - удалена отладочная команда "Break Connection"
+  * перестают посылаться события Composing контакту, ушедшему в оффлайн
+  * автоматически отключается иконка Composing у контакта, изменившего статус
+  * поддержка соединения keep-alive начинает работать после успешного логина
+  + активная проверка живого соединения (in-band ping сервера), реконнект при
+    обнаружении обрыва. 
+    Внимание! Privacy Lists могут повлиять на работу этой функции.
+  --
+  * Multiple conference presence/leave/reenter fixes
+  - "break connection" removed
+  * status=offine always resets acceptComposing
+  * any status resets composing icon
+  * keep-alive enabled only after success login
+  + check for connection alive - periodically sending jabber:iq:version to self-side
+    connection will be reinitialized if there will be no answer. 
+    WARNING! privacy lists may affect this function
+------------------------------------------------------------------------
+r911 | evgs | 2006-12-14 15:49:25 +0500 (Чт, 14 дек 2006) | 1 line
+
+double reconnection removed
+------------------------------------------------------------------------
+r910 | evgs | 2006-12-14 15:15:19 +0500 (Чт, 14 дек 2006) | 2 lines
+
+fixed reconnection if connection broken on login
+fixed reconnection counter
 -------------------
   known issues:
 
