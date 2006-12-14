@@ -55,7 +55,7 @@ public class InviteForm implements CommandListener{
         for (Enumeration c=StaticData.getInstance().roster.getHContacts().elements(); c.hasMoreElements(); ) {
             try {
                 MucContact mc=(MucContact)c.nextElement();
-                if (mc.origin==Contact.ORIGIN_GROUPCHAT && mc.status==Presence.PRESENCE_ONLINE)
+                if (mc.origin==Contact.ORIGIN_GROUPCHAT && mc.getStatus()==Presence.PRESENCE_ONLINE)
                     conferenceList.append(mc.toString(), null);
             } catch (Exception e) {}
         }

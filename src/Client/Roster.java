@@ -372,7 +372,7 @@ public class Roster
         if (g instanceof ConferenceGroup) {
             ConferenceGroup cg= (ConferenceGroup) g;
             if (cg.getSelfContact().status==Presence.PRESENCE_OFFLINE)
-                cg.getConference().status=Presence.PRESENCE_OFFLINE;
+                cg.getConference().setStatus(Presence.PRESENCE_OFFLINE);
         }
         //int gi=g.index;
 
@@ -494,7 +494,7 @@ public class Roster
             c=new MucContact(room, roomJid);
             addContact(c);
         }
-        c.status=Presence.PRESENCE_ONLINE;
+        c.setStatus(Presence.PRESENCE_ONLINE);
         c.transport=RosterIcons.ICON_GROUPCHAT_INDEX; 
         c.bareJid=from;
         c.origin=Contact.ORIGIN_GROUPCHAT;
@@ -580,7 +580,7 @@ public class Roster
             // здесь jid с новым ресурсом
             if (c.origin==Contact.ORIGIN_ROSTER) {
                 c.origin=Contact.ORIGIN_ROSTERRES;
-                c.status=Presence.PRESENCE_OFFLINE;
+                c.setStatus(Presence.PRESENCE_OFFLINE);
                 c.jid=J;
                 //System.out.println("add resource");
             } else {
@@ -620,7 +620,7 @@ public class Roster
                 for (Enumeration e=hContacts.elements(); e.hasMoreElements();){
                     Contact c=(Contact)e.nextElement();
                     //if (c.status<Presence.PRESENCE_UNKNOWN)
-                        c.status=Presence.PRESENCE_OFFLINE; // keep error & unknown
+                        c.setStatus(Presence.PRESENCE_OFFLINE); // keep error & unknown
                 }
             }
         } else {
@@ -657,7 +657,7 @@ public class Roster
             }
         }
         Contact c=selfContact();
-        c.status=myStatus;
+        c.setStatus(myStatus);
         sort(hContacts);
         
         reEnumRoster();
@@ -1085,7 +1085,7 @@ public class Roster
                     
                     c.addMessage(m);
                     c.priority=pr.getPriority();
-                    if (ti>=0) c.status=ti;
+                    if (ti>=0) c.setStatus(ti);
                     
                 } /* if (muc) */ catch (Exception e) { /*e.printStackTrace();*/ }
                 else {
@@ -1102,9 +1102,9 @@ public class Roster
                     }
                    
                     c.priority=pr.getPriority();
-                    if (ti>=0) c.status=ti;
-                    if (ti==Presence.PRESENCE_OFFLINE) c.acceptComposing=false;
-                    c.setComposing(false);
+                    if (ti>=0) c.setStatus(ti);
+                    /*if (ti==Presence.PRESENCE_OFFLINE) c.acceptComposing=false;
+                    c.setComposing(false);*/
                 }
 		sort(hContacts);
                 reEnumRoster();
@@ -1476,7 +1476,7 @@ public class Roster
 	
         for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
             Contact contact=(Contact)e.nextElement();
-            if (contact.inGroup(group)) contact.status=Presence.PRESENCE_OFFLINE; 
+            if (contact.inGroup(group)) contact.setStatus(Presence.PRESENCE_OFFLINE); 
         }
 
     }
@@ -1504,7 +1504,8 @@ public class Roster
 	for (Enumeration e=hContacts.elements();e.hasMoreElements();) {
 	    Contact c2=(Contact)e. nextElement();
 	    if (c.jid.equals(c2. jid,false)) {
-		c2.status=c2.offline_type=Presence.PRESENCE_TRASH;
+		c2.setStatus(Presence.PRESENCE_TRASH);
+                c2.offline_type=Presence.PRESENCE_TRASH;
 	    }
 	}
 	
