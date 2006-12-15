@@ -496,7 +496,7 @@ public class Roster
             addContact(c);
         }
         
-        // change nick
+        // change nick if already in room
         if (c.getStatus()==Presence.PRESENCE_ONLINE) return grp;
         
         c.setStatus(Presence.PRESENCE_ONLINE);
@@ -510,18 +510,28 @@ public class Roster
         grp.setConference(c);
         c.setGroup(grp);
         
-        // creating self-contact
         String nick=from.substring(rp+1);
+        
+        // old self-contact
         c=grp.getSelfContact();
-        if (c==null)
-            c=findMucContact( new Jid(from) );
+        
+        // check for existing entry - it may be our old self-contact
+        // or another contact whose nick we pretend
+        MucContact foundInRoom = findMucContact( new Jid(from) );
+        if (foundInRoom!=null) {
+            //choose found contact instead of old self-contact
+            c=foundInRoom;
+        }
 
+        // if exists (and online - rudimentary check due to line 500)
+        // rename contact
         if (c!=null) if (c.status>=Presence.PRESENCE_OFFLINE) { 
             c.nick=nick;
             c.jid.setJid(from);
             c.bareJid=from;
         }
         
+        // create self-contact if no any candidates found
         if (c==null) {
             c=new MucContact(nick, from);
             addContact(c);
