@@ -3316,6 +3316,20 @@ syslog_msg: true
   --
   * collapsing conference while entering room
   * changing nickname to already used
+
+(922)
+  * не дублируютс€ элементы ростера конференции 
+    при следующей последовательности:
+    =¬ойти в комнату,
+    =выйти из комнаты
+    =попытатьс€ войти в комнату с ником участника, присутствующего
+     в конференции (момент раздвоени€, 2 элемента с одним ником)
+  --
+  * Avoiding duplicating MUC-roster entries:
+    =Enter room,
+    =leave room,
+    (duplicating here:) reenter with nick in-use and in current room
+
 -------------------
   known issues:
 
