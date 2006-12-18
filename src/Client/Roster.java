@@ -1050,11 +1050,11 @@ public class Roster
                 if (tStamp!=null) 
                     m.dateGmt=Time.dateIso8601(tStamp);
                 if (groupchat) {
-                    if (c.bareJid.equals(message.getFrom())) {
+                    ConferenceGroup mucGrp=(ConferenceGroup)c.getGroup();
+                    if (mucGrp.getSelfContact().getJid().equals(message.getFrom())) {
                         m.messageType=Msg.MESSAGE_TYPE_OUT;
                         m.unread=false;
                     } else {
-                        ConferenceGroup mucGrp=(ConferenceGroup)c.getGroup();
                         if (m.dateGmt<= ((ConferenceGroup)c.getGroup()).conferenceJoinTime) m.messageType=Msg.MESSAGE_TYPE_HISTORY;
                         // highliting messages with myNick substring
                         String myNick=mucGrp.getSelfContact().getName();
