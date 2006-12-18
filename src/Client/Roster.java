@@ -967,6 +967,8 @@ public class Roster
                 String name=null;
                 boolean groupchat=false;
                 
+                int mType=Msg.MESSAGE_TYPE_IN;
+                
                 try { // type=null
 		    String type=message.getTypeAttribute();
                     if (type.equals("groupchat")) {
@@ -997,6 +999,7 @@ public class Roster
                             default: body=SR.MS_ERROR_+message.getChildBlock("error")+"\n"+body;
                         }
                     }
+                    if (type.equals("headline")) mType=Msg.MESSAGE_TYPE_HEADLINE;
                 } catch (Exception e) {}
                 
                 try {
@@ -1043,7 +1046,7 @@ public class Roster
 
                 if (body==null) return;
                 
-                Msg m=new Msg(Msg.MESSAGE_TYPE_IN, from, subj, body);
+                Msg m=new Msg(mType, from, subj, body);
                 if (tStamp!=null) 
                     m.dateGmt=Time.dateIso8601(tStamp);
                 if (groupchat) {
