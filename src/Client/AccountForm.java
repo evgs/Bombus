@@ -88,7 +88,6 @@ class AccountForm implements CommandListener, ItemStateListener {
 	proxyPort = new NumberField(SR.PROXY_PORT, account.getProxyPort(), 0, 65535);	f.append(proxyPort);
         
         
-      	keepAlive=new NumberField(SR.MS_KEEPALIVE_PERIOD, account.keepAlivePeriod, 20, 600 ); f.append(keepAlive);
         keepAliveType=new ChoiceGroup(SR.MS_KEEPALIVE, ConstMIDP.CHOICE_POPUP);
         keepAliveType.append("by socket", null);
         keepAliveType.append("1 byte", null);
@@ -96,6 +95,8 @@ class AccountForm implements CommandListener, ItemStateListener {
         keepAliveType.append("version-ping", null);
         keepAliveType.setSelectedIndex(account.keepAliveType, true);
         f.append(keepAliveType);
+        
+      	keepAlive=new NumberField(SR.MS_KEEPALIVE_PERIOD, account.keepAlivePeriod, 20, 600 ); f.append(keepAlive);
 
 	resourcebox = new TextField(SR.MS_RESOURCE, account.getResource(), 32, TextField.ANY); f.append(resourcebox);
 	nickbox = new TextField(SR.MS_NICKNAME, account.getNickName(), 32, TextField.ANY); f.append(nickbox);
