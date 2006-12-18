@@ -85,14 +85,10 @@ public class MessageEdit
     public void insertText(String s, int caretPos) {
 
         String src=t.getString();
-        // MOTOROLA STUB
-        String platform=Info.Version.getPlatformName();
-        if (platform.startsWith("Moto"))
-            if (!platform.startsWith("Motorola-EZX")) caretPos=-1;
 
         StringBuffer sb=new StringBuffer(s);
         
-        if (caretPos<0) caretPos=src.length();
+        //if (caretPos<0) caretPos=src.length();
         
         if (caretPos>0) 
             if (src.charAt(caretPos-1)!=' ')   
@@ -118,6 +114,16 @@ public class MessageEdit
     
     public void commandAction(Command c, Displayable d){
         body=t.getString();
+        
+        int caretPos=t.getCaretPosition();
+        // +MOTOROLA STUB
+        String platform=Info.Version.getPlatformName();
+        if (platform.startsWith("Moto"))
+            if (!platform.startsWith("Motorola-EZX")) caretPos=-1;
+        // -MOTOROLA STUB
+        
+        if (caretPos<0) caretPos=body.length();
+        
         if (body.length()==0) body=null;
         
         if (c==cmdInsMe) { t.insert("/me ", 0); return; }
