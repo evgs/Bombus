@@ -25,7 +25,9 @@
  */
 
 package com.alsutton.jabber;
+import Client.Account;
 import Client.Config;
+import Client.StaticData;
 import io.Utf8IOStream;
 import java.io.*;
 import java.util.*;
@@ -118,7 +120,9 @@ public class JabberStream implements XMLEventListener, Runnable {
 
     
     public void startKeepAliveTask(){
-        keepAlive=new TimerTaskKeepAlive(Config.getInstance().keepAlive);
+        Account account=StaticData.getInstance().account;
+        if (account.keepAliveType==0) return;
+        keepAlive=new TimerTaskKeepAlive(account.keepAlivePeriod, account.keepAliveType);
     }
     
     /**
@@ -177,15 +181,20 @@ public class JabberStream implements XMLEventListener, Runnable {
      *
      * @param The data to send to the server.
      */
-    public void sendKeepAlive() throws IOException {
-        switch (Config.getInstance().keepAliveType){
-            case 2:
-                ping();
+    public void sendKeepAlive(int type) throws IOException {
+        switch (type){
+            case 3:
+                if (pingSent) {
+                    dispatcher.broadcastTerminatedConnection(new Exception("Ping Timeout"));
+                } else {
+                    System.out.println("Ping myself");
+                    ping();
+                }
                 break;
-            case 1:
+            case 2:
                 send("<iq/>");
                 break;
-            default:
+            case 1:
                 send(" ");
         }
     }
@@ -330,8 +339,10 @@ public class JabberStream implements XMLEventListener, Runnable {
         private Timer t;
         private int verifyCtr;
         private int period;
-        public TimerTaskKeepAlive(int periodSeconds){
+        private int type;
+        public TimerTaskKeepAlive(int periodSeconds, int type){
             t=new Timer();
+            this.type=type;
             this.period=periodSeconds;
             long periodRun=periodSeconds*1000; // milliseconds
             t.schedule(this, periodRun, periodRun);
@@ -339,18 +350,8 @@ public class JabberStream implements XMLEventListener, Runnable {
         public void run() {
             try {
                 System.out.println("Keep-Alive");
-                sendKeepAlive();
+                sendKeepAlive(type);
                 
-                verifyCtr+=period;
-                if (verifyCtr>=200) {
-                    verifyCtr=0;
-                    if (pingSent) {
-                        dispatcher.broadcastTerminatedConnection(new Exception("Ping Timeout"));
-                    } else {
-                        System.out.println("Ping myself");
-                        ping();
-                    }
-                }
             } catch (Exception e) { 
                 dispatcher.broadcastTerminatedConnection(e);
                 e.printStackTrace(); 

@@ -48,6 +48,9 @@ public class Account extends IconTextElement{
     private boolean enableProxy;
     private String proxyHostAddr;
     private int proxyPort;
+
+    public int keepAlivePeriod=200;
+    public int keepAliveType=1;
     
     //private String jid;
         
@@ -119,6 +122,11 @@ public class Account extends IconTextElement{
 //#                 a.sasl=false; inputStream.readBoolean();
 //#endif
 
+            if (version>=7) {
+                a.keepAliveType=inputStream.readInt();
+                a.keepAlivePeriod=inputStream.readInt();
+            }
+            
         } catch (IOException e) { e.printStackTrace(); }
             
         return (a.userName==null)?null:a;
@@ -167,7 +175,7 @@ public class Account extends IconTextElement{
         if (proxyHostAddr==null) proxyHostAddr="";
         
         try {
-            outputStream.writeByte(6);
+            outputStream.writeByte(7);
             outputStream.writeUTF(userName);
             outputStream.writeUTF(password);
             outputStream.writeUTF(server);
@@ -187,6 +195,9 @@ public class Account extends IconTextElement{
             outputStream.writeInt(proxyPort);
             
             outputStream.writeBoolean(sasl);
+            
+            outputStream.writeInt(keepAliveType);
+            outputStream.writeInt(keepAlivePeriod);
 	    
         } catch (IOException e) {
             e.printStackTrace();

@@ -32,8 +32,8 @@ public class Config {
     
     public final int vibraLen=getIntProperty("vibra_len",500);
     
-    public int keepAlive=200;//getIntProperty("keep_alive",200);
-    public int keepAliveType=getIntProperty("keep_alive_type",0);
+    //public int keepAlive=200;//getIntProperty("keep_alive",200);
+    //public int keepAliveType=getIntProperty("keep_alive_type",0);
 
     /*public int socketLINGER=getIntProperty("LINGER",-1);
     public int socketRCVBUF=getIntProperty("RCVBUF",-1);
@@ -216,7 +216,7 @@ public class Config {
 	    autoLogin=inputStream.readBoolean();
 	    autoJoinConferences=inputStream.readBoolean();
 	    
-	    keepAlive=inputStream.readInt();
+	    /*keepAlive=*/ inputStream.readInt();
 	    
 	    popupFromMinimized=inputStream.readBoolean();
 	    
@@ -288,7 +288,7 @@ public class Config {
 	    outputStream.writeBoolean(autoLogin);
 	    outputStream.writeBoolean(autoJoinConferences);
 	    
-	    outputStream.writeInt(keepAlive);
+	    outputStream.writeInt(0 /*keepAlive*/);
 
 	    outputStream.writeBoolean(popupFromMinimized);
 	    

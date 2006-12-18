@@ -42,6 +42,9 @@ class AccountForm implements CommandListener, ItemStateListener {
     private NumberField proxyPort;
     private ChoiceGroup register;
     
+    private NumberField keepAlive;
+    private ChoiceGroup keepAliveType;
+    
     Command cmdOk = new Command(SR.MS_OK /*"OK"*/, Command.OK, 1);
     Command cmdPwd = new Command(SR.MS_SHOWPWD, Command.SCREEN, 2);
     Command cmdCancel = new Command(SR.MS_BACK /*"Back"*/, Command.BACK, 99);
@@ -84,6 +87,16 @@ class AccountForm implements CommandListener, ItemStateListener {
 	proxyHost = new TextField(SR.MS_PROXY_HOST,   account.getProxyHostAddr(),   32, TextField.URL); f.append(proxyHost);
 	proxyPort = new NumberField(SR.PROXY_PORT, account.getProxyPort(), 0, 65535);	f.append(proxyPort);
         
+        
+      	keepAlive=new NumberField(SR.MS_KEEPALIVE_PERIOD, account.keepAlivePeriod, 20, 600 ); f.append(keepAlive);
+        keepAliveType=new ChoiceGroup(SR.MS_KEEPALIVE, ConstMIDP.CHOICE_POPUP);
+        keepAliveType.append("by socket", null);
+        keepAliveType.append("1 byte", null);
+        keepAliveType.append("<iq/>", null);
+        keepAliveType.append("version-ping", null);
+        keepAliveType.setSelectedIndex(account.keepAliveType, true);
+        f.append(keepAliveType);
+
 	resourcebox = new TextField(SR.MS_RESOURCE, account.getResource(), 32, TextField.ANY); f.append(resourcebox);
 	nickbox = new TextField(SR.MS_NICKNAME, account.getNickName(), 32, TextField.ANY); f.append(nickbox);
 	
@@ -158,6 +171,9 @@ class AccountForm implements CommandListener, ItemStateListener {
 
 	    account.setProxyHostAddr(proxyHost.getString());
             account.setProxyPort(proxyPort.getValue());
+            
+            account.keepAlivePeriod=keepAlive.getValue();
+            account.keepAliveType=keepAliveType.getSelectedIndex();
 	    
 	    if (newaccount) accountSelect.accountList.addElement(account);
 	    accountSelect.rmsUpdate();

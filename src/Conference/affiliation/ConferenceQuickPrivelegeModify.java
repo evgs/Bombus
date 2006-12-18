@@ -20,6 +20,7 @@ import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Form;
+import javax.microedition.lcdui.Spacer;
 import javax.microedition.lcdui.StringItem;
 import javax.microedition.lcdui.TextField;
 import locale.SR;
@@ -86,6 +87,8 @@ public class ConferenceQuickPrivelegeModify implements CommandListener{
             user.append(")");
         }
         f.append(new StringItem("User",user.toString()));
+        
+        f.append(new Spacer(256, 33));
         
         reason=new TextFieldCombo("Reason", "", 64, TextField.ANY, "reason", display);
         f.append(reason);
