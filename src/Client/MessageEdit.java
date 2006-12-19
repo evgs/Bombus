@@ -127,11 +127,11 @@ public class MessageEdit
         if (body.length()==0) body=null;
         
         if (c==cmdInsMe) { t.insert("/me ", 0); return; }
-        if (c==cmdSmile) { new SmilePicker(display, this, t.getCaretPosition()); return; }
-        if (c==cmdInsNick) { new AppendNick(display, to, this, t.getCaretPosition()); return; }
+        if (c==cmdSmile) { new SmilePicker(display, this, caretPos); return; }
+        if (c==cmdInsNick) { new AppendNick(display, to, this, caretPos); return; }
         if (c==cmdAbc) {setInitialCaps(false); return; }
         if (c==cmdABC) {setInitialCaps(true); return; }
-	if (c==cmdPaste) { new ArchiveList(display, this, t.getCaretPosition()); return; }
+	if (c==cmdPaste) { new ArchiveList(display, this, caretPos); return; }
         
         if (c==cmdCancel) { 
             composing=false; 
