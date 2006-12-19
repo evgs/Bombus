@@ -3317,7 +3317,7 @@ syslog_msg: true
   * collapsing conference while entering room
   * changing nickname to already used
 
-(922)
+(923)
   * не дублируются элементы ростера конференции 
     при следующей последовательности:
     =Войти в комнату,

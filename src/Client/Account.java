@@ -65,7 +65,7 @@ public class Account extends IconTextElement{
 	if (a!=null) {
             sd.roster.logoff();
 	    sd.roster.resetRoster();
-	}
+	} else
         if (a!=null && launch){
             sd.roster.logoff();
 	    sd.roster.resetRoster();
