@@ -29,7 +29,10 @@ class FileComMotorolaIo extends FileIO{
     }
 
     protected void openFile() throws IOException {
-        fileConnection = (com.motorola.io.FileConnection) Connector.open("file:///" + fileName);
+        String uri="file:///" + fileName;
+        System.out.print("openFile: name=");    System.out.print(fileName);
+        System.out.println("  URI=");           System.out.println(uri);
+        fileConnection = (com.motorola.io.FileConnection) Connector.open(uri);
     }
 
     public OutputStream openOutputStream() throws IOException {
