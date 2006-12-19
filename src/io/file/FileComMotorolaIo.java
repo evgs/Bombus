@@ -30,8 +30,8 @@ class FileComMotorolaIo extends FileIO{
 
     protected void openFile() throws IOException {
         String uri="file:///" + fileName;
-        System.out.print("openFile: name=");    System.out.print(fileName);
-        System.out.println("  URI=");           System.out.println(uri);
+        System.out.println("openFile: name="+fileName);
+        System.out.println("  URI="+ uri);
         fileConnection = (com.motorola.io.FileConnection) Connector.open(uri);
     }
 
@@ -61,6 +61,7 @@ class FileComMotorolaIo extends FileIO{
     }
 
     protected Vector rootDirs() {
+        System.out.println("roots listing...");
         String[] roots = com.motorola.io.FileSystemRegistry.listRoots();
         Vector rd=new Vector(roots.length);
         for (int i = 0; i < roots.length; i++)
@@ -69,6 +70,7 @@ class FileComMotorolaIo extends FileIO{
     }
 
     protected Vector dirs(boolean directoriesOnly) throws IOException {
+        System.out.println("dirs listing...");
         openFile();
         String[] list = fileConnection.list();
         close();
