@@ -802,6 +802,12 @@ public class Roster
         
         errorLog(error);
         
+        try {
+            theStream.close();
+        } catch (Exception e) { e.printStackTrace(); }
+        theStream=null;
+        System.gc();
+        
         reconnect=false;
         setQuerySign(false);
         redraw();
