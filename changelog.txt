@@ -3330,6 +3330,29 @@ syslog_msg: true
     =leave room,
     (duplicating here:) reenter with nick in-use and in current room
 
+
+20.12.2006
+(938)
+
+  * Recent>Clear - теперь сохраняются очищенные истории текстовых полей
+  * FS#207 - Account>Select (no login), вызванный из-за отключенного автологина аккаунта,
+    оставлял активным экран SplashScreen, а не Roster
+  * исправлена невозможность выбора статуса при ошибке логина "Login Failed"
+  + FileComMotorolaIo.java: отладочный вывод в System.out для диагностики FS#499
+  * исправлено поведение "двоеточие после ника" при Append nickname на телефонах Моторола
+  + настройки keep-alive передвинуты из Tools>Options в настройки аккаунта. теперь эти настройки
+    могут устанавливаться индивидуально для каждого аккаунта
+  * исправлено выделение собственных исходящих сообщений в конференциях после смены ника
+  * сообщения типа headline по умолчанию свёрнуты
+  --
+  * TextFieldCombo.java:Recent>Clear now removes associated records from rms
+  * FS#207 - no more splashscreen after Select (no login) if automatic connection is disabled
+  * correct stream state after 'Login failed'
+  + FileComMotorolaIo.java: debug output for task FS#499
+  * motorola append nick fix (fs#498)
+  + keep-alive settings moved into account form, stored individually for each account
+  * my message highliting after nick change
+  * Headlines collapsed by default
 -------------------
   known issues:
 
