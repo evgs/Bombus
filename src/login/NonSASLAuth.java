@@ -26,38 +26,66 @@ public class NonSASLAuth implements JabberBlockListener{
     
     private LoginListener listener;
     
+    private Account account;
+
+    private JabberStream stream;
+
+    private String sessionId;
+    
     /** Creates a new instance of NonSASLAuth */
     public NonSASLAuth(Account account, String sessionId, LoginListener listener, JabberStream stream) {
         this.listener=listener;
+        this.account=account;
+        this.sessionId=sessionId;
+        this.stream=stream;
+        
         stream.addBlockListener(this);
         
-        Iq auth= new Iq(account.getServer(), Iq.TYPE_SET, "auth-s" );
+        jabberIqAuth(AUTH_GET);
+       
+        listener.loginMessage(SR.MS_AUTH);
+    }
+
+    private final static int AUTH_GET=0;
+    private final static int AUTH_PASSWORD=1;
+    private final static int AUTH_DIGEST=2;
+    
+    private void jabberIqAuth(int authType) {
+        int type=Iq.TYPE_GET;
+        String id="auth-1";
         
-        JabberDataBlock queryBlock = auth.addChild("query", null );
-        queryBlock.setNameSpace( "jabber:iq:auth" );
+        JabberDataBlock query = new JabberDataBlock("query", null, null);
+        query.setNameSpace( "jabber:iq:auth" );
+        query.addChild( "username", account.getUserName() );
         
-        queryBlock.addChild( "username", account.getUserName() );
-        
-        if (account.getPlainAuth()) {
-            // plain text
-            queryBlock.addChild("password", account.getPassword() );
-        } else {
-            //digest
-            SHA1 sha=new SHA1();
+        switch (authType) {
+            case AUTH_DIGEST:
+                SHA1 sha=new SHA1();
                 sha.init();
                 sha.updateASCII(sessionId);
                 sha.updateASCII(strconv.unicodeToUTF(account.getPassword()) );
                 sha.finish();
-            queryBlock.addChild("digest", sha.getDigestHex() );
+                query.addChild("digest", sha.getDigestHex() );
+
+                query.addChild( "resource", account.getResource() );
+                type=Iq.TYPE_SET;
+                id="auth-s";
+                break;
+                
+            case AUTH_PASSWORD:
+                query.addChild("password", account.getPassword() );
+                query.addChild( "resource", account.getResource() );
+                type=Iq.TYPE_SET;
+                id="auth-s";
+                break;
         }
+
         
-        queryBlock.addChild( "resource", account.getResource() );
-        
-        listener.loginMessage(SR.MS_AUTH);
+        Iq auth=new Iq(account.getServer(), type, id);
+        auth.addChild(query);
         
         stream.send(auth);
     }
-
     public int blockArrived(JabberDataBlock data) {
         try {
             if( data instanceof Iq ) {
@@ -72,6 +100,29 @@ public class NonSASLAuth implements JabberBlockListener{
                         listener.loginSuccess();
                         return JabberBlockListener.NO_MORE_BLOCKS;
                     }
+                }
+                if (id.equals("auth-1")) {
+                    try {
+                        JabberDataBlock query=data.getChildBlock("query");
+                        
+                        if (query.getChildBlock("digest")!=null) {
+                            jabberIqAuth(AUTH_DIGEST);
+                            return JabberBlockListener.BLOCK_PROCESSED;
+                        } 
+                        
+                        if (query.getChildBlock("password")!=null) {
+                            if (!account.getPlainAuth()) {
+                                listener.loginFailed("Plain auth required");
+                                return JabberBlockListener.NO_MORE_BLOCKS;
+                            }
+                            jabberIqAuth(AUTH_PASSWORD);
+                            return JabberBlockListener.BLOCK_PROCESSED;
+                        } 
+                        
+                        listener.loginFailed("Unknown mechanism");
+                        
+                    } catch (Exception e) { listener.loginFailed(e.toString()); }
+                    return JabberBlockListener.NO_MORE_BLOCKS;
                 }
             }
             
