@@ -101,6 +101,12 @@ public class SASLAuth implements JabberBlockListener{
 //#endif
 
                 if (mech.getChildBlockByText("PLAIN")!=null) {
+
+                    if (!account.getPlainAuth()) {
+                        listener.loginFailed("SASL: Plain auth required");
+                        return JabberBlockListener.NO_MORE_BLOCKS;
+                    }
+                    
                     auth.setAttribute("mechanism", "PLAIN");
                     String plain=
                             strconv.unicodeToUTF(account.getJid())
