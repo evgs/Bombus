@@ -1017,7 +1017,7 @@ public class Roster
                     String inviteReason=invite.getChildBlockText("reason");
                             
                     String room=from+'/'+sd.account.getNickName();
-                    initMuc(room, password);
+                    initMuc(room, password).getConference().status=Presence.PRESENCE_OFFLINE;
                     
                     body=inviteFrom+SR.MS_IS_INVITING_YOU+from+" ("+inviteReason+')';
                     

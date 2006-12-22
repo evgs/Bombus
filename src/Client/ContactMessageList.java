@@ -209,6 +209,7 @@ public class ContactMessageList extends MessageList
     public void userKeyPressed(int keyCode) {
         super.userKeyPressed(keyCode);
         if (keyCode==keyClear) {
+            if (messages.isEmpty()) return;
             new YesNoAlert(display, SR.MS_CLEAR_LIST, SR.MS_SURE_CLEAR, this);
         }
     }
