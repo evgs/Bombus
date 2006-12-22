@@ -3353,6 +3353,27 @@ syslog_msg: true
   + keep-alive settings moved into account form, stored individually for each account
   * my message highliting after nick change
   * Headlines collapsed by default
+
+23.12.2006
+(944)
+  + non-sasl auth: автоматический выбор способа отправки пароля: 
+    зашифрованным или открытым текстом (в зависимости от настроек сервера)
+  * опция "plain-text password" теперь разрешает использование отправки пароля
+    открытым текстом, если не поддерживаются безопасные способы отправки
+    (как для sasl, так и для non-sasl auth)
+  * кнопка ContactMessageList:Clear - не выдаётся запрос при попытке очистить
+    уже пустой список сообщениц
+  * исправлена проблема входа в конференции по приглашениям (invite). 
+    ошибка с версии 921
+  * Motorola - исправлено дублирование слэшей '/' в пути при перемещении по
+    директориям (dion)
+  --
+  + non-sasl auth: verifying capabilities before sending password.
+  * "plain-text password" now means "enable usage of plain-text passwords 
+    if no hashes is supported at server-side" both for sasl and non-sasl logins
+  * ContactMessageList:Clear button - not ask to clear already empty list
+  * fixed problem with join conference where you has been invited
+  * Motorola: patching slash doubling when reading directory (dion)
 -------------------
   known issues:
 
