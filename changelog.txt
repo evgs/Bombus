@@ -3374,6 +3374,16 @@ syslog_msg: true
   * ContactMessageList:Clear button - not ask to clear already empty list
   * fixed problem with join conference where you has been invited
   * Motorola: patching slash doubling when reading directory (dion)
+
+
+(947)
+  * Всплывающее окно ServiceDiscovery:Result при регистрации не закрывалось
+    на некоторых моделях телефонов.
+  * Корректное закрытие сокета, если поддержание keep-alive неактивно.
+    Проявлялось в зависании регистрации нового аккаунта.
+  --
+  * Alert ServiceDiscovery:Result replaced to AlertBox (FS#504)
+  * correct stream closing if no keep-alive activated (broken in 918)
 -------------------
   known issues:
 
