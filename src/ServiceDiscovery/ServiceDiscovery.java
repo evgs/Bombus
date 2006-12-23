@@ -168,13 +168,6 @@ public class ServiceDiscovery
             
             new AlertBox(SR.MS_ERROR_, err, null, display, this);
 
-            /*
-            Alert alert=new Alert(SR.MS_ERROR_, err, null, null );
-            alert.addCommand(new Command(SR.MS_OK, Command.BACK, 1));
-
-            display.setCurrent(alert, this);
-            */
-
             return JabberBlockListener.BLOCK_PROCESSED;
         }
 
@@ -253,13 +246,9 @@ public class ServiceDiscovery
             if (title.equals("error")) {
                 text=data.getChildBlockText("error");
             }
-            Alert alert=new Alert(title, text, null, null /*AlertType.ALARM*/);
-            alert.addCommand(new Command(SR.MS_OK, Command.BACK, 1));
-
-            alert.setTimeout(15*1000);
             if (text=="Successful" && id.endsWith("Search") ) {
                 new SearchResult(display, data);
-            } else display.setCurrent(alert, this);
+            } else new AlertBox(title, text, null, display, null);
         }
         redraw();
         return JabberBlockListener.BLOCK_PROCESSED;

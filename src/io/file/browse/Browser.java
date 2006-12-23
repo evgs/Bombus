@@ -133,13 +133,6 @@ public class Browser extends VirtualList implements CommandListener{
                 
                 new AlertBox(f, info, img, display, this);
 
-                /*
-                Alert finfo=new Alert(f, info, img, null);
-                finfo.setTimeout(15*1000);
-                finfo.addCommand(cmdBack);
-                display.setCurrent(finfo, this);
-                 */
-                
             } catch (Exception e) { e.printStackTrace(); }
         }
         if (command==cmdCancel) { destroyView(); }
