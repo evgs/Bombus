@@ -56,7 +56,8 @@ public class ConferenceForm implements CommandListener{
     /** Creates a new instance of GroupChatForm */
     public ConferenceForm(Display display, String confJid, String password) {
         int roomEnd=confJid.indexOf('@');
-        String room=confJid.substring(0, roomEnd);
+        String room="";
+        if (roomEnd>0) room=confJid.substring(0, roomEnd);
         String server;
         String nick=null;
         int serverEnd=confJid.indexOf('/');
