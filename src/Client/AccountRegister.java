@@ -78,9 +78,9 @@ public class AccountRegister
         //} catch (Exception e) {e.printStackTrace();}
     }
     public void blockArrived( JabberDataBlock data ) {
-        theStream.close();
         //destroyView();
         if (data instanceof Iq) {
+            theStream.close();
             int pgs=100;
             String type=data.getTypeAttribute();
             String title=SR.MS_DONE; 
