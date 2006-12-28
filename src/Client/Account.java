@@ -145,6 +145,8 @@ public class Account extends IconTextElement{
     public String getJid(){
         return userName+'@'+server+'/'+resource;
     }
+
+    public String getTipString() { return getJid(); }
     /*public String getBareJid(){
         return userName+'@'+server;
     }*/
