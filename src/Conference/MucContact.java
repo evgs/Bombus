@@ -10,6 +10,7 @@
 package Conference;
 
 import Client.Contact;
+import Client.Msg;
 import Client.StaticData;
 import com.alsutton.jabber.JabberDataBlock;
 import com.alsutton.jabber.datablocks.Presence;
@@ -41,6 +42,8 @@ public class MucContact extends Contact{
     public int affiliationCode;
 
     public boolean commonPresence=true;
+
+    public long lastMessageTime;
 
     /** Creates a new instance of MucContact */
     public MucContact(String nick, String jid) {
@@ -214,5 +217,16 @@ public class MucContact extends Contact{
         ConferenceGroup group=(ConferenceGroup)getGroup();
         if ( group.getSelfContact() == this ) 
             StaticData.getInstance().roster.roomOffline(group);
+    }
+
+    public void addMessage(Msg m) {
+        super.addMessage(m);
+        switch (m.messageType) {
+            case Msg.MESSAGE_TYPE_IN: break;
+            case Msg.MESSAGE_TYPE_OUT: break;
+            case Msg.MESSAGE_TYPE_HISTORY: break;
+            default: return;
+        }
+        lastMessageTime=m.dateGmt;
     }
 }

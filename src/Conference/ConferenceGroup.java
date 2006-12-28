@@ -37,7 +37,7 @@ public class ConferenceGroup extends Group{
 
     public MucContact getSelfContact() { return selfContact; }
     public void setSelfContact(MucContact selfContact) { this.selfContact=selfContact; }
-    public Contact getConference() { return conference; }
+    public MucContact getConference() { return conference; }
     public void setConference(MucContact conference) { this.conference=conference; }
     // не считаем группу в числе участников
     public int getOnlines(){ return (onlines>0)? onlines-1:0; }
