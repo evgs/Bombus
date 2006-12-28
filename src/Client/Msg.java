@@ -32,6 +32,7 @@ public class Msg //implements MessageList.Element
     public final static int MESSAGE_TYPE_IN=10;
     public final static int MESSAGE_TYPE_HEADLINE=11;
     public final static int MESSAGE_TYPE_ERROR=11;
+    public final static int MESSAGE_TYPE_SUBJ=12;
     public final static int MESSAGE_TYPE_AUTH=15;
 
     private boolean highlite;
@@ -69,6 +70,7 @@ public class Msg //implements MessageList.Element
             case MESSAGE_TYPE_PRESENCE: return Colors.MESSAGE_PRESENCE;
             case MESSAGE_TYPE_AUTH: return Colors.MESSAGE_AUTH;
             case MESSAGE_TYPE_HISTORY: return Colors.MESSAGE_HISTORY;
+            case MESSAGE_TYPE_SUBJ:return Colors.MSG_SUBJ;
         }
         return 0;
     }

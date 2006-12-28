@@ -159,6 +159,7 @@ public class ContactMessageList extends MessageList
         if (c==cmdReply) {
             try {
                 if (getMessage(cursor).messageType < Msg.MESSAGE_TYPE_HISTORY) return;
+                if (getMessage(cursor).messageType == Msg.MESSAGE_TYPE_SUBJ) return;
                 
                 Msg msg=getMessage(cursor);
                 /*String body=msg.toString();

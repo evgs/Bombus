@@ -213,7 +213,7 @@ public abstract class MessageDigest
      */
     public abstract String getAlg();
 
-    static byte testdata[];
+    //static byte testdata[];
 
 
 }

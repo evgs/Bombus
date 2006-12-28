@@ -76,7 +76,7 @@ extends MessageDigest
      * Alternate constructor, allows you to pass in the buffer where you
      * want the resulting digest stored.
      */
-    public MD5(byte mydigest[]) {
+    /*public MD5(byte mydigest[]) {
         state = new int[4];
         count = 0;
         if (transformBuffer == null)
@@ -84,7 +84,7 @@ extends MessageDigest
         buffer = new byte[64];
         digestBits = mydigest;
         digestValid = false;
-    }
+    }*/
 
     /* **********************************************************
      * The MD5 Functions. These are copied verbatim from

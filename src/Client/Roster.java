@@ -989,6 +989,7 @@ public class Roster
                             subj=null;
                             start_me=-1; // не добавлять /me к subj
                             highlite=true;
+                            mType=Msg.MESSAGE_TYPE_SUBJ;
                         }
                     }
                     if (type.equals("error")) {
