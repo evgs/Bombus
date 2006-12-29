@@ -1297,6 +1297,10 @@ public class Roster
         } else {
             reconnectCount++;
             String title="("+reconnectCount+"/"+maxReconnect+") Reconnecting";
+            
+            Msg m=new Msg(Msg.MESSAGE_TYPE_OUT, "local", title, error);
+            messageStore(selfContact(), m);
+            
             new Reconnect(title, error, display);
         }
     }
