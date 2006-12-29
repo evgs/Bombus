@@ -83,11 +83,11 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
       
     }
     
-    int smileIndex;
+    int lineIndex;
     //SmileItem si=new SmileItem();
     
     public int getItemCount(){ return lines; }
-    public VirtualElement getItemRef(int index){ smileIndex=index; return this;}
+    public VirtualElement getItemRef(int index){ lineIndex=index; return this;}
     
     //private class SmileItem implements VirtualElement {
     public int getVWidth(){ return 0; }
@@ -103,9 +103,9 @@ public class SmilePicker extends VirtualList implements CommandListener, Virtual
     
         
     public void drawItem(Graphics g, int ofs, boolean selected){
-        //int max=(smileIndex==lines-1)? xLastCnt:xCnt;
-        for (int i=0;i<xCnt;i++) {
-            il.drawImage(g, smileIndex*xCnt + i, i*imgWidth+CURSOR_HOFFSET, CURSOR_VOFFSET);
+        int max=(lineIndex==lines-1)? xLastCnt:xCnt;
+        for (int i=0;i<max;i++) {
+            il.drawImage(g, lineIndex*xCnt + i, i*imgWidth+CURSOR_HOFFSET, CURSOR_VOFFSET);
         }
     };
     
