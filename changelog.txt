@@ -3384,6 +3384,32 @@ syslog_msg: true
   --
   * Alert ServiceDiscovery:Result replaced to AlertBox (FS#504)
   * correct stream closing if no keep-alive activated (broken in 918)
+
+30.11.2006
+0.4.6.956-RC1
+  * Окно Reconnect после закрытия не переключается только в ростер, 
+    но возвращает окно, работа которого прервалась реконнектом
+  + все попытки реконнектов занося в selfcontact
+  * Корректная обработка ошибки "conflict" при регистрации аккаунта и установленной
+    опции SASL.
+  * Конференции: ограничение размера получаемой истории при повторном 
+    входе в конференцию вычисляется только по времени последнего сообщения,
+    презенсы не учитываются.
+  * Выполнение Reply заблокировано для темы конференции
+  + В списке аккаунтов отображается в баллоне jid аккаунта
+  * Восстановлен вызов Join Conference из корневых узлов серверов конференций
+  ! файл smiles.txt ДОЛЖЕН содержать перевод строки в последней строке
+  --
+  * experimental: alert Reconnect will return into previous screen
+  + logging reconnection attempt into selfcontact
+  * Registering new account using SASL: Error "conflict" now handled correctly
+  * Conference: History period is calculated only by time of messages, not presences
+  * Conference: Reply disabled for room's topic
+  + Account: uses jid for its tip string (balloon)
+  * invoking Join Conference form from root nodes of muc-servers in disco
+  ! smiles.txt MUST have final \n, else last synonym will not be included. 
+    if there are no synonyms and \n, smile in last line will be discarded.
+
 -------------------
   known issues:
 
@@ -3391,8 +3417,6 @@ syslog_msg: true
 
   - невыключающийся динамический свет и значок, 
     если сообщения пришли из оффлайна
-
-  - Composing event - иногда продолжает висеть значок
 
   - error-presence - неправильный priority
 
