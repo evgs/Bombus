@@ -30,7 +30,7 @@ public class Reconnect extends AlertBox implements Runnable{
     /** Creates a new instance of Reconnect */
     private Command cmdCancel=new Command(SR.MS_CANCEL, Command.BACK, 2);
     public Reconnect(String title, String body, Display display) {
-        super(title, body, null, display, StaticData.getInstance().roster);
+        super(title, body, null, display, null /*current*/);
         alert.setTimeout(Alert.FOREVER);
         
         timer=new Gauge(null, false, WAITTIME, 1);
