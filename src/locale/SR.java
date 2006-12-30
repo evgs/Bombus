@@ -291,11 +291,10 @@ public class SR {
 
     public final static String MS_KEEPALIVE="Keep-alive";
 
+    public final static String MS_HAS_BEEN_UNAFFILIATED_AND_KICKED_FROM_MEMBERS_ONLY_ROOM=" has been unaffiliated and kicked from members-only room";
     
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
-
-
 
     private SR() { }
     

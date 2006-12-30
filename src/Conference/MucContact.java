@@ -152,6 +152,10 @@ public class MucContact extends Contact{
                     testMeOffline();
                     break;
             
+                case 321:
+                    b.append(SR.MS_HAS_BEEN_UNAFFILIATED_AND_KICKED_FROM_MEMBERS_ONLY_ROOM);
+                    testMeOffline();
+                    break;
                 case 322:
                     b.append(SR.MS_HAS_BEEN_KICKED_BECAUSE_ROOM_BECAME_MEMBERS_ONLY);
                     testMeOffline();
