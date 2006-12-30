@@ -156,14 +156,12 @@ public class XMLParser
       int substringStart = 0,
           substringEnd = data.length();
 
-      if( data.startsWith( "/" )  )
-      {
+      if( data.startsWith( "/" )  ) if (data.length()>1) {
         startTag = false;
         substringStart++;
       }
 
-      if( data.endsWith( "/" ) )
-      {
+      if( data.endsWith( "/" ) ) {
         emptyTag = true;
         substringEnd--;
       }
