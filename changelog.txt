@@ -3410,6 +3410,22 @@ syslog_msg: true
   ! smiles.txt MUST have final \n, else last synonym will not be included. 
     if there are no synonyms and \n, smile in last line will be discarded.
 
+31.12.2006
+0.4.6.960-RC2
+  + Новогодний сплэш-заставка (с)talvi
+  + Конференции: статусное сообщение 
+    nick+" has been unaffiliated and kicked from members-only room"
+  * XMLParser.java: исправлена обработка тэгов вида <iq /> и <iq attr="value" /> -
+    - содержащих перед хвостовым слэшем пробел (встречается на шлюзе CGP-jabber
+    sipnet.ru:5222
+  --
+  + New Year splashscreen (с)talvi
+  + MUC: nick+" has been unaffiliated and kicked from members-only room"
+  * XMLParser.java: fixed parsing xml tags like this:
+    <iq />
+    <iq attr="value" />
+    (e.g. with space before ending slash)
+
 -------------------
   known issues:
 
