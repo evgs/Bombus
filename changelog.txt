@@ -3411,8 +3411,8 @@ syslog_msg: true
     if there are no synonyms and \n, smile in last line will be discarded.
 
 31.12.2006
-0.4.6.960-RC2
-  + Новогодний сплэш-заставка (с)talvi
+0.4.6.960-RC2 -> https://svn.xmpp.ru/repos/bombus/branches/ny2007
+  + Новогодний сплэш-заставка (с)talvi   
   + Конференции: статусное сообщение 
     nick+" has been unaffiliated and kicked from members-only room"
   * XMLParser.java: исправлена обработка тэгов вида <iq /> и <iq attr="value" /> -
