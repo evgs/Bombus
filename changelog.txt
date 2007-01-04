@@ -3426,6 +3426,11 @@ syslog_msg: true
     <iq attr="value" />
     (e.g. with space before ending slash)
 
+4.01.2007
+0.4.6.963-RC3
+  5/01/2007 - Проекту Bombus 2 года :)
+  --
+  5/01/2007 - Bombus Birthhday - 2 years old :)
 -------------------
   known issues:
 
