@@ -50,7 +50,7 @@ public class Version {
             
 //#if (!MIDP1)
             if (platformName.indexOf("SIE") > -1) {
-                platformName=System.getProperty("microedition.platform");
+                platformName=System.getProperty("microedition.platform")+" (NSG)";
             } else if (System.getProperty("com.siemens.OSVersion")!=null) {
                 platformName="SIE-"+System.getProperty("microedition.platform")+"/"+System.getProperty("com.siemens.OSVersion");
             }

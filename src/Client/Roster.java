@@ -1416,7 +1416,7 @@ public class Roster
         
     }
     private void toggleLight() {
-        if (Version.getPlatformName().startsWith("SIE-S75")) {
+        if (Version.getPlatformName().endsWith("(NSG)")) {
             if (blState!=1){
                 com.siemens.mp.game.Light.setLightOn();
                 blState=1;
