@@ -147,9 +147,9 @@ public class Account extends IconTextElement{
     }
 
     public String getTipString() { return getJid(); }
-    /*public String getBareJid(){
+    public String getBareJid(){
         return userName+'@'+server;
-    }*/
+    }
     
     public static Account createFromStorage(int index) {
         Account a=null;

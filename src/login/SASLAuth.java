@@ -87,7 +87,7 @@ public class SASLAuth implements JabberBlockListener{
                 
 //#if SASL_XGOOGLETOKEN
                 // X-GOOGLE-TOKEN mechanism
-                if (mech.getChildBlockByText("X-GOOGLE-TOKEN")!=null) {
+                if (mech.getChildBlockByText("X-GOOGLE-TOKEN")!=null  && token!=null) {
                     auth.setAttribute("mechanism", "X-GOOGLE-TOKEN");
                     auth.setText(token);
                     
@@ -109,7 +109,7 @@ public class SASLAuth implements JabberBlockListener{
                     
                     auth.setAttribute("mechanism", "PLAIN");
                     String plain=
-                            strconv.unicodeToUTF(account.getJid())
+                            strconv.unicodeToUTF(account.getBareJid())
                             +(char)0x00
                             +strconv.unicodeToUTF(account.getUserName())
                             +(char)0x00
