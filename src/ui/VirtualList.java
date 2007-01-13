@@ -804,40 +804,60 @@ public abstract class VirtualList
     }
     // cursor rotator
     
-    private class TimerTaskRotate extends TimerTask{
-        private Timer t;
+    private class TimerTaskRotate extends Thread{
+        //private Timer t;
         private int Max;
         private int balloon;
+        public boolean stop;
         
         public TimerTaskRotate(int max){
             offset=0;
             balloon=6;
             //if (max<1) return;
             Max=max;
-            t=new Timer();
-            t.schedule(this, 2000, 300);
+            stop=false;
+            start();
         }
         public void run() {
             // прокрутка только раз
             //stickyWindow=false;
+
+            try {
+                sleep(2000);
+            } catch (Exception e) {}
             
-            if (Max==-1 && balloon==-1) cancel();
-            if (offset>=Max) {
-                Max=-1;
-                offset=0;
-            } else offset+=20;
-            
-            if (showBalloon=balloon>=0) balloon--;
-            redraw();
+            while (true) {
+
+                synchronized (this) {
+                    if (stop) return;
+                    if (Max==-1 && balloon==-1) {
+                        offset=0;
+                        showBalloon=false;
+                        stop=true; 
+                        return;
+                    }
+                    if (offset>=Max) {
+                        Max=-1;
+                        offset=0;
+                    } else offset+=20;
+                    
+                    if (balloon>=0) balloon--;
+                    showBalloon=balloon>=0;
+                    redraw();
+                    /*System.out.print(balloon);
+                    System.out.print(" ");
+                    System.out.print(showBalloon);*/
+                }
+                
+                try {
+                    sleep(300);
+                } catch (Exception e) {}
+            }
             //System.out.println("Offset "+offset);
         }
         public void destroyTask(){
             offset=0;
-            if (t!=null){
-                this.cancel();
-                t.cancel();
-                t=null;
-            }
+            synchronized (rotator) { rotator.stop=true; }
         }
     }
     private TimerTaskRotate rotator;
