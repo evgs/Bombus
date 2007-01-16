@@ -289,4 +289,11 @@ public class Account extends IconTextElement{
     public void setSasl(boolean sasl) {
         this.sasl = sasl;
     }
+
+    public boolean useGoogleToken() {
+        if (useSSL) return false;
+        if (hostAddr==null) return false;
+        if (hostAddr.indexOf("google")<0) return false; 
+        return isSASL();
+    }
 }
