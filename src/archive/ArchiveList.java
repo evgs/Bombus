@@ -54,6 +54,8 @@ public class ArchiveList
 	if (target!=null) {
 	    addCommand(cmdPaste);
 	    addCommand(cmdJid);
+            //TODO: re-enable item-specific dynamic commands)
+            addCommand(cmdSubj);
 	}
         
         attachDisplay(display);
@@ -114,6 +116,7 @@ public class ArchiveList
 	default:
 	    data=m.getBody();
 	}
+        if (data==null) return;
         target.insertText(data, caretPos);
 	destroyView();
     }
@@ -130,7 +133,7 @@ public class ArchiveList
         deleteMessage();
     }
     
-    public void focusedItem(int index) {
+    /*public void focusedItem(int index) {
 	if (target==null) return;
 	try {
 	    if (getMessage(index).subject!=null) {
@@ -139,7 +142,7 @@ public class ArchiveList
 	    }
 	} catch (Exception e) { }
 	removeCommand(cmdSubj);
-    }
+    }*/
     
     public void destroyView(){
 	super.destroyView();
