@@ -3431,6 +3431,62 @@ syslog_msg: true
   5/01/2007 - Проекту Bombus 2 года :)
   --
   5/01/2007 - Bombus Birthhday - 2 years old :)
+
+16.01.2007
+0.4.6.973-RC4
+  * Корректно работают приглашения (Invite) в уже активную конференцию
+  * Обновление списков членства (affiliations) Owners, Admins, Members, Outcasts
+  * Снято ограничение на ширину элементов в 255 пикселей при отрисовке списков 
+    (например, ростер)
+  * отключено динамическое меню в Archive из-за проблем с Symbian. требуется
+    дополнительное экспериментальное исследование проблемы (FS#542).
+  * дополнительная задержка после отправки presence перед разрывом соединения
+  * переписан механизм прокрутки длинных элементов - предположительно, использование
+    классов Timer и TimerTask на Motorola приводит к memory leaks
+  * доработка механизмов авторизации для успешной работы с google-hosted доменами
+    (FS#536)
+
+    Host name/IP=talk.google.com
+    port=5223
+    [v] SSL
+    [v] Plain-text password
+    [ ] SASL
+
+    и Host name/IP=talk.google.com
+    port=5223
+    [v] SSL
+    [v] Plain-text password
+    [v] SASL
+
+    этот вариант логина проверен и на домене gmail.com, и на google-hosted domain 
+    ratsy.ru. другими словами, при использовании SSL c talk.google.com теперь работают 
+    и SASL логин (XMPP1.0) и Non-SASL логин. 
+    в обоих случаях ОБЯЗАТЕЛЬНО использование Plain-text password. 
+
+    на данный момент у меня нет информации о способах использования X-GOOGLE-TOKEN 
+    для google-hosted domains, поэтому пока обязательно использование SSL 
+    для таких доменов.  
+
+  + Суффикс "(NSG)" в названии платформы телефонов Benq-Siemens, основанных на
+    NewSGold
+  * Управление подсветкой разрешено для всей линейки NewSGold, не только S75
+
+  --
+  * invitations if already in room wouldn't change room status anymore
+  * updating affiliation list after modifications
+  * removed hardcoded IconTextElement width (255)
+  * Symbian problem Command Back in message archive (FS#542)
+  * timeout between presence unavailable and </stream:stream>
+  * TimerTaskRotate rewritten to use threads instead of timers (avoiding memory leaks
+    on Motorola)
+  * fix for google-hosted jabber-domains
+    currently works with
+    port=5223
+    [v] ssl
+    [v] plain-text
+    [v] sasl
+  + Suffix "(NSG)" for NewSGold-based Benq-Siemens phones in platformName
+  * Backlight control for Siemens is enabled for all NewSGold phones
 -------------------
   known issues:
 
