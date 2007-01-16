@@ -84,6 +84,10 @@ public class AffiliationModify implements CommandListener, YesNoAlert.YesNoListe
         //stream.addBlockListener(this);
         stream.send(request);
         try {
+            Thread.sleep(300);
+        } catch (Exception ex) {}
+        
+        try {
             Affiliations a=(Affiliations) parentView;
             a.getList();
         } catch (Exception e) {};
