@@ -3488,10 +3488,12 @@ syslog_msg: true
   + Suffix "(NSG)" for NewSGold-based Benq-Siemens phones in platformName
   * Backlight control for Siemens is enabled for all NewSGold phones
 
-0.4.6.974-RC4
+0.4.6.975-RC4
   * повторное использование объекта "rotator" (поиск memory leaks на Motorola)
+  * отремонтированы баллоны (сломаны в 973)
+  --
   * reusing rotator object (searching memory leaks on Motorola)
-
+  * balloons repaired
 -------------------
   known issues:
 
