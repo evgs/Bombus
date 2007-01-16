@@ -46,7 +46,7 @@ abstract public class IconTextElement implements VirtualElement
        g.setFont(getFont());
        if (il!=null) il.drawImage(g, getImageIndex(), 2, imageYOfs);
        //g.drawImage(img,2, imageYOfs, Graphics.TOP|Graphics.LEFT);
-       g.clipRect(4+imgWidth, 0, 255, itemHeight);
+       g.clipRect(4+imgWidth, 0, g.getClipWidth(), itemHeight);
        g.drawString(str,4+imgWidth-ofs, fontYOfs, Graphics.TOP|Graphics.LEFT);
     }
     public int getVWidth(){ 
