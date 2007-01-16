@@ -832,7 +832,7 @@ public abstract class VirtualList
                     if (stop) return;
                     if (Max==-1 && balloon==-1) {
                         offset=0;
-                        showBalloon=false;
+                        //showBalloon=false;
                         stop=true; 
                         return;
                     }

@@ -660,7 +660,7 @@ public class Roster
             // disconnect
             if (status==Presence.PRESENCE_OFFLINE) {
                 try {
-                    theStream.close();
+                    theStream.close(); // sends </stream:stream> and closes socket
                 } catch (Exception e) { e.printStackTrace(); }
                 theStream=null;
                 System.gc();
