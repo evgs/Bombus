@@ -211,7 +211,7 @@ public abstract class VirtualList
         width=getWidth();
         height=getHeight();
         // rotator
-        rotator=new TimerTaskRotate(0);
+        rotator=new TimerTaskRotate(0, this);
 //#if !(MIDP1)
         //addCommand(cmdSetFullScreen);
         setFullScreenMode(fullscreen);
@@ -799,67 +799,11 @@ public abstract class VirtualList
         if (cursor>=0) {
             int itemWidth=getItemRef(cursor).getVWidth();
             if (itemWidth>=width-scrollbar.getScrollWidth() ) itemWidth-=width/2; else itemWidth=0;
-            rotator=new TimerTaskRotate( itemWidth );
+            rotator=new TimerTaskRotate(itemWidth, this);
         }
     }
     // cursor rotator
     
-    private class TimerTaskRotate extends Thread{
-        //private Timer t;
-        private int Max;
-        private int balloon;
-        public boolean stop;
-        
-        public TimerTaskRotate(int max){
-            offset=0;
-            balloon=6;
-            //if (max<1) return;
-            Max=max;
-            stop=false;
-            start();
-        }
-        public void run() {
-            // прокрутка только раз
-            //stickyWindow=false;
-
-            try {
-                sleep(2000);
-            } catch (Exception e) {}
-            
-            while (true) {
-
-                synchronized (this) {
-                    if (stop) return;
-                    if (Max==-1 && balloon==-1) {
-                        offset=0;
-                        //showBalloon=false;
-                        stop=true; 
-                        return;
-                    }
-                    if (offset>=Max) {
-                        Max=-1;
-                        offset=0;
-                    } else offset+=20;
-                    
-                    if (balloon>=0) balloon--;
-                    showBalloon=balloon>=0;
-                    redraw();
-                    /*System.out.print(balloon);
-                    System.out.print(" ");
-                    System.out.print(showBalloon);*/
-                }
-                
-                try {
-                    sleep(300);
-                } catch (Exception e) {}
-            }
-            //System.out.println("Offset "+offset);
-        }
-        public void destroyTask(){
-            offset=0;
-            synchronized (rotator) { rotator.stop=true; }
-        }
-    }
     private TimerTaskRotate rotator;
 
     
@@ -922,4 +866,61 @@ public abstract class VirtualList
         }
     }
 
+}
+
+class TimerTaskRotate extends Thread{
+    //private Timer t;
+    private int Max;
+    private int balloon;
+    private boolean stop;
+    
+    private VirtualList attachedList;
+    
+    public TimerTaskRotate(int max, VirtualList list){
+        this.attachedList=list;
+        attachedList.offset=0;
+        balloon=6;
+        if (max<1) return;
+        Max=max;
+        stop=false;
+        start();
+    }
+    public void run() {
+        // прокрутка только раз
+        //stickyWindow=false;
+        
+        try {
+            sleep(2000);
+        } catch (Exception e) {}
+        
+        while (true) {
+            
+            synchronized (this) {
+                if (stop) return;
+                if (Max==-1 && balloon==-1) {
+                    attachedList.offset=0;
+                    //showBalloon=false;
+                    stop=true;
+                    return;
+                }
+                if (attachedList.offset>=Max) {
+                    Max=-1;
+                    attachedList.offset=0;
+                } else attachedList.offset+=20;
+                
+                if (balloon>=0) balloon--;
+                attachedList.showBalloon=balloon>=0;
+                attachedList.redraw();
+            }
+            
+            try {
+                sleep(300);
+            } catch (Exception e) {}
+        }
+        //System.out.println("Offset "+offset);
+    }
+    public void destroyTask(){
+        attachedList.offset=0;
+        synchronized (this) { stop=true; }
+    }
 }
