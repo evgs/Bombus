@@ -198,6 +198,7 @@ public class ContactMessageList extends MessageList
     }
     
     public void keyGreen(){
+        if (!sd.roster.isLoggedIn()) return;
         (new MessageEdit(display,contact,contact.msgSuspended)).setParentView(this);
         contact.msgSuspended=null;
     }
