@@ -295,7 +295,9 @@ public class Contact extends IconTextElement{
 
     public String getTipString() {
         int nm=getNewMsgsCount();
-        return (nm==0)? null:String.valueOf(nm);
+        if (nm!=0) return String.valueOf(nm);
+        if (nick!=null) return bareJid;
+        return null;
     }
 
     public Group getGroup() { return group; }
