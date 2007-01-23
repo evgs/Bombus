@@ -1415,8 +1415,8 @@ public class Roster
             }
         }
 
-        if (keyCode=='3') searchGroup(-1);
-	if (keyCode=='9') searchGroup(1);
+        if (keyCode=='3') { searchGroup(-1); setRotator(); }
+	if (keyCode=='9') { searchGroup(1); setRotator(); }
         
     }
     private void toggleLight() {
