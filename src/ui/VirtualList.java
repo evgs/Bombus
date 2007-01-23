@@ -887,12 +887,12 @@ class TimerTaskRotate extends Thread{
     
     public static void startRotate(int max, VirtualList list){
         if (instance==null) instance=new TimerTaskRotate();
-        list.offset=0;
         if (max<0) {
             instance.destroyTask(); return;
         }
         
         synchronized (instance) {
+            list.offset=0;
             instance.Max=max;
             instance.balloon=6;
             //instance.balloon=0;
@@ -920,7 +920,7 @@ class TimerTaskRotate extends Thread{
                         attachedList=null;
                         break;
                     }
-                    if (Max==-1 && balloon==-1) {
+                    if (Max<0 && balloon<0) {
                         attachedList.offset=0;
                         //showBalloon=false;
                         stop=true;
@@ -947,6 +947,7 @@ class TimerTaskRotate extends Thread{
     }
     public void destroyTask(){
         synchronized (this) { 
+            if (attachedList!=null) attachedList.offset=0;
             stop=true; 
         }
     }
