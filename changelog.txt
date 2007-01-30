@@ -3495,7 +3495,8 @@ syslog_msg: true
   * reusing rotator object (searching memory leaks on Motorola)
   * balloons repaired
 
-0.4.6.985-RC5
+31.01.2007
+0.4.6.986 **Stable**
   * оптимизирована работа скроллера длинных jid и отображение баллонов 
   * блокировка "зелёной клавиши" (новое сообщение на некоторых моделях телефонов)
     в состоянии Offline
