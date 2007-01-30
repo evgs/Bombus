@@ -900,8 +900,9 @@ class TimerTaskRotate extends Thread{
         synchronized (instance) {
             list.offset=0;
             instance.scrollLen=max;
-            instance.balloon=(list.showBalloon)? 6 : 10;
-            instance.scroll=6;
+            //list.showBalloon=false; //<< uncomment this to disable keep balloon floating when traversing
+            instance.balloon=(list.showBalloon)? 6 : 13;
+            instance.scroll=7;
             instance.attachedList=list;
             instance.stop=false;
         }
@@ -917,7 +918,7 @@ class TimerTaskRotate extends Thread{
             if (stop) continue;
             
             synchronized (this) {
-                System.out.println("b:"+scrollLen+" scroll="+scroll+" balloon="+balloon + " stop=" + stop);
+                //System.out.println("b:"+scrollLen+" scroll="+scroll+" balloon="+balloon + " stop=" + stop);
                 if (scrollLen<0 && balloon<0) stop=true;
                 if (stop) {
                     if (attachedList!=null) attachedList.offset=0;

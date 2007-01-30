@@ -3494,6 +3494,18 @@ syslog_msg: true
   --
   * reusing rotator object (searching memory leaks on Motorola)
   * balloons repaired
+
+0.4.6.985-RC5
+  * оптимизирована работа скроллера длинных jid и отображение баллонов 
+  * блокировка "зелёной клавиши" (новое сообщение на некоторых моделях телефонов)
+    в состоянии Offline
+  + jid во всплывающих баллонах в ростере у контактов с непустым полем "имя" (name)
+  --
+  * TimerTaskRotate thread redesigned to state machine
+  * block green key in roster when disconnected
+  * block green key in message list when disconnected
+  + jid in balloons if nickname is not empty (e.g. jid is not visible in roster)
+
 -------------------
   known issues:
 
