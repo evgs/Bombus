@@ -1,0 +1,230 @@
+==== Управление коннектом / Connect control ====
+
+  + Начальный вариант выполнения повторного соединения при обрывах.
+    Реконнект производится при всех исключениях, кроме SecurityException (приложению запрещён 
+    доступ в сеть). после каждого обрыва выполняется 5 попыток реконнекта. интервал между попытками -
+    5 секунд. все значения пока жёстко заданы, реконнект в настройках не выключается.
+    реконнект может быть отменён в течение 5-секундной паузы.
+
+  + вывод подробностей ошибки при неудачном соединении (название исключения и текст исключения)
+  возможны следующие исключения:
+  IllegalArgumentException - синтаксическая ошибка в написании адреса сервера
+  ConnectionNotFoundException - ошибка DNS, либо нет поддержки протокола (в случае SSL)
+  IOException - другие ошибки сетевого уровня
+  SecurityException - у приложения недостаточно прав для доступа к сети (либо к указанным protocol/host/port)
+
+  + настройки keep-alive передвинуты из Tools>Options в настройки аккаунта. теперь эти настройки
+    могут устанавливаться индивидуально для каждого аккаунта
+
+  --
+  + detailed error message if connection failed (exception name and exception message)
+  exception types:
+  IllegalArgumentException - may occurs if malformed server/hostname was specified
+  ConnectionNotFoundException - DNS error or protocol (for examle, SSL) not supported
+  IOException - some other kind of network error
+  SecurityException - application is not allowed to use network (or specified protocol/host/port)
+
+  + Reconnect.java - draft.
+
+  + keep-alive settings moved into account form, stored individually for each account
+
+==== Протокол обмена / XMPP CORE ====
+
+  * SASL-логин теперь правильно обрабатывает username и password, состоящие из не-ASCII символов
+
+  + non-sasl auth: автоматический выбор способа отправки пароля: 
+    зашифрованным или открытым текстом (в зависимости от настроек сервера)
+  * опция "plain-text password" теперь разрешает использование отправки пароля
+    открытым текстом, если не поддерживаются безопасные способы отправки
+
+  * доработка механизмов авторизации для успешной работы с google-hosted доменами
+    (FS#536)
+
+    Host name/IP=talk.google.com
+    port=5223
+    [v] SSL
+    [v] Plain-text password
+    [ ] SASL
+
+    и Host name/IP=talk.google.com
+    port=5223
+    [v] SSL
+    [v] Plain-text password
+    [v] SASL
+
+    этот вариант логина проверен и на домене gmail.com, и на google-hosted domain 
+    ratsy.ru. другими словами, при использовании SSL c talk.google.com теперь работают 
+    и SASL логин (XMPP1.0) и Non-SASL логин. 
+    в обоих случаях ОБЯЗАТЕЛЬНО использование Plain-text password. 
+
+    на данный момент у меня нет информации о способах использования X-GOOGLE-TOKEN 
+    для google-hosted domains, поэтому пока обязательно использование SSL 
+    для таких доменов.  
+
+  + Data forms: поддержка полей list-multi. протестировано на удалённом управлении Ткаббером
+
+  * Доделан Resource binding. Теперь корректно работает self-contact при указании в
+    Account:Resource пустого ресурса и использовании SASL. В этом случае сервер назначает 
+    клиенту на время сессии уникальный ресурс. То же справедливо для GMail, добавляющего
+    к ресурсу уникальный идентификатор.
+
+  + FS#323: вложенные в сообщения url по схеме jabber:x:oob (к примеру, хэдлайны от rss.jabber.ru)
+  --
+  * SASL login if username or password contains non-ASCII chars (UTF-8 encoding performed)
+
+  + non-sasl auth: verifying capabilities before sending password.
+
+  * "plain-text password" now means "enable usage of plain-text passwords 
+    if no hashes is supported at server-side" both for sasl and non-sasl logins
+
+  * fix for google-hosted jabber-domains
+    currently works with
+    port=5223
+    [v] ssl
+    [v] plain-text
+    [v] sasl
+
+  + Data forms: list-multi fields now are supported. Tested on Tkabber's Remote Controlling
+
+  * Resource binding complete. now Resource in Account may be left empty, 
+    and server will assign random resource for each session
+
+  + FS#323: jabber:x:oob attaches (url) in messages (like headlines from rss.jabber.ru)
+
+==== VCard ====
+
+  * не происходит потеря фотографии при редактировании собственного vCard из Bombus
+
+  + My vCard>Camera - съёмка фото при помощи встроенной камеры 
+    для вставки в vCard. актуально для MIDP2-устройств, не имеющих
+    доступа к файловой системе
+
+  + ContactMessageList: новая иконка "для этого контакта скэширован vCard".
+    (temporary used "search" icon)
+
+  --
+  * VCard: Photo will be preserved if vCard has been modified
+
+  + My vCard>Camera - capturing photo using phone's built-in camera for use
+    in vCard
+
+  + ContactMessageList: new icon "has cached vCard" 
+    (temporary used "search" icon)
+
+==== Конференции / MUC ====
+  * Исправлены проблемы подключения к конференции и выхода из конференции
+
+  * Изменена идеология работы с закладками и присоединением к конференциям.
+
+  + Обработка всех сообщений об ошибках присоединения к конференции
+
+  + возможность указания причин для kick и ban
+
+  + Actions>Outcasts (Ban): вывод причины во всплывающем баллоне. (инструменты администратора 
+    конференции)
+  --
+  * Multiple Join/Leave MUC issues fixed
+
+  * Join conference redesigned. 
+    Bookmarks list is now available directly by roster's command "Join Conference".
+  + Bookmarks list has a command "New conference" (subject to change)
+
+  + all MUC error codes now are handled
+
+  + kick and ban reasons
+
+  + Actions>Outcasts (Ban): reason in balloons
+
+
+==== Железо телефонов / HARDWARE ====
+
+
+  + Суффикс "(NSG)" в названии платформы телефонов Benq-Siemens, основанных на
+    NewSGold
+  * Управление подсветкой разрешено для всей линейки NewSGold, не только S75
+
+  --
+  + Suffix "(NSG)" for NewSGold-based Benq-Siemens phones in platformName
+  * Backlight control for Siemens is enabled for all NewSGold phones
+
+
+==== Интерфейс / UI ====
+
+  + Options>Text Wrapping - переносы текста по словам в списке сообщений  (с) Dion
+
+  + История ввода для некоторых текстовых полей:
+     Service Discovery>Server
+     Status>Edit>Message
+     Conference>Nickname
+     Transfers>Accept File>Save to
+     Actions>Send File>File
+
+    Каждое такое текстовое поле содержит команду Recent.
+    Последнее введённое значение сохраняется в начало списка,
+    остальные смещаются вниз. Максимум 10 строк.
+
+  + установка отдельных статусов для конференций и контактов ростера.
+
+  + команда Reply для сообщений в конференции
+  --
+  + Options>Text Wrapping - Text wrapping by words in MessageLists - (с) Dion
+
+  + Recent List for some text fields:
+     Service Discovery>Server
+     Status>Edit>Message
+     Conference>Nickname
+     Transfers>Accept File>Save to
+     Actions>Send File>File
+
+    Theese fields have context-sensitive command Recent.
+    There are maximum 10 stored values for each field.
+    Most recent value is added to begin of list.
+
+  + Direct Presence for roster contacts and MUC
+
+  + MUC: Reply command
+
+  + возможность указания причин для kick и ban
+  --
+  + kick and ban reasons
+
+===== ZLib version for Hi-End Java machines =====
+
+==== ZLib ====
+  + Сжатие трафика (метод ZLib). Коэффициент сжатия до 10x
+  --
+  + ZLib stream compression. Compression ratio up to 10x
+
+==== Передача файлов / File transfer ====
+
+  + Файловый браузер(проводник). Временно доступен в Tools>root
+  Поддерживаются методы доступа:
+
+  JSR-75,
+  com.siemens.mp.io.File,
+  com.motorola.io.FileConnection
+
+  + Actions>Send file - отправка файла 
+    с использованием схемы In-Band-Bytestreams (XEP-0047 & XEP-0096)
+
+  + Tools>My vCard>Photo - добавление фотографии в vCard, 
+    изображение загружается из файловой системы телефона. 
+    для передачи на сервер требуется команда Publish
+
+  + Tools>File Transfers - менеджер закачек.
+    Используется для приёма ожидающего входящего файла, а также для наблюдения
+    за процессом передачи.
+
+  --
+  + filesystem browser (temporary at Tools>root). Supported methods:
+  JSR-75,
+  com.siemens.mp.io.File,
+  com.motorola.io.FileConnection
+
+  + Tools>My vCard>Photo - inserting photo into vCard. Publish required
+
+  + Actions>Send file - sends file to contact 
+    using In-Band-Bytestreams scheme (XEP-0047 & XEP-0096)
+
+  + Tools>File Transfers - file transfer manager. 
+    Used to accept file and view transmission progress
