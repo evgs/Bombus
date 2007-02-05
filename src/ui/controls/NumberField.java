@@ -39,8 +39,8 @@ public class NumberField extends TextField
 	this.initValue=initValue;
 	this.minValue=minValue;
 	this.maxValue=maxValue;
-	sign=new Command(SR.MS_CHSIGN, Command.ITEM, 1);
-	clear=new Command(SR.MS_CLEAR, Command.ITEM, 2);
+	sign=new Command(SR.MS_CHSIGN, Command.ITEM, 3);  //1->3 - Siemens S75 workaround
+	clear=new Command(SR.MS_CLEAR, Command.ITEM, 4);  //2->4
 //#if !MIDP1
 	if (minValue<0) addCommand(sign);
         addCommand(clear);
