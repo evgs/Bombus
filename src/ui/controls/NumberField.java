@@ -52,7 +52,7 @@ public class NumberField extends TextField
 	try {
 	    int value=Integer.parseInt(getString());
 	    if (value>maxValue) return maxValue;
-	    if (value<minValue) return maxValue;
+	    if (value<minValue) return minValue;
 	    return value;
 	} catch (NumberFormatException e) { /* returning initValue */ }
 	return initValue;
