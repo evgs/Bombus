@@ -166,6 +166,9 @@
   + установка отдельных статусов для конференций и контактов ростера.
 
   + команда Reply для сообщений в конференции
+
+  + Options>Authorize new contacts - автоматическая подписка при добавлении новых контактов
+
   --
   + Options>Text Wrapping - Text wrapping by words in MessageLists - (с) Dion
 
@@ -184,9 +187,7 @@
 
   + MUC: Reply command
 
-  + возможность указания причин для kick и ban
-  --
-  + kick and ban reasons
+  + Options>Authorize new contacts - automatically replies "subscribed" to 
 
 ===== ZLib version for Hi-End Java machines =====
 
