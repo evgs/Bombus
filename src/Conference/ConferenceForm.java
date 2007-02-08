@@ -27,7 +27,7 @@ public class ConferenceForm implements CommandListener{
     
     Command cmdJoin=new Command(SR.MS_JOIN, Command.SCREEN, 1);
     //Command cmdBookmarks=new Command(SR.MS_BOOKMARKS, Command.SCREEN, 2);
-    Command cmdAdd=new Command(SR.MS_ADD_BOOKMARK, Command.SCREEN, 3);
+    Command cmdAdd=new Command(SR.MS_ADD_BOOKMARK, Command.SCREEN, 5);
     Command cmdCancel=new Command (SR.MS_CANCEL, Command.BACK, 99);
     
     TextField roomField;
