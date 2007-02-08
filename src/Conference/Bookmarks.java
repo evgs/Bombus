@@ -34,14 +34,17 @@ public class Bookmarks
     private Command cmdCancel=new Command (SR.MS_CANCEL, Command.BACK, 99);
     private Command cmdJoin=new Command (SR.MS_SELECT, Command.SCREEN, 10);
     private Command cmdDisco=new Command (SR.MS_DISCO_ROOM, Command.SCREEN, 15);
+    private Command cmdConfigure=new Command (SR.MS_CONFIG_ROOM, Command.SCREEN, 16);
     //private Command cmdRfsh=new Command (SR.MS_REFRESH, Command.SCREEN, 20);
     private Command cmdNew=new Command (SR.MS_NEW_BOOKMARK, Command.SCREEN, 20);
     private Command cmdDel=new Command (SR.MS_DELETE, Command.SCREEN, 30);
+
     
     
     Roster roster=StaticData.getInstance().roster;
 
     JabberStream stream=roster.theStream;
+
     /** Creates a new instance of Bookmarks */
     public Bookmarks(Display display, BookmarkItem toAdd) {
         super ();
@@ -63,6 +66,7 @@ public class Bookmarks
         addCommand(cmdNew);
         addCommand(cmdDel);
         addCommand(cmdDisco);
+        addCommand(cmdConfigure);
         setCommandListener(this);
         attachDisplay(display);
     }
@@ -104,7 +108,13 @@ public class Bookmarks
         if (c==cmdNew) new ConferenceForm(display);
         //if (c==cmdRfsh) loadBookmarks();
         if (c==cmdDel) deleteBookmark();
-        if (c==cmdDisco) new ServiceDiscovery(display, ((BookmarkItem)getFocusedObject()).getJid(), null);
+
+        String roomJid=((BookmarkItem)getFocusedObject()).getJid();
+        
+        if (c==cmdDisco) new ServiceDiscovery(display, roomJid, null);
+        
+        if (c==cmdConfigure) new QueryConfigForm(display, roomJid);
+
     }
     
     private void deleteBookmark(){
