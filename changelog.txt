@@ -3507,6 +3507,24 @@ syslog_msg: true
   * block green key in message list when disconnected
   + jid in balloons if nickname is not empty (e.g. jid is not visible in roster)
 
+9.02.2007
+(998)
+  + Для овнеров конференций: вызов конфигуратора комнаты из bookmarks 
+    (без входа в конференцию)
+  + Quote: символ цитирования ">>" и перевод строки в конце цитируемого сообщения
+  + Roster: удаление контактов при помощи кнопки "C" (clear).
+  * конференции: увеличен размер поля ввода причины Kick/Ban с 64 до 256 символов
+  * NumberField: устранена проблема пропадания <C на софт-кнопке (backspace).
+    Также убрана более ненужная команда Clear
+  --
+  + Owner use case: Configuring room via bookmarks
+  + Quote: quotation symbol ">>" - need to be tested
+    \n after quoted message
+  + Roster: delete contact with key "C" (clear)
+  * MUC: Kick/ban reason increased from 64 up to 256 chars
+  * NumberField - minValue
+  * NumberField at S75: <C workaround found. Removed "Clear" command.
+
 -------------------
   known issues:
 
