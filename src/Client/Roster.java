@@ -1418,7 +1418,11 @@ public class Roster
         if (keyCode=='3') { searchGroup(-1); setRotator(); }
 	if (keyCode=='9') { searchGroup(1); setRotator(); }
         
+        if (keyCode==keyClear) try { 
+            new RosterItemActions(display, getFocusedObject(), RosterItemActions.DELETE_CONTACT); 
+        } catch (Exception e) { /* NullPointerException */ }
     }
+    
     private void toggleLight() {
         if (Version.getPlatformName().endsWith("(NSG)")) {
             if (blState!=1){
@@ -1470,7 +1474,7 @@ public class Roster
             new Bookmarks(display, null);
         }
         if (c==cmdActions) try { 
-            new RosterItemActions(display, getFocusedObject()); 
+            new RosterItemActions(display, getFocusedObject(), -1); 
         } catch (Exception e) { /* NullPointerException */ }
         
         if (c==cmdAdd) {

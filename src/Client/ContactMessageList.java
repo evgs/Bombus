@@ -171,7 +171,7 @@ public class ContactMessageList extends MessageList
             } catch (Exception e) {/*no messages*/}
         }
         if (c==cmdContact) {
-            new RosterItemActions(display, contact);
+            new RosterItemActions(display, contact, -1);
         }
 	
 	if (c==cmdActive) {
