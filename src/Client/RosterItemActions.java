@@ -189,7 +189,7 @@ public class RosterItemActions extends Menu implements YesNoAlert.YesNoListener{
             if (me==null) return;
             int index=me.index;
             doAction(index);
-            destroyView();
+            //destroyView();
         } catch (Exception e) { e.printStackTrace();  }
     }
 
