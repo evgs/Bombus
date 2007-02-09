@@ -153,7 +153,8 @@ public class ContactMessageList extends MessageList
         if (c==cmdResume) { keyGreen(); }
         if (c==cmdQuote) {
             try {
-                String msg=new StringBuffer("»")
+                String msg=new StringBuffer()
+                    .append((char)0xbb) // »
                     .append(getMessage(cursor).toString())
                     .append("\n")
                     .toString();
