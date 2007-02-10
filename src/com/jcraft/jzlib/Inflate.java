@@ -36,7 +36,7 @@ package com.jcraft.jzlib;
 
 final class Inflate{
   
-  static final private int MAX_WBITS=15; // 32K LZ77 window
+  static final public int MAX_WBITS=15; // 32K LZ77 window
 
   // preset dictionary flag in zlib header
   static final private int PRESET_DICT=0x20;
