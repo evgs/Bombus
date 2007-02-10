@@ -41,8 +41,15 @@ final class Deflate{
 
   static final private int Z_DEFAULT_COMPRESSION=-1;
 
-  static final private int MAX_WBITS=15;            // 32K LZ77 window
-  static final private int DEF_MEM_LEVEL=8;
+//#ifdef JZLIB_STD_DEFLATE_BUFS
+//#   //  that is: 128K for windowBits=15  +  128K for memLevel = 8  (default values)
+//#   static final private int MAX_WBITS=15;            // 32K LZ77 window
+//#   static final private int DEF_MEM_LEVEL=8;
+//#else
+  //  that is: 2K for windowBits=9  +  1K for memLevel = 1    thanks to Taras Zackrepa (ONjA)
+  static final private int MAX_WBITS=9;   
+  static final private int DEF_MEM_LEVEL=1;
+//#endif
 
   static class Config{
     int good_length; // reduce lazy search above this match length
