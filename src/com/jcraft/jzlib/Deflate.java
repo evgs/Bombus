@@ -47,7 +47,7 @@ final class Deflate{
 //#   static final private int DEF_MEM_LEVEL=8;
 //#else
   //  that is: 2K for windowBits=9  +  1K for memLevel = 1    thanks to Taras Zackrepa (ONjA)
-  static final private int MAX_WBITS=9;   
+  static final public int MAX_WBITS=9;   
   static final private int DEF_MEM_LEVEL=1;
 //#endif
 

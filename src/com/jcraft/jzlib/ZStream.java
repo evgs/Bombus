@@ -36,8 +36,8 @@ package com.jcraft.jzlib;
 
 final public class ZStream{
 
-  static final private int MAX_WBITS=15;        // 32K LZ77 window
-  static final private int DEF_WBITS=MAX_WBITS;
+  static final private int MAX_WBITS=15; //15;        // 32K LZ77 window
+  static final private int DEF_WBITS=Deflate.MAX_WBITS;
 
   static final private int Z_NO_FLUSH=0;
   static final private int Z_PARTIAL_FLUSH=1;
@@ -78,10 +78,10 @@ final public class ZStream{
   Adler32 _adler=new Adler32();
 
   public int inflateInit(){
-    return inflateInit(DEF_WBITS);
+    return inflateInit(MAX_WBITS);
   }
   public int inflateInit(boolean nowrap){
-    return inflateInit(DEF_WBITS, nowrap);
+    return inflateInit(MAX_WBITS, nowrap);
   }
   public int inflateInit(int w){
     return inflateInit(w, false);
@@ -114,10 +114,10 @@ final public class ZStream{
   }
 
   public int deflateInit(int level){
-    return deflateInit(level, MAX_WBITS);
+    return deflateInit(level, DEF_WBITS);
   }
   public int deflateInit(int level, boolean nowrap){
-    return deflateInit(level, MAX_WBITS, nowrap);
+    return deflateInit(level, DEF_WBITS, nowrap);
   }
   public int deflateInit(int level, int bits){
     return deflateInit(level, bits, false);
