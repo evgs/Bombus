@@ -96,7 +96,7 @@ class AccountForm implements CommandListener, ItemStateListener {
         keepAliveType.setSelectedIndex(account.keepAliveType, true);
         f.append(keepAliveType);
         
-      	keepAlive=new NumberField(SR.MS_KEEPALIVE_PERIOD, account.keepAlivePeriod, 20, 600 ); f.append(keepAlive);
+      	keepAlive=new NumberField(SR.MS_KEEPALIVE_PERIOD, account.keepAlivePeriod, 20, 1500 ); f.append(keepAlive);
 
 	resourcebox = new TextField(SR.MS_RESOURCE, account.getResource(), 32, TextField.ANY); f.append(resourcebox);
 	nickbox = new TextField(SR.MS_NICKNAME, account.getNickName(), 32, TextField.ANY); f.append(nickbox);
