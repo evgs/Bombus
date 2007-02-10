@@ -3525,6 +3525,21 @@ syslog_msg: true
   * NumberField - minValue
   * NumberField at S75: <C workaround found. Removed "Clear" command.
 
+11.02.2007
+(1009)
+  * keep-alive: максимальное значение - 1500 секунд (25 минут)
+  * ZLib: уменьшено потребление памяти алгоритмом Deflate (на ~250К).
+    несколько упала степень сжатия исходящих данных. Входящий поток
+    сжимается как и ранее.
+  * устранено исключение при удалении последней закладки конференций
+    в списке
+  --
+  * keep-alive: maximum=1500 sec (25 minutes)
+  * ZLib: Deflate memory limiting MAX_WBITS=9;   DEF_MEM_LEVEL=1;
+    thanks to Taras Zackrepa (ONjA)
+  * exception after removing last (at the end of list) bookmark
+
+
 -------------------
   known issues:
 
