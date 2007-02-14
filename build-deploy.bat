@@ -1,10 +1,9 @@
 svn up
 call setenv.bat
-%NB_ANT% rebuild-release
+call %NB_ANT% rebuild-release
 
-cd ..\MS\
-call bombus.bat
-cd ..\Bombus\
+call ..\MS\bombus.bat
+pause
 
-%NB_ANT% deploy-release
+call %NB_ANT% deploy-release
 
