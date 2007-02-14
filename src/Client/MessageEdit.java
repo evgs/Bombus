@@ -50,17 +50,25 @@ public class MessageEdit
         this.display=display;
         parentView=display.getCurrent();
         
+        int maxSize=500;
+        t=new TextBox(to.toString(), null, maxSize, TextField.ANY);
         try {
-            t=new TextBox(to.toString(),null,1024, TextField.ANY);
+            //expanding buffer as much as possible
+            maxSize=t.setMaxSize(4096); //must not trow
+
+            if (body!=null) {
+                //trim body to maxSize
+                if (body.length()>maxSize)
+                    body=body.substring(0, maxSize-1);
+                t.setString(body);
+            }
+             
         } catch (Exception e) {
-            t=new TextBox(to.toString(),null,500, TextField.ANY);
+            t.setString("<send bugreport>");
         }
+        // debug code
+        t.setTicker(new Ticker(String.valueOf(maxSize)));
         
-        try {
-            if (body!=null) t.setString(body);
-        } catch (Exception e) {
-            t.setString("<large text>");
-        }
         t.addCommand(cmdSend);
         t.addCommand(cmdInsMe);
         t.addCommand(cmdSmile);
