@@ -281,7 +281,7 @@ public class Roster
 	    bookmarks=null;
 	}
 	setMyJid(new Jid(sd.account.getJid()));
-	updateContact(sd.account.getNickName(), myJid.getBareJid(), Groups.SELF_GROUP, "self", false);
+	updateContact(sd.account.getNick(), myJid.getBareJid(), Groups.SELF_GROUP, "self", false);
 	
 	System.gc();
     }
@@ -412,7 +412,7 @@ public class Roster
     
     public Vector getHContacts() {return hContacts;}
     
-    public final void updateContact(final String nick, final String jid, final String grpName, String subscr, boolean ask) {
+    public void updateContact(String nick, String jid, String grpName, String subscr, boolean ask) {
         // called only on roster read
         int status=Presence.PRESENCE_OFFLINE;
         if (subscr.equals("none")) status=Presence.PRESENCE_UNKNOWN;
@@ -421,7 +421,7 @@ public class Roster
         if (subscr.equals("remove")) status=-1;
         
         Jid J=new Jid(jid);
-        Contact c=findContact(J,false); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ bare jid
+        Contact c=findContact(J,false); // search by bare jid
         if (c==null) {
             c=new Contact(nick, jid, Presence.PRESENCE_OFFLINE, null);
             addContact(c);
