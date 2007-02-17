@@ -111,7 +111,7 @@ public abstract class VirtualList
      * не поддерживает двойную буферизацию экрана
      */
     private Image offscreen;
-    protected boolean canback=true; // Enable destroyView() on keyBack by default
+    //protected boolean canback=true; // Enable destroyView() on keyBack by default
     
     /** признак положения курсора в конце списка */
     protected boolean atEnd; //FIXME: перенести поведение в функции keyRight();
@@ -612,7 +612,7 @@ public abstract class VirtualList
                         default:
                             if (keyCode==greenKeyCode) { keyGreen(); break; }
 			     if (keyCode==keyVolDown) { moveCursorEnd(); break; }
-                            if (canback && keyCode==keyBack) {
+                            if (keyCode==keyBack) {
                                 //TODO: Check, is destroyView() allowed
                                 destroyView();
                                 return;
@@ -849,7 +849,8 @@ public abstract class VirtualList
      * присоединение к менеджеру предыдущего Displayable
      */
     public void destroyView(){
-        if (display!=null)   display.setCurrent(parentView);
+        if (display!=null && parentView!=null /*prevents potential app hiding*/ )   
+            display.setCurrent(parentView);
     }
 
     public int getListWidth() {
