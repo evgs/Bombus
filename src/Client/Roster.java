@@ -860,6 +860,7 @@ public class Roster
         try {
             
             if( data instanceof Iq ) {
+                String from=data.getAttribute("from");
                 String type = (String) data.getTypeAttribute();
                 String id=(String) data.getAttribute("id");
                 
@@ -868,7 +869,6 @@ public class Roster
                     
                     if (id.startsWith("nickvc")) {
                         VCard vc=new VCard(data);//.getNickName();
-                        String from=vc.getJid();
                         String nick=vc.getNickName();
                         
                         Contact c=findContact(new Jid(from), false);
@@ -892,7 +892,6 @@ public class Roster
                     }
                     
                     if (id.equals("getver")) {
-                        String from=data.getAttribute("from");
                         String body=null;
                         if (type.equals("error")) {
                             body=SR.MS_NO_VERSION_AVAILABLE;
@@ -950,6 +949,8 @@ public class Roster
                     }
                 } else if (type.equals("set")) {
                     processRoster(data);
+                    
+                    theStream.send(new Iq(from, Iq.TYPE_RESULT, id));
                     reEnumRoster();
                 }
             } //if( data instanceof Iq )
@@ -1155,6 +1156,13 @@ public class Roster
         JabberDataBlock q=data.getChildBlock("query");
         if (!q.isJabberNameSpace("jabber:iq:roster")) return;
         int type=0;
+        
+        //verifying from attribute as in RFC3921/7.2
+        String from=data.getAttribute("from");
+        if (from!=null) {
+            String myJid=sd.account.getJid();
+            if (! from.toLowerCase().equals(myJid.toLowerCase())) return;
+        }
         
         Vector cont=(q!=null)?q.getChildBlocks():null;
         
