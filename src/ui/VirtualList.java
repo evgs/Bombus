@@ -98,6 +98,7 @@ public abstract class VirtualList
 
     public static int keyClear=-8;
     public static int keyVolDown=0x1000;
+    public static int keyBack=0x1000;
     public static int greenKeyCode=SIEMENS_GREEN;
     public static boolean fullscreen=false;
     public static boolean memMonitor;
@@ -110,6 +111,7 @@ public abstract class VirtualList
      * не поддерживает двойную буферизацию экрана
      */
     private Image offscreen;
+    protected boolean canback=true; // Enable destroyView() on keyBack by default
     
     /** признак положения курсора в конце списка */
     protected boolean atEnd; //FIXME: перенести поведение в функции keyRight();
@@ -610,6 +612,11 @@ public abstract class VirtualList
                         default:
                             if (keyCode==greenKeyCode) { keyGreen(); break; }
 			     if (keyCode==keyVolDown) { moveCursorEnd(); break; }
+                            if (canback && keyCode==keyBack) {
+                                //TODO: Check, is destroyView() allowed
+                                destroyView();
+                                return;
+                            }
                             userKeyPressed(keyCode);
                     }
                 } catch (Exception e) {/* IllegalArgumentException @ getGameAction */}

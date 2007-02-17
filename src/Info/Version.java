@@ -41,8 +41,21 @@ public class Version {
                 
                 if (device!=null && firmware!=null)
                     platformName="Motorola"; // buggy v360
+
+		// Motorola EZX phones
+		String hostname=System.getProperty("microedition.hostname");
+		if (hostname!=null) {
+		    platformName="Motorola-EZX";
+		    if (device!=null) {
+		    	// Motorola EZX ROKR
+			hostname=device;
             }
             
+		    if (hostname.indexOf("(none)")<0)
+			platformName+="/"+hostname;
+		}
+            }
+	    else
             if (platformName.startsWith("Moto")) {
                 if (device==null) device=System.getProperty("funlights.product");
                 if (device!=null) platformName="Motorola-"+device;
