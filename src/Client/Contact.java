@@ -258,7 +258,7 @@ public class Contact extends IconTextElement{
         return bareJid;
     }
 
-    public final String getNickJid() {
+    public String getNickJid() {
         if (nick==null) return bareJid;
         return nick+" <"+bareJid+">";
     }

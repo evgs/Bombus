@@ -137,7 +137,7 @@ public class MucContact extends Contact{
                     String newJid=from.substring(0,rp+1)+chNick;
                     //System.out.println(newJid);
                     jid.setJid(newJid);
-                    bareJid=newJid; // непонятно, зачем я так сделал...
+                    bareJid=newJid; // для запросов vCard используется bareJid
                     from=newJid;
                     nick=chNick;
                     break;
@@ -149,6 +149,11 @@ public class MucContact extends Contact{
                     b.append("(");
                     b.append(reason);
                     b.append(")");
+                    
+                    if (realJid!=null) {
+                        b.append(" - ");
+                        b.append(realJid);
+                    }
                     testMeOffline();
                     break;
             
@@ -170,10 +175,10 @@ public class MucContact extends Contact{
             if (this.status==Presence.PRESENCE_OFFLINE) {
                 String realJid=item.getAttribute("jid");
                 if (realJid!=null) {
+                    this.realJid=realJid;  //for moderating purposes
                     b.append(" (");
                     b.append(realJid);
                     b.append(')');
-                    this.realJid=realJid;  //for moderating purposes
                 }
                 b.append(SR.MS_HAS_JOINED_THE_CHANNEL_AS);
                 b.append(role);

@@ -38,6 +38,10 @@ public class Version {
             if (platformName==null) platformName="Motorola";
             
             if (platformName.startsWith("j2me")) {
+                if (device.startsWith("wtk-emulator")) {
+                    platformName=device;
+                    return platformName;
+                }
                 
                 if (device!=null && firmware!=null)
                     platformName="Motorola"; // buggy v360
@@ -49,11 +53,11 @@ public class Version {
 		    if (device!=null) {
 		    	// Motorola EZX ROKR
 			hostname=device;
-            }
-            
-		    if (hostname.indexOf("(none)")<0)
-			platformName+="/"+hostname;
-		}
+                    }
+                    
+                    if (hostname.indexOf("(none)")<0)
+                        platformName+="/"+hostname;
+                }
             }
 	    else
             if (platformName.startsWith("Moto")) {
