@@ -20,7 +20,7 @@ public class SR {
     public   static String MS_JID = loadString( "Jid" );
     public   static String MS_LOADING = loadString( "Loading" );
     public   static String MS_PRIVACY_LISTS = loadString( "Privacy Lists" );
-    public   static String MS_EXISTING_GROUPS = loadString( "Existing groups" );
+    //public   static String MS_EXISTING_GROUPS = loadString( "Existing groups" );
     public   static String MS_MESSAGE_FONT = loadString( "Message font" );
     public   static String MS_ROSTER_FONT = loadString( "Roster font" );
     public   static String MS_PASTE_BODY = loadString( "Paste Body" );
