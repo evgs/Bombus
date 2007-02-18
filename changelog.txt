@@ -3539,6 +3539,52 @@ syslog_msg: true
     thanks to Taras Zackrepa (ONjA)
   * exception after removing last (at the end of list) bookmark
 
+18.02.2007
+(1020)
+  * Add/Edit Contact: новое поведение поля Group -
+    динамическая замена списка групп при выборе <New group> на
+    текстовое поле, в котором и нужно ввести имя новой группы
+
+  * FS#547: убрано заполнение поля Account.nick значением username
+
+  * XMPP:Roster push: проверка отправителя ростера (RFC3921 7.2)
+  * XMPP:Roster pushes: ответная станза iq result (RFC3921 7.4-7.6)
+
+  + отображение в конференции в статусном сообщении jid кикнутого или
+    отправленного в бан пользователя (показывается для модераторов)
+
+  * улучшено автоопределение Motorola EZX and ROKR, кнопка RealPlayer
+    срабатывает как BACK
+
+  * увеличен размер поля редактирования сообщения до максимально
+    возможного в используемой java-машине, но не более 4096 символов
+
+  + VirtualList: заполнение заголовка окна при использовании 
+    java-машины J9 на Windows Mobile
+
+  * VirtualList: начат поиск взаимного блокирования threads в J9.
+    зависания наблюдаются только в J9, проявляются после фикса тредов
+    для Motorola.
+    временно заблокирован скроллинг длинных jid. баллоны выводятся постоянно
+    (только для J9)
+  --
+  * Add/Edit Contact: new dynamic Group field 
+    (switching droplist into editbox if <New group> selected)
+
+  * FS#547: bug with Account.nick
+
+  * XMPP:Roster pushes: verifying source (RFC3921 7.2)
+  * XMPP:Roster pushes: reply with iq result (RFC3921 7.4-7.6)
+
+  + show jid in presence when user was kicked or banned
+
+  * Motorola EZX and ROKR detection, RealPlayer key acts like BACK
+
+  * attempt to expand editbox up to 4096 chars
+
+  + VirtualList: workaround to eliminate empty window title for J9
+  * VirtualList: searching for J9 hangup after Motorola threads fix.
+    (still balloons, no long jid scrolling)
 
 -------------------
   known issues:
