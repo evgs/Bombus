@@ -172,7 +172,7 @@ public class SASLAuth implements JabberBlockListener{
         else if ( data.getTagName().equals("compressed")) {
             stream.setZlibCompression();
             try {
-                stream.initiateStream(account.getServer(), true);
+                stream.initiateStream(account.getServer(), true, SR.MS_XMLLANG);
             } catch (IOException ex) { }
             return JabberBlockListener.NO_MORE_BLOCKS;
         }
@@ -185,7 +185,7 @@ public class SASLAuth implements JabberBlockListener{
         } else if ( data.getTagName().equals("success")) {
             // first stream - step 4b. success.
             try {
-                stream.initiateStream(account.getServer(), true);
+                stream.initiateStream(account.getServer(), true, SR.MS_XMLLANG);
             } catch (IOException ex) { }
             return JabberBlockListener.NO_MORE_BLOCKS; // at first stream
         }

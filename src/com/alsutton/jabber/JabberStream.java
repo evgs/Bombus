@@ -34,6 +34,7 @@ import java.util.*;
 import javax.microedition.io.*;
 import com.alsutton.jabber.datablocks.*;
 import com.alsutton.xmlparser.*;
+import locale.SR;
 import util.StringLoader;
 
 
@@ -102,11 +103,11 @@ public class JabberStream implements XMLEventListener, Runnable {
      
         new Thread( this ). start();
         
-        initiateStream(server, xmppV1);
+        initiateStream(server, xmppV1, SR.MS_XMLLANG);
         
     }
 
-    public void initiateStream(final String server, final boolean xmppV1) throws IOException {
+    public void initiateStream(final String server, final boolean xmppV1, String xmlLang) throws IOException {
         
         //sendQueue=new Vector();
         
@@ -114,6 +115,11 @@ public class JabberStream implements XMLEventListener, Runnable {
         header.append( server );
         header.append( "' xmlns='jabber:client' xmlns:stream='http://etherx.jabber.org/streams'" );
         if (xmppV1) header.append(" version='1.0'");
+        if (xmlLang!=null) {
+            header.append(" xml:lang='");
+            header.append(xmlLang);
+            header.append("'");
+        }
         header.append( '>' );
         send(header.toString());
     }

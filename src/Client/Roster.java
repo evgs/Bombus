@@ -236,7 +236,7 @@ public class Roster
     
     // establishing connection process
     public void run(){
-        Iq.setXmlLang(SR.MS_XMLLANG);
+        //Iq.setXmlLang(SR.MS_XMLLANG);
         setQuerySign(true);
         setProgress(25);
 	if (!reconnect) {
@@ -1048,8 +1048,10 @@ public class Roster
                 //if (body.length()==0) body=null; 
                 
                 if (x!=null) {
-                    compose=(x.getChildBlock("composing")!=null);
-                    if (compose) c.acceptComposing=true;
+                    compose=(  x.getChildBlock("composing")!=null 
+                            && c.status<Presence.PRESENCE_OFFLINE); // drop composing events from offlines
+                    
+                    if (compose) c.acceptComposing=true ; 
                     if (body!=null) compose=false;
                     c.setComposing(compose);
                 }

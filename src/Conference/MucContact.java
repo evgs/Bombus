@@ -68,6 +68,11 @@ public class MucContact extends Contact{
             if (status>=Presence.PRESENCE_OFFLINE) testMeOffline();
             if (errCode!=409 || status>=Presence.PRESENCE_OFFLINE)
                 setStatus(presenceType);
+            
+            String errText=error.getChildBlockText("text");
+            if (errText.length()>0) return errText; // if error description is provided by server
+            
+            // legacy codes
             switch (errCode) {
                 case 401: return "Password required";
                 case 403: return "You are banned in this room";
