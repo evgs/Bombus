@@ -1400,13 +1400,13 @@ public class Roster
     
     }
 
-    protected void keyReleased(int keyCode) {
+    /*protected void keyReleased(int keyCode) {
         super.keyReleased(keyCode);
         if (keyCode==MOTOROLA_FLIP) {
             setTimeEvent(0);
             setAutoStatus(Presence.PRESENCE_ONLINE);
         }
-    }
+    }*/
     
     protected void keyRepeated(int keyCode) {
         super.keyRepeated(keyCode);
