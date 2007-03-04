@@ -1376,6 +1376,7 @@ public class Roster
     }
 
     protected void keyPressed(int keyCode) {
+        //System.out.println(keyCode);
         super.keyPressed(keyCode);
 //#if (MOTOROLA_BACKLIGHT)
         if (cf.ghostMotor) {
@@ -1386,6 +1387,16 @@ public class Roster
             display.flashBacklight(blState);
         }
 //#endif
+        if (keyCode==SE_FLIPCLOSE_JP6 
+            || keyCode== SIEMENS_FLIPCLOSE 
+            || keyCode==MOTOROLA_FLIP 
+            /*|| keyCode=='#'*/ ) {
+            System.out.println("Flip closed");
+            if (!autoAway) setTimeEvent(60*1000); //debug
+        } else {
+            setTimeEvent(0);
+            setAutoStatus(Presence.PRESENCE_ONLINE);
+        }
     
     }
 
@@ -1461,18 +1472,7 @@ public class Roster
         if (keyCode==keyClear) try { 
             new RosterItemActions(display, getFocusedObject(), RosterItemActions.DELETE_CONTACT); 
         } catch (Exception e) { /* NullPointerException */ }
-        
-        if (keyCode==SE_FLIPCLOSE_JP6 
-            || keyCode== SIEMENS_FLIPCLOSE 
-            || keyCode==MOTOROLA_FLIP 
-            /*|| keyCode=='#'*/ ) {
-            System.out.println("Flip closed");
-            setTimeEvent(60*1000); //debug
-        } else {
-            setTimeEvent(0);
-            setAutoStatus(Presence.PRESENCE_ONLINE);
-        }
-        
+    
     }
     
     private void toggleLight() {

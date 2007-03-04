@@ -117,7 +117,7 @@ public abstract class VirtualList
     public static final int SE_FLIPCLOSE_JP6=-31;
     
     public static final int SIEMENS_FLIPOPEN=-24;
-    public static final int SIEMENS_FLIPCLOSE=-24;
+    public static final int SIEMENS_FLIPCLOSE=-22;
     
     
     public int stringHeight=15;
