@@ -108,6 +108,7 @@ public class Roster
     
     public Vector bookmarks;
 
+    boolean autoAway;
     
     private Command cmdActions=new Command(SR.MS_ITEM_ACTIONS, Command.SCREEN, 1);
     private Command cmdStatus=new Command(SR.MS_STATUS_MENU, Command.SCREEN, 2);
@@ -1385,6 +1386,24 @@ public class Roster
             display.flashBacklight(blState);
         }
 //#endif
+    
+        if (keyCode==SE_FLIPCLOSE_JP6 
+            || keyCode== SIEMENS_FLIPCLOSE 
+            || keyCode==MOTOROLA_FLIP 
+            || keyCode=='f' ) {
+            setTimeEvent(5*60*1000); //debug
+        } else {
+            setTimeEvent(0);
+            setAutoStatus(Presence.PRESENCE_ONLINE);
+        }
+    }
+
+    protected void keyReleased(int keyCode) {
+        super.keyReleased(keyCode);
+        if (keyCode==MOTOROLA_FLIP) {
+            setTimeEvent(0);
+            setAutoStatus(Presence.PRESENCE_ONLINE);
+        }
     }
     
     protected void keyRepeated(int keyCode) {
@@ -1420,7 +1439,6 @@ public class Roster
         
         if (keyCode==KEY_NUM9) toggleLight();
     }
-
 
     public void userKeyPressed(int keyCode){
         if (keyCode==KEY_NUM0 || keyCode==keyBack) {
@@ -1475,7 +1493,7 @@ public class Roster
         }
     };
 
-   
+    
     public void commandAction(Command c, Displayable d){
         if (c==cmdQuit) {
             destroyView();
@@ -1600,6 +1618,11 @@ public class Roster
         setProgress(msg, 42);
     }
 
+    public void onTime() {
+        System.out.println("Do autostatus change");
+        setAutoStatus(Presence.PRESENCE_AWAY);
+    }
+    
     private class ReEnumerator implements Runnable{
 
         Thread thread;
@@ -1691,6 +1714,19 @@ public class Roster
 
     public void setMyJid(Jid myJid) {
         this.myJid = myJid;
+    }
+
+    private void setAutoStatus(int status) {
+        if (!isLoggedIn()) return;
+        if (status==Presence.PRESENCE_ONLINE && autoAway) {
+            autoAway=false;
+            sendPresence(Presence.PRESENCE_ONLINE);
+            return;
+        } 
+        if (status!=Presence.PRESENCE_ONLINE && myStatus==Presence.PRESENCE_ONLINE && !autoAway) {
+            autoAway=true;
+            sendPresence(Presence.PRESENCE_AWAY);
+        }
     }
 }
 

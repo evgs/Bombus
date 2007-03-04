@@ -105,12 +105,20 @@ public abstract class VirtualList
     public static final int NOKIA_GREEN=-10;
     public final static int NOKIA_PEN=-50;
     public static final int MOTOROLA_GREEN=-10;
-    public final static int MOTOROLA_FLIP=-200;
+
     public static final int MOTOE680_VOL_UP=-9;
     public static final int MOTOE680_VOL_DOWN=-8;
     public static final int MOTOE680_REALPLAYER=-6;
     public static final int MOTOE680_FMRADIO=-7;
-    public static final int SE_GREEN=0;
+    
+    public final static int MOTOROLA_FLIP=-200;
+    
+    public static final int SE_FLIPOPEN_JP6=-31;
+    public static final int SE_FLIPCLOSE_JP6=-30;
+    
+    public static final int SIEMENS_FLIPOPEN=-24;
+    public static final int SIEMENS_FLIPCLOSE=-24;
+    
     
     public int stringHeight=15;
 
@@ -899,7 +907,30 @@ public abstract class VirtualList
             e.printStackTrace(); /* ClassCastException */
         }
     }
+    
+    public void setTimeEvent(long time){
+        synchronized (this) {
+            timeEvent=time+System.currentTimeMillis();
+            if (time!=0) setRotator();
+        }
+    };
+    long timeEvent;
 
+    public int getCursor() {
+        return cursor;
+    }
+
+    boolean probeTime(){
+        synchronized (this) {
+            if (timeEvent==0) return true;
+            if (System.currentTimeMillis()>timeEvent) {
+                timeEvent=0;
+                onTime();
+            }
+        }
+        return false;
+    }
+    public void onTime() {};
 }
 
 class TimerTaskRotate extends Thread{
@@ -955,7 +986,10 @@ class TimerTaskRotate extends Thread{
             
             synchronized (this) {
                 //System.out.println("b:"+scrollLen+" scroll="+scroll+" balloon="+balloon + " stop=" + stop);
-                if (scrollLen<0 && balloon<0) stop=true;
+                
+                if (attachedList!=null) stop=attachedList.probeTime(); else stop=true;
+                
+                if (scrollLen>=0 || balloon>=0) stop=false;
                 if (stop) {
                     if (attachedList!=null) attachedList.offset=0;
                     attachedList.showBalloon=false;

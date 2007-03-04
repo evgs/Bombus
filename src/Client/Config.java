@@ -178,7 +178,7 @@ public class Config {
             SmilesIcons.getInstance();
             
 	    allowMinimize=true;
-            greenKeyCode=VirtualList.SE_GREEN;
+            greenKeyCode=0;
 	}
 	if (platform.startsWith("Nokia")) {
 	    blFlash=false;

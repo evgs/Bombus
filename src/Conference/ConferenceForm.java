@@ -1,7 +1,7 @@
 /*
  * ConferenceForm.java
  *
- * Created on 24.06.2005 г., 18:32
+ * Created on 24.06.2005, 18:32
  *
  * Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org
  *
