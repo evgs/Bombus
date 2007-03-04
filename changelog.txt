@@ -3587,7 +3587,7 @@ syslog_msg: true
     (still balloons, no long jid scrolling)
 
 5.03.2006
-(1024)
+(1025)
   * замена лицензии BSD на GNU GPL v2 Public license
 
   + экспериментальная функция - работа с флипом (для телефонов-раскладушек)

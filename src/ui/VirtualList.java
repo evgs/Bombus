@@ -113,8 +113,8 @@ public abstract class VirtualList
     
     public final static int MOTOROLA_FLIP=-200;
     
-    public static final int SE_FLIPOPEN_JP6=-31;
-    public static final int SE_FLIPCLOSE_JP6=-30;
+    public static final int SE_FLIPOPEN_JP6=-30;
+    public static final int SE_FLIPCLOSE_JP6=-31;
     
     public static final int SIEMENS_FLIPOPEN=-24;
     public static final int SIEMENS_FLIPCLOSE=-24;
@@ -626,7 +626,7 @@ public abstract class VirtualList
             case KEY_NUM1:  { moveCursorHome();    break; }
             case KEY_NUM7:  { moveCursorEnd();     break; }
             case '5':{ eventOk(); break; }
-            case MOTOROLA_FLIP: break;
+            case MOTOROLA_FLIP: { userKeyPressed(keyCode); break; }
             default:
                 try {
                     switch (getGameAction(keyCode)){
@@ -910,7 +910,7 @@ public abstract class VirtualList
     
     public void setTimeEvent(long time){
         synchronized (this) {
-            timeEvent=time+System.currentTimeMillis();
+            timeEvent=(time==0)? 0:time+System.currentTimeMillis();
             if (time!=0) setRotator();
         }
     };
@@ -923,7 +923,9 @@ public abstract class VirtualList
     boolean probeTime(){
         synchronized (this) {
             if (timeEvent==0) return true;
-            if (System.currentTimeMillis()>timeEvent) {
+            long timeRemained=System.currentTimeMillis()-timeEvent;
+            System.err.println(timeRemained);
+            if (timeRemained>=0) {
                 timeEvent=0;
                 onTime();
             }
