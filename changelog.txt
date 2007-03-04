@@ -3586,7 +3586,38 @@ syslog_msg: true
   * VirtualList: searching for J9 hangup after Motorola threads fix.
     (still balloons, no long jid scrolling)
 
--------------------
+5.03.2006
+(1024)
+  * замена лицензии BSD на GNU GPL v2 Public license
+
+  + экспериментальная функция - работа с флипом (для телефонов-раскладушек)
+
+    при закрытии флипа (складывании телефона) Bombus сменит статус на 'away'
+    в течение 5 минут.
+
+    при открытии флипа Bombus немедленно сменит статус на 'online'
+
+    состояние флипа определяется на телефонах Motorola, 
+    SonyEricsson(JP6 и выше), Siemens. (список будет определён позже)
+
+  * игнорирование Composing events от offline-контактов
+  + xml:lang - глобальная установка языка сообщений сервера для всей сессии.
+  * Конференции: улучшение локализации сообщений об ошибках 
+  --
+  + experimental active-flip feature for shell-calm phones.
+    if flip is closed, status will be changed to 'away' in 5 minutes.
+    if flip is opened, status will be changed to 'online' immediately
+    active flip works on Motorola, SonyEricsson(JP6 and higher), Siemens 
+    (list - TBD)
+
+  * BSD license replaced by GNU GPL v2 Public license
+
+  * drop composing events in error messages sent by offlines
+  + xml:lang - global setting for whole stream. 
+    enables localization in all stanzas
+  * error stanzas: using error description in MucContact if provided
+
+------------------------------------------------------------------------
   known issues:
 
   - невозможна установка смещения времени в минутах.
