@@ -3618,7 +3618,7 @@ syslog_msg: true
   * error stanzas: using error description in MucContact if provided
 
 8.03.2006
-(1037)
+(1038)
   + Автоматическая смена статуса, настройки в Tools>Options:
     Automatic Away:
       disabled - автоматика отключена

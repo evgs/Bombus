@@ -1585,7 +1585,7 @@ public class Roster
     }
     protected void hideNotify() {
         super.hideNotify();
-        setTimeEvent(0);
+        if (cf.autoAwayType==Config.AWAY_IDLE) setTimeEvent(0);
     }
     
     private void searchGroup(int direction){
