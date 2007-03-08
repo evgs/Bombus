@@ -147,6 +147,9 @@ public class TextFieldCombo
             is.close();
         } catch (Exception e) { }
     }
+    public static void setLowerCaseLatin(TextField tf) {
+        tf.setInitialInputMode("MIDP_LOWERCASE_LATIN");
+    }
 }
 //#else
 //# public class TextFieldCombo 

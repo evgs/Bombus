@@ -40,6 +40,7 @@ import javax.microedition.lcdui.TextField;
 import locale.SR;
 import ui.ConstMIDP;
 import ui.controls.NumberField;
+import ui.controls.TextFieldCombo;
 
 class AccountForm implements CommandListener, ItemStateListener {
     
@@ -84,11 +85,14 @@ class AccountForm implements CommandListener, ItemStateListener {
 	    SR.MS_NEW_ACCOUNT /*"New Account"*/:
 	    (account.toString());
 	f = new Form(title);
-	userbox = new TextField(SR.MS_USERNAME, account.getUserName(), 32, ConstMIDP.TEXTFIELD_URL); f.append(userbox);
+	userbox = new TextField(SR.MS_USERNAME, account.getUserName(), 32, ConstMIDP.TEXTFIELD_URL); 
+        TextFieldCombo.setLowerCaseLatin(userbox); 
+        f.append(userbox);
+        
 	passbox = new TextField(SR.MS_PASSWORD, account.getPassword(), 32, TextField.PASSWORD);	f.append(passbox);
         passStars(false);
-	servbox = new TextField(SR.MS_SERVER,   account.getServer(),   32, ConstMIDP.TEXTFIELD_URL); f.append(servbox);
-	ipbox = new TextField(SR.MS_HOST_IP, account.getHostAddr(), 32, ConstMIDP.TEXTFIELD_URL);	f.append(ipbox);
+	servbox = new TextField(SR.MS_SERVER,   account.getServer(),   32, TextField.URL); f.append(servbox);
+	ipbox = new TextField(SR.MS_HOST_IP, account.getHostAddr(), 32, TextField.URL);	f.append(ipbox);
 	portbox = new NumberField(SR.MS_PORT, account.getPort(), 0, 65535); f.append(portbox);
 	register = new ChoiceGroup(null, Choice.MULTIPLE);
 	register.append(SR.MS_SSL,null);
@@ -102,7 +106,7 @@ class AccountForm implements CommandListener, ItemStateListener {
 	register.setSelectedFlags(b);
 	f.append(register);
         
-	proxyHost = new TextField(SR.MS_PROXY_HOST,   account.getProxyHostAddr(),   32, ConstMIDP.TEXTFIELD_URL); f.append(proxyHost);
+	proxyHost = new TextField(SR.MS_PROXY_HOST,   account.getProxyHostAddr(),   32, TextField.URL); f.append(proxyHost);
 	proxyPort = new NumberField(SR.PROXY_PORT, account.getProxyPort(), 0, 65535);	f.append(proxyPort);
         
         

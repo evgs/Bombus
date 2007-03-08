@@ -64,6 +64,8 @@ public class AffiliationModify implements CommandListener, YesNoAlert.YesNoListe
         
         this.room=room;
         this.jid=new TextField(SR.MS_JID /*"Jid"*/ , jid, 80, ConstMIDP.TEXTFIELD_URL);
+        TextFieldCombo.setLowerCaseLatin(this.jid);
+
         this.reason=new TextFieldCombo("Reason", reason, 256, TextField.ANY, "reason", display);
         f.append(this.jid);
         

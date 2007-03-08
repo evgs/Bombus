@@ -31,6 +31,7 @@ import javax.microedition.lcdui.*;
 import java.util.*;
 import locale.SR;
 import ui.ConstMIDP;
+import ui.controls.TextFieldCombo;
 
 /**
  *
@@ -65,6 +66,7 @@ public class PrivacyForm
         targetList=plist;
         
         textValue=new TextField(null, item.value, 64, ConstMIDP.TEXTFIELD_URL);
+        TextFieldCombo.setLowerCaseLatin(textValue);
         
         form.append(choiceAction);
         choiceAction.setSelectedIndex(item.action, true);

@@ -55,6 +55,7 @@ public class ServerBox implements CommandListener {
         f=new Form("Service Discovery");
         f.append("Enter Jabber server address here");
         t=new TextFieldCombo("Address",service,500, ConstMIDP.TEXTFIELD_URL, "disco", display);
+        TextFieldCombo.setLowerCaseLatin(t);
         f.append(t);
         f.addCommand(cmdSend);
         f.addCommand(cmdCancel);
