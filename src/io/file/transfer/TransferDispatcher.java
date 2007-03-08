@@ -139,7 +139,7 @@ public class TransferDispatcher implements JabberBlockListener{
             TransferTask task=getTransferBySid(sid);
             
             byte b[]=strconv.fromBase64(bdata.getText());
-            System.out.println("data chunk received");
+            //System.out.println("data chunk received");
             repaintNotify();
             task.writeFile(b);
             

@@ -136,12 +136,6 @@ public class VCard {
         JabberDataBlock req=new Iq(to, Iq.TYPE_GET, id);
         req.addChild("vCard", null).setNameSpace( "vcard-temp" );
 
-        /*
-        System.out.print("to=");
-        System.out.print(to);
-        System.out.print(" id=");
-        System.out.println(id);
-         */
         return req;
     }
     

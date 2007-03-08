@@ -1391,7 +1391,7 @@ public class Roster
             || keyCode== SIEMENS_FLIPCLOSE 
             || keyCode==MOTOROLA_FLIP 
             /*|| keyCode=='#'*/ ) {
-            System.out.println("Flip closed");
+            //System.out.println("Flip closed");
             if (cf.autoAwayType==Config.AWAY_LOCK) 
                 if (!autoAway) setTimeEvent(cf.autoAwayDelay* 60*1000);
         } else {
@@ -1502,7 +1502,7 @@ public class Roster
 
     
     public void commandAction(Command c, Displayable d){
-        setTimeEvent(0);
+        userActivity();
         if (c==cmdQuit) {
             destroyView();
             logoff();
@@ -1575,12 +1575,17 @@ public class Roster
     protected void showNotify() { 
         super.showNotify(); 
         countNewMsgs(); 
+        //System.out.println("Show notify");
         
         if (cf.autoAwayType==Config.AWAY_IDLE) {
             if (timeEvent==0) {
                 if (!autoAway) setTimeEvent(cf.autoAwayDelay* 60*1000);
             }
         }
+    }
+    protected void hideNotify() {
+        super.hideNotify();
+        setTimeEvent(0);
     }
     
     private void searchGroup(int direction){
@@ -1636,7 +1641,7 @@ public class Roster
     }
 
     public void onTime() {
-        System.out.println("Do autostatus change");
+        //System.out.println("Do autostatus change");
         setAutoStatus(Presence.PRESENCE_AWAY);
     }
     

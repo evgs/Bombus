@@ -924,7 +924,7 @@ public abstract class VirtualList
         synchronized (this) {
             if (timeEvent==0) return true;
             long timeRemained=System.currentTimeMillis()-timeEvent;
-            System.out.println(timeRemained);
+            //System.out.println(timeRemained);
             if (timeRemained>=0) {
                 timeEvent=0;
                 onTime();

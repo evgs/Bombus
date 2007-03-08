@@ -195,7 +195,7 @@ public class JabberStream implements XMLEventListener, Runnable {
                 if (pingSent) {
                     dispatcher.broadcastTerminatedConnection(new Exception("Ping Timeout"));
                 } else {
-                    System.out.println("Ping myself");
+                    //System.out.println("Ping myself");
                     ping();
                 }
                 break;

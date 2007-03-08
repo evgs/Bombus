@@ -187,7 +187,7 @@ public class vCardForm
 
     public void run() {
         StaticData.getInstance().roster.theStream.send(vcard.constructVCard());
-        System.out.println("VCard sent");
+        //System.out.println("VCard sent");
     }
 
 //#if (FILE_IO)
