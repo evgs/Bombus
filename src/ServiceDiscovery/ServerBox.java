@@ -29,6 +29,7 @@ package ServiceDiscovery;
 
 import javax.microedition.lcdui.*;
 import locale.SR;
+import ui.ConstMIDP;
 import ui.VirtualList;
 import ui.controls.TextFieldCombo;
 /**
@@ -53,7 +54,7 @@ public class ServerBox implements CommandListener {
         
         f=new Form("Service Discovery");
         f.append("Enter Jabber server address here");
-        t=new TextFieldCombo("Address",service,500,TextField.URL, "disco", display);
+        t=new TextFieldCombo("Address",service,500, ConstMIDP.TEXTFIELD_URL, "disco", display);
         f.append(t);
         f.addCommand(cmdSend);
         f.addCommand(cmdCancel);

@@ -33,6 +33,7 @@ import com.alsutton.jabber.JabberStream;
 import com.alsutton.jabber.datablocks.Iq;
 import javax.microedition.lcdui.*;
 import locale.SR;
+import ui.ConstMIDP;
 import ui.YesNoAlert;
 import ui.controls.TextFieldCombo;
 
@@ -62,7 +63,7 @@ public class AffiliationModify implements CommandListener, YesNoAlert.YesNoListe
         parentView=display.getCurrent();
         
         this.room=room;
-        this.jid=new TextField(SR.MS_JID /*"Jid"*/ , jid, 80, TextField.URL);
+        this.jid=new TextField(SR.MS_JID /*"Jid"*/ , jid, 80, ConstMIDP.TEXTFIELD_URL);
         this.reason=new TextFieldCombo("Reason", reason, 256, TextField.ANY, "reason", display);
         f.append(this.jid);
         

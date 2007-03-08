@@ -118,7 +118,7 @@ public class PrivacySelect
                 getLists();
             }
         }
-        if (c==cmdNewList) new MIDPTextBox(display, "New list name", "", this, TextField.URL);
+        if (c==cmdNewList) new MIDPTextBox(display, "New list name", "", this, ConstMIDP.TEXTFIELD_URL);
     }
     
     // MIDPTextBox interface

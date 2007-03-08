@@ -98,10 +98,10 @@ public class ConferenceForm implements CommandListener{
         
         Form formJoin=new Form(SR.MS_JOIN_CONFERENCE);
         
-        roomField=new TextField(SR.MS_ROOM, room, 64, TextField.URL);
+        roomField=new TextField(SR.MS_ROOM, room, 64, ConstMIDP.TEXTFIELD_URL);
         formJoin.append(roomField);
         
-        hostField=new TextField(SR.MS_AT_HOST, server, 64, TextField.URL);
+        hostField=new TextField(SR.MS_AT_HOST, server, 64, ConstMIDP.TEXTFIELD_URL);
         formJoin.append(hostField);
         
         if (nick==null) nick=sd.account.getNickName();
