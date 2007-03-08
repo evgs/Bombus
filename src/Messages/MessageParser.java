@@ -175,12 +175,14 @@ public final class MessageParser implements Runnable{
 
     public void parseMsg(MessageItem messageItem,  int width)
     {
-	wordsWrap=Config.getInstance().textWrap==1;
-        messageItem.msgLines=new Vector();
-        this.il=(messageItem.smilesEnabled())? SmilesIcons.getInstance() : null;
-        this.width=width;
-        
         synchronized (tasks) {
+            wordsWrap=Config.getInstance().textWrap==1;
+            messageItem.msgLines=new Vector();
+            this.il=(messageItem.smilesEnabled())? SmilesIcons.getInstance() : null;
+            this.width=width;
+
+            if (tasks.indexOf(messageItem)>=0) return;
+
             tasks.addElement(messageItem);
             if (thread==null) {
                 thread=new Thread(this);
@@ -201,9 +203,13 @@ public final class MessageParser implements Runnable{
                     return;
                 }
                 task=(MessageItem) tasks.lastElement();
+            }
+            
+            parseMessage(task);
+            
+            synchronized (tasks) {
                 tasks.removeElement(task);
             }
-            parseMessage(task);
         }
     }
 
