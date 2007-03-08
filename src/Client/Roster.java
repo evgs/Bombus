@@ -1395,7 +1395,7 @@ public class Roster
             if (cf.autoAwayType==Config.AWAY_LOCK) 
                 if (!autoAway) setTimeEvent(cf.autoAwayDelay* 60*1000);
         } else {
-            userActivity();
+            if (keyCode!=cf.keyLock) userActivity();
         }
     
     }
@@ -1585,7 +1585,7 @@ public class Roster
     }
     protected void hideNotify() {
         super.hideNotify();
-        if (cf.autoAwayType==Config.AWAY_IDLE) setTimeEvent(0);
+        if (cf.autoAwayType==Config.AWAY_IDLE) if (kHold==0) setTimeEvent(0);
     }
     
     private void searchGroup(int direction){
