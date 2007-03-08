@@ -914,7 +914,7 @@ public abstract class VirtualList
             if (time!=0) setRotator();
         }
     };
-    long timeEvent;
+    protected long timeEvent;
 
     public int getCursor() {
         return cursor;
@@ -924,7 +924,7 @@ public abstract class VirtualList
         synchronized (this) {
             if (timeEvent==0) return true;
             long timeRemained=System.currentTimeMillis()-timeEvent;
-            System.err.println(timeRemained);
+            System.out.println(timeRemained);
             if (timeRemained>=0) {
                 timeEvent=0;
                 onTime();
@@ -987,11 +987,16 @@ class TimerTaskRotate extends Thread{
             if (stop) continue;
             
             synchronized (this) {
+                boolean redraw = false;
                 //System.out.println("b:"+scrollLen+" scroll="+scroll+" balloon="+balloon + " stop=" + stop);
                 
                 if (attachedList!=null) stop=attachedList.probeTime(); else stop=true;
                 
-                if (scrollLen>=0 || balloon>=0) stop=false;
+                if (scrollLen>=0 || balloon>=0) { 
+                    stop=false;
+                    redraw=true;
+                }
+                
                 if (stop) {
                     if (attachedList!=null) attachedList.offset=0;
                     attachedList.showBalloon=false;
@@ -1012,7 +1017,7 @@ class TimerTaskRotate extends Thread{
                 if (balloon>=0) balloon--;
                 attachedList.showBalloon=(balloon<7 && balloon>0);
                 
-                attachedList.redraw();
+                if (redraw) attachedList.redraw();
             }
             
         }

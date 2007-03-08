@@ -1392,30 +1392,34 @@ public class Roster
             || keyCode==MOTOROLA_FLIP 
             /*|| keyCode=='#'*/ ) {
             System.out.println("Flip closed");
-            if (!autoAway) setTimeEvent(5*60*1000); //debug
+            if (cf.autoAwayType==Config.AWAY_LOCK) 
+                if (!autoAway) setTimeEvent(cf.autoAwayDelay* 60*1000);
         } else {
-            setTimeEvent(0);
-            setAutoStatus(Presence.PRESENCE_ONLINE);
+            userActivity();
         }
     
     }
 
-    /*protected void keyReleased(int keyCode) {
-        super.keyReleased(keyCode);
-        if (keyCode==MOTOROLA_FLIP) {
+    private void userActivity() {
+        if (cf.autoAwayType==Config.AWAY_IDLE) {
+            setTimeEvent(cf.autoAwayDelay* 60*1000);
+        } else {
             setTimeEvent(0);
-            setAutoStatus(Presence.PRESENCE_ONLINE);
-        }
-    }*/
-    
+        }  
+        setAutoStatus(Presence.PRESENCE_ONLINE);
+    }
+
     protected void keyRepeated(int keyCode) {
         super.keyRepeated(keyCode);
         if (kHold==keyCode) return;
         //kHold=keyCode;
         kHold=keyCode;
         
-        if (keyCode==cf.keyLock) 
+        if (keyCode==cf.keyLock) {
+            if (cf.autoAwayType==Config.AWAY_LOCK) 
+                if (!autoAway) setTimeEvent(cf.autoAwayDelay* 60*1000);
             new KeyBlock(display, getTitleItem(), cf.keyLock, cf.ghostMotor); 
+        }
 
         if (keyCode==cf.keyVibra || keyCode==MOTOE680_FMRADIO /* TODO: redefine keyVibra*/) {
             // swap profiles
@@ -1498,6 +1502,7 @@ public class Roster
 
     
     public void commandAction(Command c, Displayable d){
+        setTimeEvent(0);
         if (c==cmdQuit) {
             destroyView();
             logoff();
@@ -1567,7 +1572,16 @@ public class Roster
         }
     }
     
-    protected void showNotify() { super.showNotify(); countNewMsgs(); }
+    protected void showNotify() { 
+        super.showNotify(); 
+        countNewMsgs(); 
+        
+        if (cf.autoAwayType==Config.AWAY_IDLE) {
+            if (timeEvent==0) {
+                if (!autoAway) setTimeEvent(cf.autoAwayDelay* 60*1000);
+            }
+        }
+    }
     
     private void searchGroup(int direction){
 	synchronized (vContacts) {

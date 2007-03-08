@@ -87,9 +87,13 @@ public class ConfigForm implements
     
     ChoiceGroup textWrap;
     
+    ChoiceGroup autoAwayType;
+    
     //NumberField keepAlive;
     NumberField fieldLoc;
     NumberField fieldGmt;
+    
+    NumberField fieldAwatDelay;
     
     Command cmdOk=new Command(SR.MS_OK,Command.OK,1);
     //Command cmdSign=new Command("- (Sign)",Command.ITEM,2);
@@ -185,6 +189,14 @@ public class ConfigForm implements
 	
         application.setSelectedFlags(ap);
         
+        autoAwayType=new ChoiceGroup(SR.MS_AWAY_TYPE, ConstMIDP.CHOICE_POPUP);
+        autoAwayType.append(SR.MS_AWAY_OFF, null);
+        autoAwayType.append(SR.MS_AWAY_LOCK, null);
+        autoAwayType.append(SR.MS_AWAY_IDLE, null);
+        autoAwayType.setSelectedIndex(cf.autoAwayType, true);
+        fieldAwatDelay=new NumberField(SR.MS_AWAY_PERIOD, cf.autoAwayDelay, 1, 30);
+        
+        
 	// keepAlive=new NumberField(SR.MS_KEEPALIVE_PERIOD, cf.keepAlive, 20, 600 );
 	fieldGmt=new NumberField(SR.MS_GMT_OFFSET, cf.gmtOffset, -12, 12); 
         fieldLoc=new NumberField(SR.MS_CLOCK_OFFSET, cf.locOffset, -12, 12 );
@@ -247,6 +259,8 @@ public class ConfigForm implements
 
 	f.append(application);
 
+        f.append(autoAwayType);
+        f.append(fieldAwatDelay);
 	//f.append(keepAlive);
 	
         f.append(SR.MS_TIME_SETTINGS);
@@ -320,6 +334,9 @@ public class ConfigForm implements
 	    
 	    //cf.soundVol=sndVol.getValue()*10;
             cf.lang=lang.getSelectedIndex();
+            
+            cf.autoAwayDelay=fieldAwatDelay.getValue();
+            cf.autoAwayType=autoAwayType.getSelectedIndex();
 	    
 	    cf.loadSoundName();
             

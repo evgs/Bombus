@@ -49,6 +49,11 @@ import ui.VirtualList;
  */
 public class Config {
     
+    public final static int AWAY_OFF=0;
+    public final static int AWAY_LOCK=1;
+    public final static int AWAY_IDLE=2;
+
+    
     public final int vibraLen=getIntProperty("vibra_len",500);
     
     //public int keepAlive=200;//getIntProperty("keep_alive",200);
@@ -132,6 +137,9 @@ public class Config {
     
     public boolean autoSubscribe=false;
     
+    public int autoAwayType=0;
+    public int autoAwayDelay=5; //5 minutes
+    
     // runtime values
     public boolean allowMinimize=false;
     public int profile=0;
@@ -143,7 +151,6 @@ public class Config {
     // Singleton
     private static Config instance;
 
-    
     public static Config getInstance(){
 	if (instance==null) {
 	    instance=new Config();
@@ -261,6 +268,9 @@ public class Config {
 	    textWrap=inputStream.readInt();
             
             autoSubscribe=inputStream.readBoolean();
+            
+            autoAwayType=inputStream.readInt();
+            autoAwayDelay=inputStream.readInt();
 	    
 	    inputStream.close();
 	} catch (Exception e) {
@@ -333,6 +343,9 @@ public class Config {
 	    outputStream.writeInt(textWrap);
             
             outputStream.writeBoolean(autoSubscribe);
+
+            outputStream.writeInt(autoAwayType);
+            outputStream.writeInt(autoAwayDelay);
 	    
 	} catch (Exception e) { e.printStackTrace(); }
 	

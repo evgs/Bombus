@@ -310,9 +310,17 @@ public class SR {
     public final static String MS_KEEPALIVE="Keep-alive";
 
     public final static String MS_HAS_BEEN_UNAFFILIATED_AND_KICKED_FROM_MEMBERS_ONLY_ROOM=" has been unaffiliated and kicked from members-only room";
+
+    public final static String MS_AWAY_PERIOD="Minutes before away";
+    public final static String MS_AWAY_TYPE="Automatic Away";
+    public final static String MS_AWAY_OFF="disabled";
+    public final static String MS_AWAY_LOCK="keyblock / flip";
+    public final static String MS_AWAY_IDLE="idle";
     
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
+
+
 
     private SR() { }
     
