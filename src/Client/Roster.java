@@ -1392,7 +1392,7 @@ public class Roster
             || keyCode==MOTOROLA_FLIP 
             /*|| keyCode=='#'*/ ) {
             System.out.println("Flip closed");
-            if (!autoAway) setTimeEvent(60*1000); //debug
+            if (!autoAway) setTimeEvent(5*60*1000); //debug
         } else {
             setTimeEvent(0);
             setAutoStatus(Presence.PRESENCE_ONLINE);

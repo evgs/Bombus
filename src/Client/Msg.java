@@ -72,10 +72,10 @@ public class Msg //implements MessageList.Element
         return getTime()+from; 
     }*/
     public String getTime(){
-        return '['+Time.timeString(dateGmt)+"] "; 
+        return Time.timeString(dateGmt); 
     }
     public String getDayTime(){
-        return '['+Time.dayString(dateGmt)+Time.timeString(dateGmt)+"] "; 
+        return Time.dayString(dateGmt)+Time.timeString(dateGmt); 
     }
     //private TimeZone tz(){ return StaticData.getInstance().config.tz;}
     
@@ -93,7 +93,12 @@ public class Msg //implements MessageList.Element
         return 0;
     }
     public String toString(){
-        return (messageType==MESSAGE_TYPE_PRESENCE)?getTime()+body:body; 
+        StringBuffer time=new StringBuffer();
+        if (messageType==MESSAGE_TYPE_PRESENCE) {
+            time.append("[").append(getTime()).append("] ");
+        }
+        time.append(body);
+        return time.toString(); 
     }
     
     public boolean isPresence() { return messageType==MESSAGE_TYPE_PRESENCE; }
