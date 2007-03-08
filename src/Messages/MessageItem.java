@@ -82,7 +82,7 @@ public class MessageItem implements
         /*if (selected)*/
         g.translate(1,0);
         if (msgLines==null) {
-            MessageParser.getInstance().parseMsg(this, view.getListWidth(), smiles);
+            MessageParser.getInstance().parseMsg(this, view.getListWidth());
             return;
         }
         int y=0;
@@ -107,7 +107,7 @@ public class MessageItem implements
         updateHeight();
         if (partialParse) {
             partialParse=false;
-            MessageParser.getInstance().parseMsg(this, view.getListWidth(), smiles);
+            MessageParser.getInstance().parseMsg(this, view.getListWidth());
         }
     }
     
@@ -173,6 +173,7 @@ public class MessageItem implements
 
     void toggleSmiles() {
         smiles=!smiles;
-        MessageParser.getInstance().parseMsg(this, view.getListWidth(), smiles);    
+        MessageParser.getInstance().parseMsg(this, view.getListWidth());    
     }
+    boolean smilesEnabled() {return smiles; }
 }
