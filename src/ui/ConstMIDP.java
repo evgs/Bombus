@@ -45,7 +45,7 @@ public class ConstMIDP {
 //--    public final static int CHOICE_POPUP=	ChoiceGroup.EXCLUSIVE;
 //--    public final static int TEXTFIELD_SENSITIVE=0;
 //#endif
-    public final static int TEXTFIELD_URL=TextField.URL;
+    public final static int TEXTFIELD_URL=TextField.ANY;
 
 //#if (!MIDP1)
     public final static String MIDP=		"MIDP2";
