@@ -3617,6 +3617,43 @@ syslog_msg: true
     enables localization in all stanzas
   * error stanzas: using error description in MucContact if provided
 
+8.03.2006
+(1037)
+  + Автоматическая смена статуса, настройки в Tools>Options:
+    Automatic Away:
+      disabled - автоматика отключена
+      keylock/flip - смена статуса произойдёт через указанное число минут после
+        блокировки кнопок или закрытия флипа/слайдера
+      idle - смена статуса после указанного периода неактивности 
+      (при этом должен быть активен экран ростера)
+    
+    Minutes before away - время неактивности/задержка смены статуса после
+    закрытия флипа
+
+    нажатие любой кнопки переводит телефон в состояние Online
+
+    Известная ошибка автостатуса - idle-таймер запускается при первом отображении
+    ростера не автоматически, а после нажатия любой кнопки (режим автоматики idle)
+
+  * предотвращенгие дублирования текста сообщений во время разбора смайлов (FS#600)
+  * убраны ведущая "[" и хвостовая "] " скобки из баллонов с временем сообщений
+  --
+  + autostatus settings in Tools>Options:
+    Automatic Away:
+      disabled - no autoaway feature
+      keylock/flip - autoaway after some minutes after keylock or closing flip/slider
+      idle - autoaway after some inactivity period (roster screen sould be active)
+    
+    Minutes before away - amount of minutes before status change (idle or keylock/flip)
+
+    any key pressed raises status from autoaway to online
+
+    known issue: when roster has been shown first time (on Bombus' start)
+    idle timer will be paused until keypress
+
+
+  * preventing double message parsing (FS#600)
+  * removed leading "[" and trailing "] " in message time balloons
 ------------------------------------------------------------------------
   known issues:
 
