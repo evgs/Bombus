@@ -27,6 +27,7 @@
 
 package io.file.transfer;
 
+import io.file.FileIO;
 import io.file.browse.Browser;
 import io.file.browse.BrowserListener;
 import javax.microedition.lcdui.Command;
@@ -64,8 +65,25 @@ public class TransferAcceptFile
         parentView=display.getCurrent();
         t=transferTask;
         
+        // Trimming filename
+        String name=t.fileName.trim();
+        if (name.length()>FileIO.MAX_NAME_LEN) {
+            int extPos=name.lastIndexOf('.');
+            int extLen=name.length()-extPos;
+            
+            if (extLen>FileIO.MAX_NAME_LEN) {
+                name=name.substring(0, FileIO.MAX_NAME_LEN-1);
+            } else {
+                StringBuffer newName=new StringBuffer();
+                newName.append(name.substring(0, FileIO.MAX_NAME_LEN-extLen-2));
+                newName.append("~");
+                newName.append(name.substring(extPos));
+                name=newName.toString();
+            }
+        }
+        
         f=new Form("Accept file");
-        fileName=new TextField("File", t.fileName, 32, TextField.ANY);
+        fileName=new TextField("File", name, FileIO.MAX_NAME_LEN, TextField.ANY);
         path=new TextFieldCombo("Save to", t.filePath, 200, TextField.ANY, "recvPath", display);
         
         f.append(new StringItem("Sender:", t.jid));
@@ -89,7 +107,7 @@ public class TransferAcceptFile
         if (c==cmdDecline) { t.decline(); }
         if (c==cmdPath) { new Browser(path.getString(), display, this, true); return; }
         if (c==cmdOk) {
-            t.fileName=fileName.getString();
+            t.fileName=fileName.getString().trim();
             t.filePath=path.getString();
             t.accept();
         }

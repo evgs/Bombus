@@ -37,6 +37,8 @@ import java.util.Vector;
  * @author evgs
  */
 public abstract class FileIO {
+    public final static int MAX_NAME_LEN=32;
+    
     protected final static int NOT_DETECTED=0;
     protected final static int NONE=-1;
     protected final static int JSR75=1;
