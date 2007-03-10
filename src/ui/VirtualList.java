@@ -986,8 +986,8 @@ class TimerTaskRotate extends Thread{
             try {  sleep(300);  } catch (Exception e) {}
             if (stop) continue;
             
+            boolean redraw = false;
             synchronized (this) {
-                boolean redraw = false;
                 //System.out.println("b:"+scrollLen+" scroll="+scroll+" balloon="+balloon + " stop=" + stop);
                 
                 if (attachedList!=null) stop=attachedList.probeTime(); else stop=true;
@@ -1017,8 +1017,8 @@ class TimerTaskRotate extends Thread{
                 if (balloon>=0) balloon--;
                 attachedList.showBalloon=(balloon<7 && balloon>0);
                 
-                if (redraw) attachedList.redraw();
             }
+            if (redraw) attachedList.redraw();
             
         }
     }
