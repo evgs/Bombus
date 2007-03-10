@@ -3654,6 +3654,7 @@ syslog_msg: true
 
   * preventing double message parsing (FS#600)
   * removed leading "[" and trailing "] " in message time balloons
+
 ------------------------------------------------------------------------
   known issues:
 
