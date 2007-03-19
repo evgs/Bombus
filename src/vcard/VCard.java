@@ -118,13 +118,47 @@ public class VCard {
             
         }
         if (photo!=null) {
-            vcardTemp.addChild("PHOTO", null).addChild("BINVAL", strconv.toBase64(photo, -1));
+            String mime=getPhotoMIMEType();
+            if (mime!=null) {
+                JabberDataBlock ph=vcardTemp.addChild("PHOTO", null);
+                ph.addChild("BINVAL", strconv.toBase64(photo, -1));
+                ph.addChild("TYPE", mime);
+            }
         }
         //System.out.println(vcard.toString());
         return vcardIq;
     }
     
     public byte[] getPhoto() { return photo; }
+    
+    public String getPhotoMIMEType() {
+        try {
+            if (photo[0]==(byte)0xff &&
+                photo[1]==(byte)0xd8 &&
+                photo[6]==(byte)'J' &&
+                photo[7]==(byte)'F' &&
+                photo[8]==(byte)'I' &&
+                photo[9]==(byte)'F')
+                return "image/jpeg";
+            
+            if (photo[0]==0x89 &&
+                photo[1]==(byte)'P' &&
+                photo[2]==(byte)'N' &&
+                photo[3]==(byte)'G')
+                return "image/png";
+            
+            if (photo[1]==(byte)'G' &&
+                photo[2]==(byte)'I' &&
+                photo[3]==(byte)'F')
+                return "image/gif";
+            
+            if (photo[1]==(byte)'B' &&
+                photo[2]==(byte)'M')
+                return "image/x-ms-bmp";
+        } catch (Exception e) {}
+        return null;
+    }
+    
     public void setPhoto(byte[] photo) {
         this.photo=photo;
     }
