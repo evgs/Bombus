@@ -42,6 +42,7 @@ import util.strconv;
 public class VCard {
 
     public final static int NICK_INDEX=1;
+    public final static int FN_INDEX=0;
     
     public static Vector vCardFields;
     public static Vector vCardFields2;
@@ -163,7 +164,11 @@ public class VCard {
         this.photo=photo;
     }
     
-    public String getNickName() { return getVCardData(NICK_INDEX);}
+    public String getNickName() { 
+        String name=getVCardData(NICK_INDEX);
+        if (name!=null) return name;
+        return getVCardData(FN_INDEX);
+    }
     
     public static JabberDataBlock getQueryVCard(String to, String id ) 
     {
