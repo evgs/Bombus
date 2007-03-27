@@ -201,7 +201,7 @@ public class ConferenceQuickPrivelegeModify implements CommandListener{
                 item.setAttribute("jid", victim.realJid);
 
         }
-        System.out.println(iq);
+        //System.out.println(iq);
         StaticData.getInstance().roster.theStream.send(iq);
     }
 }

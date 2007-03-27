@@ -3655,6 +3655,49 @@ syslog_msg: true
   * preventing double message parsing (FS#600)
   * removed leading "[" and trailing "] " in message time balloons
 
+28.03.2006
+(1050)
+
+  + пользователь может приглашать участника конференции в другие комнаты, при
+    условии, что jid участника виден пользователю 
+    (например, если пользователь - модератор, или комната - неанонимная)
+
+  * устранено исключение NullPointerException при удалении регистрации транспорта
+    через Service Discovery
+
+  * команда транспорта Resolve Nicknames теперь использует и поле vCard Full Name (FN), 
+    если поле Nickname (NICKNAME) пустое
+
+  * при вставке фотографии в vCard указывается mime-тип файла в поле TYPE
+
+  * увеличена длина имени файла в форме подтверждения приёма файла до 48 символов
+  + если удалённая сторона шлёт файл с длиной имени более 48, имя укорачивается
+    по принципу longfilena~.ext
+
+  * таймер idle продолжает работать при заблокированной клавиатуре
+  * автостатус не изменится на online при разблокировке клавиатуры и следующей 
+    непосредственно после этого повторной блокировке
+
+  --
+  + devoicing with reason implemented, but commented out due ejabberd bug
+
+  + muc: user can invite another participant if room expose jid of this participant
+    (if user is moderator, room is non-anonymous or other cases from XEP-0045)
+
+  * fix: NullPointerException if unregistering transport
+
+  * nickname resolving probes NICKNAME, then FN if no NICKNAME
+
+  * vCard stanza fix: element <PHOTO/> now contains <TYPE>mime-type</TYPE>.
+    known mime-types are image/jpeg, image/png, image/gif, image/x-ms-bmp
+
+  * FileIO.MAX_NAME_LENGTH=48
+  + TransferAcceptFile: trimming whitespaces from filename,
+    if name is longer than FileIO.MAX_NAME_LEN name will be cuted like longfilena~.ext
+
+  * continue idle timer when keys locked
+  * don't change status to online when keys unlocked and locked again consecutively
+
 ------------------------------------------------------------------------
   known issues:
 
