@@ -363,7 +363,7 @@ public class RosterItemActions extends Menu implements YesNoAlert.YesNoListener{
                 }
                 case 32: //revoke voice
                 {
-                    new ConferenceQuickPrivelegeModify(null, mc, ConferenceQuickPrivelegeModify.VISITOR);
+                    new ConferenceQuickPrivelegeModify(display, mc, ConferenceQuickPrivelegeModify.VISITOR);
                     return;
                 }
                 
