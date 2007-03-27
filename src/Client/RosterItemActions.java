@@ -146,6 +146,10 @@ public class RosterItemActions extends Menu implements YesNoAlert.YesNoListener{
                     if (mc.affiliationCode!=MucContact.AFFILIATION_OWNER) addItem(SR.MS_GRANT_OWNERSHIP,38);
                     //else addItem(SR.MS_REVOKE_OWNERSHIP,37);
                 }
+                
+                if (mc.realJid!=null && mc.getStatus()<Presence.PRESENCE_OFFLINE) {
+                    addItem(SR.MS_INVITE,40);
+                }
             } else if (contact.getGroupType()!=Groups.TYPE_TRANSP) {
                 // usual contact - invite item check
                 boolean onlineConferences=false;
