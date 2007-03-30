@@ -75,10 +75,11 @@ public class Version {
                     
                         if (hostname.indexOf("(none)")<0)
                         platformName+="/"+hostname;
+                        return platformName;
                     }
 		}
             }
-	    else
+	    //else
             if (platformName.startsWith("Moto")) {
                 if (device==null) device=System.getProperty("funlights.product");
                 if (device!=null) platformName="Motorola-"+device;
