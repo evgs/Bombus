@@ -3698,6 +3698,18 @@ syslog_msg: true
   * continue idle timer when keys locked
   * don't change status to online when keys unlocked and locked again consecutively
 
+
+31.03.2006
+  * Патч определения моделей моторол серий E/L/V
+    http://bombus-im.org/flyspray/task/615#comment1364
+  
+  + Service Discovery: nice Recent server list before discovering
+  --
+  * Patch for detecting motorola E/L/V series
+    http://bombus-im.org/flyspray/task/615#comment1364
+  
+  + Service Discovery: nice Recent server list before discovering
+
 ------------------------------------------------------------------------
   known issues:
 
