@@ -716,7 +716,7 @@ public class Roster
     }
     
     public Contact selfContact() {
-	return getContact(myJid.getJid(), true);
+	return getContact(myJid.getJid(), false);
     }
     
     public void sendConferencePresence() {
@@ -903,7 +903,7 @@ public class Roster
                         setQuerySign(false);
                         VCard vcard=new VCard(data);
                         String jid=id.substring(5);
-                        Contact c=getContact(jid, true);
+                        Contact c=getContact(jid, false); // drop unwanted vcards
                         if (c!=null) {
                             c.vcard=vcard;
                             new vCardForm(display, vcard, c.getGroupType()==Groups.TYPE_SELF);
@@ -925,7 +925,7 @@ public class Roster
                         
                         Msg m=new Msg(Msg.MESSAGE_TYPE_IN, "ver", SR.MS_CLIENT_INFO, body);
                         if (body!=null) { 
-                            messageStore( getContact(from, false), m);
+                            messageStore( getContact(from, false), m); //drop unwanted requests
                             redraw();
                         }
                     }
@@ -1047,7 +1047,7 @@ public class Roster
                     
                 } catch (Exception e) {}
                 
-                Contact c=getContact(from, true);
+                Contact c=getContact(from, cf.notInList);
 
                 if (name==null) name=c.getName();
                 // /me
@@ -1138,8 +1138,8 @@ public class Roster
                     
                 } /* if (muc) */ catch (Exception e) { /*e.printStackTrace();*/ }
                 else {
-                    Contact c=getContact(from, false); 
-                    //if (c==null) return; drop presence
+                    Contact c=getContact(from, cf.notInList && ti!=Presence.PRESENCE_OFFLINE); //<<<
+                    if (c==null) return; //drop presence
                     
                     messageStore(c, m);
                     

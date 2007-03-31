@@ -3700,16 +3700,26 @@ syslog_msg: true
 
 
 31.03.2006
+(1053)
   * Патч определения моделей моторол серий E/L/V
     http://bombus-im.org/flyspray/task/615#comment1364
   
-  + Service Discovery: nice Recent server list before discovering
+  + Service Discovery: список ранее запрошенных серверов перед началом обзора
   --
   * Patch for detecting motorola E/L/V series
     http://bombus-im.org/flyspray/task/615#comment1364
   
   + Service Discovery: nice Recent server list before discovering
 
+(1054)
+  * разрешён приём direct presences от контактов вне ростера (из not-in-list),
+    если включена опция Tools>Options>Not-In-List. (ранее такие презенсы не
+    отображались, принимались только сообщения. отбрасывания презенсов, но
+    приёма сообщений от контактов вне ростера можно добиться через privacy lists)
+  --
+  * direct presences from not-in-list contacts are allowed 
+    if option Tools>Options>Not-In-List activated.
+    Use privacy lists to block theese presences
 ------------------------------------------------------------------------
   known issues:
 
