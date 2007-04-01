@@ -3720,6 +3720,22 @@ syslog_msg: true
   * direct presences from not-in-list contacts are allowed 
     if option Tools>Options>Not-In-List activated.
     Use privacy lists to block theese presences
+
+02.04.2006
+(1056)
+  + Создание закладок конференций (Bookmarks) с пометкой для автовхода
+  + При запуске Bombus производится автоматический вход в конференции,
+    помеченные в закладках как "autojoin". Необходимым условием автовхода
+    в конференции является активная опция Tools>Options>Startup actions:"join conferences"
+  + При реконнекте происходит повторный вход в конференции, которые были активны
+    до отсоединения от сервера, и в которые не посылался direct presence (send presence)
+    
+  --
+  + Bookmarking conference with label "autojoin"
+  + Entering room if it's bookmark is labeled "autojoin" (only after bombus' launch)
+    and option Tools>Options>Startup actions:"join conferences" is checked 
+  + On reconnect: Reentering conferences wich was active before going offline.
+    Also conference will not be reentered if direct presence was sent into it.
 ------------------------------------------------------------------------
   known issues:
 
