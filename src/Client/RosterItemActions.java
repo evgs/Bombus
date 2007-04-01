@@ -331,7 +331,7 @@ public class RosterItemActions extends Menu implements YesNoAlert.YesNoListener{
                  */
                 case 22:
                 {
-                    roster.leaveRoom( 0, g);
+                    roster.leaveRoom( g);
                     break;
                 }
                 case 23:

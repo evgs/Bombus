@@ -678,7 +678,7 @@ public class Roster
             if (!StaticData.getInstance().account.isMucOnly() )
 		theStream.send( presence );
             
-            sendConferencePresence();
+            multicastConferencePresence();
 
             // disconnect
             if (status==Presence.PRESENCE_OFFLINE) {
@@ -719,22 +719,29 @@ public class Roster
 	return getContact(myJid.getJid(), false);
     }
     
-    public void sendConferencePresence() {
+    public void multicastConferencePresence() {
         ExtendedStatus es= StatusList.getInstance().getStatus(myStatus);
         for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
             Contact c=(Contact) e.nextElement();
             if (c.origin!=Contact.ORIGIN_GROUPCHAT) continue;
-            if (c.status==Presence.PRESENCE_OFFLINE) continue;
-            if (!((MucContact)c).commonPresence) continue;
+            if (!((MucContact)c).commonPresence) continue; // stop if room left manually
+
+            ConferenceGroup confGroup=(ConferenceGroup)c.getGroup();
+            Contact myself=confGroup.getSelfContact();
+
+            c.status=Presence.PRESENCE_ONLINE;
             Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
-            presence.setTo(c.getJid());
+            presence.setTo(myself.getJid());
             theStream.send(presence);
         }
     }
     
     public void sendPresence(String to, String type, JabberDataBlock child) {
+        //ExtendedStatus es= StatusList.getInstance().getStatus(myStatus);
         JabberDataBlock presence=new Presence(to, type);
+        //Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
         if (child!=null) presence.addChild(child);
+        //presence.setTo(to);
         theStream.send(presence);
     }
     
@@ -1557,10 +1564,11 @@ public class Roster
 
 	//confGroup.getConference().status=Presence.PRESENCE_ONLINE;
     }
-    public void leaveRoom(int index, Group group){
+    public void leaveRoom(Group group){
 	//Group group=groups.getGroup(index);
 	ConferenceGroup confGroup=(ConferenceGroup)group;
 	Contact myself=confGroup.getSelfContact();
+        confGroup.getConference().commonPresence=false; //disable reenter after reconnect
         sendPresence(myself.getJid(), "unavailable", null);
         //roomOffline(group);
     }
