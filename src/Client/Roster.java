@@ -648,15 +648,7 @@ public class Roster
     public void sendPresence(int status) {
         myStatus=status;
         setQuerySign(false);
-        if (myStatus==Presence.PRESENCE_OFFLINE) {
-            synchronized(hContacts) {
-                for (Enumeration e=hContacts.elements(); e.hasMoreElements();){
-                    Contact c=(Contact)e.nextElement();
-                    //if (c.status<Presence.PRESENCE_UNKNOWN)
-                        c.setStatus(Presence.PRESENCE_OFFLINE); // keep error & unknown
-                }
-            }
-        } else {
+        if (myStatus!=Presence.PRESENCE_OFFLINE) {
             lastOnlineStatus=myStatus;
         }
         //Vector v=sd.statusList;//StaticData.getInstance().statusList;
@@ -685,6 +677,15 @@ public class Roster
                 try {
                     theStream.close(); // sends </stream:stream> and closes socket
                 } catch (Exception e) { e.printStackTrace(); }
+                
+                synchronized(hContacts) {
+                    for (Enumeration e=hContacts.elements(); e.hasMoreElements();){
+                        Contact c=(Contact)e.nextElement();
+                        //if (c.status<Presence.PRESENCE_UNKNOWN)
+                        c.setStatus(Presence.PRESENCE_OFFLINE); // keep error & unknown
+                    }
+                }
+                
                 theStream=null;
                 System.gc();
             }
@@ -725,11 +726,15 @@ public class Roster
             Contact c=(Contact) e.nextElement();
             if (c.origin!=Contact.ORIGIN_GROUPCHAT) continue;
             if (!((MucContact)c).commonPresence) continue; // stop if room left manually
-
+            
             ConferenceGroup confGroup=(ConferenceGroup)c.getGroup();
             Contact myself=confGroup.getSelfContact();
 
-            c.status=Presence.PRESENCE_ONLINE;
+            if (c.status==Presence.PRESENCE_OFFLINE) {
+                ConferenceForm.join(myself.getJid(), confGroup.password, 20);
+                continue;
+            }
+            
             Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
             presence.setTo(myself.getJid());
             theStream.send(presence);

@@ -316,9 +316,13 @@ public class SR {
     public final static String MS_AWAY_OFF="disabled";
     public final static String MS_AWAY_LOCK="keyblock / flip";
     public final static String MS_AWAY_IDLE="idle";
+
+    public final static String MS_ADD_AUTOJ="Add autojoin bookmark";
+    
     
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
+
 
 
 

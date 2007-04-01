@@ -28,6 +28,7 @@
 package Conference;
 import Client.StaticData;
 import com.alsutton.jabber.JabberDataBlock;
+import com.alsutton.jabber.datablocks.Presence;
 import images.RosterIcons;
 import ui.*;
 
@@ -44,7 +45,10 @@ public class BookmarkItem extends IconTextElement{
     boolean autojoin;
     boolean isUrl;
     
-    public int getImageIndex(){ return (isUrl)? RosterIcons.ICON_PRIVACY_ACTIVE: RosterIcons.ICON_GCJOIN_INDEX; }
+    public int getImageIndex(){ 
+        if (isUrl) return RosterIcons.ICON_PRIVACY_ACTIVE;
+        return (autojoin)? RosterIcons.ICON_GCJOIN_INDEX : RosterIcons.ICON_GROUPCHAT_INDEX;
+    }
     public String toString(){ return jid+'/'+nick; }
     public String getJid() { return jid; }
 
@@ -67,11 +71,12 @@ public class BookmarkItem extends IconTextElement{
         password=data.getChildBlockText("password");
     }
     
-    public BookmarkItem(String jid, String nick, String password){
+    public BookmarkItem(String jid, String nick, String password, boolean autoJoin){
         this();
         this.name=this.jid=jid;
         this.nick=nick;
         this.password=password;
+        this.autojoin=autoJoin;
     }
     
     public JabberDataBlock constructBlock() {
