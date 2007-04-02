@@ -64,7 +64,8 @@ public class BookmarkItem extends IconTextElement{
         isUrl=!data.getTagName().equals("conference");
         name=data.getAttribute("name");
         try {
-            autojoin=data.getAttribute("autojoin").equals("true");
+            String ajoin=data.getAttribute("autojoin").trim();
+            autojoin=ajoin.equals("true") || ajoin.equals("1");
         } catch (Exception e) {}
         jid=data.getAttribute((isUrl)?"url":"jid");
         nick=data.getChildBlockText("nick");
