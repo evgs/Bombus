@@ -3586,7 +3586,7 @@ syslog_msg: true
   * VirtualList: searching for J9 hangup after Motorola threads fix.
     (still balloons, no long jid scrolling)
 
-5.03.2006
+5.03.2007
 (1025)
   * замена лицензии BSD на GNU GPL v2 Public license
 
@@ -3617,7 +3617,7 @@ syslog_msg: true
     enables localization in all stanzas
   * error stanzas: using error description in MucContact if provided
 
-8.03.2006
+8.03.2007
 (1038)
   + Автоматическая смена статуса, настройки в Tools>Options:
     Automatic Away:
@@ -3655,7 +3655,7 @@ syslog_msg: true
   * preventing double message parsing (FS#600)
   * removed leading "[" and trailing "] " in message time balloons
 
-28.03.2006
+28.03.2007
 (1050)
 
   + пользователь может приглашать участника конференции в другие комнаты, при
@@ -3699,7 +3699,7 @@ syslog_msg: true
   * don't change status to online when keys unlocked and locked again consecutively
 
 
-31.03.2006
+31.03.2007
 (1053)
   * Патч определения моделей моторол серий E/L/V
     http://bombus-im.org/flyspray/task/615#comment1364
@@ -3721,7 +3721,7 @@ syslog_msg: true
     if option Tools>Options>Not-In-List activated.
     Use privacy lists to block theese presences
 
-02.04.2006
+02.04.2007
 (1056)
   + Создание закладок конференций (Bookmarks) с пометкой для автовхода
   + При запуске Bombus производится автоматический вход в конференции,
@@ -3736,6 +3736,20 @@ syslog_msg: true
     and option Tools>Options>Startup actions:"join conferences" is checked 
   + On reconnect: Reentering conferences wich was active before going offline.
     Also conference will not be reentered if direct presence was sent into it.
+
+10.04.2007
+(1062)
+  * FS#559: корректность работы в Service Discovery с транспортами, не соблюдающими
+    стандарт XEP-0030 (service discovery)
+  + FS#546: отображение действий правила из списка приватности в виде баллона
+  * FS#633: сохранение позиции курсора в закладках при удалении закладки
+  * совместимость флага закладки autojoin c реализацией в Tkabber
+    (значения атрибуба autojoin в соответствии с типом xs:boolean {true, false, 1, 0})
+  --
+  * FS#559: workaround for gateways violating XEP-0030 (service discovery)
+  + FS#546: privacy rule description in it's balloon
+  * FS#633: keep cursor position after bookmark erasing
+  * autojoin attribute fixed to handle xs:boolean values {true, false, 1, 0}
 ------------------------------------------------------------------------
   known issues:
 
