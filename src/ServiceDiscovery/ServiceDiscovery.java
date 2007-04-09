@@ -51,6 +51,7 @@ public class ServiceDiscovery
     private final static String NS_INFO="http://jabber.org/protocol/disco#info";
     private final static String NS_REGS="jabber:iq:register";
     private final static String NS_SRCH="jabber:iq:search";
+    private final static String NS_GATE="jabber:iq:gateway";
     private final static String NS_MUC="http://jabber.org/protocol/muc";
     private final static String NODE_CMDS="http://jabber.org/protocol/commands";
     
@@ -233,20 +234,10 @@ public class ServiceDiscovery
                 
                 
             }
-            
-            try { 
-                sort(items);
-            } catch (Exception e) { e.printStackTrace(); };
-            
-            /*if (data.getAttribute("from").equals(service)) - jid hashed in id attribute*/ {
-                for (Enumeration e=cmds.elements(); e.hasMoreElements();) 
-                    items.insertElementAt(e.nextElement(),0);
-                this.items=items;
-                moveCursorHome();
-                discoIcon=0; titleUpdate(); 
-            }
+            showResults(items);
         } else if (id.equals(discoId("disco"))) {
             Vector cmds=new Vector();
+            boolean gateway=false;
             if (childs!=null)
             for (Enumeration e=childs.elements(); e.hasMoreElements();) {
                 JabberDataBlock i=(JabberDataBlock)e.nextElement();
@@ -256,6 +247,7 @@ public class ServiceDiscovery
                     if (var.equals(NS_MUC)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_GCJOIN_INDEX, strJoin)); }
                     if (var.equals(NS_SRCH)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_SEARCH_INDEX, strSrch)); }
                     if (var.equals(NS_REGS)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_REGISTER_INDEX, strReg)); }
+                    if (var.equals(NS_GATE)) { gateway=true; }
                     //if (var.equals(NODE_CMDS)) { cmds.addElement(new DiscoCommand(AD_HOC_INDEX,strCmds)); } 
                 }
 		if (i.getTagName().equals("identity")) {
@@ -268,7 +260,8 @@ public class ServiceDiscovery
             }
             /*if (data.getAttribute("from").equals(service)) */ { //FIXME!!!
                 this.cmds=cmds;
-                requestQuery(NS_ITEMS, "disco2");
+                if (!gateway) requestQuery(NS_ITEMS, "disco2");
+                else showResults(new Vector());
             }
         } else if (id.startsWith ("discoreg")) {
             discoIcon=0;
@@ -291,6 +284,21 @@ public class ServiceDiscovery
         }
         redraw();
         return JabberBlockListener.BLOCK_PROCESSED;
+    }
+
+    private void showResults(final Vector items) {
+        
+        try { 
+            sort(items);
+        } catch (Exception e) { e.printStackTrace(); };
+        
+        /*if (data.getAttribute("from").equals(service)) - jid hashed in id attribute*/ {
+            for (Enumeration e=cmds.elements(); e.hasMoreElements();) 
+                items.insertElementAt(e.nextElement(),0);
+            this.items=items;
+            moveCursorHome();
+            discoIcon=0; titleUpdate(); 
+        }
     }
     
     public void eventOk(){
