@@ -113,4 +113,28 @@ public class PrivacyItem extends IconTextElement{
         }
         return item;
     }
+
+    public String getTipString() {
+        StringBuffer tip=new StringBuffer(actions[action]);
+        tip.append(" if ");
+        tip.append(types[type]);
+        if (type!=ITEM_ANY) {
+            tip.append('=');
+            tip.append(value);
+        }
+        tip.append(' ');
+        
+        if ((stanzasSet[0] && stanzasSet[1] && stanzasSet[2] && stanzasSet[3]) 
+        || !(stanzasSet[0] || stanzasSet[1] || stanzasSet[2] || stanzasSet[3])) { 
+            tip.append("all stanzas"); 
+        } else {
+            for (int i=0; i<4; i++) {
+                if (stanzasSet[i]) {
+                    tip.append(stanzas[i]);
+                    tip.append(' ');
+                }
+            }
+        }
+        return tip.toString();
+    }
 }
