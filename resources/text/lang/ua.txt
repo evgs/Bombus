@@ -187,7 +187,7 @@ Port	Порт
 //473
 Proxy name/IP	Iм'я проксi-сервера/IP
 Proxy port	Порт проксi-сервера
-Autofocus	Автофокус
+autofocus	Автофокус
 
 Connect	Пiдключитися
 history -	iсторiя -

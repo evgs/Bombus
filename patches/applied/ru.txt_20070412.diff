@@ -1,0 +1,204 @@
+﻿# больше строк для перевода + задел на будущее :)
+# (c) zet
+Index: ru.txt
+===================================================================
+--- ru.txt	(revision 1062)
++++ ru.txt	(working copy)
+@@ -1,7 +1,7 @@
+-﻿// Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
++﻿// Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org
+ // All rights reserved.
+ // (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
+-// (c) Vladimir N. Shelukhin, 2006.
++// (c) Vladimir N. Shelukhin, 2006-2007.
+ 
+ // ask server to send us localized messages
+ xmlLang	ru
+@@ -13,15 +13,15 @@
+ Existing groups	Существующие группы
+ Message font	Шрифт сообщения
+ Roster font	Шрифт ростера
+-Paste Body	Вставить тело сообщения
++Paste Body	Встав. тело сообщения
+ Configure Room	Конфигуратор комнаты
+-Paste Subject	Вставить тему сообщения
++Paste Subject	Встав. тему сообщения
+ Service Discovery	Обзор сервисов
+ User JID	JID пользователя
+ New list	Новый список
+-Select (no login)	Выбрать (без логина)
++Select (no login)	Выбрать (без соединения)
+ Privacy rule	Правило приватности
+-use SSL	Использовать SSL
++use SSL	использовать SSL
+ Modify	Изменить
+ Update	Обновить
+ Account name	Имя аккаунта
+@@ -40,7 +40,7 @@
+ Refresh	Обновить
+ Resolve Nicknames	Преобразовать в ник
+ Action	Действие
+-Ban	Бан
++Ban	Бан (ban)
+ Leave Room	Покинуть комнату
+ Password	Пароль
+ Actions >	Действия >
+@@ -75,19 +75,19 @@
+ fullscreen	полноэкранный
+ All Priorities	Во всех статусах
+ Add bookmark	Добав. закладку
+-conferences only	Только конференции
++conferences only	только конференции
+ Client Version	Версия клиента
+ Discard Search	Сбросить результаты
+ Search Results	Результаты поиска
+ Members	Члены
+-// offline	Отключенные
++// offline	отключенные
+ Add Contact	Новый контакт
+ Subscription	Подписка
+ Status >	Статус >
+ Join	Присоединиться
+ Startup actions	Действия при запуске
+ Server	Сервер
+-Admins	Админы
++Admins	Администраторы
+ Make Ignore-List	Создать Ignore-List
+ Options	Настройки
+ Delete	Удалить
+@@ -117,13 +117,13 @@
+ at Host	Сервер
+ join conferences	автовход в конференцию
+ Status	Статус
+-Smiles	Смайлики
++Smiles	Вкл/выкл смайлики
+ Contact >	Контакт >
+ Order	Порядок
+ offline contacts	показать отключенных
+ Transport	Транспорт
+ composing events	"composing" события
+-Add Smile	:-)
++Add Smile	Встав. смайлик
+ Nickname	Ник
+ Revoke Voice	Отнять право голоса
+ Commands	Команды
+@@ -145,19 +145,19 @@
+ Cancel	Отмена
+ Close	Закрыть
+ Archive	Архив
+-free 	Свободно 
++free 	свободно 
+ Conference	Конференция
+ Sound	Звук
+ Login failed	Ошибка авторизации
+ New Jid	Новый Jid
+-plain-text password	Пароль откр. текстом
++plain-text password	пароль откр. текстом
+ Paste Nickname	Вставить ник
+ Kick	Выгнать (kick)
+ Clear List	Очистить список
+ Grant Voice	Дать право голоса
+ Quote	Цитировать
+ Roster elements	Элементы ростера
+-popup from background	Всплывать из фона
++popup from background	всплывать из фона
+ smiles	смайлики
+ About	О программе
+ Resource	Ресурс
+@@ -165,7 +165,7 @@
+ Edit	Редактировать
+ Host name/IP (optional)	Имя хоста/IP (необязательно)
+ Add rule	Добавить правило
+-for all status types	Для всех статусов
++for all status types	для всех статусов
+ Paste Jid	Вставить Jid
+ Goto URL	Перейти к URL
+ Clock -	Часы -
+@@ -188,7 +188,6 @@
+ //473
+ Proxy name/IP	Имя прокси-сервера/IP
+ Proxy port	Порт прокси-сервера
+-Autofocus	автофокус
+ 
+ Connect	Подключиться
+ history -	история -
+@@ -219,15 +218,15 @@
+ Unaffiliate	Отнять членство
+ Grant Moderator	Дать право модератора
+ Revoke Moderator	Отнять право модератора
+-Grant Admin	Дать право админа
++Grant Admin	Дать право администратора
+ Grant Ownership	Дать право владельца
+ 
+ room presences	статусы в конференции
+ 
+  is now known as 	 сменил ник на 
+- was banned 	 запретили входить в комнату 
+- was kicked 	 выгнали из комнаты 
+- has been kicked because room became members-only	 выгнан, т.к. комната теперь только для членов
++ was banned 	 запретили входить в данную конференцию 
++ was kicked 	 выгнали из конференции 
++ has been kicked because room became members-only	 выгнан, т.к. конференция теперь только для членов
+  has left the channel	 вышел из конференции
+  has joined the channel as 	 подключился как 
+  and 	 и 
+@@ -235,3 +234,59 @@
+ 
+ Participants	Участники
+ Abc	Абв
++
++//1063
++autofocus	автофокус
++Grant Membership	Дать членство
++Are You sure want to clear messagelist?	Вы уверены, что хотите очистить список сообщений?
++Google token request	Запрос рукопожатия у Google
++SASL login	SASL-соединение
++Features	Возможности
++Show password	Показать пароль
++No client version available	Версия клиента недоступна
++Message limit	Количество сообщений
++Opening stream	Открытие потока
++Using compression	Включение компрессии
++Authenticating	Аутентификация
++Resource binding	Назначение ресурса
++Initiating session	Создание сессии
++Text wrapping	Перенос текста
++by chars	по буквам
++by words	по словам
++Info	Инфо
++Reply	Ответить
++Send status	Установить статус
++Are you sure want to BAN this person?	Вы уверены, что хотите запретить вход данному пользователю?
++No reason	Без причины
++Recent	История ввода
++Shot	Снять
++Select file	Выбрать файл
++Load Photo	Загрузить фото
++Clear Photo	Очистить фото
++Camera	Камера
++Hide finished	Спрятать завершённые
++Transfer tasks	Менеджер передачи файлов
++Are you sure want to delete this message?	Вы уверены, что хотите удалить данное сообщение?
++New conference	Новая конференция
++Root	Корень диска
++Decline	Отклонить
++authorize new contacts	автоматическая авторизация
++[auto-subscribe]	[автоподписка]
++Keep-Alive	Тип Keep-Alive
++ has been unaffiliated and kicked from members-only room	 был лишён полномочий и выгнан, т.к. конференция только для членов
++Minutes before away	Минут перед автосменой статуса
++Automatic Away	Автосмена статуса
++disabled	выключено
++keyblock / flip	блок / флип
++idle	бездействие
++Add autojoin bookmark	Добав. закладку с автовходом
++
++//2007-04-12
++//role	роль
++//affiliation	полномочия
++//visitor	гость
++//participant	участник
++//moderator	модератор
++//owner	владелец
++//admin	администратор
++//member	член конференции

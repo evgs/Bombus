@@ -1,0 +1,15 @@
+# d > D
+# (c) zet
+Index: src\Info\InfoWindow.java
+===================================================================
+--- src\Info\InfoWindow.java	(revision 1062)
++++ src\Info\InfoWindow.java	(working copy)
+@@ -78,7 +78,7 @@
+         try {
+             conn_stats=StaticData.getInstance().roster.theStream.getStreamStats();
+         } catch (Exception e) {
+-            conn_stats="disconnected";
++            conn_stats="Disconnected";
+         }
+         form.append(conn_stats);
+ //#endif

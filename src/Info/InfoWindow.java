@@ -78,7 +78,7 @@ public class InfoWindow implements CommandListener{
         try {
             conn_stats=StaticData.getInstance().roster.theStream.getStreamStats();
         } catch (Exception e) {
-            conn_stats="disconnected";
+            conn_stats="Disconnected";
         }
         form.append(conn_stats);
 //#endif

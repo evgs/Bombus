@@ -188,7 +188,7 @@ Port	Порт
 //473
 Proxy name/IP	прокси-сървър ИМЕ/IP
 Proxy port	прокси-сървър ПОРТ
-Autofocus	автофокус
+autofocus	автофокус
 
 Connect	Свързване
 history -	история -

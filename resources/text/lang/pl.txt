@@ -184,7 +184,7 @@ Port	Port
 //473
 Proxy name/IP	Nazwa Proxy/IP
 Proxy port	Port Proxy
-Autofocus	Autofokus
+autofocus	Autofokus
 
 Connect	Połącz
 history -	historia -
