@@ -3750,6 +3750,16 @@ syslog_msg: true
   + FS#546: privacy rule description in it's balloon
   * FS#633: keep cursor position after bookmark erasing
   * autojoin attribute fixed to handle xs:boolean values {true, false, 1, 0}
+
+15.04.2007
+(1065)
+  * Обновление русскоязычной локализации ( (c)zet )
+  * Обновление таблицы локализуемых строк. ждём обновления перевода на
+    другие языки.
+  --
+  * Russian langfile updated ( (c)zet )
+  * Translation tables updated. Russian langfile may be used as reference.
+    Translators are welcome
 ------------------------------------------------------------------------
   known issues:
 
