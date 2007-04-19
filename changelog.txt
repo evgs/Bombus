@@ -3760,6 +3760,24 @@ syslog_msg: true
   * Russian langfile updated ( (c)zet )
   * Translation tables updated. Russian langfile may be used as reference.
     Translators are welcome
+
+20.04.2007
+(1069)
+  - управление подсветкой телефонов Siemens-NSG убрано из версии 0.4.6.1069
+    (не-zlib) из-за проблем совместимости с некоторыми моделями телефонов
+    иных вендоров
+
+  * улучшение обработки XMPP-пакетов, 
+    отбрасывание < iq type="get"/ > и < iq type="set"/ > в виде ошибки 
+    < feature-not-implemented/ >
+  * обновление чешской локализации
+  --
+  - Siemens-NSG backlight control disabled in non-zlib version due built-in 
+    class preverification in some phones. (SIEMENS_BACKLIGHT ability)
+  * fully handling attributes id and type in any stanza.
+    rejecting unknown < iq type="get"/ > and < iq type="set"/ > stanza 
+    with < feature-not-implemented/ > error
+  * Czech langfile updated (c) jenda.69
 ------------------------------------------------------------------------
   known issues:
 
