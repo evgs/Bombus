@@ -1516,15 +1516,17 @@ public class Roster
     }
     
     private void toggleLight() {
-        if (Version.getPlatformName().endsWith("(NSG)")) {
-            if (blState!=1){
-                com.siemens.mp.game.Light.setLightOn();
-                blState=1;
-            } else {
-                com.siemens.mp.game.Light.setLightOff();
-                blState=Integer.MAX_VALUE;
-            }
-        }
+//#ifdef SIEMENS_BACKLIGHT        
+//#         if (Version.getPlatformName().endsWith("(NSG)")) {
+//#             if (blState!=1){
+//#                 com.siemens.mp.game.Light.setLightOn();
+//#                 blState=1;
+//#             } else {
+//#                 com.siemens.mp.game.Light.setLightOff();
+//#                 blState=Integer.MAX_VALUE;
+//#             }
+//#         }
+//#endif
     }
     
     public void logoff(){
