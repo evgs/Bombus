@@ -1,11 +1,11 @@
-// Český překlad Bombus by jenda.69
+// Český překlad Bombus by jenda.69 (c) 2007 (http://bombus.jendamusic.net)
 // Upravený překlad "(c) 2006 Jindřich Skácel"; přidána diakritika, upřesněny některé názvy
 // Pokud by jste našli nějakou chybu, překlep, chybějící diakritiku, nepřeložené slovo, pište na: jenda.69@gmail.com
 xmlLang cz
 langfile	Česky
 Jid	Jid
 Loading	Načítám
-Privacy Lists	Soukromé seznamy
+Privacy Lists	Seznamy soukromí
 Existing groups	Existující skupina
 Message font	Font zprávy
 Roster font	Font kontaktů
@@ -25,7 +25,7 @@ GMT offset	GMT posunutí
 Time settings (hours)	Nastavení času
 Connected	Připojen
 Connect to 	Připojuji k 
-Alert Profile	Upozorňování
+Alert Profile	Oznamování
 Move Up	Posunout nahoru
 Move Down	Posunout dolů
 Owners	Vlastníci
@@ -182,9 +182,9 @@ Port	Port
 
 
 //473
-Proxy name/IP	Proxy name/IP
+Proxy name/IP	Proxy jméno/IP
 Proxy port	Proxy port
-autofocus	Autofocus
+autofocus	Automaticky označovat
 
 Connect	Připojit
 history -	Historie -
@@ -219,7 +219,7 @@ Revoke Moderator	Odebrat moderátora
 Grant Admin	Dát admina
 Grant Ownership	Dát vlastnictví
 
-room presences	chování místnosti
+room presences	Chování místnosti
 
  is now known as 	 je teď známý jako 
  was banned 	 byl zabanován 
@@ -229,3 +229,49 @@ room presences	chování místnosti
  has joined the channel as 	 se připojil ke kanálu jako 
  and 	 a 
  is now 	 je teď 
+
+//1063
+autofocus	Automaticky označovat
+Grant Membership	Přidělit členství
+Are You sure want to clear messagelist?	Opravdu chcete vymazat seznam zpráv?
+Google token request	Google převzal žádost
+SASL login	SASL přihlášení
+Features	Vlastnosti
+Show password	Zobrazit heslo
+No client version available	Není k dispozici verze klienta
+Message limit	Limit zpráv
+Opening stream	Otevírám stream
+Using compression	Používám kompresi
+Authenticating	Ověřování
+Resource binding	Vázání zdrojů
+Initiating session	Spouštím relaci
+Text wrapping	Zalamování textu
+by chars	po znaku
+by words	po slově
+Info	Info
+Reply	Odpovědět
+Send status	Poslat status
+Are you sure want to BAN this person?	Opravdu chcete zablokovat tuto osobu?
+No reason	Bez důvodu
+Recent	Poslední
+Shot	Vyfotit
+Select file	Vybrat soubor
+Load Photo	Otevřít fotku
+Clear Photo	Smazat fotku
+Camera	Fotoaparát
+Hide finished	Skrýt dokončené
+Transfer tasks	Manažer přenosů
+Are you sure want to delete this message?	Opravdu chcete smazat tuto zprávu?
+New conference	Nová konference
+Root	Kořenový adresář
+Decline	Odmítnout
+authorize new contacts	Autorizovat nové kontakty
+[auto-subscribe]	[automaticky potvrzovat]
+Keep-Alive	Udržování spojení
+ has been unaffiliated and kicked from members-only room	 byl odmítnut a vykopnut z místnosti jen pro členy
+Minutes before away	Minut nečinnosti
+Automatic Away	Automaticky nepřítomen
+disabled	deaktivováno
+keyblock / flip	zamknutí/zaklapnutí
+idle	nečinný
+Add autojoin bookmark	Přidat samopřipojovací záložku
