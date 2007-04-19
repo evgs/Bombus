@@ -96,7 +96,7 @@ public class AccountRegister
             theStream.send(iq);
         //} catch (Exception e) {e.printStackTrace();}
     }
-    public void blockArrived( JabberDataBlock data ) {
+    public int blockArrived( JabberDataBlock data ) {
         //destroyView();
         if (data instanceof Iq) {
             theStream.close();
@@ -112,6 +112,7 @@ public class AccountRegister
             }
             spl.setProgress(title,pgs);
         }
+        return JabberBlockListener.BLOCK_PROCESSED;
     }
     
     public void commandAction(Command c, Displayable d) {

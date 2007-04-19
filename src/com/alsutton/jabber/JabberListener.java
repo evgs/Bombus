@@ -44,7 +44,7 @@ public interface JabberListener
    * @parameter data The incomming block
    */
 
-  public void blockArrived( JabberDataBlock data );
+  public int blockArrived( JabberDataBlock data );
 
   /**
    * Method called when the stream is terminated for some reason

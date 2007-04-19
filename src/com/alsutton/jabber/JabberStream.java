@@ -95,7 +95,7 @@ public class JabberStream implements XMLEventListener, Runnable {
         }
 
         
-        dispatcher = new JabberDataBlockDispatcher();
+        dispatcher = new JabberDataBlockDispatcher(this);
         if( theListener != null ) {
             setJabberListener( theListener );
         }
