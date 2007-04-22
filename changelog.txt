@@ -3780,7 +3780,7 @@ syslog_msg: true
   * Czech langfile updated (c) jenda.69
 
 23.04.2007
-(1072)
+(1074)
   * блокирование рассылки presence-invisible в конференции, 
     в частности, нет автоприсоединения к конференциям при смене статуса
     offline->invisible
