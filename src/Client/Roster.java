@@ -721,6 +721,7 @@ public class Roster
     }
     
     public void multicastConferencePresence() {
+        if (myStatus==Presence.PRESENCE_INVISIBLE) return; //block multicasting presence invisible
         ExtendedStatus es= StatusList.getInstance().getStatus(myStatus);
         for (Enumeration e=hContacts.elements(); e.hasMoreElements();) {
             Contact c=(Contact) e.nextElement();
