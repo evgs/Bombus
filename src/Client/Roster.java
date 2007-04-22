@@ -943,14 +943,15 @@ public class Roster
                                 body=IqVersionReply.dispatchVersion(vc);
                             }
                             querysign=false;
-                        } else return JabberBlockListener.BLOCK_REJECTED;
+                        } //else return JabberBlockListener.BLOCK_REJECTED;
                         
-                        Msg m=new Msg(Msg.MESSAGE_TYPE_IN, "ver", SR.MS_CLIENT_INFO, body);
                         if (body!=null) { 
-                            messageStore( getContact(from, false), m); //drop unwanted requests
+                            Msg m=new Msg(Msg.MESSAGE_TYPE_IN, "ver", SR.MS_CLIENT_INFO, body);
+                            messageStore( getContact(from, false), m); 
                             redraw();
+                            return JabberBlockListener.BLOCK_PROCESSED;
                         }
-                        return JabberBlockListener.BLOCK_PROCESSED;
+                        // 
                     }
                     if (id.equals("getros")) if (type.equals("result")) {
                         // а вот и ростер подошёл :)

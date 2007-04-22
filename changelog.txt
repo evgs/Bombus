@@ -3785,9 +3785,11 @@ syslog_msg: true
     в частности, нет автоприсоединения к конференциям при смене статуса
     offline->invisible
   + реакция на аппаратную кнопку Back для Sony Ericsson M600
+  * исправлено jabber:iq:version (было сломано в 1069)
   --
   * Block multicasting presence-invisible into conferences
   + reaction for hardware "Back" key at m600i
+  * jabber:iq:version fix (broken in 1069)
 ------------------------------------------------------------------------
   known issues:
 
