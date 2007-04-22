@@ -268,6 +268,20 @@ public class Utf8IOStream implements Runnable{
      */
     public void setStreamWaiting(boolean iStreamWaiting) {  this.iStreamWaiting = iStreamWaiting; }
 //#if ZLIB
+    private void appendZlibStats(StringBuffer s, long packed, long unpacked, boolean read){
+        s.append(packed); s.append(read?">>>":"<<<"); s.append(unpacked);
+        String ratio=Long.toString((10*unpacked)/packed);
+        int dotpos=ratio.length()-1;
+        
+        /*
+        s.append(" ratio=");
+        s.append( (dotpos==0)? "0":ratio.substring(0, dotpos));
+        s.append('.');
+        s.append(ratio.substring(dotpos));
+        s.append('x');
+         */
+    }
+    
     public String getStreamStats() {
         StringBuffer stats=new StringBuffer();
         int sent=this.bytesSent;
@@ -277,8 +291,8 @@ public class Utf8IOStream implements Runnable{
             recv+=z.getTotalIn()-z.getTotalOut();
             ZOutputStream zo = (ZOutputStream) outStream;
             sent+=zo.getTotalOut()-zo.getTotalIn();
-            stats.append("ZLib:\nin="); stats.append(z.getTotalIn()); stats.append(">>>"); stats.append(z.getTotalOut());
-            stats.append("\nout="); stats.append(zo.getTotalOut()); stats.append("<<<"); stats.append(zo.getTotalIn());
+            stats.append("ZLib:\nin="); appendZlibStats(stats, z.getTotalIn(), z.getTotalOut(), true);
+            stats.append("\nout="); appendZlibStats(stats, zo.getTotalOut(), zo.getTotalIn(), false);
         }
         stats.append("\nStream:\nin="); stats.append(recv);
         stats.append("\nout="); stats.append(sent);

@@ -186,6 +186,7 @@ public class Config {
             
 	    allowMinimize=true;
             greenKeyCode=0;
+            if (platform.startsWith("SonyEricssonM600")) VirtualList.keyBack=-11;
 	}
 	if (platform.startsWith("Nokia")) {
 	    blFlash=false;
