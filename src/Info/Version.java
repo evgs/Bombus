@@ -83,6 +83,8 @@ public class Version {
             if (platformName.startsWith("Moto")) {
                 if (device==null) device=System.getProperty("funlights.product");
                 if (device!=null) platformName="Motorola-"+device;
+                String devicesoftware=System.getProperty("device.software.version");
+                if (devicesoftware!=null) platformName=platformName++"//"+devicesoftware;
             }
             
 //#if (!MIDP1)
