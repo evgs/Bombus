@@ -1511,8 +1511,9 @@ public class Roster
         if (keyCode=='3') { searchGroup(-1); setRotator(); }
 	if (keyCode=='9') { searchGroup(1); setRotator(); }
         
-        if (keyCode==keyClear) try { 
-            new RosterItemActions(display, getFocusedObject(), RosterItemActions.DELETE_CONTACT); 
+        if (keyCode==keyClear) try {
+            if (!(getFocusedObject() instanceof MucContact))
+                new RosterItemActions(display, getFocusedObject(), RosterItemActions.DELETE_CONTACT); 
         } catch (Exception e) { /* NullPointerException */ }
     
     }
