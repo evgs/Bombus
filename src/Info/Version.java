@@ -56,7 +56,7 @@ public class Version {
             if (platformName==null) platformName="Motorola";
             
             if (platformName.startsWith("j2me")) {
-                if (device.startsWith("wtk-emulator")) {
+                if (device!=null) if (device.startsWith("wtk-emulator")) {
                     platformName=device;
                     return platformName;
                 }
