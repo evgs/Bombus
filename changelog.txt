@@ -3790,6 +3790,25 @@ syslog_msg: true
   * Block multicasting presence-invisible into conferences
   + reaction for hardware "Back" key at m600i
   * jabber:iq:version fix (broken in 1069)
+
+9.05.2007
+(1082)
+  + праздничный сплэш
+
+  * улучшение определения версии телефонов Motorola
+  * исправлена возможная ошибка NullPointerException при определении
+    модели и версии устройства
+  * немного ускорена обработка полученного ростера
+
+  * заблокирована клавиша 'C' (удаление контакта) для контактов конференций
+  --
+  * 'Victory' patriotic splash
+
+  * Motorola phones detection improoved
+  * fixed potential NullPointerException on device version detect
+  * roster stanza processing made faster
+
+  * block C key (delete contact) for Muc-contacts
 ------------------------------------------------------------------------
   known issues:
 
