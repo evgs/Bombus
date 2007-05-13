@@ -97,6 +97,9 @@ public class TransferSendFile
             try {
                 TransferTask task=new TransferTask(to, String.valueOf(System.currentTimeMillis()), fileName.getString(), description.getString());
                 TransferDispatcher.getInstance().sendFile(task);
+                //switch to file transfer manager
+                (new io.file.transfer.TransferManager(display)).setParentView(parentView);
+                return;
             } catch (Exception e) {}
         }
         

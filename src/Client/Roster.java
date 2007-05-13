@@ -927,7 +927,8 @@ public class Roster
                         Contact c=getContact(jid, false); // drop unwanted vcards
                         if (c!=null) {
                             c.vcard=vcard;
-                            new vCardForm(display, vcard, c.getGroupType()==Groups.TYPE_SELF);
+                            if (display.getCurrent() instanceof VirtualList)
+                                new vCardForm(display, vcard, c.getGroupType()==Groups.TYPE_SELF);
                         }
                         return JabberBlockListener.BLOCK_PROCESSED;
                     }
@@ -1104,6 +1105,7 @@ public class Roster
                     compose=(  x.getChildBlock("composing")!=null 
                             && c.status<Presence.PRESENCE_OFFLINE); // drop composing events from offlines
                     
+                    if (groupchat) compose=false;   //drop composing events in muc;
                     if (compose) c.acceptComposing=true ; 
                     if (body!=null) compose=false;
                     c.setComposing(compose);
