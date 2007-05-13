@@ -3809,6 +3809,23 @@ syslog_msg: true
   * roster stanza processing made faster
 
   * block C key (delete contact) for Muc-contacts
+
+13.05.2007
+(1086)
+  * исправлена ошибка с непредвиденной сменой активного аккаунта при
+  удалении аккаунта
+  + вывод текста статусных сообщений при входе/выходе участника конференции
+  * блокировка всплывания запрошенного vCard на экране блокировки клавиатуры,
+    при наборе сообщений, в других экранах, построенных на базовых формах java-машины
+  * игнорирование события "Composing" в общем чате конференции
+  + автоматическое открытие менеджера передачи файлов для контроля процесса
+    после иницииации отправки файла
+  --
+  * keep active account number on action "delete account"
+  + status text in join/liave MUC-presences
+  * vCard popup blocked in screens other than VirtualList
+  * composing events dropped in MUC
+  + auto-opening File Transfer Manager after sending file is initiated
 ------------------------------------------------------------------------
   known issues:
 
