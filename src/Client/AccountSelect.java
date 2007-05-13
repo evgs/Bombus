@@ -131,6 +131,11 @@ public class AccountSelect
             new AccountForm(this, display, null);
         }
         if (c==cmdDel) {
+            {
+                Config cf=Config.getInstance();
+                if (cf.accountIndex>cursor) cf.accountIndex--;
+                cf.saveToStorage();
+            }
             accountList.removeElement(getFocusedObject());
             rmsUpdate();
             moveCursorHome();
