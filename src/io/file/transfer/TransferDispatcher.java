@@ -98,9 +98,13 @@ public class TransferDispatcher implements JabberBlockListener{
                 }
             }
             JabberDataBlock open=data.getChildBlock("open");
-            if (open!=null) {
+            if (open!=null) if (open.isJabberNameSpace("http://jabber.org/protocol/ibb")) {
                 String sid=open.getAttribute("sid");
                 TransferTask task=getTransferBySid(sid);
+
+                //verifying block-size
+                if (!checkIbbSize(task, id, open.getAttribute("block-size"))) return BLOCK_PROCESSED;
+                
                 
                 JabberDataBlock accept=new Iq(task.jid, Iq.TYPE_RESULT, id);
                 send(accept, true);
@@ -145,6 +149,27 @@ public class TransferDispatcher implements JabberBlockListener{
             
         }
         return BLOCK_REJECTED;
+    }
+
+    boolean  checkIbbSize(TransferTask task, String id, String size) {
+        try {
+            if (Integer.parseInt(size)<com.alsutton.xmlparser.XMLParser.MAX_BLOCK_SIZE) return true;
+        } catch (Exception ex) {}
+        
+        JabberDataBlock reject=new Iq(task.jid, Iq.TYPE_ERROR, id);
+        JabberDataBlock error=reject.addChild("error",null);
+        error.setTypeAttribute("cancel");
+        error.setAttribute("code","406");
+        error.addChild("not-acceptable",null).setNameSpace("urn:ietf:params:xml:ns:xmpp-stanzas");
+        error.addChild("text","block-size too long").setNameSpace("urn:ietf:params:xml:ns:xmpp-stanzas");
+        
+        send(reject, true);
+        
+        //task.state=ERROR;
+        task.errMsg="Rejected";
+        task.showEvent=true;
+        eventNotify();
+        return false;
     }
     
     // send shortcut

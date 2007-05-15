@@ -48,7 +48,11 @@ public class XMLParser
 
   private String rootTag = null;
   
-  private static final int MAX_BLOCK_SIZE=4096-3; //max array for m55=4096?
+//#if (!MIDP1)
+  public static final int MAX_BLOCK_SIZE=8192; //anti-flood limiter
+//#else
+//#   public static final int MAX_BLOCK_SIZE=4096-3; //max array for m55=4096?
+//#endif
 
   private final static int MAX_BIN_DATASIZE=64*1024; //64 KB - experimental
 
