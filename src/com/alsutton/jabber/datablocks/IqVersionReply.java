@@ -46,10 +46,9 @@ public class IqVersionReply extends Iq{
         query.setNameSpace("jabber:iq:version");
         query.addChild("name","Bombus");
         query.addChild("version",Version.getVersionLang());
-        String os=Version.getOs();
-                //+" Locale="
-                //+System.getProperty("microedition.locale");
-        query.addChild("os",os);
+        if (Config.getInstance().enableVersionOs) {
+            query.addChild("os", Version.getOs());
+        }
     }
     
     // constructs version request

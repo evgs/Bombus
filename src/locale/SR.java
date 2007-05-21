@@ -320,12 +320,11 @@ public class SR {
     //public   static String MS_MEMBER = loadString( "member" );
     
     
+    public final static String MS_SHOW_HARDWARE="Shared platform info";
     
     
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
-
-
 
 
     private SR() { }

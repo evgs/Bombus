@@ -140,6 +140,8 @@ public class Config {
     public int autoAwayType=0;
     public int autoAwayDelay=5; //5 minutes
     
+    public boolean enableVersionOs=true;
+
     // runtime values
     public boolean allowMinimize=false;
     public int profile=0;
@@ -272,6 +274,8 @@ public class Config {
             
             autoAwayType=inputStream.readInt();
             autoAwayDelay=inputStream.readInt();
+            
+            enableVersionOs=inputStream.readBoolean();
 	    
 	    inputStream.close();
 	} catch (Exception e) {
@@ -347,6 +351,8 @@ public class Config {
 
             outputStream.writeInt(autoAwayType);
             outputStream.writeInt(autoAwayDelay);
+            
+            outputStream.writeBoolean(enableVersionOs);
 	    
 	} catch (Exception e) { e.printStackTrace(); }
 	
