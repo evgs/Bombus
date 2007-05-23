@@ -3826,6 +3826,18 @@ syslog_msg: true
   * vCard popup blocked in screens other than VirtualList
   * composing events dropped in MUC
   + auto-opening File Transfer Manager after sending file is initiated
+
+23.05.2007
+(1091)
+  - option "Tools>Options->Not-In-List" removed.
+    now all not-in-list events will be processed and displayed.
+    unwanted messages from contacts not in list may be blocked via Privacy Lists
+  * "Authorize" command works correctly if not-in-list contact sends presence subscribe
+  + "Share platform info" - option to enable/disable platform version/hardware 
+    according to XEP-0092 (5. Security Considerations)
+  * XMLParser.java: increased anti-flood limit up to 8192 chars
+  + File Transfers: check ibb block-size to be less than anti-flood limit.
+    if exceeds, transfer will be rejected (to avoid file corrupting)
 ------------------------------------------------------------------------
   known issues:
 
