@@ -604,7 +604,7 @@ public class Roster
         c=findContact(J, false);
         if (c==null) {
             if (!createInNIL) return null;
-            c=new Contact(null, jid, Presence.PRESENCE_OFFLINE, "not-in-list");
+            c=new Contact(null, jid, Presence.PRESENCE_OFFLINE, "none" ); /*"not-in-list"*/
 	    c.bareJid=J.getBareJid();
             c.origin=Contact.ORIGIN_PRESENCE;
             c.setGroup(groups.getGroup(Groups.TYPE_NOT_IN_LIST));
