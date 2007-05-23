@@ -3828,12 +3828,25 @@ syslog_msg: true
   + auto-opening File Transfer Manager after sending file is initiated
 
 23.05.2007
-(1091)
+(1093)
+  - Удалена опция "Tools>Options->Not-In-List".
+    Теперь все сообщения и презенсы, отправленные контактами вне ростера, будут
+    отображаться в Not-In-List. Фильтрация таких сообщений возможна 
+    через списки приватности.
+  * исправлена работа команды "Authorize" для контактов вне ростера, отправивших
+    запрос на подписку (контакты в Not-In-List)
+  + опция "shared platform info" - разрешение/блокировка отправки информации о
+    версии java-машины и модели телефона в ответе на запрос версии клиента
+    (см. XEP-0092)
+  * изменение защитного антифлуд-барьера в xml-парсере до 8К знаков
+  * более жёсткая проверка максимального размера передаваемого блока данных при
+    приёме файлов. отказ приёма файла, если размер блока превышает антифлуд-барьер
+  --
   - option "Tools>Options->Not-In-List" removed.
     now all not-in-list events will be processed and displayed.
     unwanted messages from contacts not in list may be blocked via Privacy Lists
   * "Authorize" command works correctly if not-in-list contact sends presence subscribe
-  + "Share platform info" - option to enable/disable platform version/hardware 
+  + "shared platform info" - option to enable/disable platform version/hardware 
     according to XEP-0092 (5. Security Considerations)
   * XMLParser.java: increased anti-flood limit up to 8192 chars
   + File Transfers: check ibb block-size to be less than anti-flood limit.
