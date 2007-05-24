@@ -3851,6 +3851,12 @@ syslog_msg: true
   * XMLParser.java: increased anti-flood limit up to 8192 chars
   + File Transfers: check ibb block-size to be less than anti-flood limit.
     if exceeds, transfer will be rejected (to avoid file corrupting)
+
+24.05.2007
+(1095)
+  * размер текстовых полей в редакторе аккаунта увеличен с 32 до 64 символов
+  --
+  * all textfields in account form are extended up to 64 chars (was 32)
 ------------------------------------------------------------------------
   known issues:
 
