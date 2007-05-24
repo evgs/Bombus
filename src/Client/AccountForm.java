@@ -85,14 +85,14 @@ class AccountForm implements CommandListener, ItemStateListener {
 	    SR.MS_NEW_ACCOUNT /*"New Account"*/:
 	    (account.toString());
 	f = new Form(title);
-	userbox = new TextField(SR.MS_USERNAME, account.getUserName(), 32, ConstMIDP.TEXTFIELD_URL); 
+	userbox = new TextField(SR.MS_USERNAME, account.getUserName(), 64, ConstMIDP.TEXTFIELD_URL); 
         TextFieldCombo.setLowerCaseLatin(userbox); 
         f.append(userbox);
         
-	passbox = new TextField(SR.MS_PASSWORD, account.getPassword(), 32, TextField.PASSWORD);	f.append(passbox);
+	passbox = new TextField(SR.MS_PASSWORD, account.getPassword(), 64, TextField.PASSWORD);	f.append(passbox);
         passStars(false);
-	servbox = new TextField(SR.MS_SERVER,   account.getServer(),   32, TextField.URL); f.append(servbox);
-	ipbox = new TextField(SR.MS_HOST_IP, account.getHostAddr(), 32, TextField.URL);	f.append(ipbox);
+	servbox = new TextField(SR.MS_SERVER,   account.getServer(),   64, TextField.URL); f.append(servbox);
+	ipbox = new TextField(SR.MS_HOST_IP, account.getHostAddr(), 64, TextField.URL);	f.append(ipbox);
 	portbox = new NumberField(SR.MS_PORT, account.getPort(), 0, 65535); f.append(portbox);
 	register = new ChoiceGroup(null, Choice.MULTIPLE);
 	register.append(SR.MS_SSL,null);
