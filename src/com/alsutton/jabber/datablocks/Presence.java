@@ -101,6 +101,12 @@ public class Presence extends JabberDataBlock
               text.append(PRS_ERROR);
               errText=getChildBlock("error").toString();
           }
+          
+          if (type.length()==0) {
+              //TODO: weather.13.net.ru workaround. remove warning when fixed
+              presenceCode=PRESENCE_UNKNOWN;
+              text.append("UNKNOWN presence stanza");
+          }
       } else {
           // online-kinds
           show=getShow(); text.append(show);
