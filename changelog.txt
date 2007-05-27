@@ -3857,6 +3857,15 @@ syslog_msg: true
   * размер текстовых полей в редакторе аккаунта увеличен с 32 до 64 символов
   --
   * all textfields in account form are extended up to 64 chars (was 32)
+
+27.05.2007
+(1098)
+  * более корректное закрытие сокета при разрыве соединения 
+    (ожидание завершения отправки всех данных в течение 10 секунд)
+  + хранение состояния свёрнутости групп на сервере
+  --
+  * more gracefull stream termination
+  + server-side storage for group states (expanded/collapsed)
 ------------------------------------------------------------------------
   known issues:
 
