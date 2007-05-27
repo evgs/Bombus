@@ -49,7 +49,7 @@ public class Group extends IconTextElement {
     private int tncontacts;
     public int unreadMessages=0;
     
-    boolean collapsed;
+    protected boolean collapsed;
     
     public Group(String name /*, String label*/) {
         super(RosterIcons.getInstance());

@@ -59,5 +59,5 @@ public interface XMLEventListener
    * @param name The name of the tag that has just ended.
    */
 
-  public void tagEnded( String name );
+  public void tagEnded( String name ) throws EndOfXMLException;
 }

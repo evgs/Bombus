@@ -160,14 +160,18 @@ public class JabberStream implements XMLEventListener, Runnable {
             //TODO: see FS#528
             try {  Thread.sleep(500); } catch (Exception e) {};
             send( "</stream:stream>" );
-            try {  Thread.sleep(300); } catch (Exception e) {};
+            int time=10;
+            while (dispatcher.isActive()) {
+                try {  Thread.sleep(500); } catch (Exception e) {};
+                if ((--time)<0) break;
+            }
             //connection.close();
         } catch( IOException e ) {
             // Ignore an IO Exceptions because they mean that the stream is
             // unavailable, which is irrelevant.
         } finally {
-	    iostream.close();
             dispatcher.halt();
+	    iostream.close();
         }
     }
     
@@ -313,9 +317,15 @@ public class JabberStream implements XMLEventListener, Runnable {
      * @param name The name of the tag that has just ended.
      */
     
-    public void tagEnded( String name ) {
-        if( currentBlock == null )
+    public void tagEnded( String name ) throws EndOfXMLException {
+        if( currentBlock == null ) {
+            if ( name.equals( "stream:stream" ) ) {
+                dispatcher.halt();
+                iostream.close();
+                throw new EndOfXMLException("Normal stream shutdown");
+            }
             return;
+        }
         
         JabberDataBlock parent = currentBlock.getParent();
         if( parent == null ) {

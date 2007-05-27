@@ -58,6 +58,7 @@ public class JabberDataBlockDispatcher extends Thread
 
     private JabberStream stream;
 
+    boolean isActive() { return dispatcherActive; }
   /**
    * Constructor to start the dispatcher in a thread.
    */

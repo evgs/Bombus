@@ -32,7 +32,11 @@ package com.alsutton.xmlparser;
 
 public class EndOfXMLException extends Exception
 {
-    public String getMessage() {
-        return "Unexcepted end of XML stream";
+    public EndOfXMLException() {
+        super("Unexcepted end of XML stream");
+    }
+    
+    public EndOfXMLException(String name) {
+        super(name);
     }
 }
