@@ -7,6 +7,7 @@
             <configuration>M55_Release</configuration>
             <configuration>RIM</configuration>
             <configuration>ReleaseJZLIB</configuration>
+            <configuration>ReleaseZH</configuration>
             <configuration>Release</configuration>
         </configurations>
         <data xmlns="http://www.netbeans.org/ns/j2me-project">
