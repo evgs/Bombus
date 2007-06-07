@@ -1,7 +1,7 @@
-null	English
-/lang/ru.txt	Russian
-/lang/pl.txt	Polish
-/lang/cz.txt	Czech
-/lang/sk.txt	Slovak
-/lang/ua.txt	Ukrainian
-/lang/bg.txt	Bulgarian
+en	null	English
+ru	/lang/ru.txt	Russian
+po	/lang/pl.txt	Polish
+cz	/lang/cz.txt	Czech
+sk	/lang/sk.txt	Slovak
+ua	/lang/ua.txt	Ukrainian
+bg	/lang/bg.txt	Bulgarian

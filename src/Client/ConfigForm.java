@@ -106,6 +106,7 @@ public class ConfigForm implements
     boolean ap[];
     boolean su[];
     Vector files[];
+    Vector langs[];
     
     /** Creates a new instance of ConfigForm */
     public ConfigForm(Display display) {
@@ -234,17 +235,16 @@ public class ConfigForm implements
 	f.append(sndFile);
 	
         lang=new ChoiceGroup("Language", ConstMIDP.CHOICE_POPUP);
-	Vector langs[]=new StringLoader().stringLoader("/lang/res.txt",2);
+	langs=new StringLoader().stringLoader("/lang/res.txt",3);
 	
-	for (Enumeration f=langs[1].elements(); f.hasMoreElements(); ) {
-	    lang.append( (String)f.nextElement(), null );
+	for (int i=0; i<langs[0].size(); i++) {
+            String label=(String) langs[2].elementAt(i);
+            String langCode=(String) langs[2].elementAt(i);
+	    lang.append( label, null );
+            if (cf.lang.equals(langCode))
+                lang.setSelectedIndex(i, true);
 	}
 	
-        try {
-            lang.setSelectedIndex(cf.lang, true);
-        } catch (Exception e) { cf.lang=0; }
-
-        
         //sndVol=new Gauge("Sound volume", true, 10,  cf.soundVol/10);
 	//f.append(sndVol);
 
@@ -336,7 +336,7 @@ public class ConfigForm implements
 	    cf.textWrap=textWrap.getSelectedIndex();
 	    
 	    //cf.soundVol=sndVol.getValue()*10;
-            cf.lang=lang.getSelectedIndex();
+            cf.lang=(String) langs[0].elementAt( lang.getSelectedIndex() );
             
             cf.autoAwayDelay=fieldAwatDelay.getValue();
             cf.autoAwayType=autoAwayType.getSelectedIndex();

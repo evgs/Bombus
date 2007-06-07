@@ -346,7 +346,7 @@ public class SR {
         String value=(String)lang.get(key);
 //#if LOCALE_DEBUG
         if (value==null) {
-            if (Config.getInstance().lang!=0) {
+            if (!lang.isEmpty()) {
                 System.out.print("Can't find local string for <");
                 System.err.print(key);
                 System.err.println('>');

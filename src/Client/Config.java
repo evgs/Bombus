@@ -131,7 +131,7 @@ public class Config {
     public int font2=0;
     public int font3=0;
 
-    public int lang=0;  //en
+    public String lang;  //en
     public boolean capsState=true;
     public int textWrap=0;
     
@@ -262,7 +262,7 @@ public class Config {
             
             autoFocus=inputStream.readBoolean();
             
-            lang=inputStream.readInt();
+            /*lang=*/inputStream.readInt();
             
             storeConfPresence=inputStream.readBoolean();
             
@@ -276,6 +276,8 @@ public class Config {
             autoAwayDelay=inputStream.readInt();
             
             enableVersionOs=inputStream.readBoolean();
+            
+            lang=inputStream.readUTF();
 	    
 	    inputStream.close();
 	} catch (Exception e) {
@@ -296,10 +298,22 @@ public class Config {
 	messagesnd=(String) files[1].elementAt(soundsMsgIndex);
     }
     public String langFileName(){
-        if (lang==0) return null;   //english
-	Vector files[]=new StringLoader().stringLoader("/lang/res.txt", 2);
-        if (lang>=files[0].size()) return null;
-	return (String) files[0].elementAt(lang);
+        if (lang==null) {
+            //auto-detecting
+            lang=System.getProperty("microedition.locale");
+            System.out.println(lang);
+            //We will use only language code from locale
+            if (lang==null) lang="en"; else lang=lang.substring(0, 2).toLowerCase();
+        }
+        
+        if (lang.equals("en")) return null;  //english
+	Vector files[]=new StringLoader().stringLoader("/lang/res.txt", 3);
+        for (int i=0; i<files[0].size(); i++) {
+            String langCode=(String) files[0].elementAt(i);
+            if (lang.equals(langCode))
+        	return (String) files[1].elementAt(i);
+        }
+        return null; //unknown language ->en
     }
     
     public void saveToStorage(){
@@ -339,7 +353,7 @@ public class Config {
             
             outputStream.writeBoolean(autoFocus);
             
-            outputStream.writeInt(lang);
+            outputStream.writeInt(0 /*lang*/);
             
             outputStream.writeBoolean(storeConfPresence); 
 
@@ -353,6 +367,8 @@ public class Config {
             outputStream.writeInt(autoAwayDelay);
             
             outputStream.writeBoolean(enableVersionOs);
+            
+            outputStream.writeUTF(lang);
 	    
 	} catch (Exception e) { e.printStackTrace(); }
 	
