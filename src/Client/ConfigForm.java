@@ -239,7 +239,7 @@ public class ConfigForm implements
 	
 	for (int i=0; i<langs[0].size(); i++) {
             String label=(String) langs[2].elementAt(i);
-            String langCode=(String) langs[2].elementAt(i);
+            String langCode=(String) langs[0].elementAt(i);
 	    lang.append( label, null );
             if (cf.lang.equals(langCode))
                 lang.setSelectedIndex(i, true);
