@@ -36,6 +36,7 @@ import com.alsutton.jabber.datablocks.Iq;
 import com.alsutton.jabber.datablocks.Presence;
 import java.util.Enumeration;
 import java.util.Vector;
+import util.StringLoader;
 
 /**
  *
@@ -83,6 +84,9 @@ public class BookmarkQuery implements JabberBlockListener{
                         }
                     }
                 } catch (Exception e) { /* no any bookmarks */}
+                
+                if (bookmarks.isEmpty()) 
+                    loadDefaults(bookmarks);
 
                 StaticData.getInstance().roster.bookmarks=bookmarks;
                 StaticData.getInstance().roster.redraw();
@@ -92,5 +96,18 @@ public class BookmarkQuery implements JabberBlockListener{
             }
         } catch (Exception e) {}
         return JabberBlockListener.BLOCK_REJECTED;
+    }
+
+    private void loadDefaults(Vector bookmarks) {
+	Vector defs[]=new StringLoader().stringLoader("/def_bookmarks.txt", 3);
+        for (int i=0; i<defs[0].size(); i++) {
+            String roomJid=(String) defs[0].elementAt(i);
+            String nick=(String) defs[1].elementAt(i);
+            String pass=(String) defs[2].elementAt(i);
+            if (nick==null) nick="";
+            if (pass==null) pass="";
+            BookmarkItem bm=new BookmarkItem(roomJid, nick, pass, false);
+            bookmarks.addElement(bm);
+        }
     }
 }
