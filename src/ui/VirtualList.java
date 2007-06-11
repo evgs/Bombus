@@ -908,31 +908,9 @@ public abstract class VirtualList
         }
     }
     
-    public void setTimeEvent(long time){
-        synchronized (this) {
-            timeEvent=(time==0)? 0:time+System.currentTimeMillis();
-            if (time!=0) setRotator();
-        }
-    };
-    protected long timeEvent;
-
     public int getCursor() {
         return cursor;
     }
-
-    boolean probeTime(){
-        synchronized (this) {
-            if (timeEvent==0) return true;
-            long timeRemained=System.currentTimeMillis()-timeEvent;
-            //System.out.println(timeRemained);
-            if (timeRemained>=0) {
-                timeEvent=0;
-                onTime();
-            }
-        }
-        return false;
-    }
-    public void onTime() {};
 }
 
 class TimerTaskRotate extends Thread{
@@ -990,7 +968,7 @@ class TimerTaskRotate extends Thread{
             synchronized (this) {
                 //System.out.println("b:"+scrollLen+" scroll="+scroll+" balloon="+balloon + " stop=" + stop);
                 
-                if (attachedList!=null) stop=attachedList.probeTime(); else stop=true;
+                if (attachedList==null) stop=true;
                 
                 if (scrollLen>=0 || balloon>=0) { 
                     stop=false;

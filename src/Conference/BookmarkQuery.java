@@ -85,7 +85,7 @@ public class BookmarkQuery implements JabberBlockListener{
                     }
                 } catch (Exception e) { /* no any bookmarks */}
                 
-                //if (bookmarks.isEmpty()) 
+                if (bookmarks.isEmpty()) 
                     loadDefaults(bookmarks);
 
                 StaticData.getInstance().roster.bookmarks=bookmarks;

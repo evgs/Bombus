@@ -140,6 +140,8 @@ public class Roster
 
     private final static int maxReconnect=5;
     private int reconnectCount;
+    
+    private AutoStatusTask autostatus;
     //public JabberBlockListener discoveryListener;
     
     /**
@@ -212,6 +214,8 @@ public class Roster
 	updateTitle();
 	
         SplashScreen.getInstance().setExit(display, this);
+        
+        autostatus=new AutoStatusTask();
         
         //parentView=null; - already have
     }
@@ -1441,7 +1445,7 @@ public class Roster
             /*|| keyCode=='#'*/ ) {
             //System.out.println("Flip closed");
             if (cf.autoAwayType==Config.AWAY_LOCK) 
-                if (!autoAway) setTimeEvent(cf.autoAwayDelay* 60*1000);
+                if (!autoAway) autostatus.setTimeEvent(cf.autoAwayDelay* 60*1000);
         } else {
             if (keyCode!=cf.keyLock) userActivity();
         }
@@ -1450,9 +1454,9 @@ public class Roster
 
     private void userActivity() {
         if (cf.autoAwayType==Config.AWAY_IDLE) {
-            setTimeEvent(cf.autoAwayDelay* 60*1000);
+            autostatus.setTimeEvent(cf.autoAwayDelay* 60*1000);
         } else {
-            setTimeEvent(0);
+            autostatus.setTimeEvent(0);
         }  
         setAutoStatus(Presence.PRESENCE_ONLINE);
     }
@@ -1465,7 +1469,7 @@ public class Roster
         
         if (keyCode==cf.keyLock) {
             if (cf.autoAwayType==Config.AWAY_LOCK) 
-                if (!autoAway) setTimeEvent(cf.autoAwayDelay* 60*1000);
+                if (!autoAway) autostatus.setTimeEvent(cf.autoAwayDelay* 60*1000);
             new KeyBlock(display, getTitleItem(), cf.keyLock, cf.ghostMotor); 
         }
 
@@ -1555,6 +1559,7 @@ public class Roster
     public void commandAction(Command c, Displayable d){
         userActivity();
         if (c==cmdQuit) {
+            autostatus.destroyTask();
             destroyView();
             logoff();
             //StaticData sd=StaticData.getInstance();
@@ -1630,14 +1635,14 @@ public class Roster
         //System.out.println("Show notify");
         
         if (cf.autoAwayType==Config.AWAY_IDLE) {
-            if (timeEvent==0) {
-                if (!autoAway) setTimeEvent(cf.autoAwayDelay* 60*1000);
+            if (autostatus.isTimerSet()) {
+                if (!autoAway) autostatus.setTimeEvent(cf.autoAwayDelay* 60*1000);
             }
         }
     }
     protected void hideNotify() {
         super.hideNotify();
-        if (cf.autoAwayType==Config.AWAY_IDLE) if (kHold==0) setTimeEvent(0);
+        if (cf.autoAwayType==Config.AWAY_IDLE) if (kHold==0) autostatus.setTimeEvent(0);
     }
     
     private void searchGroup(int direction){
@@ -1692,11 +1697,6 @@ public class Roster
         setProgress(msg, 42);
     }
 
-    public void onTime() {
-        //System.out.println("Do autostatus change");
-        setAutoStatus(Presence.PRESENCE_AWAY);
-    }
-    
     private class ReEnumerator implements Runnable{
 
         Thread thread;
@@ -1791,7 +1791,7 @@ public class Roster
         this.myJid = myJid;
     }
 
-    private void setAutoStatus(int status) {
+    public void setAutoStatus(int status) {
         if (!isLoggedIn()) return;
         if (status==Presence.PRESENCE_ONLINE && autoAway) {
             autoAway=false;
