@@ -34,7 +34,7 @@ public class AutoStatusTask implements Runnable {
     }
 
     public void run() {
-        while (stop) {
+        while (!stop) {
             try {
                 Thread.sleep(5000);
             } catch (InterruptedException ex) {
@@ -44,9 +44,11 @@ public class AutoStatusTask implements Runnable {
             if (timeEvent==0) continue;
             
             long timeRemained=System.currentTimeMillis()-timeEvent;
+            System.out.println(timeRemained);
             if (timeRemained<0) continue;
 
             StaticData.getInstance().roster.setAutoStatus(Presence.PRESENCE_AWAY);
+            timeEvent=0;
 
         }
     }
