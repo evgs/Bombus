@@ -1635,7 +1635,7 @@ public class Roster
         //System.out.println("Show notify");
         
         if (cf.autoAwayType==Config.AWAY_IDLE) {
-            if (autostatus.isTimerSet()) {
+            if (!autostatus.isTimerSet()) {
                 if (!autoAway) autostatus.setTimeEvent(cf.autoAwayDelay* 60*1000);
             }
         }
