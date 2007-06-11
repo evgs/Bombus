@@ -3866,6 +3866,35 @@ syslog_msg: true
   --
   * more gracefull stream termination
   + server-side storage for group states (expanded/collapsed)
+
+12.06.2007
+  + запрет реконнекта дл€ ошибок <stream:error> - почти все эти ошибки тербуют 
+    вмешательства пользовател€.
+    ‘актически, реконнект теперь производитс€ только при обрыве соединени€ на уровне
+    сокета (и ниже)
+  * »справление ошибочной работы автостатуса idle. требуетс€ тестирование.
+  + Bookmarks:  оманда присоединени€ ко всем конференци€м с меткой autojoin 
+    (название команды будет уточнено).
+  + «акладки конференций "по умолчанию" - хран€тс€ в файле /def_bookmarks.txt внутри
+    мидлета. в стандартной версии это bombus@conference.jabber.ru и bombus-talks@conference.jabber.ru.
+    эти закладки по€вл€ютс€ только при отсутствии сохранЄнных на сервере закладокэ
+    формат строки файла: roomJid<tab>nick<tab>pass<crlf>
+  + автоопределение €зыка приложени€ по локали телефона. может быть изменено в опци€х.
+  * код €зыка хранитс€ в опци€х в текстовом формате, а не числовым индексом
+  * индикатор прогресса загрузки ростера при достижении 100% не перескакивает на 60%
+
+  --
+  + <stream:error> handling - reconnection disabled for this error. 
+    Actually, reconnection works only for EndOfXMLException and IOException
+  * trying to fixup autostatus hangs
+  + Bookmarks: autojoin command (name TBD) in bookmarks - join to all autojoin-marked conferences
+  + default bookmarks: file /def_bookmarks.txt in jar. this file contains bookmarks
+    will be loaded if no any bookmarks stored on the server.
+    format is roomJid<tab>nick<tab>pass<crlf>
+  + language autodetection, used System.getProperty("microedition.locale");
+  * language code stored as string, not as index
+  * saturation for roster progress - no jumps to 60% if reached 100% 
+
 ------------------------------------------------------------------------
   known issues:
 
