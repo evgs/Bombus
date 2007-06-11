@@ -1019,6 +1019,7 @@ class TimerTaskRotate extends Thread{
                 
             }
             if (redraw) attachedList.redraw();
+            redraw=false;
             
         }
     }
