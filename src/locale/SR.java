@@ -319,7 +319,7 @@ public class SR {
     //public   static String MS_ADMIN = loadString( "admin" );
     //public   static String MS_MEMBER = loadString( "member" );
     
-    public static String MS_DO_AUTOJOIN="Multiple Join"; //temporary
+    public static String MS_DO_AUTOJOIN="Join marked (auto)"; //temporary
     
     public final static String MS_SHOW_HARDWARE="shared platform info";
     
