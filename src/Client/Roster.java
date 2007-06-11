@@ -248,8 +248,8 @@ public class Roster
         rscaler++;
         if (rscaler<4) return;
         rscaler=0;
-        rpercent++;
-        if (rpercent==100) rpercent=60;
+        if (rpercent<100) rpercent++;
+        //if (rpercent==100) rpercent=60;
         SplashScreen.getInstance().setProgress(rpercent);
     }
     
