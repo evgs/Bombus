@@ -51,6 +51,7 @@ public class Bookmarks
     
     private Command cmdCancel=new Command (SR.MS_CANCEL, Command.BACK, 99);
     private Command cmdJoin=new Command (SR.MS_SELECT, Command.SCREEN, 10);
+    private Command cmdDoAutoJoin=new Command(SR.MS_DO_AUTOJOIN, Command.SCREEN, 12);
     private Command cmdDisco=new Command (SR.MS_DISCO_ROOM, Command.SCREEN, 15);
     private Command cmdConfigure=new Command (SR.MS_CONFIG_ROOM, Command.SCREEN, 16);
     //private Command cmdRfsh=new Command (SR.MS_REFRESH, Command.SCREEN, 20);
@@ -80,6 +81,7 @@ public class Bookmarks
         
         addCommand(cmdCancel);
         addCommand(cmdJoin);
+        addCommand(cmdDoAutoJoin);
         //addCommand(cmdRfsh);
         addCommand(cmdNew);
         addCommand(cmdDel);
@@ -133,6 +135,15 @@ public class Bookmarks
         if (c==cmdDisco) new ServiceDiscovery(display, roomJid, null);
         
         if (c==cmdConfigure) new QueryConfigForm(display, roomJid);
+        
+        if (c==cmdDoAutoJoin) {
+            for (Enumeration e=StaticData.getInstance().roster.bookmarks.elements(); e.hasMoreElements();) {
+                BookmarkItem bm=(BookmarkItem) e.nextElement();
+                if (bm.autojoin) 
+                    ConferenceForm.join(bm.jid+'/'+bm.nick, bm.password, 20);
+            }
+            exitBookmarks();
+        }
 
     }
     

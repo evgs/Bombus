@@ -319,12 +319,14 @@ public class SR {
     //public   static String MS_ADMIN = loadString( "admin" );
     //public   static String MS_MEMBER = loadString( "member" );
     
+    public static String MS_DO_AUTOJOIN="Multiple Join"; //temporary
     
     public final static String MS_SHOW_HARDWARE="shared platform info";
     
     
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
+
 
 
     private SR() { }
