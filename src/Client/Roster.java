@@ -1375,9 +1375,10 @@ public class Roster
             sendPresence(Presence.PRESENCE_OFFLINE);
         } catch (Exception e2) { }
 
-        if (e instanceof SecurityException || reconnectCount>=maxReconnect) {
-            errorLog(error);
-        } else {
+        if (e instanceof SecurityException) { errorLog(error); return; }
+        if (e instanceof JabberStreamShutdownException) { errorLog(error); return; }
+        if (reconnectCount>=maxReconnect) { errorLog(error); return; }
+        {
             reconnectCount++;
             String title="("+reconnectCount+"/"+maxReconnect+") Reconnecting";
             

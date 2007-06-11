@@ -322,13 +322,28 @@ public class JabberStream implements XMLEventListener, Runnable {
             if ( name.equals( "stream:stream" ) ) {
                 dispatcher.halt();
                 iostream.close();
-                throw new EndOfXMLException("Normal stream shutdown");
+                throw new JabberStreamShutdownException("Normal stream shutdown");
             }
             return;
         }
-        
+
         JabberDataBlock parent = currentBlock.getParent();
         if( parent == null ) {
+
+            if (currentBlock.getTagName().equals("stream:error")) {
+                StringBuffer emsg=new StringBuffer("Stream error");
+                JabberDataBlock definedCondition=currentBlock.findNamespace("urn:ietf:params:xml:ns:xmpp-streams");
+                emsg.append(definedCondition.getTagName());
+                emsg.append(" ");
+                String text=currentBlock.getChildBlockText("text");
+                if (text.length()>0) emsg.append(text);
+                
+                dispatcher.halt();
+                iostream.close();
+                throw new JabberStreamShutdownException(emsg.toString());
+                
+            }
+            
             dispatcher.broadcastJabberDataBlock( currentBlock );
             //System.out.println(currentBlock.toString());
         } else
