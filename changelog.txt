@@ -3896,6 +3896,11 @@ syslog_msg: true
   * language code stored as string, not as index
   * saturation for roster progress - no jumps to 60% if reached 100% 
 
+12.06.2007
+(1114)
+  * переписан механизм автостатуса для устранения зависаний
+  --
+  * autostatus refactoring
 ------------------------------------------------------------------------
   known issues:
 

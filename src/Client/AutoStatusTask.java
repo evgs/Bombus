@@ -44,7 +44,9 @@ public class AutoStatusTask implements Runnable {
             if (timeEvent==0) continue;
             
             long timeRemained=System.currentTimeMillis()-timeEvent;
+//#if DefaultConfiguration
             System.out.println(timeRemained);
+//#endif
             if (timeRemained<0) continue;
 
             StaticData.getInstance().roster.setAutoStatus(Presence.PRESENCE_AWAY);
