@@ -800,17 +800,19 @@ public class Roster
                 event.addChild("composing", null);
             }
         }
-        
-        if (body!=null) if (cf.eventDelivery) {
-            //delivery
-            if (to.deliveryType==Contact.DELIVERY_NONE) 
-                to.deliveryType=Contact.DELIVERY_HANDSHAKE;
-
-            if (to.deliveryType==Contact.DELIVERY_XEP22 || to.deliveryType==Contact.DELIVERY_HANDSHAKE)
-                event.addChild("delivered", null);
-
-            if (to.deliveryType==Contact.DELIVERY_XEP184 || to.deliveryType==Contact.DELIVERY_HANDSHAKE) {
-                message.addChild("request", null).setNameSpace(Contact.XEP184_NS);
+            
+        if (!groupchat) {
+            if (body!=null) if (cf.eventDelivery) {
+                //delivery
+                if (to.deliveryType==Contact.DELIVERY_NONE)
+                    to.deliveryType=Contact.DELIVERY_HANDSHAKE;
+                
+                if (to.deliveryType==Contact.DELIVERY_XEP22 || to.deliveryType==Contact.DELIVERY_HANDSHAKE)
+                    event.addChild("delivered", null);
+                
+                if (to.deliveryType==Contact.DELIVERY_XEP184 || to.deliveryType==Contact.DELIVERY_HANDSHAKE) {
+                    message.addChild("request", null).setNameSpace(Contact.XEP184_NS);
+                }
             }
         }
         
