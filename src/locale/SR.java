@@ -322,10 +322,12 @@ public class SR {
     public static String MS_DO_AUTOJOIN="Join marked (auto)"; //temporary
     
     public final static String MS_SHOW_HARDWARE="shared platform info";
+    public final static String MS_DELIVERY="delivery events";
     
     
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
+
 
 
 

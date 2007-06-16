@@ -780,7 +780,7 @@ public class Roster
      * Method to send a message to the specified recipient
      */
     
-    public void sendMessage(Contact to, final String body, final String subject , int composingState) {
+    public void sendMessage(Contact to, String id, final String body, final String subject , int composingState) {
         boolean groupchat=to.origin==Contact.ORIGIN_GROUPCHAT;
         Message message = new Message( 
                 to.getJid(), 
@@ -788,19 +788,52 @@ public class Roster
                 subject, 
                 groupchat 
         );
+        message.setAttribute("id", id);
         if (groupchat && body==null && subject==null) return;
+        
+        JabberDataBlock event=new JabberDataBlock("x", null,null);
+        
         if (composingState>0) {
-            JabberDataBlock event=new JabberDataBlock("x", null,null);
             event.setNameSpace("jabber:x:event");
             if (body==null) event.addChild(new JabberDataBlock("id",null, null));
             if (composingState==1) {
                 event.addChild("composing", null);
             }
-            message.addChild(event);
         }
-        //System.out.println(simpleMessage.toString());
+        
+        if (body!=null) if (cf.eventDelivery) {
+            //delivery
+            if (to.deliveryType==Contact.DELIVERY_NONE) 
+                to.deliveryType=Contact.DELIVERY_HANDSHAKE;
+
+            if (to.deliveryType==Contact.DELIVERY_XEP22 || to.deliveryType==Contact.DELIVERY_HANDSHAKE)
+                event.addChild("delivered", null);
+
+            if (to.deliveryType==Contact.DELIVERY_XEP184 || to.deliveryType==Contact.DELIVERY_HANDSHAKE) {
+                message.addChild("request", null).setNameSpace(Contact.XEP184_NS);
+            }
+        }
+        
+        if (event.getChildBlocks()!=null) message.addChild(event);
         theStream.send( message );
         lastMessageTime=Time.localTime();
+    }
+    
+    private void sendDeliveryMessage(Contact c, String id) {
+        if (!cf.eventDelivery) return;
+        Message message=new Message(c.jid.getJid());
+        if (c.deliveryType==Contact.DELIVERY_XEP184) {
+            message.setAttribute("id", id);
+            message.addChild("received", null).setNameSpace(Contact.XEP184_NS);
+            theStream.send( message );
+        }
+        if (c.deliveryType==Contact.DELIVERY_XEP22) {
+            JabberDataBlock x=message.addChild("x", null);
+            x.setNameSpace("jabber:x:event");
+            x.addChild("id", id);
+            x.addChild("delivered", null);
+            theStream.send( message );
+        }
     }
     
     private Vector vCardQueue;
@@ -1109,6 +1142,18 @@ public class Roster
                 JabberDataBlock x=message.getChildBlock("x");
                 //if (body.length()==0) body=null; 
                 
+                JabberDataBlock delivery=data.findNamespace(Contact.XEP184_NS);
+                if (delivery!=null) {
+                    c.deliveryType=Contact.DELIVERY_XEP184;
+                    if (delivery.getTagName().equals("received")) {
+                        //delivered
+                        c.markDelivered(data.getAttribute("id"));
+                    }
+                    if (delivery.getTagName().equals("request")) {
+                        sendDeliveryMessage(c, data.getAttribute("id"));
+                    }
+                }
+                
                 if (x!=null) {
                     compose=(  x.getChildBlock("composing")!=null 
                             && c.status<Presence.PRESENCE_OFFLINE); // drop composing events from offlines
@@ -1117,6 +1162,19 @@ public class Roster
                     if (compose) c.acceptComposing=true ; 
                     if (body!=null) compose=false;
                     c.setComposing(compose);
+                    
+                    if (x.getChildBlock("delivered")!=null) {
+                        if (c.deliveryType==Contact.DELIVERY_HANDSHAKE) 
+                            c.deliveryType=Contact.DELIVERY_XEP22;
+                        
+                        if (c.deliveryType==Contact.DELIVERY_XEP22) if (body!=null) {
+                            //ask delivery
+                            sendDeliveryMessage(c, data.getAttribute("id"));
+                        } else {
+                            //delivered
+                            c.markDelivered(x.getChildBlockText("id"));
+                        }
+                    }
                 }
                 redraw();
 

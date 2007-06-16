@@ -114,6 +114,8 @@ public class Config {
     public boolean ignore=false;
     public boolean eventComposing=false;
     
+    public boolean eventDelivery=false;
+    
     public boolean storeConfPresence=true;      
     
     public boolean autoLogin=true;
@@ -278,6 +280,8 @@ public class Config {
             enableVersionOs=inputStream.readBoolean();
             
             lang=inputStream.readUTF();
+            
+            eventDelivery=inputStream.readBoolean();
 	    
 	    inputStream.close();
 	} catch (Exception e) {
@@ -369,6 +373,8 @@ public class Config {
             outputStream.writeBoolean(enableVersionOs);
             
             outputStream.writeUTF(lang);
+            
+            outputStream.writeBoolean(eventDelivery);
 	    
 	} catch (Exception e) { e.printStackTrace(); }
 	

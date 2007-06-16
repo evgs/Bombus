@@ -54,6 +54,9 @@ public class Msg //implements MessageList.Element
     public final static int MESSAGE_TYPE_AUTH=15;
 
     private boolean highlite;
+
+    public boolean delivered;
+    public String id;
     
     /** Creates a new instance of msg */
     public Msg(int messageType, String from, String subj, String body) {

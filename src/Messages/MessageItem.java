@@ -28,6 +28,7 @@
 package Messages;
 
 import Client.Msg;
+import Client.Roster;
 import images.RosterIcons;
 import images.SmilesIcons;
 import java.util.Enumeration;
@@ -65,6 +66,10 @@ public class MessageItem implements
 
     public int getVHeight() { 
         if (msg.itemHeight<0) msg.itemHeight=FontCache.getMsgFont().getHeight();
+        if (msg.delivered) {
+            int rh=RosterIcons.getInstance().getHeight();
+            if (msg.itemHeight<rh) return rh;
+        }
         return msg.itemHeight; 
     }
     
@@ -80,17 +85,22 @@ public class MessageItem implements
     
     public void drawItem(Graphics g, int ofs, boolean selected) {
         /*if (selected)*/
+        int xorg=g.getTranslateX();
+        int yorg=g.getTranslateY();
+        
         g.translate(1,0);
         if (msgLines==null) {
             MessageParser.getInstance().parseMsg(this, view.getListWidth());
             return;
         }
-        int y=0;
+        
         for (Enumeration e=msgLines.elements(); e.hasMoreElements(); ) {
             ComplexString line=(ComplexString) e.nextElement();
             if (line.isEmpty()) break;
             int h=line.getVHeight();
-            if (y>=0 && y<g.getClipHeight()) {
+            int cy=g.getClipY();
+            //clipping
+            if (cy <= h && cy+g.getClipHeight()>0 ) {
                 if (msg.itemCollapsed) if (msgLines.size()>1) {
                     RosterIcons.getInstance().drawImage(g, RosterIcons.ICON_MSGCOLLAPSED_INDEX, 0,0);
                     g.translate(8,0); //FIXME: хардкод
@@ -99,6 +109,16 @@ public class MessageItem implements
             }
             g.translate(0, h);
             if (msg.itemCollapsed) break;
+        }
+        
+        g.translate(xorg-g.getTranslateX(), yorg-g.getTranslateY());
+
+        if (msg.delivered) {
+            int right=g.getClipX()+g.getClipWidth();
+            RosterIcons.getInstance().drawImage(
+                    g, RosterIcons.ICON_DELIVERED_INDEX, 
+                    right-RosterIcons.getInstance().getWidth()-3, 0 
+            );
         }
     }
     

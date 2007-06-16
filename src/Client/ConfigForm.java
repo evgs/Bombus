@@ -145,6 +145,7 @@ public class ConfigForm implements
 //#endif
         message.append(SR.MS_STORE_PRESENCE,null);        
         message.append(SR.MS_COMPOSING_EVENTS, null);
+        message.append(SR.MS_DELIVERY, null);
 //#if (!MIDP1)
         message.append(SR.MS_CAPS_STATE, null);
 //#endif
@@ -155,7 +156,8 @@ public class ConfigForm implements
 //#             cf.msgLog,
 //#endif
             cf.storeConfPresence,
-            cf.eventComposing
+            cf.eventComposing,
+            cf.eventDelivery
 //#if (!MIDP1)
             ,cf.capsState
 //#endif
@@ -305,6 +307,7 @@ public class ConfigForm implements
 //#endif
             cf.storeConfPresence=mv[haIdx++];
             cf.eventComposing=mv[haIdx++];
+            cf.eventDelivery=mv[haIdx++];
 //#if (!MIDP1)
             cf.capsState=mv[haIdx++];
 //#endif

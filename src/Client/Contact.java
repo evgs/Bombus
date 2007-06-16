@@ -26,6 +26,7 @@
  */
 
 package Client;
+import com.alsutton.jabber.JabberDataBlock;
 import images.RosterIcons;
 import ui.Colors;
 import vcard.VCard;
@@ -58,6 +59,13 @@ public class Contact extends IconTextElement{
     public final static byte ORIGIN_GROUPCHAT=4;
     public final static byte ORIGIN_GC_MEMBER=5;
     public final static byte ORIGIN_GC_MYSELF=6;
+    
+
+    public final static String XEP184_NS="http://www.xmpp.org/extensions/xep-0184.html#ns";
+    public final static int DELIVERY_NONE=0;
+    public final static int DELIVERY_HANDSHAKE=1;
+    public final static int DELIVERY_XEP184=2;
+    public final static int DELIVERY_XEP22=3;
 
    
     /** Creates a new instance of Contact */
@@ -78,6 +86,7 @@ public class Contact extends IconTextElement{
     
     public boolean acceptComposing;
     public Integer incomingComposing;
+    public int deliveryType;
     
     public String msgSuspended;
     
@@ -340,4 +349,12 @@ public class Contact extends IconTextElement{
         return status;
     }
 
+    void markDelivered(String id) {
+        if (id==null) return;
+        for (Enumeration e=msgs.elements(); e.hasMoreElements();) {
+            Msg m=(Msg)e.nextElement();
+            if (m.id!=null)
+                if (m.id.equals(id)) m.delivered=true;
+        }
+    }
 }

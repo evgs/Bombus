@@ -41,7 +41,6 @@ public class RosterIcons extends ImageList{
     
     private static RosterIcons instance;
 
-
     public static RosterIcons getInstance() {
 	if (instance==null) instance=new RosterIcons();
 	return instance;
@@ -126,6 +125,9 @@ public class RosterIcons extends ImageList{
     public static final int ICON_COLLAPSED_INDEX = 0x24;
 
     public static final int ICON_MESSAGE_BUTTONS = 0x25;
+    
+    public static final int ICON_DELIVERED_INDEX = 0x27;
+    
 
     public static final int ICON_PROFILE_INDEX = 0x30;
 

@@ -30,6 +30,7 @@ import Conference.AppendNick;
 import archive.ArchiveList;
 import javax.microedition.lcdui.*;
 import locale.SR;
+import ui.Time;
 import ui.VirtualList;
 
 /**
@@ -183,9 +184,11 @@ public class MessageEdit
         Roster r=StaticData.getInstance().roster;
         int comp=0; // composing event off
         
+        String id=Time.utcLocalTime();
         if (body!=null || subj!=null ) {
             String from=StaticData.getInstance().account.toString();
             Msg msg=new Msg(Msg.MESSAGE_TYPE_OUT,from,subj,body);
+            msg.id=id;
             // не добавляем в групчат свои сообщения
             // не шлём composing
             if (to.origin!=Contact.ORIGIN_GROUPCHAT) {
@@ -199,7 +202,7 @@ public class MessageEdit
         
         try {
             if (body!=null || subj!=null || comp>0)
-            r.sendMessage(to, body, subj, comp);
+            r.sendMessage(to, id, body, subj, comp);
         } catch (Exception e) {
             e.printStackTrace();
         }
