@@ -282,6 +282,7 @@ public class Roster
             theStream= a.openJabberStream();
             setProgress(SR.MS_OPENING_STREAM, 40);
             theStream.setJabberListener( this );
+            theStream.addBlockListener(new EntityCaps());
         } catch( Exception e ) {
             setProgress(SR.MS_FAILED, 0);
             reconnect=false;
@@ -703,17 +704,24 @@ public class Roster
         reEnumRoster();
     }
 
-    public void sendDirectPresence(int status, Contact to) {
+    public void sendDirectPresence(int status, String to, JabberDataBlock x) {
         if (to==null) { 
             sendPresence(status);
             return;
         }
         ExtendedStatus es= StatusList.getInstance().getStatus(status);
         Presence presence = new Presence(status, es.getPriority(), es.getMessage());
-        presence.setTo(to.getJid());
+        presence.setTo(to);
+        
+        if (x!=null) presence.addChild(x);
+        
         if (isLoggedIn()){
             theStream.send( presence );
         }
+    }
+    
+    public void sendDirectPresence(int status, Contact to, JabberDataBlock x) {
+        sendDirectPresence(status, to.getJid(), x);
         if (to instanceof MucContact) ((MucContact)to).commonPresence=false;
     }
 

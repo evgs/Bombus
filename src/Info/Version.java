@@ -104,4 +104,6 @@ public class Version {
     
     public static String getVersionLang() { return version+" ("+SR.MS_IFACELANG+")"; }
 
+    public static String getVersionNumber() { return version; }
+
 }

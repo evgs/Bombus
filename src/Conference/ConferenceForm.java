@@ -28,6 +28,7 @@
 package Conference;
 import Client.*;
 import com.alsutton.jabber.JabberDataBlock;
+import com.alsutton.jabber.datablocks.Presence;
 import locale.SR;
 import ui.*;
 import javax.microedition.lcdui.*;
@@ -188,7 +189,8 @@ public class ConferenceForm implements CommandListener{
         } catch (Exception e) {};
 
         //sd.roster.groups.getGroup(name.substring(0, name.indexOf('@'))).imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
-        sd.roster.sendPresence(name, null, x);
+        //sd.roster.sendPresence(name, null, x);
+        sd.roster.sendDirectPresence(Presence.PRESENCE_ONLINE, name, x);
         sd.roster.reEnumRoster();
     }
     public void destroyView(){

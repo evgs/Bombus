@@ -3913,6 +3913,14 @@ syslog_msg: true
     (xep-0184 has higher priority)
   + Option "message delivery" to enable delivery notifications
 
+(1119)
+  + реализация entity caps
+  * запрет уведомлений о доставке для общего чата в конференции
+  * отправка текста статусного сообщения при входе в конференцию
+  --
+  + entity caps
+  * multicasting presence message while entering conference room
+  * blocking x:events push into conferences
 ------------------------------------------------------------------------
   known issues:
 
