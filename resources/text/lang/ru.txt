@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org
+// Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org
 // All rights reserved.
 // (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
 // (c) Vladimir N. Shelukhin, 2006-2007.
@@ -115,7 +115,7 @@ Logon	Подключить
 Logoff	Отключить
 Login in progress	Проверка пароля
 at Host	Сервер
-join conferences	автовход в конференцию
+join conferences	автовход в конференции
 Status	Статус
 Smiles	Вкл/выкл смайлики
 Contact >	Контакт >
