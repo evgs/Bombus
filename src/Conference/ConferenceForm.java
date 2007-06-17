@@ -190,7 +190,9 @@ public class ConferenceForm implements CommandListener{
 
         //sd.roster.groups.getGroup(name.substring(0, name.indexOf('@'))).imageExpandedIndex=ImageList.ICON_GCJOIN_INDEX;
         //sd.roster.sendPresence(name, null, x);
-        sd.roster.sendDirectPresence(Presence.PRESENCE_ONLINE, name, x);
+        int status=StaticData.getInstance().roster.myStatus;
+        if (status==Presence.PRESENCE_INVISIBLE) status=Presence.PRESENCE_ONLINE;
+        sd.roster.sendDirectPresence(status, name, x);
         sd.roster.reEnumRoster();
     }
     public void destroyView(){
