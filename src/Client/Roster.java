@@ -721,7 +721,7 @@ public class Roster
     }
     
     public void sendDirectPresence(int status, Contact to, JabberDataBlock x) {
-        sendDirectPresence(status, to.getJid(), x);
+        sendDirectPresence(status, (to==null)? null: to.getJid(), x);
         if (to instanceof MucContact) ((MucContact)to).commonPresence=false;
     }
 
