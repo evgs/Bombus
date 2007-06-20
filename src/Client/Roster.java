@@ -818,8 +818,8 @@ public class Roster
                 if (to.deliveryType==Contact.DELIVERY_XEP22 || to.deliveryType==Contact.DELIVERY_HANDSHAKE)
                     event.addChild("delivered", null);
                 
-                if (to.deliveryType==Contact.DELIVERY_XEP184 || to.deliveryType==Contact.DELIVERY_HANDSHAKE) {
-                    message.addChild("request", null).setNameSpace(Contact.XEP184_NS);
+                //if (to.deliveryType==Contact.DELIVERY_XEP184 || to.deliveryType==Contact.DELIVERY_HANDSHAKE) {
+                //    message.addChild("request", null).setNameSpace(Contact.XEP184_NS);
                 }
             }
         }
