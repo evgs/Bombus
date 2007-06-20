@@ -820,7 +820,7 @@ public class Roster
                 
                 //if (to.deliveryType==Contact.DELIVERY_XEP184 || to.deliveryType==Contact.DELIVERY_HANDSHAKE) {
                 //    message.addChild("request", null).setNameSpace(Contact.XEP184_NS);
-                }
+                //}
             }
         }
         
