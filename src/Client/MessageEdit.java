@@ -184,7 +184,8 @@ public class MessageEdit
         Roster r=StaticData.getInstance().roster;
         int comp=0; // composing event off
         
-        String id=Time.utcLocalTime();
+        String id=String.valueOf((int) System.currentTimeMillis());
+        
         if (body!=null || subj!=null ) {
             String from=StaticData.getInstance().account.toString();
             Msg msg=new Msg(Msg.MESSAGE_TYPE_OUT,from,subj,body);
