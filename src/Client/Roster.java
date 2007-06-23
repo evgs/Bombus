@@ -1507,6 +1507,15 @@ public class Roster
             display.flashBacklight(blState);
         }
 //#endif
+        //workaround for SE JP6 - enabling vibra in closed state
+        if (keyCode==SE_FLIPCLOSE_JP6) {
+            display.setCurrent(null);
+            try {
+                Thread.sleep(300);
+            } catch (Exception ex) {}
+            display.setCurrent(this);
+        }
+        
         if (keyCode==SE_FLIPCLOSE_JP6 
             || keyCode== SIEMENS_FLIPCLOSE 
             || keyCode==MOTOROLA_FLIP 
