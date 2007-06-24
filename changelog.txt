@@ -3921,6 +3921,23 @@ syslog_msg: true
   + entity caps
   * multicasting presence message while entering conference room
   * blocking x:events push into conferences
+
+25.06.2007
+(1130)
+  * устранено исключение NullPointerException при пустых закладках конференций
+  * обход глюка платформы SonyEricsson JP6, приводивший к отключению вибры при закрытом
+    флипе
+  * подтверждение доставки работает и при отключении уведомлений о наборе сообщений
+  * подтверждение доставки производится теперь только по xep-0022, xep-0184 заблокирован.
+  * в Entity Caps добавлена информация о наличии поддержки передачи файлов
+  --
+  * fixed NullPointerException on empty bookmarks (FS#703)
+  * workaround for SonyEricsson JP6 - closing flip will not blocks vibra
+  * namespace jabber:x:event fix (no 'delivered' notifies when composing events were disabled)
+  - XEP-0184 delivery notifications temporary blocked (xep-0022 still works)
+  * Entity caps: advertising file transfer features
+  * some fixes in ru.txt
+
 ------------------------------------------------------------------------
   known issues:
 
