@@ -116,6 +116,7 @@ public class Bookmarks
     }
     
     public void eventOk(){
+        if (getItemCount()==0) return;
         BookmarkItem join=(BookmarkItem)getFocusedObject();
         if (join==null) return;
         if (join.isUrl) return;
@@ -123,12 +124,19 @@ public class Bookmarks
     }
     
     public void commandAction(Command c, Displayable d){
-        if (getItemCount()==0) return;
         if (c==cmdCancel) exitBookmarks();
+        if (c==cmdNew) { 
+            new ConferenceForm(display);
+            return;
+        }
+        
+        if (getItemCount()==0) return;
         if (c==cmdJoin) eventOk();
-        if (c==cmdNew) new ConferenceForm(display);
         //if (c==cmdRfsh) loadBookmarks();
-        if (c==cmdDel) deleteBookmark();
+        if (c==cmdDel) {
+            deleteBookmark();
+            return;
+        }
 
         String roomJid=((BookmarkItem)getFocusedObject()).getJid();
         
