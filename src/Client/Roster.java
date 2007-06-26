@@ -1070,6 +1070,8 @@ public class Roster
                 String from=message.getFrom();
                 String body=message.getBody().trim();    
                 String oob=message.getOOB();
+                String type=message.getTypeAttribute();
+                
                 if (oob!=null) body+=oob;
                 if (body.length()==0) body=null; 
                 String subj=message.getSubject().trim(); if (subj.length()==0) subj=null;
@@ -1082,7 +1084,6 @@ public class Roster
                 int mType=Msg.MESSAGE_TYPE_IN;
                 
                 try { // type=null
-		    String type=message.getTypeAttribute();
                     if (type.equals("groupchat")) {
                         groupchat=true;
                         start_me=0; // добавить ник в начало
@@ -1113,7 +1114,7 @@ public class Roster
                         }
                     }
                     if (type.equals("headline")) mType=Msg.MESSAGE_TYPE_HEADLINE;
-                } catch (Exception e) {}
+                } catch (Exception e) { type="chat"; } //force type to chat
                 
                 try {
                     JabberDataBlock xmlns=message.findNamespace("http://jabber.org/protocol/muc#user");
@@ -1149,7 +1150,8 @@ public class Roster
                 }
                 
                 boolean compose=false;
-                JabberDataBlock x=message.getChildBlock("x");
+                
+                JabberDataBlock x=(type.equals("chat"))? message.getChildBlock("x") : null;
                 //if (body.length()==0) body=null; 
                 
                 JabberDataBlock delivery=data.findNamespace(Contact.XEP184_NS);

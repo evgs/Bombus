@@ -3930,6 +3930,7 @@ syslog_msg: true
   * подтверждение доставки работает и при отключении уведомлений о наборе сообщений
   * подтверждение доставки производится теперь только по xep-0022, xep-0184 заблокирован.
   * в Entity Caps добавлена информация о наличии поддержки передачи файлов
+  * небольшие изменения в локализации ru.txt
   --
   * fixed NullPointerException on empty bookmarks (FS#703)
   * workaround for SonyEricsson JP6 - closing flip will not blocks vibra
@@ -3938,6 +3939,18 @@ syslog_msg: true
   * Entity caps: advertising file transfer features
   * some fixes in ru.txt
 
+26.06.2007
+(1131)
+  * уведомления о доставке - исправлена ошибка, приводившая к зацикленному 
+    получению ошибки при попытке отправить приватное сообщение контакту,
+    покиувшему конференцию.
+  * Регистрация аккаунта: команда Cancel заменяется на OK при успешной 
+    регистрации.
+  -- 
+  * bugfix for delivered - no cyclic error messages if private message sent
+    to conference contact leaved room
+  * Registering account: command label 'cancel' changed to 'ok' if registration
+    was successfull
 ------------------------------------------------------------------------
   known issues:
 
