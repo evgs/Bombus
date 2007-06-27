@@ -50,8 +50,8 @@ public class ContactMessageList extends MessageList
     Command cmdUnsubscribed=new Command(SR.MS_DECLINE, Command.SCREEN, 2);
     Command cmdMessage=new Command(SR.MS_NEW_MESSAGE,Command.SCREEN,3);
     Command cmdResume=new Command(SR.MS_RESUME,Command.SCREEN,1);
-    Command cmdQuote=new Command(SR.MS_QUOTE,Command.SCREEN,4);
-    Command cmdReply=new Command(SR.MS_REPLY,Command.SCREEN,5);
+    Command cmdQuote=new Command(SR.MS_QUOTE,Command.SCREEN,5);
+    Command cmdReply=new Command(SR.MS_REPLY,Command.SCREEN,4);
     Command cmdArch=new Command(SR.MS_ADD_ARCHIVE,Command.SCREEN,6);
     Command cmdPurge=new Command(SR.MS_CLEAR_LIST, Command.SCREEN, 10);
     Command cmdContact=new Command(SR.MS_CONTACT,Command.SCREEN,11);
