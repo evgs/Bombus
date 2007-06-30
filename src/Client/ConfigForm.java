@@ -73,6 +73,7 @@ public class ConfigForm implements
 
     Form f;
     ChoiceGroup roster;
+    ChoiceGroup nil;
     ChoiceGroup message;
     ChoiceGroup startup;
     ChoiceGroup application;
@@ -138,6 +139,12 @@ public class ConfigForm implements
         //ra[5]=false;
         roster.setSelectedFlags(ra);
 
+        nil=new ChoiceGroup(SR.MS_NOT_IN_LIST, ConstMIDP.CHOICE_POPUP);
+        nil.append(SR.MS_NIL_DROP_MP, null);
+        nil.append(SR.MS_NIL_DROP_P, null);
+        nil.append(SR.MS_NIL_ALLOW_ALL, null);
+        nil.setSelectedIndex((cf.notInListDropLevel>NotInListFilter.ALLOW_ALL)? NotInListFilter.ALLOW_ALL: cf.notInListDropLevel, true);
+        
         message=new ChoiceGroup(SR.MS_MESSAGES, Choice.MULTIPLE);
         message.append(SR.MS_SMILES, null);
 //#if (HISTORY)        
@@ -224,6 +231,7 @@ public class ConfigForm implements
         font2.setSelectedIndex(cf.font2/8, true);
 
         f.append(roster);
+        f.append(nil);
         f.append(font1);
 
         f.append(message);
@@ -291,6 +299,7 @@ public class ConfigForm implements
             application.getSelectedFlags(ap);
 	    startup.getSelectedFlags(su);
 	    
+            cf.notInListDropLevel=nil.getSelectedIndex();
             cf.showOfflineContacts=ra[0];
             cf.selfContact=ra[1];
             cf.showTransports=ra[2];

@@ -323,13 +323,13 @@ public class SR {
     
     public final static String MS_SHOW_HARDWARE="shared platform info";
     public final static String MS_DELIVERY="delivery events";
-    
+
+    public final static String MS_NIL_DROP_MP="drop all";
+    public final static String MS_NIL_DROP_P="receive messages";
+    public final static String MS_NIL_ALLOW_ALL="messages & presences";
     
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
-
-
-
 
     private SR() { }
     

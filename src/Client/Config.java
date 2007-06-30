@@ -110,7 +110,8 @@ public class Config {
     public boolean showOfflineContacts=true;
     public boolean showTransports=true;
     public boolean selfContact=false;
-    public boolean notInList=true;
+    //public boolean notInList=true;
+    public int notInListDropLevel=NotInListFilter.ALLOW_ALL; //enable all
     public boolean ignore=false;
     public boolean eventComposing=false;
     
@@ -239,7 +240,7 @@ public class Config {
 	    smiles=inputStream.readBoolean();
 	    showTransports=inputStream.readBoolean();
 	    selfContact=inputStream.readBoolean();
-	    notInList=true; inputStream.readBoolean();
+	    /*notInList=*/ inputStream.readBoolean();
 	    ignore=inputStream.readBoolean();
 	    eventComposing=inputStream.readBoolean();
 	    
@@ -252,7 +253,7 @@ public class Config {
 	    autoLogin=inputStream.readBoolean();
 	    autoJoinConferences=inputStream.readBoolean();
 	    
-	    /*keepAlive=*/ inputStream.readInt();
+	    notInListDropLevel=inputStream.readInt();
 	    
 	    popupFromMinimized=inputStream.readBoolean();
 	    
@@ -332,7 +333,7 @@ public class Config {
 	    outputStream.writeBoolean(smiles);
 	    outputStream.writeBoolean(showTransports);
 	    outputStream.writeBoolean(selfContact);
-	    outputStream.writeBoolean(notInList);
+	    outputStream.writeBoolean(true /*notInList*/);
 	    outputStream.writeBoolean(ignore);
 	    outputStream.writeBoolean(eventComposing);
 	    
@@ -345,7 +346,7 @@ public class Config {
 	    outputStream.writeBoolean(autoLogin);
 	    outputStream.writeBoolean(autoJoinConferences);
 	    
-	    outputStream.writeInt(0 /*keepAlive*/);
+	    outputStream.writeInt(notInListDropLevel /*keepAlive*/);
 
 	    outputStream.writeBoolean(popupFromMinimized);
 	    

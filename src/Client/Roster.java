@@ -1134,7 +1134,8 @@ public class Roster
                     
                 } catch (Exception e) {}
                 
-                Contact c=getContact(from, cf.notInList);
+                Contact c=getContact(from, cf.notInListDropLevel != NotInListFilter.DROP_MESSAGES_PRESENCES);
+                if (c==null) return JabberBlockListener.BLOCK_REJECTED; //not-in-list message dropped
 
                 if (name==null) name=c.getName();
                 // /me
@@ -1211,8 +1212,8 @@ public class Roster
                 }
                 m.setHighlite(highlite);  
                 
-                if (c.getGroupType()!=Groups.TYPE_NOT_IN_LIST || cf.notInList)
-                    messageStore(c, m);
+                //if (c.getGroupType()!=Groups.TYPE_NOT_IN_LIST || cf.notInList)
+                messageStore(c, m);
                 
                 return JabberBlockListener.BLOCK_PROCESSED;                
             }
@@ -1254,10 +1255,10 @@ public class Roster
                     
                 } /* if (muc) */ catch (Exception e) { /*e.printStackTrace();*/ }
                 else {
-                    boolean enNIL=cf.notInList;
+                    boolean enNIL= cf.notInListDropLevel > NotInListFilter.DROP_PRESENCES;
                     if (ti==Presence.PRESENCE_AUTH_ASK) enNIL=true;
                     Contact c=getContact(from, enNIL); 
-                    if (c==null) return JabberBlockListener.BLOCK_REJECTED; //drop presence
+                    if (c==null) return JabberBlockListener.BLOCK_REJECTED; //drop not-in-list presence
                     
                     messageStore(c, m);
                     
