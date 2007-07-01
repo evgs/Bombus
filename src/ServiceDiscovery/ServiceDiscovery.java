@@ -238,25 +238,29 @@ public class ServiceDiscovery
         } else if (id.equals(discoId("disco"))) {
             Vector cmds=new Vector();
             boolean gateway=false;
-            if (childs!=null)
-            for (Enumeration e=childs.elements(); e.hasMoreElements();) {
-                JabberDataBlock i=(JabberDataBlock)e.nextElement();
-                if (i.getTagName().equals("feature")) {
-                    String var=i.getAttribute("var");
-                    features.addElement(var);
-                    if (var.equals(NS_MUC)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_GCJOIN_INDEX, strJoin)); }
-                    if (var.equals(NS_SRCH)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_SEARCH_INDEX, strSrch)); }
-                    if (var.equals(NS_REGS)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_REGISTER_INDEX, strReg)); }
-                    if (var.equals(NS_GATE)) { gateway=true; }
-                    //if (var.equals(NODE_CMDS)) { cmds.addElement(new DiscoCommand(AD_HOC_INDEX,strCmds)); } 
+            boolean client=false;
+            if (childs!=null) {
+                JabberDataBlock identity=query.getChildBlock("identity");
+                if (identity!=null) {
+                    String category=identity.getAttribute("category");
+                    String type=identity.getAttribute("type");
+                    if (category.equals("automation") && type.equals("command-node"))  {
+                        cmds.addElement(new DiscoCommand(RosterIcons.ICON_AD_HOC, strCmds));
+                    }
+                    if (category.equals("conference")) cmds.addElement(new DiscoCommand(RosterIcons.ICON_GCJOIN_INDEX, strJoin));
                 }
-		if (i.getTagName().equals("identity")) {
-		    String category=i.getAttribute("category");
-		    String type=i.getAttribute("type");
-		    if (category.equals("automation") && type.equals("command-node"))  { 
-			cmds.addElement(new DiscoCommand(RosterIcons.ICON_AD_HOC, strCmds)); 
-		    } 
-		}
+                for (Enumeration e=childs.elements(); e.hasMoreElements();) {
+                    JabberDataBlock i=(JabberDataBlock)e.nextElement();
+                    if (i.getTagName().equals("feature")) {
+                        String var=i.getAttribute("var");
+                        features.addElement(var);
+                        //if (var.equals(NS_MUC)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_GCJOIN_INDEX, strJoin)); }
+                        if (var.equals(NS_SRCH)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_SEARCH_INDEX, strSrch)); }
+                        if (var.equals(NS_REGS)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_REGISTER_INDEX, strReg)); }
+                        if (var.equals(NS_GATE)) { gateway=true; }
+                        //if (var.equals(NODE_CMDS)) { cmds.addElement(new DiscoCommand(AD_HOC_INDEX,strCmds)); }
+                    }
+                }
             }
             /*if (data.getAttribute("from").equals(service)) */ { //FIXME!!!
                 this.cmds=cmds;
