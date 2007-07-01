@@ -3951,6 +3951,28 @@ syslog_msg: true
     to conference contact leaved room
   * Registering account: command label 'cancel' changed to 'ok' if registration
     was successfull
+
+2.07.2007
+(1138)
+  * блокировка отчётов о доставке сообщений в состоянии невидимости 
+  * окончательно отключён неподдерживаемый xep-0184
+  * Service Discovery: корректная обработка нод во входящем запросе disco#info
+  * Service Discovery: команда присоединения к конференциям разрешена только для нод-конференций
+  * Service Discovery: дополнительное исправление обзора нод для gateway (в частности, j2j)
+  + возвращен упрощённый выбор блокировки входящих присутствий и сообщений для Not-In-List контактов:
+    3 возможных состояния drop all events (отбрасывать и сообщения и присутствия), 
+    drop only presences, (отбрасывать присутствия), receive both messages and presences (принимать всё)
+    ВНИМАНИЕ! данная опция управляет только поведением клиента, входящие сообщения по-прежнему могут
+    создавать трафик
+  --
+  * blocking delivery notification if invisible
+  * delivery: handshake removed, used only xep-0022 mechanism
+  * disco#info replies only to blank node;
+  * disco: "join conference" command enabled by identity category="chatroom" instead of features
+  * extra fix for gateways
+  + returned client-side filtering of not-in-list events. now there are configurable behavior: 
+    drop all events, drop only presences, or receive both messages and presences
+  * ContactMessageList: reordering commands Reply and Quote - now Reply is placed before Quote
 ------------------------------------------------------------------------
   known issues:
 
