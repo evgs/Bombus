@@ -264,8 +264,8 @@ public class ServiceDiscovery
             }
             /*if (data.getAttribute("from").equals(service)) */ { //FIXME!!!
                 this.cmds=cmds;
-                if (!gateway) requestQuery(NS_ITEMS, "disco2");
-                else showResults(new Vector());
+                requestQuery(NS_ITEMS, "disco2");
+                if (gateway) showResults(new Vector());
             }
         } else if (id.startsWith ("discoreg")) {
             discoIcon=0;
