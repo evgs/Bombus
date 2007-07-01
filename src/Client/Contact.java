@@ -61,11 +61,11 @@ public class Contact extends IconTextElement{
     public final static byte ORIGIN_GC_MYSELF=6;
     
 
-    public final static String XEP184_NS="http://www.xmpp.org/extensions/xep-0184.html#ns";
+    /*public final static String XEP184_NS="http://www.xmpp.org/extensions/xep-0184.html#ns";
     public final static int DELIVERY_NONE=0;
     public final static int DELIVERY_HANDSHAKE=1;
     public final static int DELIVERY_XEP184=2;
-    public final static int DELIVERY_XEP22=3;
+    public final static int DELIVERY_XEP22=3;*/
 
    
     /** Creates a new instance of Contact */
@@ -248,7 +248,6 @@ public class Contact extends IconTextElement{
 //#             }
 //#         }
 //#endif
-        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - presence, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
         if (first_replace) {
             msgs.setElementAt(m,0);
             return;

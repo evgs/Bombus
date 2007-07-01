@@ -812,10 +812,10 @@ public class Roster
         if (!groupchat) {
             if (body!=null) if (cf.eventDelivery) {
                 //delivery
-                if (to.deliveryType==Contact.DELIVERY_NONE)
+                /*if (to.deliveryType==Contact.DELIVERY_NONE)
                     to.deliveryType=Contact.DELIVERY_HANDSHAKE;
                 
-                if (to.deliveryType==Contact.DELIVERY_XEP22 || to.deliveryType==Contact.DELIVERY_HANDSHAKE)
+                if (to.deliveryType==Contact.DELIVERY_XEP22 || to.deliveryType==Contact.DELIVERY_HANDSHAKE)*/
                     event.addChild("delivered", null);
                 
                 //if (to.deliveryType==Contact.DELIVERY_XEP184 || to.deliveryType==Contact.DELIVERY_HANDSHAKE) {
@@ -832,18 +832,18 @@ public class Roster
     private void sendDeliveryMessage(Contact c, String id) {
         if (!cf.eventDelivery) return;
         Message message=new Message(c.jid.getJid());
-        if (c.deliveryType==Contact.DELIVERY_XEP184) {
+        /*if (c.deliveryType==Contact.DELIVERY_XEP184) {
             message.setAttribute("id", id);
             message.addChild("received", null).setNameSpace(Contact.XEP184_NS);
             theStream.send( message );
-        }
-        if (c.deliveryType==Contact.DELIVERY_XEP22) {
+        }*/
+        //if (c.deliveryType==Contact.DELIVERY_XEP22) {
             JabberDataBlock x=message.addChild("x", null);
             x.setNameSpace("jabber:x:event");
             x.addChild("id", id);
             x.addChild("delivered", null);
             theStream.send( message );
-        }
+        //}
     }
     
     private Vector vCardQueue;
@@ -1155,7 +1155,7 @@ public class Roster
                 JabberDataBlock x=(type.equals("chat"))? message.getChildBlock("x") : null;
                 //if (body.length()==0) body=null; 
                 
-                JabberDataBlock delivery=data.findNamespace(Contact.XEP184_NS);
+                /*JabberDataBlock delivery=data.findNamespace(Contact.XEP184_NS);
                 if (delivery!=null) {
                     c.deliveryType=Contact.DELIVERY_XEP184;
                     if (delivery.getTagName().equals("received")) {
@@ -1165,7 +1165,7 @@ public class Roster
                     if (delivery.getTagName().equals("request")) {
                         sendDeliveryMessage(c, data.getAttribute("id"));
                     }
-                }
+                }*/
                 
                 if (x!=null) {
                     compose=(  x.getChildBlock("composing")!=null 
@@ -1177,10 +1177,10 @@ public class Roster
                     c.setComposing(compose);
                     
                     if (x.getChildBlock("delivered")!=null) {
-                        if (c.deliveryType==Contact.DELIVERY_HANDSHAKE) 
-                            c.deliveryType=Contact.DELIVERY_XEP22;
+                        /*if (c.deliveryType==Contact.DELIVERY_HANDSHAKE) 
+                            c.deliveryType=Contact.DELIVERY_XEP22;*/
                         
-                        if (c.deliveryType==Contact.DELIVERY_XEP22) if (body!=null) {
+                        /*if (c.deliveryType==Contact.DELIVERY_XEP22)*/ if (body!=null) {
                             //ask delivery
                             sendDeliveryMessage(c, data.getAttribute("id"));
                         } else {
