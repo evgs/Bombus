@@ -831,6 +831,7 @@ public class Roster
     
     private void sendDeliveryMessage(Contact c, String id) {
         if (!cf.eventDelivery) return;
+        if (myStatus==Presence.PRESENCE_INVISIBLE) return;
         Message message=new Message(c.jid.getJid());
         /*if (c.deliveryType==Contact.DELIVERY_XEP184) {
             message.setAttribute("id", id);
