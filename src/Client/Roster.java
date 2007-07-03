@@ -1236,7 +1236,7 @@ public class Roster
                         null,
                         pr.getPresenceTxt());
                 
-                JabberDataBlock xmuc=pr.findNamespace("http://jabber.org/protocol/muc");
+                JabberDataBlock xmuc=pr.findNamespace("http://jabber.org/protocol/muc#user");
                 if (xmuc!=null) try {
                     MucContact c = mucContact(from);
                     
