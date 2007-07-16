@@ -36,53 +36,62 @@ public class StringLoader {
     int afterEol;
     
     public Vector[] stringLoader(String resource, int columns) {
-	StringBuffer buf = new StringBuffer();
-	Vector table[] = new Vector[columns];
-	for (int i = 0; i<columns; i++) {
-	    table[i]=new Vector();
-	}
-	
-	afterEol=0;
 	InputStream in = this.getClass().getResourceAsStream(resource);
-	try {
-	    while (true) {
-		String line=readLine(in);
-		if (line==null)  break;
-		
-		if (line.startsWith("//")) continue; // skip all remarks
+        return stringLoader(in, columns);
+    }
 
-		int indexFrom=0;
-		
-		for (int i = 0; i<columns; i++) {
-		    String cell=null;
-		    try {
-			int indexTo=line.indexOf(0x09, indexFrom);
-			
-			if (indexTo<0) indexTo=line.length();
-			if (indexFrom<indexTo) cell=line.substring(indexFrom, indexTo);
-			indexFrom=indexTo+1;
-		    } catch (Exception e) { e.printStackTrace(); }
-		    
-		    table[i].addElement( cell );
-		}
-	    }
-	    in.close();
-	} catch (Exception e)	{ e.printStackTrace();}
-	return table;
+    public Vector[] stringLoader(final InputStream in, final int columns) {
+
+        StringBuffer buf = new StringBuffer();
+        Vector table[] = new Vector[columns];
+        for (int i = 0; i<columns; i++) {
+            table[i]=new Vector();
+        }
+        
+        afterEol=0;
+        try {
+            while (true) {
+        	String line=readLine(in);
+        	if (line==null)  break;
+        	
+        	if (line.startsWith("//")) continue; // skip all remarks
+
+        	int indexFrom=0;
+        	
+        	for (int i = 0; i<columns; i++) {
+        	    String cell=null;
+        	    try {
+        		int indexTo=line.indexOf(0x09, indexFrom);
+        		
+        		if (indexTo<0) indexTo=line.length();
+        		if (indexFrom<indexTo) cell=line.substring(indexFrom, indexTo);
+        		indexFrom=indexTo+1;
+        	    } catch (Exception e) { e.printStackTrace(); }
+        	    
+        	    table[i].addElement( cell );
+        	}
+            }
+            in.close();
+        } catch (Exception e)	{ e.printStackTrace();}
+        return table;
     }
     
     public Hashtable hashtableLoader(String resource) {
-	Hashtable hash = new Hashtable();
-	
-	afterEol=0;
 	InputStream in = this.getClass().getResourceAsStream(resource);
-	try {
-	    while (true) {
-		String line=readLine(in);
+        return hashtableLoader(in);
+    }
+
+    public Hashtable hashtableLoader(final InputStream in) {
+        Hashtable hash = new Hashtable();
+        
+        afterEol=0;
+        try {
+            while (true) {
+        	String line=readLine(in);
                 String key, value;
-		if (line==null)  break;
-		
-		if (line.startsWith("//")) continue; // skip all remarks
+        	if (line==null)  break;
+        	
+        	if (line.startsWith("//")) continue; // skip all remarks
 
                 String cell=null;
                 try {
@@ -94,10 +103,10 @@ public class StringLoader {
                     value=line.substring(indexTab+1, line.length() );
                     hash.put(key, value);
                 } catch (Exception e) { e.printStackTrace(); }
-	    }
-	    in.close();
-	} catch (Exception e)	{ /* Empty file or not found */}
-	return hash;
+            }
+            in.close();
+        } catch (Exception e)	{ /* Empty file or not found */}
+        return hash;
     }
     
     String readLine(InputStream inputstream) throws IOException {

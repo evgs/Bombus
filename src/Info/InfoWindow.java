@@ -42,13 +42,16 @@ public class InfoWindow implements CommandListener{
     
     private Form form;
 
+    private Command cmdBack=new Command(SR.MS_CLOSE, Command.BACK, 99);
+    private Command cmdUpgrade=new Command("New versions", Command.SCREEN, 1);
     /** Creates a new instance of InfoWindow */
     public InfoWindow(Display display) {
         this.display=display;
         parentView=display.getCurrent();
         
         form=new Form(SR.MS_ABOUT);
-        form.addCommand(new Command(SR.MS_CLOSE, Command.BACK, 99));
+        form.addCommand(cmdBack);
+        form.addCommand(cmdUpgrade);
         try {
             Image icon=Bombus.programIcon;
             if (icon==null) icon=Image.createImage("/_icon.png");
@@ -88,6 +91,7 @@ public class InfoWindow implements CommandListener{
     }
     
     public void commandAction(Command c, Displayable d) {
-        display.setCurrent(parentView);
+        if (c==cmdBack) display.setCurrent(parentView);
+        if (c==cmdUpgrade) new Upgrade(display);
     }
 }
