@@ -56,6 +56,7 @@ public class Upgrade implements Runnable, CommandListener{
     
     /** Creates a new instance of Upgrade */
     public Upgrade(Display display) {
+        this.display=display;
         parentView=display.getCurrent();
         list=new List("Available versions", List.IMPLICIT);
         list.setCommandListener(this);
