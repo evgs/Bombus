@@ -200,16 +200,24 @@ public class Utf8IOStream implements Runnable{
 	    // cx, dx 
 	    return ((chr & 0x1f)<<6) | (chr2 &0x3f);
 	}
+        
+        int chr3= chRead() &0xff;
+        if (chr3==0xff) return -1;
+        if (chr3<0x80) throw new IOException("Bad UTF-8 Encoding encountered");
+        
 	if (chr<0xf0) {
 	    // cx, dx 
-	    int chr3= chRead() &0xff;
-	    if (chr3==0xff) return -1;
-	    if (chr3<0x80) throw new IOException("Bad UTF-8 Encoding encountered");
-	    else return ((chr & 0x0f)<<12) | ((chr2 &0x3f) <<6) | (chr3 &0x3f);
+	    return ((chr & 0x0f)<<12) | ((chr2 &0x3f) <<6) | (chr3 &0x3f);
 	}
-	
-	//System.out.print((char)j);
-	return -1;
+        
+	// chr>=0xf0
+        int chr4= chRead() &0xff;
+        if (chr3==0xff) return -1;
+        if (chr3<0x80) throw new IOException("Bad UTF-8 Encoding encountered");
+        
+        //return ((chr & 0x07)<<18) | ((chr2 &0x3f) <<12) |((chr3 &0x3f) <<6) | (chr4 &0x3f);
+        return '?'; // java char type contains only 16-bit symbols
+        
 //#endif
     }
     
