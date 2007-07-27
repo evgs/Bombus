@@ -3973,6 +3973,29 @@ syslog_msg: true
   + returned client-side filtering of not-in-list events. now there are configurable behavior: 
     drop all events, drop only presences, or receive both messages and presences
   * ContactMessageList: reordering commands Reply and Quote - now Reply is placed before Quote
+
+27.07.2007
+(1145)
+  *  –»“»„≈— ќ≈ исправление: ошибка чтени€ из потока символов utf-8 из диапазона U+10000...U+1FFFFF.
+    ‘актически, эти символы замен€ютс€ на '?', поскольку не могут быть преобразованы 
+    из utf-8 в тип 16-битный тип char в Java.
+  * в поле Message limit формы Join conference увеличен лимит ввода с 20 до 100 сообщений.
+    значение по умолчанию по-прежнему 20.
+  + команда About->Versions позвол€ет получить с сервера http://bombus-im.org список последних версий,
+    а также загрузить и установить выбранную версию.
+  * исправлено одно из полей времени, выдаваемого на запрос локального времени jabber:iq:time. (см. FS#721)
+  * поправлено взаимодействие с конференци€ми на серверах, использующих модуль mu-conference 
+    (в-основном, jabberd 1.4) (namespace http://jabber.org/protocol/muc#user)    
+  --
+  * CRITICAL: fix utf-8 parsing for chars U+10000...U+1FFFFF. 
+    Actually this chars is substitued by '?' - Java type char is 16-bit width
+  * message limit field in form Join conference: limit increased up to 100 messages. 
+    default value is still 20
+  + Upgrade.java: retriving available links for versions 
+    on http://bombus-im.org, installs selected version
+  * fixed Time.utcLocalTime() used in jabber:iq:time stanza (see FS#721)
+  * fixed namespace http://jabber.org/protocol/muc#user for correct interacting 
+    with mu-conference-based groupchats
 ------------------------------------------------------------------------
   known issues:
 

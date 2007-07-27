@@ -43,7 +43,7 @@ public class InfoWindow implements CommandListener{
     private Form form;
 
     private Command cmdBack=new Command(SR.MS_CLOSE, Command.BACK, 99);
-    private Command cmdUpgrade=new Command("New versions", Command.SCREEN, 1);
+    private Command cmdUpgrade=new Command("Versions", Command.SCREEN, 1);
     /** Creates a new instance of InfoWindow */
     public InfoWindow(Display display) {
         this.display=display;
