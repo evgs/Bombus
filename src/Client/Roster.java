@@ -1076,7 +1076,7 @@ public class Roster
                 if (oob!=null) body+=oob;
                 if (body.length()==0) body=null; 
                 String subj=message.getSubject().trim(); if (subj.length()==0) subj=null;
-                String tStamp=message.getTimeStamp();
+                long tStamp=message.getMessageTime();
 		
                 int start_me=-1;    //  не добавлять ник
                 String name=null;
@@ -1195,8 +1195,8 @@ public class Roster
                 if (body==null) return JabberBlockListener.BLOCK_REJECTED;
                 
                 Msg m=new Msg(mType, from, subj, body);
-                if (tStamp!=null) 
-                    m.dateGmt=Time.dateIso8601(tStamp);
+                if (tStamp!=0) 
+                    m.dateGmt=tStamp;
                 if (groupchat) {
                     ConferenceGroup mucGrp=(ConferenceGroup)c.getGroup();
                     if (mucGrp.getSelfContact().getJid().equals(message.getFrom())) {

@@ -89,12 +89,15 @@ public class Time {
      Calendar.HOUR_OF_DAY,  Calendar.MINUTE,    Calendar.SECOND};
      
     private final static int[] ofsFieldsA=
-    { 0, 4, 6, 9, 12, 15 } ;
+    { 0, 4, 6, 9, 12, 15 } ; //XEP-0091 - DEPRECATED
 
-    //private final static int[] ofsFieldsB=
-    //{ 0, 4, 6, 9, 12, 15 } ;
+    private final static int[] ofsFieldsB=
+    { 0, 5, 8, 11, 14, 17 } ;//XEP-0203
     
     public static long dateIso8601(String sdate){
+        int[] ofs=ofsFieldsA;
+        if (sdate.endsWith("Z")) ofs=ofsFieldsB;
+        
         try {
             int l=4;    // yearlen
             for (int i=0; i<calFields.length; i++){
