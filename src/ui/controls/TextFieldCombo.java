@@ -30,6 +30,7 @@ package ui.controls;
 import io.NvStorage;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
 import java.util.Enumeration;
 import java.util.Vector;
 import javax.microedition.lcdui.*;
@@ -142,9 +143,9 @@ public class TextFieldCombo
         try {
             DataInputStream is=NvStorage.ReadFileRecord(id, 0);
             
-            while (is.available()>0)
-                recentList.addElement(is.readUTF());
-            is.close();
+            try { 
+                while (true) recentList.addElement(is.readUTF());
+            } catch (EOFException e) { is.close(); }
         } catch (Exception e) { }
     }
     public static void setLowerCaseLatin(TextField tf) {
