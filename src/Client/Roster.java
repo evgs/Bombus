@@ -1303,8 +1303,7 @@ public class Roster
         //verifying from attribute as in RFC3921/7.2
         String from=data.getAttribute("from");
         if (from!=null) {
-            String myJid=sd.account.getJid();
-            if (! from.toLowerCase().equals(myJid.toLowerCase())) return;
+            if (!myJid.equals(new Jid(from), true)) return;
         }
         
         Vector cont=(q!=null)?q.getChildBlocks():null;
