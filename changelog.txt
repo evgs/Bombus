@@ -3996,6 +3996,36 @@ syslog_msg: true
   * fixed Time.utcLocalTime() used in jabber:iq:time stanza (see FS#721)
   * fixed namespace http://jabber.org/protocol/muc#user for correct interacting 
     with mu-conference-based groupchats
+
+(1146)
+  * исправлена загрузка ростера при незаполненном ресурсе (серверы ejabberd)  
+  + поддержка XEP-0203 (время отправки сообщения при отложенной доставке).
+    заменяет устаревший стандарт XEP-0091 (старый стандарт по-прежнему поддерживается)
+  + поддержка XEP-0202 (локальное время клиента).
+    заменяет устаревший стандарт XEP-0090 (старый стандарт по-прежнему поддерживается)
+  * исправлено время UTC, отправляемое по XEP-0090
+  + списки ранее введённых значений для полей "room" и "host" в форме "Join conference"
+  * замена названия команды "Cancel" на "Back" в "Active Contacts" и "Registering Account"
+  --
+  * roster loading was broken if binded resource differs from resource stored in account.
+    (ejabberd binds random resource if no resource specified)
+  + support for XEP-0203 Delayed delivery (XEP-0091 is still supported until become obsolete)
+  + support for XEP-0202 Entity Time (XEP-0090 is still supported until become obsolete)
+  * fixed utc time child stanza in old time reply (XEP-0090)
+  + MRU (MostRecentlyUsed) ability added in "Join conference" for fields "room" and "host"
+  * "Cancel"->"Back" in "Active Contacts" and "Registering Account"
+------------------------------------------------------------------------
+r1148 | evgs | 2007-08-11 13:19:55 +0600 (Сб, 11 авг 2007) | 1 line
+
+namespace and node fix for EntityCaps discovering
+------------------------------------------------------------------------
+r1147 | evgs | 2007-08-05 00:45:26 +0600 (Вс, 05 авг 2007) | 2 lines
+
+ServiceDiscovery: used server is always displayed first in recent list
+MRU sometimes forgot last stored item
+------------------------------------------------------------------------
+r1146 | evgs | 2007-07-30 21:01:28 +0600 (Пн, 30 июл 2007) | 1 line
+
 ------------------------------------------------------------------------
   known issues:
 
