@@ -43,7 +43,7 @@ public class IqLast extends Iq{
               request.getAttribute("id") );
         JabberDataBlock query=addChild("query",null);
         query.setNameSpace("jabber:iq:last");
-        long last=(Time.localTime()-lastMessageTime)/1000;
+        long last=(Time.utcTimeMillis()-lastMessageTime)/1000;
         query.setAttribute("seconds", String.valueOf(last));
     }
 }

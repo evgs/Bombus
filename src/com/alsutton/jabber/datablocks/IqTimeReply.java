@@ -40,9 +40,18 @@ public class IqTimeReply extends Iq{
         super(request.getAttribute("from"),
               Iq.TYPE_RESULT,
               request.getAttribute("id") );
-        JabberDataBlock query=addChild("query",null);
-        query.setNameSpace("jabber:iq:time");
-        query.addChild("utc",ui.Time.utcLocalTime());
-        query.addChild("display", ui.Time.dispLocalTime());
+        //DEPRECATED
+        if (request.getChildBlock("query")!=null) {
+            JabberDataBlock query=addChild("query",null);
+            query.setNameSpace("jabber:iq:time");
+            query.addChild("utc",ui.Time.Xep0082UtcTime());
+            query.addChild("display", ui.Time.dispLocalTime());
+        } else {
+            JabberDataBlock time=addChild("time", null);
+            time.setNameSpace("urn:xmpp:time");
+            time.addChild("utc",ui.Time.utcTime());
+            String tzo="";
+            time.addChild("tzo", ui.Time.tzOffset());
+        }
     }
 }

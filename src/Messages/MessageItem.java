@@ -187,7 +187,7 @@ public class MessageItem implements
     }
 
     public String getTipString() {
-        if (Time.localTime() - msg.dateGmt> (24*60*60*1000)) return msg.getDayTime();
+        if (Time.utcTimeMillis() - msg.dateGmt> (24*60*60*1000)) return msg.getDayTime();
         return msg.getTime();
     }
 

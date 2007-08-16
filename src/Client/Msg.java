@@ -64,7 +64,7 @@ public class Msg //implements MessageList.Element
         this.from=from;
         this.body=body;
         this.subject=subj;
-        this.dateGmt=Time.localTime();
+        this.dateGmt=Time.utcTimeMillis();
         if (messageType>=MESSAGE_TYPE_IN) unread=true;
         if (messageType==MESSAGE_TYPE_PRESENCE || messageType==MESSAGE_TYPE_HEADLINE)
             itemCollapsed=true;
@@ -75,10 +75,10 @@ public class Msg //implements MessageList.Element
         return getTime()+from; 
     }*/
     public String getTime(){
-        return Time.timeString(dateGmt); 
+        return Time.timeLocalString(dateGmt); 
     }
     public String getDayTime(){
-        return Time.dayString(dateGmt)+Time.timeString(dateGmt); 
+        return Time.dayLocalString(dateGmt)+Time.timeLocalString(dateGmt); 
     }
     //private TimeZone tz(){ return StaticData.getInstance().config.tz;}
     

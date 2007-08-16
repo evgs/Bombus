@@ -117,7 +117,7 @@ public class KeyBlock extends Canvas implements Runnable{
         g.translate(0, y);
         status.drawItem(g, 0, false);
         
-        String time=Time.timeString(Time.localTime());
+        String time=Time.timeLocalString(Time.utcTimeMillis());
         int tw=f.stringWidth(time);
         
         g.translate(width/2, -h);

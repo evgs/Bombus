@@ -136,7 +136,7 @@ public class Roster
 
 //#endif
     
-    private long lastMessageTime=Time.localTime();
+    private long lastMessageTime=Time.utcTimeMillis();
 
     private final static int maxReconnect=5;
     private int reconnectCount;
@@ -530,7 +530,7 @@ public class Roster
         c.commonPresence=true;
         //c.priority=99;
         //c.key1=0;
-        grp.conferenceJoinTime=Time.localTime();
+        grp.conferenceJoinTime=Time.utcTimeMillis();
         grp.setConference(c);
         c.setGroup(grp);
         
@@ -826,7 +826,7 @@ public class Roster
         
         if (event.getChildBlocks()!=null) message.addChild(event);
         theStream.send( message );
-        lastMessageTime=Time.localTime();
+        lastMessageTime=Time.utcTimeMillis();
     }
     
     private void sendDeliveryMessage(Contact c, String id) {
@@ -1040,6 +1040,7 @@ public class Roster
                             return JabberBlockListener.BLOCK_PROCESSED;                            
                         }
                         // проверяем на запрос локального времени клиента
+                        //DEPRECATED
                         if (query.isJabberNameSpace("jabber:iq:time")) {
                             theStream.send(new IqTimeReply(data));
                             return JabberBlockListener.BLOCK_PROCESSED;
@@ -1051,6 +1052,13 @@ public class Roster
                         }
                         return JabberBlockListener.BLOCK_REJECTED;
                     }
+                    
+                    // проверяем на запрос локального времени клиента XEP-0202
+                    if (data.findNamespace("urn:xmpp:time")!=null) {
+                        theStream.send(new IqTimeReply(data));
+                        return JabberBlockListener.BLOCK_PROCESSED;
+                    }
+                    
                 } else if (type.equals("set")) {
                     //todo: verify xmlns==jabber:iq:roster
                     processRoster(data);

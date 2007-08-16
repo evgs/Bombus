@@ -35,53 +35,74 @@ import java.util.*;
 public class Time {
     
     private static Calendar c=Calendar.getInstance( TimeZone.getTimeZone("GMT") );
-    private static long offset=0; 
-    private static long locToGmtoffset=0;
+    private static long utcToLocalOffsetMillis=0; 
+    private static long fixupLocalOffsetMills=0;
+    private static int tzo=0;
     /** Creates a new instance of Time */
     private Time() { }
     
-    public static void setOffset(int gmtOffset, int locOffset){
-        offset=60*60*1000*gmtOffset;
-        locToGmtoffset=((long)locOffset)*60*60*1000;
+    public static void setOffset(int tzOffset, int locOffset){
+        utcToLocalOffsetMillis=((long)tzOffset)*60*60*1000;
+        fixupLocalOffsetMills=((long)locOffset)*60*60*1000;
+        tzo=tzOffset;
     }
 
     public static String lz2(int i){
         if (i<10) return "0"+i; else return String.valueOf(i);
     }
-    public static String timeString(long date){
+    public static String timeLocalString(long date){
         Calendar c=calDate(date);
-        return lz2(c.get(Calendar.HOUR_OF_DAY))+":"+lz2(c.get(Calendar.MINUTE));
+        return lz2(c.get(Calendar.HOUR_OF_DAY))+':'+lz2(c.get(Calendar.MINUTE));
     }
     
     private static Calendar calDate(long date){
-        c.setTime(new Date(date+offset));
+        c.setTime(new Date(date+utcToLocalOffsetMillis));
         return c;
     }
     
-    public static String dayString(long date){
+    public static String dayLocalString(long date){
         Calendar c=calDate(date);
-        return lz2(c.get(Calendar.DAY_OF_MONTH))+"."+
-               lz2(c.get(Calendar.MONTH)+1)+"."+
+        return lz2(c.get(Calendar.DAY_OF_MONTH))+'.'+
+               lz2(c.get(Calendar.MONTH)+1)+'.'+
                lz2(c.get(Calendar.YEAR) % 100)+" ";
     }
 
-    public static long localTime(){
-        return System.currentTimeMillis()+locToGmtoffset;
+    public static long utcTimeMillis(){
+        return System.currentTimeMillis()+fixupLocalOffsetMills;
     }
     
-    public static String utcLocalTime(){
-        long date=localTime();
+    public static String Xep0082UtcTime(){
+        long date=utcTimeMillis();
         c.setTime(new Date(date));
         return String.valueOf(c.get(Calendar.YEAR))+
                 lz2(c.get(Calendar.MONTH)+1)+
                 lz2(c.get(Calendar.DAY_OF_MONTH))+
-                'T'+timeString(date)+':'+lz2(c.get(Calendar.SECOND));
+                'T' + lz2(c.get(Calendar.HOUR_OF_DAY))+':'+lz2(c.get(Calendar.MINUTE))+':'+lz2(c.get(Calendar.SECOND));
+    }
+
+    public static String utcTime() {
+        long date=utcTimeMillis();
+        c.setTime(new Date(date));
+        return String.valueOf(c.get(Calendar.YEAR)) +
+                '-' + lz2(c.get(Calendar.MONTH)+1) + 
+                '-' + lz2(c.get(Calendar.DAY_OF_MONTH)) +
+                'T' + lz2(c.get(Calendar.HOUR_OF_DAY))+':'+lz2(c.get(Calendar.MINUTE))+':'+lz2(c.get(Calendar.SECOND)) +
+                'Z';
+    }
+    
+    public static String tzOffset(){
+        StringBuffer tz=new StringBuffer();
+        int tzi=tzo;
+        if (tzo<0) { tz.append('-'); tzi=-tzo; }
+        tz.append(lz2(tzi));
+        tz.append(":00");
+        return tz.toString();
     }
     
     public static String dispLocalTime(){
-        long date=localTime();
+        long utcDate=utcTimeMillis();
         //Calendar c=calDate(date);
-        return dayString(date)+timeString(date);
+        return dayLocalString(utcDate)+timeLocalString(utcDate);
     }
     
     private final static int[] calFields=

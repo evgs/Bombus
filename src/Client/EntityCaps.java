@@ -68,11 +68,13 @@ public class EntityCaps implements JabberBlockListener{
         "jabber:iq:version",
         "jabber:x:data",
         "jabber:x:event",
+        "jabber:iq:time", //DEPRECATED
+        "urn:xmpp:time",
         "http://jabber.org/protocol/disco#info",
         "http://jabber.org/protocol/muc",
-	"http://jabber.org/protocol/si",
-	"http://jabber.org/protocol/si/profile/file-transfer",
-	"http://jabber.org/protocol/ibb"
+        "http://jabber.org/protocol/si",
+        "http://jabber.org/protocol/si/profile/file-transfer",
+        "http://jabber.org/protocol/ibb"
 };
 
 }
