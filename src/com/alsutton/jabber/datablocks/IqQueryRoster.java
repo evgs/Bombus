@@ -52,15 +52,14 @@ public class IqQueryRoster extends Iq
   public IqQueryRoster() {
     super(null, Iq.TYPE_GET, "getros" );
 
-    addChild("query", null).setNameSpace( "jabber:iq:roster" );
+    addChildNs("query", "jabber:iq:roster" );
   }
   
   /** add to roster*/
   public IqQueryRoster(String jid, String name, String group, String subscription) {
     super(null, Iq.TYPE_SET, "addros");
 
-    JabberDataBlock qB = addChild("query", null );
-    qB.setNameSpace( "jabber:iq:roster" );
+    JabberDataBlock qB = addChildNs("query", "jabber:iq:roster" );
         JabberDataBlock item= qB.addChild("item",null);
         item.setAttribute("jid", jid);
         item.setAttribute("name", name);

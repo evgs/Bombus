@@ -91,8 +91,7 @@ public class AffiliationModify implements CommandListener, YesNoAlert.YesNoListe
         JabberStream stream=StaticData.getInstance().roster.theStream;
         
         JabberDataBlock request=new Iq(room, Iq.TYPE_SET, "admin_modify");
-        JabberDataBlock query=request.addChild("query", null);
-        query.setNameSpace("http://jabber.org/protocol/muc#admin");
+        JabberDataBlock query=request.addChildNs("query", "http://jabber.org/protocol/muc#admin");
         JabberDataBlock child=query.addChild("item", null);
         child.setAttribute("jid", jid.getString());
         child.setAttribute("affiliation", AffiliationItem.getAffiliationName(affiliation.getSelectedIndex()));

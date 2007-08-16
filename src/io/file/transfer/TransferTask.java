@@ -150,7 +150,7 @@ public class TransferTask
         JabberDataBlock error=reject.addChild("error",null);
         error.setTypeAttribute("cancel");
         error.setAttribute("code","405");
-        error.addChild("not-allowed",null).setNameSpace("urn:ietf:params:xml:ns:xmpp-stanzas");
+        error.addChildNs("not-allowed", "urn:ietf:params:xml:ns:xmpp-stanzas");
         TransferDispatcher.getInstance().send(reject, true);
         
         state=ERROR;
@@ -170,14 +170,11 @@ public class TransferTask
         }
         JabberDataBlock accept=new Iq(jid, Iq.TYPE_RESULT, id);
         
-        JabberDataBlock si=accept.addChild("si", null);
-        si.setNameSpace("http://jabber.org/protocol/si");
+        JabberDataBlock si=accept.addChildNs("si", "http://jabber.org/protocol/si");
         
-        JabberDataBlock feature=si.addChild("feature", null);
-        feature.setNameSpace("http://jabber.org/protocol/feature-neg");
+        JabberDataBlock feature=si.addChildNs("feature", "http://jabber.org/protocol/feature-neg");
         
-        JabberDataBlock x=feature.addChild("x", null);
-        x.setNameSpace("jabber:x:data");
+        JabberDataBlock x=feature.addChildNs("x", "jabber:x:data");
         x.setTypeAttribute("submit");
         
         JabberDataBlock field=x.addChild("field", null);
@@ -245,22 +242,18 @@ public class TransferTask
             
             JabberDataBlock iq=new Iq(jid, Iq.TYPE_SET, sid); 
             
-            JabberDataBlock si=iq.addChild("si", null);
-            si.setNameSpace("http://jabber.org/protocol/si");
+            JabberDataBlock si=iq.addChildNs("si", "http://jabber.org/protocol/si");
             si.setAttribute("id",sid);
             si.setAttribute("mime-type","text/plain");
             si.setAttribute("profile", "http://jabber.org/protocol/si/profile/file-transfer");
             
-            JabberDataBlock file=si.addChild("file",null);
-            file.setNameSpace("http://jabber.org/protocol/si/profile/file-transfer");
+            JabberDataBlock file=si.addChildNs("file", "http://jabber.org/protocol/si/profile/file-transfer");
             file.setAttribute("name", fileName);
             file.setAttribute("size", String.valueOf(fileSize));
             
-            JabberDataBlock feature=si.addChild("feature", null);
-            feature.setNameSpace("http://jabber.org/protocol/feature-neg");
+            JabberDataBlock feature=si.addChildNs("feature", "http://jabber.org/protocol/feature-neg");
             
-            JabberDataBlock x=feature.addChild("x", null);
-            x.setNameSpace("jabber:x:data");
+            JabberDataBlock x=feature.addChildNs("x", "jabber:x:data");
             x.setTypeAttribute("form");
             
             JabberDataBlock field=x.addChild("field", null);
@@ -276,8 +269,7 @@ public class TransferTask
 
     void initIBB() {
         JabberDataBlock iq=new Iq(jid, Iq.TYPE_SET, sid);
-        JabberDataBlock open=iq.addChild("open", null);
-        open.setNameSpace("http://jabber.org/protocol/ibb");
+        JabberDataBlock open=iq.addChildNs("open", "http://jabber.org/protocol/ibb");
         open.setAttribute("sid", sid);
         open.setAttribute("block-size","2048");
         TransferDispatcher.getInstance().send(iq, false);
@@ -293,13 +285,12 @@ public class TransferTask
             
             JabberDataBlock msg=new Message(jid);
             
-            JabberDataBlock data=msg.addChild("data", strconv.toBase64(buf, sz));
-            data.setNameSpace("http://jabber.org/protocol/ibb");
+            JabberDataBlock data=msg.addChildNs("data", "http://jabber.org/protocol/ibb");
             data.setAttribute("sid", sid);
             data.setAttribute("seq", String.valueOf(seq));   seq++;
+            data.setText(strconv.toBase64(buf, sz));
             
-            JabberDataBlock amp=msg.addChild("amp",null);
-            amp.setNameSpace("http://jabber.org/protocol/amp");
+            JabberDataBlock amp=msg.addChildNs("amp", "http://jabber.org/protocol/amp");
             
             JabberDataBlock rule;
             
@@ -321,8 +312,7 @@ public class TransferTask
         } catch (Exception e) { /*null pointer exception if terminated*/}
         closeFile();
         JabberDataBlock iq=new Iq(jid, Iq.TYPE_SET, "close");
-        JabberDataBlock close=iq.addChild("close", null);
-        close.setNameSpace("http://jabber.org/protocol/ibb");
+        JabberDataBlock close=iq.addChildNs("close", "http://jabber.org/protocol/ibb");
         close.setAttribute("sid", sid);
         TransferDispatcher.getInstance().send(iq, false);
         TransferDispatcher.getInstance().eventNotify();

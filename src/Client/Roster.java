@@ -839,8 +839,7 @@ public class Roster
             theStream.send( message );
         }*/
         //if (c.deliveryType==Contact.DELIVERY_XEP22) {
-            JabberDataBlock x=message.addChild("x", null);
-            x.setNameSpace("jabber:x:event");
+            JabberDataBlock x=message.addChildNs("x", "jabber:x:event");
             x.addChild("id", id);
             x.addChild("delivered", null);
             theStream.send( message );

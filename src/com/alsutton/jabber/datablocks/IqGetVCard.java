@@ -39,7 +39,7 @@ public class IqGetVCard extends Iq
 {
     public IqGetVCard(String to, String id ) {
         super(to, Iq.TYPE_GET, id );
-        addChild("vCard", null).setNameSpace( "vcard-temp" );
+        addChildNs("vCard", "vcard-temp" );
     }
     
 }

@@ -146,8 +146,7 @@ public class SASLAuth implements JabberBlockListener{
             // second stream - step 1. binding resource
             else if (data.getChildBlock("bind")!=null) {
                 JabberDataBlock bindIq=new Iq(null, Iq.TYPE_SET, "bind");
-                JabberDataBlock bind=bindIq.addChild("bind",null);
-                bind.setNameSpace("urn:ietf:params:xml:ns:xmpp-bind");
+                JabberDataBlock bind=bindIq.addChildNs("bind", "urn:ietf:params:xml:ns:xmpp-bind");
                 bind.addChild("resource", account.getResource());
                 stream.send(bindIq);
 
@@ -215,7 +214,7 @@ public class SASLAuth implements JabberBlockListener{
                     String myJid=data.getChildBlock("bind").getChildBlockText("jid");
                     listener.bindResource(myJid);
                     JabberDataBlock session=new Iq(null, Iq.TYPE_SET, "sess");
-                    session.addChild("session",null).setNameSpace("urn:ietf:params:xml:ns:xmpp-session");
+                    session.addChildNs("session", "urn:ietf:params:xml:ns:xmpp-session");
                     stream.send(session);
                     listener.loginMessage(SR.MS_SESSION);
                     return JabberBlockListener.BLOCK_PROCESSED;

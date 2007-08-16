@@ -160,8 +160,8 @@ public class TransferDispatcher implements JabberBlockListener{
         JabberDataBlock error=reject.addChild("error",null);
         error.setTypeAttribute("cancel");
         error.setAttribute("code","406");
-        error.addChild("not-acceptable",null).setNameSpace("urn:ietf:params:xml:ns:xmpp-stanzas");
-        error.addChild("text","block-size too long").setNameSpace("urn:ietf:params:xml:ns:xmpp-stanzas");
+        error.addChildNs("not-acceptable", "urn:ietf:params:xml:ns:xmpp-stanzas");
+        error.addChildNs("text", "urn:ietf:params:xml:ns:xmpp-stanzas").setText("block-size too long");
         
         send(reject, true);
         

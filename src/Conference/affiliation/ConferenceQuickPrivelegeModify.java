@@ -144,8 +144,7 @@ public class ConferenceQuickPrivelegeModify implements CommandListener{
     
     private void setMucMod(){
         JabberDataBlock iq=new Iq(victim.jid.getBareJid(), Iq.TYPE_SET, "itemmuc");
-        JabberDataBlock query=iq.addChild("query", null);
-        query.setNameSpace("http://jabber.org/protocol/muc#admin"); 
+        JabberDataBlock query=iq.addChildNs("query", "http://jabber.org/protocol/muc#admin"); 
         //TODO: separate usecases to muc#owner, muc#admin and muc#moderator
         JabberDataBlock item=new JabberDataBlock("item", null, null);
         query.addChild(item);

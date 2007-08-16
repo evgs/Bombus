@@ -42,8 +42,7 @@ public class IqRegister extends Iq
     public IqRegister(String username, String password, String id) {
         super(null, Iq.TYPE_SET, id );
         
-        JabberDataBlock qB = addChild("query", null );
-        qB.setNameSpace( "jabber:iq:register" );
+        JabberDataBlock qB = addChildNs("query", "jabber:iq:register" );
         qB.addChild("username",username);
         qB.addChild("password",password);
         

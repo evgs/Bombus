@@ -98,8 +98,7 @@ public class VCard {
 
     public JabberDataBlock constructVCard(){
         JabberDataBlock vcardIq=new Iq(null, Iq.TYPE_SET, "vcard-set");
-        JabberDataBlock vcardTemp=vcardIq.addChild("vCard", null);
-        vcardTemp.setNameSpace("vcard-temp");
+        JabberDataBlock vcardTemp=vcardIq.addChildNs("vCard", "vcard-temp");
         
         int itemsCount=getCount();
         
@@ -173,7 +172,7 @@ public class VCard {
     public static JabberDataBlock getQueryVCard(String to, String id ) 
     {
         JabberDataBlock req=new Iq(to, Iq.TYPE_GET, id);
-        req.addChild("vCard", null).setNameSpace( "vcard-temp" );
+        req.addChildNs("vCard", "vcard-temp" );
 
         return req;
     }

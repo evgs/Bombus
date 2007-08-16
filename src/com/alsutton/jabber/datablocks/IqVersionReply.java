@@ -42,8 +42,7 @@ public class IqVersionReply extends Iq{
     /** Creates a new instance of IqVersionReply */
     public IqVersionReply(JabberDataBlock request) {
         super(request.getAttribute("from"), Iq.TYPE_RESULT, request.getAttribute("id") );
-        JabberDataBlock query=addChild("query",null);
-        query.setNameSpace("jabber:iq:version");
+        JabberDataBlock query=addChildNs("query", "jabber:iq:version");
         query.addChild("name","Bombus");
         query.addChild("version",Version.getVersionLang());
         if (Config.getInstance().enableVersionOs) {
@@ -54,7 +53,7 @@ public class IqVersionReply extends Iq{
     // constructs version request
     public IqVersionReply(String to) {
         super(to, Iq.TYPE_GET, "getver");
-        addChild("query",null).setNameSpace("jabber:iq:version");
+        addChildNs("query", "jabber:iq:version");
     }
     
     ///public static boolean 

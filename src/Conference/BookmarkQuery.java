@@ -51,11 +51,9 @@ public class BookmarkQuery implements JabberBlockListener{
     public BookmarkQuery(boolean saveBookmarks) {
         
         JabberDataBlock request=new Iq(null, (saveBookmarks)?Iq.TYPE_SET: Iq.TYPE_GET, "getbookmarks");
-        JabberDataBlock query=request.addChild("query", null);
-        query.setNameSpace("jabber:iq:private");
+        JabberDataBlock query=request.addChildNs("query", "jabber:iq:private");
 
-        JabberDataBlock storage=query.addChild("storage", null);
-        storage.setNameSpace("storage:bookmarks");
+        JabberDataBlock storage=query.addChildNs("storage", "storage:bookmarks");
         if (saveBookmarks) 
             for (Enumeration e=StaticData.getInstance().roster.bookmarks.elements(); e.hasMoreElements(); ) {
             storage.addChild( ((BookmarkItem)e.nextElement()).constructBlock() );

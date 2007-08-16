@@ -186,10 +186,8 @@ public class Groups implements JabberBlockListener{
         if (!roster.isLoggedIn()) return;
         
         JabberDataBlock iq=new Iq(null, (get)? Iq.TYPE_GET : Iq.TYPE_SET, (get)? "queryGS" : "setGS");
-        JabberDataBlock query=iq.addChild("query", null);
-        query.setNameSpace("jabber:iq:private");
-        JabberDataBlock gs=query.addChild("gs", null);
-        gs.setNameSpace(GROUPSTATE_NS);
+        JabberDataBlock query=iq.addChildNs("query", "jabber:iq:private");
+        JabberDataBlock gs=query.addChildNs("gs", GROUPSTATE_NS);
         
         if (get) {
             roster.theStream.addBlockListener(this);
