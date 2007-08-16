@@ -3997,7 +3997,8 @@ syslog_msg: true
   * fixed namespace http://jabber.org/protocol/muc#user for correct interacting 
     with mu-conference-based groupchats
 
-(1146)
+17.08.2007
+(1154)
   * исправлена загрузка ростера при незаполненном ресурсе (серверы ejabberd)  
   + поддержка XEP-0203 (время отправки сообщения при отложенной доставке).
     заменяет устаревший стандарт XEP-0091 (старый стандарт по-прежнему поддерживается)
@@ -4014,17 +4015,6 @@ syslog_msg: true
   * fixed utc time child stanza in old time reply (XEP-0090)
   + MRU (MostRecentlyUsed) ability added in "Join conference" for fields "room" and "host"
   * "Cancel"->"Back" in "Active Contacts" and "Registering Account"
-------------------------------------------------------------------------
-r1148 | evgs | 2007-08-11 13:19:55 +0600 (Сб, 11 авг 2007) | 1 line
-
-namespace and node fix for EntityCaps discovering
-------------------------------------------------------------------------
-r1147 | evgs | 2007-08-05 00:45:26 +0600 (Вс, 05 авг 2007) | 2 lines
-
-ServiceDiscovery: used server is always displayed first in recent list
-MRU sometimes forgot last stored item
-------------------------------------------------------------------------
-r1146 | evgs | 2007-07-30 21:01:28 +0600 (Пн, 30 июл 2007) | 1 line
 
 ------------------------------------------------------------------------
   known issues:
