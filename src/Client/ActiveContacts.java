@@ -49,7 +49,7 @@ public class ActiveContacts
     
     Vector activeContacts;
     
-    private Command cmdCancel=new Command(SR.MS_CANCEL, Command.BACK, 99);
+    private Command cmdCancel=new Command(SR.MS_BACK, Command.BACK, 99);
     private Command cmdSelect=new Command(SR.MS_SELECT, Command.SCREEN, 1);
     /** Creates a new instance of ActiveContacts */
     public ActiveContacts(Display display, Contact current) {

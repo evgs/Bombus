@@ -51,7 +51,7 @@ public class AccountRegister
     private JabberStream theStream ;
     private SplashScreen spl=SplashScreen.getInstance();
     private Command cmdOK=new Command(SR.MS_OK,Command.BACK, 2);
-    private Command cmdCancel=new Command(SR.MS_CANCEL,Command.BACK, 2);
+    private Command cmdCancel=new Command(SR.MS_BACK,Command.BACK, 2);
     
     /** Creates a new instance of AccountRegister */
     public AccountRegister(Account account, Display display, Displayable parentView) {
