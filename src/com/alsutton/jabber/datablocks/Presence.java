@@ -30,6 +30,7 @@ import com.alsutton.jabber.*;
 import images.RosterIcons;
 
 import java.util.*;
+import locale.SR;
 
 /**
  * Class representing the presence message block.
@@ -90,7 +91,7 @@ public class Presence extends JabberDataBlock
       if (type!=null) {
           if (type.equals(PRS_OFFLINE)) { 
               presenceCode=PRESENCE_OFFLINE;
-              text.append("offline");
+              text.append(SR.getPresence(PRS_OFFLINE));
           };
           if (type.equals("subscribe")) {
               presenceCode=PRESENCE_AUTH_ASK;
@@ -112,7 +113,7 @@ public class Presence extends JabberDataBlock
           }
       } else {
           // online-kinds
-          show=getShow(); text.append(show);
+          show=getShow(); text.append(SR.getPresence(show));
           presenceCode=PRESENCE_ONLINE;
           if (show.equals(PRS_CHAT)) presenceCode=PRESENCE_CHAT;
           if (show.equals(PRS_AWAY)) presenceCode=PRESENCE_AWAY;
@@ -120,10 +121,10 @@ public class Presence extends JabberDataBlock
           if (show.equals(PRS_DND)) presenceCode=PRESENCE_DND;
       }
           
-      show=(errText==null)? getChildBlockText("status"):errText;
-      if (show.length()>0) {
-          text.append('(');
-          text.append( show );
+      String status=(errText==null)? getChildBlockText("status"):errText;
+      if (status.length()>0) {
+          text.append(" (");
+          text.append( status );
           text.append(')');
       }
       

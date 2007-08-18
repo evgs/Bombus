@@ -333,6 +333,7 @@ public class SR {
 
     private SR() { }
     
+    private static Hashtable presences;
     private static Hashtable lang;
     
     private static String loadString(String key) {
@@ -346,6 +347,15 @@ public class SR {
             
             MS_IFACELANG=MS_XMLLANG;
             if (MS_IFACELANG==null) MS_IFACELANG="en";
+            
+            presences=new Hashtable();
+            presences.put("online", loadString("online"));
+            presences.put("chat", loadString("free for chat"));
+            presences.put("away", loadString("away"));
+            presences.put("xa", loadString("not available"));
+            presences.put("invisible", loadString("invisible"));
+            presences.put("dnd", loadString("do not disturb"));
+            presences.put("unavailable", loadString("offline"));
         }
         String value=(String)lang.get(key);
 //#if LOCALE_DEBUG
@@ -360,7 +370,12 @@ public class SR {
         return (value==null)?key:value;
     }
 
+    public static String getPresence(String presenceName) {
+        return (String) presences.get(presenceName);
+    }
+    
     public static void loaded() {
         lang=null;
     }
+
 }

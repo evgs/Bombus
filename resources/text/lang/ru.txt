@@ -1,4 +1,4 @@
-// Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org
+﻿// Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org
 // All rights reserved.
 // (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
 // (c) Vladimir N. Shelukhin, 2006-2007.
@@ -290,3 +290,12 @@ Add autojoin bookmark	Добав. закладку с автовходом
 //owner	владелец
 //admin	администратор
 //member	член конференции
+
+//2007-08-19
+online	в сети
+free for chat	свободен поболтать
+away	отошёл
+not available	недоступен
+invisible	невидим
+do not disturb	не беспокоить
+offline	отключился

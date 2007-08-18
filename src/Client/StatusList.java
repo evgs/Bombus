@@ -33,6 +33,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.util.Enumeration;
 import java.util.Vector;
+import locale.SR;
 
 /**
  *
@@ -61,7 +62,7 @@ public class StatusList {
 	    createFromStream(Presence.PRESENCE_XA, Presence.PRS_XA, inputStream);
 	    createFromStream(Presence.PRESENCE_DND, Presence.PRS_DND, inputStream);
 	    createFromStream(Presence.PRESENCE_INVISIBLE, Presence.PRS_INVISIBLE, inputStream);
-	    createFromStream(Presence.PRESENCE_OFFLINE, "offline", inputStream);
+	    createFromStream(Presence.PRESENCE_OFFLINE, Presence.PRS_OFFLINE, inputStream);
 	    
 	    inputStream.close();
         } catch (Exception e) { e.printStackTrace(); }
@@ -69,7 +70,7 @@ public class StatusList {
     }
     
     private void createFromStream(int presenceIndex, String presenceName, DataInputStream dataInputStream) {
-	ExtendedStatus status=new ExtendedStatus(presenceIndex, presenceName);
+	ExtendedStatus status=new ExtendedStatus(presenceIndex, presenceName, (String) SR.getPresence(presenceName));
         try {
 	    status.setPriority(dataInputStream.readInt());
             status.setMessage(dataInputStream.readUTF());
