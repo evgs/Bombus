@@ -293,7 +293,7 @@ Add autojoin bookmark	Добав. закладку с автовходом
 
 //2007-08-19
 online	в сети
-free for chat	свободен поболтать
+free for chat	свободен для болтовни
 away	отошёл
 not available	недоступен
 invisible	невидим
