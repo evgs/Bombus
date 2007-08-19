@@ -4016,6 +4016,16 @@ syslog_msg: true
   + MRU (MostRecentlyUsed) ability added in "Join conference" for fields "room" and "host"
   * "Cancel"->"Back" in "Active Contacts" and "Registering Account"
 
+
+20.08.2007
+(1160)
+  * Для текстовых полей с историей ввода команда "Recent" смещена вниз
+  * Расширение локализации. Ждём переводчиков ;)
+  * исправлено отображение ошибок присоединения к конференции
+  --
+  * MRU-fields - lower priority for item command
+  * Localization extended. Translations are welcome
+  * fixed namespace in muc presences (join errors)
 ------------------------------------------------------------------------
   known issues:
 
