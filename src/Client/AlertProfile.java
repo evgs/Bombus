@@ -38,14 +38,12 @@ import javax.microedition.lcdui.*;
  * @author Eugene Stahov
  */
 public class AlertProfile extends VirtualList implements CommandListener {
+    private final static int ALERT_COUNT=5;
     public final static int AUTO=0;
     public final static int ALL=1;
     public final static int VIBRA=2;
     public final static int SOUND=3;
     public final static int NONE=4;
-    
-    private final static String[] alertNames=
-    { "Auto", "All signals", "Vibra", "Sound", "No signals"};
     
     private Profile profile=new Profile();
     int defp;
@@ -86,8 +84,15 @@ public class AlertProfile extends VirtualList implements CommandListener {
         public int getColor(){ return Colors.LIST_INK; }
         public int getImageIndex(){return index+RosterIcons.ICON_PROFILE_INDEX;}
         public String toString(){ 
-            StringBuffer s=new StringBuffer(alertNames[index]);
-            if (index==defp) s.append(" (default)");
+            StringBuffer s=new StringBuffer();
+            switch (index) {
+                case AUTO: s.append(SR.MS_ALERT_PROFILE_AUTO); break;
+                case ALL: s.append(SR.MS_ALERT_PROFILE_ALLSIGNALS); break;
+                case VIBRA: s.append(SR.MS_ALERT_PROFILE_VIBRA); break;
+                case SOUND: s.append(SR.MS_ALERT_PROFILE_SOUND); break;
+                case NONE: s.append(SR.MS_ALERT_PROFILE_NOSIGNALS); break;
+            }
+            if (index==defp) s.append(SR.MS_ALERT_PROFILE_DEFAULT);
             return s.toString();
         }
     }
@@ -107,6 +112,6 @@ public class AlertProfile extends VirtualList implements CommandListener {
         destroyView();
     }
     
-    public int getItemCount(){   return alertNames.length; }
+    public int getItemCount(){   return ALERT_COUNT; }
     
 }

@@ -319,14 +319,23 @@ public class SR {
     //public   static String MS_ADMIN = loadString( "admin" );
     //public   static String MS_MEMBER = loadString( "member" );
     
-    public static String MS_DO_AUTOJOIN="Join marked (auto)"; //temporary
+    public static String MS_DO_AUTOJOIN = loadString( "Join marked (auto)" ); //temporary
     
-    public final static String MS_SHOW_HARDWARE="shared platform info";
-    public final static String MS_DELIVERY="delivery events";
-
-    public final static String MS_NIL_DROP_MP="drop all";
-    public final static String MS_NIL_DROP_P="receive messages";
-    public final static String MS_NIL_ALLOW_ALL="messages & presences";
+    public static String MS_SHOW_HARDWARE = loadString( "shared platform info" );
+    public static String MS_DELIVERY = loadString( "delivery events" );
+    public static String MS_NIL_DROP_MP = loadString( "drop all" );
+    public static String MS_NIL_DROP_P = loadString( "receive messages" );
+    public static String MS_NIL_ALLOW_ALL = loadString( "messages & presences" );
+    public static String MS_FONTSIZE_NORMAL = loadString( "normal" );
+    public static String MS_FONTSIZE_SMALL = loadString( "small" );
+    public static String MS_FONTSIZE_LARGE = loadString( "large" );
+    public static String MS_FILE_TRANSFERS = loadString( "File Transfers" );
+    public static String MS_ALERT_PROFILE_AUTO = loadString( "Auto" );
+    public static String MS_ALERT_PROFILE_ALLSIGNALS = loadString( "All signals" );
+    public static String MS_ALERT_PROFILE_VIBRA = loadString( "Vibra" );
+    public static String MS_ALERT_PROFILE_SOUND = loadString( "Sound" );
+    public static String MS_ALERT_PROFILE_NOSIGNALS = loadString( "No signals" );
+    public static String MS_ALERT_PROFILE_DEFAULT = loadString( " (default)" );
     
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;

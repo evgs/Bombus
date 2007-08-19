@@ -224,7 +224,7 @@ public class ConfigForm implements
             sndFile.setSelectedIndex(cf.soundsMsgIndex, true);
         } catch (Exception e) { cf.soundsMsgIndex=0; };
 
-        String fnts[]={"Normal", "Small", "Large"};
+        String fnts[]={SR.MS_FONTSIZE_NORMAL, SR.MS_FONTSIZE_SMALL, SR.MS_FONTSIZE_LARGE};
         font1=new ChoiceGroup(SR.MS_ROSTER_FONT, ConstMIDP.CHOICE_POPUP, fnts, null);
         font2=new ChoiceGroup(SR.MS_MESSAGE_FONT, ConstMIDP.CHOICE_POPUP, fnts, null);
         font1.setSelectedIndex(cf.font1/8, true);

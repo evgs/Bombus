@@ -54,7 +54,7 @@ public class RosterToolsMenu
         
 //#if (FILE_IO && FILE_TRANSFER)
         addItem("root",4);
-        addItem("File Transfers", 5);
+        addItem(SR.MS_FILE_TRANSFERS, 5);
 //#endif
         
         

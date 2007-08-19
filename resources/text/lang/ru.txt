@@ -1,10 +1,11 @@
 ﻿// Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org
 // All rights reserved.
 // (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
-// (c) Vladimir N. Shelukhin, 2006-2007.
+// (c) Vladimir N. Shelukhin <shelukhin@mail.ru>, 2006-2007.
 
 // ask server to send us localized messages
 xmlLang	ru
+
 //463
 langfile	Russian
 Jid	Jid
@@ -80,6 +81,7 @@ Client Version	Версия клиента
 Discard Search	Сбросить результаты
 Search Results	Результаты поиска
 Members	Члены
+
 // offline	отключенные
 Add Contact	Новый контакт
 Subscription	Подписка
@@ -93,7 +95,7 @@ Options	Настройки
 Delete	Удалить
 Delete contact?	Удалить контакт?
 Authorize	Авторизовать
-Nicknames	Ники
+Nicknames	Вставить ник
 Entering setup	Вход в настройки аккаунта
 to Archive	В архив
 Back	Назад
@@ -188,7 +190,6 @@ Port	Порт
 //473
 Proxy name/IP	Имя прокси-сервера/IP
 Proxy port	Порт прокси-сервера
-
 Connect	Подключиться
 history -	история -
 Are You sure want to discard 	Вы действительно собираетесь понизить у 
@@ -201,6 +202,7 @@ General	General
 Stanzas	Stanzas
 Not-in-list	Not-in-list
 proxy CONNECT	proxy CONNECT
+//end of untranslatable strings
 
 //476
 Clear	Очистить
@@ -220,7 +222,6 @@ Grant Moderator	Дать право модератора
 Revoke Moderator	Отнять право модератора
 Grant Admin	Дать право администратора
 Grant Ownership	Дать право владельца
-
 room presences	статусы в конференции
 
  is now known as 	 сменил ник на 
@@ -292,10 +293,26 @@ Add autojoin bookmark	Добав. закладку с автовходом
 //member	член конференции
 
 //2007-08-19
-online	в сети
+online	доступен
 free for chat	свободен для болтовни
-away	отошёл
+away	отсутствует
 not available	недоступен
 invisible	невидим
 do not disturb	не беспокоить
 offline	отключился
+Join marked (auto)	Подключиться к отмеченным для автовхода
+shared platform info	показывать модель устройства
+delivery events	отчёты о доставке
+drop all	не принимать ничего
+receive messages	принимать сообщения
+messages & presences	сообщения и присутствия
+normal	обычный
+small	мелкий
+large	крупный
+File Transfers	Передача файлов
+Auto	Автоматически
+All signals	Все сигналы
+Vibra	Вибрация
+Sound	Звук
+No signals	Без сигналов
+ (default)	 (по умолчанию)
