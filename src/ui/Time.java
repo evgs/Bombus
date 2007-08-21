@@ -93,7 +93,9 @@ public class Time {
     public static String tzOffset(){
         StringBuffer tz=new StringBuffer();
         int tzi=tzo;
-        if (tzo<0) { tz.append('-'); tzi=-tzo; }
+        char sign='+';
+        if (tzo<0) { sign='-'; tzi=-tzo; }
+        tz.append(sign);
         tz.append(lz2(tzi));
         tz.append(":00");
         return tz.toString();
