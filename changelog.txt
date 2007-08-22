@@ -4026,6 +4026,15 @@ syslog_msg: true
   * MRU-fields - lower priority for item command
   * Localization extended. Translations are welcome
   * fixed namespace in muc presences (join errors)
+
+(1164)
+  * КРИТИЧЕСКОЕ исправление/безопасность: устранена возможность получения
+    сообщений с поддельным адресом.
+  * смещение часового пояса по xep-0082 отправляется с явно указанным знаком
+    смещения + или -
+  --
+  * CRITICAL/Security: address spoofing via xep-0033 disabled
+  * timezone offset always with sign + or - (XEP-0082)
 ------------------------------------------------------------------------
   known issues:
 
