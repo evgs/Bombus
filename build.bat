@@ -1,3 +1,4 @@
 svn up
 call setenv.bat
-%NB_ANT% rebuild-release
+call %NB_ANT% rebuild-release
+@if ERRORLEVEL 1 echo ==============BUILD FAILED=================

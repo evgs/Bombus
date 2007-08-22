@@ -6,3 +6,4 @@ call ..\MS\bombus.bat
 
 call %NB_ANT% deploy-release
 
+@if ERRORLEVEL 1 echo ==============BUILD FAILED=================
