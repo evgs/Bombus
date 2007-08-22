@@ -247,7 +247,7 @@ public class Message extends JabberDataBlock
      * Method to get the message from field
      * @return <B>from</B> field as a string
      */
-    public String getFrom() {
+    public String getXFrom() {
 	//try {
 	//    // jep-0146
 	//    JabberDataBlock fwd=findNamespace("jabber:x:forward"); // DEPRECATED
@@ -264,6 +264,10 @@ public class Message extends JabberDataBlock
 	    }
 	} catch (Exception e) { /* normal case if not forwarded message */ };
 	
+        return (String) attributes.get( "from" );
+    }
+    
+    public String getFrom() {
         return (String) attributes.get( "from" );
     }
 }

@@ -1076,6 +1076,10 @@ public class Roster
                 Message message = (Message) data;
                 
                 String from=message.getFrom();
+                //Enable forwarding only from self-jids
+                if (myJid.equals(new Jid(from), false)) {
+                    from=message.getXFrom();
+                }
                 String body=message.getBody().trim();    
                 String oob=message.getOOB();
                 String type=message.getTypeAttribute();
