@@ -244,7 +244,7 @@ public final class SHA1 extends MessageDigest {
     }
 
     /** Return a string that identifies this algorithm */
-    public String getAlg() { return "SHA1"; }
+    public String getAlg() { return "sha-1"; }
 
     /**
      * Print out the digest in a form that can be easily compared
