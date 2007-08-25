@@ -71,7 +71,7 @@ public class EntityCaps implements JabberBlockListener{
         }
         
         sha1.finish();
-        ver=sha1.getDigestHex();
+        ver=sha1.getDigestBase64();
         
         return ver;
     }
