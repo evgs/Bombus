@@ -133,7 +133,7 @@ public class ArchiveList
 	    data=m.from;
 	    break;
 	default:
-	    data=m.getBody();
+	    data=m.quoteString();
 	}
         if (data==null) return;
         target.insertText(data, caretPos);

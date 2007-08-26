@@ -106,6 +106,16 @@ public class Msg //implements MessageList.Element
         return time.toString(); 
     }
     
+    public String quoteString(){
+        StringBuffer out=new StringBuffer(toString());
+        int i=0;
+        while (i<out.length()) {
+            if (out.charAt(i)<0x03) out.deleteCharAt(i);
+            else i++;
+        }
+        return out.toString();
+    };
+    
     public boolean isPresence() { return messageType==MESSAGE_TYPE_PRESENCE; }
     
     public int messageType;

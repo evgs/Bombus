@@ -173,7 +173,7 @@ public class ContactMessageList extends MessageList
             try {
                 String msg=new StringBuffer()
                     .append((char)0xbb) // »
-                    .append(getMessage(cursor).toString())
+                    .append(getMessage(cursor).quoteString())
                     .append("\n")
                     .toString();
                 new MessageEdit(display,contact,msg);

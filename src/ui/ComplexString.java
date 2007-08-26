@@ -81,7 +81,7 @@ public class ComplexString extends Vector implements VirtualElement{
         //g.setColor(0);
         boolean ralign=false;
 	boolean underline=false;
-        boolean nick=true;
+        boolean nick=false;
         
         int w=0;
         int dw;
@@ -113,7 +113,7 @@ public class ComplexString extends Vector implements VirtualElement{
                                 if ( (c1&0xff00) != (c2 &0xff00) ) break;
                                 p2++;
                             }
-                            g.setColor( (c1>255) ? 0xff0000/*color|0x1f1f1f*/ : color);
+                            g.setColor( (c1>255) ? Colors.strong(color) : color);
                             dw=font.substringWidth(s, p1, p2-p1);
                             if (ralign) w-=dw;
                             g.drawSubstring( s, p1, p2-p1, 
@@ -155,6 +155,12 @@ public class ComplexString extends Vector implements VirtualElement{
 			case UNDERLINE:
 			    underline=true;
 			    break;
+                        case NICK_ON:
+                            nick=true; 
+                            break;
+                        case NICK_OFF:
+                            nick=false;
+                            break;
                     }
                 } /* Integer*/ else if (ob instanceof VirtualElement) { 
                     int clipw=g.getClipWidth(); 

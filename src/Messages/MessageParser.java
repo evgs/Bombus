@@ -170,7 +170,9 @@ public final class MessageParser implements Runnable{
         } catch (Exception e) {
             e.printStackTrace();
         }
-	addSmile("http://",URL);
+	addSmile("http://", URL);
+        addSmile("\01", ComplexString.NICK_ON);
+        addSmile("\02", ComplexString.NICK_OFF);
     }
 
     public void parseMsg(MessageItem messageItem,  int width)
@@ -317,7 +319,7 @@ public final class MessageParser implements Runnable{
                     // очистим
                     s.setLength(0);
                     // добавим смайлик
-                    int iw=il.getWidth();
+                    int iw=(smileIndex<0x01000000)? il.getWidth() : 0;
                     if (w+iw>width) {
                         task.notifyRepaint(lines, task.msg, false);
                         l=new ComplexString(il);     // новая строка

@@ -32,6 +32,16 @@ package ui;
  * @author Evg_S
  */
 public class Colors {
+
+    static int strong(int color) {
+        switch (color) {
+            case MESSAGE_IN: return MESSAGE_IN_S;
+            case MESSAGE_OUT: return MESSAGE_OUT_S;
+            case MESSAGE_PRESENCE: return MESSAGE_PRESENCE_S;
+        }
+        return color;
+    }
+    
     public final static int BALLOON_INK          =0x000000;
     public final static int BALLOON_BGND         =0xffffe0;
     
@@ -58,9 +68,12 @@ public class Colors {
     public final static int BLK_INK             =0xffffff;
     public final static int BLK_BGND            =0x000000;
 
-    public final static int MESSAGE_IN      =0x0000b0;
-    public final static int MESSAGE_OUT     =0xb00000;
-    public final static int MESSAGE_PRESENCE=0x006000;
+    public final static int MESSAGE_IN          =0x0000b0;
+    public final static int MESSAGE_IN_S        =0x0060ff;
+    public final static int MESSAGE_OUT         =0xb00000;
+    public final static int MESSAGE_OUT_S       =0xff4000;
+    public final static int MESSAGE_PRESENCE    =0x006000;
+    public final static int MESSAGE_PRESENCE_S  =0x00c040;
     public final static int MESSAGE_AUTH    =0x400040;
     public final static int MESSAGE_HISTORY =0x535353;
 

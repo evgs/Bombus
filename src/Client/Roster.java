@@ -1101,7 +1101,7 @@ public class Roster
                         start_me=0; // добавить ник в начало
                         int rp=from.indexOf('/');
                         
-                        name=from.substring(rp+1);
+                        name="\01"+from.substring(rp+1)+"\02";
                         
                         if (rp>0) from=from.substring(0, rp);
                         
@@ -1157,6 +1157,7 @@ public class Roster
                     if (start_me>=0) {
                         StringBuffer b=new StringBuffer(name);
                         if (start_me==0) b.append("> ");
+                        else b.insert(0,'*');
                         b.append(body.substring(start_me));
                         body=b.toString();
                     }
