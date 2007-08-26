@@ -80,7 +80,7 @@ public class EntityCaps implements JabberBlockListener{
         c.setAttribute("xmlns", "http://jabber.org/protocol/caps");
         c.setAttribute("node", BOMBUS_NAMESPACE+'#'+Version.getVersionNumber());
         c.setAttribute("ver", calcVerHash());
-        c.setAttribute("hash", "sha-1");
+        c.setAttribute("hash", "sha-1"); //todo: change to algo when caps 1.5 will be released
         //c.setAttribute("ext", appVersion.c_str());
         
         return c;
