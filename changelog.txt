@@ -4045,7 +4045,7 @@ syslog_msg: true
   * XEP-0115 Entity Caps: обновление до версии 1.4
   --
   + non-ASCII chars in nicknames and jids (in conferences) are rendered in different color (nick-spoofing prevention)
-  * /me is now substitued by *nick
+  * /me is now substituted by *nick
   * enable replying to presences
   * smiles.txt: aliases changed
   * Entity Caps v1.4
