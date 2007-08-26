@@ -4037,14 +4037,16 @@ syslog_msg: true
   * timezone offset always with sign + or - (XEP-0082)
 
 27.08.2007
-(1170)
+(1171)
   + защита от ников-двойников в конференци€х - не-ASCII символы ников выдел€ютс€ цветом
   * по многочисленным просьбам /me теперь отображаетс€ как *nick
+  * по многочисленным просьбам возвращена возможность "ответа" на презенс
   * smiles.txt - модификаци€ некоторых синонимов дл€ смайлов
   * XEP-0115 Entity Caps: обновление до версии 1.4
   --
   + non-ASCII chars in nicknames and jids (in conferences) are rendered in different color (nick-spoofing prevention)
   * /me is now substitued by *nick
+  * enable replying to presences
   * smiles.txt: aliases changed
   * Entity Caps v1.4
 ------------------------------------------------------------------------

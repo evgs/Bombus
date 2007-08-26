@@ -1101,7 +1101,7 @@ public class Roster
                         start_me=0; // добавить ник в начало
                         int rp=from.indexOf('/');
                         
-                        name="\01"+from.substring(rp+1)+"\02";
+                        name=from.substring(rp+1);
                         
                         if (rp>0) from=from.substring(0, rp);
                         
@@ -1155,7 +1155,9 @@ public class Roster
                 if (body!=null) {
                     if (body.startsWith("/me ")) start_me=3;
                     if (start_me>=0) {
-                        StringBuffer b=new StringBuffer(name);
+                        StringBuffer b=new StringBuffer("\01");
+                        b.append(name);
+                        b.append("\02");
                         if (start_me==0) b.append("> ");
                         else b.insert(0,'*');
                         b.append(body.substring(start_me));
@@ -1254,10 +1256,12 @@ public class Roster
                 if (xmuc!=null) try {
                     MucContact c = mucContact(from);
                     
-                    from=from.substring(0, from.indexOf('/'));
+                    int rp=from.indexOf('/');
+                    String name=from.substring(rp+1);
+                    from=from.substring(0, rp);
                     Msg chatPresence=new Msg(
                            Msg.MESSAGE_TYPE_PRESENCE,
-                           "prs",
+                           name,
                            null,
                            c.processPresence(xmuc, pr) );
                     if (cf.storeConfPresence) {
