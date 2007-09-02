@@ -1,0 +1,317 @@
+﻿// Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org
+// All rights reserved.
+// (c) Ayes <ayes@exor14.com>, 2007.
+
+// ask server to send us localized messages
+xmlLang	id
+//463
+langfile	Indonesian
+Jid	Jid
+Loading	Pemuatan
+Privacy Lists	Daftar Pribadi
+Existing groups	Kehadiran Kelompok
+Message font	Huruf Pesan
+Roster font	Huruf Daftar Nama
+Paste Body	Tempel Badan
+Configure Room	Pengaturan Ruang
+Paste Subject	Tempel Subjek
+Service Discovery	Temukan Layanan
+User JID	JID Pengguna
+New list	Daftar Baru
+Select (no login)	Memilih (tidak login)
+Privacy rule	Pengaturan Pribadi
+use SSL	Gunakan SSL
+Modify	Modifikasi
+Update	Perbaharui
+Account name	Nama Akun
+GMT offset	offset (GMT+)
+Time settings (hours)	Pengaturan Waktu
+Connected	Terhubung
+Connect to 	Menghubungkan Ke 
+Alert Profile	Profil Suara
+Move Up	Naikan
+Move Down	Turunkan
+Owners	Pemilik
+Ok	OK
+Minimize	Kecilkan
+Room	Ruang
+Messages	Pesan
+Refresh	Segarkan
+Resolve Nicknames	Julukan Nama Kecil
+Action	Tindakan
+Ban	Asingkan (ban)
+Leave Room	Tinggalkan Ruangan
+Password	KataKunci
+Actions >	Tindakan >
+Activate	Mengaktifkan
+Affiliation	Affilation
+Accounts	Akun
+Delete list	Hapus Daftar
+Account >	Akun >
+Show Offlines	Tampilkan Daftar Off
+Select	Pilih
+Subject	Tema
+Group menu	Menu Kelompok
+Quit	Keluar
+Add to roster	Masukan Ke daftar Nama
+Edit list	Edit daftar
+Registering	Mendaftarkan
+Done	Selesai
+Error: 	Error: 
+Browse	Jelajahi
+Save list	Simpan Daftar
+Keep-Alive period	Periode Tetap Hidup
+<New Group>	<Kelompok Baru>
+Send	Kirim
+Priority	Prioritas
+Failed	Gagal
+Set Priority	atur Prioritas
+Delete rule	Hapus Pengaturan
+Roster request	Mengambil Data
+Type	Jenis
+Name	Nama
+Username	Nama Pengguna
+fullscreen	Layar Penuh
+All Priorities	Semua Prioritas
+Add bookmark	Tambah konferensi
+conferences only	Hanya Konferensi
+Client Version	Versi Klien
+Discard Search	Abaikan Pencarian
+Search Results	Hasil Pencarian
+Members	Anggota
+// offline	offline
+Add Contact	Tambah Kontak
+Subscription	Langganan
+Status >	Kehadiran >
+Join	Gabung
+Startup actions	Tindakan Permulaan
+Server	Layanan
+Admins	Admin
+Make Ignore-List	Buat Daftar-Pengabaian
+Options	Pengaturan
+Delete	Hapus
+Delete contact?	Hapus Kontak?
+Authorize	Beri Hak
+Nicknames	NamaKecil
+Entering setup	Masuki Susunan
+to Archive	Ke Arsip
+Back	Kembali
+heap monitor	Tumpukan Layar
+Hide Splash	Sembunyikan Tampilan
+Message	Tulis
+<Other>	<Lainnya>
+Append	Tambahkan Catatan
+Active Contacts	Kontak Aktif
+Select nickname	Pilih NamaKecil
+Group	Kelompok
+Join conference	Gabung Konferensi
+No	Tidak
+Yes	Ya
+Re-Enter Room	Masuki Ulang Ruangan
+New Message	Tulis Pesan
+Add	Tambahkan
+Logon	Logon
+Logoff	Logoff
+Login in progress	Proses Login
+at Host	Penyedia Layanan
+join conferences	Gabung Konferensi
+Status	Kehadiran
+Smiles	Emosi
+Contact >	Kontak >
+Order	Pesan
+offline contacts	Kontak Off
+Transport	Angkutan
+composing events	pen dan kertas
+Add Smile	Emosi
+Nickname	NamaKecil
+Revoke Voice	Hilangkan Suara
+Commands	Perintah
+- (Sign)	- (Tanda)
+Set default	Pengaturan Awal
+Outcasts (Ban)	Pengasingan (Ban)
+Set affiliation to	Atur affilation Ke
+Hide Offlines	Sembunyikan Kontak Off
+Register Account	Daftarkan Akun
+autologin	Login Otomatis
+Publish	Edarkan
+Remove subscription	Hentikan Langganan
+Set	Atur
+Application	Aplikasi
+Bookmarks	Daftar Konferensi
+Test sound	Test Suara
+Startup	Permulaan
+Edit rule	Ganti Pengaturan
+Cancel	Batal
+Close	Tutup
+Archive	Arsip
+free 	Bebas 
+Conference	Konferensi
+Sound	Suara
+Login failed	Login Gagal
+New Jid	Jid Baru
+plain-text password	Teks Datar. KataSandi
+Paste Nickname	Tempel NamaKecil
+Kick	Tendang (kick)
+Clear List	Bersihkan Daftar
+Grant Voice	Beri Ijin Suara
+Quote	Kutip
+Roster elements	Rangkaian DaftarNama
+popup from background	Popup-LatarBelakang
+smiles	emosi
+About	Tentang
+Resource	Sumber
+Disconnected	Terputus
+Edit	Ganti
+Host name/IP (optional)	Penyedia/IP (Boleh Dipilih)
+Add rule	Tambah Aturan
+for all status types	Untuk Semua Tipe Status
+Paste Jid	Tempel Jid
+Goto URL	Pergi Ke URL
+Clock -	Jam -
+Login	Login
+Clock offset	Jam Offset
+flash backlight	Layar Berkedip
+Suspend	Tunda
+Resume Message	Memulai Pesan Lagi
+Alert Profile >	Profil Suara >
+My vCard	vCard Ku
+transports	Penghantar
+New Account	Akun Baru
+self-contact	Kontak-Sendiri
+vCard	vCard
+Set Subject	Set Topik
+Tools	Peralatan
+Jabber Tools	Peralatan Jabber
+Port	Port
+
+//473
+Proxy name/IP	Nama Proxy/IP
+Proxy port	Port Proxy
+
+Connect	Hubungkan
+history -	Sejarah -
+Are You sure want to discard 	Benar-benar ingin Anda Buang 
+ from OWNER to 	 Dari Pemilik Ke 
+Modify affiliation	Modifikasi Affilations
+
+// DO NOT TRANSLATE THIS LINES!!!
+Ignore-List	Ignore-List
+General	General
+Stanzas	Stanzas
+Not-in-list	Not-in-list
+proxy CONNECT	proxy CONNECT
+
+//476
+Clear	Bersih
+
+//494
+Ask subscription	Tanyakan Langganan
+Grant subscription	Izinkan Berlangganan
+
+//502
+Invite to conference	Undang Ke Konferensi
+Reason	Alasan
+You have been invited to 	Anda Diundang Ke 
+ is inviting You to 	 sedang mengundang Anda Ke 
+Visitors are not allowed to send messages to all occupants	Tamu tidak diperbolehkan mengirim pesan keRuangan
+Unaffiliate	Cabut Kembali
+Grant Moderator	Jadikan Moderator
+Revoke Moderator	Tarik Kembali Sbg Moderator
+Grant Admin	Jadikan Admin
+Grant Ownership	Jadikan Pemilik
+
+room presences	kehadiran ruang
+
+ is now known as 	 sekarang adalah 
+ was banned 	 telah Diasingkan 
+ was kicked 	 telah Ditendang 
+ has been kicked because room became members-only	 telah ditendang karena ruangan khusus anggota saja 
+ has left the channel	 telah meninggalkan ruangan
+ has joined the channel as 	 bergabung keruangan sebagai 
+ and 	 dan 
+ is now 	 sekarang 
+
+Participants	Peserta
+Abc	Abc
+
+//1063
+autofocus	Fokus Otomatis
+Grant Membership	Jadikan Anggota
+Are You sure want to clear messagelist?	Benarkah Anda ingin membersihkan daftar pesan?
+Google token request	Google Meminta
+SASL login	SASL-Login
+Features	Keragaman
+Show password	Tampilkan KataKunci
+No client version available	Tidak terdapat versi klien
+Message limit	Batas Pesan
+Opening stream	Membuka Jalur
+Using compression	Menggunakan Tekanan
+Authenticating	Membuktikan Keaslian
+Resource binding	Mengikat SumberDaya
+Initiating session	Memicu Sesi
+Text wrapping	Batas teks
+by chars	oleh hurup
+by words	oleh kata
+Info	Info
+Reply	Balas
+Send status	Kirim Kehadiran
+Are you sure want to BAN this person?	Anda benar-benar ingin mengasingkan org ini?
+No reason	Tidak ada alasan
+Recent	Terbaru
+Shot	Ambil
+Select file	Pilih file
+Load Photo	Memuat photo
+Clear Photo	Hapus photo
+Camera	Kamera
+Hide finished	Sembunyikan penyelesaian
+Transfer tasks	Kirim tugas
+Are you sure want to delete this message?	Anda benar-benar ingin menghapus pesan ini?
+New conference	Konferensi Baru
+Root	Root
+Decline	Kemunduran
+authorize new contacts	Beri Hak Kontak Baru
+[auto-subscribe]	[otomatis-berlangganan]
+Keep-Alive	Tetap-Hidup
+ has been unaffiliated and kicked from members-only room	 telah diambil haknya, dan ditendang krn khusus anggota saja
+Minutes before away	menit sebelum pergi (away)
+Automatic Away	otomatis pergi (away)
+disabled	tidak dipasang
+keyblock / flip	berkedip
+idle	kosong
+Add autojoin bookmark	Otomatis gabung
+
+//2007-04-12
+//role	Peran
+//affiliation	affiliations
+//visitor	tamu
+//participant	peserta
+//moderator	moderator
+//owner	pemilik
+//admin	admin
+//member	anggota
+
+
+//2007-08-19
+online	online
+free for chat	chat bebas
+away	pergi
+not available	tidak tersedia
+invisible	menghilang
+do not disturb	jangan diganggu
+offline	offline
+Join marked (auto)	Otomatis Gabung
+shared platform info	tunjukan info platform
+delivery events	laporan
+drop all	Hapus Semua
+receive messages	terima pesan
+messages & presences	pesan & kehadiran
+normal	normal
+small	kecil
+large	besar
+File Transfers	kirim file
+Auto	Otomatis
+All signals	Semua sinyal
+Vibra	Getar
+Sound	Suara
+No signals	Diam
+ (default)	 (pengaturan awal)

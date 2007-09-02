@@ -275,3 +275,28 @@ disabled	deaktivováno
 keyblock / flip	zamknutí/zaklapnutí
 idle	nečinný
 Add autojoin bookmark	Přidat samopřipojovací záložku
+
+//2007-08-19
+online	připojen
+free for chat	chci si psát
+away	pryč
+not available	nejsem k dispozici
+invisible	neviditelný
+do not disturb	nerušit
+offline	odpojen
+Join marked (auto)	Připojení označeno (auto)
+shared platform info	informace o platformě
+delivery events	doručenky
+drop all	pustit všechno
+receive messages	přijmout zprávy
+messages & presences	zprávy a příchody
+normal	normální
+small	malé
+large	velké
+File Transfers	Přenosy souborů
+Auto	Automaticky
+All signals	Všechno
+Vibra	Vibrace
+Sound	Zvuk
+No signals	Bez oznámení
+ (default)	 (výchozí)
