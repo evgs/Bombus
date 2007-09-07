@@ -4049,6 +4049,15 @@ syslog_msg: true
   * enable replying to presences
   * smiles.txt: aliases changed
   * Entity Caps v1.4
+
+03.08.2007
+(1175)
+  * Сообщения длиной более 512 символов теперь отображаются свёрнутыми
+  * Обновлены локализации, спасибо нашим друзьям из Чехии и Индонезии (jenda.69 и ayes)
+  --
+  * Czech translation updated. thanks jenda.69
+  + Indonezian translation added. thanks Irfan Mahfudz Guntur (ayes)
+  * messages longer than 512 chars is now collapsed (limit will be optional in future)
 ------------------------------------------------------------------------
   known issues:
 

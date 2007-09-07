@@ -30,6 +30,7 @@ package io.file.transfer;
 import Client.StaticData;
 import com.alsutton.jabber.JabberBlockListener;
 import com.alsutton.jabber.JabberDataBlock;
+import com.alsutton.jabber.XmppError;
 import com.alsutton.jabber.datablocks.Iq;
 import com.alsutton.jabber.datablocks.Message;
 import java.util.Enumeration;
@@ -129,6 +130,7 @@ public class TransferDispatcher implements JabberBlockListener{
                 }
             }
             if (data.getTypeAttribute().equals("error")) {
+                //TODO: descriptive reeor message (reason)
                 TransferTask task=getTransferBySid(id);
                 if (task!=null) {
                     task.cancel();
@@ -157,11 +159,7 @@ public class TransferDispatcher implements JabberBlockListener{
         } catch (Exception ex) {}
         
         JabberDataBlock reject=new Iq(task.jid, Iq.TYPE_ERROR, id);
-        JabberDataBlock error=reject.addChild("error",null);
-        error.setTypeAttribute("cancel");
-        error.setAttribute("code","406");
-        error.addChildNs("not-acceptable", "urn:ietf:params:xml:ns:xmpp-stanzas");
-        error.addChildNs("text", "urn:ietf:params:xml:ns:xmpp-stanzas").setText("block-size too long");
+        reject.addChild(new XmppError(XmppError.NOT_ACCEPTABLE, "block-size too long"));
         
         send(reject, true);
         

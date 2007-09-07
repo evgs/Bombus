@@ -31,6 +31,7 @@ import Client.Account;
 import com.alsutton.jabber.JabberBlockListener;
 import com.alsutton.jabber.JabberDataBlock;
 import com.alsutton.jabber.JabberStream;
+import com.alsutton.jabber.XmppError;
 import com.alsutton.jabber.datablocks.Iq;
 import com.ssttr.crypto.SHA1;
 import locale.SR;
@@ -112,7 +113,8 @@ public class NonSASLAuth implements JabberBlockListener{
                 if ( id.equals("auth-s") ) {
                     if (type.equals( "error" )) {
                         // Authorization error
-                        listener.loginFailed( data.getChildBlock("error").toString() );
+                        listener.loginFailed( XmppError.findInStanza(data).toString() );
+                        
                         return JabberBlockListener.NO_MORE_BLOCKS;
                     } else if (type.equals( "result")) {
                         listener.loginSuccess();

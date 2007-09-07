@@ -209,9 +209,9 @@ public class ServiceDiscovery
             titleUpdate();
             //redraw();
             
-            String err=((JabberDataBlock)(data.getChildBlock("error").getChildBlocks().firstElement())).getTagName();
+            XmppError xe=XmppError.findInStanza(data);
             
-            new AlertBox(SR.MS_ERROR_, err, null, display, this);
+            new AlertBox(xe.getName(), xe.getText(), null, display, this);
 
             return JabberBlockListener.BLOCK_PROCESSED;
         }
@@ -285,7 +285,7 @@ public class ServiceDiscovery
             String text="Successful";
             String title=data.getAttribute("type");
             if (title.equals("error")) {
-                text=data.getChildBlockText("error");
+                text=XmppError.findInStanza(data).toString();
             }
             if (text=="Successful" && id.endsWith("Search") ) {
                 new SearchResult(display, data);

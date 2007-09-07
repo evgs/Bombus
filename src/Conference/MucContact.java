@@ -31,6 +31,7 @@ import Client.Contact;
 import Client.Msg;
 import Client.StaticData;
 import com.alsutton.jabber.JabberDataBlock;
+import com.alsutton.jabber.XmppError;
 import com.alsutton.jabber.datablocks.Presence;
 import images.RosterIcons;
 import locale.SR;
@@ -82,31 +83,29 @@ public class MucContact extends Contact{
         int presenceType=presence.getTypeIndex();
         
         if (presenceType==Presence.PRESENCE_ERROR) {
-            JabberDataBlock error=presence.getChildBlock("error");
-            String mucErrCode=error.getAttribute("code");
-            int errCode=0;
-            try {
-                errCode=Integer.parseInt(mucErrCode);
-            } catch (Exception e) { return "Unsupported MUC error"; }
+            XmppError xe=XmppError.findInStanza(presence);
+            int errCode=xe.getCondition();
+
             ConferenceGroup grp=(ConferenceGroup)getGroup();
             if (status>=Presence.PRESENCE_OFFLINE) testMeOffline();
-            if (errCode!=409 || status>=Presence.PRESENCE_OFFLINE)
+            
+            if (errCode!=XmppError.CONFLICT || status>=Presence.PRESENCE_OFFLINE)
                 setStatus(presenceType);
             
-            String errText=error.getChildBlockText("text");
-            if (errText.length()>0) return errText; // if error description is provided by server
+            String errText=xe.getText();
+            if (errText!=null) return xe.toString(); // if error description is provided by server
             
             // legacy codes
             switch (errCode) {
-                case 401: return "Password required";
-                case 403: return "You are banned in this room";
-                case 404: return "Room does not exists";
-                case 405: return "You can't create room on this server";
-                case 406: return "Reserved roomnick must be used";
-                case 407: return "This room is members-only";
-                case 409: return "Nickname is already in use by another occupant";
-                case 503: return "Maximum number of users has been reached in this room";
-                default: return error.toString();
+                case XmppError.NOT_AUTHORIZED:        return "Password required";
+                case XmppError.FORBIDDEN:             return "You are banned in this room";
+                case XmppError.ITEM_NOT_FOUND:        return "Room does not exists";
+                case XmppError.NOT_ALLOWED:           return "You can't create room on this server";
+                case XmppError.NOT_ACCEPTABLE:        return "Reserved roomnick must be used";
+                case XmppError.REGISTRATION_REQUIRED: return "This room is members-only";
+                case XmppError.CONFLICT:              return "Nickname is already in use by another occupant";
+                case XmppError.SERVICE_UNAVAILABLE:   return "Maximum number of users has been reached in this room";
+                default: return xe.getName();
             }
         }
         

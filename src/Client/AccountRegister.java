@@ -108,10 +108,8 @@ public class AccountRegister
                 spl.addCommand(cmdOK);
             } else {
                 pgs=0;
-                title=SR.MS_ERROR_ +((JabberDataBlock)
-                    data.getChildBlock("error").
-                        getChildBlocks().
-                        firstElement()).getTagName();
+                title=SR.MS_ERROR_ + XmppError.findInStanza(data).getName();
+                //todo: .toString();
             }
             spl.setProgress(title,pgs);
         }

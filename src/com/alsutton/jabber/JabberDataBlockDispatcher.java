@@ -158,9 +158,7 @@ public class JabberDataBlockDispatcher extends Thread
                   dataBlock.setAttribute("to", dataBlock.getAttribute("from"));
                   dataBlock.setAttribute("from", null);
                   dataBlock.setTypeAttribute("error");
-                  JabberDataBlock error=dataBlock.addChild("error", null);
-                  error.setTypeAttribute("cancel");
-                  error.addChild("feature-not-implemented",null);
+                  dataBlock.addChild(new XmppError(XmppError.FEATURE_NOT_IMPLEMENTED, null).construct());
                   stream.send(dataBlock);
               }
               //TODO: reject iq stansas where type =="get" | "set"

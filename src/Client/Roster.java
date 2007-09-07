@@ -1117,13 +1117,16 @@ public class Roster
                     }
                     if (type.equals("error")) {
                         
-                        String errCode=message.getChildBlock("error").getAttribute("code");
+                        body=SR.MS_ERROR_+ XmppError.findInStanza(message).toString();
                         
-                        switch (Integer.parseInt(errCode)) {
-                            case 403: body=SR.MS_VIZITORS_FORBIDDEN; break;
-                            case 503: break;
-                            default: body=SR.MS_ERROR_+message.getChildBlock("error")+"\n"+body;
-                        }
+                        //TODO: verify and cleanup
+                        //String errCode=message.getChildBlock("error").getAttribute("code");
+                        //
+                        //switch (Integer.parseInt(errCode)) {
+                        //    case 403: body=SR.MS_VIZITORS_FORBIDDEN; break;
+                        //    case 503: break;
+                        //    default: body=SR.MS_ERROR_+message.getChildBlock("error")+"\n"+body;
+                        //}
                     }
                     if (type.equals("headline")) mType=Msg.MESSAGE_TYPE_HEADLINE;
                 } catch (Exception e) { type="chat"; } //force type to chat
@@ -1302,16 +1305,6 @@ public class Roster
         }
         return JabberBlockListener.BLOCK_REJECTED;
     }
-    
-    /*void replyError (JabberDataBlock stanza) {
-        stanza.setAttribute("to", stanza.getAttribute("from"));
-        stanza.setAttribute("from", null);
-        stanza.setTypeAttribute("error");
-        JabberDataBlock error=stanza.addChild("error", null);
-        error.setTypeAttribute("cancel");
-        error.addChild("feature-not-implemented",null);
-        theStream.send(stanza);
-    }*/
     
     void processRoster(JabberDataBlock data){
         JabberDataBlock q=data.getChildBlock("query");
