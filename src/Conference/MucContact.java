@@ -160,7 +160,7 @@ public class MucContact extends Contact{
 
         String statusText=presence.getChildBlockText("status");
         
-        if (presence.getTypeIndex()==Presence.PRESENCE_OFFLINE) {
+        if (presenceType==Presence.PRESENCE_OFFLINE) {
             String reason=item.getChildBlockText("reason");
             switch (statusCode) {
                 
@@ -176,8 +176,9 @@ public class MucContact extends Contact{
                     nick=chNick;
                     break;
                     
-                case 307: //kick
                 case 301: //ban
+                    presenceType=Presence.PRESENCE_ERROR;
+                case 307: //kick
                     b.append(
                             (statusCode==301)? SR.MS_WAS_BANNED : SR.MS_WAS_KICKED );
                     b.append("(");
