@@ -131,16 +131,19 @@ public class MucContact extends Contact{
 
         setSortKey(nick);
         
-        if (role.equals("moderator")) {
-            transport=RosterIcons.ICON_MODERATOR_INDEX;
-            key0=1;
-            //jidHash &= 0x3fffffff;
-        } else {
-            transport=0;
-            key0=2;
-            //jidHash |= 0x40000000;
+        switch (roleCode) {
+            case ROLE_MODERATOR:
+                transport=RosterIcons.ICON_MODERATOR_INDEX;
+                key0=1;
+                break;
+            case ROLE_VISITOR:
+                transport=RosterIcons.getInstance().getTransportIndex("muc#vis");
+                key0=3;
+                break;
+            default:
+                transport=0;
+                key0=2;
         }
-
 
         int rp=from.indexOf('/');
         //String nick=from.substring(rp+1);

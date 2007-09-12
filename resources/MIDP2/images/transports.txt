@@ -4,3 +4,4 @@ msn	/images/msn.png
 mrim	/images/mrim.png
 rss	/images/rss.png
 yahoo	/images/yahoo.png
+muc#vis	/images/visitors.png
