@@ -1191,7 +1191,7 @@ public class Roster
                     
                     if (groupchat) compose=false;   //drop composing events in muc;
                     if (compose) c.acceptComposing=true ; 
-                    if (body!=null) compose=false;
+                    if (message.getChildBlock("body")!=null) compose=false;
                     c.setComposing(compose);
                     
                     if (x.getChildBlock("delivered")!=null) {
