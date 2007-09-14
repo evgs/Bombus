@@ -161,6 +161,7 @@ public class MucContact extends Contact{
         String statusText=presence.getChildBlockText("status");
         
         if (presenceType==Presence.PRESENCE_OFFLINE) {
+            key0=3;
             String reason=item.getChildBlockText("reason");
             switch (statusCode) {
                 
