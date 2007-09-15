@@ -36,6 +36,7 @@ import com.alsutton.jabber.datablocks.Iq;
 import com.alsutton.jabber.datablocks.Presence;
 import java.util.Enumeration;
 import java.util.Vector;
+import ui.VirtualList;
 import util.StringLoader;
 
 /**
@@ -86,6 +87,7 @@ public class BookmarkQuery implements JabberBlockListener{
                 if (bookmarks.isEmpty()) 
                     loadDefaults(bookmarks);
 
+                VirtualList.sort(bookmarks);
                 StaticData.getInstance().roster.bookmarks=bookmarks;
                 StaticData.getInstance().roster.redraw();
                 

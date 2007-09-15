@@ -105,12 +105,13 @@ public class Bookmarks
         return (VirtualElement) StaticData.getInstance().roster.bookmarks.elementAt(index); 
     }
     
-    public void loadBookmarks() {
-    }
-
     private void addBookmark() {
         if (toAdd!=null) {
-            StaticData.getInstance().roster.bookmarks.addElement(toAdd);
+            Vector bm=StaticData.getInstance().roster.bookmarks;
+            
+            bm.addElement(toAdd);
+            sort(bm);
+            
             saveBookmarks();
         }
     }
