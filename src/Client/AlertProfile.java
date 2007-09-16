@@ -75,7 +75,10 @@ public class AlertProfile extends VirtualList implements CommandListener {
     }
     
     int index;
-    public VirtualElement getItemRef(int Index){ index=Index; return profile;}
+    public VirtualElement getItemRef(int Index){ 
+        if (Index>=ALERT_COUNT) throw new IndexOutOfBoundsException();
+        index=Index; return profile;
+    }
     private class Profile extends IconTextElement {
         public Profile(){
             super(RosterIcons.getInstance());
