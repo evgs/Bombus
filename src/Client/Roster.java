@@ -1294,6 +1294,12 @@ public class Roster
                    
                     c.priority=pr.getPriority();
                     if (ti>=0) c.setStatus(ti);
+                    
+                    if (c.nick==null) {
+                        JabberDataBlock nick = pr.findNamespace("http://jabber.org/protocol/nick");
+                        if (nick!=null) c.nick=nick.getText();
+                        //todo: optionaly update roster
+                    }
                     /*if (ti==Presence.PRESENCE_OFFLINE) c.acceptComposing=false;
                     c.setComposing(false);*/
                 }
