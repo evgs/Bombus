@@ -670,7 +670,7 @@ public class Roster
         
         // send presence
         ExtendedStatus es= StatusList.getInstance().getStatus(myStatus);
-        Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
+        Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage(), StaticData.getInstance().account.getNick());
         if (isLoggedIn()) {
             if (status==Presence.PRESENCE_OFFLINE) groups.requestGroupState(false);
             
@@ -710,7 +710,7 @@ public class Roster
             return;
         }
         ExtendedStatus es= StatusList.getInstance().getStatus(status);
-        Presence presence = new Presence(status, es.getPriority(), es.getMessage());
+        Presence presence = new Presence(status, es.getPriority(), es.getMessage(), StaticData.getInstance().account.getNick());
         presence.setTo(to);
         
         if (x!=null) presence.addChild(x);
@@ -750,7 +750,7 @@ public class Roster
                 continue;
             }
             
-            Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage());
+            Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage(), null);
             presence.setTo(myself.getJid());
             theStream.send(presence);
         }

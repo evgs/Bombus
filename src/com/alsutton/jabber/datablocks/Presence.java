@@ -61,7 +61,7 @@ public class Presence extends JabberDataBlock
   };
   
 
-  public Presence(int status, int priority, String message)
+  public Presence(int status, int priority, String message, String nick)
   {
     super( null, null );
     switch (status){
@@ -76,7 +76,10 @@ public class Presence extends JabberDataBlock
     if (message!=null) 
         if (message.length()>0) addChild("status",message);
     
-    if (status!=PRESENCE_OFFLINE) addChild(EntityCaps.presenceEntityCaps());
+    if (status!=PRESENCE_OFFLINE) {
+        addChild(EntityCaps.presenceEntityCaps());
+        if (nick!=null) addChildNs("nick", "http://jabber.org/protocol/nick").setText(nick);
+    }
   }
 
   private StringBuffer text;
