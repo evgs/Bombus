@@ -1058,6 +1058,13 @@ public class Roster
                         return JabberBlockListener.BLOCK_PROCESSED;
                     }
                     
+                    // xep-0199 ping
+                    if (data.findNamespace("urn:xmpp:ping")!=null) {
+                        Iq pong=new Iq(from, Iq.TYPE_RESULT, data.getAttribute("id"));
+                        theStream.send(pong);
+                        return JabberBlockListener.BLOCK_PROCESSED;
+                    }
+                    
                 } else if (type.equals("set")) {
                     //todo: verify xmlns==jabber:iq:roster
                     processRoster(data);
