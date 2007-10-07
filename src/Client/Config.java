@@ -113,9 +113,9 @@ public class Config {
     //public boolean notInList=true;
     public int notInListDropLevel=NotInListFilter.ALLOW_ALL; //enable all
     public boolean ignore=false;
-    public boolean eventComposing=false;
+    public boolean eventComposing=true;
     
-    public boolean eventDelivery=false;
+    public boolean eventDelivery=true;
     
     public boolean storeConfPresence=true;      
     
