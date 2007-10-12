@@ -159,7 +159,7 @@ public class Message extends JabberDataBlock
       
       JabberDataBlock error=getChildBlock("error");
       if (error==null) return body;
-      return body+"Error\n"+XmppError.decodeError(error).toString();
+      return body+"Error\n"+XmppError.decodeStanzaError(error).toString();
   }
   
   

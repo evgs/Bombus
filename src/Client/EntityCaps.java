@@ -100,6 +100,6 @@ public class EntityCaps implements JabberBlockListener{
         "jabber:x:event",
         "urn:xmpp:ping",
         "urn:xmpp:time"
-};
+    };
 
 }

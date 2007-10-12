@@ -154,22 +154,31 @@ public class XmppError {
         error.setAttribute("type", type);
 
         error.addChildNs(textCondition, "urn:ietf:params:xml:ns:xmpp-stanzas");
-        if (text!=null) error.addChildNs("text", "urn:ietf:params:xml:ns:xmpp-streams").setText(text);
+        if (text!=null) error.addChildNs("text", "urn:ietf:params:xml:ns:xmpp-stanzas").setText(text);
         
         return error;
     }
     
     public static XmppError findInStanza(JabberDataBlock stanza) {
-        return decodeError(stanza.getChildBlock("error"));
+        return decodeStanzaError(stanza.getChildBlock("error"));
     }
-    public static XmppError decodeError(JabberDataBlock error) {
+    
+    public static XmppError decodeStanzaError(JabberDataBlock error) {
         if (!error.getTagName().equals("error")) throw new IllegalArgumentException();
+        return decodeError(error, "urn:ietf:params:xml:ns:xmpp-stanzas");
+    }
+    
+    public static XmppError decodeStreamError(JabberDataBlock error) {
+        if (!error.getTagName().equals("stream:error")) throw new IllegalArgumentException();
+        return decodeError(error, "urn:ietf:params:xml:ns:xmpp-streams");
+    }
         
+    private static XmppError decodeError(JabberDataBlock error, String ns) {
         int errCond=NONE;
         String text=null;
         for (Enumeration e=error.getChildBlocks().elements(); e.hasMoreElements();) {
             JabberDataBlock child=(JabberDataBlock) e.nextElement();
-            if (!child.isJabberNameSpace("urn:ietf:params:xml:ns:xmpp-stanzas")) continue;
+            if (!child.isJabberNameSpace(ns)) continue;
             String tag=child.getTagName();
             if (tag.equals("text"))                    text=child.getText();
             if (tag.equals("bad-request"))             errCond=BAD_REQUEST;

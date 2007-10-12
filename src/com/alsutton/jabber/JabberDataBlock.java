@@ -418,4 +418,6 @@ public class JabberDataBlock
   {
     return tagName;
   }
+
+    void setTagName(String tagName) { this.tagName=tagName; }
 }
