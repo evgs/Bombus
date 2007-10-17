@@ -182,27 +182,30 @@ public class MessageEdit
     
     public void run(){
         Roster r=StaticData.getInstance().roster;
-        int comp=0; // composing event off
+        String comp=null; // composing event off
         
         String id=String.valueOf((int) System.currentTimeMillis());
         
         if (body!=null || subj!=null ) {
+            
             String from=StaticData.getInstance().account.toString();
             Msg msg=new Msg(Msg.MESSAGE_TYPE_OUT,from,subj,body);
             msg.id=id;
+
             // не добавляем в групчат свои сообщения
             // не шлём composing
+            
             if (to.origin!=Contact.ORIGIN_GROUPCHAT) {
                 to.addMessage(msg);
-                comp=1; // composing event in message
+                comp="active"; // composing event in message
             }
             
-        } else if (to.acceptComposing) comp=(composing)? 1:2;
+        } else if (to.acceptComposing) comp=(composing)? "composing":"paused";
         
-        if (!Config.getInstance().eventComposing) comp=0;
+        if (!Config.getInstance().eventComposing) comp=null;
         
         try {
-            if (body!=null || subj!=null || comp>0)
+            if (body!=null || subj!=null || comp!=null)
             r.sendMessage(to, id, body, subj, comp);
         } catch (Exception e) {
             e.printStackTrace();

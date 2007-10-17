@@ -89,6 +89,7 @@ public class EntityCaps implements JabberBlockListener{
     private final static String BOMBUS_NAMESPACE="http://bombus-im.org/java";
     //features MUST be sorted
     private final static String features[]={
+        "http://jabber.org/protocol/chatstates", //xep-0085
         "http://jabber.org/protocol/disco#info",
         "http://jabber.org/protocol/ibb",
         "http://jabber.org/protocol/muc",
@@ -97,8 +98,9 @@ public class EntityCaps implements JabberBlockListener{
         "jabber:iq:time", //DEPRECATED
         "jabber:iq:version",
         "jabber:x:data",
-        "jabber:x:event",
+        //"jabber:x:event", //DEPRECATED
         "urn:xmpp:ping",
+        "urn:xmpp:receipts", //xep-0184
         "urn:xmpp:time"
     };
 

@@ -164,7 +164,7 @@ public class Message extends JabberDataBlock
   
   
   public String getOOB() {
-      JabberDataBlock oobData=findNamespace("jabber:x:oob");
+      JabberDataBlock oobData=findNamespace("x", "jabber:x:oob");
       StringBuffer oob=new StringBuffer();
       try {
           oob.append("\n");
@@ -181,12 +181,12 @@ public class Message extends JabberDataBlock
   public long getMessageTime(){
       try {
           return Time.dateIso8601(
-                  findNamespace("jabber:x:delay").getAttribute("stamp")
+                  findNamespace("x", "jabber:x:delay").getAttribute("stamp")
                   );
       } catch (Exception e) { }
       try {
           return Time.dateIso8601(
-                  findNamespace("urn:xmpp:delay").getAttribute("stamp")
+                  findNamespace("time", "urn:xmpp:delay").getAttribute("stamp")
                   );
       } catch (Exception e) { }
       return 0; //0 means no timestamp

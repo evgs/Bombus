@@ -161,9 +161,9 @@ public class Groups implements JabberBlockListener{
     public int blockArrived(JabberDataBlock data) {
         if (data instanceof Iq) 
             if (data.getTypeAttribute().equals("result")) {
-            JabberDataBlock query=data.findNamespace("jabber:iq:private");
+            JabberDataBlock query=data.findNamespace("query", "jabber:iq:private");
             if (query==null) return BLOCK_REJECTED;
-            JabberDataBlock gs=query.findNamespace(GROUPSTATE_NS);
+            JabberDataBlock gs=query.findNamespace("gs", GROUPSTATE_NS);
             if (gs==null) return BLOCK_REJECTED;
             
             for (Enumeration e=gs.getChildBlocks().elements(); e.hasMoreElements();) {

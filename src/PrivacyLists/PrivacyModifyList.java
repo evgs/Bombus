@@ -143,7 +143,7 @@ public class PrivacyModifyList
     public int blockArrived(JabberDataBlock data){
         if (data.getTypeAttribute().equals("result"))
             if (data.getAttribute("id").equals("getlistitems")) {
-                data=data.findNamespace("jabber:iq:privacy");
+                data=data.findNamespace("query", "jabber:iq:privacy");
                 try {
                     data=data.getChildBlock("list");
                     plist.rules=new Vector();

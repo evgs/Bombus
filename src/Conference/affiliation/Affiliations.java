@@ -132,7 +132,7 @@ public class Affiliations
             ///System.out.println(data.toString());
             
             if (data.getAttribute("id").equals(id)) {
-                JabberDataBlock query=data.findNamespace(namespace);
+                JabberDataBlock query=data.findNamespace("query", namespace);
                 Vector items=new Vector();
                 try {
                     for (Enumeration e=query.getChildBlocks().elements(); e.hasMoreElements(); ){

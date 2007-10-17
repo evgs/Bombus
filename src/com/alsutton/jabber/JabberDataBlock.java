@@ -219,11 +219,15 @@ public class JabberDataBlock
       return xmlnsatr.startsWith(xmlns);
   } 
 
-  public JabberDataBlock findNamespace(String xmlns) {
+  public JabberDataBlock findNamespace(String tagName, String xmlns) {
       if (childBlocks==null) return null;
       for (Enumeration e=childBlocks.elements(); e.hasMoreElements();){
           JabberDataBlock d=(JabberDataBlock)e.nextElement();
-          if (d.isJabberNameSpace(xmlns)) return d;
+          
+          if (tagName!=null) if (! tagName.equals(d.tagName)) continue;
+          if (! d.isJabberNameSpace(xmlns)) continue;
+          
+          return d;
       }
       return null;
   }

@@ -69,8 +69,8 @@ public class BookmarkQuery implements JabberBlockListener{
         try {
             if (!(data instanceof Iq)) return JabberBlockListener.BLOCK_REJECTED;
             if (data.getAttribute("id").equals("getbookmarks")) {
-                JabberDataBlock storage=data.findNamespace("jabber:iq:private").
-                        findNamespace("storage:bookmarks");
+                JabberDataBlock storage=data.findNamespace("query", "jabber:iq:private").
+                        findNamespace("storage", "storage:bookmarks");
                 Vector bookmarks=new Vector();
                 boolean autojoin=Config.getInstance().autoJoinConferences 
                         && StaticData.getInstance().roster.myStatus!=Presence.PRESENCE_INVISIBLE;
