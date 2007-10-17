@@ -4101,6 +4101,23 @@ syslog_msg: true
   * reverting to 256-colored skin due siemens' x65 problems
   * xep-0172 User Nickname
   * AlertProfile.java: index validation
+
+18.10.2007
+(1195)
+  + замена xep-0022 Message events (deprecated) на xep-0085 Chat state Notifications
+    и xep-0184 Message Receipts.
+  + xep-0199 urn:xmpp:ping
+  * исправлена ошибка обработки stream:error
+  * события composing и delivered теперь включены в опциях по умолчанию
+    (влияет только на "чистые" установки Bombus (не обновления)
+  --
+  - (deprecated) xep-0022 Message events
+  + xep-0085 Chat state Notifications
+  + xep-0184 Message Receipts
+  + xep-0199 urn:xmpp:ping
+  * fix: stream:error handling
+  * composing and delivery events are enabled by default (affects only fresh installations)
+
 ------------------------------------------------------------------------
   known issues:
 
