@@ -838,7 +838,7 @@ public class Roster
 
         //xep-0184
         message.setAttribute("id", id);
-        message.addChildNs("received", "http://jabber.org/protocol/chatstates");
+        message.addChildNs("received", "urn:xmpp:receipts");
         theStream.send( message );
         
             
