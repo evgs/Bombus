@@ -28,11 +28,15 @@ public class EntityCaps implements JabberBlockListener{
         if (!(data instanceof Iq)) return BLOCK_REJECTED;
         if (!data.getTypeAttribute().equals("get")) return BLOCK_REJECTED;
         
-        JabberDataBlock query=data.getChildBlock("query");
+        JabberDataBlock query=data.findNamespace("query", "http://jabber.org/protocol/disco#info");
         if (query==null) return BLOCK_REJECTED;
         String node=query.getAttribute("node");
-        if (!query.isJabberNameSpace("http://jabber.org/protocol/disco#info")) 
+        
+        /*
+         if (!query.isJabberNameSpace("http://jabber.org/protocol/disco#info")) 
             return BLOCK_REJECTED;
+         */
+        
         if (node!=null) 
             if (!node.startsWith(BOMBUS_NAMESPACE))
                 return BLOCK_REJECTED;

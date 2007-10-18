@@ -1337,8 +1337,8 @@ public class Roster
     }
     
     void processRoster(JabberDataBlock data){
-        JabberDataBlock q=data.getChildBlock("query");
-        if (!q.isJabberNameSpace("jabber:iq:roster")) return;
+        JabberDataBlock q=data.findNamespace("query", "jabber:iq:roster");
+        if (q==null) return;
         int type=0;
         
         //verifying from attribute as in RFC3921/7.2
@@ -1494,6 +1494,7 @@ public class Roster
         if (e instanceof SecurityException) { errorLog(error); return; }
         if (e instanceof JabberStreamShutdownException) { errorLog(error); return; }
         if (reconnectCount>=maxReconnect) { errorLog(error); return; }
+        //errorLog(error);
         {
             reconnectCount++;
             String title="("+reconnectCount+"/"+maxReconnect+") Reconnecting";
