@@ -63,7 +63,7 @@ public class JabberDataBlock
    * The list of attributes in this tag
    */
 
-  protected Hashtable attributes;
+  protected Vector attributes;
 
   /**
    * Constructor
@@ -92,8 +92,7 @@ public class JabberDataBlock
    * @param _attributes The list of element attributes
    */
 
-  public JabberDataBlock( JabberDataBlock _parent, Hashtable _attributes )
-  {
+  public JabberDataBlock( JabberDataBlock _parent, Vector _attributes )  {
     this( "unknown", _parent, _attributes );
   }
 
@@ -105,8 +104,7 @@ public class JabberDataBlock
    * @param _attributes The list of element attributes
    */
 
-  public JabberDataBlock( String _tagName, JabberDataBlock _parent, Hashtable _attributes )
-  {
+  public JabberDataBlock( String _tagName, JabberDataBlock _parent, Vector _attributes )  {
     parent = _parent;
     attributes = _attributes;
     tagName = _tagName;
@@ -203,10 +201,17 @@ public class JabberDataBlock
    * @return The value of the attribute
    */
 
-  public String getAttribute( String attributeName )
-  {
-    if (attributes==null) return null;
-    return (String) attributes.get( attributeName );
+  public String getAttribute( String attributeName ) {
+      if (attributes==null) return null;
+      int index=0;
+      while (index<attributes.size()) {
+          if ( ((String)attributes.elementAt(index)).equals(attributeName) )
+              return (String)attributes.elementAt(index+1);
+          
+          index+=2;
+      }
+      
+      return null;
   }
   
   public String getTypeAttribute(){
@@ -242,16 +247,31 @@ public class JabberDataBlock
    * @param value The value of the attribute
    */
 
-  public void setAttribute( String attributeName, String value )
-  {
-    if( attributeName == null )
-      return;
-
-    if( attributes == null )
-      attributes = new Hashtable();
-
-    if (value!=null) attributes.put( attributeName, value );
-    else attributes.remove(attributeName);
+  public void setAttribute( String attributeName, String value )  {
+      if( attributeName == null )
+          return;
+      
+      if( attributes == null )
+          attributes = new Vector();
+      
+      int index=0;
+      while (index<attributes.size()) {
+          if ( ((String)attributes.elementAt(index)).equals(attributeName) ) {
+              if (value!=null) {
+                  attributes.setElementAt(value, index+1);
+              } else {
+                  attributes.removeElementAt(index);
+                  attributes.removeElementAt(index);
+              }
+              return;
+          }
+          
+          index+=2;
+      }
+      
+      if (value==null) return;
+      attributes.addElement(attributeName);
+      attributes.addElement(value);
   }
 
   public void setTypeAttribute( String value ) {
@@ -378,21 +398,21 @@ public class JabberDataBlock
    * @param buffer The string buffer to which all the attributes will be added
    */
 
-  protected void addAttributeToStringBuffer( StringBuffer buffer )
-  {
-    Enumeration e = attributes.keys();
-    while( e.hasMoreElements() )
-    {
-      String nextKey = (String) e.nextElement();
-      String nextValue = (String) attributes.get( nextKey );
-
-      buffer.append( ' ' );
-      buffer.append( nextKey );
-      buffer.append( "=\"" );
-      appendXML(buffer, nextValue);
-      //buffer.append( nextValue );
-      buffer.append( '\"' );
-    }
+  protected void addAttributeToStringBuffer( StringBuffer buffer )  {
+      int index=0;
+      
+      while (index<attributes.size()) {
+          String nextKey = (String) attributes.elementAt(index);
+          String nextValue = (String) attributes.elementAt(index+1);
+          index+=2;
+          
+          buffer.append( ' ' );
+          buffer.append( nextKey );
+          buffer.append( "=\"" );
+          appendXML(buffer, nextValue);
+          //buffer.append( nextValue );
+          buffer.append( '\"' );
+      }
   }
 
   /**

@@ -262,7 +262,7 @@ public class JabberStream implements XMLEventListener, Runnable {
      * @param attributes The tags attributes.
      */
     
-    public boolean tagStarted( String name, Hashtable attributes ) {
+    public boolean tagStarted( String name, Vector attributes ) {
         if (currentBlock!=null){
             
             currentBlock = new JabberDataBlock( name, currentBlock, attributes );
@@ -278,7 +278,8 @@ public class JabberStream implements XMLEventListener, Runnable {
             if (rosterNotify) if (name.equals("item")) dispatcher.rosterNotify();
             
         } else if ( name.equals( "stream:stream" ) ) {
-            String SessionId=(String)attributes.get("id");
+            JabberDataBlock stream=new JabberDataBlock( name, null, attributes );
+            String SessionId=stream.getAttribute("id");
             dispatcher.broadcastBeginConversation(SessionId);
         } else if ( name.equals( "message" ) )
             currentBlock = new Message( currentBlock, attributes );
@@ -324,6 +325,7 @@ public class JabberStream implements XMLEventListener, Runnable {
                 iostream.close();
                 throw new JabberStreamShutdownException("Normal stream shutdown");
             }
+            if (currentBlock.childBlocks!=null) currentBlock.childBlocks.trimToSize();
             return;
         }
 

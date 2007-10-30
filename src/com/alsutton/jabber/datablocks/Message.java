@@ -83,7 +83,7 @@ public class Message extends JabberDataBlock
    * @param _attributes The list of element attributes
    */
 
-  public Message( JabberDataBlock _parent, Hashtable _attributes )
+  public Message( JabberDataBlock _parent, Vector _attributes )
   {
     super( _parent, _attributes );
   }
@@ -191,46 +191,6 @@ public class Message extends JabberDataBlock
       } catch (Exception e) { }
       return 0; //0 means no timestamp
   }
-  /**
-   * Construct a reply message
-   *
-   * @return A message object destined for the sender of this message with no subject or body
-   */
-
-   /*
-  public Message constructReply()
-  {
-    if( attributes == null )
-      return null;
-
-    String to = (String) attributes.get( "from" );
-    if( to == null )
-      return null;
-
-    Message reply = new Message( to );
-
-    String from = (String) attributes.get( "to" );
-    if( from != null )
-      reply.setAttribute( "from", from );
-
-    String messageType = getAttribute( "type" );
-    reply.setAttribute( "type", messageType );
-
-    String thread = getTextForChildBlock( "thread" );
-    if( thread != null && thread.length() > 0 )
-    {
-      setThread( thread );
-    }
-
-    String id = getAttribute( "id" );
-    if( id != null && id.length() > 0 )
-    {
-      setAttribute( "id", id );
-    }
-
-    return reply;
-  }
-    */
 
   /**
    * Get the tag start marker
@@ -264,10 +224,10 @@ public class Message extends JabberDataBlock
 	    }
 	} catch (Exception e) { /* normal case if not forwarded message */ };
 	
-        return (String) attributes.get( "from" );
+        return getAttribute("from");
     }
     
     public String getFrom() {
-        return (String) attributes.get( "from" );
+        return getAttribute("from");
     }
 }

@@ -41,7 +41,7 @@ public interface XMLEventListener
    * @param attributes The tags attributes.
    */
 
-  public boolean tagStarted( String name, Hashtable attributes );
+  public boolean tagStarted( String name, Vector attributes );
 
   /**
    * Method called when some plain text between two tags is encountered.

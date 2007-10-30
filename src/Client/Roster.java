@@ -1179,8 +1179,6 @@ public class Roster
                     }
                 }
                 
-                boolean compose=false;
-                
                 if (type.equals("chat")) {
                     if (message.findNamespace("request", "urn:xmpp:receipts")!=null) {
                         sendDeliveryMessage(c, data.getAttribute("id"));

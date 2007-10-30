@@ -46,7 +46,7 @@ public class Iq extends JabberDataBlock
    * @param _attributes The list of element attributes
    */
 
-  public Iq( JabberDataBlock _parent, Hashtable _attributes )
+  public Iq( JabberDataBlock _parent, Vector _attributes )
   {
     super( _parent, _attributes );
   }

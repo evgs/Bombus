@@ -45,7 +45,7 @@ public class Presence extends JabberDataBlock
    * @param _attributes The list of element attributes
    */
 
-  public Presence( JabberDataBlock _parent, Hashtable _attributes )
+  public Presence( JabberDataBlock _parent, Vector _attributes )
   {
     super( _parent, _attributes );
   }
