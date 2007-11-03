@@ -4118,6 +4118,24 @@ syslog_msg: true
   * fix: stream:error handling
   * composing and delivery events are enabled by default (affects only fresh installations)
 
+4.11.2007
+(1208)
+  + siemens: права€ софт-кнопка обрабатываетс€ как "Ќазад" (ad)
+  * обновление и дополнение локализации (voffk)
+  + указание в настройках размера сообщени€ дл€ автоматического сворачивани€ (voffk)
+  + команда "Change nickname" дл€ конференций (затычка-вызов формы присоединени€ к конференции) (voffk)
+  * уменьшение расхода пам€ти при обработке больших jabber xml пакетов
+  * исправление типа устройства в ответе EntityCaps (mobile->phone)
+  * исправление обработки ников по xep-0172 (игнорирование в не-онлайн презенсах
+  --
+  + siemens: right softkey acts as "Back" in VirtualList (ad)
+  * localization updates (voffk)
+  * capsState=false by default (voffk)
+  + auto-collapse message size limit in options (voffk)
+  + command "Change nickname" (re-enter stub) (voffk)
+  * reducing heap overhead while constructing DOM-XML objects JabberDataBlock: replacing Hashtable with Vector; trimming vector finally
+  * EntityCaps: mobile->phone (due http://www.xmpp.org/registrar/disco-categories.html)
+  * ignoring xep-0172 nickname in non-online presences (like error presences. see FS#779)
 ------------------------------------------------------------------------
   known issues:
 
