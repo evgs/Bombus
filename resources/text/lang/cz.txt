@@ -1,12 +1,10 @@
+﻿// Czech langfile for Bombus - mobile jabber client
 // Český překlad Bombus by jenda.69 (c) 2007 (http://bombus.jendamusic.net)
 // Upravený překlad "(c) 2006 Jindřich Skácel"; přidána diakritika, upřesněny některé názvy
 // Pokud by jste našli nějakou chybu, překlep, chybějící diakritiku, nepřeložené slovo, pište na: jenda.69@gmail.com
 xmlLang cz
-langfile	Česky
 Jid	Jid
-Loading	Načítám
 Privacy Lists	Seznamy soukromí
-Existing groups	Existující skupina
 Message font	Font zprávy
 Roster font	Font kontaktů
 Paste Body	Vložit tělo
@@ -69,7 +67,6 @@ Type	Typ
 Name	Jméno
 Username	Uživ. jméno
 fullscreen	Celý displej
-All Priorities	Všechny priority
 Add bookmark	Přidat záložku
 conferences only	Pouze konference
 Client Version	Info o klientu
@@ -93,7 +90,6 @@ Entering setup	Vstupuji do nastavení
 to Archive	Do archivu
 Back	Zpět
 heap monitor	Monitor paměti
-Hide Splash	Nezobrazit logo
 Message	Zpráva
 <Other>	<Ostatní>
 Append	Přidat
@@ -108,13 +104,11 @@ New Message	Nová zpráva
 Add	Přidat
 Logon	Připojit
 Logoff	Odpojit
-Login in progress	Připojování...
 at Host	Hostitel
 join conferences	Připojit ke konferenci
 Status	Stav
 Smiles	Smajlíci
 Contact >	Kontakt >
-Order	Order
 offline contacts	Odpojené kontakty
 Transport	Transport
 composing events	Události "Píše"
@@ -126,7 +120,6 @@ Commands	Příkazy
 Set default	Výchozí
 Outcasts (Ban)	Outcasts (Ban)
 Set affiliation to	Nastavit přidružení k
-Hide Offlines	Schovat odpojené
 Register Account	Zaregistrovat účet
 autologin	Autopřipojení
 Publish	Uveřejnit
@@ -163,8 +156,6 @@ Add rule	Přidat pravidlo
 for all status types	Pro všechny stavy
 Paste Jid	Vložit JID
 Goto URL	Přejít na adresu
-Clock -	Hodiny -
-Login	Připojit
 Clock offset	Vyrovnání hodin
 flash backlight	Blikat podsvětlením
 Suspend	Nechat rozepsané
@@ -177,7 +168,6 @@ self-contact	Můj kontakt
 vCard	vCard
 Set Subject	Nastavit předmět
 Tools	Nástroje
-Jabber Tools	Nástroje Jabberu
 Port	Port
 
 

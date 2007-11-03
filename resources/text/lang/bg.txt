@@ -1,3 +1,4 @@
+﻿// Bulgarian langfile for Bombus - mobile jabber client
 // Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
 // All rights reserved.
 // (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
@@ -6,11 +7,8 @@
 // ask server to send us localized messages
 xmlLang	bg
 //463
-langfile	Bulgarian
 Jid	Jid
-Loading	Зареждане
 Privacy Lists	Личен списък
-Existing groups	Налични групи
 Message font	Шрифт съобщения
 Roster font	Шрифт списък
 Paste Body	Вмъкни тяло на съобщение
@@ -73,7 +71,6 @@ Type	Тип
 Name	Имя
 Username	Потребителско Име
 fullscreen	Цял екран
-All Priorities	Во всех статусах
 Add bookmark	Добави отметка
 conferences only	Само конференции
 Client Version	Версия на клиента
@@ -98,7 +95,6 @@ Entering setup	Настройки на акаунта
 to Archive	В архив
 Back	Назад
 heap monitor	монитор heap
-Hide Splash	Без начален екран
 Message	Съобщение
 <Other>	<Друг>
 Append	Добави
@@ -113,13 +109,11 @@ New Message	Ново съобщение
 Add	Добави
 Logon	Включване
 Logoff	Изключване
-Login in progress	Проверка парола
 at Host	Сървър
 join conferences	Влез в конференции
 Status	Статус
 Smiles	Емотикони
 Contact >	Контакт >
-Order	Порядък
 offline contacts	Изкл. контакти
 Transport	Транспорт
 composing events	"composing" события
@@ -131,7 +125,6 @@ Commands	Команди
 Set default	По подразбиране
 Outcasts (Ban)	Изгони (Ban)
 Set affiliation to	Измени членството на
-Hide Offlines	Скрий изключените
 Register Account	Регистрирай акаунт
 autologin	Автовход
 Publish	Публикувай
@@ -168,8 +161,6 @@ Add rule	Добави правило
 for all status types	За всички статуси
 Paste Jid	Постави JID
 Goto URL	Към URL-адреса
-Clock -	Часовник -
-Login	Свързване
 Clock offset	Часово отместване
 flash backlight	Просветване
 Suspend	Отложи
@@ -182,7 +173,6 @@ self-contact	свои контакты
 vCard	Визитка
 Set Subject	Задай тема
 Tools	Инструменти
-Jabber Tools	Jabber Инструменти
 Port	Порт
 
 //473

@@ -1,12 +1,10 @@
-﻿// All rights reserved. 
+﻿// Polish langfile for Bombus - mobile jabber client
+// All rights reserved. 
 // (c) 2007 lang file made by salskY <salas.millennium@gmail.com> (jabber: salsky@jabbus.org)
 xmlLang	pl
 //463
-langfile	Polish 
 Jid	JID 
-Loading	  
 Privacy Lists	Listy prywatności 
-Existing groups	Istniejące Grupy 
 Message font	Czcionka wiadomości 
 Roster font	Czcionka kontaktów 
 Paste Body	Wklej Tekst 
@@ -70,7 +68,6 @@ Type	Typ
 Name	Nazwa 
 Username	Użytkownik 
 fullscreen	Pełny ekran 
-All Priorities	Wszystkie priorytety 
 Add bookmark	Dodaj Zakładkę 
 conferences only	Tylko konferencje 
 Client Version	Wersja klienta 
@@ -110,13 +107,11 @@ New Message	Napisz
 Add	Dodaj 
 Logon	Włącz 
 Logoff	Wyłącz 
-Login in progress	Logowanie w trakcie 
 at Host	na Serwerze 
 join conferences	Automatyczne wejście do konferencji 
 Status	Status 
 Smiles	Emotikony 
 Contact >	Kontakt > 
-Order	Zamów 
 offline contacts	Rozłączone kontakty 
 Recent	Poprzednie 
 composing events	Informacja komponowania 
@@ -128,7 +123,6 @@ Commands	Komendy
 Set default	Ustaw domyślnie 
 Outcasts (Ban)	Zablokowani 
 Set affiliation to	Zmień przynależność na
-Hide Offlines	Ukryj Rozłączonych 
 Register Account	Zarejestruj Konto 
 autologin	Autologowanie 
 Publish	Publikuj 
@@ -163,8 +157,6 @@ Add rule	Dodaj zasadę
 for all status types	Dla wszystkich typów statusu 
 Paste Jid	Wklej JID 
 Goto URL	Idź do URL'a 
-Clock -	Zegar-
-Login	Zaloguj się 
 Clock offset	Różnica Zegara 
 Authorize new contacts	Autoryzuj nowe kontakty 
 flash backlight	Efekty Podświetlania 
@@ -178,7 +170,6 @@ self-contact	Własny kontakt
 vCard	Wizytówka 
 Set Subject	Ustaw Temat 
 Tools	Narzędzia 
-Jabber Tools	Narzędzia Jabber'a 
 Port	Port 
 //473
 Proxy name/IP	Nazwa Proxy/IP 

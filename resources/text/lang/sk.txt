@@ -1,16 +1,11 @@
-// Slovenský preklad pre Bombus napísal:
-// Miroslav Prašil - Cezz
-// JID: cezz@jabber.sk
-// email: cezzmail@gmail.com
+﻿// Slovenian langfile for Bombus - mobile jabber client
+// (c) Miroslav Prašil - Cezz <cezzmail@gmail.com> (JID: cezz@jabber.sk)
 // Pôvodný dokument je od jenda.69 (jenda.69@gmail.com)
-// 
 // Ak ste našli nejakú chybu, preklep, chýbajúcu diakritiku, nepreložené slovo, dajte vedieť na hore uvedené kontakty.
+
 xmlLang sk
-langfile	Slovensky
 Jid	Jid
-Loading	Načítavam
 Privacy Lists	Súkromné zoznamy
-Existing groups	Existujúca skupina
 Message font	Font správy
 Roster font	Font kontaktov
 Paste Body	Vložiť telo
@@ -73,7 +68,6 @@ Type	Typ
 Name	Meno
 Username	Uživ. meno
 fullscreen	Celý displej
-All Priorities	Všetky priority
 Add bookmark	Pridať záložku
 conferences only	Iba konferencie
 Client Version	Info o klientovi
@@ -97,7 +91,6 @@ Entering setup	Vstupujem do nastavení
 to Archive	Do archivu
 Back	Späť
 heap monitor	Monitor pamäti
-Hide Splash	Nezobraziť logo
 Message	Správa
 <Other>	<Ostatne>
 Append	Pridať
@@ -112,13 +105,11 @@ New Message	Nová správa
 Add	Pridať
 Logon	Pripojiť
 Logoff	Odpojiť
-Login in progress	Pripájanie...
 at Host	Hostiteľ
 join conferences	Pripojiť ku konferenciám
 Status	Stav
 Smiles	Smajlici
 Contact >	Kontakt >
-Order	Príkaz
 offline contacts	Odpojené kontakty
 Transport	Transport
 composing events	Udalosti "Píše"
@@ -130,7 +121,6 @@ Commands	Príkazy
 Set default	Východzie
 Outcasts (Ban)	Outcasts (Ban)
 Set affiliation to	Nastavit pridruženie k
-Hide Offlines	Schovať odpojené
 Register Account	Zaregistrovať účet
 autologin	Autopripojenie
 Publish	Uverejniť
@@ -167,8 +157,6 @@ Add rule	Pridať pravidlo
 for all status types	Pre všetky stavy
 Paste Jid	Vložiť JID
 Goto URL	Prejsť na adresu
-Clock -	Hodiny -
-Login	Pripojiť
 Clock offset	Vyrovnanie hodín
 flash backlight	Blikať podsvietením
 Suspend	Nechat rozpísané
@@ -181,7 +169,6 @@ self-contact	Môj kontakt
 vCard	vCard
 Set Subject	Nastaviť predmet
 Tools	Nástroje
-Jabber Tools	Nástroje Jabberu
 Port	Port
 
 

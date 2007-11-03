@@ -1,15 +1,13 @@
-﻿// Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org
+// Indonesian langfile for Bombus - mobile jabber client
+// Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org
 // All rights reserved.
 // (c) Ayes <ayes@exor14.com>, 2007.
 
 // ask server to send us localized messages
 xmlLang	id
 //463
-langfile	Indonesian
 Jid	Jid
-Loading	Pemuatan
 Privacy Lists	Daftar Pribadi
-Existing groups	Kehadiran Kelompok
 Message font	Huruf Pesan
 Roster font	Huruf Daftar Nama
 Paste Body	Tempel Badan
@@ -52,7 +50,7 @@ Show Offlines	Tampilkan Daftar Off
 Select	Pilih
 Subject	Tema
 Group menu	Menu Kelompok
-Quit	Keluar
+Quit	Kelua
 Add to roster	Masukan Ke daftar Nama
 Edit list	Edit daftar
 Registering	Mendaftarkan
@@ -72,7 +70,6 @@ Type	Jenis
 Name	Nama
 Username	Nama Pengguna
 fullscreen	Layar Penuh
-All Priorities	Semua Prioritas
 Add bookmark	Tambah konferensi
 conferences only	Hanya Konferensi
 Client Version	Versi Klien
@@ -97,7 +94,6 @@ Entering setup	Masuki Susunan
 to Archive	Ke Arsip
 Back	Kembali
 heap monitor	Tumpukan Layar
-Hide Splash	Sembunyikan Tampilan
 Message	Tulis
 <Other>	<Lainnya>
 Append	Tambahkan Catatan
@@ -112,13 +108,11 @@ New Message	Tulis Pesan
 Add	Tambahkan
 Logon	Logon
 Logoff	Logoff
-Login in progress	Proses Login
 at Host	Penyedia Layanan
 join conferences	Gabung Konferensi
 Status	Kehadiran
 Smiles	Emosi
 Contact >	Kontak >
-Order	Pesan
 offline contacts	Kontak Off
 Transport	Angkutan
 composing events	pen dan kertas
@@ -130,7 +124,6 @@ Commands	Perintah
 Set default	Pengaturan Awal
 Outcasts (Ban)	Pengasingan (Ban)
 Set affiliation to	Atur affilation Ke
-Hide Offlines	Sembunyikan Kontak Off
 Register Account	Daftarkan Akun
 autologin	Login Otomatis
 Publish	Edarkan
@@ -167,8 +160,6 @@ Add rule	Tambah Aturan
 for all status types	Untuk Semua Tipe Status
 Paste Jid	Tempel Jid
 Goto URL	Pergi Ke URL
-Clock -	Jam -
-Login	Login
 Clock offset	Jam Offset
 flash backlight	Layar Berkedip
 Suspend	Tunda
@@ -181,7 +172,6 @@ self-contact	Kontak-Sendiri
 vCard	vCard
 Set Subject	Set Topik
 Tools	Peralatan
-Jabber Tools	Peralatan Jabber
 Port	Port
 
 //473

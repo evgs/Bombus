@@ -1,3 +1,4 @@
+﻿// Ukrainian langfile for Bombus - mobile jabber client
 // Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
 // All rights reserved.
 // (c) zalex <zlex@ukr.net>, 2006.
@@ -5,11 +6,8 @@
 // ask server to send us localized messages
 xmlLang	ua
 //463
-langfile	Ukrainian
 Jid	Jid
-Loading	Завантаження
 Privacy Lists	Списки конфiденцiйностi
-Existing groups	Iснуючi групи
 Message font	Шрифт повiдомлення
 Roster font	Шрифт ростера
 Paste Body	Вставити тiло повiд.
@@ -72,7 +70,6 @@ Type	Тип
 Name	Iм'я
 Username	Iм'я користувача
 fullscreen	На повний екран
-All Priorities	У всiх статусах
 Add bookmark	Дод. закладку
 conferences only	Тiльки конференцiї
 Client Version	Версiя клiєнта
@@ -97,7 +94,6 @@ Entering setup	Вхiд у налаштування акаунта
 to Archive	до Архiву
 Back	Назад
 heap monitor	Монiтор heap
-Hide Splash	Ростер
 Message	Повiдомлення
 <Other>	<Iнший>
 Append	Додати
@@ -112,13 +108,11 @@ New Message	Нове повiдомлення
 Add	Додати
 Logon	З'єднати
 Logoff	Вiд'єднати
-Login in progress	Перевiрка паролю
 at Host	Сервер
 join conferences	автовхiд до конференцiї
 Status	Статус
 Smiles	Смайлики
 Contact >	Контакт >
-Order	Порядок
 offline contacts	Показати вiд'єднаних
 Transport	Транспорт
 composing events	"composing" подiї
@@ -130,7 +124,6 @@ Commands	Команди
 Set default	Уст. за замовчанням
 Outcasts (Ban)	Iзгої (Ban)
 Set affiliation to	Змiнити членство на
-Hide Offlines	Сховати вiдключених
 Register Account	Зареєструвати акаунт
 autologin	автоз'єднання
 Publish	Опублiкувати
@@ -167,8 +160,6 @@ Add rule	Додати правило
 for all status types	для усiх статусiв
 Paste Jid	Вставити Jid
 Goto URL	Перейти по URL
-Clock -	Годинник -
-Login	Вiдкриття сокета
 Clock offset	Зсув годин
 flash backlight	Блимати пiдсвiткою
 Suspend	Вiдкласти
@@ -181,7 +172,6 @@ self-contact	свої контакти
 vCard	vCard
 Set Subject	Установити Тему
 Tools	Iнструменти
-Jabber Tools	Iнструменти сервера
 Port	Порт
 
 //473
