@@ -624,12 +624,12 @@ public abstract class VirtualList
         switch (keyCode) {
             case 0: break;
             case NOKIA_PEN: { destroyView(); break; }
-            case SIEMENS_RIGHT_SOFT: { if (Version.getPlatformName().startsWith("SIE")) { destroyView(); break; }}
             case MOTOE680_VOL_UP:
             case KEY_NUM1:  { moveCursorHome();    break; }
             case KEY_NUM7:  { moveCursorEnd();     break; }
             case '5':{ eventOk(); break; }
             case MOTOROLA_FLIP: { userKeyPressed(keyCode); break; }
+            case SIEMENS_RIGHT_SOFT: { if (Version.getPlatformName().startsWith("SIE")) { destroyView(); break; }}
             default:
                 try {
                     switch (getGameAction(keyCode)){
