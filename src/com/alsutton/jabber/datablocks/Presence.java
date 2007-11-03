@@ -98,10 +98,10 @@ public class Presence extends JabberDataBlock
           };
           if (type.equals("subscribe")) {
               presenceCode=PRESENCE_AUTH_ASK;
-              text.append(SUBSCRIBE);
+              text.append(SR.MS_SUBSCRIPTION_REQUEST_FROM_USER);
           } 
-          if (type.equals("subscribed")) text.append(SUBSCRIBED);
-          if (type.equals("unsubscribed")) text.append(UNSUBSCRIBED);
+          if (type.equals("subscribed")) text.append(SR.MS_SUBSCRIPTION_RECEIVED);
+          if (type.equals("unsubscribed")) text.append(SR.MS_SUBSCRIPTION_DELETED);
           
           if (type.equals(PRS_ERROR)) {
               presenceCode=PRESENCE_ERROR;
@@ -211,9 +211,5 @@ public class Presence extends JabberDataBlock
   public final static String PRS_DND="dnd";
   public final static String PRS_ONLINE="online";
   public final static String PRS_INVISIBLE="invisible";
-
-  public final static String SUBSCRIBE="This user wants to subscribe to your presence.";
-  public final static String SUBSCRIBED="You are now authorized";
-  public final static String UNSUBSCRIBED="Your authorization has been removed!";
   
 }

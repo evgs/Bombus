@@ -75,6 +75,7 @@ public class ConfigForm implements
     ChoiceGroup roster;
     ChoiceGroup nil;
     ChoiceGroup message;
+    NumberField MessageLimit;
     ChoiceGroup startup;
     ChoiceGroup application;
 
@@ -172,7 +173,9 @@ public class ConfigForm implements
         this.mv=mv;
         
         message.setSelectedFlags(mv);
-
+        
+        MessageLimit=new NumberField(SR.MS_MESSAGE_COLLAPSE_LIMIT, cf.messageCollapsedLength, 50, 1000);
+        
 	startup=new ChoiceGroup(SR.MS_STARTUP_ACTIONS, Choice.MULTIPLE);
         startup.append(SR.MS_AUTOLOGIN, null);
         startup.append(SR.MS_AUTO_CONFERENCES,null);
@@ -235,6 +238,7 @@ public class ConfigForm implements
         f.append(font1);
 
         f.append(message);
+        f.append(MessageLimit);
         f.append(font2);
 	
 	String textWraps[]={SR.MS_TEXTWRAP_CHARACTER, SR.MS_TEXTWRAP_WORD};
@@ -352,8 +356,10 @@ public class ConfigForm implements
             
             cf.autoAwayDelay=fieldAwatDelay.getValue();
             cf.autoAwayType=autoAwayType.getSelectedIndex();
-	    
-	    cf.loadSoundName();
+            
+            cf.loadSoundName();
+            
+            cf.messageCollapsedLength=MessageLimit.getValue();
             
             cf.updateTime();
             

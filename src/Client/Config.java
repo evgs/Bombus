@@ -135,7 +135,7 @@ public class Config {
     public int font3=0;
 
     public String lang;  //en
-    public boolean capsState=true;
+    public boolean capsState=false; //FS#748
     public int textWrap=0;
     
     public boolean autoSubscribe=false;
@@ -144,7 +144,9 @@ public class Config {
     public int autoAwayDelay=5; //5 minutes
     
     public boolean enableVersionOs=true;
-
+    
+    public int messageCollapsedLength=512;
+    
     // runtime values
     public boolean allowMinimize=false;
     public int profile=0;
@@ -283,6 +285,8 @@ public class Config {
             lang=inputStream.readUTF();
             
             eventDelivery=inputStream.readBoolean();
+            
+            messageCollapsedLength=inputStream.readInt();
 	    
 	    inputStream.close();
 	} catch (Exception e) {
@@ -376,6 +380,8 @@ public class Config {
             outputStream.writeUTF(lang);
             
             outputStream.writeBoolean(eventDelivery);
+            
+            outputStream.writeInt(messageCollapsedLength);
 	    
 	} catch (Exception e) { e.printStackTrace(); }
 	

@@ -167,7 +167,7 @@ public class RosterItemActions extends Menu implements YesNoAlert.YesNoListener{
 //#if (FILE_IO && FILE_TRANSFER)
             if (contact.getGroupType()!=Groups.TYPE_TRANSP) 
                 if (contact!=StaticData.getInstance().roster.selfContact())
-                    addItem("Send file", 50);
+                    addItem("SR.MS_SEND_FILE", 50);
 //#endif
         } else {
 	    Group group=(Group)item;
@@ -180,6 +180,7 @@ public class RosterItemActions extends Menu implements YesNoAlert.YesNoListener{
 		else {
 		    addItem(SR.MS_LEAVE_ROOM,22);
                     addItem(SR.MS_DIRECT_PRESENCE,46);
+                    addItem(SR.MS_CHANGE_NICKNAME,23); //FS#556
 		    if (self.affiliationCode>=MucContact.AFFILIATION_OWNER) {
 			addItem(SR.MS_CONFIG_ROOM,10);
                     }

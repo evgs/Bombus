@@ -68,16 +68,16 @@ public class TransferSendFile
         this.to=recipientJid;
         parentView=display.getCurrent();
         
-        f=new Form("Send file");
-        f.append(new StringItem("To: ", recipientJid));
+        f=new Form(SR.MS_SEND_FILE);
+        f.append(new StringItem(SR.MS_SEND_FILE_TO, recipientJid));
         
-        fileName=new TextFieldCombo("File", null, 256, TextField.ANY | TextField.UNEDITABLE, "sendfile", display );
+        fileName=new TextFieldCombo(SR.MS_FILE, null, 256, TextField.ANY | TextField.UNEDITABLE, "sendfile", display );
         f.append(fileName);
         
         /*size=new TextField("size", "", 8, TextField.ANY | TextField.UNEDITABLE );
         f.append(size);*/
         
-        description=new TextField("description", "", 128, TextField.ANY );
+        description=new TextField(SR.MS_DESCRIPTION, "", 128, TextField.ANY );
         f.append(description);
 
         

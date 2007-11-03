@@ -71,13 +71,15 @@ public class Bookmarks
             new ConferenceForm(display);
             return;
         }
-        setTitleItem(new Title(2, null, SR.MS_BOOKMARKS));
+        //setTitleItem(new Title(2, null, SR.MS_BOOKMARKS+" ("+getItemCount()+") "));
         
         this.toAdd=toAdd;
         
         //bookmarks=roster.bookmarks;
         
         if (toAdd!=null) addBookmark();
+        
+        setTitleItem(new Title(2, null, SR.MS_BOOKMARKS+" ("+getItemCount()+") "));//for title updating after "add bookmark"
         
         addCommand(cmdCancel);
         addCommand(cmdJoin);
@@ -136,6 +138,7 @@ public class Bookmarks
         //if (c==cmdRfsh) loadBookmarks();
         if (c==cmdDel) {
             deleteBookmark();
+            setTitleItem(new Title(2, null, SR.MS_BOOKMARKS+" ("+getItemCount()+") "));
             return;
         }
 

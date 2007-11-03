@@ -57,7 +57,7 @@ public class ServiceDiscovery
     private final static String NODE_CMDS="http://jabber.org/protocol/commands";
     
     
-    private final static String strJoin="Join Conference";
+    //private final static String strJoin="Join Conference";
     private final static String strReg="Register";
     private final static String strSrch="Search";
     private final static String strCmds="Execute";
@@ -67,7 +67,7 @@ public class ServiceDiscovery
     private Command cmdRfsh=new Command(SR.MS_REFRESH, Command.SCREEN, 2);
     private Command cmdFeatures=new Command(SR.MS_FEATURES, Command.SCREEN, 3);
     private Command cmdSrv=new Command(SR.MS_SERVER, Command.SCREEN, 10);
-    //private Command cmdAdd=new Command(SR.MS_ADD_TO_ROSTER, Command.SCREEN, 11);
+    //private Command cmdAdd=new Command(SR.MS_ADD_TO_ROSTER, Command.SCREEN, 11); //FS#464 => this string is commented in SR.java'
     private Command cmdBack=new Command(SR.MS_BACK, Command.BACK, 98);
     private Command cmdCancel=new Command(SR.MS_CANCEL, Command.EXIT, 99);
 
@@ -158,7 +158,7 @@ public class ServiceDiscovery
     private void titleUpdate(){
         
         getTitleItem().setElementAt(new Integer(discoIcon), 0);
-        getTitleItem().setElementAt((service==null)?"Recent services":service, 2);
+        getTitleItem().setElementAt((service==null)?SR.MS_RECENT:service, 2);
         getTitleItem().setElementAt(sd.roster.getEventIcon(), 4);
 	
 	int size=0;
@@ -252,7 +252,7 @@ public class ServiceDiscovery
                     if (category.equals("automation") && type.equals("command-node"))  {
                         cmds.addElement(new DiscoCommand(RosterIcons.ICON_AD_HOC, strCmds));
                     }
-                    if (category.equals("conference")) cmds.addElement(new DiscoCommand(RosterIcons.ICON_GCJOIN_INDEX, strJoin));
+                    if (category.equals("conference")) cmds.addElement(new DiscoCommand(RosterIcons.ICON_GCJOIN_INDEX, SR.MS_JOIN_CONFERENCE));
                 }
                 for (Enumeration e=childs.elements(); e.hasMoreElements();) {
                     JabberDataBlock i=(JabberDataBlock)e.nextElement();

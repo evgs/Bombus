@@ -107,7 +107,7 @@ class AccountForm implements CommandListener, ItemStateListener {
 	f.append(register);
         
 	proxyHost = new TextField(SR.MS_PROXY_HOST,   account.getProxyHostAddr(),   32, TextField.URL); f.append(proxyHost);
-	proxyPort = new NumberField(SR.PROXY_PORT, account.getProxyPort(), 0, 65535);	f.append(proxyPort);
+	proxyPort = new NumberField(SR.MS_PROXY_PORT, account.getProxyPort(), 0, 65535);	f.append(proxyPort);
         
         
         keepAliveType=new ChoiceGroup(SR.MS_KEEPALIVE, ConstMIDP.CHOICE_POPUP);

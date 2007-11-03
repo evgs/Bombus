@@ -36,9 +36,7 @@ import util.StringLoader;
 public class SR {
     
     public   static String MS_JID = loadString( "Jid" );
-    public   static String MS_LOADING = loadString( "Loading" );
     public   static String MS_PRIVACY_LISTS = loadString( "Privacy Lists" );
-    //public   static String MS_EXISTING_GROUPS = loadString( "Existing groups" );
     public   static String MS_MESSAGE_FONT = loadString( "Message font" );
     public   static String MS_ROSTER_FONT = loadString( "Roster font" );
     public   static String MS_PASTE_BODY = loadString( "Paste Body" );
@@ -81,7 +79,6 @@ public class SR {
     public   static String MS_SUBJECT = loadString( "Subject" );
     public   static String MS_GROUP_MENU = loadString( "Group menu" );
     public   static String MS_APP_QUIT = loadString( "Quit" );
-    public   static String MS_ROSTERADD = loadString( "Add to roster" );
     public   static String MS_EDIT_LIST = loadString( "Edit list" );
     public   static String MS_REGISTERING = loadString( "Registering" );
     public   static String MS_DONE = loadString( "Done" );
@@ -101,7 +98,6 @@ public class SR {
     public   static String MS_NAME = loadString( "Name" );
     public   static String MS_USERNAME = loadString( "Username" );
     public   static String MS_FULLSCREEN = loadString( "fullscreen" );
-    public   static String MS_ALL_PRIORITIES = loadString( "All Priorities" );
     public   static String MS_ADD_BOOKMARK = loadString( "Add bookmark" );
     public   static String MS_CONFERENCES_ONLY = loadString( "conferences only" );
     public   static String MS_CLIENT_INFO = loadString( "Client Version" );
@@ -126,7 +122,6 @@ public class SR {
     public   static String MS_ADD_ARCHIVE = loadString( "to Archive" );
     public   static String MS_BACK = loadString( "Back" );
     public   static String MS_HEAP_MONITOR = loadString( "heap monitor" );
-    //public   static String MS_HIDE_SPLASH = loadString( "Hide Splash" );
     public   static String MS_MESSAGE = loadString( "Message" );
     public   static String MS_OTHER = loadString( "<Other>" );
     public   static String MS_HISTORY = loadString( "history -" );
@@ -140,7 +135,6 @@ public class SR {
     public   static String MS_NEW_MESSAGE = loadString( "New Message" );
     public   static String MS_ADD = loadString( "Add" );
     public   static String MS_LOGON = loadString( "Logon" );
-    public   static String MS_LOGINPGS = loadString( "Login in progress" );
     public   static String MS_STANZAS = loadString( "Stanzas" );
     public   static String MS_AT_HOST = loadString( "at Host" );
     public   static String MS_AUTO_CONFERENCES = loadString( "join conferences" );
@@ -148,7 +142,6 @@ public class SR {
     public   static String MS_SMILES_TOGGLE = loadString( "Smiles" );
     public   static String MS_CONTACT = loadString( "Contact >" );
     public final static String MS_SLASHME = "/me";
-    public   static String MS_ORDER = loadString( "Order" );
     public   static String MS_OFFLINE_CONTACTS = loadString( "offline contacts" );
     public   static String MS_TRANSPORT = loadString( "Transport" );
     public   static String MS_COMPOSING_EVENTS = loadString( "composing events" );
@@ -161,7 +154,6 @@ public class SR {
     public   static String MS_SETDEFAULT = loadString( "Set default" );
     public   static String MS_BANNED = loadString( "Outcasts (Ban)" );
     public   static String MS_SET_AFFILIATION = loadString( "Set affiliation to" );
-    public   static String MS_HIDE_OFFLINES = loadString( "Hide Offlines" );
     public   static String MS_REGISTER_ACCOUNT = loadString( "Register Account" );
     public   static String MS_AUTOLOGIN = loadString( "autologin" );
     public   static String MS_LOGOFF = loadString( "Logoff" );
@@ -201,8 +193,6 @@ public class SR {
     public   static String MS_ALL_STATUSES = loadString( "for all status types" );
     public   static String MS_PASTE_JID = loadString( "Paste Jid" );
     public   static String MS_GOTO_URL = loadString( "Goto URL" );
-    public   static String MS_CLOCK = loadString( "Clock -" );
-    public   static String MS_LOGIN = loadString( "Login" );
     public   static String MS_CLOCK_OFFSET = loadString( "Clock offset" );
     public   static String MS_YES = loadString( "Yes" );
     public   static String MS_FLASHBACKLIGHT = loadString( "flash backlight" );
@@ -215,18 +205,17 @@ public class SR {
     public   static String MS_VCARD = loadString( "vCard" );
     public   static String MS_SET_SUBJECT = loadString( "Set Subject" );
     public   static String MS_TOOLS = loadString( "Tools" );
-    public   static String MS_JABBER_TOOLS = loadString( "Jabber Tools" );
+    //public   static String MS_JABBER_TOOLS = loadString( "Jabber Tools" ); //replaced by "Tools"
     public   static String MS_PORT = loadString( "Port" );
     public   static String MS_RESUME = loadString( "Resume Message" );
     public   static String MS_PROXY_ENABLE = loadString( "proxy CONNECT" );
     public   static String MS_PROXY_HOST = loadString( "Proxy name/IP" );
-    public   static String PROXY_PORT = loadString( "Proxy port" );
+    public   static String MS_PROXY_PORT = loadString( "Proxy port" );
     public   static String MS_ARE_YOU_SURE_WANT_TO_DISCARD = loadString( "Are You sure want to discard " );
     public   static String MS_FROM_OWNER_TO = loadString( " from OWNER to " );
     public   static String MS_MODIFY_AFFILIATION = loadString( "Modify affiliation" );
-    public   static String MS_ADD_TO_ROSTER = loadString( "Add to roster" );
+    //public   static String MS_ADD_TO_ROSTER = loadString( "Add to roster" ); //not used in 1197 there are fs#464 ;-) (string don't deleted in locales)
     public   static String MS_CLEAR=loadString( "Clear" );
-    public   static String MS_ALT_LANG="langfile";
     public   static String MS_SELLOGIN = loadString( "Connect" );
 //--toon
     public   static String MS_UNAFFILIATE = loadString("Unaffiliate");
@@ -270,7 +259,6 @@ public class SR {
     public   static String MS_NO_VERSION_AVAILABLE = loadString( "No client version available" );
     public   static String MS_MSG_LIMIT = loadString( "Message limit" );
     public   static String MS_OPENING_STREAM = loadString( "Opening stream" );
-    //public final static String MS_SASL_STREAM="SASL handshake";
     public   static String MS_ZLIB = loadString( "Using compression" );
     public   static String MS_AUTH = loadString( "Authenticating" );
     public   static String MS_RESOURCE_BINDING = loadString( "Resource binding" );
@@ -337,6 +325,22 @@ public class SR {
     public static String MS_ALERT_PROFILE_NOSIGNALS = loadString( "No signals" );
     public static String MS_ALERT_PROFILE_DEFAULT = loadString( " (default)" );
     
+//2007-10-24 voffk
+    public static String MS_MESSAGE_COLLAPSE_LIMIT = loadString ( "Message collapse limit" );
+    public static String MS_SUBSCRIPTION_REQUEST_FROM_USER = loadString ( "This user wants to subscribe to your presence" );
+    public static String MS_SUBSCRIPTION_RECEIVED = loadString ( "You are now authorized" );
+    public static String MS_SUBSCRIPTION_DELETED = loadString ( "Your authorization has been removed!" );
+    public static String MS_CHANGE_NICKNAME = loadString( "Change nickname" );
+    public static String MS_HAS_CHANGED_SUBJECT_TO = loadString( " has changed subject to: " );
+    public static String MS_SEND_FILE = loadString ( "Send file" );
+    public static String MS_SEND_FILE_TO = loadString ( "To: " );
+    public static String MS_FILE = loadString ( "File" );
+    public static String MS_DESCRIPTION = loadString ( "Description" );
+    public static String MS_PATH = loadString( "Path" );
+    public static String MS_ACCEPT_FILE = loadString( "Accept file" );
+    public static String MS_SAVE_TO = loadString( "Save to" );
+    public static String MS_SENDER = loadString( "Sender:" );
+    public static String MS_FILE_SIZE = loadString( "size:" );
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
 

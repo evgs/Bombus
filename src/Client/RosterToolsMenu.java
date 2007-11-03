@@ -45,7 +45,7 @@ public class RosterToolsMenu
     
     /** Creates a new instance of RosterToolsMenu */
     public RosterToolsMenu(Display display) {
-        super(SR.MS_JABBER_TOOLS);
+        super(SR.MS_TOOLS);
         addItem(SR.MS_DISCO, 0);
         addItem(SR.MS_PRIVACY_LISTS, 1);
         addItem(SR.MS_MY_VCARD, 2);
@@ -53,7 +53,7 @@ public class RosterToolsMenu
         /*if (m.getItemCount()>0)*/
         
 //#if (FILE_IO && FILE_TRANSFER)
-        addItem("root",4);
+        addItem(SR.MS_ROOT, 4);
         addItem(SR.MS_FILE_TRANSFERS, 5);
 //#endif
         

@@ -39,6 +39,7 @@ import javax.microedition.lcdui.StringItem;
 import javax.microedition.lcdui.TextBox;
 import javax.microedition.lcdui.TextField;
 import ui.controls.TextFieldCombo;
+import locale.SR;
 
 /**
  *
@@ -55,10 +56,10 @@ public class TransferAcceptFile
     TextField fileName;
     TextField path;
     
-    Command cmdOk=new Command("Ok", Command.OK, 1);
-    Command cmdDecline=new Command("Cancel", Command.CANCEL, 90);
-    Command cmdBack=new Command("Back", Command.BACK, 99);
-    Command cmdPath=new Command("Path", Command.SCREEN, 2);
+    Command cmdOk=new Command(SR.MS_OK, Command.OK, 1);
+    Command cmdDecline=new Command(SR.MS_CANCEL, Command.CANCEL, 90);
+    Command cmdBack=new Command(SR.MS_BACK, Command.BACK, 99);
+    Command cmdPath=new Command(SR.MS_PATH, Command.SCREEN, 2);
     /** Creates a new instance of TransferAcceptFile */
     public TransferAcceptFile(Display display, TransferTask transferTask) {
         this.display=display;
@@ -82,15 +83,15 @@ public class TransferAcceptFile
             }
         }
         
-        f=new Form("Accept file");
-        fileName=new TextField("File", name, FileIO.MAX_NAME_LEN, TextField.ANY);
-        path=new TextFieldCombo("Save to", t.filePath, 200, TextField.ANY, "recvPath", display);
+        f=new Form(SR.MS_ACCEPT_FILE);
+        fileName=new TextField(SR.MS_FILE, name, FileIO.MAX_NAME_LEN, TextField.ANY);
+        path=new TextFieldCombo(SR.MS_SAVE_TO, t.filePath, 200, TextField.ANY, "recvPath", display);
         
-        f.append(new StringItem("Sender:", t.jid));
+        f.append(new StringItem(SR.MS_SENDER, t.jid));
         f.append(fileName);
-        f.append(new StringItem("size:", String.valueOf(t.fileSize)));
+        f.append(new StringItem(SR.MS_FILE_SIZE, String.valueOf(t.fileSize)));
         f.append(path);
-        f.append(new StringItem("description:", t.description));
+        f.append(new StringItem(SR.MS_DESCRIPTION, t.description));
         
         f.addCommand(cmdOk);
         f.addCommand(cmdPath);
