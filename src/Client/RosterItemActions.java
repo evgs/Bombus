@@ -167,7 +167,7 @@ public class RosterItemActions extends Menu implements YesNoAlert.YesNoListener{
 //#if (FILE_IO && FILE_TRANSFER)
             if (contact.getGroupType()!=Groups.TYPE_TRANSP) 
                 if (contact!=StaticData.getInstance().roster.selfContact())
-                    addItem("SR.MS_SEND_FILE", 50);
+                    addItem(SR.MS_SEND_FILE, 50);
 //#endif
         } else {
 	    Group group=(Group)item;
