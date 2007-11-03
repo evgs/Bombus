@@ -9,9 +9,6 @@
 
     <!-- release tasks -->
     <target name="for-release-configs">
-        <!--<antcall inheritrefs="false" inheritall="false" target="${target.to.call}">
-            <param name="config.active" value="M55_Release"/>
-        </antcall>-->
         <antcall inheritrefs="false" inheritall="false" target="${target.to.call}">
             <param name="config.active" value="Release"/>
         </antcall>
@@ -29,12 +26,6 @@
     <target name="rebuild-midp2-release">
 	    <antcall inheritrefs="false" inheritall="false" target="rebuild">
 		    <param name="config.active" value="Release"/>
-	    </antcall>
-    </target>
-
-    <target name="rebuild-midp1-release">
-	    <antcall inheritrefs="false" inheritall="false" target="rebuild">
-		    <param name="config.active" value="M55_Release"/>
 	    </antcall>
     </target>
 
@@ -76,14 +67,12 @@
 	</tstamp>
 	<property name="destfile" location="ftp/bombus_${bombus.revision}(all)${bombus.tstamp}" />
 	<zip destfile="${destfile}.zip">
-	    <!--<zipfileset dir="ftp/midp1.0" prefix="siemens-midp1.0"/>-->
 	    <zipfileset dir="ftp/midp2.0" prefix="midp2.0"/>
 	    <zipfileset dir="ftp/midp2.0z" prefix="midp2.0-ZLIB"/>
 	    <zipfileset file="changelog.txt"/>
 	</zip>
 
 	<tar destfile="${destfile}.tar">
-	    <!--<tarfileset dir="ftp/midp1.0" prefix="siemens-midp1.0"/>-->
 	    <tarfileset dir="ftp/midp2.0" prefix="midp2.0"/>
 	    <tarfileset dir="ftp/midp2.0z" prefix="midp2.0-ZLIB"/>
 	    <tarfileset file="changelog.txt"/>
