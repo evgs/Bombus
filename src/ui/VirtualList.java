@@ -26,6 +26,7 @@
  */
 
 package ui;
+import Info.Version;
 import javax.microedition.lcdui.*;
 import java.util.*;
 import Client.*;
@@ -104,6 +105,7 @@ public abstract class VirtualList
     public static final int SIEMENS_GREEN=-11;
     public static final int NOKIA_GREEN=-10;
     public final static int NOKIA_PEN=-50;
+    public final static int SIEMENS_RIGHT_SOFT=-4;
     public static final int MOTOROLA_GREEN=-10;
 
     public static final int MOTOE680_VOL_UP=-9;
@@ -622,6 +624,7 @@ public abstract class VirtualList
         switch (keyCode) {
             case 0: break;
             case NOKIA_PEN: { destroyView(); break; }
+            case SIEMENS_RIGHT_SOFT: { if (Version.getPlatformName().startsWith("SIE")) { destroyView(); break; }}
             case MOTOE680_VOL_UP:
             case KEY_NUM1:  { moveCursorHome();    break; }
             case KEY_NUM7:  { moveCursorEnd();     break; }
