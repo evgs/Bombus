@@ -1145,26 +1145,26 @@ public class Roster
                 try {
                     JabberDataBlock xmlns=message.findNamespace("x", "http://jabber.org/protocol/muc#user");
                     JabberDataBlock error=xmlns.getChildBlock("error");
-                    JabberDataBlock invite=message.getChildBlock("invite");
+                    JabberDataBlock invite=xmlns.getChildBlock("invite");
                     // FS#657
-                    if (error!=null && invite!=null) {
-                        ConferenceGroup invConf=(ConferenceGroup)groups.getGroup(from);
-                        body=XmppError.decodeStanzaError(error).toString(); /*"error: invites are forbidden"*/
-                    };
-                    
-                    if (error==null && invite!=null) {
-                        String inviteFrom=invite.getAttribute("from");
-                        String inviteReason=invite.getChildBlockText("reason");
-                        String room=from+'/'+sd.account.getNickName();
-                        String password=xmlns.getChildBlockText("password");
-                        ConferenceGroup invConf=initMuc(room, password);
-                        
-                        if (invConf.getSelfContact().status==Presence.PRESENCE_OFFLINE)
-                            invConf.getConference().status=Presence.PRESENCE_OFFLINE;
-                           
-                        body=inviteFrom+SR.MS_IS_INVITING_YOU+from+" ("+inviteReason+')';
+                    if (invite !=null) {
+                        if (error!=null ) {
+                            ConferenceGroup invConf=(ConferenceGroup)groups.getGroup(from);
+                            body=XmppError.decodeStanzaError(error).toString(); /*"error: invites are forbidden"*/
+                        } else {
+                            String inviteFrom=invite.getAttribute("from");
+                            String inviteReason=invite.getChildBlockText("reason");
+                            String room=from+'/'+sd.account.getNickName();
+                            String password=xmlns.getChildBlockText("password");
+                            ConferenceGroup invConf=initMuc(room, password);
+                            
+                            if (invConf.getSelfContact().status==Presence.PRESENCE_OFFLINE)
+                                invConf.getConference().status=Presence.PRESENCE_OFFLINE;
+                            
+                            body=inviteFrom+SR.MS_IS_INVITING_YOU+from+" ("+inviteReason+')';
+                        }
                     }
-                } catch (Exception e) {}
+                } catch (Exception e) { e.printStackTrace(); }
                 
                 Contact c=getContact(from, cf.notInListDropLevel != NotInListFilter.DROP_MESSAGES_PRESENCES);
                 if (c==null) return JabberBlockListener.BLOCK_REJECTED; //not-in-list message dropped
