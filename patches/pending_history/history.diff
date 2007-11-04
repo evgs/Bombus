@@ -1,0 +1,919 @@
+Index: trunk/src/Client/Config.java
+===================================================================
+--- trunk/src/Client/Config.java	(revision 1209)
++++ trunk/src/Client/Config.java	(working copy)
+@@ -66,7 +66,7 @@
+     public boolean ghostMotor=getBooleanProperty("moto_e398",false);
+     public boolean blFlash=!ghostMotor; //true;
+     
+-    public boolean msgLog=getBooleanProperty("msg_log",false);
++    //public boolean msgLog=getBooleanProperty("msg_log",false);
+     
+     public boolean muc119=getBooleanProperty("muc_119",true);	// before muc 1.19 use muc#owner instead of muc#admin
+     
+@@ -147,6 +147,14 @@
+     
+     public int messageCollapsedLength=512;
+     
++    public String msgPath="";
++    public boolean msgLog=false;
++    public boolean msgLogPresence=false;
++    public boolean msgLogConf=false;
++    public boolean msgLogConfPresence=false;
++    public boolean cp1251=true;
++    public boolean transliterateFilenames=false;
++    
+     // runtime values
+     public boolean allowMinimize=false;
+     public int profile=0;
+@@ -154,6 +162,7 @@
+     
+     public boolean istreamWaiting;
+     
++    
+ 
+     // Singleton
+     private static Config instance;
+@@ -287,6 +296,14 @@
+             eventDelivery=inputStream.readBoolean();
+             
+             messageCollapsedLength=inputStream.readInt();
++            
++            msgPath=inputStream.readUTF();
++            msgLog=inputStream.readBoolean();
++            msgLogPresence=inputStream.readBoolean();
++            msgLogConfPresence=inputStream.readBoolean();
++            msgLogConf=inputStream.readBoolean();
++            cp1251=inputStream.readBoolean();
++            transliterateFilenames=inputStream.readBoolean();
+ 	    
+ 	    inputStream.close();
+ 	} catch (Exception e) {
+@@ -382,6 +399,14 @@
+             outputStream.writeBoolean(eventDelivery);
+             
+             outputStream.writeInt(messageCollapsedLength);
++            
++            outputStream.writeUTF(msgPath);
++            outputStream.writeBoolean(msgLog);
++            outputStream.writeBoolean(msgLogPresence);
++            outputStream.writeBoolean(msgLogConfPresence);
++            outputStream.writeBoolean(msgLogConf);
++            outputStream.writeBoolean(cp1251);
++            outputStream.writeBoolean(transliterateFilenames);
+ 	    
+ 	} catch (Exception e) { e.printStackTrace(); }
+ 	
+Index: trunk/src/Client/Contact.java
+===================================================================
+--- trunk/src/Client/Contact.java	(revision 1209)
++++ trunk/src/Client/Contact.java	(working copy)
+@@ -26,6 +26,10 @@
+  */
+ 
+ package Client;
++//#if FILE_IO && HISTORY
++//# import Client.HistoryAppend;
++//# import Conference.MucContact;
++//#endif
+ import com.alsutton.jabber.JabberDataBlock;
+ import images.RosterIcons;
+ import ui.Colors;
+@@ -212,13 +216,13 @@
+         if (m.isPresence()) 
+             if (msgs.size()==1) 
+                 if ( ((Msg)msgs.firstElement()).isPresence())
+-                    if (origin!=ORIGIN_GROUPCHAT) first_replace=true;
+-//#if USE_SIEMENS_FILES
++                    if (origin!=ORIGIN_GROUPCHAT) first_replace=true;       
++//#if FILE_IO && HISTORY
+ //#         Config cf=Config.getInstance();
+-//# 
+-//#         if (cf.msgLog && group.index!=Groups.TYPE_TRANSP && group.index!=Groups.TYPE_SEARCH_RESULT)
++//#         if (cf.msgLog && cf.msgPath==null) {
++//#         } else 
++//#             if (cf.msgLog && group.index!=Groups.TYPE_TRANSP && group.index!=Groups.TYPE_SEARCH_RESULT)
+ //#         {
+-//#             String histRecord=(nick==null)?getBareJid():nick;
+ //#             String fromName=StaticData.getInstance().account.getUserName();
+ //#             if (m.messageType!=Msg.MESSAGE_TYPE_OUT) fromName=toString();
+ //#             boolean allowLog=false;
+@@ -231,8 +235,9 @@
+ //#                     if (origin>=ORIGIN_GROUPCHAT && cf.msgLogConf) allowLog=true;
+ //#                     if (origin<ORIGIN_GROUPCHAT) allowLog=true;
+ //#             }
++//#             if (origin!=ORIGIN_GROUPCHAT && this instanceof MucContact)
++//#                  allowLog=false;
+ //#             if (allowLog)
+-//#                 //if (!first_replace || !m.)
+ //#             {
+ //#                 StringBuffer body=new StringBuffer(m.getDayTime());
+ //#                 body.append(" <");
+@@ -244,9 +249,12 @@
+ //#                 }
+ //#                 body.append(m.getBody());
+ //#                 body.append("\r\n");
+-//#                 io.NvStorage.appendFile("Log_"+histRecord, body.toString());
++//#                 
++//#                 String histRecord=(nick==null)?getBareJid():nick;
++//#                 
++//#                 new HistoryAppend(body, histRecord);
+ //#             }
+-//#         }
++//#        }
+ //#endif
+         if (first_replace) {
+             msgs.setElementAt(m,0);
+Index: trunk/src/Client/HistoryAppend.java
+===================================================================
+--- trunk/src/Client/HistoryAppend.java	(revision 0)
++++ trunk/src/Client/HistoryAppend.java	(revision 0)
+@@ -0,0 +1,82 @@
++/*
++ * HistoryAppend.java
++ *
++ * Created on 19.06.2007, 9:24
++ * Copyright (c) 2006-2007, Daniel Apatin (ad), http://apatin.net.ru
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version 2
++ * of the License, or (at your option) any later version.
++ *
++ * You can also redistribute and/or modify this program under the
++ * terms of the Psi License, specified in the accompanied COPYING
++ * file, as published by the Psi Project; either dated January 1st,
++ * 2005, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this library; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
++ *
++ */
++
++package Client;
++
++import Client.Config;
++import io.file.FileIO;
++import java.io.IOException;
++import java.io.OutputStream;
++//#ifdef TRANSLIT
++//# import util.Translit;
++//#endif
++import util.strconv;
++
++public class HistoryAppend {
++    
++    private Config cf=Config.getInstance();
++    
++    
++//#if FILE_IO    
++    private int filePos;
++    private FileIO file;
++    private OutputStream os;
++//#endif
++    
++    public HistoryAppend(StringBuffer body, String histRecord) {
++                
++       byte[] bodyMessage;
++
++       if (cf.cp1251) {
++            bodyMessage=strconv.convUnicodeToCp1251(body.toString()).getBytes();
++       } else {
++            bodyMessage=body.toString().getBytes();
++       }
++//#ifdef TRANSLIT
++//#        String filename=cf.msgPath+((cf.transliterateFilenames)?Translit.translit(histRecord):histRecord)+".txt";
++//#else
++       String filename=cf.msgPath+histRecord+".txt";
++//#endif
++       file=FileIO.createConnection(filename);
++        try {
++            os = file.openOutputStream(0);
++            try {
++                os.write(bodyMessage);
++                filePos+=bodyMessage.length;
++            } catch (IOException ex) { }
++            os.close();
++            os.flush();
++            file.close();
++        } catch (IOException ex) {
++            try {
++                file.close();
++            } catch (IOException ex2) { }
++        }
++        filename=null;
++        body=null;
++        bodyMessage=null;
++    }
++}
+\ No newline at end of file
+Index: trunk/src/Client/HistoryConfig.java
+===================================================================
+--- trunk/src/Client/HistoryConfig.java	(revision 0)
++++ trunk/src/Client/HistoryConfig.java	(revision 0)
+@@ -0,0 +1,155 @@
++/*
++ * HistoryConfig.java
++ *
++ * Created on 18.06.2007., 15:35
++ * Copyright (c) 2006-2007, Daniel Apatin (ad), http://apatin.net.ru
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version 2
++ * of the License, or (at your option) any later version.
++ *
++ * You can also redistribute and/or modify this program under the
++ * terms of the Psi License, specified in the accompanied COPYING
++ * file, as published by the Psi Project; either dated January 1st,
++ * 2005, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this library; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
++ *
++ */
++
++package Client;
++
++import Client.Config;
++import Client.StaticData;
++//#if FILE_IO
++import io.file.browse.Browser;
++import io.file.browse.BrowserListener;
++//#endif
++import javax.microedition.lcdui.*;
++import locale.SR;
++import ui.controls.TextFieldCombo;
++
++public class HistoryConfig implements
++	CommandListener 
++//#if FILE_IO
++	,ItemCommandListener
++        , BrowserListener
++//#endif
++{
++    private Display display;
++    private Displayable parentView;
++
++    Form f;
++//#if FILE_IO
++    ChoiceGroup history;
++    TextField historyFolder;
++
++    Command cmdSetHistFolder=new Command(SR.MS_SELECT_PATH, Command.ITEM,11);
++//#endif
++    
++    Command cmdOk=new Command(SR.MS_OK,Command.OK,1);    
++    Command cmdCancel=new Command(SR.MS_CANCEL, Command.BACK,99);
++    
++    Config cf;
++    boolean his[];
++    
++    /** Creates a new instance of ConfigForm */
++    public HistoryConfig(Display display) {
++        this.display=display;
++        parentView=display.getCurrent();
++        
++        cf=Config.getInstance();
++        
++        f=new Form(SR.MS_HISTORY_SETTINGS);
++        
++//#if FILE_IO
++        history=new ChoiceGroup(SR.MS_HISTORY, Choice.MULTIPLE); //locale
++        history.append(SR.MS_SAVE_HISTORY, null); //locale
++        history.append(SR.MS_SAVE_PRESENCES,null);    //locale     
++        history.append(SR.MS_SAVE_HISTORY_CONF, null); //locale
++        history.append(SR.MS_SAVE_PRESENCES_CONF, null); //locale
++        history.append(SR.MS_1251_CORRECTION, null); //locale
++//#ifdef TRANSLIT
++//#         history.append(SR.MS_1251_TRANSLITERATE_FILENAMES, null); //locale
++//#endif
++        
++        boolean his[]={
++            cf.msgLog,
++            cf.msgLogPresence,
++            cf.msgLogConf,
++            cf.msgLogConfPresence,
++            cf.cp1251
++//#ifdef TRANSLIT
++//#             , cf.transliterateFilenames
++//#endif
++        };
++        this.his=his;
++        
++        history.setSelectedFlags(his);
++        f.append(history);
++        
++        historyFolder=new TextFieldCombo(SR.MS_HISTORY_PATH, null, 128, 0, "history_path", display);
++        historyFolder.setString(cf.msgPath);
++        historyFolder.addCommand(cmdSetHistFolder);
++        f.append(historyFolder);
++        historyFolder.setItemCommandListener(this);
++//#endif
++
++        f.addCommand(cmdOk);
++        f.addCommand(cmdCancel);
++        
++        f.setCommandListener(this);
++       
++        display.setCurrent(f);
++    }
++    
++    public void commandAction(Command c, Displayable d) {
++        if (c==cmdOk) {
++//#if FILE_IO
++            history.getSelectedFlags(his);
++            cf.msgLog=his[0];
++            cf.msgLogPresence=his[1];
++            cf.msgLogConf=his[2];
++            cf.msgLogConfPresence=his[3];
++            cf.cp1251=his[4];
++//#ifdef TRANSLIT
++//#             cf.transliterateFilenames=his[5];
++//#endif
++            cf.msgPath=historyFolder.getString();
++//#endif             
++            
++            cf.saveToStorage();
++            
++            StaticData.getInstance().roster.reEnumRoster();
++            destroyView();
++        }
++        if (c==cmdCancel) destroyView();
++    }
++    
++//#if FILE_IO
++    public void commandAction(Command command, Item item) {
++
++        if (command==cmdSetHistFolder) {
++            new Browser(null, display, this, true);
++        }
++    }
++//#endif
++    
++    public void destroyView(){
++        if (display!=null)
++            display.setCurrent(parentView);
++    }
++
++//#if FILE_IO
++    public void BrowserFilePathNotify(String pathSelected) {
++        historyFolder.setString(pathSelected);
++    }
++//#endif
++}
+\ No newline at end of file
+Index: trunk/src/Client/RosterToolsMenu.java
+===================================================================
+--- trunk/src/Client/RosterToolsMenu.java	(revision 1209)
++++ trunk/src/Client/RosterToolsMenu.java	(working copy)
+@@ -56,8 +56,10 @@
+         addItem(SR.MS_ROOT, 4);
+         addItem(SR.MS_FILE_TRANSFERS, 5);
+ //#endif
++//#if (FILE_IO && HISTORY)
++//#         addItem(SR.MS_HISTORY_SETTINGS, 6);
++//#endif
+         
+-        
+         /*addItem("Break connection", 10);*/
+         
+         
+@@ -97,6 +99,11 @@
+                 new io.file.transfer.TransferManager(display);
+                 return;
+ //#endif
++//#if (FILE_IO && HISTORY)
++//#             case 6: //history
++//#                 new HistoryConfig(display);
++//#                 return;
++//#endif 
+             
+             //case 10:
+             //    StaticData.getInstance().roster.connectionTerminated(new Exception("Simulated break"));
+Index: trunk/src/io/file/FileComMotorolaIo.java
+===================================================================
+--- trunk/src/io/file/FileComMotorolaIo.java	(revision 1209)
++++ trunk/src/io/file/FileComMotorolaIo.java	(working copy)
+@@ -61,6 +61,12 @@
+         }
+         return fileConnection.openOutputStream();
+     }
++    
++    public OutputStream openOutputStream(long pos_eof) throws IOException {
++        if (fileConnection==null) openFile();
++        if (!fileConnection.exists()) fileConnection.create();
++        return fileConnection.openOutputStream();
++    }
+ 
+     public InputStream openInputStream() throws IOException {
+         if (fileConnection==null) openFile();
+@@ -91,10 +97,14 @@
+         
+         Vector rd=new Vector(list.length + 1);
+         for (int i = 0; i < list.length; i++) {
+-            if (directoriesOnly & !list[i].endsWith("/")) continue;
+-           int st=(list[i].startsWith("/")) ? 1 : 0;
++			if (directoriesOnly & !list[i].endsWith("/")) continue;
++            int st=(list[i].startsWith("/")) ? 1 : 0;
+             rd.addElement(list[i].substring(st+fileName.length()));
+         }
+         return rd;
+     }
++
++    public void delete() throws IOException{
++        fileConnection.delete();
++    }
+ }
+Index: trunk/src/io/file/FileIO.java
+===================================================================
+--- trunk/src/io/file/FileIO.java	(revision 1209)
++++ trunk/src/io/file/FileIO.java	(working copy)
+@@ -90,8 +90,13 @@
+     
+     public abstract void close() throws IOException;
+     
++    public abstract void delete() throws IOException;
++    
+     public abstract long fileSize() throws IOException;
+ 
+     protected abstract Vector rootDirs();
++    
+     protected abstract Vector dirs(boolean directoriesOnly) throws IOException;
++
++    public abstract OutputStream openOutputStream(long pos_eof) throws IOException;
+ }
+Index: trunk/src/io/file/FileJSR75.java
+===================================================================
+--- trunk/src/io/file/FileJSR75.java	(revision 1209)
++++ trunk/src/io/file/FileJSR75.java	(working copy)
+@@ -60,7 +60,19 @@
+         }
+         return fileConnection.openOutputStream();
+     }
++    
++    public void delete() throws IOException{
++        if (fileConnection==null) openFile();
++        fileConnection.delete();
++    }
+ 
++    public OutputStream openOutputStream(long pos_eof) throws IOException {
++        if (fileConnection==null) openFile();
++        if (!fileConnection.exists()) fileConnection.create();
++        pos_eof=fileConnection.fileSize();
++        return fileConnection.openOutputStream(pos_eof);
++    }
++
+     public InputStream openInputStream() throws IOException{
+         if (fileConnection==null) openFile();
+         return fileConnection.openInputStream(); 
+Index: trunk/src/io/file/FileSiemens.java
+===================================================================
+--- trunk/src/io/file/FileSiemens.java	(revision 1209)
++++ trunk/src/io/file/FileSiemens.java	(working copy)
+@@ -34,14 +34,12 @@
+ import java.io.OutputStream;
+ import java.util.Vector;
+ 
+-public class FileSiemens extends FileIO{
++public class FileSiemens extends FileIO {
+     
+     private File f;
+     private int fd;
+ 
+     public FileSiemens(String fileName) {
+-        //System.out.println("Siemens fs accessor for "+fileName);
+-        // Siemens requires backslashes
+         this.fileName=fileName=fileName.replace('/', '\\');//.substring(1);
+     }
+     
+@@ -63,9 +61,6 @@
+         //System.out.println("Siemens root");
+         Vector rd = new Vector();
+         rd.addElement("0:/");
+-        rd.addElement("1:/");
+-        rd.addElement("2:/");
+-        rd.addElement("3:/");
+         rd.addElement("4:/");
+         return rd;
+     }
+@@ -89,13 +84,22 @@
+ 
+     public OutputStream openOutputStream() throws IOException {
+         openFile();
+-        return new FileSiemensOutputStream(f, fd);
++        return new FileSiemensOutputStream(f, fd, 0);
+     }
+ 
+     public InputStream openInputStream() throws IOException {
+         openFile();
+         return new FileSiemensInputStream(f, fd);
+-    }  
++    }
++    
++    public OutputStream openOutputStream(long pos_eof) throws IOException {
++        openFile();
++        return new FileSiemensOutputStream(f, fd, pos_eof);
++    }
++    
++    public void delete() throws IOException{
++        f.delete(fileName);
++    }
+ }
+ 
+ class FileSiemensInputStream extends InputStream {
+@@ -121,8 +125,14 @@
+     private int fileDescriptor;
+     private File f;
+ 
+-    public FileSiemensOutputStream(File f, int fd) {
+-        this.f=f; this.fileDescriptor=fd;
++    public FileSiemensOutputStream(File f, int fd, long Seek) {
++        this.f=f;
++        this.fileDescriptor=fd;
++        try {
++            this.f.seek(fd, f.length(fd));
++        } catch (IOException ex) {
++            ex.printStackTrace();
++        }
+     }
+     
+     public void write(int i) throws IOException {
+Index: trunk/src/locale/SR.java
+===================================================================
+--- trunk/src/locale/SR.java	(revision 1209)
++++ trunk/src/locale/SR.java	(working copy)
+@@ -124,7 +124,7 @@
+     public   static String MS_HEAP_MONITOR = loadString( "heap monitor" );
+     public   static String MS_MESSAGE = loadString( "Message" );
+     public   static String MS_OTHER = loadString( "<Other>" );
+-    public   static String MS_HISTORY = loadString( "history -" );
++    public   static String MS_HISTORY = loadString( "History" );
+     public   static String MS_APPEND = loadString( "Append" );
+     public   static String MS_ACTIVE_CONTACTS = loadString( "Active Contacts" );
+     public   static String MS_SELECT_NICKNAME = loadString( "Select nickname" );
+@@ -341,6 +341,17 @@
+     public static String MS_SAVE_TO = loadString( "Save to" );
+     public static String MS_SENDER = loadString( "Sender:" );
+     public static String MS_FILE_SIZE = loadString( "size:" );
++
++    public static String MS_HISTORY_SETTINGS = loadString( "History settings" );
++    public static String MS_HISTORY_PATH = loadString( "History path" );
++    public static String MS_1251_CORRECTION = loadString( "1251 correction" );
++    public static String MS_SAVE_PRESENCES_CONF = loadString( "save conf presences" );
++    public static String MS_SAVE_HISTORY_CONF = loadString( "save conf history" );
++    public static String MS_SAVE_PRESENCES = loadString( "save presences" );
++    public static String MS_SAVE_HISTORY = loadString( "save history" );
++    public static String MS_SELECT_PATH = loadString( "Select path" );
++    public static String MS_1251_TRANSLITERATE_FILENAMES = loadString( "transliterate filenames" );
++    
+     public static String MS_XMLLANG;
+     public static String MS_IFACELANG;
+ 
+Index: trunk/src/util/Translit.java
+===================================================================
+--- trunk/src/util/Translit.java	(revision 0)
++++ trunk/src/util/Translit.java	(revision 0)
+@@ -0,0 +1,332 @@
++/*
++ * Translit.java
++ *
++ * Created on 25.04.2007, 10:30
++ *
++ * Copyright (c) 2006-2007, Daniel Apatin (ad), http://apatin.net.ru
++ *
++ * This program is free software; you can redistribute it and/or
++ * modify it under the terms of the GNU General Public License
++ * as published by the Free Software Foundation; either version 2
++ * of the License, or (at your option) any later version.
++ *
++ * You can also redistribute and/or modify this program under the
++ * terms of the Psi License, specified in the accompanied COPYING
++ * file, as published by the Psi Project; either dated January 1st,
++ * 2005, or (at your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful,
++ * but WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++ * GNU General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this library; if not, write to the Free Software
++ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
++ */
++
++package util;
++
++public class Translit {
++
++    static char Translit_chars[][] = new char[106][6];
++    static int Translit_count[] = new int[106];
++    static boolean full=false;
++    
++    static void fillarrays()
++    {
++        int i = 40;
++        int j = 0;
++        Translit_chars[i] = "A".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "B".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "V".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "G".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "D".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "E".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[25] = "Yo".toCharArray();
++        Translit_count[25] = 2;
++        j++;
++        Translit_chars[i] = "Zh".toCharArray();
++        Translit_count[i] = 2;
++        j++;
++        i++;
++        Translit_chars[i] = "Z".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "I".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "J".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "K".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "L".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "M".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "N".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "O".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "P".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "R".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "S".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "T".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "U".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "F".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "H".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "C".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "Ch".toCharArray();
++        Translit_count[i] = 2;
++        j++;
++        i++;
++        Translit_chars[i] = "Sh".toCharArray();
++        Translit_count[i] = 2;
++        j++;
++        i++;
++        Translit_chars[i] = "Sch".toCharArray();
++        Translit_count[i] = 3;
++        j++;
++        i++;
++        Translit_chars[i] = "\"".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "Y".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "'".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "E".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "Yu".toCharArray();
++        Translit_count[i] = 2;
++        j++;
++        i++;
++        Translit_chars[i] = "Ya".toCharArray();
++        Translit_count[i] = 2;
++        j++;
++        i++;
++        Translit_chars[i] = "a".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "b".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "v".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "g".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "d".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "e".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[105] = "yo".toCharArray();
++        Translit_count[105] = 2;
++        j++;
++        Translit_chars[i] = "zh".toCharArray();
++        Translit_count[i] = 2;
++        j++;
++        i++;
++        Translit_chars[i] = "z".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "i".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "j".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "k".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "l".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "m".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "n".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "o".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "p".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "r".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "s".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "t".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "u".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "f".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "h".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "c".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "ch".toCharArray();
++        Translit_count[i] = 2;
++        j++;
++        i++;
++        Translit_chars[i] = "sh".toCharArray();
++        Translit_count[i] = 2;
++        j++;
++        i++;
++        Translit_chars[i] = "sch".toCharArray();
++        Translit_count[i] = 3;
++        j++;
++        i++;
++        Translit_chars[i] = "\"".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "y".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "'".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "e".toCharArray();
++        Translit_count[i] = 1;
++        j++;
++        i++;
++        Translit_chars[i] = "yu".toCharArray();
++        Translit_count[i] = 2;
++        j++;
++        i++;
++        Translit_chars[i] = "ya".toCharArray();
++        Translit_count[i] = 2;
++        j++;
++        i++;
++    }
++    
++    public static String translit(String s)
++    {
++        if (!full) fillarrays();
++        char ac[] = new char[s.length() * 3];
++        char ac1[] = s.toCharArray();
++        int l = -1;
++        for(int i = 0; i <= s.length() - 1; i++)
++        {
++            char c = ac1[i];
++            if((c >= '\u0410') & (c <= '\u044F') || (c == '\u0401' || c == '\u0451'))
++            {
++                int k = c - 1000;
++                for(int j = 0; j < Translit_count[k]; j++)
++                {
++                    l++;
++                    ac[l] = Translit_chars[c - 1000][j];
++                }
++
++            } else
++            {
++                l++;
++                ac[l] = ac1[i];
++            }
++        }
++
++        return new String(ac, 0, l + 1);
++    }
++    
++}
