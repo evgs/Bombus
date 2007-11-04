@@ -1305,18 +1305,35 @@ public class Roster
                     
                 } /* if (muc) */ catch (Exception e) { /*e.printStackTrace();*/ }
                 else {
-                    boolean enNIL= cf.notInListDropLevel > NotInListFilter.DROP_PRESENCES;
-                    if (ti==Presence.PRESENCE_AUTH_ASK) enNIL=true;
-                    Contact c=getContact(from, enNIL); 
-                    if (c==null) return JabberBlockListener.BLOCK_REJECTED; //drop not-in-list presence
-                    
-                    messageStore(c, m);
+                    Contact c=null;
                     
                     if (ti==Presence.PRESENCE_AUTH_ASK) {
-                        if (cf.autoSubscribe) {
+                        //processing subscriptions
+                        if (cf.autoSubscribe==Config.SUBSCR_DROP)  return JabberBlockListener.BLOCK_REJECTED;
+                        
+                        if (cf.autoSubscribe==Config.SUBSCR_REJECT) {
+                            System.out.print(from); 
+                            System.out.println(": decline subscription");
+                            
+                            sendPresence(from, "unsubscribed", null);
+                            return JabberBlockListener.BLOCK_PROCESSED;
+                        }
+                        
+                        c=getContact(from, true); 
+                        messageStore(c, m);
+
+                        if (cf.autoSubscribe==Config.SUBSCR_AUTO) {
                             doSubscribe(c);
                             messageStore(c, new Msg(Msg.MESSAGE_TYPE_AUTH, from, null, SR.MS_AUTH_AUTO));
                         }
+                    } else {
+                        // processing presences
+                        boolean enNIL= cf.notInListDropLevel > NotInListFilter.DROP_PRESENCES;
+                        c=getContact(from, enNIL);
+                        
+                        if (c==null) return JabberBlockListener.BLOCK_REJECTED; //drop not-in-list presence
+                      
+                        messageStore(c, m);
                     }
                    
                     c.priority=pr.getPriority();

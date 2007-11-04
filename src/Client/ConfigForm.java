@@ -73,6 +73,8 @@ public class ConfigForm implements
 
     Form f;
     ChoiceGroup roster;
+    ChoiceGroup subscr;
+    
     ChoiceGroup nil;
     ChoiceGroup message;
     NumberField MessageLimit;
@@ -125,7 +127,6 @@ public class ConfigForm implements
         roster.append(SR.MS_IGNORE_LIST, null);
         //roster.append(SR.MS_NOT_IN_LIST, null);
         roster.append(SR.MS_AUTOFOCUS,null);
-        roster.append(SR.MS_AUTH_NEW,null);
         
         boolean ra[]={
             cf.showOfflineContacts,
@@ -133,12 +134,19 @@ public class ConfigForm implements
             cf.showTransports, 
             cf.ignore, 
             //cf.notInList,
-            cf.autoFocus,
-            cf.autoSubscribe
+            cf.autoFocus
         };
         this.ra=ra;
         //ra[5]=false;
         roster.setSelectedFlags(ra);
+        
+        subscr=new ChoiceGroup(SR.MS_AUTH_NEW, Choice.POPUP);
+        subscr.append(SR.MS_SUBSCR_AUTO, null);
+        subscr.append(SR.MS_SUBSCR_ASK, null);
+        subscr.append(SR.MS_SUBSCR_DROP, null);
+        subscr.append(SR.MS_SUBSCR_REJECT, null);
+        subscr.setSelectedIndex(cf.autoSubscribe, true);
+        
 
         nil=new ChoiceGroup(SR.MS_NOT_IN_LIST, ConstMIDP.CHOICE_POPUP);
         nil.append(SR.MS_NIL_DROP_MP, null);
@@ -234,6 +242,7 @@ public class ConfigForm implements
         font2.setSelectedIndex(cf.font2/8, true);
 
         f.append(roster);
+        f.append(subscr);
         f.append(nil);
         f.append(font1);
 
@@ -310,8 +319,9 @@ public class ConfigForm implements
             cf.ignore=ra[3];
             //cf.notInList=ra[4];
             cf.autoFocus=ra[4];
-            cf.autoSubscribe=ra[5];
 
+            cf.autoSubscribe=subscr.getSelectedIndex();
+            
             cf.smiles=mv[0];
             int haIdx=1;
 //#if (HISTORY)

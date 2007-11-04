@@ -52,6 +52,11 @@ public class Config {
     public final static int AWAY_OFF=0;
     public final static int AWAY_LOCK=1;
     public final static int AWAY_IDLE=2;
+    
+    public final static int SUBSCR_AUTO=0;
+    public final static int SUBSCR_ASK=1;
+    public final static int SUBSCR_DROP=2;
+    public final static int SUBSCR_REJECT=3;
 
     
     public final int vibraLen=getIntProperty("vibra_len",500);
@@ -138,7 +143,7 @@ public class Config {
     public boolean capsState=false; //FS#748
     public int textWrap=0;
     
-    public boolean autoSubscribe=false;
+    public int autoSubscribe=SUBSCR_ASK;
     
     public int autoAwayType=0;
     public int autoAwayDelay=5; //5 minutes
@@ -275,7 +280,7 @@ public class Config {
 	    
 	    textWrap=inputStream.readInt();
             
-            autoSubscribe=inputStream.readBoolean();
+            /*autoSubscribe=*/inputStream.readBoolean();
             
             autoAwayType=inputStream.readInt();
             autoAwayDelay=inputStream.readInt();
@@ -287,7 +292,9 @@ public class Config {
             eventDelivery=inputStream.readBoolean();
             
             messageCollapsedLength=inputStream.readInt();
-	    
+
+            autoSubscribe=inputStream.readInt();
+            
 	    inputStream.close();
 	} catch (Exception e) {
 	    e.printStackTrace();
@@ -370,7 +377,7 @@ public class Config {
 	    
 	    outputStream.writeInt(textWrap);
             
-            outputStream.writeBoolean(autoSubscribe);
+            outputStream.writeBoolean(false /*autoSubscribe*/);
 
             outputStream.writeInt(autoAwayType);
             outputStream.writeInt(autoAwayDelay);
@@ -382,6 +389,8 @@ public class Config {
             outputStream.writeBoolean(eventDelivery);
             
             outputStream.writeInt(messageCollapsedLength);
+            
+            outputStream.writeInt(autoSubscribe);
 	    
 	} catch (Exception e) { e.printStackTrace(); }
 	
