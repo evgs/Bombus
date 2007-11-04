@@ -4136,6 +4136,16 @@ syslog_msg: true
   * reducing heap overhead while constructing DOM-XML objects JabberDataBlock: replacing Hashtable with Vector; trimming vector finally
   * EntityCaps: mobile->phone (due http://www.xmpp.org/registrar/disco-categories.html)
   * ignoring xep-0172 nickname in non-online presences (like error presences. see FS#779)
+
+(1212)
+  * исправление инвайтов
+  + автоматическое управление подписками. варианты действий: давать подписку автоматически, ручное управление, 
+    игнорирование запросов, автоматическое отклонение запросов подписки
+  * исправление конфликта сименсовской софт-кнопки Back и джойстика на SonyEricsson
+  --
+  * fixing invites after r1208
+  + automatic subscription management. actions: autosubscribe, manual (default), drop, automatic rejecting
+  * fix: siemens softkey conflict with SE joypad left
 ------------------------------------------------------------------------
   known issues:
 
