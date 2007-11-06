@@ -329,7 +329,7 @@ public class Contact extends IconTextElement{
     public Group getGroup() { return group; }
     public int getGroupType() {  
         if (group==null) return 0; 
-        return group.index;  
+        return group.type;  
     }
     public boolean inGroup(Group ingroup) {  return group==ingroup;  }
 

@@ -305,7 +305,7 @@ public class Roster
 	    bookmarks=null;
 	}
 	setMyJid(new Jid(sd.account.getJid()));
-	updateContact(sd.account.getNick(), myJid.getBareJid(), Groups.SELF_GROUP, "self", false);
+	updateContact(sd.account.getNick(), myJid.getBareJid(), SR.MS_SELF_CONTACT, "self", false);
 	
 	System.gc();
     }
@@ -421,7 +421,7 @@ public class Roster
                 else index++; 
             }
             if (onlineContacts==0) {
-                if (g.index>Groups.TYPE_COMMON) groups.removeGroup(g);
+                if (g.type==Groups.TYPE_MUC) groups.removeGroup(g);
             }
         }
     }
@@ -457,7 +457,7 @@ public class Roster
                     groups.getGroup(Groups.TYPE_TRANSP) :
                     groups.getGroup(grpName);
                 if (group==null) {
-                    group=groups.addGroup(grpName, true);
+                    group=groups.addGroup(grpName, Groups.TYPE_COMMON);
                 }
                 c.nick=nick;
                 c.setGroup(group);
@@ -672,7 +672,7 @@ public class Roster
         ExtendedStatus es= StatusList.getInstance().getStatus(myStatus);
         Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage(), StaticData.getInstance().account.getNick());
         if (isLoggedIn()) {
-            if (status==Presence.PRESENCE_OFFLINE) groups.requestGroupState(false);
+            if (status==Presence.PRESENCE_OFFLINE) groups.queryGroupState(false);
             
             if (!StaticData.getInstance().account.isMucOnly() )
 		theStream.send( presence );
@@ -1013,7 +1013,7 @@ public class Roster
 
                         processRoster(data);
                         
-                        groups.requestGroupState(true);
+                        groups.queryGroupState(true);
                         
                         setProgress(SR.MS_CONNECTED,100);
                         reEnumRoster();
@@ -1887,25 +1887,18 @@ public class Roster
                     }
                     // self-contact group
                     Group selfContactGroup=groups.getGroup(Groups.TYPE_SELF);
-                    if (cf.selfContact || selfContactGroup.tonlines>1 || selfContactGroup.unreadMessages>0 )
-                        groups.addToVector(tContacts, Groups.TYPE_SELF);
-                    // adding groups
-                    for (i=Groups.TYPE_COMMON;i<groups.getCount();i++)
-                        groups.addToVector(tContacts,i);
-                    // hiddens
-                    if (cf.ignore) groups.addToVector(tContacts,Groups.TYPE_IGNORE);
-                    // not-in-list
-                    /*if (cf.notInList) */
-                    groups.addToVector(tContacts,Groups.TYPE_NOT_IN_LIST);
+                    selfContactGroup.visible=(cf.selfContact || selfContactGroup.tonlines>1 || selfContactGroup.unreadMessages>0 );
 
+                    // hiddens
+                    groups.getGroup(Groups.TYPE_IGNORE).visible= cf.ignore ;
+                    
                     // transports
                     Group transpGroup=groups.getGroup(Groups.TYPE_TRANSP);
-                    if (cf.showTransports || transpGroup.unreadMessages>0)
-                        groups.addToVector(tContacts,Groups.TYPE_TRANSP);
+                    transpGroup.visible= (cf.showTransports || transpGroup.unreadMessages>0);
                     
-                    // search result
-                    //if (groups.getGroup(Groups.SRC_RESULT_INDEX).tncontacts>0)
-                    groups.addToVector(tContacts, Groups.TYPE_SEARCH_RESULT);
+                    // adding groups
+                    for (i=0; i<groups.getCount(); i++)
+                        groups.addToVector(tContacts,i);
                     
                     vContacts=tContacts;
                     

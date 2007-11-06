@@ -172,7 +172,7 @@ public class PrivacySelect
     }
     private void generateIgnoreList(){
         JabberDataBlock ignoreList=new JabberDataBlock("list", null, null);
-        ignoreList.setAttribute("name", Groups.IGNORE_GROUP);
+        ignoreList.setAttribute("name", SR.MS_IGNORE_LIST);
         JabberDataBlock item=PrivacyItem.itemIgnoreList().constructBlock();
         ignoreList.addChild(item);
         PrivacyList.privacyListRq(true, ignoreList, "ignlst");

@@ -29,6 +29,7 @@ package Conference;
 
 import Client.Contact;
 import Client.Group;
+import Client.Groups;
 import images.RosterIcons;
 import java.util.*;
 import ui.ImageList;
@@ -44,6 +45,7 @@ public class ConferenceGroup extends Group{
 	super(name);
 	this.label=label;
 	imageExpandedIndex=RosterIcons.ICON_GCJOIN_INDEX;
+        this.type=Groups.TYPE_MUC;
     }
 
     String label;

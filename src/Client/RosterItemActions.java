@@ -171,7 +171,7 @@ public class RosterItemActions extends Menu implements YesNoAlert.YesNoListener{
 //#endif
         } else {
 	    Group group=(Group)item;
-	    if (group.index==Groups.TYPE_SEARCH_RESULT)
+	    if (group.type==Groups.TYPE_SEARCH_RESULT)
 		addItem(SR.MS_DISCARD,21);
 	    if (group instanceof ConferenceGroup) {
 		MucContact self=((ConferenceGroup)group).getSelfContact();

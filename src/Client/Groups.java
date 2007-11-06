@@ -34,6 +34,7 @@ import images.RosterIcons;
 import java.util.*;
 import locale.SR;
 import ui.ImageList;
+import ui.VirtualList;
 
 /**
  *
@@ -43,29 +44,27 @@ public class Groups implements JabberBlockListener{
     
     Vector groups;
     
-    public final static int TYPE_TRANSP=0;
-    public final static String TRANSP_GROUP=SR.MS_TRANSPORTS;
     public final static int TYPE_SELF=1;
-    public final static String SELF_GROUP=SR.MS_SELF_CONTACT;
-    public final static int TYPE_SEARCH_RESULT=2;
-    public final static String SRC_RESULT_GROUP=SR.MS_SEARCH_RESULTS;
-    public final static int TYPE_NOT_IN_LIST=3;
-    public final static String NIL_GROUP=SR.MS_NOT_IN_LIST;
+    public final static int TYPE_NO_GROUP=2;
+    public final static int TYPE_COMMON=3;
     public final static int TYPE_IGNORE=4;
-    public final static String IGNORE_GROUP=SR.MS_IGNORE_LIST;
-    public final static int TYPE_COMMON=5;
+    public final static int TYPE_NOT_IN_LIST=5;
+    public final static int TYPE_TRANSP=6;
+    public final static int TYPE_MUC=7;
+    public final static int TYPE_SEARCH_RESULT=8;
     public final static String COMMON_GROUP=SR.MS_GENERAL;
+    
     
     private final static String GROUPSTATE_NS="http://bombus-im.org/groups";
     
     public Groups(){
         groups=new Vector();
-        addGroup(Groups.TRANSP_GROUP, false);
-        addGroup(Groups.SELF_GROUP, false);
-        addGroup(Groups.SRC_RESULT_GROUP, false);
-        addGroup(Groups.NIL_GROUP, false);
-        addGroup(Groups.IGNORE_GROUP, false);
-        addGroup(Groups.COMMON_GROUP, false);
+        addGroup(SR.MS_TRANSPORTS, Groups.TYPE_TRANSP);
+        addGroup(SR.MS_SELF_CONTACT, Groups.TYPE_SELF);
+        addGroup(SR.MS_SEARCH_RESULTS, Groups.TYPE_SEARCH_RESULT);
+        addGroup(SR.MS_NOT_IN_LIST, Groups.TYPE_NOT_IN_LIST);
+        addGroup(SR.MS_IGNORE_LIST, Groups.TYPE_IGNORE);
+        addGroup(Groups.COMMON_GROUP, Groups.TYPE_NO_GROUP);
     }
 
     private int rosterContacts;
@@ -80,7 +79,9 @@ public class Groups implements JabberBlockListener{
     }
     
     public void addToVector(Vector d, int index){
-        Group gr=getGroup(index);
+        Group gr=(Group)groups.elementAt(index);
+        if (!gr.visible) return;
+        
         if (gr.contacts.size()>0){
             d.addElement(gr);
             if (!gr.collapsed) for (Enumeration e=gr.contacts.elements();e.hasMoreElements();){
@@ -96,8 +97,12 @@ public class Groups implements JabberBlockListener{
 	rosterOnline+=gr.getOnlines();
     }
 
-    public Group getGroup(int Index) {
-        return (Group)groups.elementAt(Index);
+    public Group getGroup(int type) {
+        for (Enumeration e=groups.elements();e.hasMoreElements();){
+            Group grp=(Group)e.nextElement();
+            if (grp.type==type) return grp;
+        }
+        return null;
     }
     
     public Enumeration elements(){
@@ -111,32 +116,17 @@ public class Groups implements JabberBlockListener{
         }
         return null;
     }
-    public Group addGroup(String name, boolean sort) {
+    
+    public Group addGroup(String name, int type) {
         Group ng=new Group(name);
-        int index=TYPE_COMMON+1;
-        if (!sort) index=groups.size();
-        String lName=name.toLowerCase();
-        
-        while (index<groups.size()) {
-            String grpname=((Group)(groups.elementAt(index))).getName();
-            int cmp=lName.compareTo( grpname.toLowerCase() );
-            if (cmp<0) {
-                ng.index=index;
-                groups.insertElementAt(ng, index);
-                return ng;
-            }
-            index++;
-        }
-        
-        ng.index=index;
-        groups.addElement(ng);
-        return ng;
+        ng.type=type;
+        return addGroup(ng);
     }
     
-    public Group addGroup(Group group) {
-	group.index=groups.size();
-        groups.addElement(group);
-        return group;
+    public Group addGroup(Group ng) {
+        groups.addElement(ng);
+        VirtualList.sort(groups);
+        return ng;
     }
 
     public Vector getRosterGroupNames(){
@@ -146,7 +136,7 @@ public class Groups implements JabberBlockListener{
 	    if (grp.imageExpandedIndex==RosterIcons.ICON_EXPANDED_INDEX)
             s.addElement(grp.name);
         }
-        s.addElement(Groups.IGNORE_GROUP);
+        s.addElement(SR.MS_IGNORE_LIST);
         return s;
     }
     public int getCount() {return groups.size();}
@@ -181,7 +171,7 @@ public class Groups implements JabberBlockListener{
         return BLOCK_REJECTED;
     }
 
-    public void requestGroupState(boolean get) {
+    public void queryGroupState(boolean get) {
         Roster roster=StaticData.getInstance().roster;
         if (!roster.isLoggedIn()) return;
         
