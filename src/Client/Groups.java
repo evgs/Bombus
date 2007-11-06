@@ -131,12 +131,14 @@ public class Groups implements JabberBlockListener{
 
     public Vector getRosterGroupNames(){
         Vector s=new Vector();
-        for (int i=Groups.TYPE_COMMON; i<groups.size(); i++) {
+        for (int i=0; i<groups.size(); i++) {
 	    Group grp=(Group) groups.elementAt(i);
-	    if (grp.imageExpandedIndex==RosterIcons.ICON_EXPANDED_INDEX)
+            
+            if (grp.type<TYPE_NO_GROUP) continue;
+            if (grp.type>TYPE_IGNORE) continue;
+            
             s.addElement(grp.name);
         }
-        s.addElement(SR.MS_IGNORE_LIST);
         return s;
     }
     public int getCount() {return groups.size();}
