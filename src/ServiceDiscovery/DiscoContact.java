@@ -36,11 +36,6 @@ public class DiscoContact extends Contact{
     }
     public String toString() { return (nick==null)?getJid():nick; }
 
-    public int compare(IconTextElement right){
-        Contact c=(Contact) right;
-        return this.toString().compareTo( c.toString() );
-    }
-
     public String getTipString() {
         return getJid();
     }

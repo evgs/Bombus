@@ -1164,7 +1164,7 @@ public class Roster
                             body=inviteFrom+SR.MS_IS_INVITING_YOU+from+" ("+inviteReason+')';
                         }
                     }
-                } catch (Exception e) { e.printStackTrace(); }
+                } catch (Exception e) { /* not muc#user case*/ }
                 
                 Contact c=getContact(from, cf.notInListDropLevel != NotInListFilter.DROP_MESSAGES_PRESENCES);
                 if (c==null) return JabberBlockListener.BLOCK_REJECTED; //not-in-list message dropped
