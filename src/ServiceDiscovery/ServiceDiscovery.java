@@ -58,8 +58,8 @@ public class ServiceDiscovery
     
     
     //private final static String strJoin="Join Conference";
-    private final static String strReg="Register";
-    private final static String strSrch="Search";
+    private final static String strReg=SR.MS_REGISTER;
+    private final static String strSrch=SR.MS_SEARCH;
     private final static String strCmds="Execute";
     private final int AD_HOC_INDEX=17;
     

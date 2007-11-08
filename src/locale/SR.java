@@ -349,6 +349,11 @@ public class SR {
     public static String MS_SUBSCR_DROP=loadString("Drop subscription");
     public static String MS_SUBSCR_REJECT=loadString("Deny subscription");  //TODO: correct according to RFC
     
+//2007-11-07
+    public static String MS_SEARCH=loadString("Search");
+    public static String MS_REGISTER=loadString("Register");
+    
+    
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
 

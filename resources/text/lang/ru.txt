@@ -119,7 +119,7 @@ Smiles	Вкл/выкл смайлики
 Contact >	Контакт >
 offline contacts	показать отключенных
 Transport	Транспорт
-composing events	"composing" события
+composing events	извещения о наборе текста
 Add Smile	Встав. смайлик
 Nickname	Ник
 Revoke Voice	Отнять право голоса
@@ -324,3 +324,11 @@ Accept file	Принять файл
 Save to	Сохранить как
 Sender:	Отправитель:
 size:	размер:
+
+//2007-11-07 zet
+Automatic subscription	автоподписка
+Ask me	спросить меня
+Drop subscription	отклонять
+Deny subscription	запрещать
+Search	Поиск
+Register	Регистрация

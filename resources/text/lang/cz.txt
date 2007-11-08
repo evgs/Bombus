@@ -1,8 +1,8 @@
-﻿// Czech langfile for Bombus - mobile jabber client
 // Český překlad Bombus by jenda.69 (c) 2007 (http://bombus.jendamusic.net)
 // Upravený překlad "(c) 2006 Jindřich Skácel"; přidána diakritika, upřesněny některé názvy
 // Pokud by jste našli nějakou chybu, překlep, chybějící diakritiku, nepřeložené slovo, pište na: jenda.69@gmail.com
 xmlLang cz
+langfile	Česky
 Jid	Jid
 Privacy Lists	Seznamy soukromí
 Message font	Font zprávy
@@ -139,7 +139,6 @@ Sound	Zvuk
 Login failed	Chyba přihlášení
 New Jid	Nové JID
 plain-text password	Heslo jako text
-Paste Nickname	Vložit nick
 Kick	Kick
 Clear List	Smazat diskuzi
 Grant Voice	Dát Voice
@@ -275,14 +274,14 @@ invisible	neviditelný
 do not disturb	nerušit
 offline	odpojen
 Join marked (auto)	Připojení označeno (auto)
-shared platform info	informace o platformě
-delivery events	doručenky
-drop all	pustit všechno
+shared platform info	Sdílet info o platformě
+delivery events	Doručenky
+drop all	zahodit všechno
 receive messages	přijmout zprávy
 messages & presences	zprávy a příchody
 normal	normální
-small	malé
-large	velké
+small	malý
+large	velký
 File Transfers	Přenosy souborů
 Auto	Automaticky
 All signals	Všechno
@@ -290,3 +289,20 @@ Vibra	Vibrace
 Sound	Zvuk
 No signals	Bez oznámení
  (default)	 (výchozí)
+
+//2007-10-24 voffk
+Message collapse limit	Limit minimalizace zpráv
+This user wants to subscribe to your presence	Tento uživatel žádá o povolení zobrazení Vašeho stavu
+You are now authorized	Jste autorizovaný
+Your authorization has been removed!	Vaše autorizace byla odstraněna!
+Change nickname	Změnit přezdívku
+ has changed subject to: 	 změnil(a) předmět na: 
+Send file	Poslat soubor
+To: 	Komu: 
+File	Soubor
+Description	Popis
+Path	Cesta
+Accept file	Přijmout soubor
+Save to	Uložit do
+Sender:	Odesílatel:
+size:	velikost:
