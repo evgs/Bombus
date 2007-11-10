@@ -94,6 +94,7 @@ public class Bombus extends MIDlet implements Runnable{
         SplashScreen s= SplashScreen.getInstance();
         s.setProgress(5);
         
+        ui.Colors.initColors();
         
         try {
             s.img=Image.createImage("/images/splash.png");

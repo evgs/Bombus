@@ -41,17 +41,6 @@ import com.alsutton.jabber.datablocks.Presence;
  */
 public class Contact extends IconTextElement{
     
-    private static int COLORS[]={
-        Colors.CONTACT_DEFAULT,
-        Colors.CONTACT_CHAT,
-        Colors.CONTACT_AWAY,
-        Colors.CONTACT_XA,
-        Colors.CONTACT_DND,
-        Colors.CONTACT_DEFAULT,
-        Colors.CONTACT_DEFAULT,
-        Colors.CONTACT_DEFAULT
-    };
-    
     public final static byte ORIGIN_ROSTER=0;
     public final static byte ORIGIN_ROSTERRES=1;
     public final static byte ORIGIN_CLONE=2;
@@ -261,7 +250,15 @@ public class Contact extends IconTextElement{
     }
     
   
-    public int getColor() { return (status>7)?0:COLORS[status]; }
+    public int getColor() { 
+        switch (status) {
+            case Presence.PRESENCE_CHAT: return Colors.CONTACT_CHAT;
+            case Presence.PRESENCE_AWAY: return Colors.CONTACT_AWAY;
+            case Presence.PRESENCE_XA: return Colors.CONTACT_XA;
+            case Presence.PRESENCE_DND: return Colors.CONTACT_DND;
+        }
+        return Colors.CONTACT_DEFAULT;
+    };
 
     public int getFontIndex(){
         return (status<5)?1:0;

@@ -1,0 +1,7 @@
+null	default
+/themes/tkabber.txt	Tkabber
+/themes/opera.txt	Opera
+/themes/summer.txt	Summer
+/themes/newyear.txt	NewYear
+/themes/night.txt	Night
+/themes/water.txt	Water

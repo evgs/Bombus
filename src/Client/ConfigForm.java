@@ -99,6 +99,11 @@ public class ConfigForm implements
     
     NumberField fieldAwatDelay;
     
+//#if COLOR_THEMES
+    ChoiceGroup themeFile;
+    Vector themeFiles[];
+//#endif
+    
     Command cmdOk=new Command(SR.MS_OK,Command.OK,1);
     //Command cmdSign=new Command("- (Sign)",Command.ITEM,2);
     Command cmdPlaySound=new Command(SR.MS_TEST_SOUND, Command.ITEM,10);
@@ -235,6 +240,17 @@ public class ConfigForm implements
             sndFile.setSelectedIndex(cf.soundsMsgIndex, true);
         } catch (Exception e) { cf.soundsMsgIndex=0; };
 
+//#if COLOR_THEMES
+        themeFile=new ChoiceGroup(/*SR.MS_LOAD_SKIN*/"Color theme", ConstMIDP.CHOICE_POPUP);
+        themeFiles=new StringLoader().stringLoader("/themes/res.txt",2);
+        for (Enumeration f=themeFiles[1].elements(); f.hasMoreElements(); ) {
+            themeFile.append( (String)f.nextElement(), null );
+        }
+        try {
+            themeFile.setSelectedIndex(cf.colorTheme, true);
+        } catch (Exception e) { cf.colorTheme=0; };
+//#endif
+        
         String fnts[]={SR.MS_FONTSIZE_NORMAL, SR.MS_FONTSIZE_SMALL, SR.MS_FONTSIZE_LARGE};
         font1=new ChoiceGroup(SR.MS_ROSTER_FONT, ConstMIDP.CHOICE_POPUP, fnts, null);
         font2=new ChoiceGroup(SR.MS_MESSAGE_FONT, ConstMIDP.CHOICE_POPUP, fnts, null);
@@ -257,6 +273,10 @@ public class ConfigForm implements
 	
 	f.append(sndFile);
 	
+//#if COLOR_THEMES
+        f.append(themeFile);
+//#endif
+       
         lang=new ChoiceGroup("Language", ConstMIDP.CHOICE_POPUP);
 	langs=new StringLoader().stringLoader("/lang/res.txt",3);
 	
@@ -353,6 +373,11 @@ public class ConfigForm implements
 	    cf.locOffset=fieldLoc.getValue();
 	    //cf.keepAlive=keepAlive.getValue();
 	    
+//#if COLOR_THEMES
+            cf.colorTheme=themeFile.getSelectedIndex();
+            ui.Colors.initColors();
+//#endif
+                
 	    cf.soundsMsgIndex=sndFile.getSelectedIndex();
             
             FontCache.rosterFontSize=cf.font1=font1.getSelectedIndex()*8;

@@ -139,6 +139,8 @@ public class Config {
     public int font2=0;
     public int font3=0;
 
+    public int colorTheme=0;  //default
+    
     public String lang;  //en
     public boolean capsState=false; //FS#748
     public int textWrap=0;
@@ -272,7 +274,7 @@ public class Config {
             
             autoFocus=inputStream.readBoolean();
             
-            /*lang=*/inputStream.readInt();
+            colorTheme=inputStream.readInt();
             
             storeConfPresence=inputStream.readBoolean();
             
@@ -332,6 +334,15 @@ public class Config {
         return null; //unknown language ->en
     }
     
+//#if COLOR_THEMES
+    public String themeFileName() {
+        if (colorTheme==0) return null;   //default
+        Vector files[]=new StringLoader().stringLoader("/themes/res.txt", 2);
+        if (colorTheme>=files[0].size()) return null;
+        return (String) files[0].elementAt(colorTheme);
+    }
+//#endif
+    
     public void saveToStorage(){
 	
 	DataOutputStream outputStream=NvStorage.CreateDataOutputStream();
@@ -369,7 +380,7 @@ public class Config {
             
             outputStream.writeBoolean(autoFocus);
             
-            outputStream.writeInt(0 /*lang*/);
+            outputStream.writeInt(colorTheme);
             
             outputStream.writeBoolean(storeConfPresence); 
 

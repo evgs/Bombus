@@ -96,7 +96,7 @@ public class Msg //implements MessageList.Element
             case MESSAGE_TYPE_SUBJ:return Colors.MSG_SUBJ;
             //case MESSAGE_TYPE_ERROR: return Colors.MESSAGE_OUT;
         }
-        return 0;
+        return Colors.LIST_INK;
     }
     public String toString(){
         StringBuffer time=new StringBuffer();
