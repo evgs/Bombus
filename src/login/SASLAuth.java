@@ -348,8 +348,7 @@ public class SASLAuth implements JabberBlockListener{
             
             String sid = readLine(is);
             if(!sid.startsWith("SID=")) {
-                listener.loginFailed(sid);
-                return null;
+                throw new SecurityException(SR.MS_LOGIN_FAILED);
             }
             
             String lsid = readLine(is);
