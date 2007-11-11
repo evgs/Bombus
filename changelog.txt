@@ -4146,6 +4146,31 @@ syslog_msg: true
   * fixing invites after r1208
   + automatic subscription management. actions: autosubscribe, manual (default), drop, automatic rejecting
   * fix: siemens softkey conflict with SE joypad left
+
+12.11.2007
+0.5.1225-RC0
+  * Отображение ошибок при использовании X_GOOGLE_TOKEN
+  + Цветовые темы. пока ТОЛЬКО для ZLib-версий
+  + Переключение цветовых тем на лету
+  * Обновление локализаций ru и cz
+  - Убрана история ввода для поля Join Conference:room
+  * Исправлена поломка сортировки контактов ростера после поиска
+  * Результаты поиска отображаются со статусом "оффлайн"
+  * Сортировка псевдо-групп конференций. Теперь располагаются после группы транспортов
+  * Правильная обработка ошибок в Service Discovery  
+  --
+  * displaying auth error for X_GOOGLE_TOKEN
+  * Google token exceptions handling
+  + Color themes ONLY FOR ZLib-versions
+  + Hot-switching color-themes
+  * cz.txt updated (jenda 69)
+  * ru.txt updated (zet)
+  - input history removed from Join Conference:room (zet)
+  * roster sorting was broken
+  * search results are offline contacts in roster
+  * sorting muc-pseudo-groups
+  * ServiceDiscovery: error message in alert box
+
 ------------------------------------------------------------------------
   known issues:
 
