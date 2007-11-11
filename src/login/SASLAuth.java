@@ -368,6 +368,8 @@ public class SASLAuth implements JabberBlockListener{
             
         } catch (javax.microedition.pki.CertificateException e) {
             throw new SecurityException(e.getMessage());
+        } catch (SecurityException e) {
+            throw e;
         } catch(Exception e) {
             e.printStackTrace();
             listener.loginFailed("Google token error");
