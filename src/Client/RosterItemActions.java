@@ -107,6 +107,7 @@ public class RosterItemActions extends Menu implements YesNoAlert.YesNoListener{
 
                 
                 if (selfContact.roleCode==MucContact.ROLE_MODERATOR) {
+                    if(mc.roleCode<MucContact.ROLE_MODERATOR)
                     addItem(SR.MS_KICK,8);
                     
                     if (myAffiliation>=MucContact.AFFILIATION_ADMIN && mc.affiliationCode<myAffiliation)

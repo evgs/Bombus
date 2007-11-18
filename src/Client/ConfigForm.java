@@ -241,7 +241,7 @@ public class ConfigForm implements
         } catch (Exception e) { cf.soundsMsgIndex=0; };
 
 //#if COLOR_THEMES
-        themeFile=new ChoiceGroup(/*SR.MS_LOAD_SKIN*/"Color theme", ConstMIDP.CHOICE_POPUP);
+        themeFile=new ChoiceGroup(SR.MS_COLOR_THEME, ConstMIDP.CHOICE_POPUP);
         themeFiles=new StringLoader().stringLoader("/themes/res.txt",2);
         for (Enumeration f=themeFiles[1].elements(); f.hasMoreElements(); ) {
             themeFile.append( (String)f.nextElement(), null );

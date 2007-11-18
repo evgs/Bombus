@@ -352,6 +352,14 @@ public class SR {
 //2007-11-07
     public static String MS_SEARCH=loadString("Search");
     public static String MS_REGISTER=loadString("Register");
+
+    public static String MS_COLOR_THEME=loadString("Color theme");
+    public static String MS_MEMORY=loadString( "Memory:" );
+    public static String MS_MEMORY_FREE=loadString( "Free=" );
+    public static String MS_MEMORY_TOTAL=loadString( "Total=" );
+    public static String MS_VERSIONS=loadString( "Versions" );
+    public static String MS_INSTALL=loadString( "Install" );
+    public static String MS_AVAILABLE_VERSIONS=loadString( "Available versions" );
     
     
     public static String MS_XMLLANG;

@@ -110,6 +110,13 @@ public class PrivacyForm
                     form.set(2, textValue);
                     break;
                 case 2: //subscription
+                {
+                    int i;
+
+                    for (i=0; i<PrivacyItem.subscrs.length; i++)
+                    if (item.value.equals(PrivacyItem.subscrs[i]))   break;
+                        choiceSubscr.setSelectedIndex(i, true);
+                }
                     form.set(2, choiceSubscr);
                     break;
                     

@@ -38,6 +38,7 @@ import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.List;
 import midlet.Bombus;
+import locale.SR;
 
 /**
  *
@@ -45,8 +46,8 @@ import midlet.Bombus;
  */
 public class Upgrade implements Runnable, CommandListener{
    
-    private Command cmdBack=new Command("Back", Command.BACK, 99);
-    private Command cmdInstall=new Command("Install", Command.ITEM, 1);
+    private Command cmdBack=new Command(SR.MS_BACK, Command.BACK, 99);
+    private Command cmdInstall=new Command(SR.MS_INSTALL, Command.ITEM, 1);
     private final static String VERSION_URL=Version.BOMBUS_SITE_URL+"/version.php";
     List list;
     Vector versions[];
@@ -58,7 +59,7 @@ public class Upgrade implements Runnable, CommandListener{
     public Upgrade(Display display) {
         this.display=display;
         parentView=display.getCurrent();
-        list=new List("Available versions", List.IMPLICIT);
+        list=new List(SR.MS_AVAILABLE_VERSIONS, List.IMPLICIT);
         list.setCommandListener(this);
         list.addCommand(cmdBack);
         display.setCurrent(list);

@@ -2,7 +2,7 @@
 // Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org
 // All rights reserved.
 // (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
-// (c) Vladimir N. Shelukhin <shelukhin@mail.ru>, 2006-2007.
+// (c) Vladimir N. Shelukhin <zet@bombus-im.org>, 2006-2007.
 // (c) Vladimir A. Kichigin <xmpp: voffk@jabber.ru>, 2007.
 
 // ask server to send us localized messages
@@ -290,7 +290,7 @@ away	отсутствует
 not available	недоступен
 invisible	невидим
 do not disturb	не беспокоить
-offline	отключился
+offline	отключен
 Join marked (auto)	Подключиться к отмеченным для автовхода
 shared platform info	показывать модель устройства
 delivery events	отчёты о доставке
@@ -332,3 +332,10 @@ Drop subscription	отклонять
 Deny subscription	запрещать
 Search	Поиск
 Register	Регистрация
+Color theme	Цветовая тема
+Memory:	Память:
+Free=	Свободно=
+Total=	Всего=
+Versions	Версии
+Install	Установить
+Available versions	Доступные версии

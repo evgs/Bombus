@@ -43,7 +43,7 @@ public class InfoWindow implements CommandListener{
     private Form form;
 
     private Command cmdBack=new Command(SR.MS_CLOSE, Command.BACK, 99);
-    private Command cmdUpgrade=new Command("Versions", Command.SCREEN, 1);
+    private Command cmdUpgrade=new Command(SR.MS_VERSIONS, Command.SCREEN, 1);
     /** Creates a new instance of InfoWindow */
     public InfoWindow(Display display) {
         this.display=display;
@@ -66,13 +66,16 @@ public class InfoWindow implements CommandListener{
 //#endif
                 ));
         
-        StringBuffer memInfo=new StringBuffer("\n\nMemory:\n");
-        memInfo.append("Free=");
+        StringBuffer memInfo=new StringBuffer("\n\n");
+        memInfo.append(SR.MS_MEMORY); 
+        memInfo.append("\n");
+        memInfo.append(SR.MS_MEMORY_FREE);
         //mem.append(Runtime.getRuntime().freeMemory()>>10);
         //mem.append("\nFree=");
         System.gc();
         memInfo.append(Runtime.getRuntime().freeMemory()>>10);
-        memInfo.append("\nTotal=");
+        memInfo.append("\n");
+        memInfo.append(SR.MS_MEMORY_TOTAL);
         memInfo.append(Runtime.getRuntime().totalMemory()>>10);
         form.append(memInfo.toString());
 //#if ZLIB
@@ -81,7 +84,7 @@ public class InfoWindow implements CommandListener{
         try {
             conn_stats=StaticData.getInstance().roster.theStream.getStreamStats();
         } catch (Exception e) {
-            conn_stats="Disconnected";
+            conn_stats=SR.MS_DISCONNECTED;
         }
         form.append(conn_stats);
 //#endif
