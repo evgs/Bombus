@@ -4172,7 +4172,7 @@ syslog_msg: true
   * ServiceDiscovery: error message in alert box
 
 18.11..2007
-0.5.1225-RC1
+0.5.1230-RC1
   * Обновление локализации (zet)
   * Privacy Lists: исправление редактирования фильтра "по подписке" - FS#765
   * исправление сломанной в RC0 Resolve Nicknames
