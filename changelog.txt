@@ -4171,6 +4171,15 @@ syslog_msg: true
   * sorting muc-pseudo-groups
   * ServiceDiscovery: error message in alert box
 
+18.11..2007
+0.5.1225-RC1
+  * Обновление локализации (zet)
+  * Privacy Lists: исправление редактирования фильтра "по подписке" - FS#765
+  * исправление сломанной в RC0 Resolve Nicknames
+  --
+  * russian translation updated (zet)
+  * FS#765 fixed (subscription filter)
+  * fixed broken Resolve Nicknames
 ------------------------------------------------------------------------
   known issues:
 
