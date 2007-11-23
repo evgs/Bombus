@@ -148,11 +148,7 @@ public class Utf8IOStream implements Runnable{
         if (inpStream instanceof ZInputStream) avail=512;
 //#endif
         
-        while (avail==0 
-//#if (!ZLIB)
-//#                 && iStreamWaiting
-//#endif
-                ) {
+        while (avail==0) {
             try { Thread.sleep(100); } catch (Exception e) {};
             avail=inpStream.available();
         }
@@ -238,43 +234,6 @@ public class Utf8IOStream implements Runnable{
 	try { connection.close();   }  catch (Exception e) {};
     }
     
-    public String readLine() throws IOException {
-	StringBuffer buf=new StringBuffer();
-	/*if (afterEol>0) {
-	    buf.append(afterEol);
-	    afterEol=0;
-	}*/
-	
-	boolean eol=false;
-	while (true) {
-	    int c = getNextCharacter();
-	    if (c<0) { 
-		eol=true;
-		if (buf.length()==0) return null;
-		break;
-	    }
-	    if (c==0x0d || c==0x0a) {
-		eol=true;
-		//inputstream.mark(2);
-		if (c==0x0a) break;
-	    }
-	    else {
-		if (eol) {
-		    //afterEol=c;
-		    //inputstream.reset();
-		    break;
-		}
-		buf.append((char) c);
-	    }
-	}
-	return buf.toString();
-    }
-
-    /**
-     * Enables inputStream.available() polling before read
-     * it is critical for Motorola phones
-     */
-    public void setStreamWaiting(boolean iStreamWaiting) {  this.iStreamWaiting = iStreamWaiting; }
 //#if ZLIB
     private void appendZlibStats(StringBuffer s, long packed, long unpacked, boolean read){
         s.append(packed); s.append(read?">>>":"<<<"); s.append(unpacked);

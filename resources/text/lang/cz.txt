@@ -1,12 +1,12 @@
-// Český překlad Bombus by jenda.69 (c) 2007 (http://bombus.jendamusic.net)
+// Český překlad Bombus by jenda.69 (c) 2007
 // Upravený překlad "(c) 2006 Jindřich Skácel"; přidána diakritika, upřesněny některé názvy
 // Pokud by jste našli nějakou chybu, překlep, chybějící diakritiku, nepřeložené slovo, pište na: jenda.69@gmail.com
 xmlLang cz
 langfile	Česky
 Jid	Jid
 Privacy Lists	Seznamy soukromí
-Message font	Font zprávy
-Roster font	Font kontaktů
+Message font	Písmo zpráv
+Roster font	Písmo kontaktů
 Paste Body	Vložit tělo
 Configure Room	Nastavit místnost
 Paste Subject	Vložit téma
@@ -47,11 +47,11 @@ Show Offlines	Ukazát odpojené
 Select	Vybrat
 Subject	Předmět
 Group menu	Menu skupiny
-Quit	Konec
+Quit	Ukončit
 Add to roster	Přidat do seznamu
 Edit list	Upravit seznam
 Registering	Registruji
-Done	Hotovo
+Done	Dokončeno
 Error: 	Chyby: 
 Browse	Prozkoumat
 Save list	Uložit seznam
@@ -121,7 +121,7 @@ Set default	Výchozí
 Outcasts (Ban)	Outcasts (Ban)
 Set affiliation to	Nastavit přidružení k
 Register Account	Zaregistrovat účet
-autologin	Autopřipojení
+autologin	Přihlásit se
 Publish	Uveřejnit
 Remove subscription	Odstranit povolení
 Set	Nastavit
@@ -159,8 +159,8 @@ Clock offset	Vyrovnání hodin
 flash backlight	Blikat podsvětlením
 Suspend	Nechat rozepsané
 Resume Message	Dopsat zprávu
-Alert Profile >	Upozorňování >
-My vCard	Moje vCard
+Alert Profile >	Oznamování >
+My vCard	Moje vizitka
 transports	Transporty
 New Account	Nový účet
 self-contact	Můj kontakt
@@ -254,15 +254,15 @@ Are you sure want to delete this message?	Opravdu chcete smazat tuto zprávu?
 New conference	Nová konference
 Root	Kořenový adresář
 Decline	Odmítnout
-authorize new contacts	Autorizovat nové kontakty
+authorize new contacts	Autorizace nových kontaktů
 [auto-subscribe]	[automaticky potvrzovat]
 Keep-Alive	Udržování spojení
  has been unaffiliated and kicked from members-only room	 byl odmítnut a vykopnut z místnosti jen pro členy
-Minutes before away	Minut nečinnosti
+Minutes before away	Doba nečinnosti (minut)
 Automatic Away	Automaticky nepřítomen
-disabled	deaktivováno
-keyblock / flip	zamknutí/zaklapnutí
-idle	nečinný
+disabled	Nikdy
+keyblock / flip	Při zamknutí/zaklapnutí
+idle	Při nečinnosti
 Add autojoin bookmark	Přidat samopřipojovací záložku
 
 //2007-08-19
@@ -276,12 +276,12 @@ offline	odpojen
 Join marked (auto)	Připojení označeno (auto)
 shared platform info	Sdílet info o platformě
 delivery events	Doručenky
-drop all	zahodit všechno
-receive messages	přijmout zprávy
-messages & presences	zprávy a příchody
-normal	normální
-small	malý
-large	velký
+drop all	Ignorovat všechno
+receive messages	Přijímat zprávy
+messages & presences	Zprávy a příchody
+normal	Střední
+small	Malé
+large	Velké
 File Transfers	Přenosy souborů
 Auto	Automaticky
 All signals	Všechno
@@ -305,4 +305,19 @@ Path	Cesta
 Accept file	Přijmout soubor
 Save to	Uložit do
 Sender:	Odesílatel:
-size:	velikost:
+size:	Velikost:
+
+//2007-11-07 zet
+Automatic subscription	Automaticky
+Ask me	Dotázat se
+Drop subscription	Ignorovat
+Deny subscription	Odmítat
+Search	Hledání
+Register	Registrovat
+Color theme	Barevné schéma
+Memory:	Paměť:
+Free=	Volná=
+Total=	Celková=
+Versions	Verze
+Install	Nainstalovat
+Available versions	Dostupné verze
