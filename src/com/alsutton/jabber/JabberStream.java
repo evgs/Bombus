@@ -73,26 +73,24 @@ public class JabberStream implements XMLEventListener, Runnable {
     public JabberStream( String server, String hostAddr, boolean xmppV1, String proxy, JabberListener theListener )
     throws IOException {
         this.server=server;
+        
         boolean waiting=Config.getInstance().istreamWaiting;
+        
+        StreamConnection connection;
         if (proxy==null) {
-            StreamConnection connection = (StreamConnection) Connector.open(hostAddr);
-            iostream=new Utf8IOStream(connection);
-            iostream.setStreamWaiting(waiting);
+            connection = (StreamConnection) Connector.open(hostAddr);
         } else {
-            StreamConnection connection = (StreamConnection) Connector.open(proxy);
-            iostream=new Utf8IOStream(connection);
-            iostream.setStreamWaiting(waiting);
-            
-            send( "CONNECT " + hostAddr + " HTTP/1.0 \r\n"
-                + "HOST " + hostAddr + "\r\n" 
-                + "Pragma: no-cache\r\n" + "\r\n");
-            
-            String inpLine=iostream.readLine();
-            if (inpLine.indexOf("200",0)<=0) throw new IOException(inpLine);
-            while (inpLine.length()>0) {
-                inpLine=iostream.readLine();
-            }
+//#if HTTPCONNECT
+//#             connection = io.HttpProxyConnection.open(hostAddr, proxy);
+//#elif HTTPPOLL  
+//#             connection = new io.HttpPollingConnection(hostAddr, proxy);
+//#else            
+            throw new IllegalArgumentException ("no proxy supported");
+//#endif            
         }
+
+        iostream=new Utf8IOStream(connection);
+        //iostream.setStreamWaiting(waiting);
 
         
         dispatcher = new JabberDataBlockDispatcher(this);

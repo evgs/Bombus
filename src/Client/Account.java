@@ -274,7 +274,11 @@ public class Account extends IconTextElement{
         if (!isEnableProxy()) {
 	    url.insert(0, (useSSL)?"ssl://":"socket://");
         } else {
-            proxy="socket://" + getProxyHostAddr() + ':' + getProxyPort();
+//#if HTTPPOLL
+//#             proxy=getProxyHostAddr();
+//#elif HTTPCONNECT
+//#             proxy="socket://" + getProxyHostAddr() + ':' + getProxyPort();
+//#endif            
         }
         return new JabberStream(  getServer(), url.toString(), sasl, proxy, null);    
     }
