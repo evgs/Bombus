@@ -4184,6 +4184,13 @@ syslog_msg: true
 0.5.1233
   + опциональный компонент - HTTPPOLL, не включён в сборку
 
+0.5.1234
+  notes for HTTPPOLL: 
+  1.  Ability HTTPPOLL should be added into the corresponding target
+  2.  HTTP Polling url MUST contain protocol prefix:
+      http://httppoll.jabber.ru/ - example for jabber.ru
+
+
 ------------------------------------------------------------------------
   known issues:
 
