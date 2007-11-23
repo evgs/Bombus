@@ -4180,6 +4180,10 @@ syslog_msg: true
   * russian translation updated (zet)
   * FS#765 fixed (subscription filter)
   * fixed broken Resolve Nicknames
+
+0.5.1233
+  + опциональный компонент - HTTPPOLL, не включён в сборку
+
 ------------------------------------------------------------------------
   known issues:
 
