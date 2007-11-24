@@ -58,6 +58,7 @@ public class HttpPollingConnection implements StreamConnection {
     Vector keys;
 
     private boolean opened;
+    private String error;
     
     synchronized private void httpPostRequest(String postData) throws IOException {
         try {
@@ -109,6 +110,7 @@ public class HttpPollingConnection implements StreamConnection {
             
             if (cookie.endsWith(":0")) {
                 opened=false;
+                error=cookie;
             }
             
             if (sessionId==null) { 
@@ -135,6 +137,7 @@ public class HttpPollingConnection implements StreamConnection {
             hc.close();
         } catch (Exception e) {
             opened=false;
+            error=e.toString();
             e.printStackTrace();
         }
     }
@@ -159,7 +162,7 @@ public class HttpPollingConnection implements StreamConnection {
         }
 
         public int available() throws IOException {
-            if (!opened) throw new IOException("Connection closed");
+            if (!opened) throw new IOException("Connection closed: "+error);
             if (inStack.size()==0) return 0;
             int avail=((byte[])inStack.firstElement()).length - ps;
             if (avail==0) { inStack.removeElementAt(0); ps=0; return available(); }
