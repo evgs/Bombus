@@ -210,8 +210,10 @@ class AccountForm implements CommandListener, ItemStateListener {
 	    
 	    account.setPort(portbox.getValue());
 
-	    account.setProxyHostAddr(proxyHost.getString());
-            account.setProxyPort(proxyPort.getValue());
+//#if HTTPPOLL || HTTPCONNECT            
+//#             account.setProxyHostAddr(proxyHost.getString());
+//#             account.setProxyPort(proxyPort.getValue());
+//#endif
             
             account.keepAlivePeriod=keepAlive.getValue();
             account.keepAliveType=keepAliveType.getSelectedIndex();
