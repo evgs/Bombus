@@ -4185,11 +4185,24 @@ syslog_msg: true
   + опциональный компонент - HTTPPOLL, не включён в сборку
 
 0.5.1234
-  notes for HTTPPOLL: 
+  notes for HTTPPOLL (experimental): 
   1.  Ability HTTPPOLL should be added into the corresponding target
   2.  HTTP Polling url MUST contain protocol prefix:
       http://httppoll.jabber.ru/ - example for jabber.ru
+  3.  use keep-alive type="1 byte" and keep-alive period lower than 250 seconds
+      to avoid session termination
 
+
+26.11.2007
+0.5.1238-RC2
+  * запрет отправки приглашений в конференции для контактов из "Search Results"
+  * некоторые обновления синонимов смайлов
+  - HTTP CONNECT перемещён в опциональные компоненты, и теперь не входит в официальную
+    сборку
+  --
+  * disabled invites for "Search Results"
+  * smiles.txt updated
+  - HTTP CONNECT is now removed from Release builds
 
 ------------------------------------------------------------------------
   known issues:
