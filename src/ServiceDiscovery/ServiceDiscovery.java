@@ -58,8 +58,8 @@ public class ServiceDiscovery
     
     
     //private final static String strJoin="Join Conference";
-    private final static String strReg=SR.MS_REGISTER;
-    private final static String strSrch=SR.MS_SEARCH;
+    //private final static String strReg="Register";
+    //private final static String strSrch="Search";
     private final static String strCmds="Execute";
     private final int AD_HOC_INDEX=17;
     
@@ -260,8 +260,8 @@ public class ServiceDiscovery
                         String var=i.getAttribute("var");
                         features.addElement(var);
                         //if (var.equals(NS_MUC)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_GCJOIN_INDEX, strJoin)); }
-                        if (var.equals(NS_SRCH)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_SEARCH_INDEX, strSrch)); }
-                        if (var.equals(NS_REGS)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_REGISTER_INDEX, strReg)); }
+                        if (var.equals(NS_SRCH)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_SEARCH_INDEX, SR.MS_SEARCH)); }
+                        if (var.equals(NS_REGS)) { cmds.addElement(new DiscoCommand(RosterIcons.ICON_REGISTER_INDEX, SR.MS_REGISTER)); }
                         if (var.equals(NS_GATE)) { gateway=true; }
                         //if (var.equals(NODE_CMDS)) { cmds.addElement(new DiscoCommand(AD_HOC_INDEX,strCmds)); }
                     }
