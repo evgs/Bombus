@@ -1,0 +1,199 @@
+=== Общее ===
+  * замена лицензии BSD на GNU GPL v2 Public license
+  * BSD license replaced by GNU GPL v2 Public license
+
+  + VirtualList: заполнение заголовка окна при использовании 
+    java-машины J9 на Windows Mobile
+  + работа с флипом (для телефонов-раскладушек)
+    состояние флипа определяется на телефонах Motorola, 
+    SonyEricsson(JP6 и выше), Siemens.
+
+  + experimental active-flip feature for shell-calm phones.
+    if flip is closed, status will be changed to 'away' in 5 minutes.
+    if flip is opened, status will be changed to 'online' immediately
+    active flip works on Motorola, SonyEricsson(JP6 and higher), Siemens 
+
+  + Автоматическая смена статуса
+  + autostatus settings in Tools>Options
+
+  * команда транспорта Resolve Nicknames теперь использует и поле vCard Full Name (FN), 
+    если поле Nickname (NICKNAME) пустое
+  * nickname resolving probes NICKNAME, then FN if no NICKNAME
+
+  * улучшение определения моделей и производителей телефонов
+  * better detection of phones and their vendors
+
+  + опция "shared platform info" - разрешение/блокировка отправки информации о
+    версии java-машины и модели телефона в ответе на запрос версии клиента
+  + "shared platform info" - option to enable/disable platform version/hardware 
+    according to XEP-0092 (5. Security Considerations)
+
+  * более корректное закрытие сокета при разрыве соединения 
+    (ожидание завершения отправки всех данных в течение 10 секунд)
+  * more gracefull stream termination
+
+  + автоопределение языка приложения по локали телефона. может быть изменено в опциях.
+  + language autodetection, used System.getProperty("microedition.locale");
+
+  + Подтверждение доставки сообщений (xep-0184).
+  + Message delivery: xep-0184 
+
+  + команда About->Versions позволяет получить с сервера http://bombus-im.org список последних версий,
+    а также загрузить и установить выбранную версию.
+  + Upgrade.java: retriving available links for versions 
+    on http://bombus-im.org, installs selected version
+
+  + читабельные сообщения об ошибках (теперь без xml)
+  + human-readable xmpp-compliant error messages (no more raw xml)
+
+  + Цветовые темы. пока ТОЛЬКО для ZLib-версий
+  + Color themes ONLY FOR ZLib-versions
+
+  * Обновление локализаций
+  * Localizations are updated
+=== XMPP ===
+  * ZLib: уменьшено потребление памяти алгоритмом Deflate (на ~250К).
+    несколько упала степень сжатия исходящих данных. Входящий поток
+    сжимается как и ранее.     thanks to Taras Zackrepa (ONjA)
+  * ZLib: Deflate memory limiting MAX_WBITS=9;   DEF_MEM_LEVEL=1;
+    thanks to Taras Zackrepa (ONjA)
+
+  * XMPP:Roster push: проверка отправителя ростера (RFC3921 7.2)
+  * XMPP:Roster pushes: ответная станза iq result (RFC3921 7.4-7.6)
+
+  * XMPP:Roster pushes: verifying source (RFC3921 7.2)
+  * XMPP:Roster pushes: reply with iq result (RFC3921 7.4-7.6)
+
+  + xml:lang - глобальная установка языка сообщений сервера для всей сессии.
+  + xml:lang - global setting for whole stream. 
+    enables localization in all stanzas
+
+  * исправлена работа команды "Authorize" для контактов вне ростера, отправивших
+    запрос на подписку (контакты в Not-In-List)
+  * "Authorize" command works correctly if not-in-list contact sends presence subscribe
+
+  + реализация entity caps
+  + entity caps
+
+  * КРИТИЧЕСКОЕ исправление: ошибка чтения из потока символов utf-8 из диапазона U+10000...U+1FFFFF.
+    Фактически, эти символы заменяются на '?', поскольку не могут быть преобразованы 
+    из utf-8 в тип 16-битный тип char в Java.
+  * CRITICAL: fix utf-8 parsing for chars U+10000...U+1FFFFF. 
+    Actually this chars is substitued by '?' - Java type char is 16-bit width
+
+  * КРИТИЧЕСКОЕ исправление/безопасность: устранена возможность получения
+    сообщений с поддельным адресом.
+  * CRITICAL/Security: address spoofing via xep-0033 disabled
+
+  + поддержка XEP-0203 (время отправки сообщения при отложенной доставке).
+    заменяет устаревший стандарт XEP-0091 (старый стандарт по-прежнему поддерживается)
+  + support for XEP-0203 Delayed delivery (XEP-0091 is still supported until become obsolete)
+
+  + поддержка XEP-0202 (локальное время клиента).
+    заменяет устаревший стандарт XEP-0090 (старый стандарт по-прежнему поддерживается)
+  + support for XEP-0202 Entity Time (XEP-0090 is still supported until become obsolete)
+
+  * исправлено время UTC, отправляемое по XEP-0090
+  * fixed utc time child stanza in old time reply (XEP-0090)
+
+  * полная реализация xep-0086 (Error conditions mapping)
+  * xep-0086 (Error conditions mapping) 100% complete
+
+  * xep-0172 User Nickname. Ник пользователя может быть взято из presence в том случае,
+    если не указано в ростере. Также ник, указанный в настройках аккаунта, 
+    отправляется в исходящих presence
+  * xep-0172 User Nickname
+
+  + замена xep-0022 Message events (deprecated) на xep-0085 Chat state Notifications
+  - (deprecated) xep-0022 Message events
+  + xep-0085 Chat state Notifications
+  + xep-0199 urn:xmpp:ping
+
+  * уменьшение расхода памяти при обработке больших jabber xml пакетов
+  * reducing heap overhead while constructing DOM-XML objects JabberDataBlock: replacing Hashtable with Vector; trimming vector finally
+
+  * Отображение ошибок при использовании X_GOOGLE_TOKEN
+  * Google token exceptions handling
+
+=== Редактор сообщений ===
+  + Quote: символ цитирования ">>" и перевод строки в конце цитируемого сообщения
+  + Quote: quotation symbol ">>", \n after quoted message
+  * MUC: Kick/ban reason increased from 64 up to 256 chars
+  * увеличен размер поля редактирования сообщения до максимально
+    возможного в используемой java-машине, но не более 4096 символов
+  * attempt to expand editbox up to 4096 chars
+
+=== Ростер ===
+  + удаление контактов при помощи кнопки "C" (clear).
+  + Roster: delete contact with key "C" (clear)
+
+  - Удалена опция "Tools>Options->Not-In-List".
+  - option "Tools>Options->Not-In-List" removed.
+
+  + хранение состояния свёрнутости групп на сервере
+  + server-side storage for group states (expanded/collapsed)
+
+  + автоматическое управление подписками. варианты действий: давать подписку автоматически, ручное управление, 
+    игнорирование запросов, автоматическое отклонение запросов подписки
+  + automatic subscription management. actions: autosubscribe, manual (default), drop, automatic rejecting
+
+  + настройка фильтрации контактов вне ростера (на стороне клиента)
+  + client-side filtering for not-in-list contacts
+
+  * Сортировка псевдо-групп конференций. Теперь располагаются после группы транспортов
+  * sorting muc-pseudo-groups
+=== MUC ===
+  + Для овнеров конференций: вызов конфигуратора комнаты из bookmarks (без входа в конференцию)
+  + Owner use case: Configuring room via bookmarks
+  * конференции: увеличен размер поля ввода причины Kick/Ban с 64 до 256 символов
+  + отображение в конференции в статусном сообщении jid кикнутого или отправленного в бан пользователя (показывается для модераторов)
+  + show jid in presence when user was kicked or banned
+
+  + пользователь может приглашать участника конференции в другие комнаты, при
+    условии, что jid участника виден пользователю 
+    (например, если пользователь - модератор, или комната - неанонимная)
+  + muc: user can invite another participant if room expose jid of this participant
+    (if user is moderator, room is non-anonymous or other cases from XEP-0045)
+
+  + Создание закладок конференций (Bookmarks) с пометкой для автовхода
+  + При запуске Bombus производится автоматический вход в конференции,
+    помеченные в закладках как "autojoin". Необходимым условием автовхода
+    в конференции является активная опция Tools>Options>Startup actions:"join conferences"
+  + При реконнекте происходит повторный вход в конференции, которые были активны
+    до отсоединения от сервера, и в которые не посылался direct presence (send presence)
+  + Bookmarking conference with label "autojoin"
+  + Entering room if it's bookmark is labeled "autojoin" (only after bombus' launch)
+    and option Tools>Options>Startup actions:"join conferences" is checked 
+  + On reconnect: Reentering conferences wich was active before going offline.
+    Also conference will not be reentered if direct presence was sent into it.
+
+  * отправка текста статусного сообщения при входе в конференцию
+  * multicasting presence message while entering conference room
+
+  + защита от ников-двойников в конференциях - не-ASCII символы ников выделяются цветом
+  + non-ASCII chars in nicknames and jids (in conferences) are rendered in different color (nick-spoofing prevention)
+
+  * по многочисленным просьбам /me теперь отображается как *nick
+  * /me is now substituted by *nick
+
+  * Конференции: закладки отсортированы в алфавитном порядке;
+  * muc: bookmarks displayed in alphanumerical order;
+
+  + Гости (visitors) в ростере конференции отображаются специальным значком
+    (белая звезда);
+  + muc: visitors is shown with their own iconset (white stars);
+
+  * Забаненные участники получают специальную иконку;
+  * muc: banned contact has a special error icon;
+
+  + команда "Change nickname" для конференций (затычка-вызов формы присоединения к конференции) (voffk)
+  + command "Change nickname" (re-enter stub) (voffk)
+
+  * запрет отправки приглашений в конференции для контактов из "Search Results"
+  * disabled invites for "Search Results"
+
+=== File Transfer ===
+  * более жёсткая проверка максимального размера передаваемого блока данных при
+    приёме файлов. отказ приёма файла, если размер блока превышает антифлуд-барьер
+  + File Transfers: check ibb block-size to be less than anti-flood limit.
+    if exceeds, transfer will be rejected (to avoid file corrupting)
