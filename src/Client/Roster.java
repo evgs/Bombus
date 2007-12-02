@@ -305,7 +305,7 @@ public class Roster
 	    bookmarks=null;
 	}
 	setMyJid(new Jid(sd.account.getJid()));
-	updateContact(sd.account.getNick(), myJid.getBareJid(), SR.MS_SELF_CONTACT, "self", false);
+	updateContact(sd.account.getNick(), myJid.getBareJid(), Groups.SELF_GROUP, "self", false);
 	
 	System.gc();
     }
@@ -421,7 +421,7 @@ public class Roster
                 else index++; 
             }
             if (onlineContacts==0) {
-                if (g.type==Groups.TYPE_MUC) groups.removeGroup(g);
+                if (g.index>Groups.TYPE_COMMON) groups.removeGroup(g);
             }
         }
     }
@@ -457,7 +457,7 @@ public class Roster
                     groups.getGroup(Groups.TYPE_TRANSP) :
                     groups.getGroup(grpName);
                 if (group==null) {
-                    group=groups.addGroup(grpName, Groups.TYPE_COMMON);
+                    group=groups.addGroup(grpName, true);
                 }
                 c.nick=nick;
                 c.setGroup(group);
@@ -672,7 +672,7 @@ public class Roster
         ExtendedStatus es= StatusList.getInstance().getStatus(myStatus);
         Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage(), StaticData.getInstance().account.getNick());
         if (isLoggedIn()) {
-            if (status==Presence.PRESENCE_OFFLINE) groups.queryGroupState(false);
+            if (status==Presence.PRESENCE_OFFLINE) groups.requestGroupState(false);
             
             if (!StaticData.getInstance().account.isMucOnly() )
 		theStream.send( presence );
@@ -856,8 +856,7 @@ public class Roster
 	for (Enumeration e=hContacts.elements(); e.hasMoreElements();){
 	    Contact k=(Contact) e.nextElement();
 	    if (k.jid.isTransport()) continue;
-            int grpType=k.getGroupType();
-            if (k.transport==transportIndex && k.nick==null && (grpType==Groups.TYPE_COMMON || grpType==Groups.TYPE_NO_GROUP)) {
+	    if (k.transport==transportIndex && k.nick==null && k.getGroupType()>=Groups.TYPE_COMMON) {
 		vCardQueue.addElement(VCard.getQueryVCard(k.getJid(), "nickvc"+k.bareJid));
 	    }
 	}
@@ -963,7 +962,7 @@ public class Roster
                         
                         Contact c=findContact(new Jid(from), false);
                         
-                        String group=(c.getGroupType()==Groups.TYPE_NO_GROUP)?
+                        String group=(c.getGroupType()==Groups.TYPE_COMMON)?
                             null: c.getGroup().name;
                         if (nick!=null)  storeContact(from,nick,group, false);
                         //updateContact( nick, c.rosterJid, group, c.subscr, c.ask_subscribe);
@@ -1014,7 +1013,7 @@ public class Roster
 
                         processRoster(data);
                         
-                        groups.queryGroupState(true);
+                        groups.requestGroupState(true);
                         
                         setProgress(SR.MS_CONNECTED,100);
                         reEnumRoster();
@@ -1888,18 +1887,15 @@ public class Roster
                     }
                     // self-contact group
                     Group selfContactGroup=groups.getGroup(Groups.TYPE_SELF);
-                    selfContactGroup.visible=(cf.selfContact || selfContactGroup.tonlines>1 || selfContactGroup.unreadMessages>0 );
+                    if (cf.selfContact || selfContactGroup.tonlines>1 || selfContactGroup.unreadMessages>0 )
 
-                    // hiddens
-                    groups.getGroup(Groups.TYPE_IGNORE).visible= cf.ignore ;
-                    
                     // transports
                     Group transpGroup=groups.getGroup(Groups.TYPE_TRANSP);
-                    transpGroup.visible= (cf.showTransports || transpGroup.unreadMessages>0);
+                    if (cf.showTransports || transpGroup.unreadMessages>0)
                     
-                    // adding groups
-                    for (i=0; i<groups.getCount(); i++)
-                        groups.addToVector(tContacts,i);
+                    // search result
+                    //if (groups.getGroup(Groups.SRC_RESULT_INDEX).tncontacts>0)
+                    groups.addToVector(tContacts, Groups.TYPE_SEARCH_RESULT);
                     
                     vContacts=tContacts;
                     

@@ -319,7 +319,7 @@ public class Account extends IconTextElement{
         if (useSSL) return false;
         /*if (hostAddr==null) return false;
         if (hostAddr.indexOf("google")<0) return false; */
-        if (!server.startsWith("gmail")) return false;
+        if (!server.startsWith("gmail.com")) return false;
         return isSASL();
     }
 }
