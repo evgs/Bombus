@@ -4204,6 +4204,13 @@ syslog_msg: true
   * smiles.txt updated
   - HTTP CONNECT is now removed from Release builds
 
+22.12.2007
+(1243)
+  * исправлено исключение в xml-парсере
+  * отрезание незначащих пробелов в именах нод в service discovery
+  --
+  * fixed exception in xml parser
+  * trimming whitespaces for node names in disco
 ------------------------------------------------------------------------
   known issues:
 

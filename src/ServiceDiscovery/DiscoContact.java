@@ -32,7 +32,7 @@ import ui.IconTextElement;
 
 public class DiscoContact extends Contact{
     public DiscoContact(final String Nick, final String sJid, final int Status) {
-        super(Nick, sJid, Status, null);
+        super( (Nick==null)? null: Nick.trim(), sJid, Status, null);
     }
     public String toString() { return (nick==null)?getJid():nick; }
 
