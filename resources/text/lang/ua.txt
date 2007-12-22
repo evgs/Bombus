@@ -4,7 +4,7 @@
 // (c) zalex <zlex@ukr.net>, 2006.
 
 // ask server to send us localized messages
-xmlLang	ua
+xmlLang	uk
 //463
 Jid	Jid
 Privacy Lists	Списки конфiденцiйностi
