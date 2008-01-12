@@ -141,7 +141,7 @@ public class VCard {
                 photo[9]==(byte)'F')
                 return "image/jpeg";
             
-            if (photo[0]==0x89 &&
+            if (photo[0]==(byte)0x89 &&
                 photo[1]==(byte)'P' &&
                 photo[2]==(byte)'N' &&
                 photo[3]==(byte)'G')
