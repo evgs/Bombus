@@ -147,13 +147,13 @@ public class VCard {
                 photo[3]==(byte)'G')
                 return "image/png";
             
-            if (photo[1]==(byte)'G' &&
-                photo[2]==(byte)'I' &&
-                photo[3]==(byte)'F')
+            if (photo[0]==(byte)'G' &&
+                photo[1]==(byte)'I' &&
+                photo[2]==(byte)'F')
                 return "image/gif";
             
-            if (photo[1]==(byte)'B' &&
-                photo[2]==(byte)'M')
+            if (photo[0]==(byte)'B' &&
+                photo[1]==(byte)'M')
                 return "image/x-ms-bmp";
         } catch (Exception e) {}
         return null;
