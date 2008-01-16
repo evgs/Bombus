@@ -164,7 +164,7 @@ public class Contact extends IconTextElement{
         return newMsgCnt=nm;
     }
     
-    public boolean needsCount(){ return (newMsgCnt<0);  }
+    //public boolean needsCount(){ return (newMsgCnt<0);  }
     
     public boolean active(){
 	if (msgs.size()>1) return true;

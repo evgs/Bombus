@@ -1159,6 +1159,8 @@ public class Roster
                             String password=xmlns.getChildBlockText("password");
                             ConferenceGroup invConf=initMuc(room, password);
                             
+                            invConf.getConference().commonPresence=false; //FS#761
+                            
                             if (invConf.getSelfContact().status==Presence.PRESENCE_OFFLINE)
                                 invConf.getConference().status=Presence.PRESENCE_OFFLINE;
                             
@@ -1243,6 +1245,7 @@ public class Roster
                 Msg m=new Msg(mType, from, subj, body);
                 if (tStamp!=0) 
                     m.dateGmt=tStamp;
+                if (m.getBody().indexOf(SR.MS_IS_INVITING_YOU)>-1) m.dateGmt=0;
                 if (groupchat) {
                     ConferenceGroup mucGrp=(ConferenceGroup)c.getGroup();
                     if (mucGrp.getSelfContact().getJid().equals(message.getFrom())) {
@@ -1296,7 +1299,9 @@ public class Roster
                            name,
                            null,
                            c.processPresence(xmuc, pr) );
-                    if (cf.storeConfPresence) {
+                    if (cf.storeConfPresence ||
+                            chatPresence.getBody().indexOf(SR.MS_WAS_BANNED)>-1 || 
+                            chatPresence.getBody().indexOf(SR.MS_WAS_KICKED)>-1) {
                         messageStore(getContact(from, false), chatPresence);
                     }
                     
@@ -1451,7 +1456,7 @@ public class Roster
 	} else {
 	    
 	    int index=vContacts.indexOf(c);
-	    if (index>=0) moveCursorTo(index, force);
+	    if (index>=0) moveCursorTo(index);
 	}
     }
     
@@ -1801,7 +1806,7 @@ public class Roster
 		    if (pos>=size) pos=0;
 		    if (vContacts.elementAt(pos) instanceof Group) break;
 		}
-		moveCursorTo(pos, true);
+		moveCursorTo(pos);
 	    } catch (Exception e) { }
 	}
     }
@@ -1911,7 +1916,7 @@ public class Roster
                     // вернём курсор на прежний элемент
                     if ( locCursor==cursor && focused!=null ) {
                         int c=vContacts.indexOf(focused);
-                        if (c>=0) moveCursorTo(c, force);
+                        if (c>=0) moveCursorTo(c);
 			force=false;
                     }
                     //if (cursor>=vContacts.size()) cursor=vContacts.size()-1; //moveCursorEnd(); // вернём курсор из нирваны

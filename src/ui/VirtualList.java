@@ -511,17 +511,15 @@ public abstract class VirtualList
      * перемещение курсора в индексированную позицию
      * @param index позиция курсора в списке
      */
-    public void moveCursorTo(int index, boolean force){
+    public void moveCursorTo(int index){
         int count=getItemCount();
         if (index<0) index=0;
         if (index>=count) index=count-1;    // если за последним элементом, то переместить на него
-        //else if ((!force) && stickyWindow) return;
         
         cursor=index;
         stickyWindow=true;
         
         repaint();
-        //moveCursor(index-cursor, force); 
     }
     
     protected void fitCursorByTop(){
@@ -588,7 +586,7 @@ public abstract class VirtualList
 	if (i==0 || i==32) return;
 	//System.out.println(i);
 	if (cursor>=0) {
-            moveCursorTo(getElementIndexAt(win_top)+i-1, true);
+            moveCursorTo(getElementIndexAt(win_top)+i-1);
             setRotator();
         }
 	

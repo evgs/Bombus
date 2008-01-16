@@ -180,7 +180,7 @@ public class Browser extends VirtualList implements CommandListener{
 
         for (int i=0; i<dir.size(); i++) {
             if ( ((FileItem)dir.elementAt(i)).name.equals(focus) ) {
-                moveCursorTo(i, true);
+                moveCursorTo(i);
                 return true;
             }
         }

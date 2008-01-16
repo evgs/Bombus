@@ -74,7 +74,7 @@ public class ActiveContacts
 	
 	try {
             int focus=activeContacts.indexOf(current);
-            moveCursorTo(focus, true);
+            moveCursorTo(focus);
         } catch (Exception e) {}
         //if (current!=null) mov
 	

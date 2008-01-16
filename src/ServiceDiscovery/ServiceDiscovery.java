@@ -282,12 +282,12 @@ public class ServiceDiscovery
             discoIcon=0;
             new DiscoForm(display, data, stream, "discoRSearch", "query");
         } else if (id.startsWith("discoR")) {
-            String text="Successful";
+            String text=SR.MS_DONE;
             String title=data.getAttribute("type");
             if (title.equals("error")) {
                 text=XmppError.findInStanza(data).toString();
             }
-            if (text=="Successful" && id.endsWith("Search") ) {
+            if (text==SR.MS_DONE && id.endsWith("Search") ) {
                 new SearchResult(display, data);
             } else new AlertBox(title, text, null, display, null);
         }
@@ -356,7 +356,7 @@ public class ServiceDiscovery
             discoIcon=0;
             
             titleUpdate();
-            moveCursorTo(st.cursor, true);
+            moveCursorTo(st.cursor);
             redraw();
             
         }

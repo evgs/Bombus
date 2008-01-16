@@ -79,15 +79,14 @@ public class ContactMessageList extends MessageList
         addCommand(cmdPurge);
         addCommand(cmdContact);
 	addCommand(cmdActive);
-        //if (getItemCount()>0) {
         addCommand(cmdQuote);
         addCommand(cmdArch);
-	//}
+        
         if (contact instanceof MucContact && contact.origin==Contact.ORIGIN_GROUPCHAT) {
             addCommand(cmdReply);
         }
         setCommandListener(this);
-        moveCursorTo(contact.firstUnread(), true);
+        moveCursorTo(contact.firstUnread());
         //setRotator();
     }
     
