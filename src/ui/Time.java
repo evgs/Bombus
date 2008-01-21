@@ -126,7 +126,7 @@ public class Time {
             for (int i=0; i<calFields.length; i++){
                 int begIndex=ofsFieldsA[i];
                 int field=Integer.parseInt(sdate.substring(begIndex, begIndex+l));
-                if (i==1) field--;
+                if (i==1) field+=Calendar.JANUARY-1;
                 l=2;
                 c.set(calFields[i], field);
             }
