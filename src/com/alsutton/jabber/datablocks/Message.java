@@ -186,7 +186,7 @@ public class Message extends JabberDataBlock
       } catch (Exception e) { }
       try {
           return Time.dateIso8601(
-                  findNamespace("time", "urn:xmpp:delay").getAttribute("stamp")
+                  findNamespace("delay", "urn:xmpp:delay").getAttribute("stamp")
                   );
       } catch (Exception e) { }
       return 0; //0 means no timestamp
