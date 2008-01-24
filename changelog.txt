@@ -4211,6 +4211,36 @@ syslog_msg: true
   --
   * fixed exception in xml parser
   * trimming whitespaces for node names in disco
+
+25.01.2008
+0.6.1258
+  * обновление локализаций
+  * исключение при создании правила в списке приватности
+  * исправлена поддержка xep-0203 Delayed Delivery
+  * обновлены url скачивания bombus.jar внутри дескрипторов jad
+  * переход на нумерацию бета-версий 0.6.SVNREV
+  * устранён нежелательный автовход в конференции по получению приглашения
+  * в чатлоге конференций теперь всегда отображаются сообщения о kick/ban,
+    независимо от состояния хранения презенсов
+  * muc: размер поля jid в формах модификации членства увеличен до 1000 символов,
+    в соответствии с требованиями RFC. возможны проблемы на некоторых моделях телефонов
+  * исправлено определения формата изображений для png, gif и bmp при загрузке изображения
+    на сервер в свой vCard
+  * исправлен код украинского языка: ua->uk
+  --
+  * localizations
+  * exception when creating privacy rule
+  * fixed xep-0203 Delayed delivery
+  * jar downloading urls fixed
+  . svitching current version number to 0.6
+  - refactoring: removing unused moveCursorTo parameter
+  * fixing autojoin after invites
+  + always showing administrative kick/ban presence in conference (TODO: all role/affiliation changes)
+  * muc: maximum jid length in affiliation editor is 1000 chars
+    WARNING!!! 1000 is experimental value. this length is required by RFC (reference?),
+    but may not supported by some phones
+  * fixed image type detection for png, gif and bmp (when uploading)
+  * xml:lang : ua->uk
 ------------------------------------------------------------------------
   known issues:
 
