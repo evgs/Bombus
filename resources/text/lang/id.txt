@@ -1,11 +1,8 @@
 // Indonesian langfile for Bombus - mobile jabber client
 // Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org
-// All rights reserved.
 // (c) Ayes <ayes@exor14.com>, 2007.
 
-// ask server to send us localized messages
 xmlLang	id
-//463
 Jid	Jid
 Privacy Lists	Daftar Pribadi
 Message font	Huruf Pesan
@@ -46,7 +43,6 @@ Affiliation	Affilation
 Accounts	Akun
 Delete list	Hapus Daftar
 Account >	Akun >
-Show Offlines	Tampilkan Daftar Off
 Select	Pilih
 Subject	Tema
 Group menu	Menu Kelompok
@@ -76,7 +72,6 @@ Client Version	Versi Klien
 Discard Search	Abaikan Pencarian
 Search Results	Hasil Pencarian
 Members	Anggota
-// offline	offline
 Add Contact	Tambah Kontak
 Subscription	Langganan
 Status >	Kehadiran >
@@ -90,7 +85,6 @@ Delete	Hapus
 Delete contact?	Hapus Kontak?
 Authorize	Beri Hak
 Nicknames	NamaKecil
-Entering setup	Masuki Susunan
 to Archive	Ke Arsip
 Back	Kembali
 heap monitor	Tumpukan Layar
@@ -173,32 +167,16 @@ vCard	vCard
 Set Subject	Set Topik
 Tools	Peralatan
 Port	Port
-
-//473
-Proxy name/IP	Nama Proxy/IP
-Proxy port	Port Proxy
-
 Connect	Hubungkan
 history -	Sejarah -
 Are You sure want to discard 	Benar-benar ingin Anda Buang 
  from OWNER to 	 Dari Pemilik Ke 
 Modify affiliation	Modifikasi Affilations
 
-// DO NOT TRANSLATE THIS LINES!!!
-Ignore-List	Ignore-List
-General	General
-Stanzas	Stanzas
-Not-in-list	Not-in-list
-proxy CONNECT	proxy CONNECT
 
-//476
 Clear	Bersih
-
-//494
 Ask subscription	Tanyakan Langganan
 Grant subscription	Izinkan Berlangganan
-
-//502
 Invite to conference	Undang Ke Konferensi
 Reason	Alasan
 You have been invited to 	Anda Diundang Ke 
@@ -209,7 +187,6 @@ Grant Moderator	Jadikan Moderator
 Revoke Moderator	Tarik Kembali Sbg Moderator
 Grant Admin	Jadikan Admin
 Grant Ownership	Jadikan Pemilik
-
 room presences	kehadiran ruang
 
  is now known as 	 sekarang adalah 
@@ -223,13 +200,11 @@ room presences	kehadiran ruang
 
 Participants	Peserta
 Abc	Abc
-
-//1063
 autofocus	Fokus Otomatis
 Grant Membership	Jadikan Anggota
 Are You sure want to clear messagelist?	Benarkah Anda ingin membersihkan daftar pesan?
 Google token request	Google Meminta
-SASL login	SASL-Login
+SASL login	SASL login
 Features	Keragaman
 Show password	Tampilkan KataKunci
 No client version available	Tidak terdapat versi klien
@@ -259,7 +234,7 @@ Are you sure want to delete this message?	Anda benar-benar ingin menghapus pesan
 New conference	Konferensi Baru
 Root	Root
 Decline	Kemunduran
-authorize new contacts	Beri Hak Kontak Baru
+Authorize new contacts	Beri Hak Kontak Baru
 [auto-subscribe]	[otomatis-berlangganan]
 Keep-Alive	Tetap-Hidup
  has been unaffiliated and kicked from members-only room	 telah diambil haknya, dan ditendang krn khusus anggota saja
@@ -279,7 +254,6 @@ Add autojoin bookmark	Otomatis gabung
 //owner	pemilik
 //admin	admin
 //member	anggota
-
 
 //2007-08-19
 online	online
@@ -302,6 +276,5 @@ File Transfers	kirim file
 Auto	Otomatis
 All signals	Semua sinyal
 Vibra	Getar
-Sound	Suara
 No signals	Diam
  (default)	 (pengaturan awal)

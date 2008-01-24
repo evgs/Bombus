@@ -1,9 +1,8 @@
 ﻿// Russian langfile for Bombus - mobile jabber client
-// Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org
-// All rights reserved.
+// Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org. All rights reserved.
 // (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
 // (c) Vladimir N. Shelukhin <zet@bombus-im.org>, 2006-2007.
-// (c) Vladimir A. Kichigin <xmpp: voffk@jabber.ru>, 2007.
+// (c) Vladimir A. Kichigin <voffk@bombus-im.org>, 2007-2008.
 
 // ask server to send us localized messages
 xmlLang	ru
@@ -38,7 +37,7 @@ Minimize	Свернуть
 Room	Комната
 Messages	Сообщения
 Refresh	Обновить
-Resolve Nicknames	Преобразовать в ник
+Resolve Nicknames	Преобразовать в ники
 Action	Действие
 Ban	Бан (ban)
 Leave Room	Покинуть комнату
@@ -49,7 +48,6 @@ Affiliation	Членство
 Accounts	Аккаунты
 Delete list	Удалить список
 Account >	Аккаунт >
-Show Offlines	Показать отключенных
 Select	Выбрать
 Subject	Тема
 Group menu	Меню групп
@@ -79,8 +77,6 @@ Client Version	Версия клиента
 Discard Search	Сбросить результаты
 Search Results	Результаты поиска
 Members	Члены
-
-// offline	отключенные
 Add Contact	Новый контакт
 Subscription	Подписка
 Status >	Статус >
@@ -94,7 +90,6 @@ Delete	Удалить
 Delete contact?	Удалить контакт?
 Authorize	Авторизовать
 Nicknames	Вставить ник
-Entering setup	Вход в настройки аккаунта
 to Archive	В архив
 Back	Назад
 heap monitor	монитор heap
@@ -179,8 +174,6 @@ Tools	Инструменты
 Port	Порт
 
 //473
-Proxy name/IP	Имя прокси-сервера/IP
-Proxy port	Порт прокси-сервера
 Connect	Подключиться
 history -	история -
 Are You sure want to discard 	Вы действительно собираетесь понизить у 
@@ -189,11 +182,8 @@ Modify affiliation	Изменение членства
 
 // DO NOT TRANSLATE THIS LINES!!!
 Ignore-List	Ignore-List
-General	General
-Stanzas	Stanzas
 Not-in-list	Not-in-list
-proxy CONNECT	proxy CONNECT
-//end of untranslatable strings
+Stanzas	Stanzas
 
 //476
 Clear	Очистить
@@ -232,7 +222,7 @@ autofocus	автофокус
 Grant Membership	Дать членство
 Are You sure want to clear messagelist?	Вы уверены, что хотите очистить список сообщений?
 Google token request	Запрос рукопожатия у Google
-SASL login	SASL-соединение
+SASL login	SASL-логин
 Features	Возможности
 Show password	Показать пароль
 No client version available	Версия клиента недоступна
@@ -262,7 +252,7 @@ Are you sure want to delete this message?	Вы уверены, что хотит
 New conference	Новая конференция
 Root	Корень диска
 Decline	Отклонить
-authorize new contacts	автоматическая авторизация
+Authorize new contacts	Автоматическая авторизация
 [auto-subscribe]	[автоподписка]
 Keep-Alive	Тип Keep-Alive
  has been unaffiliated and kicked from members-only room	 был лишён полномочий и выгнан, т.к. конференция только для членов
@@ -304,7 +294,6 @@ File Transfers	Передача файлов
 Auto	Автоматически
 All signals	Все сигналы
 Vibra	Вибрация
-Sound	Звук
 No signals	Без сигналов
  (default)	 (по умолчанию)
 
@@ -315,7 +304,7 @@ You are now authorized	Вы получили подписку
 Your authorization has been removed!	Ваша подписка была удалена!
 Change nickname	Сменить ник
  has changed subject to: 	 изменил(а) тему на: 
-Send file	Передать файл
+Send file	Отправить файл
 To: 	Кому: 
 File	Файл
 Description	Описание
@@ -339,3 +328,4 @@ Total=	Всего=
 Versions	Версии
 Install	Установить
 Available versions	Доступные версии
+User	Пользователь

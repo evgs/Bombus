@@ -1,304 +1,304 @@
 ﻿// Polish langfile for Bombus - mobile jabber client
-// All rights reserved. 
-// (c) 2007 lang file made by salskY <salas.millennium@gmail.com> (jabber: salsky@jabbus.org)
+// (c) 2007 salskY <salas.millennium@gmail.com> (jabber: salsky@jabbus.org)
+
 xmlLang	pl
-//463
-Jid	JID 
-Privacy Lists	Listy prywatności 
-Message font	Czcionka wiadomości 
-Roster font	Czcionka kontaktów 
-Paste Body	Wklej Tekst 
-Configure Room	Konfiguracja 
-Paste Subject	Wklej Temat 
-Service Discovery	Przeglądarka serwera 
-User JID	JID użytkownika 
-New list	Nowa Lista 
-Select (no login)	Wybierz 
-Privacy rule	Zasada prywatności 
-use SSL	Szyfrowane połączenie 
-Modify	Modyfikuj 
-Update	Odśwież 
-Account name	Nazwa konta 
-GMT offset	Różnica w stosunku do (GMT+) 
-Time settings (hours)	Ustawienia zegara (godziny) 
-Connected	Uwierzytelniono 
+Jid	JID
+Privacy Lists	Listy prywatności
+Message font	Czcionka wiadomości
+Roster font	Czcionka kontaktów
+Paste Body	Wklej Tekst
+Configure Room	Konfiguracja
+Paste Subject	Wklej Temat
+Service Discovery	Przeglądarka serwera
+User JID	JID użytkownika
+New list	Nowa Lista
+Select (no login)	Wybierz
+Privacy rule	Zasada prywatności
+use SSL	Szyfrowane połączenie
+Modify	Modyfikuj
+Update	Odśwież
+Account name	Nazwa konta
+GMT offset	Różnica w stosunku do (GMT+)
+Time settings (hours)	Ustawienia zegara (godziny)
+Connected	Uwierzytelniono
 Connect to 	Łączę z 
-Alert Profile	Profil dźwięku 
-Move Up	Przenieś w Górę 
-Move Down	Przenieś w Dół 
-New conference	Nowy Czat 
-Owners	Właściciele 
-Ok	Оk 
-Minimize	Minimalizuj 
-Room	Pokój 
-Messages	Wiadomości 
-Refresh	Odśwież 
-Resolve Nicknames	Ustal pseudonimy 
-Action	Opcje 
-Ban	Zablokuj 
-Leave Room	Opuść pokój 
-Password	Hasło 
-Actions >	Opcje > 
-Activate	Aktywuj 
-Affiliation	Przynależność 
-Accounts	Konta 
-Delete list	Usuń listę 
-Account >	Konta > 
-Show Offlines	Pokaż Rozłączone kontakty 
-Select	Wybierz 
-Subject	Temat 
-Group menu	Menu Grup 
-Quit	Zakończ 
-Add to roster	Dodaj do kontaktów 
-Edit list	Edytuj Listę 
-Registering	Rejestruję 
-Done	Wykonano 
+Alert Profile	Profil dźwięku
+Move Up	Przenieś w Górę
+Move Down	Przenieś w Dół
+New conference	Nowy Czat
+Owners	Właściciele
+Ok	Оk
+Minimize	Minimalizuj
+Room	Pokój
+Messages	Wiadomości
+Refresh	Odśwież
+Resolve Nicknames	Ustal pseudonimy
+Action	Opcje
+Ban	Zablokuj
+Leave Room	Opuść pokój
+Password	Hasło
+Actions >	Opcje >
+Activate	Aktywuj
+Affiliation	Przynależność
+Accounts	Konta
+Delete list	Usuń listę
+Account >	Konta >
+Select	Wybierz
+Subject	Temat
+Group menu	Menu Grup
+Quit	Zakończ
+Add to roster	Dodaj do kontaktów
+Edit list	Edytuj Listę
+Registering	Rejestruję
+Done	Wykonano
 Error: 	Błąd: 
-Browse	Przeglądaj 
-Save list	Zapisz Listę 
-Keep-Alive period	Czas podtrzymania połączenia 
+Browse	Przeglądaj
+Save list	Zapisz Listę
+Keep-Alive period	Czas podtrzymania połączenia
 <New Group>	<Nowa Grupa>
-Send	Wyślij 
-Priority	Priorytet 
-Failed	Brak Uwierzytelnienia 
-Set Priority	Ustaw Priorytet 
-Delete rule	Usuń zasadę 
-Roster request	Pobieranie kontaktów 
-Type	Typ 
-Name	Nazwa 
-Username	Użytkownik 
-fullscreen	Pełny ekran 
-Add bookmark	Dodaj Zakładkę 
-conferences only	Tylko konferencje 
-Client Version	Wersja klienta 
-Discard Search	Odrzuć Wyszukiwanie 
+Send	Wyślij
+Priority	Priorytet
+Failed	Brak Uwierzytelnienia
+Set Priority	Ustaw Priorytet
+Delete rule	Usuń zasadę
+Roster request	Pobieranie kontaktów
+Type	Typ
+Name	Nazwa
+Username	Użytkownik
+fullscreen	Pełny ekran
+Add bookmark	Dodaj Zakładkę
+conferences only	Tylko konferencje
+Client Version	Wersja klienta
+Discard Search	Odrzuć Wyszukiwanie
 Search Results	Rezultaty Wyszukiwania
-Members	Członkowie 
-// offline	Rozłączony 
-Add Contact	Dodaj kontakt 
-Subscription	Autoryzacja 
-Status >	Status > 
-Join	Wejdź 
-Startup actions	Akcje początkowe 
-Server	Serwer 
-Admins	Administratorzy 
-Make Ignore-List	Utwórz Listę Ignorowania 
+Members	Członkowie
+Add Contact	Dodaj kontakt
+Subscription	Autoryzacja
+
+Join	Wejdź
+Startup actions	Akcje początkowe
+Server	Serwer
+Admins	Administratorzy
+Make Ignore-List	Utwórz Listę Ignorowania
 Options	Ustawienia
-Delete	Usuń 
-Delete contact?	Usunąć kontakt? 
-Authorize	Akceptuj 
-Nicknames	Pseudonimy 
-Decline	Odrzuć 
-Entering setup	Wprowadzam ustawienia 
-to Archive	Do Archiwum 
-Back	Wróć 
-heap monitor	Monitor pamięci 
-Message	Wiadomość 
+Delete	Usuń
+Delete contact?	Usunąć kontakt?
+Authorize	Akceptuj
+Nicknames	Pseudonimy
+Decline	Odrzuć
+to Archive	Do Archiwum
+Back	Wróć
+heap monitor	Monitor pamięci
+Message	Wiadomość
 <Other>	<inny>
-Append	Dokończ 
-Active Contacts	Aktywne kontakty 
-Select nickname	Wybierz pseudonim 
-Group	Grupa 
+Append	Dokończ
+Active Contacts	Aktywne kontakty
+Select nickname	Wybierz pseudonim
+Group	Grupa
 Join conference	Dołącz do konferencji
-No	Nie 
-Yes	Tak 
-Re-Enter Room	Wejdź ponownie 
-New Message	Napisz 
-Add	Dodaj 
-Logon	Włącz 
-Logoff	Wyłącz 
-at Host	na Serwerze 
-join conferences	Automatyczne wejście do konferencji 
-Status	Status 
-Smiles	Emotikony 
-Contact >	Kontakt > 
-offline contacts	Rozłączone kontakty 
-Recent	Poprzednie 
-composing events	Informacja komponowania 
-Add Smile	Dodaj Emotikonę 
-Nickname	Pseudonim 
-Revoke Voice	Odbierz głos 
-Commands	Komendy 
+No	Nie
+Yes	Tak
+Re-Enter Room	Wejdź ponownie
+New Message	Napisz
+Add	Dodaj
+Logon	Włącz
+Logoff	Wyłącz
+at Host	na Serwerze
+join conferences	Automatyczne wejście do konferencji
+Smiles	Emotikony
+Contact >	Kontakt >
+offline contacts	Rozłączone kontakty
+
+composing events	Informacja komponowania
+Add Smile	Dodaj Emotikonę
+Nickname	Pseudonim
+Revoke Voice	Odbierz głos
+Commands	Komendy
 - (Sign)	- (znak)
-Set default	Ustaw domyślnie 
-Outcasts (Ban)	Zablokowani 
+Set default	Ustaw domyślnie
+Outcasts (Ban)	Zablokowani
 Set affiliation to	Zmień przynależność na
-Register Account	Zarejestruj Konto 
-autologin	Autologowanie 
-Publish	Publikuj 
-Remove subscription	Odbierz autoryzację 
-Set	Ustaw 
-Application	Aplikacja 
-Bookmarks	Zakładki 
-Test sound	Test Dźwięku 
-Startup	Początek 
-Edit rule	Edytuj Zasadę 
-Cancel	Anuluj 
-Close	Zamknij 
-Archive	Archiwum 
+Register Account	Zarejestruj Konto
+autologin	Autologowanie
+Publish	Publikuj
+Remove subscription	Odbierz autoryzację
+Set	Ustaw
+Application	Aplikacja
+Bookmarks	Zakładki
+Test sound	Test Dźwięku
+Startup	Początek
+Edit rule	Edytuj Zasadę
+Cancel	Anuluj
+Close	Zamknij
+Archive	Archiwum
 free 	Wolne: 
 Conference	Konferencje
-Sound	Dźwięk 
-Login failed	Nie Uwierzytelniono 
-plain-text password	Nieszyfrowane hasło 
-Paste Nickname	Wklej Pseudonim 
-Kick	Wyrzuć 
-Clear List	Wyczyść Listę 
-Grant Voice	Daj Głos 
-Quote	Edytuj 
-Roster elements	Elementy rostera 
-smiles	Emotikony 
-About	O programie 
-Resource	Zasób 
-Disconnected	Błąd Serwera 
-Edit	Edytuj 
-Host name/IP (optional)	Nazwa hostu/IP 
-Add rule	Dodaj zasadę 
-for all status types	Dla wszystkich typów statusu 
-Paste Jid	Wklej JID 
-Goto URL	Idź do URL'a 
-Clock offset	Różnica Zegara 
-Authorize new contacts	Autoryzuj nowe kontakty 
-flash backlight	Efekty Podświetlania 
-Suspend	Przerwij 
-Resume Message	Dokończ 
-Alert Profile >	Profil dźwięku > 
-My vCard	Moja wizytówka 
-transports	Transporty
-New Account	Nowe konto 
+Sound	Dźwięk
+Login failed	Nie Uwierzytelniono
+New Jid	Nowy Jid
+plain-text password	Nieszyfrowane hasło
+Paste Nickname	Wklej Pseudonim
+Kick	Wyrzuć
+Clear List	Wyczyść Listę
+Grant Voice	Daj Głos
+Quote	Edytuj
+Roster elements	Elementy rostera
+popup from background	Wyskakujące okienko wiadomości
+smiles	Emotikony
+About	O programie
+Resource	Zasób
+Disconnected	Rozłączony
+Edit	Edytuj
+Host name/IP (optional)	Nazwa hostu/IP
+Add rule	Dodaj zasadę
+for all status types	Dla wszystkich typów statusu
+Paste Jid	Wklej JID
+Goto URL	Idź do URL'a
+Clock offset	Różnica Zegara
+flash backlight	Efekty Podświetlania
+Suspend	Przerwij
+Resume Message	Dokończ
+Alert Profile >	Profil dźwięku >
+My vCard	Moja wizytówka
+transports	transporty
+New Account	Nowe konto
 self-contact	Własny kontakt
-vCard	Wizytówka 
-Set Subject	Ustaw Temat 
-Tools	Narzędzia 
-Port	Port 
-//473
-Proxy name/IP	Nazwa Proxy/IP 
-Proxy port	Port proxy 
-autofocus	Autopodświetlanie nowej wiadomości
-Connect	Połącz 
+vCard	Wizytówka
+Set Subject	Ustaw Temat
+Tools	Narzędzia
+Port	Port
+history -	Historia -
+Connect	Połącz
 Are You sure want to discard 	Jesteś pewny, że chcesz zmienić 
  from OWNER to 	 z Właściciela na 
-Modify affiliation	Modyfikuj przynależność 
-// DO NOT TRANSLATE THIS LINES!!!
-Ignore-List	Lista Ignorowania
-General	Generalna
-Stanzas	Szczegół 
-Not-in-list	Spoza Listy
-proxy CONNECT	Połączenie Proxy 
-//476
-Clear	Wyczyść 
-//494
-Ask subscription	Zapytaj o Autoryzację 
-Grant subscription	Daj Autoryzację 
-//502
-Invite to conference	Zaproś do konferencji 
-Reason	Powód 
+Modify affiliation	Modyfikuj przynależność
+
+
+Clear	Wyczyść
+Ask subscription	Zapytaj o Autoryzację
+Grant subscription	Daj Autoryzację
+Invite to conference	Zaproś do konferencji
+Reason	Powód
 You have been invited to 	Zostałeś zaproszony do: 
  is inviting You to 	 zaprasza Cię na: 
-Visitors are not allowed to send messages to all occupants	Nowoprzybyli Wizytorzy nie posiadają zezwolenia na wysyłanie wiadomości do wszystkich uczestników czatu. 
-Unaffiliate	Odbierz przynależność 
-Grant Moderator	Daj Moderatora 
-Revoke Moderator	Odbierz Moderatora 
-Grant Admin	Daj Administratora 
-Grant Ownership	Daj Właściciela 
-room presences	Uczestnicy pokoju 
+Visitors are not allowed to send messages to all occupants	Nowoprzybyli Wizytorzy nie posiadają zezwolenia na wysyłanie wiadomości do wszystkich uczestników czatu.
+Unaffiliate	Odbierz przynależność
+Grant Moderator	Daj Moderatora
+Revoke Moderator	Odbierz Moderatora
+Grant Admin	Daj Administratora
+Grant Ownership	Daj Właściciela
+room presences	Uczestnicy pokoju
  is now known as 	 zmienił(a) nick na 
- was banned 	 został(a) zablokowany(a)
- was kicked 	 został(a) wyrzucony(a)
+ was banned 	 został(a) zablokowany(a) 
+ was kicked 	 został(a) wyrzucony(a) 
  has been kicked because room became members-only	 został(a) wyrzucony(a) ponieważ pokój jest tylko dla osób posiadających członkowstwo w pokoju
  has left the channel	 opuścił(a) rozmowę
  has joined the channel as 	 dołączył(a) do rozmowy jako 
  and 	 i 
  is now 	 jest teraz 
-Participants	Uczestnicy 
-Abc	Аbc 
-online	dostępny 
-error	Błąd 
-chat	chętny do rozmowy 
-away	oddalony
-xa	zaraz wracam 
-dnd	niedostępny
-invisible	niewidoczny 
-offline	wylogowany 
-Clear Photo	Usuń Zdjęcie 
-Load Photo	Wybierz Zdjęcie 
-Hide finished	Ukryj przesłane 
-Transfer tasks	Przesłane pliki 
-Language	Język 
-Copy	Kopiuj 
-Paste	Wklej 
-has set topic to	ustawił temat na:
-Seen	Aktywny 
-Main menu	Menu 
-root	Przegląd dysku 
-File Transfers	Transfer plików 
-Choose status	Wybierz Status 
-Add status	Dodaj Status 
-Remove status	Usuń Status 
-User	Użytkownik 
-Reason	Powód 
-Address	Adres serwera: 
-Export to file	Eksportuj do pliku 
-View	Podgląd 
-Stop	Zatrzymaj 
-Path	Przeglądaj 
-Select file	Wybierz plik 
-Accept file	Akceptuj plik 
-File	Plik: 
-Save To	Zapisz do 
-Sender	Nadawca: 
-Size	Rozmiar: 
-Description	Szczegóły: 
-Rejected	Odrzucono 
-Send file	Wyślij plik 
-To	Do 
-Can't open file	Nie można otworzyć pliku 
-New	Nowa 
-Save photo	Zapisz zdjęcie 
-User has removed autorization	[Użytkownik odebrał Autoryzację] 
-You are now autorized	[Jesteś teraz Autoryzowany] 
-User request autorization	[Użytkownik pyta o Autoryzację] 
-Grant Membership	Daj Członkowstwo 
-Reply	Odpisz 
-Save template	Zapisz Notatkę 
-Send status	Pokaż status 
-Sounds options	Ustawienia dźwięku 
-participant	uczestnik
-moderator	moderator
-visitor	wizytor
-none	osobą bez przynależności
-member	member
-admin	admin
-owner	właściciel
+Participants	Uczestnicy
+
+autofocus	Autopodświetlanie nowej wiadomości
+Grant Membership	Daj Członkowstwo
+Are You sure want to clear messagelist?	Czy napewno chcesz wyczyścić liste wiadomości?
+Google token request	Google logowanie
+SASL login	SASL strumień
+Features	Właściwości
+Show password	Pokaż hasło
+No client version available	Brak informacji na temat wersji klienta
+Message limit	Limit wiadomości
 Opening stream	Otwieranie strumienia
 Using compression	Użycie kompresji danych
 Authenticating	Identyfikowanie użytkownika
 Resource binding	Uwierzytelnienie z serwera
 Initiating session	Inicjowanie sesji
-Grant Membership	Daj Członkowstwo
-SASL login	SASL Strumień
-Features	Szczegóły
-Show password	Pokaż hasło
-Message limit	Limit wiadomości
 Text wrapping	Zawijanie tekstu
 by chars	przez znaki
 by words	przez słowa
 Info	Info
+Reply	Odpisz
+Send status	Ustaw status
+Are you sure want to BAN this person?	Czy jesteś pewny aby zablokować tą osobe?
 No reason	Bez powodu
 Recent	Poprzednie
-Are you sure want to delete this message?	Czy jesteś pewien, aby usunąć tą wiadomość?
-New conference	Nowy czat
-authorize new contacts	Automatyczne Autoryzowanie
+Shot	Zdjęcie
+Select file	Wybierz plik
+Load Photo	Załaduj foto
+Clear Photo	Wyczyść foto
+Camera	Kamera
+Hide finished	Ukryj przesłane
+Transfer tasks	Przesłane pliki
+Are you sure want to delete this message?	Czy jesteś pewny aby usunąć tą wiadomość?
+New conference	Nowa konferencja
+Root	Przegląd dysku
+Decline	Odrzuć
+Authorize new contacts	Automatyczne autoryzowanie
 [auto-subscribe]	[Automatyczne Autoryzowanie]
 Keep-Alive	Typ podtrzymania połączenia
-Minutes before away	Czas włączenia automatycznego statusu (min)
-Automatic Away	Аuto odejście
-disabled	Wyłączone
-keyblock / flip	Blokada klawiatury / Przycisk
-Idle	Bezczynny
-Remove readed	Wyczyść okienko
-Rename	Zmień nazwę
-Save chat	Zapisz chat
-keyblock	Blokada klawiatury
-by message	Od ostatniej wiadomości
+ has been unaffiliated and kicked from members-only room	 został(a) wyrzucony(a) ponieważ pokój jest tylko dla osób posiadających członkowstwo w pokoju
+Minutes before away	Auto status oddalony
+Automatic Away	Auto status oddalony
+disabled	wyłączone
+keyblock / flip	blokada klawiatury / przycisk
+idle	bezczynny
+Add autojoin bookmark	Dodaj do auto-wejścia do konferencji
+
+//role	rola
+//affiliation	przynależność
+//visitor	gość
+//participant	uczestnik
+//moderator	moderator
+//owner	właściciel
+//admin	administrator
+//member	member
+
+online	dostępny
+free for chat	chętny do rozmowy
+away	oddalony
+not available	zaraz wracam
+do not disturb	niedostępny
+invisible	niewidoczny
+offline	wylogowany
+Join marked (auto)	Auto-wejście do konferencji
+shared platform info	Pokaż informacjie o platformie
 delivery events	Potw. dostarczenia
+drop all	dopuść
+receive messages	otrzymana wiadomość
+messages & presences	wiadomości & prezencja
+normal	normalna
+small	mała
+large	duża
+File Transfers	Transfer plików
+Auto	Automatyczne
+All signals	Wszystkie sygnały
+Vibra	Wibracja
+No signals	Bez sygnałów
+ (default)	 (domyślnie)
+Message collapse limit	Auto zwijanie wiadomośći (ustaw po ilu znakach)
+This user wants to subscribe to your presence	[Ten użytkownik chciałby dołączyć Twój kontakt do swojej listy]
+You are now authorized	[Jesteś teraz Autoryzowany]
+Your authorization has been removed!	[Użytkownik odebrał Autoryzację]
+Change nickname	Zmień nick
+ has changed subject to: 	 temat został zmieniony na: 
+Send file	Wyślij plik
+To: 	Do: 
+File	Plik
+Description	Opis
+Path	Ścieżka
+Accept file	Akceptuj plik
+Save to	Zapisz do
+Sender:	Nadawca:
+size:	rozmiar:
+Automatic subscription	Automatyczna autoryzacja
+Ask me	Zapytaj mnie
+Drop subscription	Odrzuć
+Deny subscription	Zabroń
+Search	Szukaj
+Register	Zarejestruj
+Color theme	Schemat koloru
+Memory:	Pamięć:
+Free=	Wolna=
+Total=	Całkowita=
+Versions	Wersje
+Install	Instaluj
+Available versions	Dostępne wersje

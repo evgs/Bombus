@@ -100,7 +100,7 @@ class AccountForm implements CommandListener, ItemStateListener {
 	register.append(SR.MS_SASL,null);
 	register.append(SR.MS_CONFERENCES_ONLY,null);
 //#if HTTPCONNECT
-//#         register.append(SR.MS_PROXY_ENABLE,null);
+//#         register.append("Proxy connect",null);
 //#elif HTTPPOLL        
 //#         register.append("HTTP Polling",null);
 //#endif
@@ -114,12 +114,14 @@ class AccountForm implements CommandListener, ItemStateListener {
 	register.setSelectedFlags(b);
 	f.append(register);
         
-        proxyPort = new NumberField(SR.MS_PROXY_PORT, account.getProxyPort(), 0, 65535);	
+        proxyPort = new NumberField("Proxy port", account.getProxyPort(), 0, 65535);	
 //#if HTTPCONNECT        
-//# 	proxyHost = new TextField(SR.MS_PROXY_HOST,   account.getProxyHostAddr(),   32, TextField.URL); f.append(proxyHost);
-//#         f.append(proxyPort);
+//# 	proxyHost = new TextField("Proxy name/IP", account.getProxyHostAddr(), 32, TextField.URL);
+//#     f.append(proxyHost);
+//#     f.append(proxyPort);
 //#elif HTTPPOLL        
-//# 	proxyHost = new TextField("HTTP Polling URL",   account.getProxyHostAddr(),   32, TextField.URL); f.append(proxyHost);
+//# 	proxyHost = new TextField("HTTP Polling URL", account.getProxyHostAddr(), 32, TextField.URL);
+//#     f.append(proxyHost);
 //#endif        
         
         keepAliveType=new ChoiceGroup(SR.MS_KEEPALIVE, ConstMIDP.CHOICE_POPUP);

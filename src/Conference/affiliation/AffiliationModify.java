@@ -46,7 +46,7 @@ public class AffiliationModify implements CommandListener, YesNoAlert.YesNoListe
     Display display;
     Displayable parentView;
     
-    Form f=new Form("Affiliation");
+    Form f=new Form(SR.MS_AFFILIATION);
     TextField jid;
     TextFieldCombo reason;
     ChoiceGroup affiliation;
@@ -68,7 +68,7 @@ public class AffiliationModify implements CommandListener, YesNoAlert.YesNoListe
         this.jid=new TextField(SR.MS_JID , jid, 1000, ConstMIDP.TEXTFIELD_URL);
         TextFieldCombo.setLowerCaseLatin(this.jid);
 
-        this.reason=new TextFieldCombo("Reason", reason, 256, TextField.ANY, "reason", display);
+        this.reason=new TextFieldCombo(SR.MS_REASON, reason, 256, TextField.ANY, "reason", display);
         f.append(this.jid);
         
         this.affiliation=new ChoiceGroup(SR.MS_SET_AFFILIATION /*"Set affiliation to"*/, ui.ConstMIDP.CHOICE_POPUP);

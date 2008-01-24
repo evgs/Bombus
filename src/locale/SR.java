@@ -74,7 +74,7 @@ public class SR {
     public   static String MS_ACCOUNTS = loadString( "Accounts" );
     public   static String MS_DELETE_LIST = loadString( "Delete list" );
     public   static String MS_ACCOUNT_= loadString( "Account >" );
-    public   static String MS_SHOWOFFLINES = loadString( "Show Offlines" );
+    //public   static String MS_SHOWOFFLINES = loadString( "Show Offlines" );
     public   static String MS_SELECT = loadString( "Select" );
     public   static String MS_SUBJECT = loadString( "Subject" );
     public   static String MS_GROUP_MENU = loadString( "Group menu" );
@@ -118,7 +118,7 @@ public class SR {
     public   static String MS_DELETE_ASK = loadString( "Delete contact?" );
     public   static String MS_SUBSCRIBE = loadString( "Authorize" );
     public   static String MS_NICKNAMES = loadString( "Nicknames" );
-    public   static String MS_ENT_SETUP = loadString( "Entering setup" );
+    //public   static String MS_ENT_SETUP = loadString( "Entering setup" );
     public   static String MS_ADD_ARCHIVE = loadString( "to Archive" );
     public   static String MS_BACK = loadString( "Back" );
     public   static String MS_HEAP_MONITOR = loadString( "heap monitor" );
@@ -208,9 +208,9 @@ public class SR {
     //public   static String MS_JABBER_TOOLS = loadString( "Jabber Tools" ); //replaced by "Tools"
     public   static String MS_PORT = loadString( "Port" );
     public   static String MS_RESUME = loadString( "Resume Message" );
-    public   static String MS_PROXY_ENABLE = loadString( "proxy CONNECT" );
-    public   static String MS_PROXY_HOST = loadString( "Proxy name/IP" );
-    public   static String MS_PROXY_PORT = loadString( "Proxy port" );
+    //public   static String MS_PROXY_ENABLE = loadString( "proxy CONNECT" );
+    //public   static String MS_PROXY_HOST = loadString( "Proxy name/IP" );
+    //public   static String MS_PROXY_PORT = loadString( "Proxy port" );
     public   static String MS_ARE_YOU_SURE_WANT_TO_DISCARD = loadString( "Are You sure want to discard " );
     public   static String MS_FROM_OWNER_TO = loadString( " from OWNER to " );
     public   static String MS_MODIFY_AFFILIATION = loadString( "Modify affiliation" );
@@ -230,7 +230,7 @@ public class SR {
     public   static String MS_ASK_SUBSCRIPTION=loadString( "Ask subscription");
     public   static String MS_GRANT_SUBSCRIPTION=loadString("Grant subscription");
     public   static String MS_INVITE=loadString("Invite to conference");
-    public   static String MS_INVITE_REASON=loadString("Reason");
+    public   static String MS_REASON=loadString("Reason");
     public   static String MS_YOU_HAVE_BEEN_INVITED=loadString("You have been invited to ");
     public   static String MS_DISCO_ROOM=loadString("Participants");
     public   static String MS_CAPS_STATE=loadString("Abc");
@@ -284,7 +284,7 @@ public class SR {
     public   static String MS_NEW_BOOKMARK = loadString( "New conference" );
     public   static String MS_ROOT = loadString( "Root" );
     public   static String MS_DECLINE = loadString( "Decline" );
-    public   static String MS_AUTH_NEW = loadString( "authorize new contacts" );
+    public   static String MS_AUTH_NEW = loadString( "Authorize new contacts" );
     public   static String MS_AUTH_AUTO = loadString( "[auto-subscribe]" );
     public   static String MS_KEEPALIVE = loadString( "Keep-Alive" );
     public   static String MS_HAS_BEEN_UNAFFILIATED_AND_KICKED_FROM_MEMBERS_ONLY_ROOM = loadString( " has been unaffiliated and kicked from members-only room" );
@@ -321,9 +321,9 @@ public class SR {
     public static String MS_ALERT_PROFILE_AUTO = loadString( "Auto" );
     public static String MS_ALERT_PROFILE_ALLSIGNALS = loadString( "All signals" );
     public static String MS_ALERT_PROFILE_VIBRA = loadString( "Vibra" );
-    public static String MS_ALERT_PROFILE_SOUND = loadString( "Sound" );
+    //public static String MS_ALERT_PROFILE_SOUND = loadString( "Sound" );
     public static String MS_ALERT_PROFILE_NOSIGNALS = loadString( "No signals" );
-    public static String MS_ALERT_PROFILE_DEFAULT = loadString( " (default)" );
+    public static String MS_IS_DEFAULT = loadString( " (default)" );
     
 //2007-10-24 voffk
     public static String MS_MESSAGE_COLLAPSE_LIMIT = loadString ( "Message collapse limit" );
@@ -361,7 +361,8 @@ public class SR {
     public static String MS_INSTALL=loadString( "Install" );
     public static String MS_AVAILABLE_VERSIONS=loadString( "Available versions" );
     
-    
+//2008-01-16
+    public static String MS_USER = loadString( "User" );
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
 

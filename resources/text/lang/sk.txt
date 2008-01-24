@@ -1,5 +1,5 @@
-﻿// Slovenian langfile for Bombus - mobile jabber client
-// (c) Miroslav Prašil - Cezz <cezzmail@gmail.com> (JID: cezz@jabber.sk)
+// Slovak langfile for Bombus - mobile jabber client
+// (c) Miroslav Prašil - Cezz <cezzmail@gmail.com>
 // Pôvodný dokument je od jenda.69 (jenda.69@gmail.com)
 // Ak ste našli nejakú chybu, preklep, chýbajúcu diakritiku, nepreložené slovo, dajte vedieť na hore uvedené kontakty.
 
@@ -44,7 +44,6 @@ Affiliation	Pridruženie
 Accounts	Účty
 Delete list	Zmazať zoznam
 Account >	Účet >
-Show Offlines	Ukazáť odpojené
 Select	Vybrať
 Subject	Predmet
 Group menu	Menu skupiny
@@ -87,7 +86,6 @@ Delete	Zmazať
 Delete contact?	Zmazať kontakt?
 Authorize	Autorizovať
 Nicknames	Prezývky
-Entering setup	Vstupujem do nastavení
 to Archive	Do archivu
 Back	Späť
 heap monitor	Monitor pamäti
@@ -134,7 +132,7 @@ Edit rule	Upraviť pravidlo
 Cancel	Zrušiť
 Close	Zavrieť
 Archive	Archív
-free 	free
+free 	voľný
 Conference	Konferencia
 Sound	Zvuk
 Login failed	Chyba prihlásenia
@@ -170,35 +168,16 @@ vCard	vCard
 Set Subject	Nastaviť predmet
 Tools	Nástroje
 Port	Port
-
-
-//473
-Proxy name/IP	Meno proxy/IP
-Proxy port	Proxy port
-autofocus	Autofocus
-
 Connect	Pripojiť
 history -	História -
 Are You sure want to discard 	Ste si istý, že chcete vymazať 
  from OWNER to 	 od VLASTNÍKA do 
 Modify affiliation	Upravit priradenie
 
-// DO NOT TRANSLATE THIS LINES!!!
-Ignore-List	Ignore-List
-General	General
-Stanzas	Stanzas
-Not-in-list	Not-in-list
-proxy CONNECT	proxy CONNECT
 
-// HERE IS NEW LINES
-//476
 Clear	Zmazať
-
-//494
 Ask subscription	Vyžiadať autorizaciu
 Grant subscription	Povoliť autorizaciu
-
-//502
 Invite to conference	Pozvať na konferenciu
 Reason	Dôvod
 You have been invited to 	Bol si pozvaný na 
@@ -209,7 +188,6 @@ Grant Moderator	Dať moderátora
 Revoke Moderator	Odobrať moderátora
 Grant Admin	Dať admina
 Grant Ownership	Dať vlastníka
-
 room presences	správanie miestnosti
 
  is now known as 	 je teraz známy ako 
@@ -220,3 +198,111 @@ room presences	správanie miestnosti
  has joined the channel as 	 sa pripojil ku kanálu ako 
  and 	 a 
  is now 	 je teraz 
+
+Participants	Účasníci
+Abc	Abc
+autofocus	autofocus
+Grant Membership	Poskytnuť členstvo
+Are You sure want to clear messagelist?	Naozaj vymazať zoznam správ?
+Google token request	Požiadavka na Google token
+Features	Funkcie
+Show password	Zobraziť heslo
+No client version available	Verzia klienta nedostupná
+Message limit	Limit správy
+Opening stream	Otvára stream
+Using compression	Používa kompresiu
+Authenticating	Autentifikácia
+Resource binding	Pripájanie zdrojov
+Initiating session	Inicializácia sedenia
+Text wrapping	Zalamovanie textu
+by chars	na znaky
+by words	na slová
+Info	Info
+Reply	Odpoveď
+Send status	Odoslať status
+Are you sure want to BAN this person?	Určite zakázať tohto uživateľa?
+No reason	Bez doôvodu
+Recent	Posledné
+Shot	Záber
+Select file	Vybrať súbor
+Load Photo	Načítať fotku
+Clear Photo	Vymazať fotku
+Camera	Kamera
+Hide finished	Skryť dokončené
+Transfer tasks	Prenosové úlohy
+Are you sure want to delete this message?	Určite vymazať túto správu?
+New conference	Nová konferencia
+Root	Root
+Decline	Zamietnuť
+Authorize new contacts	Autorizovať nové kontakty
+[auto-subscribe]	[autoprihlásenie]
+Keep-Alive	Keep-Alive
+ has been unaffiliated and kicked from members-only room	 bol vyhodený a vylúčený z miestnosti len pre členov
+Minutes before away	Minúty pred nedostupný
+Automatic Away	Automatická nedostupnosť
+disabled	vypnuý
+keyblock / flip	blokovanie klávesnice / prehodiť
+idle	nečinný
+Add autojoin bookmark	Automaticky pripojiť záložku
+
+//2007-04-12
+//role	roľa
+//affiliation	pridruženie
+//visitor	návštevník
+//participant	účasníci
+//moderator	moderátor
+//owner	vlastník
+//admin	administrátor
+//member	člen
+
+online	pripojený
+free for chat	dostupný na chat
+away	zaneprázdnený
+not available	nedostupný
+invisible	neviditeľný
+do not disturb	nerušiť
+offline	odpojený
+Join marked (auto)	Pripojiť označené (automaticky)
+shared platform info	informácia o zdieľanej ploche
+delivery events	inoformácie o doručení
+drop all	zahodiť všetky
+receive messages	prijať spravy
+messages & presences	správy a prítomnosť
+normal	normalné
+small	malé
+large	veľké
+File Transfers	Prenosy súborov
+Auto	Automaticky
+All signals	Všetky signály
+Vibra	Vibrovať
+No signals	Bez signálov
+ (default)	 (štandardne)
+
+Message collapse limit	Limit zlúčenia správ
+This user wants to subscribe to your presence	Tento uživateľ chce vidieť tvoju dostupnosť
+You are now authorized	Teraz si autorizovaný
+Your authorization has been removed!	Tvoja autorizácia bola odobraná!
+Change nickname	Zmeniť nick
+ has changed subject to: 	 zmenil(a) tému na: 
+Send file	Poslať súbor
+To: 	Komu: 
+File	Súbor
+Description	Popis
+Path	Cesta
+Accept file	Prijať súbor
+Save to	Uložiť do
+Sender:	Odosielateľ:
+size:	veľkosť:
+Automatic subscription	autopripojenie
+Ask me	Opýtať sa
+Drop subscription	Odhlásiť sa
+Deny subscription	Zamietnúť prihlásenie
+Search	Hľadať
+Register	Registrovať
+Color theme	Farebná téma
+Memory:	Pamäť:
+Free=	Voľné=
+Total=	Dokopy=
+Versions	Verzie
+Install	Inštalovať
+Available versions	Dostuúné verzie

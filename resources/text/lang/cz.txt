@@ -1,8 +1,8 @@
-// Český překlad Bombus by jenda.69 (c) 2007
+﻿// Český překlad Bombus by jenda.69 (c) 2007
 // Upravený překlad "(c) 2006 Jindřich Skácel"; přidána diakritika, upřesněny některé názvy
 // Pokud by jste našli nějakou chybu, překlep, chybějící diakritiku, nepřeložené slovo, pište na: jenda.69@gmail.com
+
 xmlLang cz
-langfile	Česky
 Jid	Jid
 Privacy Lists	Seznamy soukromí
 Message font	Písmo zpráv
@@ -43,7 +43,6 @@ Affiliation	Přidružení
 Accounts	Účty
 Delete list	Smazat seznam
 Account >	Účet >
-Show Offlines	Ukazát odpojené
 Select	Vybrat
 Subject	Předmět
 Group menu	Menu skupiny
@@ -86,7 +85,6 @@ Delete	Smazat
 Delete contact?	Smazat kontakt?
 Authorize	Autorizovat
 Nicknames	Přezdívky
-Entering setup	Vstupuji do nastavení
 to Archive	Do archivu
 Back	Zpět
 heap monitor	Monitor paměti
@@ -139,6 +137,7 @@ Sound	Zvuk
 Login failed	Chyba přihlášení
 New Jid	Nové JID
 plain-text password	Heslo jako text
+Paste Nickname	Vložit přezdívku
 Kick	Kick
 Clear List	Smazat diskuzi
 Grant Voice	Dát Voice
@@ -152,7 +151,7 @@ Disconnected	Odpojen
 Edit	Upravit
 Host name/IP (optional)	Hostitel/IP (volitelně)
 Add rule	Přidat pravidlo
-for all status types	Pro všechny stavy
+for all status types	pro všechny stavy
 Paste Jid	Vložit JID
 Goto URL	Přejít na adresu
 Clock offset	Vyrovnání hodin
@@ -161,42 +160,23 @@ Suspend	Nechat rozepsané
 Resume Message	Dopsat zprávu
 Alert Profile >	Oznamování >
 My vCard	Moje vizitka
-transports	Transporty
+transports	transporty
 New Account	Nový účet
 self-contact	Můj kontakt
 vCard	vCard
 Set Subject	Nastavit předmět
 Tools	Nástroje
 Port	Port
-
-
-//473
-Proxy name/IP	Proxy jméno/IP
-Proxy port	Proxy port
-autofocus	Automaticky označovat
-
 Connect	Připojit
 history -	Historie -
 Are You sure want to discard 	Jste si jistý, že chcete vyřadit 
  from OWNER to 	 od VLASTNÍKA do 
 Modify affiliation	Upravit přiřazení
 
-// DO NOT TRANSLATE THIS LINES!!!
-Ignore-List	Ignore-List
-General	General
-Stanzas	Stanzas
-Not-in-list	Not-in-list
-proxy CONNECT	proxy CONNECT
 
-// HERE IS NEW LINES
-//476
 Clear	Vyprázdnit
-
-//494
 Ask subscription	Dotaz na autorizaci
 Grant subscription	Odeslat autorizaci
-
-//502
 Invite to conference	Pozvat na konferenci
 Reason	Důvod
 You have been invited to 	Byl jsi pozván na 
@@ -207,7 +187,6 @@ Grant Moderator	Dát moderátora
 Revoke Moderator	Odebrat moderátora
 Grant Admin	Dát admina
 Grant Ownership	Dát vlastnictví
-
 room presences	Chování místnosti
 
  is now known as 	 je teď známý jako 
@@ -219,7 +198,8 @@ room presences	Chování místnosti
  and 	 a 
  is now 	 je teď 
 
-//1063
+Participants	Participants
+Abc	Abc
 autofocus	Automaticky označovat
 Grant Membership	Přidělit členství
 Are You sure want to clear messagelist?	Opravdu chcete vymazat seznam zpráv?
@@ -254,7 +234,7 @@ Are you sure want to delete this message?	Opravdu chcete smazat tuto zprávu?
 New conference	Nová konference
 Root	Kořenový adresář
 Decline	Odmítnout
-authorize new contacts	Autorizace nových kontaktů
+Authorize new contacts	Autorizace nových kontaktů
 [auto-subscribe]	[automaticky potvrzovat]
 Keep-Alive	Udržování spojení
  has been unaffiliated and kicked from members-only room	 byl odmítnut a vykopnut z místnosti jen pro členy
@@ -265,7 +245,6 @@ keyblock / flip	Při zamknutí/zaklapnutí
 idle	Při nečinnosti
 Add autojoin bookmark	Přidat samopřipojovací záložku
 
-//2007-08-19
 online	připojen
 free for chat	chci si psát
 away	pryč
@@ -286,11 +265,9 @@ File Transfers	Přenosy souborů
 Auto	Automaticky
 All signals	Všechno
 Vibra	Vibrace
-Sound	Zvuk
 No signals	Bez oznámení
  (default)	 (výchozí)
 
-//2007-10-24 voffk
 Message collapse limit	Limit minimalizace zpráv
 This user wants to subscribe to your presence	Tento uživatel žádá o povolení zobrazení Vašeho stavu
 You are now authorized	Jste autorizovaný

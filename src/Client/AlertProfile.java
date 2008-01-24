@@ -92,10 +92,10 @@ public class AlertProfile extends VirtualList implements CommandListener {
                 case AUTO: s.append(SR.MS_ALERT_PROFILE_AUTO); break;
                 case ALL: s.append(SR.MS_ALERT_PROFILE_ALLSIGNALS); break;
                 case VIBRA: s.append(SR.MS_ALERT_PROFILE_VIBRA); break;
-                case SOUND: s.append(SR.MS_ALERT_PROFILE_SOUND); break;
+                case SOUND: s.append(SR.MS_SOUND); break;
                 case NONE: s.append(SR.MS_ALERT_PROFILE_NOSIGNALS); break;
             }
-            if (index==defp) s.append(SR.MS_ALERT_PROFILE_DEFAULT);
+            if (index==defp) s.append(SR.MS_IS_DEFAULT);
             return s.toString();
         }
     }

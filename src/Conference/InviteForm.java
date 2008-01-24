@@ -67,7 +67,7 @@ public class InviteForm implements CommandListener{
         parentView=display.getCurrent();
         
         form=new Form(SR.MS_INVITE);
-        reason=new TextField(SR.MS_INVITE_REASON, null, 200, TextField.ANY);
+        reason=new TextField(SR.MS_REASON, null, 200, TextField.ANY);
         
         conferenceList=new ChoiceGroup (SR.MS_CONFERENCE, ConstMIDP.CHOICE_POPUP);
         for (Enumeration c=StaticData.getInstance().roster.getHContacts().elements(); c.hasMoreElements(); ) {

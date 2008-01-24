@@ -1,12 +1,7 @@
 ﻿// Bulgarian langfile for Bombus - mobile jabber client
-// Copyright (c) 2005-2006, Eugene Stahov (evgs), http://bombus.jrudevels.org
-// All rights reserved.
-// (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
-// (c) Vladimir N. Shelukhin, 2006.
+// Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org
 
-// ask server to send us localized messages
 xmlLang	bg
-//463
 Jid	Jid
 Privacy Lists	Личен списък
 Message font	Шрифт съобщения
@@ -47,7 +42,6 @@ Affiliation	Членство
 Accounts	Сметки
 Delete list	Изтрий списък
 Account >	Сметка >
-Show Offlines	Изключени видими
 Select	Избери
 Subject	Тема
 Group menu	Меню група
@@ -77,7 +71,6 @@ Client Version	Версия на клиента
 Discard Search	Откажи търсене
 Search Results	Търсене резултат
 Members	Членове
-// offline	Отключенные
 Add Contact	Добави контакт
 Subscription	Подписка
 Status >	Статус >
@@ -91,7 +84,6 @@ Delete	Изтрий
 Delete contact?	Изтрий контакт?
 Authorize	Упълномощаване
 Nicknames	Никове
-Entering setup	Настройки на акаунта
 to Archive	В архив
 Back	Назад
 heap monitor	монитор heap
@@ -174,33 +166,17 @@ vCard	Визитка
 Set Subject	Задай тема
 Tools	Инструменти
 Port	Порт
-
-//473
-Proxy name/IP	прокси-сървър ИМЕ/IP
-Proxy port	прокси-сървър ПОРТ
 autofocus	автофокус
-
 Connect	Свързване
 history -	история -
 Are You sure want to discard 	Вы действительно собираетесь понизить у 
  from OWNER to 	 право OWNER до 
 Modify affiliation	Измени членство
 
-// DO NOT TRANSLATE THIS LINES!!!
-Ignore-List	Ignore-List
-General	General
-Stanzas	Stanzas
-Not-in-list	Not-in-list
-proxy CONNECT	proxy CONNECT
 
-//476
 Clear	Изчисти
-
-//494
 Ask subscription	Искай разрешение
 Grant subscription	Дай разрешение
-
-//502
 Invite to conference	Покани в конференция
 Reason	Причина
 You have been invited to 	Поканен сте в 

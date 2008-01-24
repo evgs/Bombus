@@ -114,13 +114,13 @@ public class ConferenceQuickPrivelegeModify implements CommandListener{
             user.append(victim.realJid);
             user.append(")");
         }
-        f.append(new StringItem("User",user.toString()));
+        f.append(new StringItem(SR.MS_USER, user.toString()));
         
 //#if (!MIDP1)
         f.append(new Spacer(256, 33));
 //#endif
         
-        reason=new TextFieldCombo("Reason", "", 256, TextField.ANY, "reason", display);
+        reason=new TextFieldCombo(SR.MS_REASON, "", 256, TextField.ANY, "reason", display);
         f.append(reason);
         
         cmdOk=new Command( okName, Command.SCREEN, 1);
