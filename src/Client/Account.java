@@ -57,7 +57,7 @@ public class Account extends IconTextElement{
     private int port=5222;
     public boolean active;
     private boolean useSSL;
-    private boolean sasl;
+    private boolean sasl=true;
     private boolean plainAuth;
     private boolean mucOnly;
     
