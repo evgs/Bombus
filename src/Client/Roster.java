@@ -450,6 +450,9 @@ public class Roster
             c=new Contact(nick, jid, Presence.PRESENCE_OFFLINE, null);
             addContact(c);
         }
+        
+        boolean firstInstance=true;
+        
         for (Enumeration e=hContacts.elements();e.hasMoreElements();) {
             c=(Contact)e.nextElement();
             if (c.jid.equals(J,false)) {
@@ -464,8 +467,13 @@ public class Roster
                 c.subscr=subscr;
                 c.offline_type=status;
                 c.ask_subscribe=ask;
-                //if (status==Presence.PRESENCE_TRASH) c.status=status;
-                //if (status!=Presence.PRESENCE_OFFLINE) c.status=status;
+
+                if (c.origin==Contact.ORIGIN_PRESENCE) {
+                    if (firstInstance) c.origin=Contact.ORIGIN_ROSTERRES;
+                    else c.origin=Contact.ORIGIN_CLONE;
+                }
+                firstInstance=false;
+
                 c.setSortKey((nick==null)? jid:nick);
             }
         }
