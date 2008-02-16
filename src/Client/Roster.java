@@ -1383,7 +1383,7 @@ public class Roster
         if (from!=null) {
             Jid fromJid=new Jid(from);
             if (fromJid.hasResource())
-                if (!myJid.equals(new Jid(from), true)) return;
+                if (!myJid.equals(fromJid, true)) return;
         }
         
         Vector cont=(q!=null)?q.getChildBlocks():null;
