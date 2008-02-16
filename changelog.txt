@@ -4241,6 +4241,19 @@ syslog_msg: true
     but may not supported by some phones
   * fixed image type detection for png, gif and bmp (when uploading)
   * xml:lang : ua->uk
+
+17.02.2008
+0.6.1266
+  * КРИТИЧЕСКОЕ ИСПРАВЛЕНИЕ: проблема загрузки ростера на новых версиях ejabberd. теперь Bombus обрабатывает ростер в строгом соответствии 
+    с rfc3921/7.2
+  * исправление проблем загрузки ростера FS#712
+  * lang/ua.txt -> lang/uk.txt
+  --                                                                                                               
+  * CRITICAL: fixed bug with ejabberd roster pushes and roster retriving. now bombus proceeds roster stanza according to rfc3921/7.2
+  * workaround for FS#712 - correct roster loading if buggy server sends presences BEFORE client receives roster and SENDS INITIAL PRESENCE
+    (usually it is direct presences from buggy transport services)
+  * lang/ua.txt -> lang/uk.txt
+
 ------------------------------------------------------------------------
   known issues:
 
