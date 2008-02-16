@@ -451,7 +451,7 @@ public class Roster
             addContact(c);
         }
         
-        boolean firstInstance=true;
+        boolean firstInstance=true; //FS#712 workaround
         
         for (Enumeration e=hContacts.elements();e.hasMoreElements();) {
             c=(Contact)e.nextElement();
@@ -468,11 +468,13 @@ public class Roster
                 c.offline_type=status;
                 c.ask_subscribe=ask;
 
+                //FS#712 workaround
                 if (c.origin==Contact.ORIGIN_PRESENCE) {
                     if (firstInstance) c.origin=Contact.ORIGIN_ROSTERRES;
                     else c.origin=Contact.ORIGIN_CLONE;
                 }
                 firstInstance=false;
+                //end of FS#712 workaround
 
                 c.setSortKey((nick==null)? jid:nick);
             }
@@ -1379,7 +1381,9 @@ public class Roster
         //verifying from attribute as in RFC3921/7.2
         String from=data.getAttribute("from");
         if (from!=null) {
-            if (!myJid.equals(new Jid(from), true)) return;
+            Jid fromJid=new Jid(from);
+            if (fromJid.hasResource())
+                if (!myJid.equals(new Jid(from), true)) return;
         }
         
         Vector cont=(q!=null)?q.getChildBlocks():null;
