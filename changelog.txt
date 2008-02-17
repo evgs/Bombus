@@ -4254,6 +4254,11 @@ syslog_msg: true
     (usually it is direct presences from buggy transport services)
   * lang/ua.txt -> lang/uk.txt
 
+18.02.2008
+0.6.1270
+  * Ошибка XML-парсера при обработке во входящем потоке символов ' и " (встречается у gtalk)
+  --
+  * XmlParser: correctly parsing of non-escaped single and quotes in xml attributes (like " ' " and ' " ') and in text section
 ------------------------------------------------------------------------
   known issues:
 
