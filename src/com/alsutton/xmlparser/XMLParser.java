@@ -146,7 +146,6 @@ public class XMLParser
       streamData.append( (char) '\n' );
 
     String returnData = streamData.toString();
-    System.out.println(returnData);
     return returnData;
   }
 
