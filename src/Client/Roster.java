@@ -1333,7 +1333,6 @@ public class Roster
                     if (ti==Presence.PRESENCE_AUTH_ASK) {
                         //processing subscriptions
                         if (cf.autoSubscribe==Config.SUBSCR_DROP)  return JabberBlockListener.BLOCK_REJECTED;
-                            return JabberBlockListener.BLOCK_REJECTED;
                         
                         if (cf.autoSubscribe==Config.SUBSCR_REJECT) {
                             //System.out.println(from+": decline subscription");
