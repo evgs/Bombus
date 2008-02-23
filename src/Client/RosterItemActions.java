@@ -293,7 +293,7 @@ public class RosterItemActions extends Menu implements YesNoAlert.YesNoListener{
             
             case 45: //direct presence
             {
-                new StatusSelect(display, c);
+                (new StatusSelect(display, c)).setParentView(roster);
                 return;
             }
             
@@ -344,7 +344,7 @@ public class RosterItemActions extends Menu implements YesNoAlert.YesNoListener{
                                    
                 case 46: //conference presence
                 {
-                    new StatusSelect(display, ((ConferenceGroup)g).getConference());
+                    (new StatusSelect(display, ((ConferenceGroup)g).getConference())).setParentView(roster);
                     return;
                 }
 

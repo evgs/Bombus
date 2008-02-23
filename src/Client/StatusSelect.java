@@ -168,4 +168,8 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
             if (display!=null)   display.setCurrent(parentView);
         }
     }
+
+        public void setParentView(Displayable parentView){
+            this.parentView=parentView;
+        }
 }
