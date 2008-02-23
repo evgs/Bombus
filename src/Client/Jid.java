@@ -69,6 +69,16 @@ public class Jid {
     public boolean hasResource(){
         return (resource.length()!=0) ;
     }
+
+     /** returns server of the JID */
+     public String getServer(){
+         try {
+             int beginIndex=bareJid.indexOf('@')+1;
+             return bareJid.substring(beginIndex);
+         } catch (Exception e) {
+             return "-";
+         }
+     }
     
     /** выделение транспорта */
     public String getTransport(){

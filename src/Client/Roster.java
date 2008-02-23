@@ -861,29 +861,34 @@ public class Roster
     }
     
     private Vector vCardQueue;
-    public void resolveNicknames(int transportIndex){
+    
+    public void resolveNicknames(String transport){
 	vCardQueue=new Vector();
 	for (Enumeration e=hContacts.elements(); e.hasMoreElements();){
 	    Contact k=(Contact) e.nextElement();
 	    if (k.jid.isTransport()) continue;
             int grpType=k.getGroupType();
-            if (k.transport==transportIndex && k.nick==null && (grpType==Groups.TYPE_COMMON || grpType==Groups.TYPE_NO_GROUP)) {
+            if (k.jid.getServer().equals(transport) && k.nick==null
+                && (grpType==Groups.TYPE_COMMON || grpType==Groups.TYPE_NO_GROUP)) {
 		vCardQueue.addElement(VCard.getQueryVCard(k.getJid(), "nickvc"+k.bareJid));
+                System.out.println(k.toString());
 	    }
 	}
 	setQuerySign(true);
-	sendVCardReq();
-	
+	sendVCardReq();	
     }
+    
     private void sendVCardReq(){
-        querysign=false; 
-        if (vCardQueue!=null) if (!vCardQueue.isEmpty()) {
+        querysign=false;
+        if (vCardQueue!=null)
+            if (!vCardQueue.isEmpty()) {
+            
             JabberDataBlock req=(JabberDataBlock) vCardQueue.lastElement();
             vCardQueue.removeElement(req);
-            //System.out.println(k.nick);
             theStream.send(req);
             querysign=true;
-        }
+            }
+        
         updateTitle();
     }
     /**
@@ -935,7 +940,8 @@ public class Roster
             try {
                 reEnumRoster();
             } catch (Exception e) { e.printStackTrace(); }
-            querysign=reconnect=false;
+            setQuerySign(false);
+            reconnect=false;
             SplashScreen.getInstance().close(); // display.setCurrent(this);
             
             //query bookmarks
@@ -1321,15 +1327,16 @@ public class Roster
                     
                 } /* if (muc) */ catch (Exception e) { /*e.printStackTrace();*/ }
                 else {
+                    //processing presences
                     Contact c=null;
                     
                     if (ti==Presence.PRESENCE_AUTH_ASK) {
                         //processing subscriptions
                         if (cf.autoSubscribe==Config.SUBSCR_DROP)  return JabberBlockListener.BLOCK_REJECTED;
+                            return JabberBlockListener.BLOCK_REJECTED;
                         
                         if (cf.autoSubscribe==Config.SUBSCR_REJECT) {
-                            System.out.print(from); 
-                            System.out.println(": decline subscription");
+                            //System.out.println(from+": decline subscription");
                             
                             sendPresence(from, "unsubscribed", null);
                             return JabberBlockListener.BLOCK_PROCESSED;

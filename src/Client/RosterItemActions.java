@@ -270,7 +270,7 @@ public class RosterItemActions extends Menu implements YesNoAlert.YesNoListener{
             }
             case 7: // Nick resolver
             {
-                roster.resolveNicknames(c.transport);
+                roster.resolveNicknames(c.getBareJid());
                 break;
             }
             

@@ -126,15 +126,15 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
             
             f=new Form(status.getScreenName());
             
+            tfMessage=new TextFieldCombo(SR.MS_MESSAGE, status.getMessage(), 100, 0, "status", display);
+            f.append(tfMessage);
+            
             tfPriority=new NumberField(SR.MS_PRIORITY, status.getPriority(), -128, 128);
             f.append(tfPriority);
 
             chPriorityAll=new ChoiceGroup(null, ChoiceGroup.MULTIPLE);
             chPriorityAll.append(SR.MS_ALL_STATUSES, null);
             f.append(chPriorityAll);
-            
-            tfMessage=new TextFieldCombo(SR.MS_MESSAGE, status.getMessage(), 100, 0, "status", display);
-            f.append(tfMessage);
             
             f.addCommand(cmdOk);
             f.addCommand(cmdCancel);
@@ -164,7 +164,7 @@ public class StatusSelect extends VirtualList implements CommandListener, Runnab
             if (c==cmdCancel) {  destroyView();  }
         }
         
-        public void destroyView(){
+        private void destroyView(){
             if (display!=null)   display.setCurrent(parentView);
         }
     }

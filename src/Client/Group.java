@@ -26,6 +26,7 @@
  */
 
 package Client;
+import com.alsutton.jabber.datablocks.Presence;
 import images.RosterIcons;
 import java.util.*;
 import ui.*;
@@ -85,7 +86,7 @@ public class Group extends IconTextElement {
 
     public void addContact(Contact c) {
 	tncontacts++;
-	boolean online=c.status<5;
+	boolean online=c.status<Presence.PRESENCE_OFFLINE;
 	if (online) {
 	    tonlines++;
 	}
@@ -97,15 +98,13 @@ public class Group extends IconTextElement {
 	online
 	|| Config.getInstance().showOfflineContacts
 	|| c.getNewMsgsCount()>0
-	//|| gindex==Groups.NIL_INDEX
-	//|| gindex==Groups.TRANSP_INDEX
 	|| type==Groups.TYPE_NOT_IN_LIST
 	|| type==Groups.TYPE_TRANSP
 	|| c.origin==Contact.ORIGIN_GROUPCHAT
 	)
 	    contacts.addElement(c);
-	//grp.addContact(c);
     }
+    
     void finishCount() {
 	//contacts=tcontacts;
         onlines=tonlines;
