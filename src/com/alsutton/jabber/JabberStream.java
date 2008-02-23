@@ -285,7 +285,7 @@ public class JabberStream implements XMLEventListener, Runnable {
             currentBlock = new Iq( currentBlock, attributes );
         else if ( name.equals("presence") )
             currentBlock = new Presence( currentBlock, attributes );
-        else currentBlock = new JabberDataBlock(name, null, null);
+        else currentBlock = new JabberDataBlock(name, null, attributes);
         return false;
     }
     
