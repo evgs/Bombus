@@ -57,7 +57,7 @@ public class InfoWindow implements CommandListener{
             if (icon==null) icon=Image.createImage("/_icon.png");
             form.append(icon);
         } catch (Exception e) { }
-        form.append("Bombus v"+Version.version+"\nMobile Jabber client\n");
+        form.append(Version.NAME+" v"+Version.version+"\nMobile Jabber client\n");
         form.append(Version.getOs());
         form.append("\nCopyright (c) 2005-2007, Eugene Stahov (evgs),\n");
         form.append (new StringItem(null, Version.BOMBUS_SITE_URL

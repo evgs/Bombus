@@ -27,6 +27,7 @@
  */
 
 package Client;
+import Info.Version;
 import com.alsutton.jabber.datablocks.Presence;
 import images.RosterIcons;
 import io.NvStorage;
@@ -62,7 +63,7 @@ public class Account extends IconTextElement{
     private boolean mucOnly;
     
     private String nick="";
-    private String resource="Bombus";
+    private String resource=Version.NAME;
     
     private boolean enableProxy;
     private String proxyHostAddr;

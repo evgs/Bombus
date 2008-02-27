@@ -42,6 +42,7 @@ public class Version {
 //#endif
     // this string will be patched by build.xml/post-preprocess
     
+    public final static String NAME="Bombus";
     public final static String BOMBUS_SITE_URL="http://bombus-im.org";
 
     private static String platformName;

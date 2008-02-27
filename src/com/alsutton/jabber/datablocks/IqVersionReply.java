@@ -43,7 +43,7 @@ public class IqVersionReply extends Iq{
     public IqVersionReply(JabberDataBlock request) {
         super(request.getAttribute("from"), Iq.TYPE_RESULT, request.getAttribute("id") );
         JabberDataBlock query=addChildNs("query", "jabber:iq:version");
-        query.addChild("name","Bombus");
+        query.addChild("name", Version.NAME);
         query.addChild("version",Version.getVersionLang());
         if (Config.getInstance().enableVersionOs) {
             query.addChild("os", Version.getOs());

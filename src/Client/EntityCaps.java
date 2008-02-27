@@ -37,17 +37,17 @@ public class EntityCaps implements JabberBlockListener{
             return BLOCK_REJECTED;
          */
         
-        if (node!=null) 
-            if (!node.startsWith(BOMBUS_NAMESPACE))
-                return BLOCK_REJECTED;
+        if (node!=null) {
+            if (!node.equals(BOMBUS_NAMESPACE+"#"+calcVerHash()) )    return BLOCK_REJECTED;
+        }
         
         JabberDataBlock result=new Iq(data.getAttribute("from"), Iq.TYPE_RESULT, data.getAttribute("id"));
         result.addChild(query);
         
         JabberDataBlock identity=query.addChild("identity", null);
-        identity.setAttribute("category","client");
-        identity.setAttribute("type","phone");
-        identity.setAttribute("name", "Bombus");
+        identity.setAttribute("category", BOMBUS_ID_CATEGORY);
+        identity.setAttribute("type", BOMBUS_ID_TYPE);
+        identity.setAttribute("name", Version.NAME);
 
         for (int i=0; i<features.length; i++) {
             query.addChild("feature", null).setAttribute("var",features[i]);
@@ -66,7 +66,9 @@ public class EntityCaps implements JabberBlockListener{
         SHA1 sha1=new SHA1();
         sha1.init();
         
-        sha1.update("client/mobile");
+        //indentity
+        sha1.update(BOMBUS_ID_CATEGORY+"/"+BOMBUS_ID_TYPE+"//");
+        sha1.update(Version.NAME);
         sha1.update("<");
         
         for (int i=0; i<features.length; i++) {
@@ -84,13 +86,14 @@ public class EntityCaps implements JabberBlockListener{
         c.setAttribute("xmlns", "http://jabber.org/protocol/caps");
         c.setAttribute("node", BOMBUS_NAMESPACE+'#'+Version.getVersionNumber());
         c.setAttribute("ver", calcVerHash());
-        c.setAttribute("hash", "sha-1"); //todo: change to algo when caps 1.5 will be released
-        //c.setAttribute("ext", appVersion.c_str());
+        c.setAttribute("hash", "sha-1"); 
         
         return c;
     }
     
     private final static String BOMBUS_NAMESPACE="http://bombus-im.org/java";
+    private final static String BOMBUS_ID_CATEGORY="client";
+    private final static String BOMBUS_ID_TYPE="mobile";
     //features MUST be sorted
     private final static String features[]={
         "http://jabber.org/protocol/chatstates", //xep-0085
