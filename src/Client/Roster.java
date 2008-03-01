@@ -283,6 +283,7 @@ public class Roster
             setProgress(SR.MS_OPENING_STREAM, 40);
             theStream.setJabberListener( this );
             theStream.addBlockListener(new EntityCaps());
+            theStream.initiateStream();
         } catch( Exception e ) {
             setProgress(SR.MS_FAILED, 0);
             reconnect=false;

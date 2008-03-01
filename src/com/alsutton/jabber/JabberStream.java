@@ -57,6 +57,8 @@ public class JabberStream implements XMLEventListener, Runnable {
     
     private boolean rosterNotify;
     
+    private boolean xmppV1;
+    
     private String server; // for ping
 
     public boolean pingSent;
@@ -70,9 +72,10 @@ public class JabberStream implements XMLEventListener, Runnable {
      *
      */
     
-    public JabberStream( String server, String hostAddr, boolean xmppV1, String proxy, JabberListener theListener )
+    public JabberStream( String server, String hostAddr, boolean xmppV1, String proxy)
     throws IOException {
         this.server=server;
+        this.xmppV1=xmppV1;
         
         boolean waiting=Config.getInstance().istreamWaiting;
         
@@ -94,18 +97,13 @@ public class JabberStream implements XMLEventListener, Runnable {
 
         
         dispatcher = new JabberDataBlockDispatcher(this);
-        if( theListener != null ) {
-            setJabberListener( theListener );
-        }
-        
      
         new Thread( this ). start();
         
-        initiateStream(server, xmppV1, SR.MS_XMLLANG);
-        
+        //initiateStream();
     }
 
-    public void initiateStream(final String server, final boolean xmppV1, String xmlLang) throws IOException {
+    public void initiateStream() throws IOException {
         
         //sendQueue=new Vector();
         
@@ -113,9 +111,9 @@ public class JabberStream implements XMLEventListener, Runnable {
         header.append( server );
         header.append( "' xmlns='jabber:client' xmlns:stream='http://etherx.jabber.org/streams'" );
         if (xmppV1) header.append(" version='1.0'");
-        if (xmlLang!=null) {
+        if (SR.MS_XMLLANG!=null) {
             header.append(" xml:lang='");
-            header.append(xmlLang);
+            header.append(SR.MS_XMLLANG);
             header.append("'");
         }
         header.append( '>' );

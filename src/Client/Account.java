@@ -281,7 +281,7 @@ public class Account extends IconTextElement{
 //#             proxy="socket://" + getProxyHostAddr() + ':' + getProxyPort();
 //#endif            
         }
-        return new JabberStream(  getServer(), url.toString(), sasl, proxy, null);    
+        return new JabberStream(  getServer(), url.toString(), sasl, proxy);    
     }
 
     public boolean isEnableProxy() {

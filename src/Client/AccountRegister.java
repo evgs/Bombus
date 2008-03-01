@@ -72,6 +72,7 @@ public class AccountRegister
             spl.setProgress(SR.MS_CONNECT_TO +raccount.getServer(),30);
             theStream= raccount.openJabberStream();
             theStream.setJabberListener( this );
+            theStream.initiateStream();
         } catch( Exception e ) {
             e.printStackTrace();
             spl.setFailed();
