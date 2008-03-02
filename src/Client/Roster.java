@@ -42,7 +42,6 @@ import io.file.transfer.TransferDispatcher;
 //#endif
 import locale.SR;
 import login.LoginListener;
-import login.NonSASLAuth;
 import login.SASLAuth;
 import midlet.Bombus;
 import vcard.VCard;
@@ -131,10 +130,7 @@ public class Roster
 
 // #endif
 
-//#if SASL
     private String token;
-
-//#endif
     
     private long lastMessageTime=Time.utcTimeMillis();
 
@@ -1484,24 +1480,15 @@ public class Roster
      * Method to begin talking to the server (i.e. send a login message)
      */
     
-    public void beginConversation(String SessionId) {
+    public void beginConversation(String SessionId) { //todo: verify xmpp version
         //try {
         //setProgress(SR.MS_LOGINPGS, 42);
         
-//#if SASL
-        if (sd.account.isSASL()) {
             new SASLAuth(sd.account, SessionId, this, theStream)
   //#if SASL_XGOOGLETOKEN
             .setToken(token)
   //#endif
             ;
-   
-        } else {
-            new NonSASLAuth(sd.account, SessionId, this, theStream);
-        }
-//#else
-//#         new NonSASLAuth(sd.account, SessionId, this, theStream);
-//#endif
     }
     
     /**

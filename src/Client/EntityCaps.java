@@ -29,6 +29,7 @@ public class EntityCaps implements JabberBlockListener{
         if (!data.getTypeAttribute().equals("get")) return BLOCK_REJECTED;
         
         JabberDataBlock query=data.findNamespace("query", "http://jabber.org/protocol/disco#info");
+        System.out.println("caps"+data);
         if (query==null) return BLOCK_REJECTED;
         String node=query.getAttribute("node");
         

@@ -97,7 +97,7 @@ class AccountForm implements CommandListener, ItemStateListener {
 	register = new ChoiceGroup(null, Choice.MULTIPLE);
 	register.append(SR.MS_SSL,null);
 	register.append(SR.MS_PLAIN_PWD,null);
-	register.append(SR.MS_SASL,null);
+	register.append(SR.MS_NO_COMPRESSION,null);
 	register.append(SR.MS_CONFERENCES_ONLY,null);
 //#if HTTPCONNECT
 //#         register.append("Proxy connect",null);
@@ -105,7 +105,7 @@ class AccountForm implements CommandListener, ItemStateListener {
 //#         register.append("HTTP Polling",null);
 //#endif
 	register.append(SR.MS_REGISTER_ACCOUNT,null);
-	boolean b[] = {account.getUseSSL(), account.getPlainAuth(), account.isSASL(), account.isMucOnly(), 
+	boolean b[] = {account.getUseSSL(), account.getPlainAuth(), !account.useCompression(), account.isMucOnly(), 
 //#if HTTPPOLL || HTTPCONNECT        
 //#         account.isEnableProxy(), 
 //#endif        
@@ -197,9 +197,7 @@ class AccountForm implements CommandListener, ItemStateListener {
 	    account.setNick(nickbox.getString());
 	    account.setUseSSL(b[0]);
 	    account.setPlainAuth(b[1]);
-//#if SASL
-            account.setSasl(b[2]);
-//#endif
+            account.setUseCompression(!b[2]);
 	    account.setMucOnly(b[3]);
 
 //#if HTTPPOLL || HTTPCONNECT            

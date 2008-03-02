@@ -253,7 +253,6 @@ public class SR {
 
 
     public   static String MS_TOKEN = loadString( "Google token request" );
-    public   static String MS_SASL = loadString( "SASL login" );
     public   static String MS_FEATURES = loadString( "Features" );
     public   static String MS_SHOWPWD = loadString( "Show password" );
     public   static String MS_NO_VERSION_AVAILABLE = loadString( "No client version available" );
@@ -365,6 +364,8 @@ public class SR {
     public static String MS_USER = loadString( "User" );
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
+
+    public static String MS_NO_COMPRESSION = loadString( "No compression" );
 
     private SR() { }
     

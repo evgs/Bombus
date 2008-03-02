@@ -58,7 +58,7 @@ public class Account extends IconTextElement{
     private int port=5222;
     public boolean active;
     private boolean useSSL;
-    private boolean sasl=true;
+    private boolean compression;
     private boolean plainAuth;
     private boolean mucOnly;
     
@@ -132,11 +132,7 @@ public class Account extends IconTextElement{
             }
             
             if (version>=6) 
-//#if SASL
-                a.sasl=inputStream.readBoolean();
-//#else
-//#                 a.sasl=false; inputStream.readBoolean();
-//#endif
+                a.compression=inputStream.readBoolean();
 
             if (version>=7) {
                 a.keepAliveType=inputStream.readInt();
@@ -212,7 +208,7 @@ public class Account extends IconTextElement{
             outputStream.writeUTF(proxyHostAddr);
             outputStream.writeInt(proxyPort);
             
-            outputStream.writeBoolean(sasl);
+            outputStream.writeBoolean(compression);
             
             outputStream.writeInt(keepAliveType);
             outputStream.writeInt(keepAlivePeriod);
@@ -281,7 +277,7 @@ public class Account extends IconTextElement{
 //#             proxy="socket://" + getProxyHostAddr() + ':' + getProxyPort();
 //#endif            
         }
-        return new JabberStream(  getServer(), url.toString(), sasl, proxy);    
+        return new JabberStream(  getServer(), url.toString(), true, proxy);    
     }
 
     public boolean isEnableProxy() {
@@ -308,19 +304,14 @@ public class Account extends IconTextElement{
         this.proxyPort = proxyPort;
     }
 
-    public boolean isSASL() {
-        return sasl;
-    }
+    public boolean useCompression() { return compression; }
 
-    public void setSasl(boolean sasl) {
-        this.sasl = sasl;
-    }
+    public void setUseCompression(boolean value) { this.compression = value;  }
 
     public boolean useGoogleToken() {
         if (useSSL) return false;
         /*if (hostAddr==null) return false;
         if (hostAddr.indexOf("google")<0) return false; */
-        if (!server.startsWith("gmail.com")) return false;
-        return isSASL();
+        return (server.startsWith("gmail.com"));
     }
 }
