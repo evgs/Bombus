@@ -73,7 +73,7 @@ public class SASLAuth implements JabberBlockListener{
         if (data.getTagName().equals("stream:features")) {
 //#if ZLIB
             JabberDataBlock compr=data.getChildBlock("compression");
-            if (compr!=null) {
+            if (compr!=null && account.useCompression()) {
                 if (compr.getChildBlockByText("zlib")!=null) {
                     // negotiating compression
                     JabberDataBlock askCompr=new JabberDataBlock("compress", null, null);
