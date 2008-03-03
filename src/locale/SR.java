@@ -367,6 +367,8 @@ public class SR {
 
     public static String MS_NO_COMPRESSION = loadString( "No compression" );
 
+    public static String MS_NEW_ROOM_CREATED = loadString( "New room created" );
+
     private SR() { }
     
     private static Hashtable presences;
