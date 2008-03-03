@@ -220,6 +220,9 @@ public class Config {
 	    VirtualList.keyClear=0x1000;
 	}
         
+        if (platform.indexOf("9@9")>0) {
+            istreamWaiting=false; //is it critical for phillips xenium?
+        }
 	/*if (platform.startsWith("j2me")) {
 	    greenKeyCode=VirtualList.MOTOROLA_GREEN;
 	    VirtualList.keyClear=0x1000;

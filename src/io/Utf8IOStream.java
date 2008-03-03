@@ -149,6 +149,10 @@ public class Utf8IOStream implements Runnable{
 //#endif
         
         while (avail==0) {
+//#if !ZLIB
+//#             //trying to fix phillips 9@9
+//#             if (!Config.getInstance().istreamWaiting) break;
+//#endif            
             try { Thread.sleep(100); } catch (Exception e) {};
             avail=inpStream.available();
         }
