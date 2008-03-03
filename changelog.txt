@@ -4259,6 +4259,31 @@ syslog_msg: true
   * Ошибка XML-парсера при обработке во входящем потоке символов ' и " (встречается у gtalk)
   --
   * XmlParser: correctly parsing of non-escaped single and quotes in xml attributes (like " ' " and ' " ') and in text section
+
+04.03.2008
+0.6.1286
+  + Информационное сообщение "New room created" при входе в свежесозданную комнату. Не забудьте её правильно сконфигурировать
+  * Пробное исправление проблем с зависанием процесса установки соединения на xenium 9@9
+  + Опция аккаунта "No compression" для ZLib-версии. Запрещает использование сжатия
+  - Прекращена поддержка устаревшего стандарта xep-0078: non-sasl-authentication (deprecated)
+  * Исправлен порядок инициализации XMPP-соединения (проблема очень быстрого клиент-серверного канала)
+  * Обновление поддержки xep-0115 Entity Caps до v1.5
+  * Возврат в ростер из диалога отправки direct presence
+  * Resolving nicknames: контакты выбираются и обрабатываются по имени сервиса, а не по типу транспорта
+  * Изменение порядка полей в форме присоединения к конференции
+  * Снято ограничение на ввод имени конференции только латиницей для некоторых моделей SonyEricsson
+  --
+  + Status message "New room created" for muc (todo: nasty hack, will not work if multiple status codes are nested in presence)
+  * trying to fix connection hangs on xenium 9@9
+  + option "No compression"
+  - removed xep-0078: non-sasl-authentication support (deprecated)
+  * fixed JabberStream initialization order (race conditions on very fast client-server connections)
+  * updated to xep-0115 Entity Caps v1.5
+  * StatusSelect: return to roster
+  * resolving nicknames by sever name, not by transport type
+  * reordering fields in ConferenceForm
+  * room name constrains in join form: TEXTFIELD_URL ->TEXTFIELD_ANY
+  * fixed attribute loss for stanzas from non-jabber:client namespace
 ------------------------------------------------------------------------
   known issues:
 
