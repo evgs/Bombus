@@ -28,6 +28,7 @@
 package login;
 
 import Client.Account;
+import Client.Config;
 import com.alsutton.jabber.JabberBlockListener;
 import com.alsutton.jabber.JabberDataBlock;
 import com.alsutton.jabber.JabberStream;
@@ -168,7 +169,7 @@ public class SASLAuth implements JabberBlockListener{
             if (nonceIndex>=0) {
                 nonceIndex+=7;
                 String nonce=challenge.substring(nonceIndex, challenge.indexOf('\"', nonceIndex));
-                String cnonce="123456789abcd";
+                String cnonce=Config.getInstance().getStringProperty("Bombus-CNonce", "123456789abcd");
                 
                 resp.setText(responseMd5Digest(
                         strconv.unicodeToUTF(account.getUserName()),

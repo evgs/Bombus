@@ -68,7 +68,8 @@ public class Upgrade implements Runnable, CommandListener{
 
     public void run() {
         try {
-            HttpConnection c = (HttpConnection) Connector.open(VERSION_URL);
+            String vUrl=Config.getInstance().getStringProperty("Bombus-Upgrade", VERSION_URL);
+            HttpConnection c = (HttpConnection) Connector.open(vUrl);
             InputStream is = c.openInputStream();
             
             versions=new util.StringLoader().stringLoader(is, 3);
