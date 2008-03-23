@@ -4284,6 +4284,12 @@ syslog_msg: true
   * reordering fields in ConferenceForm
   * room name constrains in join form: TEXTFIELD_URL ->TEXTFIELD_ANY
   * fixed attribute loss for stanzas from non-jabber:client namespace
+
+23.03.2008
+0.6.1296
+  замена стабильной версии 0.5
+  * багфиксы загрузки ростера
+  * xep-0115: entity caps v1.5
 ------------------------------------------------------------------------
   known issues:
 
