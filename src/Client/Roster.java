@@ -868,7 +868,7 @@ public class Roster
             if (k.jid.getServer().equals(transport) && k.nick==null
                 && (grpType==Groups.TYPE_COMMON || grpType==Groups.TYPE_NO_GROUP)) {
 		vCardQueue.addElement(VCard.getQueryVCard(k.getJid(), "nickvc"+k.bareJid));
-                System.out.println(k.toString());
+                //System.out.println(k.toString());
 	    }
 	}
 	setQuerySign(true);

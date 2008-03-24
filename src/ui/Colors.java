@@ -220,7 +220,8 @@ public class Colors {
             String value=(String)theme.get(key);
             return Integer.parseInt(value.substring(2),16);
         } catch (Exception e) { 
-            System.out.println("Can't find:"+key); //colors debug
+            System.out.print("Can't find:");
+            System.out.println(key); //colors debug
             return defaultColor; 
         }
     }

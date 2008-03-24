@@ -135,7 +135,20 @@ public class JabberStream implements XMLEventListener, Runnable {
     public void run() {
         try {
             XMLParser parser = new XMLParser( this );
-            parser.parseStream( iostream );
+            
+            byte cbuf[]=new byte[512];
+            
+            while (true) {
+                int length=iostream.read(cbuf);
+                
+                if (length==0) {
+                    try { Thread.sleep(100); } catch (Exception e) {};
+                    continue;
+                }
+
+                parser.parse(cbuf, length);
+            }
+            
             //dispatcher.broadcastTerminatedConnection( null );
         } catch( Exception e ) {
             System.out.println("Exception in parser:");
