@@ -49,7 +49,7 @@ import util.strconv;
 public class Utf8IOStream implements Runnable{
     
     private StreamConnection connection;
-    private InputStream inpStream;
+    public InputStream inpStream;
     private OutputStream outStream;
 
     private boolean iStreamWaiting;

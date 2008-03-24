@@ -369,6 +369,8 @@ public class SR {
 
     public static String MS_NEW_ROOM_CREATED = loadString( "New room created" );
 
+    public static String MS_LOAD_ROOMLIST = loadString( "Browse rooms");
+
     private SR() { }
     
     private static Hashtable presences;

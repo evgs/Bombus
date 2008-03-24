@@ -100,6 +100,7 @@ public class RosterIcons extends ImageList{
     public static final int ICON_MODERATOR_INDEX = 0x50;
 
     public static final int ICON_PRIVACY_ACTIVE = 0x46;
+    public static final int ICON_ROOMLIST=ICON_PRIVACY_ACTIVE;
 
     public static final int ICON_PRIVACY_PASSIVE = 0x47;
 
