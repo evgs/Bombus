@@ -1,5 +1,5 @@
-﻿// Russian langfile for Bombus - mobile jabber client
-// Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org. All rights reserved.
+// Russian langfile for Bombus - mobile jabber client
+// Copyright (c) 2005-2008, Eugene Stahov (evgs), http://bombus-im.org. All rights reserved.
 // (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
 // (c) Vladimir N. Shelukhin <zet@bombus-im.org>, 2006-2007.
 // (c) Vladimir A. Kichigin <voffk@bombus-im.org>, 2007-2008.
@@ -261,7 +261,7 @@ Automatic Away	Автосмена статуса
 disabled	выключено
 keyblock / flip	блок / флип
 idle	бездействие
-Add autojoin bookmark	Добав. закладку с автовходом
+Add autojoin bookmark	Закладка с автовходом
 
 //2007-04-12
 //role	роль
