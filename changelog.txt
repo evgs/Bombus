@@ -4284,6 +4284,22 @@ syslog_msg: true
   * reordering fields in ConferenceForm
   * room name constrains in join form: TEXTFIELD_URL ->TEXTFIELD_ANY
   * fixed attribute loss for stanzas from non-jabber:client namespace
+
+08.04.2008
+0.7.1305
+  * начало нумерации версии 0.7
+  * исправлена раскраска ников в сообщениях с отключенными смайлами, устранены "квадраты"
+  + Service Discovery - отложенная загрузка списка конференций по команде 
+    - теперь нет необходимости загружать список конференций перед регистрацией ника на muc-сервисе
+  + новый быстрый xml-парсер. самое серьёзное изменение в данной бета-версии.
+  --
+  * version 0.7
+  * fixed nick coloring when smiles are disabled
+  * fixed result answer for invalid/fake roster pushes
+  * lang fixes
+  + Service Discovery: Delayed roomlist loading
+  + new fast xml parser model
+
 ------------------------------------------------------------------------
   known issues:
 
