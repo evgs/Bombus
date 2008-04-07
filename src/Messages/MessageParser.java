@@ -46,13 +46,14 @@ public final class MessageParser implements Runnable{
     private Vector smileTable;
     
     private Leaf root;
+    private Leaf emptyRoot;
 
     // Singleton
     private static MessageParser instance=null;
     
     private int width; // window width
     
-    private ImageList il;
+    private ImageList smileImages;
     
     private Vector tasks=new Vector();
     
@@ -94,8 +95,8 @@ public final class MessageParser implements Runnable{
         }
     }
     
-    private void addSmile(String smile, int index) {
-	Leaf p=root;   // этой ссылкой будем ходить по дереву
+    private void addSmile(Leaf rootSmile, String smile, int index) {
+	Leaf p=rootSmile;   // этой ссылкой будем ходить по дереву
 	Leaf p1;
 	
 	int len=smile.length();
@@ -148,7 +149,7 @@ public final class MessageParser implements Runnable{
 			    String smile=s.toString();
                             if (firstSmile) smileTable.addElement(smile);
 			    
-			    addSmile(smile,strnumber);
+			    addSmile(root, smile,strnumber);
 			    
                             s.setLength(0);
                             //s=new StringBuffer(6);
@@ -170,9 +171,14 @@ public final class MessageParser implements Runnable{
         } catch (Exception e) {
             e.printStackTrace();
         }
-	addSmile("http://", URL);
-        addSmile("\01", ComplexString.NICK_ON);
-        addSmile("\02", ComplexString.NICK_OFF);
+	addSmile(root, "http://", URL);
+        addSmile(root, "\01", ComplexString.NICK_ON);
+        addSmile(root, "\02", ComplexString.NICK_OFF);
+        
+        emptyRoot=new Leaf();
+	addSmile(emptyRoot, "http://", URL);
+        addSmile(emptyRoot, "\01", ComplexString.NICK_ON);
+        addSmile(emptyRoot, "\02", ComplexString.NICK_OFF);
     }
 
     public void parseMsg(MessageItem messageItem,  int width)
@@ -180,7 +186,7 @@ public final class MessageParser implements Runnable{
         synchronized (tasks) {
             wordsWrap=Config.getInstance().textWrap==1;
             messageItem.msgLines=new Vector();
-            this.il=(messageItem.smilesEnabled())? SmilesIcons.getInstance() : null;
+            this.smileImages=SmilesIcons.getInstance();
             this.width=width;
 
             if (tasks.indexOf(messageItem)>=0) return;
@@ -223,6 +229,8 @@ public final class MessageParser implements Runnable{
         //boolean noWrapSpace=false;
         boolean underline=false;
         
+        Leaf smileRoot=(task.smilesEnabled())? root: emptyRoot;
+        
         int state=0;
         if (task.msg.subject==null) state=1;
         while (state<2) {
@@ -231,7 +239,7 @@ public final class MessageParser implements Runnable{
 	    int wordWidth=0;
 	    int wordStartPos=0;
             
-            ComplexString l=new ComplexString(il);
+            ComplexString l=new ComplexString(smileImages);
             lines.addElement(l);
             
             Font f=(task.msg.isHighlited())? FontCache.getMsgFontBold(): FontCache.getMsgFont();
@@ -251,7 +259,7 @@ public final class MessageParser implements Runnable{
             
             int pos=0;
             while (pos<txt.length()) {
-                Leaf smileLeaf=root;
+                Leaf smileLeaf=smileRoot;
                 int smileIndex=-1;
                 int smileStartPos=pos;
                 int smileEndPos=pos;
@@ -302,7 +310,7 @@ public final class MessageParser implements Runnable{
                     underline=true;
                 }
                 
-                if (smileIndex>=0 && task.smilesEnabled()) {
+                if (smileIndex>=0) {
                     // есть смайлик
                     
                     // слово перед смайлом в буфер
@@ -319,10 +327,10 @@ public final class MessageParser implements Runnable{
                     // очистим
                     s.setLength(0);
                     // добавим смайлик
-                    int iw=(smileIndex<0x01000000)? il.getWidth() : 0;
+                    int iw=(smileIndex<0x01000000)? smileImages.getWidth() : 0;
                     if (w+iw>width) {
                         task.notifyRepaint(lines, task.msg, false);
-                        l=new ComplexString(il);     // новая строка
+                        l=new ComplexString(smileImages);     // новая строка
                         lines.addElement(l);    // добавим l в v
                         
                         if (singleLine) {
@@ -362,7 +370,7 @@ public final class MessageParser implements Runnable{
                             
                             if (c==0xa0) l.setColor(Colors.MSG_HIGHLIGHT);
                             
-                            l=new ComplexString(il);     // новая строка
+                            l=new ComplexString(smileImages);     // новая строка
                             lines.addElement(l);    // добавим l в v
                             task.notifyRepaint(lines, task.msg, false);
 
