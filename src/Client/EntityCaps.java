@@ -40,6 +40,8 @@ public class EntityCaps implements JabberBlockListener{
         
         if (node!=null) {
             if (!node.equals(BOMBUS_NAMESPACE+"#"+calcVerHash()) )    return BLOCK_REJECTED;
+            //TODO: should be another error returned, not cancel:feature not implemented.
+            //(modify?)
         }
         
         JabberDataBlock result=new Iq(data.getAttribute("from"), Iq.TYPE_RESULT, data.getAttribute("id"));
@@ -85,7 +87,7 @@ public class EntityCaps implements JabberBlockListener{
     public static JabberDataBlock presenceEntityCaps() {
         JabberDataBlock c=new JabberDataBlock("c", null, null);
         c.setAttribute("xmlns", "http://jabber.org/protocol/caps");
-        c.setAttribute("node", BOMBUS_NAMESPACE+'#'+Version.getVersionNumber());
+        c.setAttribute("node", BOMBUS_NAMESPACE); //+'#'+Version.getVersionNumber());
         c.setAttribute("ver", calcVerHash());
         c.setAttribute("hash", "sha-1"); 
         
