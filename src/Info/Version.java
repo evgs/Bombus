@@ -102,6 +102,8 @@ public class Version {
     public static String getOs() {
         return ConstMIDP.MIDP + " Platform=" +Version.getPlatformName();
     }
+
+    public static String getNameVersion() { return NAME+" "+version; }
     
     public static String getVersionLang() { return version+" ("+SR.MS_IFACELANG+")"; }
 
