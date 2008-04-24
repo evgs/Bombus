@@ -214,4 +214,32 @@ public class strconv {
         }
         return dst.toString();
     }
+    
+    public static String urlPrep(String src){
+        String mask=" #$%&/:;<=>?@[\\]^'{|}";
+        StringBuffer out=new StringBuffer();
+        
+        for (int i=0; i<src.length(); i++) {
+            char s=src.charAt(i);
+            
+            if (mask.indexOf(s)<0) {  out.append(s); continue;  }
+            
+            out.append('%');
+            
+            char c = (char) ((s >> 4) & 0xf);
+            if (c > 9)   c = (char) ((c - 10) + 'a');
+            else  c = (char) (c + '0');
+            out.append(c);
+            
+            c = (char) (s & 0xf);
+            if (c > 9)
+                c = (char)((c-10) + 'a');
+            else
+                c = (char)(c + '0');
+            out.append(c);
+            
+        }
+        
+        return out.toString();
+    }
 }
