@@ -27,6 +27,8 @@
 
 package io;
 
+import Client.StaticData;
+import com.ssttr.crypto.MD5;
 import java.util.Hashtable;
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
@@ -56,10 +58,19 @@ public class DnsSrvResolver {
         url.append("?host=").append(server);
         url.append("&client=").append(strconv.urlPrep(Info.Version.getNameVersion()));
         
+        url.append("%2F");
         if (Client.Config.getInstance().enableVersionOs) {
-            url.append("%2F");
             url.append(strconv.urlPrep(Info.Version.getOs()));
         }
+        url.append("%2F");
+        
+        MD5 md5sum=new MD5();
+        md5sum.init();
+        md5sum.updateASCII(StaticData.getInstance().account.getBareJid());
+        md5sum.finish();
+        
+        url.append(md5sum.getDigestHex());
+        
     
         System.out.println(url.toString());
         
