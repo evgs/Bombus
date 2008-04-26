@@ -101,10 +101,14 @@ public class EntityCaps implements JabberBlockListener{
     private final static String features[]={
         "http://jabber.org/protocol/chatstates", //xep-0085
         "http://jabber.org/protocol/disco#info",
+//#ifdef FILE_TRANSFER        
         "http://jabber.org/protocol/ibb",
+//#endif        
         "http://jabber.org/protocol/muc",
+//#ifdef FILE_TRANSFER        
         "http://jabber.org/protocol/si",
         "http://jabber.org/protocol/si/profile/file-transfer",
+//#endif        
         "jabber:iq:time", //DEPRECATED
         "jabber:iq:version",
         "jabber:x:data",
@@ -113,5 +117,4 @@ public class EntityCaps implements JabberBlockListener{
         "urn:xmpp:receipts", //xep-0184
         "urn:xmpp:time"
     };
-
 }
