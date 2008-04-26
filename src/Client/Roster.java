@@ -972,9 +972,7 @@ public class Roster
                 String id=(String) data.getAttribute("id");
                 
                 if (id!=null) {
-                    if (id.startsWith("ping")) 
-                        theStream.pingSent=false; //incomplete, test on jabber:iq:version
-                    
+                   
                     if (id.startsWith("nickvc")) {
                         
                         if (type.equals("get") || type.equals("set")) return JabberBlockListener.BLOCK_REJECTED;
@@ -1039,6 +1037,7 @@ public class Roster
                     
                     // xep-0199 ping
                     if (data.findNamespace("ping", "urn:xmpp:ping")!=null) {
+                        theStream.pingSent=false; 
                         Iq pong=new Iq(from, Iq.TYPE_RESULT, data.getAttribute("id"));
                         theStream.send(pong);
                         return JabberBlockListener.BLOCK_PROCESSED;
