@@ -25,31 +25,42 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.alsutton.jabber.datablocks;
+package xmpp.extensions;
 
+import Client.StaticData;
+import com.alsutton.jabber.JabberBlockListener;
 import com.alsutton.jabber.JabberDataBlock;
+import com.alsutton.jabber.datablocks.*;
 
 /**
  *
  * @author EvgS
  */
-public class IqTimeReply extends Iq{
+public class IqTimeReply implements JabberBlockListener{
     
-    /** Creates a new instance of IqTimeReply */
-    public IqTimeReply(JabberDataBlock request) {
-        super(request.getAttribute("from"),
-              Iq.TYPE_RESULT,
-              request.getAttribute("id") );
-        //DEPRECATED
-        if (request.getChildBlock("query")!=null) {
-            JabberDataBlock query=addChildNs("query", "jabber:iq:time");
+    public IqTimeReply(){};
+    
+    public int blockArrived(JabberDataBlock data) {
+        if (!(data instanceof Iq)) return BLOCK_REJECTED;
+        if (!data.getAttribute("type").equals("get")) return BLOCK_REJECTED;
+        
+        JabberDataBlock query=data.findNamespace("query", "jabber:iq:time");
+        if (query!=null) {
             query.addChild("utc",ui.Time.Xep0082UtcTime());
             query.addChild("display", ui.Time.dispLocalTime());
         } else {
-            JabberDataBlock time=addChildNs("time", "urn:xmpp:time");
-            time.addChild("utc",ui.Time.utcTime());
-            String tzo="";
-            time.addChild("tzo", ui.Time.tzOffset());
+            query=data.findNamespace("time", "urn:xmpp:time");
+            if (query==null) return BLOCK_REJECTED;
+            query.addChild("utc",ui.Time.utcTime());
+            query.addChild("tzo", ui.Time.tzOffset());
         }
+        
+        Iq reply=new Iq(data.getAttribute("from"), Iq.TYPE_RESULT, data.getAttribute("id"));
+        reply.addChild(query);
+        
+        StaticData.getInstance().roster.theStream.send(reply);
+        
+        return JabberBlockListener.BLOCK_PROCESSED;
+
     }
 }

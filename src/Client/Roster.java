@@ -61,6 +61,7 @@ import PrivacyLists.PrivacySelect;
 import Client.Config;
 import xmpp.XmppError;
 import xmpp.extensions.IqLast;
+import xmpp.extensions.IqTimeReply;
 import xmpp.extensions.IqVersionReply;
 
 //import Client.msg.*;
@@ -922,6 +923,7 @@ public class Roster
         
         theStream.addBlockListener(new IqLast());
         theStream.addBlockListener(new IqVersionReply());
+        theStream.addBlockListener(new IqTimeReply());
         
         //enable keep-alive packets
         theStream.startKeepAliveTask();
@@ -1034,22 +1036,6 @@ public class Roster
                     /*no handlers now*/
                 } else 
                 if (type.equals("get")){
-                    JabberDataBlock query=data.getChildBlock("query");
-                    if (query!=null){
-                        // проверяем на запрос локального времени клиента
-                        //DEPRECATED
-                        if (query.isJabberNameSpace("jabber:iq:time")) {
-                            theStream.send(new IqTimeReply(data));
-                            return JabberBlockListener.BLOCK_PROCESSED;
-                        }
-                        return JabberBlockListener.BLOCK_REJECTED;
-                    }
-                    
-                    // проверяем на запрос локального времени клиента XEP-0202
-                    if (data.findNamespace("time", "urn:xmpp:time")!=null) {
-                        theStream.send(new IqTimeReply(data));
-                        return JabberBlockListener.BLOCK_PROCESSED;
-                    }
                     
                     // xep-0199 ping
                     if (data.findNamespace("ping", "urn:xmpp:ping")!=null) {
