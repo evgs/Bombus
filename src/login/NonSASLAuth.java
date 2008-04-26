@@ -31,7 +31,7 @@ import Client.Account;
 import com.alsutton.jabber.JabberBlockListener;
 import com.alsutton.jabber.JabberDataBlock;
 import com.alsutton.jabber.JabberStream;
-import com.alsutton.jabber.XmppError;
+import xmpp.XmppError;
 import com.alsutton.jabber.datablocks.Iq;
 import com.ssttr.crypto.SHA1;
 import locale.SR;

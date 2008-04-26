@@ -35,7 +35,7 @@ import Conference.MucContact;
 import Conference.QueryConfigForm;
 import Conference.affiliation.Affiliations;
 import ServiceDiscovery.ServiceDiscovery;
-import com.alsutton.jabber.datablocks.IqVersionReply;
+import xmpp.extensions.IqVersionReply;
 import com.alsutton.jabber.datablocks.Presence;
 //#if FILE_TRANSFER
 import io.file.transfer.TransferSendFile;
@@ -229,7 +229,7 @@ public class RosterItemActions extends Menu implements YesNoAlert.YesNoListener{
         switch (index) {
             case 0: // info
                 roster.setQuerySign(true);
-                roster.theStream.send(new IqVersionReply(to));
+                roster.theStream.send(IqVersionReply.query(to));
                 break;
             case 1: // vCard
                 if (c.vcard!=null) {

@@ -27,6 +27,7 @@
 package com.alsutton.jabber;
 import java.io.*;
 import java.util.*;
+import xmpp.XmppError;
 
 /**
  * The dispatcher for blocks that have arrived. Adds new blocks to the
@@ -205,4 +206,5 @@ public class JabberDataBlockDispatcher extends Thread
     if( listener != null )
       listener.beginConversation(SessionId);
   }
+  
 }

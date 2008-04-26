@@ -32,6 +32,7 @@ import com.alsutton.jabber.datablocks.*;
 import javax.microedition.lcdui.*;
 import locale.SR;
 import ui.*;
+import xmpp.XmppError;
 
 /**
  *

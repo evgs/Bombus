@@ -31,6 +31,7 @@ import images.RosterIcons;
 
 import java.util.*;
 import locale.SR;
+import xmpp.XmppError;
 
 /**
  * Class representing the presence message block.

@@ -29,7 +29,7 @@ package io.file.transfer;
 
 import Client.StaticData;
 import com.alsutton.jabber.JabberDataBlock;
-import com.alsutton.jabber.XmppError;
+import xmpp.XmppError;
 import com.alsutton.jabber.datablocks.Iq;
 import com.alsutton.jabber.datablocks.Message;
 import images.RosterIcons;

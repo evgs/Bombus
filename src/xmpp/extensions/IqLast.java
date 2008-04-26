@@ -25,24 +25,39 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.alsutton.jabber.datablocks;
+package xmpp.extensions;
 
+import Client.StaticData;
+import com.alsutton.jabber.JabberBlockListener;
 import com.alsutton.jabber.JabberDataBlock;
+import com.alsutton.jabber.datablocks.*;
 import ui.Time;
 
 /**
  *
  * @author EvgS
  */
-public class IqLast extends Iq{
+public class IqLast implements JabberBlockListener {
     
-    /** Creates a new instance of IqLast */
-    public IqLast(JabberDataBlock request, long lastMessageTime) {
-        super(request.getAttribute("from"),
-              Iq.TYPE_RESULT,
-              request.getAttribute("id") );
-        JabberDataBlock query=addChildNs("query", "jabber:iq:last");
-        long last=(Time.utcTimeMillis()-lastMessageTime)/1000;
+    public IqLast(){ };
+
+    public int blockArrived(JabberDataBlock data) {
+        if (!(data instanceof Iq)) return BLOCK_REJECTED;
+        if (!data.getAttribute("type").equals("get")) return BLOCK_REJECTED;
+        
+        JabberDataBlock query=data.findNamespace("query", "jabber:iq:last");
+        if (query==null) return BLOCK_REJECTED;
+        
+        long last=(Time.utcTimeMillis() - StaticData.getInstance().roster.lastMessageTime)/1000;
+
+        Iq reply=new Iq(data.getAttribute("from"), Iq.TYPE_RESULT, data.getAttribute("id"));
+        //reply.addChildNs("query", "jabber:iq:last")
+        reply.addChild(query);
         query.setAttribute("seconds", String.valueOf(last));
+        
+        StaticData.getInstance().roster.theStream.send(reply);
+        
+        return JabberBlockListener.BLOCK_PROCESSED;
+
     }
 }

@@ -37,6 +37,7 @@ import com.alsutton.jabber.datablocks.*;
 import xml.*;
 import locale.SR;
 import util.StringLoader;
+import xmpp.XmppError;
 
 
 

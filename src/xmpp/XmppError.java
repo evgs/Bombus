@@ -7,8 +7,9 @@
  * and open the template in the editor.
  */
 
-package com.alsutton.jabber;
+package xmpp;
 
+import com.alsutton.jabber.*;
 import java.util.Enumeration;
 
 /**

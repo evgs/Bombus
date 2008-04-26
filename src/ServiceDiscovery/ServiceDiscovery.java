@@ -38,6 +38,7 @@ import ui.*;
 import com.alsutton.jabber.*;
 import com.alsutton.jabber.datablocks.*;
 import Client.*;
+import xmpp.XmppError;
 
 /**
  *

@@ -59,6 +59,9 @@ import ServiceDiscovery.ServiceDiscovery;
 import Conference.ConferenceForm;
 import PrivacyLists.PrivacySelect;
 import Client.Config;
+import xmpp.XmppError;
+import xmpp.extensions.IqLast;
+import xmpp.extensions.IqVersionReply;
 
 //import Client.msg.*;
 
@@ -92,7 +95,7 @@ public class Roster
     public Object transferIcon;
    
     boolean reconnect=false;
-    boolean querysign=false;
+    public boolean querysign=false;
     
     boolean storepresence=true;
     
@@ -132,7 +135,7 @@ public class Roster
 
     private String token;
     
-    private long lastMessageTime=Time.utcTimeMillis();
+    public long lastMessageTime=Time.utcTimeMillis();
 
     private final static int maxReconnect=5;
     private int reconnectCount;
@@ -917,6 +920,9 @@ public class Roster
         theStream.addBlockListener(TransferDispatcher.getInstance());
 //#endif
         
+        theStream.addBlockListener(new IqLast());
+        theStream.addBlockListener(new IqVersionReply());
+        
         //enable keep-alive packets
         theStream.startKeepAliveTask();
         
@@ -1000,27 +1006,6 @@ public class Roster
                         return JabberBlockListener.BLOCK_PROCESSED;
                     }
                     
-                    if (id.equals("getver")) {
-                        String body=null;
-                        if (type.equals("error")) {
-                            body=SR.MS_NO_VERSION_AVAILABLE;
-                            querysign=false;
-                        } else if (type.equals("result")) {
-                            JabberDataBlock vc=data.getChildBlock("query");
-                            if (vc!=null) {
-                                body=IqVersionReply.dispatchVersion(vc);
-                            }
-                            querysign=false;
-                        } //else return JabberBlockListener.BLOCK_REJECTED;
-                        
-                        if (body!=null) { 
-                            Msg m=new Msg(Msg.MESSAGE_TYPE_IN, "ver", SR.MS_CLIENT_INFO, body);
-                            messageStore( getContact(from, false), m); 
-                            redraw();
-                            return JabberBlockListener.BLOCK_PROCESSED;
-                        }
-                        // 
-                    }
                     if (id.equals("getros")) if (type.equals("result")) {
                         // а вот и ростер подошёл :)
                         theStream.enableRosterNotify(false);
@@ -1051,20 +1036,10 @@ public class Roster
                 if (type.equals("get")){
                     JabberDataBlock query=data.getChildBlock("query");
                     if (query!=null){
-                        // проверяем на запрос версии клиента
-                        if (query.isJabberNameSpace("jabber:iq:version")) {
-                            theStream.send(new IqVersionReply(data));
-                            return JabberBlockListener.BLOCK_PROCESSED;                            
-                        }
                         // проверяем на запрос локального времени клиента
                         //DEPRECATED
                         if (query.isJabberNameSpace("jabber:iq:time")) {
                             theStream.send(new IqTimeReply(data));
-                            return JabberBlockListener.BLOCK_PROCESSED;
-                        }
-                        // проверяем на запрос idle
-                        if (query.isJabberNameSpace("jabber:iq:last")) {
-                            theStream.send(new IqLast(data, lastMessageTime));
                             return JabberBlockListener.BLOCK_PROCESSED;
                         }
                         return JabberBlockListener.BLOCK_REJECTED;
@@ -1394,7 +1369,7 @@ public class Roster
     }
     
     
-    void messageStore(Contact c, Msg message) {
+    public void messageStore(Contact c, Msg message) {
         if (c==null) return;  
         c.addMessage(message);
         

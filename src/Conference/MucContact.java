@@ -31,7 +31,7 @@ import Client.Contact;
 import Client.Msg;
 import Client.StaticData;
 import com.alsutton.jabber.JabberDataBlock;
-import com.alsutton.jabber.XmppError;
+import xmpp.XmppError;
 import com.alsutton.jabber.datablocks.Presence;
 import images.RosterIcons;
 import locale.SR;
