@@ -4300,6 +4300,23 @@ syslog_msg: true
   + Service Discovery: Delayed roomlist loading
   + new fast xml parser model
 
+28.04.2008
+0.7.1318 
+  + экспериментальный внешний SRV-ресолвер (упрощает настройку аккаунта, 
+    но могут быть проблемы с http-запросами)
+  * version-ping теперь использует xep-0199-пинг вместо запроса версии у самого себя
+  * исправлена несовместимость entity caps v1.5
+  * актуализирован список возможностей не-zlib-версии в caps
+  * проверка поддержки сервером механизмов аутентификации SASL и вывод сообщения об ошибке
+    в случае неудачи
+  --
+  + external dns srv resolver (no caching mechanisms implemented)
+  * Using xep-0199 ping (urn:xmpp:ping) to check connection alive instead of jabber:iq:version
+  * Roster.java refactoring
+  * fixed entity caps node value (caps v1.5 compliance)
+  * Fixed caps list for non-zlib version
+  * SASLAuth.java: checking if SASL is supported by server
+
 ------------------------------------------------------------------------
   known issues:
 
