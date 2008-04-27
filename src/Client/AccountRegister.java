@@ -93,11 +93,15 @@ public class AccountRegister
 
     public void beginConversation(String SessionId) {
         spl.setProgress(SR.MS_REGISTERING,60);
-        IqRegister iq=new IqRegister(raccount.getUserName(),raccount.getPassword(), "regac");
-        //try {
-            theStream.send(iq);
-        //} catch (Exception e) {e.printStackTrace();}
+        Iq iqreg=new Iq(null, Iq.TYPE_SET, "regac" );
+        
+        JabberDataBlock qB = iqreg.addChildNs("query", "jabber:iq:register" );
+        qB.addChild("username", raccount.getUserName());
+        qB.addChild("password", raccount.getPassword());
+        
+        theStream.send(iqreg);
     }
+    
     public int blockArrived( JabberDataBlock data ) {
         //destroyView();
         if (data instanceof Iq) {

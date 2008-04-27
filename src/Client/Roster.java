@@ -61,6 +61,7 @@ import PrivacyLists.PrivacySelect;
 import Client.Config;
 import xmpp.XmppError;
 import xmpp.extensions.IqLast;
+import xmpp.IqQueryRoster;
 import xmpp.extensions.IqTimeReply;
 import xmpp.extensions.IqVersionReply;
 
