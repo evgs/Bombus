@@ -26,6 +26,7 @@
  */
 
 package Client;
+import com.alsutton.jabber.datablocks.Presence;
 import java.util.Enumeration;
 import java.util.Vector;
 import javax.microedition.lcdui.*;
@@ -399,7 +400,9 @@ public class ConfigForm implements
             cf.updateTime();
             
             cf.saveToStorage();
+            EntityCaps.initCaps();
             
+            StaticData.getInstance().roster.sendPresence(Presence.PRESENCE_SAME);
             StaticData.getInstance().roster.reEnumRoster();
             destroyView();
         }

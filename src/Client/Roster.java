@@ -283,7 +283,6 @@ public class Roster
             theStream= a.openJabberStream();
             setProgress(SR.MS_OPENING_STREAM, 40);
             theStream.setJabberListener( this );
-            theStream.addBlockListener(new EntityCaps());
             theStream.initiateStream();
         } catch( Exception e ) {
             setProgress(SR.MS_FAILED, 0);
@@ -662,8 +661,11 @@ public class Roster
      * Method to inform the server we are now online
      */
     
-    public void sendPresence(int status) {
-        myStatus=status;
+    public void sendPresence(int newStatus) {
+        
+        if (newStatus!=Presence.PRESENCE_SAME) 
+            myStatus=newStatus;
+        
         setQuerySign(false);
         if (myStatus!=Presence.PRESENCE_OFFLINE) {
             lastOnlineStatus=myStatus;
@@ -684,7 +686,7 @@ public class Roster
         ExtendedStatus es= StatusList.getInstance().getStatus(myStatus);
         Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage(), StaticData.getInstance().account.getNick());
         if (isLoggedIn()) {
-            if (status==Presence.PRESENCE_OFFLINE) groups.queryGroupState(false);
+            if (myStatus==Presence.PRESENCE_OFFLINE) groups.queryGroupState(false);
             
             if (!StaticData.getInstance().account.isMucOnly() )
 		theStream.send( presence );
@@ -692,7 +694,7 @@ public class Roster
             multicastConferencePresence();
 
             // disconnect
-            if (status==Presence.PRESENCE_OFFLINE) {
+            if (myStatus==Presence.PRESENCE_OFFLINE) {
                 try {
                     theStream.close(); // sends </stream:stream> and closes socket
                 } catch (Exception e) { e.printStackTrace(); }
@@ -700,7 +702,7 @@ public class Roster
                 synchronized(hContacts) {
                     for (Enumeration e=hContacts.elements(); e.hasMoreElements();){
                         Contact c=(Contact)e.nextElement();
-                        //if (c.status<Presence.PRESENCE_UNKNOWN)
+                        //if (c.myStatus<Presence.PRESENCE_UNKNOWN)
                         c.setStatus(Presence.PRESENCE_OFFLINE); // keep error & unknown
                     }
                 }
@@ -925,6 +927,7 @@ public class Roster
         theStream.addBlockListener(new IqLast());
         theStream.addBlockListener(new IqVersionReply());
         theStream.addBlockListener(new IqTimeReply());
+        theStream.addBlockListener(new EntityCaps());
         
         //enable keep-alive packets
         theStream.startKeepAliveTask();
