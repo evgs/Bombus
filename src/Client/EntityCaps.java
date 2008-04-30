@@ -107,17 +107,30 @@ public class EntityCaps implements JabberBlockListener{
         
         //features MUST be sorted        
         if (Config.getInstance().eventComposing)
-        features.addElement("http://jabber.org/protocol/chatstates"); //xep-0085
+            features.addElement("http://jabber.org/protocol/chatstates"); //xep-0085
         
         features.addElement("http://jabber.org/protocol/disco#info");
 //#ifdef FILE_TRANSFER        
         features.addElement("http://jabber.org/protocol/ibb");
 //#endif        
+
+        if (Config.getInstance().enablePep) {
+            features.addElement("http://jabber.org/protocol/mood");
+            features.addElement("http://jabber.org/protocol/mood+notify");
+        }
+
         features.addElement("http://jabber.org/protocol/muc");
+
 //#ifdef FILE_TRANSFER        
         features.addElement("http://jabber.org/protocol/si");
         features.addElement("http://jabber.org/protocol/si/profile/file-transfer");
 //#endif        
+
+        if (Config.getInstance().enablePep) {
+            features.addElement("http://jabber.org/protocol/tune");
+            features.addElement("http://jabber.org/protocol/tune+notify");
+        }
+        
         features.addElement("jabber:iq:time"); //DEPRECATED
         features.addElement("jabber:iq:version");
         features.addElement("jabber:x:data");
@@ -125,7 +138,7 @@ public class EntityCaps implements JabberBlockListener{
         features.addElement("urn:xmpp:ping");
         
         if (Config.getInstance().eventDelivery)
-        features.addElement("urn:xmpp:receipts"); //xep-0184
+            features.addElement("urn:xmpp:receipts"); //xep-0184
         
         features.addElement("urn:xmpp:time");
     }

@@ -154,6 +154,8 @@ public class Config {
     
     public int messageCollapsedLength=512;
     
+    public boolean enablePep=true;
+    
     // runtime values
     public boolean allowMinimize=false;
     public int profile=0;
@@ -285,7 +287,7 @@ public class Config {
 	    
 	    textWrap=inputStream.readInt();
             
-            /*autoSubscribe=*/inputStream.readBoolean();
+            enablePep=inputStream.readBoolean();
             
             autoAwayType=inputStream.readInt();
             autoAwayDelay=inputStream.readInt();
@@ -391,7 +393,7 @@ public class Config {
 	    
 	    outputStream.writeInt(textWrap);
             
-            outputStream.writeBoolean(false /*autoSubscribe*/);
+            outputStream.writeBoolean(enablePep);
 
             outputStream.writeInt(autoAwayType);
             outputStream.writeInt(autoAwayDelay);

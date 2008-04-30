@@ -43,7 +43,7 @@ abstract public class IconTextElement implements VirtualElement
     int fontYOfs;
     int imgWidth;
     
-    ImageList il;
+    protected ImageList il;
     
     abstract protected int getImageIndex();
     //abstract public void onSelect();

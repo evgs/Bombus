@@ -171,6 +171,7 @@ public class ConfigForm implements
 //#if (!MIDP1)
         message.append(SR.MS_CAPS_STATE, null);
 //#endif
+        message.append(SR.MS_PEP, null);
         
         boolean mv[]={
             cf.smiles,
@@ -179,10 +180,11 @@ public class ConfigForm implements
 //#endif
             cf.storeConfPresence,
             cf.eventComposing,
-            cf.eventDelivery
+            cf.eventDelivery,
 //#if (!MIDP1)
-            ,cf.capsState
+            cf.capsState,
 //#endif
+            cf.enablePep
         };
         this.mv=mv;
         
@@ -355,7 +357,7 @@ public class ConfigForm implements
 //#if (!MIDP1)
             cf.capsState=mv[haIdx++];
 //#endif
-
+            cf.enablePep=mv[haIdx++];
 	    
 	    cf.autoLogin=su[0];
 	    cf.autoJoinConferences=su[1];

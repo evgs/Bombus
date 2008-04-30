@@ -28,6 +28,7 @@
 package Client;
 import com.alsutton.jabber.JabberDataBlock;
 import images.RosterIcons;
+import javax.microedition.lcdui.Graphics;
 import ui.Colors;
 import vcard.VCard;
 import java.util.*;
@@ -97,6 +98,8 @@ public class Contact extends IconTextElement{
     
     public VCard vcard;
     
+    public boolean pepMood;
+    public boolean pepTune;
     //public long conferenceJoinTime;
     
     public int firstUnread(){
@@ -132,7 +135,10 @@ public class Contact extends IconTextElement{
         clone.origin=ORIGIN_CLONE; 
         clone.status=status; 
         clone.transport=RosterIcons.getInstance().getTransportIndex(newjid.getTransport()); //<<<<
-
+        
+        clone.pepMood=pepMood;
+        clone.pepTune=pepTune;
+        
         clone.bareJid=bareJid;
         return clone;
     }
@@ -148,6 +154,26 @@ public class Contact extends IconTextElement{
         if (st<8) st+=transport; 
         return st;
     }
+
+    public void drawItem(Graphics g, int ofs, boolean sel) {
+        int x=g.getClipWidth();
+        int dx=il.getWidth();
+        
+        if (pepTune) {
+            x-=dx;
+            il.drawImage(g, RosterIcons.ICON_PROFILE_INDEX+3, x,0);
+        }
+        
+        if (pepMood) {
+            x-=dx;
+            il.drawImage(g, 1, x,0);
+        }
+
+        g.setClip(0,0, x, g.getClipHeight());
+        
+        super.drawItem(g, ofs, sel);
+    }
+
     public int getNewMsgsCount() {
         if (getGroupType()==Groups.TYPE_IGNORE) return 0;
         //return msgs.size()-lastReaded;
