@@ -107,6 +107,7 @@ public class PepListener implements JabberBlockListener{
             }
         }
         
+        StaticData.getInstance().roster.redraw();
         
         return BLOCK_PROCESSED;
     }
