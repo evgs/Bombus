@@ -9,7 +9,10 @@
 
 package Mood;
 
+import Client.StaticData;
 import Client.Title;
+import com.alsutton.jabber.JabberDataBlock;
+import com.alsutton.jabber.datablocks.Iq;
 import java.util.Vector;
 import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
@@ -53,9 +56,24 @@ public class MoodList extends VirtualList implements CommandListener{
 
     protected VirtualElement getItemRef(int index) { return (VirtualElement)moods.elementAt(index); }
 
-    public void commandAction(Command command, Displayable displayable) {
+    public void eventOk() {
+        String moodName=((MoodItem)getFocusedObject()).getTipString();
+        JabberDataBlock setMood=new Iq(null, Iq.TYPE_SET, "publish-mood");
+        JabberDataBlock node=setMood.addChildNs("pubsub", "http://jabber.org/protocol/pubsub")
+          .addChild("publish", null);
+        node.setAttribute("node", "http://jabber.org/protocol/mood");
+        JabberDataBlock mood=node.addChild("item", null)
+          .addChildNs("mood", "http://jabber.org/protocol/mood");
         
+        mood.addChild(moodName, null);
+        mood.addChild("text","");
+        
+        StaticData.getInstance().roster.theStream.send(setMood);
+    }
+
+    public void commandAction(Command command, Displayable displayable) {
         if (command==cmdBack) destroyView();
+        eventOk();
     }
     
 }
