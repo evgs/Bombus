@@ -158,21 +158,23 @@ public class Contact extends IconTextElement{
 
 //#ifdef PEP    
     public void drawItem(Graphics g, int ofs, boolean sel) {
-        int x=g.getClipWidth();
-        
+        int w=g.getClipWidth();
+        int h=g.getClipHeight();
+        int xo=g.getClipX();
+        int yo=g.getClipY();
         
         if (pepTune) {
-            x-=il.getWidth();
-            il.drawImage(g, RosterIcons.ICON_PROFILE_INDEX+3, x,0);
+            w-=il.getWidth();
+            il.drawImage(g, RosterIcons.ICON_PROFILE_INDEX+3, w,0);
         }
         
         if (pepMood>=0) {
             ImageList moods=MoodIcons.getInstance();
-            x-=moods.getWidth();
-            moods.drawImage(g, pepMood, x,0);
+            w-=moods.getWidth();
+            moods.drawImage(g, pepMood, w,0);
         }
 
-        g.setClip(0,0, x, g.getClipHeight());
+        g.setClip(xo, yo, w, h);
         
         super.drawItem(g, ofs, sel);
     }
