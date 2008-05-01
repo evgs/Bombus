@@ -100,9 +100,7 @@ public class Utf8IOStream implements Runnable{
 	    outStream.write(bytes);
             bytesSent+=outLen;
 	    
-//#if OUTSTREAM_FLUSH
 	    outStream.flush();
-//#endif
 	}
 //#if (XML_STREAM_DEBUG)        
 //#         System.out.println(">> "+data);

@@ -114,10 +114,12 @@ public class EntityCaps implements JabberBlockListener{
         features.addElement("http://jabber.org/protocol/ibb");
 //#endif        
 
+//#ifdef PEP
         if (Config.getInstance().enablePep) {
             features.addElement("http://jabber.org/protocol/mood");
             features.addElement("http://jabber.org/protocol/mood+notify");
         }
+//#endif        
 
         features.addElement("http://jabber.org/protocol/muc");
 
@@ -126,10 +128,12 @@ public class EntityCaps implements JabberBlockListener{
         features.addElement("http://jabber.org/protocol/si/profile/file-transfer");
 //#endif        
 
+//#ifdef PEP
         if (Config.getInstance().enablePep) {
             features.addElement("http://jabber.org/protocol/tune");
             features.addElement("http://jabber.org/protocol/tune+notify");
         }
+//#endif        
         
         features.addElement("jabber:iq:time"); //DEPRECATED
         features.addElement("jabber:iq:version");

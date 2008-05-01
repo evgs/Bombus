@@ -156,6 +156,7 @@ public class Contact extends IconTextElement{
         return st;
     }
 
+//#ifdef PEP    
     public void drawItem(Graphics g, int ofs, boolean sel) {
         int x=g.getClipWidth();
         
@@ -175,6 +176,7 @@ public class Contact extends IconTextElement{
         
         super.drawItem(g, ofs, sel);
     }
+//#endif    
 
     public int getNewMsgsCount() {
         if (getGroupType()==Groups.TYPE_IGNORE) return 0;

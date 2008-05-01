@@ -64,7 +64,9 @@ import xmpp.extensions.IqLast;
 import xmpp.IqQueryRoster;
 import xmpp.extensions.IqTimeReply;
 import xmpp.extensions.IqVersionReply;
+//#ifdef PEP
 import xmpp.extensions.pep.PepListener;
+//#endif
 
 //import Client.msg.*;
 
@@ -930,7 +932,9 @@ public class Roster
         theStream.addBlockListener(new IqTimeReply());
         theStream.addBlockListener(new EntityCaps());
 
+//#ifdef PEP
         theStream.addBlockListener(new PepListener()); //TODO: dynamic enabling/disabling
+//#endif        
         
         //enable keep-alive packets
         theStream.startKeepAliveTask();

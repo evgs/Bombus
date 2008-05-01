@@ -29,8 +29,7 @@
 package Client;
 
 import Info.Version;
-import images.RosterIcons;
-import images.SmilesIcons;
+import images.*;
 import io.NvStorage;
 import java.io.*;
 import java.util.*;
@@ -173,6 +172,13 @@ public class Config {
 	    // this method called outside class constructor to avoid recursion
             // because using of NvStorage methods depending on Config.getInstance()
 	    instance.loadFromStorage();
+//#ifdef PEP            
+            if (instance.enablePep) {
+                //prefetch
+                MoodIcons.getInstance();
+            }
+//#endif            
+            
 	    instance.loadSoundName();
 
             //FontCache.balloonFontSize=Font.SIZE_SMALL;
