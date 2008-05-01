@@ -27,6 +27,9 @@
 
 package Client;
 
+//#ifdef PEP
+import Mood.MoodList;
+//#endif
 import PrivacyLists.PrivacySelect;
 import ServiceDiscovery.ServiceDiscovery;
 import javax.microedition.lcdui.Display;
@@ -46,6 +49,9 @@ public class RosterToolsMenu
     /** Creates a new instance of RosterToolsMenu */
     public RosterToolsMenu(Display display) {
         super(SR.MS_TOOLS);
+//#ifdef PEP        
+        addItem(SR.MS_USERMOOD, 6);
+//#endif        
         addItem(SR.MS_DISCO, 0);
         addItem(SR.MS_PRIVACY_LISTS, 1);
         addItem(SR.MS_MY_VCARD, 2);
@@ -98,6 +104,11 @@ public class RosterToolsMenu
                 return;
 //#endif
             
+//#ifdef PEP
+            case 6:
+                new MoodList(display);
+                return;
+//#endif                
             //case 10:
             //    StaticData.getInstance().roster.connectionTerminated(new Exception("Simulated break"));
             //    return;

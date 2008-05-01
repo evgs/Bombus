@@ -47,8 +47,8 @@ public class Moods {
         moodValue.trimToSize();
     }
     
-    private Vector moodKey;
-    private Vector moodValue;
+    Vector moodKey;
+    Vector moodValue;
     
     private static Moods instance;
 
@@ -67,5 +67,9 @@ public class Moods {
     public String getMoodLabel(int index) { 
         if (index<0) return "Unknown";
         return (String)moodValue.elementAt(index); 
+    }
+
+    String getMoodName(int index) {
+        return (String)moodKey.elementAt(index);
     }
 }

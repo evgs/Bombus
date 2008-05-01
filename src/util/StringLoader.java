@@ -55,6 +55,8 @@ public class StringLoader {
         	if (line==null)  break;
         	
         	if (line.startsWith("//")) continue; // skip all remarks
+                
+                if (line.length()==0) continue;
 
         	int indexFrom=0;
         	

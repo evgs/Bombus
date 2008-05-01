@@ -371,7 +371,9 @@ public class SR {
 
     public static String MS_LOAD_ROOMLIST = loadString( "Browse rooms");
 
-    public static String MS_PEP = loadString( "Personal events");;
+    public static String MS_PEP = loadString( "Personal events");
+
+    public static String MS_USERMOOD = loadString( "User Mood");
 
     private SR() { }
     
