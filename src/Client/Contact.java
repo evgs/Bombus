@@ -27,6 +27,7 @@
 
 package Client;
 import com.alsutton.jabber.JabberDataBlock;
+import images.MoodIcons;
 import images.RosterIcons;
 import javax.microedition.lcdui.Graphics;
 import ui.Colors;
@@ -98,7 +99,7 @@ public class Contact extends IconTextElement{
     
     public VCard vcard;
     
-    public boolean pepMood;
+    public int pepMood=-1;
     public boolean pepTune;
     //public long conferenceJoinTime;
     
@@ -157,16 +158,17 @@ public class Contact extends IconTextElement{
 
     public void drawItem(Graphics g, int ofs, boolean sel) {
         int x=g.getClipWidth();
-        int dx=il.getWidth();
+        
         
         if (pepTune) {
-            x-=dx;
+            x-=il.getWidth();
             il.drawImage(g, RosterIcons.ICON_PROFILE_INDEX+3, x,0);
         }
         
-        if (pepMood) {
-            x-=dx;
-            il.drawImage(g, 1, x,0);
+        if (pepMood>=0) {
+            ImageList moods=MoodIcons.getInstance();
+            x-=moods.getWidth();
+            moods.drawImage(g, pepMood, x,0);
         }
 
         g.setClip(0,0, x, g.getClipHeight());

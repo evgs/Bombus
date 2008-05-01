@@ -124,6 +124,7 @@ public class StringLoader {
 		if (buf.length()==0) return null;
 		break;
 	    }
+            if (c==0xfeff) continue; //skip bom
 	    if (c==0x0d || c==0x0a) {
 		eol=true;
 		//inputstream.mark(2);

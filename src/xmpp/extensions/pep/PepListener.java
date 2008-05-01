@@ -28,6 +28,7 @@
 package xmpp.extensions.pep;
 
 import Client.*;
+import Mood.Moods;
 import com.alsutton.jabber.*;
 import com.alsutton.jabber.datablocks.*;
 import java.util.*;
@@ -74,21 +75,23 @@ public class PepListener implements JabberBlockListener{
             System.out.println(from+": "+result.toString());
         }
 
-        boolean moodValue=false;
+        int moodIndex=-1;
         JabberDataBlock mood=item.findNamespace("mood", "http://jabber.org/protocol/mood");
         if (mood!=null) {
             result.append(":) ");
+            
             for (Enumeration e=mood.getChildBlocks().elements(); e.hasMoreElements();) {
                 JabberDataBlock child=(JabberDataBlock)e.nextElement();
                 String tag=child.getTagName();
                 if (tag.equals("text")) continue;
-                result.append(tag);
+                
+                moodIndex=Moods.getInstance().getMoodIngex(tag);
             }
+            
+            result.append(Moods.getInstance().getMoodLabel(moodIndex));
             result.append(" - ");
             result.append(mood.getChildBlockText("text"));
-            
-            moodValue=true;
-            
+           
             System.out.println(from+": "+result.toString());
         }
 
@@ -100,7 +103,7 @@ public class PepListener implements JabberBlockListener{
             for (Enumeration e=hContacts.elements();e.hasMoreElements();){
                 Contact c=(Contact)e.nextElement();
                 if (c.jid.equals(j, false)) {
-                    if (mood!=null) c.pepMood=moodValue;
+                    if (mood!=null) c.pepMood=moodIndex;
                     if (tune!=null) c.pepTune=tuneVaule;
                     c.addMessage(m);
                 }
