@@ -69,6 +69,8 @@ public class MoodList extends VirtualList implements CommandListener{
         mood.addChild("text","");
         
         StaticData.getInstance().roster.theStream.send(setMood);
+        
+        destroyView();
     }
 
     public void commandAction(Command command, Displayable displayable) {
