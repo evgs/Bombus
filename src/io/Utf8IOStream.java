@@ -3,7 +3,7 @@
  *
  * Created on 18.12.2005, 0:52
  *
- * Copyright (c) 2005-2007, Eugene Stahov (evgs), http://bombus-im.org
+ * Copyright (c) 2005-2008, Eugene Stahov (evgs), http://bombus-im.org
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -170,11 +170,15 @@ public class Utf8IOStream implements Runnable{
         }
         stats.append("\nStream:\nin="); stats.append(recv);
         stats.append("\nout="); stats.append(sent);
-        stats.append("\n\nIP=");
+        stats.append("\n\n");
         try {
             stats.append(((SocketConnection)connection).getLocalAddress());
             stats.append(":"); 
             stats.append(((SocketConnection)connection).getLocalPort());
+            stats.append("->"); 
+            stats.append(((SocketConnection)connection).getAddress());
+            stats.append(":"); 
+            stats.append(((SocketConnection)connection).getPort());
         } catch (Exception ex) {
             stats.append("unknown");
         } 
