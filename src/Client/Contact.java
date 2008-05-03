@@ -50,7 +50,6 @@ public class Contact extends IconTextElement{
     public final static byte ORIGIN_GROUPCHAT=4;
     public final static byte ORIGIN_GC_MEMBER=5;
     public final static byte ORIGIN_GC_MYSELF=6;
-    
 
     /*public final static String XEP184_NS="http://www.xmpp.org/extensions/xep-0184.html#ns";
     public final static int DELIVERY_NONE=0;
@@ -78,7 +77,8 @@ public class Contact extends IconTextElement{
     public boolean acceptComposing;
     public Integer incomingComposing;
     public int deliveryType;
-    
+    private boolean isActive;
+   
     public String msgSuspended;
     
     //public int key1;
@@ -199,9 +199,7 @@ public class Contact extends IconTextElement{
     //public boolean needsCount(){ return (newMsgCnt<0);  }
     
     public boolean active(){
-	if (msgs.size()>1) return true;
-	if (msgs.size()==0) return false;
-	return (((Msg)msgs.elementAt(0)).messageType!=Msg.MESSAGE_TYPE_PRESENCE);
+        return isActive;
     }
     
     public void resetNewMsgCnt() { newMsgCnt=-1;}
@@ -274,6 +272,12 @@ public class Contact extends IconTextElement{
             return;
         } 
         msgs.addElement(m);
+        
+        if ( (m.messageType!=Msg.MESSAGE_TYPE_PRESENCE) 
+          && (m.messageType!=Msg.MESSAGE_TYPE_HISTORY) ) {
+            isActive=true;
+        }
+        
         if (m.unread) {
             lastUnread=msgs.size()-1;
             if (m.messageType>unreadType) unreadType=m.messageType;
@@ -342,6 +346,7 @@ public class Contact extends IconTextElement{
         msgs=new Vector();
         vcard=null;
         resetNewMsgCnt();
+        isActive=false;
     }
     
     public final void setSortKey(String sortKey){
