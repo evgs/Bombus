@@ -375,6 +375,8 @@ public class SR {
 
     public static String MS_USERMOOD = loadString( "User Mood");
 
+    public static String MS_PEP_NOT_SUPPORTED = loadString("Personal events not supported");
+
     private SR() { }
     
     private static Hashtable presences;

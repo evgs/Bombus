@@ -72,7 +72,8 @@ public class MoodList extends VirtualList implements CommandListener, MIDPTextBo
     }
 
     private void publishTune(final String moodText, final String moodName) {
-        JabberDataBlock setMood=new Iq(null, Iq.TYPE_SET, "publish-mood");
+        String sid="publish-mood";
+        JabberDataBlock setMood=new Iq(null, Iq.TYPE_SET, sid);
         JabberDataBlock action=setMood.addChildNs("pubsub", "http://jabber.org/protocol/pubsub")
           .addChild( (moodText!=null)?"publish":"retract", null);
         action.setAttribute("node", "http://jabber.org/protocol/mood");
@@ -89,12 +90,13 @@ public class MoodList extends VirtualList implements CommandListener, MIDPTextBo
             action.setAttribute("notify","1");
         }
         
+        StaticData.getInstance().roster.theStream.addBlockListener(new MoodPublishResult(display, sid));
         StaticData.getInstance().roster.theStream.send(setMood);
     }
 
     public void commandAction(Command command, Displayable displayable) {
-        if (command==cmdBack) destroyView();
-        eventOk();
+        if (command==cmdBack) destroyView(); 
+        else eventOk();
     }
     
 }
