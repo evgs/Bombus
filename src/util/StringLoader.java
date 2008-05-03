@@ -37,6 +37,7 @@ public class StringLoader {
     
     public Vector[] stringLoader(String resource, int columns) {
 	InputStream in = this.getClass().getResourceAsStream(resource);
+        if (in==null) return null;
         return stringLoader(in, columns);
     }
 
@@ -80,6 +81,7 @@ public class StringLoader {
     
     public Hashtable hashtableLoader(String resource) {
 	InputStream in = this.getClass().getResourceAsStream(resource);
+        if (in==null) return null;
         return hashtableLoader(in);
     }
 
