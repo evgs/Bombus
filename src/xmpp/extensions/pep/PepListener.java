@@ -47,14 +47,12 @@ public class PepListener implements JabberBlockListener{
         
         String from=data.getAttribute("from");
 
-        JabberDataBlock item=event.getChildBlock("items").getChildBlock("item");
-        
-        String id=item.getAttribute("id");
+        String id=null;
         
         StringBuffer result=new StringBuffer();
 
         boolean  tuneVaule=false;
-        JabberDataBlock tune=item.findNamespace("tune", "http://jabber.org/protocol/tune");
+        JabberDataBlock tune=extractEvent(event, "tune", "http://jabber.org/protocol/tune");
         if (tune!=null) {
             result.append((char)0x266a);
             result.append(' ');
@@ -78,7 +76,7 @@ public class PepListener implements JabberBlockListener{
         }
 
         int moodIndex=-1;
-        JabberDataBlock mood=item.findNamespace("mood", "http://jabber.org/protocol/mood");
+        JabberDataBlock mood=extractEvent(event, "mood", "http://jabber.org/protocol/mood");
         
         String tag=null;
         String moodText = "";
@@ -86,12 +84,18 @@ public class PepListener implements JabberBlockListener{
         if (mood!=null) {
             result.append(":) ");
             
-            for (Enumeration e=mood.getChildBlocks().elements(); e.hasMoreElements();) {
-                JabberDataBlock child=(JabberDataBlock)e.nextElement();
-                tag=child.getTagName();
-                if (tag.equals("text")) continue;
-                
-                moodIndex=Moods.getInstance().getMoodIngex(tag);
+            try {
+                for (Enumeration e=mood.getChildBlocks().elements(); e.hasMoreElements();) {
+                    JabberDataBlock child=(JabberDataBlock)e.nextElement();
+                    tag=child.getTagName();
+                    if (tag.equals("text")) continue;
+                    
+                    moodIndex=Moods.getInstance().getMoodIngex(tag);
+                    
+                    id=mood.getParent().getAttribute("id");
+                }
+            } catch (Exception ex) {
+                moodIndex=Moods.getInstance().getMoodIngex("-");
             }
             
             result.append(Moods.getInstance().getMoodLabel(moodIndex));
@@ -130,5 +134,13 @@ public class PepListener implements JabberBlockListener{
         
         return BLOCK_PROCESSED;
     }
-    
+ 
+    JabberDataBlock extractEvent(JabberDataBlock data, String tagName, String xmlns) {
+        JabberDataBlock items=data.getChildBlock("items");
+        if (items==null) return null;
+        if (!xmlns.equals(items.getAttribute("node"))) return null;
+        JabberDataBlock item=items.getChildBlock("item");
+        if (item==null) return new JabberDataBlock();
+        return item.findNamespace(tagName, xmlns);
+    }
 }
