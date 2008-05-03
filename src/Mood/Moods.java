@@ -58,6 +58,10 @@ public class Moods {
     Vector moodKey;
     Vector moodValue;
     
+    public String myMoodName="";
+    public String myMoodText="";
+    public String myMoodId="bmood";
+    
     private static Moods instance;
 
     public static Moods getInstance() {

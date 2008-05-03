@@ -18,7 +18,9 @@ import javax.microedition.lcdui.Command;
 import javax.microedition.lcdui.CommandListener;
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
+import javax.microedition.lcdui.TextField;
 import locale.SR;
+import ui.MIDPTextBox;
 import ui.VirtualElement;
 import ui.VirtualList;
 
@@ -26,13 +28,14 @@ import ui.VirtualList;
  *
  * @author evgs
  */
-public class MoodList extends VirtualList implements CommandListener{
+public class MoodList extends VirtualList implements CommandListener, MIDPTextBox.TextBoxNotify{
     
     /** Creates a new instance of MoodList */
     Command cmdBack=new Command(SR.MS_BACK,Command.BACK,99);
     Command cmdOk=new Command(SR.MS_OK,Command.OK,1);
 
     Vector moods;
+    
     public MoodList(Display display) {
         super();
         setTitleItem(new Title(SR.MS_USERMOOD));
@@ -57,20 +60,36 @@ public class MoodList extends VirtualList implements CommandListener{
     protected VirtualElement getItemRef(int index) { return (VirtualElement)moods.elementAt(index); }
 
     public void eventOk() {
+        if (cursor==0) OkNotify(null); 
+        else new MIDPTextBox(display, SR.MS_USERMOOD, Moods.getInstance().myMoodText, this, TextField.ANY);
+    }
+
+    public void OkNotify(String moodText) {
         String moodName=((MoodItem)getFocusedObject()).getTipString();
+        publishTune(moodText, moodName);
+        destroyView();
+        display.setCurrent(StaticData.getInstance().roster);
+    }
+
+    private void publishTune(final String moodText, final String moodName) {
         JabberDataBlock setMood=new Iq(null, Iq.TYPE_SET, "publish-mood");
-        JabberDataBlock node=setMood.addChildNs("pubsub", "http://jabber.org/protocol/pubsub")
-          .addChild("publish", null);
-        node.setAttribute("node", "http://jabber.org/protocol/mood");
-        JabberDataBlock mood=node.addChild("item", null)
-          .addChildNs("mood", "http://jabber.org/protocol/mood");
+        JabberDataBlock action=setMood.addChildNs("pubsub", "http://jabber.org/protocol/pubsub")
+          .addChild( (moodText!=null)?"publish":"retract", null);
+        action.setAttribute("node", "http://jabber.org/protocol/mood");
+        JabberDataBlock item=action.addChild("item", null);
+        item.setAttribute("id", Moods.getInstance().myMoodId);
         
-        mood.addChild(moodName, null);
-        mood.addChild("text","");
+        if (moodText!=null) {
+            JabberDataBlock mood=item.addChildNs("mood", "http://jabber.org/protocol/mood");
+        
+            mood.addChild(moodName, null);
+            mood.addChild("text",moodText);
+        } else {
+            item.addChild("retract", null);
+            action.setAttribute("notify","1");
+        }
         
         StaticData.getInstance().roster.theStream.send(setMood);
-        
-        destroyView();
     }
 
     public void commandAction(Command command, Displayable displayable) {

@@ -49,6 +49,8 @@ public class PepListener implements JabberBlockListener{
 
         JabberDataBlock item=event.getChildBlock("items").getChildBlock("item");
         
+        String id=item.getAttribute("id");
+        
         StringBuffer result=new StringBuffer();
 
         boolean  tuneVaule=false;
@@ -77,12 +79,16 @@ public class PepListener implements JabberBlockListener{
 
         int moodIndex=-1;
         JabberDataBlock mood=item.findNamespace("mood", "http://jabber.org/protocol/mood");
+        
+        String tag=null;
+        String moodText = "";
+        
         if (mood!=null) {
             result.append(":) ");
             
             for (Enumeration e=mood.getChildBlocks().elements(); e.hasMoreElements();) {
                 JabberDataBlock child=(JabberDataBlock)e.nextElement();
-                String tag=child.getTagName();
+                tag=child.getTagName();
                 if (tag.equals("text")) continue;
                 
                 moodIndex=Moods.getInstance().getMoodIngex(tag);
@@ -90,7 +96,9 @@ public class PepListener implements JabberBlockListener{
             
             result.append(Moods.getInstance().getMoodLabel(moodIndex));
             result.append(" - ");
-            result.append(mood.getChildBlockText("text"));
+            
+            moodText=mood.getChildBlockText("text");
+            result.append(moodText);
            
             System.out.println(from+": "+result.toString());
         }
@@ -103,7 +111,15 @@ public class PepListener implements JabberBlockListener{
             for (Enumeration e=hContacts.elements();e.hasMoreElements();){
                 Contact c=(Contact)e.nextElement();
                 if (c.jid.equals(j, false)) {
-                    if (mood!=null) c.pepMood=moodIndex;
+                    if (mood!=null) {
+                        c.pepMood=moodIndex;
+                        
+                        if (c.getGroupType()==Groups.TYPE_SELF) {
+                            if (id!=null) Moods.getInstance().myMoodId=id;
+                            Moods.getInstance().myMoodName=tag;
+                            Moods.getInstance().myMoodName=moodText;
+                        }
+                    }
                     if (tune!=null) c.pepTune=tuneVaule;
                     c.addMessage(m);
                 }

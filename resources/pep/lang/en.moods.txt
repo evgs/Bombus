@@ -30,8 +30,8 @@ humiliated	humiliated
 hungry	hungry
 hurt	hurt
 impressed	impressed
-in_awe	in_awe
-in_love	in_love
+in_awe	in awe
+in_love	in love
 indignant	indignant
 interested	interested
 intoxicated	intoxicated
@@ -59,4 +59,5 @@ stressed	stressed
 surprised	surprised
 thirsty	thirsty
 worried	worried
+	<none>
 
