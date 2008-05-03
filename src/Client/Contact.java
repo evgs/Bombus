@@ -163,17 +163,17 @@ public class Contact extends IconTextElement{
         int xo=g.getClipX();
         int yo=g.getClipY();
         
-        if (pepTune) {
-            w-=il.getWidth();
-            il.drawImage(g, RosterIcons.ICON_PROFILE_INDEX+3, w,0);
-        }
-        
         if (pepMood>=0) {
             ImageList moods=MoodIcons.getInstance();
             w-=moods.getWidth();
             moods.drawImage(g, pepMood, w,0);
         }
 
+        if (pepTune) {
+            w-=il.getWidth();
+            il.drawImage(g, RosterIcons.ICON_PROFILE_INDEX+3, w,0);
+        }
+        
         g.setClip(xo, yo, w, h);
         
         super.drawItem(g, ofs, sel);
