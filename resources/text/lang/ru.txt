@@ -1,7 +1,7 @@
 // Russian langfile for Bombus - mobile jabber client
-// Copyright (c) 2005-2008, Eugene Stahov (evgs), http://bombus-im.org. All rights reserved.
+// Copyright (c) 2005-2008, Eugene Stahov (evgs), http://bombus-im.org . All rights reserved.
 // (c) Alexey V.Lubimov <avl@l14.ru>, 2006.
-// (c) Vladimir N. Shelukhin <zet@bombus-im.org>, 2006-2007.
+// (c) Vladimir N. Shelukhin <zet@bombus-im.org>, 2006-2008.
 // (c) Vladimir A. Kichigin <voffk@bombus-im.org>, 2007-2008.
 
 // ask server to send us localized messages
@@ -281,7 +281,7 @@ not available	недоступен
 invisible	невидим
 do not disturb	не беспокоить
 offline	отключен
-Join marked (auto)	Подключиться к отмеченным для автовхода
+Join marked (auto)	Подключ. к отмеченным для автовхода
 shared platform info	показывать модель устройства
 delivery events	отчёты о доставке
 drop all	не принимать ничего
@@ -303,7 +303,7 @@ This user wants to subscribe to your presence	Запрос подписки на
 You are now authorized	Вы получили подписку
 Your authorization has been removed!	Ваша подписка была удалена!
 Change nickname	Сменить ник
- has changed subject to: 	 изменил(а) тему на: 
+ has changed subject to: 	 меняет тему на: 
 Send file	Отправить файл
 To: 	Кому: 
 File	Файл
@@ -328,4 +328,12 @@ Total=	Всего=
 Versions	Версии
 Install	Установить
 Available versions	Доступные версии
-User	Пользователь
+User   Пользователь
+
+//2008-05-04 zet
+No compression	без сжатия
+New room created	Новая конференция создана
+Browse rooms	Просмотр конференций
+Personal events	Персональные уведомления
+User Mood	Настроение
+Personal events not supported	Персональные уведомления не поддерживаются

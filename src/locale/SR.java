@@ -365,6 +365,7 @@ public class SR {
     public static String MS_XMLLANG;
     public static String MS_IFACELANG;
 
+//2008-05-04
     public static String MS_NO_COMPRESSION = loadString( "No compression" );
 
     public static String MS_NEW_ROOM_CREATED = loadString( "New room created" );
