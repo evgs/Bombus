@@ -328,7 +328,7 @@ Total=	Всего=
 Versions	Версии
 Install	Установить
 Available versions	Доступные версии
-User   Пользователь
+User	Пользователь
 
 //2008-05-04 zet
 No compression	без сжатия
