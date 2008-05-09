@@ -60,6 +60,7 @@ import Conference.ConferenceForm;
 import PrivacyLists.PrivacySelect;
 import Client.Config;
 import xmpp.XmppError;
+import xmpp.extensions.Captcha;
 import xmpp.extensions.IqLast;
 import xmpp.IqQueryRoster;
 import xmpp.extensions.IqTimeReply;
@@ -935,6 +936,7 @@ public class Roster
 //#ifdef PEP
         theStream.addBlockListener(new PepListener()); //TODO: dynamic enabling/disabling
 //#endif        
+        theStream.addBlockListener(new Captcha(display));
         
         //enable keep-alive packets
         theStream.startKeepAliveTask();
