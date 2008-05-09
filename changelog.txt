@@ -4317,6 +4317,25 @@ syslog_msg: true
   * Fixed caps list for non-zlib version
   * SASLAuth.java: checking if SASL is supported by server
 
+10.05.2008
+0.7.1358
+  + Поддержка Captcha (xep-0158)
+  + PEP - персональные уведомления
+  + Приём событий User tune
+  + Настроения (User mood)
+  + Иконки настроений (used http://www.famfamfam.com/lab/icons/silk/ icons, http://bombusmod.net.ru/c/data/moods/silk/images/moods.png )
+  * Entity Caps: обновление списка при изменении некоторых опций (уведомления о доставке, уведомления о наборе сообщений, PEP)
+  * обновление локализации
+  --
+  + Captcha (xep-0158)
+  + PEP - listening for events
+  + listening for User tune
+  + User mood
+  + Mood images (used http://www.famfamfam.com/lab/icons/silk/ icons, http://bombusmod.net.ru/c/data/moods/silk/images/moods.png )
+  * Entity Caps: updating caps if corresponding option is switched
+    (ex: Message delivery notifications, Chatstates, PEP)
+  * localization updated
+
 ------------------------------------------------------------------------
   known issues:
 
