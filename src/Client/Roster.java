@@ -65,6 +65,7 @@ import xmpp.extensions.IqLast;
 import xmpp.IqQueryRoster;
 import xmpp.extensions.IqTimeReply;
 import xmpp.extensions.IqVersionReply;
+import xmpp.extensions.Ping;
 //#ifdef PEP
 import xmpp.extensions.pep.PepListener;
 //#endif
@@ -932,6 +933,7 @@ public class Roster
         theStream.addBlockListener(new IqVersionReply());
         theStream.addBlockListener(new IqTimeReply());
         theStream.addBlockListener(new EntityCaps());
+        theStream.addBlockListener(new Ping());
 
 //#ifdef PEP
         theStream.addBlockListener(new PepListener()); //TODO: dynamic enabling/disabling
@@ -1046,17 +1048,7 @@ public class Roster
                 if ( type.equals( "result" ) ) {
                     /*no handlers now*/
                 } else 
-                if (type.equals("get")){
-                    
-                    // xep-0199 ping
-                    if (data.findNamespace("ping", "urn:xmpp:ping")!=null) {
-                        theStream.pingSent=false; 
-                        Iq pong=new Iq(from, Iq.TYPE_RESULT, data.getAttribute("id"));
-                        theStream.send(pong);
-                        return JabberBlockListener.BLOCK_PROCESSED;
-                    }
-                    
-                } else if (type.equals("set")) {
+                if (type.equals("set")) {
                     if (processRoster(data)) { 
                         theStream.send(new Iq(from, Iq.TYPE_RESULT, id));
                         reEnumRoster();
