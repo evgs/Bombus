@@ -49,8 +49,10 @@ public class RosterToolsMenu
     /** Creates a new instance of RosterToolsMenu */
     public RosterToolsMenu(Display display) {
         super(SR.MS_TOOLS);
+        
 //#ifdef PEP        
-        addItem(SR.MS_USERMOOD, 6);
+        if (Config.getInstance().enablePep)
+            addItem(SR.MS_USERMOOD, 6);
 //#endif        
         addItem(SR.MS_DISCO, 0);
         addItem(SR.MS_PRIVACY_LISTS, 1);

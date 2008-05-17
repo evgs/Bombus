@@ -90,8 +90,11 @@ public class MoodList extends VirtualList implements CommandListener, MIDPTextBo
             action.setAttribute("notify","1");
         }
         
-        StaticData.getInstance().roster.theStream.addBlockListener(new MoodPublishResult(display, sid));
-        StaticData.getInstance().roster.theStream.send(setMood);
+        try {
+            //todo: refactor theStream call; send notification to JabberBlockListener if stream was terminated
+            StaticData.getInstance().roster.theStream.addBlockListener(new MoodPublishResult(display, sid));
+            StaticData.getInstance().roster.theStream.send(setMood);
+        } catch (Exception e) {e.printStackTrace(); }
     }
 
     public void commandAction(Command command, Displayable displayable) {
