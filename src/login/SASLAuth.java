@@ -38,6 +38,7 @@ import java.io.IOException;
 import locale.SR;
 
 import util.strconv;
+import xmpp.XmppError;
 //#if SASL_XGOOGLETOKEN
 import java.io.InputStream;
 import javax.microedition.io.Connector;
@@ -201,7 +202,7 @@ public class SASLAuth implements JabberBlockListener{
             
         else if ( data.getTagName().equals("failure")) {
             // first stream - step 4a. not authorized
-            listener.loginFailed( data.getText() );  
+            listener.loginFailed( XmppError.decodeSaslError(data).toString() );  
         } else if ( data.getTagName().equals("success")) {
             // first stream - step 4b. success.
             try {
