@@ -50,6 +50,9 @@ public class Version {
     public static String getPlatformName() {
         if (platformName==null) {
             platformName=System.getProperty("microedition.platform");
+
+            String sonyJava=System.getProperty("com.sonyericsson.java.platform");
+            if (sonyJava!=null) platformName=platformName+"/"+sonyJava;
             
             String device=System.getProperty("device.model");
             String firmware=System.getProperty("device.software.version");
@@ -108,5 +111,9 @@ public class Version {
     public static String getVersionLang() { return version+" ("+SR.MS_IFACELANG+")"; }
 
     public static String getVersionNumber() { return version; }
+
+    public static String getClientName() {
+        return NAME;
+    }
 
 }

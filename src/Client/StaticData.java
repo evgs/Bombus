@@ -42,6 +42,8 @@ public class StaticData {
     public Account account;
     
     public int account_index;
+
+    public int screenWidth;
     
     /** Creates a new instance of StaticData */
     private StaticData() { }

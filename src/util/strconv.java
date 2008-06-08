@@ -132,34 +132,35 @@ public class strconv {
         StringBuffer outbuf=new StringBuffer( srcLen );
         for(int i=0; i < srcLen; i++) {
             int c = (int)str.charAt(i);
-
-            if ((c >= 0x20) && (c <= 0x7f)) {
+            //TODO: ескэйпить коды <0x20
+            if ((c >= 1) && (c <= 0x7f)) {
                 outbuf.append( (char) c);
-                continue;
-            } 
-            if (((c >= 0x80) && (c <= 0x7ff)) || (c==0)) {
-                outbuf.append((char)(0xc0 | (0x1f & (c >> 6))))
-                      .append((char)(0x80 | (0x3f & c)));
-                continue;
-            } 
-            if ((c >= 0x800) && (c <= 0xffff)) {
-                outbuf.append(((char)(0xe0 | (0x0f & (c >> 12)))))
-                      .append((char)(0x80 | (0x3f & (c >>  6))))
-                      .append(((char)(0x80 | (0x3f & c))));
-                continue;
-            } 
-            if ((c==0x0d) || (c==0x0a) || (c==0x09)) {
-                outbuf.append( (char) c);
-                continue;
+                
             }
-            if ((c > 0)  && (c < 0x1f)) {
-                outbuf.append("&#").append( (int) c).append(";");
+            if (((c >= 0x80) && (c <= 0x7ff)) || (c==0)) {
+                outbuf.append((char)(0xc0 | (0x1f & (c >> 6))));
+                outbuf.append((char)(0x80 | (0x3f & c)));
+            }
+            if ((c >= 0x800) && (c <= 0xffff)) {
+                outbuf.append(((char)(0xe0 | (0x0f & (c >> 12)))));
+                outbuf.append((char)(0x80 | (0x3f & (c >>  6))));
+                outbuf.append(((char)(0x80 | (0x3f & c))));
             }
         }
         return outbuf;
     }
     
+    
     public static byte[] fromBase64(String s) {
+        return baosFromBase64(s).toByteArray();
+                
+    }
+
+    public static String sFromBase64(String s) {
+        return baosFromBase64(s).toString();
+    }
+    
+    private static ByteArrayOutputStream baosFromBase64(String s) {
         int padding=0;
         int ibuf=1;
         ByteArrayOutputStream baos=new ByteArrayOutputStream(2048);
@@ -186,7 +187,7 @@ public class strconv {
         try { baos.close(); } catch (Exception e) {};
         //System.out.println(ibuf);
         //System.out.println(baos.size());
-        return baos.toByteArray();
+        return baos;
     }
     
     /* test
@@ -233,9 +234,25 @@ public class strconv {
             
             if (mask.indexOf(s)<0) {  out.append(s); continue;  }
             
-            out.append('%').append(Integer.toString(s, 16));
+            out.append('%').append(hexByteToString((byte)s));
             
         }
+        
+        return out.toString();
+    }
+    
+    public static String hexByteToString(byte b){
+        StringBuffer out=new StringBuffer();
+        char c = (char) ((b >> 4) & 0xf);
+        if (c > 9)   c = (char) ((c - 10) + 'a');
+        else  c = (char) (c + '0');
+        out.append(c);
+        c = (char) (b & 0xf);
+        if (c > 9)
+            c = (char)((c-10) + 'a');
+        else
+            c = (char)(c + '0');
+        out.append(c);
         
         return out.toString();
     }

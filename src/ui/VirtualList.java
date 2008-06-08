@@ -242,7 +242,7 @@ public abstract class VirtualList
         height=getHeight();
         
         if (Info.Version.getPlatformName().startsWith("Windows")) {
-            setTitle("Bombus CE");
+            setTitle(Info.Version.getClientName());
         }
         // rotator
         //rotator=new TimerTaskRotate(0, this);
@@ -270,6 +270,7 @@ public abstract class VirtualList
      * @param display менеджер дисплея мобильного устройства {@link }
      */
     public void attachDisplay (Display display) {
+        if (display==null) return;
         if (this.display!=null) return;
         this.display=display;
         parentView=display.getCurrent();
@@ -280,6 +281,7 @@ public abstract class VirtualList
 
     /** запуск отложенной отрисовки активного Canvas */
     public void redraw(){
+        if (display==null) return;
         //repaint(0,0,width,height);
         Displayable d=display.getCurrent();
         //System.out.println(d.toString());
@@ -341,17 +343,14 @@ public abstract class VirtualList
         
         beginPaint();
         
-        int list_top=0; // верхняя граница списка
-        updateLayout(); //fixme: только при изменении списка
+        StaticData.getInstance().screenWidth=width;
         
-        if (title!=null) {
-            list_top=title.getVHeight();
-            g.setClip(0,0, width, list_top);
-            g.setColor(getTitleBGndRGB());
-            g.fillRect(0,0, width, list_top);
-            g.setColor(getTitleRGB());
-            title.drawItem(g,0,false);
-        }
+        updateLayout();
+        
+        
+        int list_top = drawTitle(g);
+        
+        setAbsOrg(g, 0,0);
 
         drawHeapMonitor(g);
         winHeight=height-list_top;
@@ -454,6 +453,19 @@ public abstract class VirtualList
 	//full_items=fe;
     }
 
+    protected int drawTitle(final Graphics g) {
+        if (title==null) return 0;
+        
+        int height=title.getVHeight();
+        g.setClip(0,0, width, height);
+        g.setColor(getTitleBGndRGB());
+        g.fillRect(0,0, width, height);
+        g.setColor(getTitleRGB());
+        title.drawItem(g,0,false);
+        
+        return height;
+    }
+
     protected void drawBalloon(final Graphics g, int balloon, final String text) {
         setAbsOrg(g,0,balloon);
         Balloon.draw(g, text);
@@ -474,7 +486,7 @@ public abstract class VirtualList
      * @param x абсолютная x-координата нового начала координат 
      * @param y абсолютная y-координата нового начала координат
      */
-    private void setAbsOrg(Graphics g, int x, int y){
+    public static void setAbsOrg(Graphics g, int x, int y){
         g.translate(x-g.getTranslateX(), y-g.getTranslateY());
     }
     
@@ -515,11 +527,13 @@ public abstract class VirtualList
         int count=getItemCount();
         if (index<0) index=0;
         if (index>=count) index=count-1;    // если за последним элементом, то переместить на него
+        //else if ((!force) && stickyWindow) return;
         
         cursor=index;
         stickyWindow=true;
         
         repaint();
+        //moveCursor(index-cursor, force); 
     }
     
     protected void fitCursorByTop(){

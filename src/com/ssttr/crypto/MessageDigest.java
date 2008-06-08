@@ -27,6 +27,7 @@ package com.ssttr.crypto;
 import java.util.*;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import util.strconv;
 //import java.io.InputStream;
  
 
@@ -188,8 +189,7 @@ public abstract class MessageDigest
         StringBuffer out=new StringBuffer();
         
         for(int i = 0; i < digestBits.length; i++) {
-            int c=digestBits[i];
-            out.append(Integer.toString(c, 16));
+            out.append(strconv.hexByteToString(digestBits[i]));
         }
         
     	return out.toString();

@@ -26,6 +26,7 @@
 
 package com.alsutton.jabber;
 import java.util.*;
+import xml.XMLParser;
 
 /**
  * Title:        JabberDataBlock.java
@@ -202,16 +203,7 @@ public class JabberDataBlock
    */
 
   public String getAttribute( String attributeName ) {
-      if (attributes==null) return null;
-      int index=0;
-      while (index<attributes.size()) {
-          if ( ((String)attributes.elementAt(index)).equals(attributeName) )
-              return (String)attributes.elementAt(index+1);
-          
-          index+=2;
-      }
-      
-      return null;
+      return XMLParser.extractAttribute(attributeName, attributes);
   }
   
   public String getTypeAttribute(){
@@ -221,7 +213,7 @@ public class JabberDataBlock
   public boolean isJabberNameSpace(String xmlns){
       String xmlnsatr=getAttribute("xmlns");
       if (xmlnsatr==null) return false;
-      return xmlnsatr.startsWith(xmlns);
+      return xmlnsatr.equals(xmlns);
   } 
 
   public JabberDataBlock findNamespace(String tagName, String xmlns) {
