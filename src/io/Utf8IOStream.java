@@ -143,17 +143,10 @@ public class Utf8IOStream implements Runnable{
     
 //#if ZLIB
     private void appendZlibStats(StringBuffer s, long packed, long unpacked, boolean read){
-        s.append(packed); s.append(read?">>>":"<<<"); s.append(unpacked);
+        s.append(packed).append(read?">>>":"<<<").append(unpacked);
         String ratio=Long.toString((10*unpacked)/packed);
         int dotpos=ratio.length()-1;
-        
-        /*
-        s.append(" ratio=");
-        s.append( (dotpos==0)? "0":ratio.substring(0, dotpos));
-        s.append('.');
-        s.append(ratio.substring(dotpos));
-        s.append('x');
-         */
+       
     }
     
     public String getStreamStats() {
@@ -168,17 +161,17 @@ public class Utf8IOStream implements Runnable{
             stats.append("ZLib:\nin="); appendZlibStats(stats, z.getTotalIn(), z.getTotalOut(), true);
             stats.append("\nout="); appendZlibStats(stats, zo.getTotalOut(), zo.getTotalIn(), false);
         }
-        stats.append("\nStream:\nin="); stats.append(recv);
-        stats.append("\nout="); stats.append(sent);
-        stats.append("\n\n");
+        stats.append("\nStream:\nin=").append(recv)
+             .append("\nout=").append(sent)
+             .append("\n\n");
         try {
-            stats.append(((SocketConnection)connection).getLocalAddress());
-            stats.append(":"); 
-            stats.append(((SocketConnection)connection).getLocalPort());
-            stats.append("->"); 
-            stats.append(((SocketConnection)connection).getAddress());
-            stats.append(":"); 
-            stats.append(((SocketConnection)connection).getPort());
+            stats.append(((SocketConnection)connection).getLocalAddress())
+                 .append(":")
+                 .append(((SocketConnection)connection).getLocalPort())
+                 .append("->")
+                 .append(((SocketConnection)connection).getAddress())
+                 .append(":")
+                 .append(((SocketConnection)connection).getPort());
         } catch (Exception ex) {
             stats.append("unknown");
         } 

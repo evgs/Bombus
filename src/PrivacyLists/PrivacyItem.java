@@ -120,8 +120,7 @@ public class PrivacyItem extends IconTextElement{
         tip.append(" if ");
         tip.append(types[type]);
         if (type!=ITEM_ANY) {
-            tip.append('=');
-            tip.append(value);
+            tip.append('=').append(value);
         }
         tip.append(' ');
         
@@ -131,8 +130,7 @@ public class PrivacyItem extends IconTextElement{
         } else {
             for (int i=0; i<4; i++) {
                 if (stanzasSet[i]) {
-                    tip.append(stanzas[i]);
-                    tip.append(' ');
+                    tip.append(stanzas[i]).append(' ');
                 }
             }
         }

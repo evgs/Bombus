@@ -149,14 +149,13 @@ public class Account extends IconTextElement{
         if (nick.length()!=0)
             s.append(nick);
         else {
-            s.append(userName);
-            s.append('@');
-            s.append(server);
+            s.append(userName)
+             .append('@')
+             .append(server);
         }
-        s.append('/');
-        s.append(resource);
+        s.append('/')
+         .append(resource);
         return s.toString();
-        //jid=userName+'@'+server+'/'+resource;
     }
     public String getJid(){
         return userName+'@'+server+'/'+resource;

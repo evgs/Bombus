@@ -362,8 +362,8 @@ public class JabberDataBlock
   }
 
   public void constructXML(StringBuffer data) {
-      data.append('<');
-      data.append( getTagName() );
+      data.append('<').append( getTagName() );
+      
       if( attributes != null )
           addAttributeToStringBuffer( data );
       
@@ -387,9 +387,7 @@ public class JabberDataBlock
       }
       
       // end tag
-      data.append( "</" );
-      data.append( getTagName() );
-      data.append( '>' );
+      data.append( "</" ).append( getTagName() ).append( '>' );
   }
   
   /**
@@ -406,9 +404,8 @@ public class JabberDataBlock
           String nextValue = (String) attributes.elementAt(index+1);
           index+=2;
           
-          buffer.append( ' ' );
-          buffer.append( nextKey );
-          buffer.append( "=\"" );
+          buffer.append( ' ' ).append( nextKey ).append( "=\"" );
+          
           appendXML(buffer, nextValue);
           //buffer.append( nextValue );
           buffer.append( '\"' );

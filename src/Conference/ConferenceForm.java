@@ -142,15 +142,14 @@ public class ConferenceForm implements CommandListener{
             if (room.length()==0) return;
             if (host.length()==0) return;
             StringBuffer gchat=new StringBuffer(room.trim());
-            gchat.append('@');
-            gchat.append(host.trim());
+            gchat.append('@')
+                 .append(host.trim());
             //sd.roster.mucContact(gchat.toString(), Contact.ORIGIN_GROUPCHAT);
             if (c==cmdAdd) new Bookmarks(display, new BookmarkItem(gchat.toString(), nick, pass, false));
             if (c==cmdAddAuto) new Bookmarks(display, new BookmarkItem(gchat.toString(), nick, pass, true));
             if (c==cmdJoin) {
                 try {
-                    gchat.append('/');
-                    gchat.append(nick);
+                    gchat.append('/').append(nick);
                     join(gchat.toString(),pass, msgLimit);
                     
                     display.setCurrent(sd.roster);

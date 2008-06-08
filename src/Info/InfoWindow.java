@@ -67,16 +67,16 @@ public class InfoWindow implements CommandListener{
                 ));
         
         StringBuffer memInfo=new StringBuffer("\n\n");
-        memInfo.append(SR.MS_MEMORY); 
-        memInfo.append("\n");
-        memInfo.append(SR.MS_MEMORY_FREE);
+        memInfo.append(SR.MS_MEMORY)
+               .append("\n")
+               .append(SR.MS_MEMORY_FREE);
         //mem.append(Runtime.getRuntime().freeMemory()>>10);
         //mem.append("\nFree=");
         System.gc();
-        memInfo.append(Runtime.getRuntime().freeMemory()>>10);
-        memInfo.append("\n");
-        memInfo.append(SR.MS_MEMORY_TOTAL);
-        memInfo.append(Runtime.getRuntime().totalMemory()>>10);
+        memInfo.append(Runtime.getRuntime().freeMemory()>>10)
+               .append("\n")
+               .append(SR.MS_MEMORY_TOTAL)
+               .append(Runtime.getRuntime().totalMemory()>>10);
         form.append(memInfo.toString());
 //#if ZLIB
         form.append("\n\n");

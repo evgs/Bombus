@@ -138,14 +138,14 @@ public class strconv {
                 continue;
             } 
             if (((c >= 0x80) && (c <= 0x7ff)) || (c==0)) {
-                outbuf.append((char)(0xc0 | (0x1f & (c >> 6))));
-                outbuf.append((char)(0x80 | (0x3f & c)));
+                outbuf.append((char)(0xc0 | (0x1f & (c >> 6))))
+                      .append((char)(0x80 | (0x3f & c)));
                 continue;
             } 
             if ((c >= 0x800) && (c <= 0xffff)) {
-                outbuf.append(((char)(0xe0 | (0x0f & (c >> 12)))));
-                outbuf.append((char)(0x80 | (0x3f & (c >>  6))));
-                outbuf.append(((char)(0x80 | (0x3f & c))));
+                outbuf.append(((char)(0xe0 | (0x0f & (c >> 12)))))
+                      .append((char)(0x80 | (0x3f & (c >>  6))))
+                      .append(((char)(0x80 | (0x3f & c))));
                 continue;
             } 
             if ((c==0x0d) || (c==0x0a) || (c==0x09)) {
@@ -153,9 +153,7 @@ public class strconv {
                 continue;
             }
             if ((c > 0)  && (c < 0x1f)) {
-                outbuf.append("&#");
-                outbuf.append( (int) c);
-                outbuf.append(";");
+                outbuf.append("&#").append( (int) c).append(";");
             }
         }
         return outbuf;
@@ -235,19 +233,7 @@ public class strconv {
             
             if (mask.indexOf(s)<0) {  out.append(s); continue;  }
             
-            out.append('%');
-            
-            char c = (char) ((s >> 4) & 0xf);
-            if (c > 9)   c = (char) ((c - 10) + 'a');
-            else  c = (char) (c + '0');
-            out.append(c);
-            
-            c = (char) (s & 0xf);
-            if (c > 9)
-                c = (char)((c-10) + 'a');
-            else
-                c = (char)(c + '0');
-            out.append(c);
+            out.append('%').append(Integer.toString(s, 16));
             
         }
         

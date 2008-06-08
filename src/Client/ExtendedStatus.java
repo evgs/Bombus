@@ -59,13 +59,13 @@ public class ExtendedStatus extends IconTextElement{
     //public void onSelect(){}
     public String toString(){ 
         StringBuffer s=new StringBuffer(screenName);
-        s.append(" (");
-        s.append(priority);
-        s.append(") ");
+        s.append(" (")
+         .append(priority)
+         .append(") ");
         if (status.length()>0) {
-            s.append('"');
-            s.append(status);
-            s.append('"');
+            s.append('"')
+             .append(status)
+             .append('"');
         }
         
         //return name+" ("+priority+") \""+status+"\""; 

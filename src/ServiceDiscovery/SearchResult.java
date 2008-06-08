@@ -100,10 +100,10 @@ public class SearchResult
                     if (value.length()>0)
                     {
                         //vcard.append(new StringItem(name,value+"\n"));
-                        vcard.append(name);
-                        vcard.append((char)0xa0);
-                        vcard.append(value);
-                        vcard.append((char)'\n');
+                        vcard.append(name)
+                             .append((char)0xa0)
+                             .append(value)
+                             .append((char)'\n');
                     }
 		    // status returned by jit
 		    if (name.equals("status")) if (!value.equals("offline")) status=Presence.PRESENCE_ONLINE;

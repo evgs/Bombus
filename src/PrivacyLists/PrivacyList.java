@@ -58,8 +58,7 @@ public class PrivacyList extends IconTextElement{
     public int getColor() {return Colors.LIST_INK; }
     
     public String toString() {
-        StringBuffer result=new StringBuffer((name==null)? "<none>": name);
-        result.append(' ');
+        StringBuffer result=new StringBuffer((name==null)? "<none>": name).append(' ');
         if (isDefault) result.append("(default)");
         return result.toString();
     }

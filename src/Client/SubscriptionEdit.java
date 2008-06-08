@@ -50,9 +50,9 @@ public class SubscriptionEdit extends Form implements CommandListener{
         super(SR.MS_SUBSCRIPTION);
         to=c.getBareJid();
         StringBuffer s=new StringBuffer(c.getNickJid());
-        s.append('\n');
-        s.append("subscr:");
-        s.append(c.subscr);
+        s.append('\n')
+         .append("subscr:")
+         .append(c.subscr);
         if (c.ask_subscribe) s.append(",ask");
         
 //#if !(MIDP1)

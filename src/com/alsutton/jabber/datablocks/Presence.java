@@ -127,17 +127,13 @@ public class Presence extends JabberDataBlock
           
       String status=(errText==null)? getChildBlockText("status"):errText;
       if (status.length()>0) {
-          text.append(" (");
-          text.append( status );
-          text.append(')');
+          text.append(" (").append( status ).append(')');
       }
       
       // priority
       int priority=getPriority();
       if (priority!=0) {
-          text.append(" [");
-          text.append(getPriority());
-          text.append(']');
+          text.append(" [").append(getPriority()).append(']');
       }
           
       

@@ -54,19 +54,17 @@ public class PepListener implements JabberBlockListener{
         boolean  tuneVaule=false;
         JabberDataBlock tune=extractEvent(event, "tune", "http://jabber.org/protocol/tune");
         if (tune!=null) {
-            result.append((char)0x266a);
-            result.append(' ');
+            result.append((char)0x266a).append(' ');
+            
             if (tune.getChildBlocks()==null) result.append("(silence)");
             else {
                 String src=tune.getChildBlockText("source");
                 
-                result.append(tune.getChildBlockText("title"));
-                result.append(" - ");
-                result.append(tune.getChildBlockText("artist"));
+                result.append(tune.getChildBlockText("title"))
+                      .append(" - ")
+                      .append(tune.getChildBlockText("artist"));
                 if (src.length()>0) {
-                    result.append(" (");
-                    result.append(src);
-                    result.append(')');
+                    result.append(" (").append(src).append(')');
                 }
                 
                 tuneVaule=true;
@@ -98,11 +96,10 @@ public class PepListener implements JabberBlockListener{
                 moodIndex=Moods.getInstance().getMoodIngex("-");
             }
             
-            result.append(Moods.getInstance().getMoodLabel(moodIndex));
-            result.append(" - ");
-            
             moodText=mood.getChildBlockText("text");
-            result.append(moodText);
+            result.append(Moods.getInstance().getMoodLabel(moodIndex)) 
+                  .append(" - ")
+                  .append(moodText);
            
             System.out.println(from+": "+result.toString());
         }

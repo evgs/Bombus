@@ -109,14 +109,14 @@ public class JabberStream implements XMLEventListener, Runnable {
         
         //sendQueue=new Vector();
         
-        StringBuffer header=new StringBuffer("<stream:stream to='" );
-        header.append( server );
-        header.append( "' xmlns='jabber:client' xmlns:stream='http://etherx.jabber.org/streams'" );
+        StringBuffer header=new StringBuffer("<stream:stream to='" )
+            .append( server )
+            .append( "' xmlns='jabber:client' xmlns:stream='http://etherx.jabber.org/streams'" );
+        
         if (xmppV1) header.append(" version='1.0'");
+        
         if (SR.MS_XMLLANG!=null) {
-            header.append(" xml:lang='");
-            header.append(SR.MS_XMLLANG);
-            header.append("'");
+            header.append(" xml:lang='").append(SR.MS_XMLLANG).append("'");
         }
         header.append( '>' );
         send(header.toString());

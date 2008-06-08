@@ -121,9 +121,9 @@ public class AffiliationModify implements CommandListener, YesNoAlert.YesNoListe
             if (jid.size()==0) return;
             if (recentAffiliation==AffiliationItem.AFFILIATION_OWNER) {
                 StringBuffer warn=new StringBuffer(SR.MS_ARE_YOU_SURE_WANT_TO_DISCARD /*"Are You sure want to discard "*/);
-                warn.append(jid.getString());
-                warn.append(SR.MS_FROM_OWNER_TO/*" from OWNER to "*/);
-                warn.append(AffiliationItem.getAffiliationName(affiliation.getSelectedIndex()));
+                warn.append(jid.getString())
+                    .append(SR.MS_FROM_OWNER_TO/*" from OWNER to "*/)
+                    .append(AffiliationItem.getAffiliationName(affiliation.getSelectedIndex()));
                 new YesNoAlert(display, SR.MS_MODIFY_AFFILIATION/*"Modify affiliation"*/, warn.toString(), this);
             } else modify();
         }

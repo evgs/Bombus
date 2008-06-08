@@ -71,9 +71,7 @@ public class MucContact extends Contact{
     }
     
     private void appendL(StringBuffer sb, String append){
-        sb.append((char)1);
-        sb.append(append);
-        sb.append((char)2);
+        sb.append((char)1).append(append).append((char)2);
     }
     
     public String processPresence(JabberDataBlock xmuc, Presence presence) {
@@ -185,10 +183,10 @@ public class MucContact extends Contact{
                     presenceType=Presence.PRESENCE_ERROR;
                 case 307: //kick
                     b.append(
-                            (statusCode==301)? SR.MS_WAS_BANNED : SR.MS_WAS_KICKED );
-                    b.append("(");
-                    b.append(reason);
-                    b.append(")");
+                            (statusCode==301)? SR.MS_WAS_BANNED : SR.MS_WAS_KICKED )
+                     .append("(")
+                     .append(reason)
+                     .append(")");
                     
                     if (realJid!=null) {
                         b.append(" - ");
@@ -210,9 +208,9 @@ public class MucContact extends Contact{
                 b.append(SR.MS_HAS_LEFT_CHANNEL);
                 
                 if (statusText.length()>0) {
-                    b.append(" (");
-                    b.append(statusText);
-                    b.append(")");
+                    b.append(" (")
+                     .append(statusText)
+                     .append(")");
                 }
                     
                 testMeOffline();
@@ -235,9 +233,9 @@ public class MucContact extends Contact{
                 }
                 
                 if (statusText.length()>0) {
-                    b.append(" (");
-                    b.append(statusText);
-                    b.append(")");
+                    b.append(" (")
+                     .append(statusText)
+                     .append(")");
                 }
             } else {
                 b.append(SR.MS_IS_NOW);
