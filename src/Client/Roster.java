@@ -690,6 +690,7 @@ public class Roster
         // send presence
         ExtendedStatus es= StatusList.getInstance().getStatus(myStatus);
         Presence presence = new Presence(myStatus, es.getPriority(), es.getMessage(), StaticData.getInstance().account.getNick());
+        
         if (isLoggedIn()) {
             if (myStatus==Presence.PRESENCE_OFFLINE) groups.queryGroupState(false);
             
@@ -698,24 +699,26 @@ public class Roster
             
             multicastConferencePresence();
 
-            // disconnect
-            if (myStatus==Presence.PRESENCE_OFFLINE) {
-                try {
-                    theStream.close(); // sends </stream:stream> and closes socket
-                } catch (Exception e) { e.printStackTrace(); }
-                
-                synchronized(hContacts) {
-                    for (Enumeration e=hContacts.elements(); e.hasMoreElements();){
-                        Contact c=(Contact)e.nextElement();
-                        //if (c.myStatus<Presence.PRESENCE_UNKNOWN)
-                        c.setStatus(Presence.PRESENCE_OFFLINE); // keep error & unknown
-                    }
-                }
-                
-                theStream=null;
-                System.gc();
-            }
         }
+        
+        // disconnect
+        if (myStatus==Presence.PRESENCE_OFFLINE) {
+            try {
+                theStream.close(); // sends </stream:stream> and closes socket
+            } catch (Exception e) { e.printStackTrace(); }
+
+            synchronized(hContacts) {
+                for (Enumeration e=hContacts.elements(); e.hasMoreElements();){
+                    Contact c=(Contact)e.nextElement();
+                    //if (c.myStatus<Presence.PRESENCE_UNKNOWN)
+                    c.setStatus(Presence.PRESENCE_OFFLINE); // keep error & unknown
+                }
+            }
+
+            theStream=null;
+            System.gc();
+        }
+
         Contact c=selfContact();
         c.setStatus(myStatus);
         sort(hContacts);
