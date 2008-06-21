@@ -70,7 +70,7 @@
 	    <zipfileset dir="ftp/midp2.0" prefix="midp2.0"/>
 	    <zipfileset dir="ftp/midp2.0z" prefix="midp2.0-ZLIB"/>
 	    <zipfileset file="changelog.txt"/>
-	    <tarfileset file="copying.txt"/>
+	    <zipfileset file="copying.txt"/>
 	</zip>
 
 	<tar destfile="${destfile}.tar">
