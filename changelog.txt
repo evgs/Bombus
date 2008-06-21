@@ -4336,6 +4336,27 @@ syslog_msg: true
     (ex: Message delivery notifications, Chatstates, PEP)
   * localization updated
 
+22.06.2008
+0.7.1374
+  + Локализация полей vcard. Пока только русский и английский варианты локализации
+  + Явное указание лицензии GPL в "About/О программе"
+  + Включение текста GPL-лицензии в zip-пакет, дополнительно к имеющемуся changelog
+  * Исправлено закрытие сокета при обрыве соединения до успешного логина
+  * Исправлен счётчик контактов ростера (thanks Daniel Apatin)
+  * Полная обработка ошибок SASL-аутентификации
+  * Исправлено исключение NullPointerException при попытке установки User Mood из состояния offline
+  * Не отображается команда User Mood при отключенном в опциях PEP
+  --
+  + vcard langfiles added 
+  + GPL notify in About window
+  + including GPL license into zip package
+  * Fixed freein theStream if connection was broken before login success
+  * fixed contact counting bug in roster (thanks Daniel Apatin)
+  + SASL error handling ( http://www.xmpp.org/rfcs/rfc3920.html#sasl-errors )
+  * fixed null-pointer exception when publishing mood when client is offline
+  * don't show "user mood" if pep option is switched off
+  * updated changelog.txt: vibra issues on symbian phones
+
 ------------------------------------------------------------------------
   known issues:
 
