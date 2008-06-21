@@ -183,8 +183,11 @@ public class VCard {
     }
     
     private void fieldsLoader(){
-	Vector table[]=new StringLoader().stringLoader("/vcard.txt", 3);
-
+        String vcardFile="/lang/"+Client.Config.getInstance().lang+".vcard.txt";
+        Vector table[]=new StringLoader().stringLoader(vcardFile, 3);
+        
+        if (table==null) table=new StringLoader().stringLoader("/lang/en.vcard.txt", 3);
+        
 	vCardFields=table[1];
         vCardFields2=table[0];
         vCardLabels=table[2];
