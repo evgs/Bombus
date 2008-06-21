@@ -60,6 +60,7 @@ public class InfoWindow implements CommandListener{
         form.append(Version.getNameVersion()+"\nMobile Jabber client\n");
         form.append(Version.getOs());
         form.append("\nCopyright (c) 2005-2008, Eugene Stahov (evgs),\n");
+        form.append("Distributed under GNU Public License (GPL) v2.0\n");
         form.append (new StringItem(null, Version.BOMBUS_SITE_URL
 //#if !(MIDP1)
                 , Item.HYPERLINK
