@@ -135,10 +135,17 @@ public class VCard {
         try {
             if (photo[0]==(byte)0xff &&
                 photo[1]==(byte)0xd8 &&
-                photo[6]==(byte)'J' &&
-                photo[7]==(byte)'F' &&
-                photo[8]==(byte)'I' &&
-                photo[9]==(byte)'F')
+                ((photo[6]==(byte)'J' &&
+                  photo[7]==(byte)'F' &&
+                  photo[8]==(byte)'I' &&
+                  photo[9]==(byte)'F') 
+                  ||
+                 (photo[6]==(byte)'E' &&
+                  photo[7]==(byte)'x' &&
+                  photo[8]==(byte)'i' &&
+                  photo[9]==(byte)'f')
+                 )
+                )
                 return "image/jpeg";
             
             if (photo[0]==(byte)0x89 &&
