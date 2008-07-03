@@ -30,6 +30,7 @@ import Conference.AppendNick;
 import archive.ArchiveList;
 import javax.microedition.lcdui.*;
 import locale.SR;
+import ui.ClipBoard;
 import ui.Time;
 import ui.VirtualList;
 
@@ -55,7 +56,8 @@ public class MessageEdit
     private Command cmdInsNick=new Command(SR.MS_NICKNAMES,Command.SCREEN,3);
     private Command cmdInsMe=new Command(SR.MS_SLASHME, Command.SCREEN, 4); ; // /me
     private Command cmdSubj=new Command(SR.MS_SET_SUBJECT, Command.SCREEN, 10);
-    private Command cmdPaste=new Command(SR.MS_ARCHIVE, Command.SCREEN, 5);
+    private Command cmdPaste=new Command(SR.MS_PASTE, Command.SCREEN, 5);
+    private Command cmdArchive=new Command(SR.MS_ARCHIVE, Command.SCREEN, 6);
     private Command cmdABC=new Command("Abc", Command.SCREEN, 15);
     private Command cmdAbc=new Command("abc", Command.SCREEN, 15);
     
@@ -91,7 +93,9 @@ public class MessageEdit
         t.addCommand(cmdSmile);
         if (to.origin>=Contact.ORIGIN_GROUPCHAT)
             t.addCommand(cmdInsNick);
-	t.addCommand(cmdPaste);
+	t.addCommand(cmdArchive);
+        if (ClipBoard.hasData()) t.addCommand(cmdPaste);
+        
         t.addCommand(cmdSuspend);
         t.addCommand(cmdCancel);
         t.setCommandListener(this);
@@ -152,11 +156,12 @@ public class MessageEdit
         if (body.length()==0) body=null;
         
         if (c==cmdInsMe) { t.insert("/me ", 0); return; }
+        if (c==cmdPaste) { t.insert(ClipBoard.get(), caretPos); return; }
         if (c==cmdSmile) { new SmilePicker(display, this, caretPos); return; }
         if (c==cmdInsNick) { new AppendNick(display, to, this, caretPos); return; }
         if (c==cmdAbc) {setInitialCaps(false); return; }
         if (c==cmdABC) {setInitialCaps(true); return; }
-	if (c==cmdPaste) { new ArchiveList(display, this, caretPos); return; }
+	if (c==cmdArchive) { new ArchiveList(display, this, caretPos); return; }
         
         if (c==cmdCancel) { 
             composing=false; 

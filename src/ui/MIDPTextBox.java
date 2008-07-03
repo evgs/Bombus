@@ -42,6 +42,7 @@ public class MIDPTextBox implements CommandListener {
     
     protected Command cmdCancel=new Command(SR.MS_CANCEL, Command.BACK, 99);
     protected Command cmdOK=new Command(SR.MS_OK, Command.OK /*Command.SCREEN*/, 1);
+    protected Command cmdPaste=new Command(SR.MS_PASTE, Command.SCREEN, 90);
     
     private TextBox t;
     
@@ -62,6 +63,7 @@ public class MIDPTextBox implements CommandListener {
         
         t.addCommand(cmdOK);
         t.addCommand(cmdCancel);
+        if (ClipBoard.hasData()) t.addCommand(cmdPaste);
         
         t.setCommandListener(this);
             
@@ -76,6 +78,17 @@ public class MIDPTextBox implements CommandListener {
     public void commandAction(Command command, Displayable displayable) {
         if (command==cmdCancel) { destroyView(); return;}
         if (command==cmdOK) { destroyView(); tbn.OkNotify(t.getString()); return;}
+        if (command==cmdPaste) { 
+            
+            StringBuffer s=new StringBuffer(t.getString())
+                .append( ClipBoard.get() );
+            
+            int maxSize=t.getMaxSize();
+            if (s.length()>maxSize) s.setLength(maxSize);
+                
+            t.setString( s.toString());
+            return; 
+        }
     }
 
     public void destroyView(){

@@ -191,6 +191,10 @@ public class MessageItem implements
         return msg.getTime();
     }
 
+    public String toString() {
+        return msg.getTime()+" "+msg.getBody();
+    }
+
     void toggleSmiles() {
         smiles=!smiles;
         MessageParser.getInstance().parseMsg(this, view.getListWidth());    

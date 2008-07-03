@@ -640,6 +640,7 @@ public abstract class VirtualList
             case KEY_NUM1:  { moveCursorHome();    break; }
             case KEY_NUM7:  { moveCursorEnd();     break; }
             case '5':{ eventOk(); break; }
+            case KEY_POUND: { copyToClipBoard(); break; }
             case MOTOROLA_FLIP: { userKeyPressed(keyCode); break; }
             case SIEMENS_RIGHT_SOFT: { if (Version.getPlatformName().startsWith("SIE")) { destroyView(); break; }}
             default:
@@ -925,6 +926,12 @@ public abstract class VirtualList
     
     public int getCursor() {
         return cursor;
+    }
+
+    protected void copyToClipBoard() {
+        Object o=getFocusedObject();
+        if (o==null) return;
+        ClipBoard.put( o.toString() );
     }
 }
 

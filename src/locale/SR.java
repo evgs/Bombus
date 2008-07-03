@@ -378,6 +378,8 @@ public class SR {
 
     public static String MS_PEP_NOT_SUPPORTED = loadString("Personal events not supported");
 
+    public static String MS_PASTE = loadString("Paste");
+
     private SR() { }
     
     private static Hashtable presences;
