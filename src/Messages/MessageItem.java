@@ -192,7 +192,7 @@ public class MessageItem implements
     }
 
     public String toString() {
-        return msg.getTime()+" "+msg.getBody();
+        return msg.getTime()+" "+msg.quoteString();
     }
 
     void toggleSmiles() {
