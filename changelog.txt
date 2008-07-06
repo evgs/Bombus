@@ -4357,6 +4357,30 @@ syslog_msg: true
   * don't show "user mood" if pep option is switched off
   * updated changelog.txt: vibra issues on symbian phones
 
+
+06.07.2008
+0.7.1379
+  + Простой буфер обмена. В окнах, базирующихся на VirtualList (к примеру, ростер,
+    чат, редактор privacy lists, и даже некоторые меню), возможно скопировать текст,
+    на котором находится курсор. Практически во всех окнах копируется именно отображаемый 
+    текст, за искллючением ростера, где для контакта всегда копируется JID, а не ник.
+    содержимое буфера обмена можно вставить в поле редактора сообщений (команда "paste"),
+    а также в редакторе правил privacy lists и в окне смены настроений.
+  
+  * исправлено автоопределение mime-типа файла фотографии для снимков, содержащих exif-данные.
+    такой файл определяется как image/jpeg.
+    (известная ошибка - возможно ложное определение TIFF с exif-заголовком как jpeg.
+    скорее всего, исправляться НЕ БУДЕТ, т.к. фотографии в формате TIFF просто будут 
+    отвергнуты бомбусом ввиду гигантского объёма)
+  --
+  + simple clipboard. for copy focused item use (#) key in VirtualList-based classes.
+    all data would be copied as displayed, except roster.
+    only jid will be copied from roster, not nickname.
+    "paste" command presents at New/Resume Message form, Privacy editor, Mood editor.
+
+  * fixed Exif header detection in JPEG files.
+    known issue: TIFF images with embedded Exif header may be treated as JPEG.
+    (won't fix because TIFF will be rejected by huge size)
 ------------------------------------------------------------------------
   known issues:
 
