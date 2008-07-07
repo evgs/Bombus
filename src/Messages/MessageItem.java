@@ -192,6 +192,7 @@ public class MessageItem implements
     }
 
     public String toString() {
+        if (msg.messageType==Msg.MESSAGE_TYPE_PRESENCE) return msg.quoteString();
         return msg.getTime()+" "+msg.quoteString();
     }
 

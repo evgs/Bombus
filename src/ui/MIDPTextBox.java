@@ -62,6 +62,7 @@ public class MIDPTextBox implements CommandListener {
         this.tbn=tbn;
         
         t.addCommand(cmdOK);
+        t.addCommand(cmdPaste);
         t.addCommand(cmdCancel);
         if (ClipBoard.hasData()) t.addCommand(cmdPaste);
         
