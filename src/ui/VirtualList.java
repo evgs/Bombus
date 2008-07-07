@@ -931,7 +931,11 @@ public abstract class VirtualList
     protected void copyToClipBoard() {
         Object o=getFocusedObject();
         if (o==null) return;
-        ClipBoard.put( o.toString() );
+        if (o instanceof ClipBoardString) {
+            ClipBoard.put(((ClipBoardString)o).toClipBoardString());
+        } else {
+            ClipBoard.put( o.toString() );
+        }
     }
 }
 

@@ -30,6 +30,7 @@ import com.alsutton.jabber.JabberDataBlock;
 import images.MoodIcons;
 import images.RosterIcons;
 import javax.microedition.lcdui.Graphics;
+import ui.ClipBoardString;
 import ui.Colors;
 import vcard.VCard;
 import java.util.*;
@@ -41,7 +42,9 @@ import com.alsutton.jabber.datablocks.Presence;
  * Contact
  * @author Eugene Stahov
  */
-public class Contact extends IconTextElement{
+public class Contact extends IconTextElement 
+        implements ClipBoardString
+{
     
     public final static byte ORIGIN_ROSTER=0;
     public final static byte ORIGIN_ROSTERRES=1;
@@ -390,4 +393,6 @@ public class Contact extends IconTextElement{
                 if (m.id.equals(id)) m.delivered=true;
         }
     }
+
+    public String toClipBoardString() { return getJid();  }
 }

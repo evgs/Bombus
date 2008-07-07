@@ -1550,13 +1550,6 @@ public class Roster
     
     }
 
-    protected void copyToClipBoard() {
-        Object o=getFocusedObject();
-        if (o instanceof Contact) {
-            ClipBoard.put(((Contact)o).getJid());
-        } else super.copyToClipBoard();
-    }
-    
     private void userActivity() {
         if (cf.autoAwayType==Config.AWAY_IDLE) {
             autostatus.setTimeEvent(cf.autoAwayDelay* 60*1000);

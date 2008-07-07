@@ -47,6 +47,7 @@ import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Image;
 import locale.SR;
 import ui.AlertBox;
+import ui.ClipBoardString;
 import ui.Colors;
 import ui.IconTextElement;
 import ui.VirtualElement;
@@ -156,8 +157,7 @@ public class Browser extends VirtualList implements CommandListener{
         }
         if (command==cmdCancel) { destroyView(); }
     }
-    
-    
+
     private boolean chDir(String relativePath) {
         String focus="";
         if (relativePath.startsWith("/")) {
@@ -224,7 +224,7 @@ public class Browser extends VirtualList implements CommandListener{
     }
     
     
-    private class FileItem extends IconTextElement {
+    private class FileItem extends IconTextElement implements ClipBoardString{
         
         public String name;
         private int iconIndex;
@@ -247,6 +247,10 @@ public class Browser extends VirtualList implements CommandListener{
             int cpi=iconIndex-fileItem.iconIndex;
             if (cpi==0) cpi=name.compareTo(fileItem.name);
             return cpi;
+        }
+
+        public String toClipBoardString() {
+            return path+name;
         }
     }
 }
