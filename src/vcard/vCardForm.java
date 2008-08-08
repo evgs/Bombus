@@ -216,6 +216,10 @@ public class vCardForm
         
         Item photoItem=new StringItem(null, "[no photo available]");
         if (photo!=null) {
+            if (photo.length==1) {
+                photoItem=new StringItem(null, "[large photo was dropped]");
+                photo=null;
+            } else {
 //#if !(MIDP1)
             String size=String.valueOf(photo.length)+" bytes";
             try {
@@ -223,6 +227,7 @@ public class vCardForm
                 photoItem=new ImageItem(size, photoImg, 0, null);
             } catch (Exception e) { photoItem=new StringItem(size, "[Unsupported format]"); }
 //#endif
+            }
         }
         f.set(photoIndex, photoItem);
     }

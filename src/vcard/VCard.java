@@ -133,6 +133,8 @@ public class VCard {
     
     public String getPhotoMIMEType() {
         try {
+            if (photo.length==1) return null;
+            
             if (photo[0]==(byte)0xff &&
                 photo[1]==(byte)0xd8 &&
                 ((photo[6]==(byte)'J' &&

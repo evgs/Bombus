@@ -196,7 +196,7 @@ public class XMLParser {
         
         case BASE64_INIT: 
             {
-                baos=new ByteArrayOutputStream(4096);
+                baos=new ByteArrayOutputStream(MAX_BIN_DATASIZE);
                 ibuf=1;
                 padding=0;
                 state=BASE64;
@@ -217,6 +217,9 @@ public class XMLParser {
                         
                         if (baos.size()<MAX_BIN_DATASIZE)
                             eventListener.binValueEncountered( baos.toByteArray() );
+                        else {
+                            eventListener.binValueEncountered( new byte[1] );
+                        }
                     } catch (Exception ex) { ex.printStackTrace(); }
                     
                     baos=null;
