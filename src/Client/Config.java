@@ -219,6 +219,7 @@ public class Config {
 	    VirtualList.keyClear=0x1000;
 	    VirtualList.keyVolDown=VirtualList.MOTOE680_VOL_DOWN;
 	    VirtualList.keyBack=VirtualList.MOTOE680_REALPLAYER;
+            ui.FontCache.noRosterBoldFont=true;
 	} else
 	if (platform.startsWith("Moto")) {
 	    ghostMotor=true;
@@ -226,6 +227,7 @@ public class Config {
             istreamWaiting=true;
 	    greenKeyCode=VirtualList.MOTOROLA_GREEN;
 	    VirtualList.keyClear=0x1000;
+            ui.FontCache.noRosterBoldFont=true;
 	}
         
         if (platform.indexOf("9@9")>0) {

@@ -46,6 +46,7 @@ public class FontCache {
     public static int msgFontSize=Font.SIZE_MEDIUM;
     public static int balloonFontSize=Font.SIZE_SMALL;
     public static int clockFontSize=Font.SIZE_LARGE;
+    public static boolean noRosterBoldFont=false;
 
     public static Font getRosterNormalFont() {
         if (normal==null) {
@@ -56,7 +57,9 @@ public class FontCache {
     
     public static Font getRosterBoldFont() {
         if (bold==null) {
-            bold=Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD, rosterFontSize);
+            bold=(noRosterBoldFont)?
+                getRosterNormalFont():
+                Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD, rosterFontSize);
         }
         return bold;
     }

@@ -248,6 +248,7 @@ public class TransferTask
             JabberDataBlock file=si.addChildNs("file", "http://jabber.org/protocol/si/profile/file-transfer");
             file.setAttribute("name", fileName);
             file.setAttribute("size", String.valueOf(fileSize));
+            file.addChild("desc", description);            
             
             JabberDataBlock feature=si.addChildNs("feature", "http://jabber.org/protocol/feature-neg");
             
