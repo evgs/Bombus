@@ -142,7 +142,8 @@ public class SASLAuth implements JabberBlockListener{
                 listener.loginFailed("SASL: Unknown mechanisms");
                 return JabberBlockListener.NO_MORE_BLOCKS;
                 
-            } 
+            } //SASL mechanisms
+            
             // second stream - step 1. binding resource
             else if (data.getChildBlock("bind")!=null) {
                 JabberDataBlock bindIq=new Iq(null, Iq.TYPE_SET, "bind");
@@ -154,7 +155,16 @@ public class SASLAuth implements JabberBlockListener{
                 
                 return JabberBlockListener.BLOCK_PROCESSED;
             }
-            listener.loginFailed("Server does not support SASL");
+            
+//#ifdef NON_SASL_AUTH
+            if (data.findNamespace("auth", "http://jabber.org/features/iq-auth")!=null) {
+                new NonSASLAuth(account, listener, stream);
+                return JabberBlockListener.NO_MORE_BLOCKS;
+            }
+//#endif            
+            
+            //fallback if no known authentication methods were found
+            listener.loginFailed("No known authentication methods");
             return JabberBlockListener.NO_MORE_BLOCKS;
         } else if (data.getTagName().equals("challenge")) {
             // first stream - step 2,3. reaction to challenges

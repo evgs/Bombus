@@ -1431,11 +1431,13 @@ public class Roster
         
         if (theStream.isXmppV1())
             new SASLAuth(sd.account, this, theStream)
-  //#if SASL_XGOOGLETOKEN
+//#if SASL_XGOOGLETOKEN
             .setToken(token)
-  //#endif
+//#endif
             ;
+//#if NON_SASL_AUTH
         else new NonSASLAuth(sd.account, this, theStream);
+//#endif        
     }
     
     /**
