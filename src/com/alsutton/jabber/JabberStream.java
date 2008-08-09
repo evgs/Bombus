@@ -61,6 +61,7 @@ public class JabberStream extends XmppParser implements Runnable {
     private boolean rosterNotify;
     
     private boolean xmppV1;
+    private String sessionId;
     
     private String server; // for ping
 
@@ -75,10 +76,10 @@ public class JabberStream extends XmppParser implements Runnable {
      *
      */
     
-    public JabberStream( String server, String hostAddr, boolean xmppV1, String proxy)
+    public JabberStream( String server, String hostAddr, String proxy)
     throws IOException {
         this.server=server;
-        this.xmppV1=xmppV1;
+        //this.xmppV1=xmppV1;
         
         boolean waiting=Config.getInstance().istreamWaiting;
         
@@ -90,9 +91,9 @@ public class JabberStream extends XmppParser implements Runnable {
 //#if HTTPCONNECT
 //#             connection = io.HttpProxyConnection.open(hostAddr, proxy);
 //#elif HTTPPOLL  
-            connection = new io.HttpPollingConnection(hostAddr, proxy);
+//#             connection = new io.HttpPollingConnection(hostAddr, proxy);
 //#else            
-//#             throw new IllegalArgumentException ("no proxy supported");
+            throw new IllegalArgumentException ("no proxy supported");
 //#endif            
         }
 
@@ -113,9 +114,7 @@ public class JabberStream extends XmppParser implements Runnable {
         
         StringBuffer header=new StringBuffer("<stream:stream to='" )
             .append( server )
-            .append( "' xmlns='jabber:client' xmlns:stream='http://etherx.jabber.org/streams'" );
-        
-        if (xmppV1) header.append(" version='1.0'");
+            .append( "' xmlns='jabber:client' xmlns:stream='http://etherx.jabber.org/streams' version='1.0'");
         
         if (SR.MS_XMLLANG!=null) {
             header.append(" xml:lang='").append(SR.MS_XMLLANG).append("'");
@@ -126,8 +125,11 @@ public class JabberStream extends XmppParser implements Runnable {
 
     public boolean tagStart(String name, Vector attributes) {
         if (name.equals( "stream:stream" ) ) {
-            String SessionId = XMLParser.extractAttribute("id", attributes);
-            dispatcher.broadcastBeginConversation(SessionId);
+            sessionId = XMLParser.extractAttribute("id", attributes);
+            String version=XMLParser.extractAttribute("version", attributes);
+            xmppV1 = ("1.0".equals(version));
+            
+            dispatcher.broadcastBeginConversation();
             return false;
         }
         
@@ -310,6 +312,9 @@ public class JabberStream extends XmppParser implements Runnable {
         send(ping);
     }
 
+    public boolean isXmppV1() { return xmppV1; }
+
+    public String getSessionId() { return sessionId; }
 
 
 //#if ZLIB

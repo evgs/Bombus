@@ -54,12 +54,10 @@ public class SASLAuth implements JabberBlockListener{
     private LoginListener listener;
     private Account account;
     private JabberStream stream;
-    private String sessionId;
     /** Creates a new instance of SASLAuth */
-    public SASLAuth(Account account, String sessionId, LoginListener listener, JabberStream stream) {
+    public SASLAuth(Account account, LoginListener listener, JabberStream stream) {
         this.listener=listener;
         this.account=account;
-        this.sessionId=sessionId;
         this.stream=stream;
         if (stream!=null) stream.addBlockListener(this);
         //listener.loginMessage(SR.MS_SASL_STREAM);

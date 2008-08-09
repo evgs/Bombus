@@ -42,6 +42,7 @@ import io.file.transfer.TransferDispatcher;
 //#endif
 import locale.SR;
 import login.LoginListener;
+import login.NonSASLAuth;
 import login.SASLAuth;
 import midlet.Bombus;
 import vcard.VCard;
@@ -279,7 +280,7 @@ public class Roster
 //#if SASL_XGOOGLETOKEN
             if (a.useGoogleToken()) {
                 setProgress(SR.MS_TOKEN, 30);
-                token=new SASLAuth(a, null, this, null).responseXGoogleToken();
+                token=new SASLAuth(a, this, null).responseXGoogleToken();
                 if (token==null) throw new SecurityException("Can't get Google token");
             }
 //#endif
@@ -1423,15 +1424,17 @@ public class Roster
      * Method to begin talking to the server (i.e. send a login message)
      */
     
-    public void beginConversation(String SessionId) { //todo: verify xmpp version
+    public void beginConversation() { //todo: verify xmpp version
         //try {
         //setProgress(SR.MS_LOGINPGS, 42);
         
-            new SASLAuth(sd.account, SessionId, this, theStream)
+        if (theStream.isXmppV1())
+            new SASLAuth(sd.account, this, theStream)
   //#if SASL_XGOOGLETOKEN
             .setToken(token)
   //#endif
             ;
+        else new NonSASLAuth(sd.account, this, theStream);
     }
     
     /**

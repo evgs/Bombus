@@ -91,7 +91,7 @@ public class AccountRegister
         }
     }
 
-    public void beginConversation(String SessionId) {
+    public void beginConversation() {
         spl.setProgress(SR.MS_REGISTERING,60);
         Iq iqreg=new Iq(null, Iq.TYPE_SET, "regac" );
         

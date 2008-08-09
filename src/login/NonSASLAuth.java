@@ -49,13 +49,11 @@ public class NonSASLAuth implements JabberBlockListener{
 
     private JabberStream stream;
 
-    private String sessionId;
     
     /** Creates a new instance of NonSASLAuth */
-    public NonSASLAuth(Account account, String sessionId, LoginListener listener, JabberStream stream) {
+    public NonSASLAuth(Account account, LoginListener listener, JabberStream stream) {
         this.listener=listener;
         this.account=account;
-        this.sessionId=sessionId;
         this.stream=stream;
         
         stream.addBlockListener(this);
@@ -81,7 +79,7 @@ public class NonSASLAuth implements JabberBlockListener{
             case AUTH_DIGEST:
                 SHA1 sha=new SHA1();
                 sha.init();
-                sha.updateASCII(sessionId);
+                sha.updateASCII(stream.getSessionId());
                 sha.updateASCII(strconv.unicodeToUTF(account.getPassword()) );
                 sha.finish();
                 query.addChild("digest", sha.getDigestHex() );
