@@ -41,6 +41,7 @@ import images.RosterIcons;
 import io.file.transfer.TransferDispatcher;
 //#endif
 import locale.SR;
+import login.GoogleTokenAuth;
 import login.LoginListener;
 import login.NonSASLAuth;
 import login.SASLAuth;
@@ -280,7 +281,7 @@ public class Roster
 //#if SASL_XGOOGLETOKEN
             if (a.useGoogleToken()) {
                 setProgress(SR.MS_TOKEN, 30);
-                token=new SASLAuth(a, this, null).responseXGoogleToken();
+                token=new GoogleTokenAuth(a).responseXGoogleToken();
                 if (token==null) throw new SecurityException("Can't get Google token");
             }
 //#endif
