@@ -1,4 +1,4 @@
-﻿//user moods translation
+//user moods translation
 
 afraid	испуганное
 amazed	изумленное
