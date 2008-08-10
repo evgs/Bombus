@@ -1,8 +1,2 @@
 en	null	English
 ru	/lang/ru.txt	Russian
-pl	/lang/pl.txt	Polish
-cz	/lang/cz.txt	Czech
-sk	/lang/sk.txt	Slovak
-uk	/lang/uk.txt	Ukrainian
-bg	/lang/bg.txt	Bulgarian
-id	/lang/id.txt	Indonesian
