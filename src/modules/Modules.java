@@ -25,9 +25,13 @@ public class Modules {
     
     public static boolean modprobe(final String modid) {
         if (modules==null) {
-            
+            modules=new util.StringLoader().stringLoader("/modules.txt", 1)[0];
         }
         
-        return true;
+        for (int i=0; i<modules.size(); i++) {
+            if (modid.equals(modules.elementAt(i))) return true;
+        }
+        
+        return false;
     }
 }
