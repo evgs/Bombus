@@ -1,0 +1,6 @@
+- In this plugin architecture Bombus should be compiled with all modules.
+- Next step is to remove unneeded modules - class to be removed contains string 
+wich should match to string declared in modules.txt, and MUST contains classname BombusModule.
+- Finally removed plugin ids MUST be removed from modules.txt
+
+
