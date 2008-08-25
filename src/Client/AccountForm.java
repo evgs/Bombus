@@ -85,7 +85,7 @@ class AccountForm implements CommandListener, ItemStateListener {
 	    SR.MS_NEW_ACCOUNT /*"New Account"*/:
 	    (account.toString());
 	f = new Form(title);
-	userbox = new TextField(SR.MS_USERNAME, account.getUserName(), 64, ConstMIDP.TEXTFIELD_ANY); 
+	userbox = new TextField(SR.MS_USERNAME, account.getUserName(), 64, TextField.ANY); 
         TextFieldCombo.setLowerCaseLatin(userbox); 
         f.append(userbox);
         
