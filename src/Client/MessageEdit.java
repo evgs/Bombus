@@ -156,7 +156,7 @@ public class MessageEdit
         if (body.length()==0) body=null;
         
         if (c==cmdInsMe) { t.insert("/me ", 0); return; }
-        if (c==cmdPaste) { t.insert(ClipBoard.get(), caretPos); return; }
+        if (c==cmdPaste) { insertText(ClipBoard.get(), caretPos); return; }
         if (c==cmdSmile) { new SmilePicker(display, this, caretPos); return; }
         if (c==cmdInsNick) { new AppendNick(display, to, this, caretPos); return; }
         if (c==cmdAbc) {setInitialCaps(false); return; }
