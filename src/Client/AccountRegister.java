@@ -71,6 +71,8 @@ public class AccountRegister
     public void run() {
         try {
             spl.setProgress(SR.MS_CONNECT_TO +raccount.getServer(),30);
+            //give a chance another thread to finish ui
+            Thread.sleep(500);
             theStream= raccount.openJabberStream();
             theStream.setJabberListener( this );
             theStream.initiateStream();
