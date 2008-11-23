@@ -399,14 +399,6 @@ public class SR {
             MS_IFACELANG=MS_XMLLANG;
             if (MS_IFACELANG==null) MS_IFACELANG="en";
             
-            presences=new Hashtable();
-            presences.put("online", MS_PRESENCE_ONLINE );
-            presences.put("chat", loadString("free for chat"));
-            presences.put("away", loadString("away"));
-            presences.put("xa", loadString("not available"));
-            presences.put("invisible", loadString("invisible"));
-            presences.put("dnd", loadString("do not disturb"));
-            presences.put("unavailable", loadString("offline"));
         }
         String value=(String)lang.get(key);
 //#if LOCALE_DEBUG
@@ -422,6 +414,16 @@ public class SR {
     }
 
     public static String getPresence(String presenceName) {
+        if (presences==null) {
+            presences=new Hashtable();
+            presences.put("online", MS_PRESENCE_ONLINE );
+            presences.put("chat", loadString("free for chat"));
+            presences.put("away", loadString("away"));
+            presences.put("xa", loadString("not available"));
+            presences.put("invisible", loadString("invisible"));
+            presences.put("dnd", loadString("do not disturb"));
+            presences.put("unavailable", loadString("offline"));
+        }
         String result=(String) presences.get(presenceName);
         if (result==null) result=MS_PRESENCE_ONLINE;
         return result;
