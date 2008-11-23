@@ -379,6 +379,8 @@ public class SR {
     public static String MS_PEP_NOT_SUPPORTED = loadString("Personal events not supported");
 
     public static String MS_PASTE = loadString("Paste");
+    
+    public static String MS_PRESENCE_ONLINE = loadString("online");
 
     private SR() { }
     
@@ -398,7 +400,7 @@ public class SR {
             if (MS_IFACELANG==null) MS_IFACELANG="en";
             
             presences=new Hashtable();
-            presences.put("online", loadString("online"));
+            presences.put("online", MS_PRESENCE_ONLINE );
             presences.put("chat", loadString("free for chat"));
             presences.put("away", loadString("away"));
             presences.put("xa", loadString("not available"));
@@ -420,7 +422,9 @@ public class SR {
     }
 
     public static String getPresence(String presenceName) {
-        return (String) presences.get(presenceName);
+        String result=(String) presences.get(presenceName);
+        if (result==null) result=MS_PRESENCE_ONLINE;
+        return result;
     }
     
     public static void loaded() {
