@@ -72,9 +72,11 @@ public class Bombus extends MIDlet implements Runnable{
     /** Entry point  */
     public void startApp() {
         
+//#ifdef DefaultConfiguration
         if (modules.Modules.modprobe(modules.TestModule.MODID)) {
             new modules.TestModule().helloWorld();
         }
+//#endif        
         
         if (isRunning) {
 	    hideApp(false);

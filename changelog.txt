@@ -4446,6 +4446,26 @@ syslog_msg: true
 
   * removed duplicating presence time when copying to buffer
 
+
+24.11.2008
+0.7.1405
+  * исправлено отображение нестандартных презенсов, отправляемых глючными клиентами
+  * исправлена интерпретация поля list-multi в формах javbber:x:data
+  * при обработке ошибочных ситуаций более не отвечает ошибкой на станзы, отличные от iq
+  * при регистрации Bombus мог затирать запрос телефона на подтверждение доступа к сети
+  * исправлено исключение, возникавшее при попытке вставить в редактор сообщений 
+    большой текст из буфера обмена
+  * снято ограничение TextField.URL в полях ввода AccountForm.username, 
+    а также в редакторе списков приватности и списков членства в конференциях
+  --
+  * fixed non-rfc-compliant presence handling (unknown->online instead of unknown->null)
+  * fixed jabber:x:data list-multi field
+  * dispatching unhandled stanza: should not return errors for stanzas other than iq
+  * AccountRegister: workaround for race conditions droping phone's security dialogue (FS#864)
+  * fixed exception if trying to paste huge text from clip buffer to MessageEdit
+  * AccountForm.username: TextField.URL->TextField.ANY, 
+    also for AffiliationModify and PrivacyForm
+
 ------------------------------------------------------------------------
   known issues:
 

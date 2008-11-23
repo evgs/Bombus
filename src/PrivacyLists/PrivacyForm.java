@@ -65,7 +65,7 @@ public class PrivacyForm
         this.item=item;
         targetList=plist;
         
-        textValue=new TextField(null, item.value, 64, ConstMIDP.TEXTFIELD_URL);
+        textValue=new TextField(null, item.value, 64, TextField.ANY);
         TextFieldCombo.setLowerCaseLatin(textValue);
         
         form.append(choiceAction);
