@@ -1468,6 +1468,9 @@ public class Roster
         String error;
         error=e.getClass().getName()+"\n"+e.getMessage();
         e.printStackTrace();
+        
+        String errSSL=io.SSLExceptionDecoder.decode(e);
+        System.out.println(errSSL);
 
         try {
             sendPresence(Presence.PRESENCE_OFFLINE);
@@ -1481,7 +1484,7 @@ public class Roster
             reconnectCount++;
             String title="("+reconnectCount+"/"+maxReconnect+") Reconnecting";
             
-            Msg m=new Msg(Msg.MESSAGE_TYPE_OUT, "local", title, error);
+            Msg m=new Msg(Msg.MESSAGE_TYPE_OUT, "local", title, error+errSSL);
             messageStore(selfContact(), m);
             
             new Reconnect(title, error, display);
