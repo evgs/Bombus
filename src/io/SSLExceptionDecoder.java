@@ -63,8 +63,8 @@ public class SSLExceptionDecoder {
                 desc.append("\nver=").append(c.getVersion());
                 desc.append("\nissuer=").append(c.getIssuer());
                 desc.append("\nsubj=").append(c.getSubject());
-                desc.append("\nvalid from=").append(ui.Time.dayLocalString(c.getNotBefore()));
-                desc.append("\nuntil=").append(ui.Time.dayLocalString(c.getNotAfter()));
+                //desc.append("\nvalid from=").append(ui.Time.dayLocalString(c.getNotBefore()));
+                //desc.append("\nuntil=").append(ui.Time.dayLocalString(c.getNotAfter()));
                 desc.append("\nalg=").append(c.getSigAlgName());
                 desc.append("\nSN=").append(c.getSerialNumber());
             }
