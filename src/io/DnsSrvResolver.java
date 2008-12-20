@@ -29,6 +29,7 @@ package io;
 
 import Client.StaticData;
 import com.ssttr.crypto.MD5;
+import java.io.DataInputStream;
 import java.util.Hashtable;
 import javax.microedition.io.Connector;
 import javax.microedition.io.HttpConnection;
@@ -45,10 +46,26 @@ public class DnsSrvResolver {
     private String server;
     private String resolvedHost;
     private int resolvedPort;
+    private long ttl;
     /** Creates a new instance of DnsSrvResolver */
     
     public DnsSrvResolver() {
         resolvedPort=5222;
+    }
+    
+    
+    private boolean getCachedSrv() {
+        DataInputStream inputStream=NvStorage.ReadFileRecord("srv#"+server, 0);
+        try {
+            resolvedHost=inputStream.readUTF();
+            resolvedPort=inputStream.readInt();
+            ttl=inputStream.readLong();
+            inputStream.close();
+            return true;
+        } catch (Exception e) { 
+            e.printStackTrace();
+        } 
+        return false;
     }
     
     public boolean getSrv(String server){

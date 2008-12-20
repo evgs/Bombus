@@ -124,12 +124,12 @@ public class Roster
     private Command cmdActions=new Command(SR.MS_ITEM_ACTIONS, Command.SCREEN, 1);
     private Command cmdStatus=new Command(SR.MS_STATUS_MENU, Command.SCREEN, 2);
     private Command cmdActiveContact;//=new Command(SR.MS_ACTIVE_CONTACTS, Command.SCREEN, 3);
-    private Command cmdAlert=new Command(SR.MS_ALERT_PROFILE_CMD, Command.SCREEN, 8);
+    //private Command cmdAlert=new Command(SR.MS_ALERT_PROFILE_CMD, Command.SCREEN, 8);
     private Command cmdConference=new Command(SR.MS_CONFERENCE, Command.SCREEN, 10);
     private Command cmdArchive=new Command(SR.MS_ARCHIVE, Command.SCREEN, 10);
     private Command cmdAdd=new Command(SR.MS_ADD_CONTACT, Command.SCREEN, 12);
     private Command cmdTools=new Command(SR.MS_TOOLS, Command.SCREEN, 14);    
-    private Command cmdAccount=new Command(SR.MS_ACCOUNT_, Command.SCREEN, 15);
+    //private Command cmdAccount=new Command(SR.MS_ACCOUNT_, Command.SCREEN, 15);
     private Command cmdInfo=new Command(SR.MS_ABOUT, Command.SCREEN, 80);
     private Command cmdMinimize=new Command(SR.MS_APP_MINIMIZE, Command.SCREEN, 90);
     private Command cmdQuit=new Command(SR.MS_APP_QUIT, Command.SCREEN, 99);
@@ -193,7 +193,7 @@ public class Roster
         addCommand(cmdStatus);
         addCommand(cmdActions);
         addCommand(cmdActiveContact);
-        addCommand(cmdAlert);
+        //addCommand(cmdAlert);
         addCommand(cmdAdd);
         //addCommand(cmdServiceDiscovery);
         addCommand(cmdConference);
@@ -201,7 +201,6 @@ public class Roster
         addCommand(cmdTools);
         addCommand(cmdArchive);
         addCommand(cmdInfo);
-        addCommand(cmdAccount);
 
         addCommand(cmdQuit);
         
@@ -1678,9 +1677,7 @@ public class Roster
         
         if (c==cmdActiveContact) { new ActiveContacts(display, null); }
         
-        if (c==cmdAccount){ new AccountSelect(display, false); }
         if (c==cmdStatus) { reconnectCount=0; new StatusSelect(display, null); }
-        if (c==cmdAlert) { new AlertProfile(display); }
         if (c==cmdArchive) { new ArchiveList(display, null, -1); }
         if (c==cmdInfo) { new Info.InfoWindow(display); }
         

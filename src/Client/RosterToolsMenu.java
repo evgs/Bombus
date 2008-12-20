@@ -57,7 +57,9 @@ public class RosterToolsMenu
         addItem(SR.MS_DISCO, 0);
         addItem(SR.MS_PRIVACY_LISTS, 1);
         addItem(SR.MS_MY_VCARD, 2);
+        addItem(SR.MS_ACCOUNTS, 7);
         addItem(SR.MS_OPTIONS, 3);
+        addItem(SR.MS_ALERT_PROFILE_CMD,8);
         /*if (m.getItemCount()>0)*/
         
 //#if (FILE_IO && FILE_TRANSFER)
@@ -111,7 +113,16 @@ public class RosterToolsMenu
                 new MoodList(display);
                 return;
 //#endif                
-            //case 10:
+
+            case 7:
+                new AccountSelect(display, false).setParentView(StaticData.getInstance().roster); 
+                return;
+                
+            case 8:
+                new AlertProfile(display).setParentView(StaticData.getInstance().roster);
+                return;
+                
+//case 10:
             //    StaticData.getInstance().roster.connectionTerminated(new Exception("Simulated break"));
             //    return;
             
