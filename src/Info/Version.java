@@ -50,12 +50,24 @@ public class Version {
     public static String getPlatformName() {
         if (platformName==null) {
             platformName=System.getProperty("microedition.platform");
-
+            
             String sonyJava=System.getProperty("com.sonyericsson.java.platform");
             if (sonyJava!=null) platformName=platformName+"/"+sonyJava;
             
             String device=System.getProperty("device.model");
             String firmware=System.getProperty("device.software.version");
+            
+            //detecting Samsung
+            try {
+                Class.forName("com.samsung.util.AudioClip");
+                platformName="Samsung-generic";
+            } catch (Throwable t0) {
+                try{
+                    Class.forName("com.samsung.util.Vibration");
+                    platformName="Samsung-generic";
+                }catch(Throwable t1){}
+            }
+            
             
             if (platformName==null) platformName="Motorola";
             
@@ -67,23 +79,23 @@ public class Version {
                 
                 if (device!=null && firmware!=null)
                     platformName="Motorola"; // buggy v360
-		else {
-		    // Motorola EZX phones
-		    String hostname=System.getProperty("microedition.hostname");
-		    if (hostname!=null) {
-		        platformName="Motorola-EZX";
-		        if (device!=null) {
-		    	    // Motorola EZX ROKR
-			    hostname=device;
+                else {
+                    // Motorola EZX phones
+                    String hostname=System.getProperty("microedition.hostname");
+                    if (hostname!=null) {
+                        platformName="Motorola-EZX";
+                        if (device!=null) {
+                            // Motorola EZX ROKR
+                            hostname=device;
                         }
-                    
+                        
                         if (hostname.indexOf("(none)")<0)
-                        platformName+="/"+hostname;
+                            platformName+="/"+hostname;
                         return platformName;
                     }
-		}
+                }
             }
-	    //else
+            //else
             if (platformName.startsWith("Moto")) {
                 if (device==null) device=System.getProperty("funlights.product");
                 if (device!=null) platformName="Motorola-"+device;
@@ -101,7 +113,7 @@ public class Version {
         }
         return platformName;
     }
-
+    
     public static String getOs() {
         return ConstMIDP.MIDP + " Platform=" +Version.getPlatformName();
     }
