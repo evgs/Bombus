@@ -135,6 +135,8 @@ public class ScrollBar {
 	scrollerX=drawWidth-scrollWidth;
 
 	g.translate(scrollerX, 0);
+        
+        scrollerX-=scrollWidth; 
 
         g.setColor(Colors.SCROLL_BGND);
 	g.fillRect(1, 1, scrollWidth-2, drawHeight-2);
