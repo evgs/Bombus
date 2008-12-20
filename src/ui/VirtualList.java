@@ -159,6 +159,8 @@ public abstract class VirtualList
     private int itemLayoutY[]=new int[1];
     private int listHeight;
 
+    private int list_top;
+
    
     protected synchronized void updateLayout(){
         int size=getItemCount();
@@ -199,7 +201,7 @@ public abstract class VirtualList
     private boolean wrapping = true;
 
     /** видимые границы элементов списка - зоны срабатывания touchscreen */
-    private int itemBorder[];
+    //private int itemBorder[];
     /** обработка doubleclick */
     private int lastClickY;
     private int lastClickItem;
@@ -250,8 +252,6 @@ public abstract class VirtualList
         //addCommand(cmdSetFullScreen);
         setFullScreenMode(fullscreen);
 //#endif
-	
-	itemBorder=new int[32];
 	
 	scrollbar=new ScrollBar();
 	scrollbar.setHasPointerEvents(hasPointerEvents());
@@ -348,15 +348,12 @@ public abstract class VirtualList
         updateLayout();
         
         
-        int list_top = drawTitle(g);
+        list_top = drawTitle(g);
         
         setAbsOrg(g, 0,0);
 
         drawHeapMonitor(g);
         winHeight=height-list_top;
-
-
-        itemBorder[0]=list_top;
         
         int count=getItemCount(); // размер списка
         
@@ -410,7 +407,7 @@ public abstract class VirtualList
                 el.drawItem(g, (sel)?offset:0, sel);
                 
                 itemIndex++;
-		displayedBottom=itemBorder[++displayedIndex]=list_top+itemYpos+lh;
+		displayedBottom=list_top+itemYpos+lh;
             }
         } catch (Exception e) { atEnd=true; }
 
@@ -596,27 +593,27 @@ public abstract class VirtualList
             stickyWindow=false;
             return;
         } 
-	int i=0;
-	while (i<itemBorder.length) {
-	    if (y<itemBorder[i]) break;
-	    i++;
-	}
-	if (i==0) {
-            //title click
-            return;
-        }
-        
-        if (i==itemBorder.length) return;
+
+        if (y<list_top) return; //title click
         
         //запомним курсор до поиска позиции по стилусу, 
         //чтобы комфортно скроллить длинные итемы
         int oldCursor=cursor;
         
 	if (cursor>=0) {
-            moveCursorTo(getElementIndexAt(win_top)+i-1);
+            moveCursorTo(getElementIndexAt(win_top+y-list_top));
             setRotator();
         }
 	
+      
+        if (cursor!=oldCursor) {
+            // сделаем элемент максимально видимым
+            int il=itemLayoutY[cursor+1]-winHeight;
+            if (il>win_top) win_top=il;
+            il=itemLayoutY[cursor];
+            if (il<win_top) win_top=il;
+        }
+
 	long clickTime=System.currentTimeMillis();
 	if (cursor==lastClickItem)
 	    if (lastClickY-y<5 && y-lastClickY<5) 
@@ -627,14 +624,6 @@ public abstract class VirtualList
 	lastClickTime=clickTime;
 	lastClickY=y;
 	lastClickItem=cursor;
-        
-        if (cursor!=oldCursor) {
-            // сделаем элемент максимально видимым
-            int il=itemLayoutY[cursor+1]-winHeight;
-            if (il>win_top) win_top=il;
-            il=itemLayoutY[cursor];
-            if (il<win_top) win_top=il;
-        }
         
 	repaint();
     }
@@ -654,6 +643,10 @@ public abstract class VirtualList
         if (win_top<0) win_top=0;
         
         stickyWindow=false;
+	if (cursor>=0) {
+            cursor=getElementIndexAt(win_top+y-list_top);
+            setRotator();
+        }
         
         repaint();
     }
