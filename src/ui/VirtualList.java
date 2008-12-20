@@ -587,18 +587,31 @@ public abstract class VirtualList
     protected void keyReleased(int keyCode) { kHold=0; }
     protected void keyPressed(int keyCode) { kHold=0; key(keyCode);  }
     
+    int yPointerPos;
+    
     protected void pointerPressed(int x, int y) { 
+        yPointerPos=y;
+        
 	if (scrollbar.pointerPressed(x, y, this)) {
             stickyWindow=false;
             return;
         } 
 	int i=0;
-	while (i<32) {
+	while (i<itemBorder.length) {
 	    if (y<itemBorder[i]) break;
 	    i++;
 	}
-	if (i==0 || i==32) return;
-	//System.out.println(i);
+	if (i==0) {
+            //title click
+            return;
+        }
+        
+        if (i==itemBorder.length) return;
+        
+        //запомним курсор до поиска позиции по стилусу, 
+        //чтобы комфортно скроллить длинные итемы
+        int oldCursor=cursor;
+        
 	if (cursor>=0) {
             moveCursorTo(getElementIndexAt(win_top)+i-1);
             setRotator();
@@ -615,16 +628,34 @@ public abstract class VirtualList
 	lastClickY=y;
 	lastClickItem=cursor;
         
-        // сделаем элемент максимально видимым
-        int il=itemLayoutY[cursor+1]-winHeight;
-        if (il>win_top) win_top=il;
-        il=itemLayoutY[cursor];
-        if (il<win_top) win_top=il;
+        if (cursor!=oldCursor) {
+            // сделаем элемент максимально видимым
+            int il=itemLayoutY[cursor+1]-winHeight;
+            if (il>win_top) win_top=il;
+            il=itemLayoutY[cursor];
+            if (il<win_top) win_top=il;
+        }
         
 	repaint();
     }
     protected void pointerDragged(int x, int y) { 
-        if (scrollbar.pointerDragged(x, y, this)) stickyWindow=false; 
+        if (scrollbar.pointerDragged(x, y, this)) {
+            stickyWindow=false;
+            return;
+        } 
+        
+        int dy = y-yPointerPos;
+        
+        yPointerPos=y;
+        
+        win_top-=dy;
+        
+        if (win_top+winHeight>listHeight) win_top=listHeight-winHeight;
+        if (win_top<0) win_top=0;
+        
+        stickyWindow=false;
+        
+        repaint();
     }
     protected void pointerReleased(int x, int y) { scrollbar.pointerReleased(x, y, this); }
     
