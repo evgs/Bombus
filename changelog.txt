@@ -4466,6 +4466,17 @@ syslog_msg: true
   * AccountForm.username: TextField.URL->TextField.ANY, 
     also for AffiliationModify and PrivacyForm
 
+21.12.2008
+0.7.1415
+* remaping softkeys on nokia's roster to common bombus pattern (Menu|Active contacts ->Menu|Actions)
++ Caching SRV records
+* Account > and Alert Profile moved into Tools menu
+* trying to detect various Samsung devices for platform-dependent bugfixes
+* tracking focus when touch dragging
+* scrollbar sensing zone is double scrollbar screenwidth
++ fingertip-control: VirtualList may be dragged up/down
+* wide scrollbar for touchscreen-devices
+* SSLExceptionDecoder.java - helper class to detailed CertificateException decoding
 ------------------------------------------------------------------------
   known issues:
 
