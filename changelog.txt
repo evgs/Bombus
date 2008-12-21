@@ -4467,16 +4467,23 @@ syslog_msg: true
     also for AffiliationModify and PrivacyForm
 
 21.12.2008
-0.7.1415
-* remaping softkeys on nokia's roster to common bombus pattern (Menu|Active contacts ->Menu|Actions)
-+ Caching SRV records
-* Account > and Alert Profile moved into Tools menu
-* trying to detect various Samsung devices for platform-dependent bugfixes
-* tracking focus when touch dragging
-* scrollbar sensing zone is double scrollbar screenwidth
-+ fingertip-control: VirtualList may be dragged up/down
-* wide scrollbar for touchscreen-devices
-* SSLExceptionDecoder.java - helper class to detailed CertificateException decoding
+0.7.1416
+  + Кэширование записей SRV, время жизни записи в кэше определяется политикой jabber-сервера
+  + "пальцевое" управление для телефонов с сенсорными экранами (Привет, Nokia 5800 ;))
+  * Более широкий скроллбар на сенсорных экранах
+  * Зона чувствительности скроллбара шире, чем его графическое изображение (TODO: подобрать оптимальное значние)
+  * Изменение мапинга софткнопок в ростере на нокиях (Menu|Active contacts ->Menu|Actions)
+  * Account и Alert Profile перенесены в меню Tools
+  * экспериментальное определение телефонов Samsung (для последующих платформенно-специфичных исправлений)
+  --
+  + Caching SRV records
+  + fingertip-control: VirtualList may be dragged up/down (Hi, Nokia 5800 ;))
+  * wide scrollbar for touchscreen-devices
+  * scrollbar sensing zone is double scrollbar screenwidth
+  * remaping softkeys on nokia's roster to common bombus pattern (Menu|Active contacts ->Menu|Actions)
+  * Account > and Alert Profile moved into Tools menu
+  * trying to detect various Samsung devices for platform-dependent bugfixes
+  * SSLExceptionDecoder.java - helper class to detailed CertificateException decoding
 ------------------------------------------------------------------------
   known issues:
 
