@@ -117,6 +117,7 @@ public class ArchiveList
     private void deleteMessage() {
         archive.delete(cursor);
         messages=new Vector();
+        setRotator();
         redraw();
     }
     
