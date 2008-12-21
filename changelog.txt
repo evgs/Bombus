@@ -4484,6 +4484,16 @@ syslog_msg: true
   * Account > and Alert Profile moved into Tools menu
   * trying to detect various Samsung devices for platform-dependent bugfixes
   * SSLExceptionDecoder.java - helper class to detailed CertificateException decoding
+
+0.7.1422
+  * Исправлено возможное падение Bombus при загрузке локали (периодически воспроизводилось 
+    на nokia 5800
+  * Результаты поиска не попадают в Active Contacts, если с ними не ведётся переписка
+  * Устранено залипание всплывающих баллонов при удалении сообщений из архива
+  --
+  * fixed NullPointerException while loading locale
+  * no more search results in Active Contacts
+  * fixed balloon behavior when message was deleted from archive
 ------------------------------------------------------------------------
   known issues:
 
