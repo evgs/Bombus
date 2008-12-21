@@ -389,11 +389,12 @@ public class SR {
     
     private static String loadString(String key) {
         if (lang==null) {
-            String langFile=Config.getInstance().langFileName();
-            if (langFile==null) lang=new Hashtable(); 
-            else lang=new StringLoader().hashtableLoader(langFile);
             System.out.print("Loading locale ");
             System.out.println(langFile);
+            String langFile=Config.getInstance().langFileName();
+            if (langFile!=null) lang=new StringLoader().hashtableLoader(langFile);
+            if (lang==null) lang=new Hashtable(); 
+            
             MS_XMLLANG=(String)lang.get("xmlLang");
             
             MS_IFACELANG=MS_XMLLANG;
