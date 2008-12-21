@@ -387,7 +387,7 @@ public class SR {
     private static Hashtable presences;
     private static Hashtable lang;
     
-    private static String loadString(String key) {
+    private synchronized static void loadLang() {
         if (lang==null) {
             String langFile=Config.getInstance().langFileName();
             System.out.print("Loading locale ");
@@ -399,8 +399,11 @@ public class SR {
             
             MS_IFACELANG=MS_XMLLANG;
             if (MS_IFACELANG==null) MS_IFACELANG="en";
-            
         }
+    }
+    
+    private static String loadString(String key) {
+        if (lang==null) loadLang();
         String value=(String)lang.get(key);
 //#if LOCALE_DEBUG
         if (value==null) {
