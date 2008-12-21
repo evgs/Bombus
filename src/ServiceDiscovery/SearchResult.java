@@ -111,7 +111,7 @@ public class SearchResult
                 Contact serv=new DiscoContact(null, jid, status);
                 serv.setGroup(sd.roster.groups.getGroup(Groups.TYPE_SEARCH_RESULT));
                 serv.subscr="search";
-                Msg m=new Msg(Msg.MESSAGE_TYPE_IN, jid, "Short info", vcard.toString());
+                Msg m=new Msg(Msg.MESSAGE_TYPE_HISTORY, jid, "Short info", vcard.toString());
                 m.unread=false;
                 serv.addMessage(m);
                 
