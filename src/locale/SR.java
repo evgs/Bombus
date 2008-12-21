@@ -389,9 +389,9 @@ public class SR {
     
     private static String loadString(String key) {
         if (lang==null) {
+            String langFile=Config.getInstance().langFileName();
             System.out.print("Loading locale ");
             System.out.println(langFile);
-            String langFile=Config.getInstance().langFileName();
             if (langFile!=null) lang=new StringLoader().hashtableLoader(langFile);
             if (lang==null) lang=new Hashtable(); 
             
