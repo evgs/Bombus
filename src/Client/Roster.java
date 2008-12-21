@@ -121,9 +121,10 @@ public class Roster
 
     boolean autoAway;
     
-    private Command cmdActions=new Command(SR.MS_ITEM_ACTIONS, Command.SCREEN, 1);
-    private Command cmdStatus=new Command(SR.MS_STATUS_MENU, Command.SCREEN, 2);
-    private Command cmdActiveContact;//=new Command(SR.MS_ACTIVE_CONTACTS, Command.SCREEN, 3);
+    //private Command cmdOpenChat=new Command(SR.MS_CHAT, Command.SCREEN,1);
+    private Command cmdActions;//=new Command(SR.MS_ITEM_ACTIONS, Command.SCREEN, 2);
+    private Command cmdStatus=new Command(SR.MS_STATUS_MENU, Command.SCREEN, 4);
+    private Command cmdActiveContact=new Command(SR.MS_ACTIVE_CONTACTS, Command.SCREEN, 3);
     //private Command cmdAlert=new Command(SR.MS_ALERT_PROFILE_CMD, Command.SCREEN, 8);
     private Command cmdConference=new Command(SR.MS_CONFERENCE, Command.SCREEN, 10);
     private Command cmdArchive=new Command(SR.MS_ARCHIVE, Command.SCREEN, 10);
@@ -188,7 +189,7 @@ public class Roster
         if (platform.startsWith("Nokia")) activeType=Command.BACK;
         if (platform.startsWith("Intent")) activeType=Command.BACK;
         
-        cmdActiveContact=new Command(SR.MS_ACTIVE_CONTACTS, activeType, 3);
+        cmdActions=new Command(SR.MS_ITEM_ACTIONS, activeType, 2);
         
         addCommand(cmdStatus);
         addCommand(cmdActions);
