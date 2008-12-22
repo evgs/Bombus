@@ -4494,6 +4494,9 @@ syslog_msg: true
   * fixed NullPointerException while loading locale
   * no more search results in Active Contacts
   * fixed balloon behavior when message was deleted from archive
+
+0.7.1423
+  * returned to old good proguard 3.5
 ------------------------------------------------------------------------
   known issues:
 
