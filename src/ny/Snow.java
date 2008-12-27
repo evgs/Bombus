@@ -85,11 +85,11 @@ public class Snow extends Canvas
     private void newParticle(int i) {
         if (width<=0) return;
         py[i]=1;
-        px[i]=r.nextInt(width);
-        dx[i]=r.nextInt(32)+1;
-        dy[i]=r.nextInt(4)+1;
-        phase[i]=r.nextInt(256);
-        df[i]=r.nextInt(16)+3;
+        px[i]=r.nextInt() % width;
+        dx[i]=(r.nextInt() & 31) + 1;
+        dy[i]=(r.nextInt() & 3) + 1;
+        phase[i]=r.nextInt() & 255;
+        df[i]=(r.nextInt() & 15) + 3;
     }
     
     /** Creates a new instance of Snow */
