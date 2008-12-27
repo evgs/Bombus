@@ -55,6 +55,8 @@ public class SplashScreen extends Canvas implements CommandListener{
         if (instance==null) instance=new SplashScreen();
         return instance;
     }
+
+    public ny.Snow snow;
     
     /** Creates a new instance of SplashScreen */
     private SplashScreen() {
@@ -76,6 +78,8 @@ public class SplashScreen extends Canvas implements CommandListener{
         g.fillRect(0,0, width, height);
         
         if (img!=null) g.drawImage(img, width/2, height/2, Graphics.VCENTER|Graphics.HCENTER);
+        
+        if (snow!=null) snow.paint(g);
         
         g.setColor(Colors.PGS_BORDER);
         g.drawRect(0, y, width-1, h-1);
@@ -145,6 +149,8 @@ public class SplashScreen extends Canvas implements CommandListener{
     public void close(){
         if (parentView!=null) display.setCurrent(parentView);
         parentView=null;
+        snow.destroyView();
+        snow=null;
         repaint();
         img=null;
         instance=null; // освобождение памяти

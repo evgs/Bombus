@@ -57,6 +57,8 @@ public class KeyBlock extends Canvas implements Runnable{
     boolean motorola_backlight;
     boolean singleflash;
     
+    private ny.Snow snow;
+    
     /** Creates a new instance */
     public KeyBlock(
             Display display, 
@@ -85,6 +87,7 @@ public class KeyBlock extends Canvas implements Runnable{
 //#elif USE_SIEMENS_API
 //--	com.siemens.mp.game.Light.setLightOff();
 //#endif
+        snow=new ny.Snow(display);
         //System.gc();   // heap cleanup
     }
     
@@ -106,6 +109,8 @@ public class KeyBlock extends Canvas implements Runnable{
         g.fillRect(0,0, width, height);
         
         if (img!=null) g.drawImage(img, width/2, 0, Graphics.TOP|Graphics.HCENTER);
+        
+        if (snow!=null) snow.paint(g);
         
         int h=f.getHeight()+1;
 //#if ALCATEL_FONT
@@ -156,6 +161,8 @@ public class KeyBlock extends Canvas implements Runnable{
         if (display!=null)   display.setCurrent(parentView);
         img=null;
         tc.stop();
+        snow.destroyView();
+        snow=null;
 //#if USE_SIEMENS_API
 //--	com.siemens.mp.game.Light.setLightOn();
 //#endif

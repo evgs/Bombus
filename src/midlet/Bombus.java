@@ -61,10 +61,11 @@ public class Bombus extends MIDlet implements Runnable{
         
     /** Bombus constructor. starts splashscreen */
     public Bombus() {
-	instance=this; 
+        instance=this; 
         display = Display.getDisplay(this);
         SplashScreen s= SplashScreen.getInstance();
         display.setCurrent(s);
+        s.snow=new ny.Snow(display);
         s.setProgress(/*SR.MS_LOADING*/ "Loading",3); // this message will not be localized
         sd=StaticData.getInstance();
     }
@@ -116,9 +117,9 @@ public class Bombus extends MIDlet implements Runnable{
         }
 
         s.setProgress(10);
-	Config cf=Config.getInstance();
+        Config cf=Config.getInstance();
 
-	s.setProgress(17);
+        s.setProgress(17);
         boolean selAccount=( (cf.accountIndex<0) || s.keypressed!=0);
         if (selAccount) s.setProgress("Entering setup",20);
 
