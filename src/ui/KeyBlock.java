@@ -108,7 +108,7 @@ public class KeyBlock extends Canvas implements Runnable{
         g.setColor(Colors.BLK_BGND);
         g.fillRect(0,0, width, height);
         
-        if (img!=null) g.drawImage(img, width/2, 0, Graphics.TOP|Graphics.HCENTER);
+        if (img!=null) g.drawImage(img, width/2, height, Graphics.BOTTOM|Graphics.HCENTER);
         
         if (snow!=null) snow.paint(g);
         
@@ -118,20 +118,22 @@ public class KeyBlock extends Canvas implements Runnable{
 //#else
         int y=height-h;
 //#endif
-        g.setColor(Colors.BLK_INK);
-        g.translate(0, y);
-        status.drawItem(g, 0, false);
         
         String time=Time.timeLocalString(Time.utcTimeMillis());
         int tw=f.stringWidth(time);
         
-        g.translate(width/2, -h);
+        //g.translate(width/2, -h);
         g.setColor(Colors.BLK_BGND);
-        g.fillRect(-tw/2-5, -h, tw+10, h);
+        //g.fillRect(-tw/2-5, -h, tw+10, h);
+
+        //g.setColor(Colors.BLK_INK);
+        g.setFont(f);
+        g.drawString(time, width/2, height, Graphics.BOTTOM | Graphics.HCENTER);
 
         g.setColor(Colors.BLK_INK);
-        g.setFont(f);
-        g.drawString(time, 0, 0, Graphics.BOTTOM | Graphics.HCENTER);
+        //g.translate(0, y);
+        status.drawItem(g, 0, false);
+        
 //#if !(MIDP1)
 	//display.flashBacklight(0); // тест на самсунгах
         if (motorola_backlight) 

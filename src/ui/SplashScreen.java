@@ -77,7 +77,7 @@ public class SplashScreen extends Canvas implements CommandListener{
         g.setColor(Colors.PGS_BGND);
         g.fillRect(0,0, width, height);
         
-        if (img!=null) g.drawImage(img, width/2, height/2, Graphics.VCENTER|Graphics.HCENTER);
+        if (img!=null) g.drawImage(img, width/2, height, Graphics.BOTTOM|Graphics.HCENTER);
         
         if (snow!=null) snow.paint(g);
         
