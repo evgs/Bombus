@@ -14,6 +14,7 @@ import javax.microedition.lcdui.Canvas;
 import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Displayable;
 import javax.microedition.lcdui.Graphics;
+import util.ArrayLoader;
 
 /**
  *
@@ -70,11 +71,11 @@ public class Snow extends Canvas
         phase=new int[PARTICLES];
         df=new int[PARTICLES];
         
-        sinus=new byte[256];
+        /*sinus=new byte[256];
         
         for (int i=0; i<256; i++) {
             sinus[i]=(byte)(Math.sin(Math.PI*i/128)*127);
-        }
+        }*/
         
         r=new Random();
         
@@ -124,6 +125,9 @@ public class Snow extends Canvas
         if (width!=0) {
             System.out.println(width);
         }
+        if (sinus==null) sinus=new ArrayLoader().readByteArray("/sin256");
+        
+        
         int fallParticles=DPARTICLES;
         for (int i=0; i<PARTICLES; i++) {
             py[i]+=dy[i];
