@@ -77,7 +77,7 @@ public class Snow extends Canvas
             sinus[i]=(byte)(Math.sin(Math.PI*i/128)*127);
         }*/
         
-        r=new Random();
+        r=new Random(System.currentTimeMillis());
         
         snowRun=new SnowRun(this);
     }
@@ -122,13 +122,13 @@ public class Snow extends Canvas
     }
 
     public void run() {
-        if (width!=0) {
-            System.out.println(width);
-        }
+
         if (sinus==null) sinus=new ArrayLoader().readByteArray("/sin256");
         
         
         int fallParticles=DPARTICLES;
+        
+        if (width>0 & height >0)
         for (int i=0; i<PARTICLES; i++) {
             py[i]+=dy[i];
             rx[i]=dx[i]*sinus[phase[i]] >>7;

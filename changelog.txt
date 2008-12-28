@@ -4497,6 +4497,10 @@ syslog_msg: true
 
 0.7.1423
   * returned to old good proguard 3.5
+0.7.1428
+  * Новогодняя версия
+  --
+  * Let it snow, Let it snow, Let it snow...
 ------------------------------------------------------------------------
   known issues:
 
