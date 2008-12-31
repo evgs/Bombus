@@ -149,7 +149,7 @@ public class SplashScreen extends Canvas implements CommandListener{
     public void close(){
         if (parentView!=null) display.setCurrent(parentView);
         parentView=null;
-        snow.destroyView();
+        if (snow!=null) snow.destroyView();
         snow=null;
         repaint();
         img=null;
