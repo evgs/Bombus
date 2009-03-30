@@ -105,7 +105,11 @@ public class KeyBlock extends Canvas implements Runnable{
         g.setColor(Colors.BLK_BGND);
         g.fillRect(0,0, width, height);
         
-        if (img!=null) g.drawImage(img, width/2, height, Graphics.BOTTOM|Graphics.HCENTER);
+        if (img!=null) {
+            int imgPos=(height-img.getHeight())/2;
+            if (imgPos<0) imgPos=0;
+            g.drawImage(img, width/2, imgPos, Graphics.TOP|Graphics.HCENTER);
+        }
         
         int h=f.getHeight()+1;
 //#if ALCATEL_FONT
@@ -117,16 +121,16 @@ public class KeyBlock extends Canvas implements Runnable{
         String time=Time.timeLocalString(Time.utcTimeMillis());
         int tw=f.stringWidth(time);
         
-        //g.translate(width/2, -h);
+        int xpos=(width-tw)/2;
         g.setColor(Colors.BLK_BGND);
-        //g.fillRect(-tw/2-5, -h, tw+10, h);
-
-        //g.setColor(Colors.BLK_INK);
-        g.setFont(f);
-        g.drawString(time, width/2, height, Graphics.BOTTOM | Graphics.HCENTER);
+        g.fillRect(xpos-5, y-h, tw+10, h);
 
         g.setColor(Colors.BLK_INK);
-        //g.translate(0, y);
+        g.setFont(f);
+        g.drawString(time, xpos, y-h, Graphics.TOP | Graphics.LEFT);
+
+        g.setColor(Colors.BLK_INK);
+        g.translate(0, y);
         status.drawItem(g, 0, false);
         
 //#if !(MIDP1)
